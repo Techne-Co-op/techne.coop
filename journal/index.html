@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>Journal &middot; Techne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('cis-theme'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<style>
+/* ============================================================
+   TOKENS — Techne v4
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono:  'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 64px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --sun-gold: #EAB668; --sun-amber: #E09A52; --sun-coral: #D1755A;
+  --sun-rose: #B45C7C; --sun-violet: #6E5494; --sun-blue: #5476B8;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8; --blue-dim: rgba(106,138,196,.14);
+  --ember: #C4956A; --ember-text: #D4A57A; --ember-dim: rgba(196,149,106,.14);
+  --sun-gold-t: #EAB668; --sun-amber-t: #E5A562; --sun-coral-t: #DE8872;
+  --sun-rose-t: #CF7C9A; --sun-violet-t: #9E86C4; --sun-blue-t: #8FAEE0;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F; --blue-dim: rgba(74,111,176,.10);
+  --ember: #8A6A4A; --ember-text: #6F5436; --ember-dim: rgba(138,106,74,.10);
+  --sun-gold-t: #87621F; --sun-amber-t: #8C581D; --sun-coral-t: #9C4636;
+  --sun-rose-t: #8C3D58; --sun-violet-t: #4C3870; --sun-blue-t: #3A5694;
+  color-scheme: light;
+}
+[data-tint="gold"]   { --section-tint: var(--sun-gold-t); }
+[data-tint="amber"]  { --section-tint: var(--sun-amber-t); }
+[data-tint="coral"]  { --section-tint: var(--sun-coral-t); }
+[data-tint="rose"]   { --section-tint: var(--sun-rose-t); }
+[data-tint="violet"] { --section-tint: var(--sun-violet-t); }
+[data-tint="blue"]   { --section-tint: var(--sun-blue-t); }
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0ms !important; } }
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--serif); font-size: 19px; line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a { color: var(--blue-text); text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-thickness var(--micro) var(--ease); }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+em { font-style: italic; color: var(--heading); }
+
+/* ============================================================
+   TOPBAR / NAV
+   ============================================================ */
+.topbar {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: var(--s5);
+  padding: 0 6vw; height: 60px;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; flex-shrink: 0;
+}
+.brand .mark {
+  font-family: var(--serif); font-weight: 700; font-size: 22px;
+  color: var(--heading); letter-spacing: -0.01em;
+}
+.nav-links {
+  display: flex; align-items: center; gap: var(--s4); flex: 1;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em;
+  color: var(--muted); text-decoration: none; padding: 4px 0;
+  transition: color var(--micro) var(--ease); position: relative;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a.active { color: var(--blue-text); }
+.nav-links a.active::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: -22px;
+  height: 2px; background: var(--blue);
+}
+.mode-toggle {
+  margin-left: auto; flex-shrink: 0;
+  font-family: var(--mono); font-size: 12px; color: var(--muted);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 2px;
+  padding: 8px 16px; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: border-color var(--micro) var(--ease), color var(--micro) var(--ease);
+}
+.mode-toggle:hover { border-color: var(--blue); color: var(--blue-text); }
+.mode-toggle svg { width: 14px; height: 14px; stroke: currentColor; fill: none; }
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.wrap { max-width: 1140px; margin: 0 auto; padding: 0 6vw; }
+
+/* ============================================================
+   MAIN CONTENT — full-height centered layout
+   ============================================================ */
+.journal-main {
+  min-height: calc(100vh - 60px - 140px);
+  display: flex; align-items: center;
+  padding: clamp(80px, 12vw, 160px) 0;
+  background: var(--bg);
+}
+
+.journal-inner {
+  max-width: 680px;
+}
+
+.journal-eyebrow {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--ember-text);
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-bottom: 28px;
+}
+.journal-eyebrow .sep { width: 5px; height: 5px; background: var(--ember); }
+
+.accent-rule {
+  display: block; width: 56px; height: 2px;
+  background: var(--sun-violet-t);
+  margin-bottom: 32px;
+}
+
+.journal-inner h1 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(40px, 5.5vw, 62px); line-height: 1.1;
+  letter-spacing: -0.02em; color: var(--heading);
+  max-width: 18ch; margin-bottom: 28px;
+}
+
+.journal-inner p {
+  font-size: clamp(17px, 1.9vw, 20px); line-height: 1.75;
+  color: var(--text); max-width: 60ch; margin-bottom: 20px;
+}
+.journal-inner p:last-of-type { margin-bottom: 40px; }
+.journal-inner p em { font-style: italic; color: var(--heading); }
+
+/* primary link — styled as a large interactive target */
+.journal-link {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--sun-violet-t);
+  padding: 22px 28px;
+  text-decoration: none;
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(18px, 2.2vw, 22px); color: var(--heading);
+  letter-spacing: -0.01em;
+  transition: border-color var(--micro) var(--ease),
+              background-color var(--micro) var(--ease),
+              transform var(--micro) var(--ease);
+  margin-bottom: 28px;
+}
+.journal-link:hover {
+  border-color: var(--blue);
+  border-left-color: var(--blue);
+  background: var(--raised);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+.journal-link .arrow {
+  font-family: var(--mono); font-size: 18px;
+  color: var(--sun-violet-t);
+  transition: transform var(--micro) var(--ease);
+}
+.journal-link:hover .arrow { transform: translateX(4px); }
+
+.journal-url {
+  font-family: var(--mono); font-size: 13px; color: var(--faint);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--inset); border-top: 1px solid var(--line);
+  padding: var(--s8) 0 clamp(56px, 7vw, 80px);
+}
+.foot-grid {
+  display: flex; justify-content: space-between;
+  gap: 40px; flex-wrap: wrap; align-items: flex-start;
+}
+.foot-grid .col {
+  font-family: var(--mono); font-size: 14px; line-height: 1.9; color: var(--muted);
+}
+.foot-grid .col .h {
+  display: block; margin-bottom: 12px;
+  font-family: var(--mono); font-weight: 500;
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ember-text);
+}
+.foot-grid a {
+  color: var(--muted); text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  transition: border-color var(--micro) var(--ease), color var(--micro) var(--ease);
+}
+.foot-grid a:hover { color: var(--blue-text); border-color: var(--blue); }
+.foot-fine {
+  font-family: var(--mono); font-size: 13px; color: var(--faint);
+  margin-top: 44px; letter-spacing: 0.03em;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 720px) {
+  .nav-links { gap: var(--s3); }
+  .nav-links a { font-size: 12px; }
+  .foot-grid { gap: 28px; }
+  .journal-link { padding: 18px 22px; }
+}
+@media (max-width: 500px) {
+  body { font-size: 18px; }
+  .topbar { padding: 0 5vw; }
+  .wrap { padding: 0 5vw; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== TOPBAR ===== -->
+<div class="topbar">
+  <a class="brand" href="/">
+    <span class="mark">&tau;</span>
+  </a>
+  <nav aria-label="Site navigation">
+    <ul class="nav-links">
+      <li><a href="/about/">About</a></li>
+      <li><a href="/membership/">Membership</a></li>
+      <li><a href="/work/">Work</a></li>
+      <li><a href="/journal/" class="active">Journal</a></li>
+      <li><a href="/legal/">Legal</a></li>
+    </ul>
+  </nav>
+  <button class="mode-toggle" id="modeToggle" aria-label="Toggle light and dark mode">
+    <svg id="modeIcon" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
+    <span id="modeLabel">Dark</span>
+  </button>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="journal-main" data-tint="violet">
+  <div class="wrap">
+    <div class="journal-inner">
+      <div class="journal-eyebrow">
+        <span>Techne</span>
+        <span class="sep"></span>
+        <span>Journal</span>
+      </div>
+      <span class="accent-rule"></span>
+      <h1>Journal</h1>
+      <p>The Techne journal is a shared space for common work and daybook entries &mdash; <em>tools for collective thinking</em>, developed in the open.</p>
+      <p>Writing here is not broadcast; it is correspondence. Notes on what is being built, what was learned, what is still unresolved. The journal belongs to the cooperative and to anyone who reads it carefully.</p>
+
+      <a class="journal-link" href="https://journal.techne.coop" rel="noopener">
+        Open the journal
+        <span class="arrow">&rarr;</span>
+      </a>
+
+      <div class="journal-url">journal.techne.coop is built and maintained by the cooperative.</div>
+    </div>
+  </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="col">
+        <span class="h">The cooperative</span>
+        Techne<br>
+        RegenHub, LCA<br>
+        1515 Walnut Street<br>
+        Boulder, Colorado
+      </div>
+      <div class="col">
+        <span class="h">On the record</span>
+        Colorado Limited Cooperative Association<br>
+        Public Benefit entity<br>
+        Filed February 6, 2026<br>
+        SOS No. 20261163853
+      </div>
+      <div class="col">
+        <span class="h">Navigate</span>
+        <a href="/about/">About</a><br>
+        <a href="/membership/">Membership</a><br>
+        <a href="/work/">Work</a><br>
+        <a href="/journal/">Journal</a><br>
+        <a href="/legal/">Legal</a>
+      </div>
+    </div>
+    <div class="foot-fine">Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street &middot; Boulder, Colorado &middot; SOS No. 20261163853</div>
+  </div>
+</footer>
+
+<script>
+var ICON = {
+  moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  sun:  '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>'
+};
+function paintMode() {
+  var dark = document.documentElement.getAttribute('data-mode') === 'dark';
+  document.getElementById('modeIcon').innerHTML = dark ? ICON.sun : ICON.moon;
+  document.getElementById('modeLabel').textContent = dark ? 'Light' : 'Dark';
+}
+document.getElementById('modeToggle').addEventListener('click', function () {
+  var cur = document.documentElement.getAttribute('data-mode');
+  var next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-mode', next);
+  try { localStorage.setItem('cis-theme', next); } catch(e) {}
+  paintMode();
+});
+paintMode();
+</script>
+</body>
+</html>
