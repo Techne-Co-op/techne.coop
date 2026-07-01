@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+
+<meta name="description" content="Techne Design System, palette and component reference, updated to the v4 palette: a warm parchment ground, blue primary and ember secondary accents, three earth states, and a sunset range.">
+<title>Techne Design System &middot; Palette Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --serif:Georgia,"Times New Roman",serif;
+    --sans:"Inter",system-ui,-apple-system,sans-serif;
+    --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+    --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+    --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
+    /* sunset range, canonical stops (blue..gold) */
+    --sun-gold:#EAB668;--sun-amber:#E09A52;--sun-coral:#D1755A;--sun-rose:#B45C7C;--sun-violet:#6E5494;--sun-blue:#5476B8;
+  }
+  /* the two mode palettes, ported verbatim from Techne v4 */
+  html[data-mode="dark"]{
+    --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;
+    --line:#2A2A30;--rule:#3A3A42;
+    --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
+    --blue:#6A8AC4;--blue-text:#97B5E8;
+    --ember:#C4956A;--ember-text:#D4A57A;
+    --ok:#6A9A6A;--info:#6A8AC4;--warn:#C46A6A;
+    --heat-1:#6E5494;--heat-2:#B45C7C;--heat-3:#D1755A;--heat-4:#E09A52;--heat-5:#EAB668;
+  }
+  html[data-mode="light"]{
+    --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
+    --line:#D8D3C8;--rule:#9A958A;
+    --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
+    --blue:#4A6FB0;--blue-text:#39588F;
+    --ember:#8A6A4A;--ember-text:#6F5436;
+    --ok:#4A7A4A;--info:#4A6FB0;--warn:#A84F4C;
+    --heat-1:#EAB668;--heat-2:#E09A52;--heat-3:#D1755A;--heat-4:#B45C7C;--heat-5:#6E5494;
+  }
+  /* scoped mode blocks, so a demo can show a mode the page is not in */
+  .mode-dark{
+    --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;--line:#2A2A30;--rule:#3A3A42;
+    --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
+    --blue:#6A8AC4;--blue-text:#97B5E8;--ember:#C4956A;--ember-text:#D4A57A;
+    --ok:#6A9A6A;--info:#6A8AC4;--warn:#C46A6A;
+    background:var(--bg);color:var(--text);
+  }
+  .mode-light{
+    --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;--line:#D8D3C8;--rule:#9A958A;
+    --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
+    --blue:#4A6FB0;--blue-text:#39588F;--ember:#8A6A4A;--ember-text:#6F5436;
+    --ok:#4A7A4A;--info:#4A6FB0;--warn:#A84F4C;
+    background:var(--bg);color:var(--text);
+  }
+
+  *{box-sizing:border-box;}
+  html{color-scheme:dark light;}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font:400 15px/1.65 var(--sans);
+    transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 var(--s5);}
+  .mono{font-family:var(--mono);}
+  .num{font-variant-numeric:tabular-nums;}
+  em{font-style:italic;color:var(--heading);}
+  code{font:400 .84em/1 var(--mono);color:var(--ember-text);background:var(--inset);padding:2px 5px;border-radius:2px;}
+  a{color:var(--blue-text);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;transition:text-decoration-thickness var(--micro) var(--ease);}
+  a:hover{text-decoration-thickness:2px;}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
+
+  /* mode toggle */
+  .modebar{position:absolute;top:var(--s5);right:var(--s5);}
+  .toggle{font:500 11px/1 var(--mono);color:var(--heading);background:var(--surface);border:1px solid var(--rule);
+    border-radius:2px;padding:0 12px;height:32px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+    transition:background-color var(--micro) var(--ease),border-color var(--micro) var(--ease);}
+  .toggle:hover{background:var(--raised);border-color:var(--blue);}
+  .toggle svg{width:15px;height:15px;stroke:var(--blue-text);}
+
+  /* masthead */
+  .mast{position:relative;border-bottom:1px solid var(--rule);padding:var(--s8) 0 var(--s6);margin-bottom:var(--s6);}
+  .mast .kick{font:500 11px/1.6 var(--mono);color:var(--ember-text);text-transform:uppercase;letter-spacing:.12em;}
+  .mast h1{font:400 34px/1.12 var(--serif);color:var(--heading);margin:var(--s4) 0 var(--s3);letter-spacing:-.01em;}
+  .mast p{font:400 15px/1.65 var(--sans);color:var(--text);margin:0;max-width:70ch;}
+  .band{display:flex;gap:0;height:8px;margin:var(--s5) 0 0;border:1px solid var(--line);}
+  .band span{flex:1;}
+  .band-cap{font:400 10px/1.5 var(--mono);color:var(--faint);margin-top:6px;display:flex;justify-content:space-between;}
+
+  /* sections */
+  .sec{padding:var(--s7) 0 0;}
+  .sec h2{font:400 24px/1.2 var(--serif);color:var(--heading);margin:0 0 var(--s3);letter-spacing:-.01em;
+    padding-left:14px;border-left:3px solid var(--ember);}
+  .sec > p{margin:0 0 var(--s4);max-width:72ch;color:var(--text);}
+  .lead{font-size:16px;color:var(--text);}
+  .subhead{font:700 11px/1.5 var(--sans);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
+    margin:var(--s6) 0 var(--s3);padding-bottom:6px;border-bottom:1px solid var(--line);}
+  .note{font:400 13px/1.7 var(--sans);color:var(--muted);max-width:72ch;margin:var(--s3) 0 0;}
+  .note b{color:var(--heading);font-weight:600;}
+
+  /* swatch lists */
+  .swatches{margin:var(--s4) 0;border:1px solid var(--line);border-radius:2px;overflow:hidden;}
+  .swrow{display:grid;grid-template-columns:34px 168px 96px 1fr;gap:var(--s3);align-items:center;
+    padding:9px var(--s3);border-bottom:1px solid var(--line);background:var(--surface);}
+  .swrow:last-child{border-bottom:0;}
+  .swrow .sw{width:26px;height:26px;border:1px solid var(--line);border-radius:2px;}
+  .swrow .tk{font:500 12px/1.4 var(--mono);color:var(--heading);}
+  .swrow .hex{font:400 11px/1.4 var(--mono);color:var(--muted);text-transform:uppercase;}
+  .swrow .rl{font:400 12px/1.5 var(--sans);color:var(--muted);}
+  .swrow .tk .role{display:inline-block;margin-left:7px;font:600 9px/1 var(--mono);text-transform:uppercase;
+    letter-spacing:.06em;padding:2px 5px;border-radius:2px;vertical-align:middle;}
+  .role.pri{color:var(--blue-text);border:1px solid var(--blue);}
+  .role.sec{color:var(--ember-text);border:1px solid var(--ember);}
+
+  /* sunset ramp */
+  .ramp{display:flex;gap:6px;margin:var(--s4) 0;}
+  .ramp .s{flex:1;}
+  .ramp .s .c{height:30px;border:1px solid var(--line);border-radius:2px;}
+  .ramp .s .n{font:400 9.5px/1.5 var(--mono);color:var(--muted);margin-top:5px;text-align:center;}
+
+  /* chips */
+  .chip{display:inline-flex;align-items:center;gap:6px;font:500 10.5px/1 var(--mono);padding:5px 9px;
+    border:1px solid var(--line);border-radius:2px;background:var(--surface);text-transform:lowercase;letter-spacing:.02em;}
+  .chip .dot{width:6px;height:6px;}
+  .chip.ok{color:var(--ok);}.chip.ok .dot{background:var(--ok);}
+  .chip.info{color:var(--info);}.chip.info .dot{background:var(--info);}
+  .chip.warn{color:var(--warn);}.chip.warn .dot{background:var(--warn);}
+  .chip.role{color:var(--ember-text);}.chip.role .dot{background:var(--ember);}
+  .chip.neutral{color:var(--muted);}.chip.neutral .dot{background:var(--muted);}
+  .chiprow{display:flex;gap:var(--s2);flex-wrap:wrap;align-items:center;margin:var(--s3) 0;}
+
+  /* buttons */
+  .btn{font:500 12px/1 var(--mono);color:var(--heading);background:var(--surface);border:1px solid var(--rule);
+    border-radius:2px;padding:0 14px;height:32px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+    transition:background-color var(--micro) var(--ease),border-color var(--micro) var(--ease);}
+  .btn:hover{background:var(--raised);border-color:var(--heading);}
+  .btn.primary{border-color:var(--blue);color:var(--blue-text);}
+  .btn.secondary{border-color:var(--ember);color:var(--ember-text);}
+  .btn.ghost{border-color:transparent;color:var(--muted);background:transparent;}
+  .btn.ghost:hover{background:var(--surface);color:var(--heading);}
+  .btn svg{width:14px;height:14px;stroke:currentColor;}
+
+  /* provenance */
+  .prov{display:inline-flex;align-items:center;gap:6px;font:400 10.5px/1.5 var(--mono);color:var(--muted);
+    padding:5px 9px;border:1px solid var(--line);border-left:2px solid var(--ember);border-radius:2px;background:var(--surface);}
+  .prov b{color:var(--heading);font-weight:600;}
+
+  /* nav demo */
+  .navdemo{border:1px solid var(--line);border-radius:2px;margin:var(--s3) 0;}
+  .nav{display:flex;align-items:center;gap:var(--s4);padding:0 var(--s4);height:52px;background:var(--surface);
+    border-bottom:1px solid var(--line);}
+  .nav .mark{width:26px;height:26px;border:1px solid var(--ember);border-radius:2px;display:grid;place-items:center;
+    font:600 15px/1 var(--serif);color:var(--ember-text);}
+  .nav .links{display:flex;gap:var(--s4);align-items:center;flex:1;}
+  .nav .links a{font:500 12px/1 var(--sans);color:var(--muted);text-decoration:none;}
+  .nav .links a.active{color:var(--blue-text);position:relative;}
+  .nav .links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-18px;height:2px;background:var(--blue);}
+  .nav .user{display:flex;align-items:center;gap:var(--s2);}
+  .nav .av{width:26px;height:26px;border-radius:2px;background:var(--raised);border:1px solid var(--line);
+    display:grid;place-items:center;font:600 10px/1 var(--mono);color:var(--heading);}
+  .nav .un{font:500 12px/1 var(--sans);color:var(--text);}
+  .navcap{font:400 10px/1 var(--mono);color:var(--faint);padding:8px var(--s4);text-transform:lowercase;}
+
+  /* metric tiles */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin:var(--s3) 0;}
+  .tile{background:var(--surface);border:1px solid var(--line);border-radius:2px;padding:var(--s3);}
+  .tile .tl{font:500 10px/1.5 var(--mono);color:var(--muted);text-transform:lowercase;display:flex;justify-content:space-between;}
+  .tile .tf{font:500 24px/1.2 var(--mono);color:var(--heading);margin-top:6px;font-variant-numeric:tabular-nums;}
+  .tile .tf.ok{color:var(--ok);font-size:18px;display:flex;align-items:center;gap:6px;}
+  .tile .ts{font:400 10px/1.5 var(--mono);color:var(--faint);margin-top:3px;}
+
+  /* document header demo */
+  .dochead{border:1px solid var(--line);border-radius:2px;padding:var(--s5);background:var(--surface);margin:var(--s3) 0;}
+  .dochead .ey{font:500 11px/1.6 var(--mono);color:var(--ember-text);text-transform:uppercase;letter-spacing:.1em;}
+  .dochead h4{font:400 26px/1.15 var(--serif);color:var(--heading);margin:var(--s2) 0 var(--s2);}
+  .dochead p{font:400 14px/1.6 var(--sans);color:var(--muted);margin:0;max-width:64ch;}
+
+  /* type specimens */
+  .spec{border-top:1px solid var(--line);padding:var(--s4) 0;}
+  .spec:first-of-type{border-top:0;}
+  .spec .ex-disp{font:400 34px/1.1 var(--serif);color:var(--heading);}
+  .spec .ex-dash{font:800 27px/1.1 var(--sans);color:var(--heading);letter-spacing:-.01em;}
+  .spec .ex-body{font:400 15px/1.6 var(--sans);color:var(--muted);max-width:60ch;}
+  .spec .ex-mono{font:400 13px/1.6 var(--mono);color:var(--ember-text);}
+  .spec .ex-label{font:700 11px/1.5 var(--sans);color:var(--faint);text-transform:uppercase;letter-spacing:.14em;}
+  .spec .meta{font:400 11px/1.5 var(--mono);color:var(--muted);margin-top:8px;}
+
+  /* token table */
+  table.dt{border-collapse:collapse;width:100%;margin:var(--s4) 0;border:1px solid var(--line);border-radius:2px;overflow:hidden;}
+  table.dt thead th{font:600 10px/1.6 var(--mono);color:var(--muted);text-transform:lowercase;text-align:left;
+    padding:9px 12px;border-bottom:1px solid var(--rule);background:var(--raised);}
+  table.dt tbody td{font:400 12px/1.5 var(--mono);color:var(--text);padding:8px 12px;border-bottom:1px solid var(--line);background:var(--surface);}
+  table.dt tbody tr:last-child td{border-bottom:0;}
+  table.dt td .sw{display:inline-block;width:14px;height:14px;border:1px solid var(--line);border-radius:2px;
+    vertical-align:middle;margin-right:8px;}
+  table.dt td.tok{color:var(--heading);}
+  table.dt td.use{font-family:var(--sans);color:var(--muted);}
+
+  /* icon grid */
+  .icons{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--s2);margin:var(--s4) 0;}
+  .ic{border:1px solid var(--line);border-radius:2px;background:var(--surface);padding:var(--s3) var(--s2);
+    display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .ic svg{width:22px;height:22px;stroke:var(--text);fill:none;}
+  .ic .nm{font:400 9.5px/1.2 var(--mono);color:var(--muted);text-align:center;}
+  pre.code{background:var(--inset);border:1px solid var(--line);border-radius:2px;padding:var(--s4);overflow-x:auto;
+    font:400 12px/1.6 var(--mono);color:var(--text);margin:var(--s3) 0;}
+  pre.code .c1{color:var(--ember-text);}
+  pre.code .c2{color:var(--blue-text);}
+
+  /* do / do-not table */
+  .standard{border:1px solid var(--line);border-radius:2px;overflow:hidden;margin:var(--s4) 0;}
+  .strow{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
+  .strow:last-child{border-bottom:0;}
+  .strow.head div{font:700 10px/1.5 var(--sans);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
+    padding:9px 12px;background:var(--raised);}
+  .strow .avoid{padding:11px 12px;font:400 12.5px/1.6 var(--sans);color:var(--text);border-right:1px solid var(--line);
+    background:var(--surface);}
+  .strow .use{padding:11px 12px;font:400 12.5px/1.6 var(--sans);color:var(--text);background:var(--surface);}
+  .strow .avoid b{color:var(--warn);}
+  .strow .use b{color:var(--ok);}
+
+  /* footer */
+  footer{border-top:1px solid var(--rule);margin-top:var(--s8);padding:var(--s5) 0 var(--s8);}
+  footer .row{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);font:400 11px/1.6 var(--mono);color:var(--muted);}
+  footer .row span:first-child{color:var(--ember-text);}
+
+  @media (max-width:820px){
+    .grid{grid-template-columns:repeat(2,1fr);}
+    .icons{grid-template-columns:repeat(4,1fr);}
+    .swrow{grid-template-columns:28px 1fr;grid-template-areas:"sw tk" "sw hex" ". rl";row-gap:2px;}
+    .swrow .sw{grid-area:sw;}.swrow .tk{grid-area:tk;}.swrow .hex{grid-area:hex;}.swrow .rl{grid-area:rl;}
+    .strow{grid-template-columns:1fr;}
+    .strow .avoid{border-right:0;border-bottom:1px solid var(--line);}
+    .nav .links{overflow-x:auto;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="modebar">
+    <button class="toggle" id="modeBtn" type="button" aria-label="Switch color mode">
+      <svg id="modeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></svg>
+      <span id="modeWord">light</span>
+    </button>
+  </div>
+
+  <header class="mast">
+    <div class="kick">Techne &middot; Design System</div>
+    <h1>Palette &amp; Component Reference</h1>
+    <p>Working reference for the Techne design system, updated to the <em>v4</em> palette. <em>Blue</em> is the primary accent, the color of what a reader does; <em>ember</em> is the secondary, the cooperative's own mark on structure. Both are held against a warm parchment ground through dark and light modes, with a <em>sunset</em> range reserved for section atmosphere and data. Toggle modes with the control in the top-right; it follows your device setting by default.</p>
+    <div class="band">
+      <span style="background:var(--sun-blue)"></span>
+      <span style="background:var(--sun-violet)"></span>
+      <span style="background:var(--sun-rose)"></span>
+      <span style="background:var(--sun-coral)"></span>
+      <span style="background:var(--sun-amber)"></span>
+      <span style="background:var(--sun-gold)"></span>
+    </div>
+    <div class="band-cap"><span>twilight</span><span>sunset range &middot; atmosphere and data</span><span>last light</span></div>
+  </header>
+
+  <!-- CORE PALETTE (DARK) -->
+  <section class="sec" id="core">
+    <h2>Core Palette</h2>
+    <p class="lead">The ground is a warm ramp in dark mode: ink and void, a warm near-black, so a heading reads quietly against it. Every component references a token, and the active mode resolves its value. Values below are the dark-mode resolutions.</p>
+    <div class="swatches">
+      <div class="swrow"><span class="sw" style="background:#08080A"></span><span class="tk">--inset</span><span class="hex">#08080A</span><span class="rl">deepest ground, app background, wells</span></div>
+      <div class="swrow"><span class="sw" style="background:#0F0F12"></span><span class="tk">--bg</span><span class="hex">#0F0F12</span><span class="rl">page ground, status bar</span></div>
+      <div class="swrow"><span class="sw" style="background:#16161B"></span><span class="tk">--surface</span><span class="hex">#16161B</span><span class="rl">cards and panels</span></div>
+      <div class="swrow"><span class="sw" style="background:#232329"></span><span class="tk">--raised</span><span class="hex">#232329</span><span class="rl">elevated surfaces, hovered controls, table headers</span></div>
+      <div class="swrow"><span class="sw" style="background:#2A2A30"></span><span class="tk">--line</span><span class="hex">#2A2A30</span><span class="rl">hairline, the common divider</span></div>
+      <div class="swrow"><span class="sw" style="background:#3A3A42"></span><span class="tk">--rule</span><span class="hex">#3A3A42</span><span class="rl">heavier scope rule</span></div>
+      <div class="swrow"><span class="sw" style="background:#6A8AC4"></span><span class="tk">--blue<span class="role pri">primary</span></span><span class="hex">#6A8AC4</span><span class="rl">edges, focus, primary action</span></div>
+      <div class="swrow"><span class="sw" style="background:#97B5E8"></span><span class="tk">--blue-text</span><span class="hex">#97B5E8</span><span class="rl">primary, links and readable type</span></div>
+      <div class="swrow"><span class="sw" style="background:#C4956A"></span><span class="tk">--ember<span class="role sec">secondary</span></span><span class="hex">#C4956A</span><span class="rl">section marks, stub rule, provenance edge</span></div>
+      <div class="swrow"><span class="sw" style="background:#D4A57A"></span><span class="tk">--ember-text</span><span class="hex">#D4A57A</span><span class="rl">secondary, addresses, code, readable</span></div>
+      <div class="swrow"><span class="sw" style="background:#E8E4DF"></span><span class="tk">--heading</span><span class="hex">#E8E4DF</span><span class="rl">display headings, titles</span></div>
+      <div class="swrow"><span class="sw" style="background:#CFCBC4"></span><span class="tk">--text</span><span class="hex">#CFCBC4</span><span class="rl">body copy</span></div>
+      <div class="swrow"><span class="sw" style="background:#8A857E"></span><span class="tk">--muted</span><span class="hex">#8A857E</span><span class="rl">secondary text, labels</span></div>
+      <div class="swrow"><span class="sw" style="background:#5A554F"></span><span class="tk">--faint</span><span class="hex">#5A554F</span><span class="rl">decorative, never load-bearing</span></div>
+    </div>
+    <p class="note">The change from the previous reference is here: <b>copper is no longer the single accent</b>. It is retained as <em>ember</em>, the secondary, while <em>blue</em> is raised to primary. Blue carries interaction, ember carries structure, and the two are meant to be read together rather than either standing alone.</p>
+  </section>
+
+  <!-- LIGHT MODE PALETTE -->
+  <section class="sec" id="light">
+    <h2>Light Mode Palette &middot; Complementary</h2>
+    <p class="lead">Light is parchment and cream, paper warmed slightly so the serif reads quietly. Token names are shared with the dark palette; only the resolved values differ. Both accents are deepened for contrast on paper.</p>
+    <div class="swatches">
+      <div class="swrow"><span class="sw" style="background:#F7F5F0"></span><span class="tk">--bg</span><span class="hex">#F7F5F0</span><span class="rl">page ground, app background</span></div>
+      <div class="swrow"><span class="sw" style="background:#EBE7DF"></span><span class="tk">--inset</span><span class="hex">#EBE7DF</span><span class="rl">recessed wells, gauge tracks</span></div>
+      <div class="swrow"><span class="sw" style="background:#FCFBF8"></span><span class="tk">--surface</span><span class="hex">#FCFBF8</span><span class="rl">cards and panels</span></div>
+      <div class="swrow"><span class="sw" style="background:#FEFDFB"></span><span class="tk">--raised</span><span class="hex">#FEFDFB</span><span class="rl">elevated surfaces</span></div>
+      <div class="swrow"><span class="sw" style="background:#D8D3C8"></span><span class="tk">--line</span><span class="hex">#D8D3C8</span><span class="rl">hairline divider</span></div>
+      <div class="swrow"><span class="sw" style="background:#9A958A"></span><span class="tk">--rule</span><span class="hex">#9A958A</span><span class="rl">heavier scope rule</span></div>
+      <div class="swrow"><span class="sw" style="background:#4A6FB0"></span><span class="tk">--blue<span class="role pri">primary</span></span><span class="hex">#4A6FB0</span><span class="rl">edges, focus, primary action</span></div>
+      <div class="swrow"><span class="sw" style="background:#39588F"></span><span class="tk">--blue-text</span><span class="hex">#39588F</span><span class="rl">primary, links and readable type</span></div>
+      <div class="swrow"><span class="sw" style="background:#8A6A4A"></span><span class="tk">--ember<span class="role sec">secondary</span></span><span class="hex">#8A6A4A</span><span class="rl">section marks, provenance edge</span></div>
+      <div class="swrow"><span class="sw" style="background:#6F5436"></span><span class="tk">--ember-text</span><span class="hex">#6F5436</span><span class="rl">secondary, addresses, code, readable</span></div>
+      <div class="swrow"><span class="sw" style="background:#1A1A1F"></span><span class="tk">--heading</span><span class="hex">#1A1A1F</span><span class="rl">display headings, titles</span></div>
+      <div class="swrow"><span class="sw" style="background:#2E2C28"></span><span class="tk">--text</span><span class="hex">#2E2C28</span><span class="rl">body copy</span></div>
+      <div class="swrow"><span class="sw" style="background:#646058"></span><span class="tk">--muted</span><span class="hex">#646058</span><span class="rl">secondary text, labels</span></div>
+      <div class="swrow"><span class="sw" style="background:#A39E92"></span><span class="tk">--faint</span><span class="hex">#A39E92</span><span class="rl">decorative, never load-bearing</span></div>
+    </div>
+  </section>
+
+  <!-- STATE + SUNSET -->
+  <section class="sec" id="state">
+    <h2>State &amp; Sunset</h2>
+    <p class="lead">The previous reference carried seven status hues. The v4 palette narrows this to <em>three earth states</em> for condition and adds a <em>sunset range</em> for data, on the argument that fewer colors, each paired with a word, read more reliably than a wide status wheel.</p>
+
+    <div class="subhead">Three earth states &middot; condition</div>
+    <p class="note">Green for what is operational or ratified, blue for what is in review or simulated, red for what is pending or wants attention. They appear only on instruments, never tint a panel or a heading, and each is always paired with a word and a square mark, so no condition is carried by color alone.</p>
+    <div class="chiprow">
+      <span class="chip ok"><span class="dot"></span>operational</span>
+      <span class="chip info"><span class="dot"></span>in review</span>
+      <span class="chip warn"><span class="dot"></span>pending</span>
+    </div>
+    <div class="swatches">
+      <div class="swrow"><span class="sw" style="background:var(--ok)"></span><span class="tk">--ok</span><span class="hex">green</span><span class="rl">operational, verified, ratified, live</span></div>
+      <div class="swrow"><span class="sw" style="background:var(--info)"></span><span class="tk">--info</span><span class="hex">blue</span><span class="rl">in review, informational, simulated</span></div>
+      <div class="swrow"><span class="sw" style="background:var(--warn)"></span><span class="tk">--warn</span><span class="hex">red</span><span class="rl">pending, rejected, wants attention</span></div>
+    </div>
+
+    <div class="subhead">Sunset range &middot; atmosphere and data</div>
+    <p class="note">A six-stop sweep from twilight to last light, ordered by luminance so a sequential scale degrades to grayscale and reads for colorblind viewers. As <em>atmosphere</em> it can tint section structure; as <em>encoding</em> the warm five stops form a magnitude scale. It never colors a control and never carries the sign of a number.</p>
+    <div class="ramp">
+      <div class="s"><div class="c" style="background:var(--sun-blue)"></div><div class="n">blue</div></div>
+      <div class="s"><div class="c" style="background:var(--sun-violet)"></div><div class="n">violet</div></div>
+      <div class="s"><div class="c" style="background:var(--sun-rose)"></div><div class="n">rose</div></div>
+      <div class="s"><div class="c" style="background:var(--sun-coral)"></div><div class="n">coral</div></div>
+      <div class="s"><div class="c" style="background:var(--sun-amber)"></div><div class="n">amber</div></div>
+      <div class="s"><div class="c" style="background:var(--sun-gold)"></div><div class="n">gold</div></div>
+    </div>
+  </section>
+
+  <!-- CIS NAVIGATION -->
+  <section class="sec" id="nav">
+    <h2>CIS Primary Navigation</h2>
+    <p class="lead">The sticky navigation carries the Techne mark, the primary sections, and the signed-in member. The active section is marked in <em>blue</em>, the primary accent, since it is the reader's current position and the one interactive cue in the bar. Shown in both modes.</p>
+
+    <div class="navdemo mode-light">
+      <div class="nav">
+        <span class="mark">&tau;</span>
+        <div class="links"><a href="#" class="active">CIS</a><a href="#">People</a><a href="#">Agreements</a><a href="#">Treasury</a><a href="#">Activity</a><a href="#">Board</a><a href="#">Enroll</a></div>
+        <div class="user"><span class="av">TY</span><span class="un">Todd &#9662;</span></div>
+      </div>
+      <div class="navcap">light</div>
+    </div>
+
+    <div class="navdemo mode-dark">
+      <div class="nav">
+        <span class="mark">&tau;</span>
+        <div class="links"><a href="#" class="active">CIS</a><a href="#">People</a><a href="#">Agreements</a><a href="#">Treasury</a><a href="#">Activity</a><a href="#">Board</a><a href="#">Enroll</a></div>
+        <div class="user"><span class="av">TY</span><span class="un">Todd &#9662;</span></div>
+      </div>
+      <div class="navcap">dark</div>
+    </div>
+
+    <div class="subhead">Usage</div>
+    <pre class="code"><span class="c1">&lt;!-- in &lt;head&gt;, after font loading --&gt;</span>
+&lt;script src=<span class="c2">"/intranet/nav.js"</span>&gt;&lt;/script&gt;
+
+<span class="c1">&lt;!-- optional: require auth on this page --&gt;</span>
+&lt;body data-auth-required&gt;</pre>
+
+    <div class="subhead">Behaviour</div>
+    <p class="note">Self-injects the sticky nav and the site footer on <code>DOMContentLoaded</code>. Reads the Supabase session and shows the initials avatar and display name. The member chip opens a dropdown with <em>Edit Profile</em> and <em>Sign out</em>. The mode toggle writes to <code>localStorage('cis-theme')</code> and sets <code>data-mode</code> on the document. The active section is highlighted from <code>window.location.pathname</code>. <code>data-auth-required</code> on the body redirects unauthenticated visitors to the login route, and <code>window.cisUser</code> is exposed for page scripts that need member context.</p>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="sec" id="components">
+    <h2>Components</h2>
+    <p class="lead">The instrument layer under the v4 palette. Controls take a 2px radius and a single-pixel border; primary action reads blue, secondary reads ember, and neither fills a panel.</p>
+
+    <div class="subhead">Buttons</div>
+    <div class="chiprow">
+      <button class="btn primary" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Propose</button>
+      <button class="btn secondary" type="button">Approve</button>
+      <button class="btn" type="button">Default</button>
+      <button class="btn ghost" type="button">Cancel</button>
+    </div>
+
+    <div class="subhead">Status badges</div>
+    <div class="chiprow">
+      <span class="chip ok"><span class="dot"></span>active</span>
+      <span class="chip warn"><span class="dot"></span>pending</span>
+      <span class="chip warn"><span class="dot"></span>rejected</span>
+      <span class="chip info"><span class="dot"></span>completed</span>
+      <span class="chip info"><span class="dot"></span>open</span>
+      <span class="chip neutral"><span class="dot"></span>archived</span>
+      <span class="chip role"><span class="dot"></span>steward</span>
+      <span class="chip neutral"><span class="dot"></span>class 1 &middot; labor</span>
+    </div>
+    <p class="note">Where the earlier palette gave rejected and pending separate hues, v4 collapses both to <em>red</em> and lets the word carry the distinction. Roles such as <em>steward</em> take the ember mark, since a role is structure rather than condition.</p>
+
+    <div class="subhead">Metric cards</div>
+    <div class="grid">
+      <div class="tile"><div class="tl"><span>capital account</span></div><div class="tf">$2,400</div><div class="ts">updated apr 1</div></div>
+      <div class="tile"><div class="tl"><span>state verifier</span></div><div class="tf ok"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>verified</div><div class="ts">a1b2c3d4&hellip;ef56</div></div>
+      <div class="tile"><div class="tl"><span>governance</span></div><div class="tf">3</div><div class="ts">proposals awaiting votes</div></div>
+      <div class="tile"><div class="tl"><span>labor</span></div><div class="tf">48.5<span style="font-size:12px;color:var(--muted)"> hrs</span></div><div class="ts">fmv: $5,820</div></div>
+    </div>
+
+    <div class="subhead">Document page header</div>
+    <div class="dochead">
+      <div class="ey">REA &middot; Current Account Balances</div>
+      <h4>Cooperative Ledger</h4>
+      <p>Materialized view of all cooperative accounts, capital, CLOUD credits, labor, and voting power.</p>
+    </div>
+
+    <div class="subhead">Provenance chip</div>
+    <div class="chiprow">
+      <span class="prov"><b>meeting 14</b> &middot; 2026-04-06 &middot; edited notes</span>
+      <span class="prov"><b>bylaws v.2</b> &middot; techne.coop/legal</span>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="sec" id="type">
+    <h2>Typography</h2>
+    <p class="lead">Type is unchanged in this pass; only its accent color moves to <em>ember</em>. Georgia carries document voice, Inter carries the dashboard and interface layer, and IBM Plex Mono carries labels, hashes, and the status bar.</p>
+
+    <div class="spec"><div class="ex-disp">Display Heading</div><div class="meta">Georgia &middot; 2.2rem &middot; 400 &middot; --heading &mdash; page titles, document headings</div></div>
+    <div class="spec"><div class="ex-dash">Dashboard Heading</div><div class="meta">Inter &middot; 1.75rem &middot; 800 &middot; --heading &mdash; HUD panel titles</div></div>
+    <div class="spec"><div class="ex-body">Body text in secondary tone, used for descriptions, subtitles, and supporting copy throughout the cooperative portal.</div><div class="meta">Inter &middot; 0.95rem &middot; 400 &middot; --muted</div></div>
+    <div class="spec"><div class="ex-mono">REA &middot; Current Account Balances &middot; 0x1a2b3c&hellip;</div><div class="meta">IBM Plex Mono &middot; 0.82rem &middot; --ember-text &mdash; labels, hashes, data, status bar</div></div>
+    <div class="spec"><div class="ex-label">Section Label</div><div class="meta">Inter &middot; 0.68rem &middot; 700 &middot; uppercase &middot; --faint &mdash; section dividers</div></div>
+  </section>
+
+  <!-- TOKEN TABLE -->
+  <section class="sec" id="tokens">
+    <h2>Design Token Reference</h2>
+    <p class="lead">The token set resolved in dark mode. Light-mode values are listed in the light palette above; the names are the contract, and a component should never reach past a token to a literal hex.</p>
+    <table class="dt">
+      <thead><tr><th>token</th><th>value</th><th>usage</th></tr></thead>
+      <tbody>
+        <tr><td class="tok"><span class="sw" style="background:#0F0F12"></span>--bg</td><td>#0F0F12</td><td class="use">page ground</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#08080A"></span>--inset</td><td>#08080A</td><td class="use">app background, wells</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#16161B"></span>--surface</td><td>#16161B</td><td class="use">cards, panels</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#232329"></span>--raised</td><td>#232329</td><td class="use">elevated surfaces, table headers</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#2A2A30"></span>--line</td><td>#2A2A30</td><td class="use">hairline divider</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#3A3A42"></span>--rule</td><td>#3A3A42</td><td class="use">heavier scope rule</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#6A8AC4"></span>--blue</td><td>#6A8AC4</td><td class="use">primary &middot; links, primary action, focus</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#C4956A"></span>--ember</td><td>#C4956A</td><td class="use">secondary &middot; section marks, provenance edge</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#E8E4DF"></span>--heading</td><td>#E8E4DF</td><td class="use">display headings, titles</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#CFCBC4"></span>--text</td><td>#CFCBC4</td><td class="use">body copy</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#8A857E"></span>--muted</td><td>#8A857E</td><td class="use">secondary, nav text</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#6A9A6A"></span>--ok</td><td>#6A9A6A</td><td class="use">operational, verified, live</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#6A8AC4"></span>--info</td><td>#6A8AC4</td><td class="use">in review, informational, completed</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#C46A6A"></span>--warn</td><td>#C46A6A</td><td class="use">pending, rejected, attention</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ICON SYSTEM -->
+  <section class="sec" id="icons">
+    <h2>Icon System</h2>
+    <p class="lead">Techne uses inline SVG throughout: no emoji, no icon font, no external icon library. Icons render through a shared component that takes a path string and a size, on a 16 or 24 viewBox, 1.5px stroke, round caps, color inherited from <code>currentColor</code>.</p>
+    <pre class="code"><span class="c1">// Icon component (HUDLayout, intranet-src)</span>
+function Icon({ d, size = <span class="c2">16</span> }) {
+  return &lt;svg width={size} height={size} viewBox=<span class="c2">"0 0 16 16"</span>
+    fill=<span class="c2">"none"</span> stroke=<span class="c2">"currentColor"</span> strokeWidth=<span class="c2">"1.5"</span>
+    strokeLinecap=<span class="c2">"round"</span> strokeLinejoin=<span class="c2">"round"</span>&gt;
+    &lt;path d={d} /&gt;
+  &lt;/svg&gt;
+}</pre>
+    <div class="icons">
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg><span class="nm">dashboard</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="nm">account</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg><span class="nm">patronage</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg><span class="nm">labor</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.7-.9l-.8-1.2A2 2 0 0 0 7.9 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg><span class="nm">projects</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7 2 13a3 3 0 0 0 6 0Z"/><path d="M19 7l3 6a3 3 0 0 1-6 0Z"/><path d="M8 21h8"/></svg><span class="nm">governance</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.6 1.5A4 4 0 0 0 6 19Z"/></svg><span class="nm">cloud</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg><span class="nm">journal</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3.5" y1="6" x2="3.6" y2="6"/><line x1="3.5" y1="12" x2="3.6" y2="12"/><line x1="3.5" y1="18" x2="3.6" y2="18"/></svg><span class="nm">ledger</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="M9 12l2 2 4-4"/></svg><span class="nm">verify</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg><span class="nm">menu</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="nm">close</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span class="nm">sun</span></div>
+      <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg><span class="nm">moon</span></div>
+    </div>
+    <p class="note">Paths live in <code>HUDLayout.jsx</code> under the <code>ICONS</code> constant. A new icon is a path added there and referenced by key: no import, no bundle overhead. The 16 viewBox serves nav; the 24 viewBox serves larger contexts such as onboarding and profile.</p>
+  </section>
+
+  <!-- CONTENT STANDARDS -->
+  <section class="sec" id="standards">
+    <h2>Content Standards</h2>
+    <p class="lead"><em>No emoji.</em> Emoji are not permitted anywhere on techne.coop, in body copy, headings, navigation, badges, avatars, status indicators, or interactive controls. This is an absolute rule with no exceptions.</p>
+    <p>Use typographic and geometric Unicode instead: arrows (&rarr; &larr; &uarr; &darr;), geometric shapes (&#9672; &#11041; &#8855; &#9651; &#9671;), mathematical operators (&times; &plusmn;), dashes, and ellipses (&hellip;). These carry semantic weight without decorative distraction and render consistently across environments.</p>
+    <div class="standard">
+      <div class="strow head"><div>Do not use</div><div>Use instead</div></div>
+      <div class="strow"><div class="avoid"><b>Status emoji</b> (check, cross, warning marks)</div><div class="use">Status colors with text labels</div></div>
+      <div class="strow"><div class="avoid"><b>Pictographic avatar emoji</b> (faces, robots, symbols)</div><div class="use">Initials, geometric glyphs (&#9672; &#11041; &#9651;)</div></div>
+      <div class="strow"><div class="avoid"><b>UI affordance emoji</b> (link, clipboard, magnifier)</div><div class="use">SVG icons or text labels</div></div>
+      <div class="strow"><div class="avoid"><b>Emoji-variant arrow</b> (U+27A1)</div><div class="use">Text arrow &rarr; (U+2192)</div></div>
+    </div>
+    <p class="note">techne.coop is a professional coordination surface. Emoji carry platform-specific rendering, undefined semantic meaning, and decorative noise inconsistent with the studio's precision. Typography and geometry are the visual language here. This reference follows the rule it states: the forbidden categories are named in words rather than rendered.</p>
+  </section>
+
+  <footer>
+    <div class="row">
+      <span>Techne Design System</span>
+      <span>palette updated to v4</span>
+      <span>blue primary &middot; ember secondary &middot; sunset range</span>
+      <span>techne.coop/design-system</span>
+      <span>RegenHub, LCA &middot; Boulder, Colorado</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var btn=document.getElementById('modeBtn');
+  var word=document.getElementById('modeWord');
+  var icon=document.getElementById('modeIcon');
+  var SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+  var MOON='<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/>';
+  function paint(m){
+    // the control names the mode it switches TO
+    var target = m==='dark' ? 'light' : 'dark';
+    word.textContent=target;
+    icon.innerHTML = target==='light' ? SUN : MOON;
+  }
+  var stored=null;
+  try{stored=localStorage.getItem('cis-theme');}catch(e){}
+  var m=stored||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  root.setAttribute('data-mode',m);
+  paint(m);
+  btn.addEventListener('click',function(){
+    var next=root.getAttribute('data-mode')==='dark'?'light':'dark';
+    root.setAttribute('data-mode',next);
+    paint(next);
+    try{localStorage.setItem('cis-theme',next);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
