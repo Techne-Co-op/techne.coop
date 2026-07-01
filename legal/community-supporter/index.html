@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('cis-theme'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Supporter Agreement · Techne</title>
+  <meta name="description" content="Community Supporter Agreement for RegenHub, LCA — a Colorado Public Benefit Limited Cooperative Association. Capital contribution without equity, membership class rights, or voting rights.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+  html[data-mode="dark"] {
+    --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+    --line: #2A2A30; --rule: #3A3A42;
+    --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+    --blue: #6A8AC4; --blue-text: #97B5E8; --blue-dim: rgba(106,138,196,0.14);
+    --ember: #C4956A; --ember-text: #D4A57A; --ember-dim: rgba(196,149,106,0.14);
+    --ok: #6A9A6A; --info: #6A8AC4; --warn: #C46A6A;
+    color-scheme: dark;
+  }
+  html[data-mode="light"] {
+    --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+    --line: #D8D3C8; --rule: #9A958A;
+    --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+    --blue: #4A6FB0; --blue-text: #39588F; --blue-dim: rgba(74,111,176,0.10);
+    --ember: #8A6A4A; --ember-text: #6F5436; --ember-dim: rgba(138,106,74,0.10);
+    --ok: #4A7A4A; --info: #4A6FB0; --warn: #A84F4C;
+    color-scheme: light;
+  }
+  :root {
+    --serif: 'Libre Baskerville', Georgia, serif;
+    --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+    --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
+    }
+
+    /* ── TEMPLATE BANNER ── */
+    .template-banner {
+      background: rgba(90,122,154,0.10);
+      border: 1px solid rgba(90,122,154,0.30);
+      padding: 0.75rem 1.25rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      line-height: 1.6;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: var(--sky);
+      margin-bottom: 1.5rem;
+    }
+
+    .template-banner strong {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-size: 0.65rem;
+    }
+
+    .template-banner .template-note {
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 0.70rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ── PLACEHOLDER STYLING ── */
+    .ph {
+      font-family: var(--mono);
+      font-size: 0.80em;
+      color: var(--sky);
+      background: rgba(90,122,154,0.10);
+      border: 1px dashed rgba(90,122,154,0.35);
+      border-radius: 2px;
+      padding: 0.05em 0.35em;
+      white-space: nowrap;
+    }
+
+    /* ── DOCUMENT HEADER ── */
+    .doc-header {
+      border-top: 2px solid var(--ember);
+      padding-top: 2rem;
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+
+    .doc-header .org-name {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ember);
+      margin-bottom: 0.75rem;
+    }
+
+    .doc-header h1 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 0.35rem;
+    }
+
+    .doc-header .doc-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .doc-meta-bar {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      padding: 0.9rem 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      margin: 1.5rem 0 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .doc-meta-bar .m-item { text-align: center; }
+    .doc-meta-bar .m-label {
+      font-family: var(--mono);
+      font-size: 0.54rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--faint);
+      margin-bottom: 0.15rem;
+    }
+    .doc-meta-bar .m-val { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── PARTIES / RECITALS ── */
+    .parties-intro {
+      font-size: 0.88rem;
+      color: var(--ember-text);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    .recitals {
+      margin-bottom: 2.5rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--surface);
+      border-left: 3px solid var(--line);
+    }
+
+    .recitals .rec-heading {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--faint);
+      margin-bottom: 0.9rem;
+    }
+
+    .recitals p {
+      font-size: 0.86rem;
+      color: var(--ember-text);
+      line-height: 1.75;
+      margin-bottom: 0.9rem;
+    }
+
+    .recitals p:last-child { margin-bottom: 0; }
+
+    .consideration {
+      font-size: 0.82rem;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ── ARTICLE / SECTION STRUCTURE ── */
+    .article { margin-bottom: 3rem; }
+
+    .article-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-num {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ember);
+      flex-shrink: 0;
+    }
+
+    .article-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .sec { margin-bottom: 2rem; }
+
+    .sec-head {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .sec-num {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--ember);
+      margin-right: 0.5rem;
+    }
+
+    .sec p, .sec > p {
+      font-size: 0.87rem;
+      color: var(--ember-text);
+      line-height: 1.75;
+      margin-bottom: 0.85rem;
+    }
+
+    .sec p:last-child { margin-bottom: 0; }
+
+    .sub-list {
+      list-style: none;
+      margin: 0.85rem 0 0.85rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .sub-list li {
+      font-size: 0.87rem;
+      color: var(--ember-text);
+      line-height: 1.65;
+      position: relative;
+      padding-left: 1.75rem;
+    }
+
+    .sub-list li .sub-label {
+      position: absolute;
+      left: 0;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--faint);
+    }
+
+    .def-term { font-weight: 700; color: var(--text); }
+
+    .article-div {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 0 0 3rem;
+    }
+
+    /* ── EMPHASIS BAND — used for critical disclaimer ── */
+    .emphasis-band {
+      background: rgba(154,90,90,0.08);
+      border: 1px solid rgba(154,90,90,0.22);
+      border-left: 3px solid var(--rust);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      font-size: 0.87rem;
+      color: var(--ember-text);
+      line-height: 1.75;
+    }
+
+    /* ── SIGNATURE BLOCK ── */
+    .sig-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .sig-section-heading {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--faint);
+      margin-bottom: 2rem;
+    }
+
+    .sig-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    @media (max-width: 560px) {
+      .sig-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    .sig-block { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .sig-party-label {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ember);
+      margin-bottom: 0.25rem;
+    }
+
+    .sig-line {
+      border-bottom: 1px solid var(--line);
+      height: 2.2rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .sig-field-label {
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: var(--faint);
+    }
+
+    .sig-field-ph {
+      font-size: 0.80rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 0.1rem;
+    }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      margin-top: 5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: var(--faint);
+      text-align: center;
+      line-height: 1.9;
+    }
+  </style>
+</head>
+<body data-doc-path="/legal/community-supporter-agreement/">
+<button onclick="(function(){var m=document.documentElement.getAttribute('data-mode')=='dark'?'light':'dark';document.documentElement.setAttribute('data-mode',m);try{localStorage.setItem('cis-theme',m);}catch(e){}})()" style="position:fixed;top:12px;right:12px;z-index:1000;background:var(--surface);border:1px solid var(--line);color:var(--muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;border-radius:3px;letter-spacing:0.06em;" aria-label="Toggle dark/light mode">mode</button>
+<div class="wrap">
+  <!-- TODO: Verify ratification status before publishing -->
+  </div>
+
+  <!-- Document header -->
+  <div class="doc-header">
+    <div class="org-name">RegenHub, LCA · Colorado Public Benefit Limited Cooperative Association</div>
+    <h1>Community Supporter Agreement</h1>
+    <div class="doc-sub">Capital Contribution Without Equity or Membership Class Rights</div>
+  </div>
+
+  <div class="doc-meta-bar">
+    <div class="m-item">
+      <div class="m-label">Document Type</div>
+      <div class="m-val">Contribution Agreement</div>
+    </div>
+    <div class="m-item">
+      <div class="m-label">Effective Date</div>
+      <div class="m-val"><span class="ph">[DATE]</span></div>
+    </div>
+    <div class="m-item">
+      <div class="m-label">Jurisdiction</div>
+      <div class="m-val">Boulder, Colorado</div>
+    </div>
+    <div class="m-item">
+      <div class="m-label">LCA Filing No.</div>
+      <div class="m-val">#20261163853</div>
+    </div>
+    <div class="m-item">
+      <div class="m-label">Authority</div>
+      <div class="m-val">ULCAA C.R.S. §§ 7-58-101 et seq. · § 7-58-104</div>
+    </div>
+  </div>
+
+  <!-- Parties -->
+  <p class="parties-intro">
+    This Community Supporter Agreement (this <span class="def-term">"Agreement"</span>) is entered into as of
+    <span class="ph">[DATE]</span> by and between:
+  </p>
+
+  <div class="recitals">
+    <div class="rec-heading">Parties</div>
+    <p>
+      <span class="def-term">The Cooperative:</span> RegenHub, LCA,
+      a Colorado Public Benefit Limited Cooperative Association organized under the Uniform Limited
+      Cooperative Association Act, C.R.S. §§ 7-58-101 through 7-58-1203, including the public
+      benefit provisions of C.R.S. § 7-58-104; LCA Filing No. #20261163853
+      (<span class="def-term">"Cooperative"</span>).
+    </p>
+    <p>
+      <span class="def-term">Supporter:</span> <span class="ph">[SUPPORTER FULL LEGAL NAME]</span>,
+      an individual residing at <span class="ph">[SUPPORTER ADDRESS — CITY, STATE]</span>
+      (<span class="def-term">"Supporter"</span>).
+    </p>
+  </div>
+
+  <!-- Recitals -->
+  <div class="recitals">
+    <div class="rec-heading">Recitals</div>
+    <p>
+      WHEREAS, the Cooperative is an early-stage Colorado Public Benefit Limited Cooperative
+      Association organized to cultivate collective intelligence and scenius — the intelligence that
+      arises from communities of practice — through right relationship between tools and the people
+      who use them; serving patron members who are practitioners, builders, and thinkers operating
+      across Boulder, Colorado and aligned virtual and regional communities; and operating physical
+      gathering space, digital infrastructure, programs, and services in furtherance of this public
+      benefit purpose pursuant to C.R.S. § 7-58-104;
+    </p>
+    <p>
+      WHEREAS, Supporter wishes to make a capital contribution to the Cooperative in support of its
+      mission and operations, without acquiring membership in any membership class, equity interests,
+      or voting rights in the Cooperative;
+    </p>
+    <p>
+      WHEREAS, in recognition of Supporter's contribution, the Cooperative wishes to extend certain
+      community benefits to Supporter as described herein;
+    </p>
+    <p>
+      NOW, THEREFORE, in consideration of the mutual covenants and agreements set forth below,
+      and for other good and valuable consideration, the receipt and sufficiency of which are hereby
+      acknowledged, the parties agree as follows.
+    </p>
+  </div>
+
+  <hr class="article-div">
+
+  <!-- Article 1 -->
+  <div class="article">
+    <div class="article-heading">
+      <span class="article-num">Article 1</span>
+      <span class="article-title">Contribution</span>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">1.1</span> Amount.</div>
+      <p>
+        Supporter agrees to contribute the sum of <span class="ph">[CONTRIBUTION AMOUNT, e.g., $25,000]</span>
+        to the Cooperative (the <span class="def-term">"Contribution"</span>).
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">1.2</span> Payment.</div>
+      <p>
+        The Contribution shall be paid by <span class="ph">[PAYMENT METHOD, e.g., wire transfer, check]</span>
+        to the Cooperative's designated account on or before <span class="ph">[PAYMENT DATE]</span>.
+        Wire instructions or payment details shall be provided by the Cooperative upon request.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">1.3</span> Use of Contribution.</div>
+      <p>
+        The Cooperative shall apply the Contribution toward its general operations and mission
+        activities, including physical space operations, digital infrastructure, programming, and
+        community development. Supporter acknowledges that the Cooperative retains sole discretion
+        over the specific application of contributed funds, subject to the Cooperative's governing
+        documents and applicable law. Supporter may record a non-binding statement of preferred use
+        in Schedule B attached hereto, which the Cooperative will consider in good faith but is not
+        obligated to follow.
+      </p>
+    </div>
+  </div>
+
+  <hr class="article-div">
+
+  <!-- Article 2 -->
+  <div class="article">
+    <div class="article-heading">
+      <span class="article-num">Article 2</span>
+      <span class="article-title">Community Supporter Benefits</span>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">2.1</span> Benefits Schedule.</div>
+      <p>
+        In recognition of the Contribution, the Cooperative agrees to extend the following
+        community benefits to Supporter during the Term of this Agreement. The specific benefits
+        applicable to this Supporter are enumerated in Schedule A attached hereto and incorporated
+        by reference.
+      </p>
+      <ul class="sub-list">
+        <li>
+          <span class="sub-label">(a)</span>
+          <span class="def-term">Workspace Access.</span> Non-exclusive access to the Cooperative's
+          shared workspace at 1515 Walnut Street, Boulder, Colorado during regular operating hours,
+          subject to availability and the Cooperative's posted space policies, as further described
+          in Schedule A.
+        </li>
+        <li>
+          <span class="sub-label">(b)</span>
+          <span class="def-term">Community Participation.</span> Invitation to member events,
+          working groups, community gatherings, monthly Ethereum meetups, and other programming
+          hosted by the Cooperative, as further described in Schedule A.
+        </li>
+        <li>
+          <span class="sub-label">(c)</span>
+          <span class="def-term">Talent and Network Access.</span> Good-faith facilitation by the
+          Cooperative of introductions to practitioners, builders, and thinkers within the
+          Cooperative's community of practice, consistent with the Cooperative's mission of
+          cultivating scenius, as further described in Schedule A.
+        </li>
+        <li>
+          <span class="sub-label">(d)</span>
+          <span class="def-term">Advisory Participation.</span> Opportunity to participate in
+          Cooperative strategic discussions in an advisory capacity, without voting rights, at the
+          invitation of the Board of Directors.
+        </li>
+        <li>
+          <span class="sub-label">(e)</span>
+          <span class="def-term">Recognition.</span> Acknowledgment as a Community Supporter in
+          the Cooperative's internal directory and, with Supporter's written consent, in public
+          communications. Privacy preferences may be recorded in Schedule A.
+        </li>
+        <li>
+          <span class="sub-label">(f)</span>
+          <span class="def-term">Additional Benefits.</span> Such additional benefits as the
+          parties may agree in writing and record in Schedule A.
+        </li>
+      </ul>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">2.2</span> Benefits Non-Transferable.</div>
+      <p>
+        The benefits described in Section 2.1 are personal to Supporter and may not be transferred,
+        assigned, or sublicensed to any third party without prior written consent of the Cooperative.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">2.3</span> Modification of Benefits.</div>
+      <p>
+        The Cooperative may modify the nature or scope of community benefits upon thirty (30) days'
+        written notice to Supporter. Material reductions in benefits entitle Supporter to terminate
+        this Agreement under Section 6.2.
+      </p>
+    </div>
+  </div>
+
+  <hr class="article-div">
+
+  <!-- Article 3 -->
+  <div class="article">
+    <div class="article-heading">
+      <span class="article-num">Article 3</span>
+      <span class="article-title">Status of Parties — No Equity, No Membership</span>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">3.1</span> No Membership Class.</div>
+      <div class="emphasis-band">
+        The Contribution made under this Agreement does not constitute, and shall not be construed
+        to constitute, admission of Supporter into any membership class of the Cooperative.
+        Supporter is not a patron member, investor member, or member of any other class established
+        by the Cooperative's Bylaws or Board resolution. This Agreement creates no membership
+        rights of any kind.
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">3.2</span> No Equity Interest.</div>
+      <p>
+        The Contribution does not purchase, create, or represent any equity interest, ownership
+        stake, membership stock, or other security in the Cooperative. Supporter acquires no
+        interest in the Cooperative's assets, revenues, surplus, or residual value by virtue of
+        this Agreement.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">3.3</span> No Voting Rights.</div>
+      <p>
+        Supporter has no right to vote on any matter before the Cooperative's member body or Board
+        of Directors by virtue of this Agreement. Any advisory participation described in Section
+        2.1(d) is non-binding and does not constitute a governance right under the Cooperative's
+        Bylaws or the Uniform Limited Cooperative Association Act.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">3.4</span> No Employment or Agency.</div>
+      <p>
+        This Agreement does not create an employment, contractor, agency, or partnership relationship
+        between Supporter and the Cooperative. Neither party has authority to bind the other in
+        any transaction or legal relationship except as expressly set forth herein.
+      </p>
+    </div>
+  </div>
+
+  <hr class="article-div">
+
+  <!-- Article 4 -->
+  <div class="article">
+    <div class="article-heading">
+      <span class="article-num">Article 4</span>
+      <span class="article-title">Patronage and Capital Accounts</span>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">4.1</span> No Patronage Allocation.</div>
+      <p>
+        The Contribution is not subject to patronage accounting under the Cooperative's patronage
+        allocation system. No capital account is created for Supporter in connection with this
+        Agreement. Supporter is not entitled to any allocation of the Cooperative's net income,
+        surplus, or losses on the basis of this Agreement.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">4.2</span> No Return on Contribution.</div>
+      <p>
+        The Contribution is not a loan and carries no interest. Supporter has no right to the
+        return of the Contribution upon the expiration or termination of this Agreement, or upon
+        the dissolution, liquidation, or wind-down of the Cooperative, except as may be provided
+        in a separate written instrument signed by both parties.
+      </p>
+    </div>
+  </div>
+
+  <hr class="article-div">
+
+  <!-- Article 5 -->
+  <div class="article">
+    <div class="article-heading">
+      <span class="article-num">Article 5</span>
+      <span class="article-title">Acknowledgments</span>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">5.1</span> Formation Stage.</div>
+      <p>
+        Supporter acknowledges that the Cooperative was organized in February 2026 and is in an
+        early stage of formation and operation. The benefits described in this Agreement are subject
+        to the Cooperative's operational capacity at the time they are to be provided. The
+        Cooperative makes no representation as to the scale, permanence, or commercial viability
+        of its operations. Supporter's contribution supports the Cooperative's public benefit
+        purpose as set forth in its Articles of Organization and consistent with C.R.S. § 7-58-104.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">5.2</span> Governing Documents.</div>
+      <p>
+        Supporter acknowledges having had the opportunity to review the Cooperative's governing
+        documents, including the <a href="/legal/bylaws/" style="color:var(--ember);">Bylaws
+        v.2</a> and <a href="/legal/membership-agreement/" style="color:var(--ember);">Class A
+        Patron Member Membership Agreement v.2</a>, each published at techne.institute/legal/.
+        To the extent this Agreement is silent on any matter, the Cooperative's governing documents
+        and applicable Colorado law shall govern.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">5.3</span> Independent Judgment.</div>
+      <p>
+        Supporter represents that Supporter has had the opportunity to consult with legal and
+        financial advisors of Supporter's choosing regarding this Agreement and has made an
+        independent decision to enter into it.
+      </p>
+    </div>
+  </div>
+
+  <hr class="article-div">
+
+  <!-- Article 6 -->
+  <div class="article">
+    <div class="article-heading">
+      <span class="article-num">Article 6</span>
+      <span class="article-title">Term and Termination</span>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">6.1</span> Term.</div>
+      <p>
+        This Agreement is effective as of the date first written above and continues for a term of
+        <span class="ph">[TERM, e.g., "one (1) year" or "so long as the Contribution remains on deposit"]</span>,
+        unless earlier terminated in accordance with this Article 6.
+        <span class="ph">[OPTIONAL: The Agreement may be renewed by mutual written agreement of the parties.]</span>
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">6.2</span> Termination by Supporter.</div>
+      <p>
+        Supporter may terminate this Agreement upon thirty (30) days' written notice to the
+        Cooperative. Termination does not entitle Supporter to the return of any portion of
+        the Contribution.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">6.3</span> Termination by Cooperative.</div>
+      <p>
+        The Cooperative may terminate this Agreement for cause — including material breach of
+        this Agreement by Supporter or conduct materially inconsistent with the Cooperative's
+        stated values and community standards — upon written notice describing the basis for
+        termination and a thirty (30) day cure period where the breach is curable.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">6.4</span> Effect of Termination.</div>
+      <p>
+        Upon termination or expiration, Supporter's community benefits under Article 2 cease.
+        Sections 3, 4, and 7 survive termination.
+      </p>
+    </div>
+  </div>
+
+  <hr class="article-div">
+
+  <!-- Article 7 -->
+  <div class="article">
+    <div class="article-heading">
+      <span class="article-num">Article 7</span>
+      <span class="article-title">General Provisions</span>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">7.1</span> Governing Law.</div>
+      <p>
+        This Agreement is governed by the laws of the State of Colorado, including the Uniform
+        Limited Cooperative Association Act, C.R.S. §§ 7-58-101 et seq. and the public benefit
+        provisions of C.R.S. § 7-58-104, without regard to conflict-of-laws principles. Any
+        litigation concerning a claim or dispute arising out of or in connection with this Agreement
+        shall be filed and maintained in a state or federal court sitting in the County of Denver,
+        State of Colorado.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">7.2</span> Entire Agreement.</div>
+      <p>
+        This Agreement constitutes the entire agreement of the parties with respect to its subject
+        matter and supersedes all prior understandings, representations, and agreements, whether
+        written or oral, relating to Supporter's contribution to the Cooperative on the terms
+        described herein.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">7.3</span> Amendment.</div>
+      <p>
+        This Agreement may be amended only by a written instrument signed by both parties.
+        No oral amendment is effective.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">7.4</span> Notices.</div>
+      <p>
+        Notices under this Agreement shall be in writing and delivered by email with confirmation
+        of receipt, or by first-class mail to the address of record for each party.
+        The Cooperative's notice address is: RegenHub, LCA, 1515 Walnut Street, Boulder, Colorado
+        80302, Attn: Ventures &amp; Operations Steward; email: <span class="ph">[COOPERATIVE NOTICE EMAIL]</span>.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">7.5</span> Severability.</div>
+      <p>
+        If any provision of this Agreement is found to be invalid, illegal, or unenforceable under
+        applicable law, the remaining provisions continue in full force and effect.
+      </p>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><span class="sec-num">7.6</span> Counterparts.</div>
+      <p>
+        This Agreement may be executed in counterparts, each of which constitutes an original,
+        and all of which together constitute one and the same agreement. Electronic signatures
+        are valid and binding.
+      </p>
+    </div>
+  </div>
+
+  <hr class="article-div">
+
+  <!-- Signature Block -->
+  <div class="sig-section">
+    <div class="sig-section-heading">Signatures — In witness whereof, the parties have executed this Agreement as of the date first written above.</div>
+
+    <div class="sig-grid">
+
+      <!-- Cooperative sig -->
+      <div class="sig-block">
+        <div>
+          <div class="sig-party-label">The Cooperative</div>
+          <div class="sig-field-ph">RegenHub, LCA</div>
+          <div class="sig-field-ph" style="margin-top:0.2rem;font-size:0.75rem;">A Colorado Public Benefit Limited Cooperative Association · #20261163853</div>
+        </div>
+        <div>
+          <div class="sig-line"></div>
+          <div class="sig-field-label">Signature</div>
+        </div>
+        <div>
+          <div class="sig-line"></div>
+          <div class="sig-field-label">Printed Name</div>
+          <div class="sig-field-ph"><span class="ph">[AUTHORIZED SIGNATORY NAME]</span></div>
+        </div>
+        <div>
+          <div class="sig-line"></div>
+          <div class="sig-field-label">Title</div>
+          <div class="sig-field-ph">Ventures &amp; Operations Steward</div>
+        </div>
+        <div>
+          <div class="sig-line"></div>
+          <div class="sig-field-label">Date</div>
+        </div>
+      </div>
+
+      <!-- Supporter sig -->
+      <div class="sig-block">
+        <div>
+          <div class="sig-party-label">Supporter</div>
+          <div class="sig-field-ph"><span class="ph">[SUPPORTER FULL LEGAL NAME]</span></div>
+          <div class="sig-field-ph" style="margin-top:0.2rem;font-size:0.75rem;">Individual</div>
+        </div>
+        <div>
+          <div class="sig-line"></div>
+          <div class="sig-field-label">Signature</div>
+        </div>
+        <div>
+          <div class="sig-line"></div>
+          <div class="sig-field-label">Printed Name</div>
+          <div class="sig-field-ph"><span class="ph">[SUPPORTER FULL LEGAL NAME]</span></div>
+        </div>
+        <div>
+          <div class="sig-line"></div>
+          <div class="sig-field-label">Date</div>
+        </div>
+        <div>
+          <div class="sig-line"></div>
+          <div class="sig-field-label">Email Address</div>
+          <div class="sig-field-ph"><span class="ph">[SUPPORTER EMAIL — for notices]</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Schedule A -->
+  <div class="sig-section" style="margin-top:4rem;">
+    <div class="sig-section-heading">Schedule A · Supporter-Specific Benefits</div>
+    <p style="font-size:0.87rem;color:var(--ember-text);line-height:1.75;margin-bottom:1.5rem;">
+      The following benefits apply specifically to this Supporter, in addition to the standard
+      benefits described in Section 2.1 of the Agreement:
+    </p>
+    <div style="min-height:6rem;border:1px dashed rgba(196,149,106,0.20);padding:1rem 1.25rem;font-size:0.84rem;color:var(--muted);font-style:italic;">
+      <span class="ph">[To be completed by the parties at signing — list specific access levels, event invitations, introductions, privacy preferences, or other agreed benefits.]</span>
+    </div>
+  </div>
+
+  <!-- Schedule B -->
+  <div class="sig-section" style="margin-top:3rem;">
+    <div class="sig-section-heading">Schedule B · Supporter's Non-Binding Statement of Preferred Use (Optional)</div>
+    <p style="font-size:0.87rem;color:var(--ember-text);line-height:1.75;margin-bottom:1.5rem;">
+      Supporter may record a preferred use for the Contribution below. This statement is
+      non-binding and advisory only. The Cooperative will consider it in good faith but retains
+      sole discretion over application of contributed funds.
+    </p>
+    <div style="min-height:4rem;border:1px dashed rgba(196,149,106,0.20);padding:1rem 1.25rem;font-size:0.84rem;color:var(--muted);font-style:italic;">
+      <span class="ph">[Optional — Supporter's statement of preferred use, if any.]</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+<footer style="border-top:1px solid var(--line);margin-top:var(--s8);padding:var(--s5) 0;font-family:var(--mono);font-size:11px;color:var(--muted);">
+  <div style="max-width:780px;margin:0 auto;padding:0 var(--s5);display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);">
+    <span style="color:var(--ember-text);">Techne · RegenHub, LCA</span>
+    <span>1515 Walnut Street · Boulder, Colorado</span>
+    <span>Colorado Limited Cooperative Association</span>
+    <span>SOS No. 20261163853</span>
+    <span><a href="/legal/" style="color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);">← Legal documents</a></span>
+  </div>
+</footer>
+</div><!-- /wrap -->
+</body>
+</html>
