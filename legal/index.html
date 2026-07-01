@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('cis-theme'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal Documents · Techne</title>
+  <meta name="description" content="Legal documents of RegenHub, LCA — a Colorado Limited Cooperative Association. Bylaws, Membership Agreement, Participation Framework, and Community Supporter Agreement.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    html[data-mode="dark"] {
+      --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+      --line: #2A2A30; --rule: #3A3A42;
+      --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+      --blue: #6A8AC4; --blue-text: #97B5E8; --blue-dim: rgba(106,138,196,0.14);
+      --ember: #C4956A; --ember-text: #D4A57A; --ember-dim: rgba(196,149,106,0.14);
+      --ok: #6A9A6A; --info: #6A8AC4; --warn: #C46A6A;
+      color-scheme: dark;
+    }
+    html[data-mode="light"] {
+      --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+      --line: #D8D3C8; --rule: #9A958A;
+      --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+      --blue: #4A6FB0; --blue-text: #39588F; --blue-dim: rgba(74,111,176,0.10);
+      --ember: #8A6A4A; --ember-text: #6F5436; --ember-dim: rgba(138,106,74,0.10);
+      --ok: #4A7A4A; --info: #4A6FB0; --warn: #A84F4C;
+      color-scheme: light;
+    }
+    :root {
+      --serif: 'Libre Baskerville', Georgia, serif;
+      --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+      --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+      --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
+    }
+    .page-header {
+      border-top: 2px solid var(--ember);
+      padding-top: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .page-header .org {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ember-text);
+      margin-bottom: 0.75rem;
+    }
+    .page-header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+    .page-header .intro {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+    .doc-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .doc-card {
+      display: block;
+      text-decoration: none;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--ember);
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color var(--micro) var(--ease), background var(--micro) var(--ease);
+    }
+    .doc-card:hover {
+      background: var(--raised);
+      border-left-color: var(--ember-text);
+    }
+    .doc-card-title {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--ember-text);
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.02em;
+    }
+    .doc-card-desc {
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .doc-card-meta {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--faint);
+      margin-top: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+<button onclick="(function(){var m=document.documentElement.getAttribute('data-mode')=='dark'?'light':'dark';document.documentElement.setAttribute('data-mode',m);try{localStorage.setItem('cis-theme',m);}catch(e){}})()" style="position:fixed;top:12px;right:12px;z-index:1000;background:var(--surface);border:1px solid var(--line);color:var(--muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;border-radius:3px;letter-spacing:0.06em;" aria-label="Toggle dark/light mode">mode</button>
+
+<div class="wrap">
+
+  <div class="page-header">
+    <div class="org">RegenHub, LCA · Colorado Limited Cooperative Association</div>
+    <h1>Legal Documents</h1>
+    <p class="intro">The legal foundation of RegenHub, LCA — a Colorado Limited Cooperative Association.</p>
+  </div>
+
+  <div class="doc-cards">
+
+    <a class="doc-card" href="/legal/bylaws/">
+      <div class="doc-card-title">Bylaws v2.1</div>
+      <div class="doc-card-desc">The governing rules of the cooperative. Ratified July 2026.</div>
+      <div class="doc-card-meta">Colorado ULCAA · C.R.S. Title 7, Art. 58</div>
+    </a>
+
+    <a class="doc-card" href="/legal/membership-agreement/">
+      <div class="doc-card-title">Membership Agreement v2.3</div>
+      <div class="doc-card-desc">The agreement between the cooperative and its members. Ratified July 2026.</div>
+      <div class="doc-card-meta">Cooperative Member (Class One) · Patron Track</div>
+    </a>
+
+    <a class="doc-card" href="/legal/participation/">
+      <div class="doc-card-title">Participation Framework</div>
+      <div class="doc-card-desc">How members participate and contribute.</div>
+      <div class="doc-card-meta">Class One through Four · Access &amp; Patron Tracks</div>
+    </a>
+
+    <a class="doc-card" href="/legal/community-supporter/">
+      <div class="doc-card-title">Community Supporter Agreement</div>
+      <div class="doc-card-desc">Terms for Class One community supporters.</div>
+      <div class="doc-card-meta">Contribution Agreement · ULCAA C.R.S. § 7-58-104</div>
+    </a>
+
+  </div>
+
+</div><!-- /wrap -->
+
+<footer style="border-top:1px solid var(--line);margin-top:var(--s8);padding:var(--s5) 0;font-family:var(--mono);font-size:11px;color:var(--muted);">
+  <div style="max-width:780px;margin:0 auto;padding:0 var(--s5);display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);">
+    <span style="color:var(--ember-text);">Techne · RegenHub, LCA</span>
+    <span>1515 Walnut Street · Boulder, Colorado</span>
+    <span>Colorado Limited Cooperative Association</span>
+    <span>SOS No. 20261163853</span>
+  </div>
+</footer>
+
+</body>
+</html>
