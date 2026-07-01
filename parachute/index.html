@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Parachute Cloud — a shared knowledge vault with the Daybook as its surface. Private notes, public rhythm, pay only for what you use. From Techne Studio / RegenHub, LCA.">
+<title>Parachute Cloud &middot; Techne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --serif:"Libre Baskerville",Georgia,serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+  --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
+  --sun-gold:#EAB668;--sun-amber:#E09A52;--sun-coral:#D1755A;
+  --sun-rose:#B45C7C;--sun-violet:#6E5494;--sun-blue:#5476B8;
+}
+html[data-mode="dark"]{
+  --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;
+  --line:#2A2A30;--rule:#3A3A42;
+  --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
+  --blue:#6A8AC4;--blue-text:#97B5E8;
+  --ember:#C4956A;--ember-text:#D4A57A;
+  --blue-dim:rgba(106,138,196,.14);
+}
+html[data-mode="light"]{
+  --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
+  --line:#D8D3C8;--rule:#9A958A;
+  --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
+  --blue:#4A6FB0;--blue-text:#39588F;
+  --ember:#8A6A4A;--ember-text:#6F5436;
+  --blue-dim:rgba(74,111,176,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{color-scheme:dark light;scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font:400 17px/1.72 var(--serif);
+  transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);}
+em{font-style:italic;color:var(--heading);}
+a{color:var(--blue-text);text-decoration:none;}
+a:hover{text-decoration:underline;}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;}
+::selection{background:var(--blue);color:var(--bg);}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+/* nav */
+.topbar{
+  position:sticky;top:0;z-index:40;
+  display:flex;align-items:center;gap:var(--s5);
+  padding:0 6vw;height:60px;
+  background:color-mix(in srgb,var(--bg) 86%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.brand{font:700 20px/1 var(--serif);color:var(--heading);letter-spacing:-.01em;text-decoration:none;flex-shrink:0;}
+.brand sub{font:400 11px/1 var(--mono);color:var(--faint);letter-spacing:.04em;vertical-align:baseline;margin-left:8px;}
+nav{flex:1;display:flex;align-items:center;gap:var(--s4);list-style:none;}
+nav a{font:400 13px/1 var(--mono);color:var(--muted);letter-spacing:.04em;transition:color var(--micro) var(--ease);}
+nav a:hover{color:var(--text);text-decoration:none;}
+.modebtn{margin-left:auto;flex-shrink:0;font:500 11px/1 var(--mono);color:var(--muted);
+  background:var(--surface);border:1px solid var(--line);border-radius:2px;
+  padding:8px 14px;cursor:pointer;
+  transition:border-color var(--micro) var(--ease),color var(--micro) var(--ease);}
+.modebtn:hover{border-color:var(--blue);color:var(--blue-text);}
+
+/* band */
+.band{display:flex;height:4px;}
+.band span{flex:1;}
+
+/* hero */
+.hero{
+  padding:calc(var(--s8) + var(--s4)) 6vw var(--s8);
+  max-width:900px;margin:0 auto;
+}
+.eyebrow{
+  font:600 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.15em;
+  color:var(--ember-text);
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:var(--s5);
+}
+.eyebrow .tk{width:16px;height:2px;background:var(--ember);flex:none;}
+.hero h1{
+  font:700 64px/1.02 var(--serif);color:var(--heading);
+  letter-spacing:-.026em;margin-bottom:var(--s5);
+  max-width:14ch;
+}
+.hero h1 em{font-style:italic;}
+.hero-sub{
+  font:400 22px/1.55 var(--serif);color:var(--text);
+  max-width:52ch;margin-bottom:var(--s7);
+}
+.cta-row{display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font:500 13px/1 var(--mono);letter-spacing:.04em;
+  border-radius:2px;padding:14px 26px;cursor:pointer;
+  text-decoration:none;
+  transition:background-color var(--micro) var(--ease),border-color var(--micro) var(--ease),color var(--micro) var(--ease);
+}
+.btn.primary{background:var(--blue);color:var(--bg);border:1px solid var(--blue);}
+.btn.primary:hover{background:var(--blue-text);border-color:var(--blue-text);text-decoration:none;}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--rule);}
+.btn.ghost:hover{border-color:var(--text);text-decoration:none;}
+.btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+
+/* minimum note */
+.minimum{
+  margin-top:var(--s5);
+  display:inline-flex;align-items:center;gap:8px;
+  font:400 12px/1 var(--mono);color:var(--faint);
+  letter-spacing:.02em;
+}
+.minimum .amount{color:var(--ember-text);font-weight:500;}
+
+/* wrap */
+.wrap{max-width:900px;margin:0 auto;padding:0 6vw;}
+
+/* section rule */
+.section{padding:var(--s7) 0;border-top:1px solid var(--line);}
+.section-label{
+  font:600 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.14em;
+  color:var(--muted);margin-bottom:var(--s6);
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--line);}
+
+/* two-column */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:var(--s7);}
+@media(max-width:640px){.two{grid-template-columns:1fr;gap:var(--s5);}}
+
+/* feature cards */
+.feat{padding:var(--s5) var(--s5) var(--s6);background:var(--surface);border:1px solid var(--line);border-radius:2px;}
+.feat-icon{
+  width:36px;height:36px;border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:var(--s4);
+}
+.feat-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.feat h3{font:700 17px/1.2 var(--serif);color:var(--heading);margin-bottom:var(--s3);}
+.feat p{font:400 14px/1.65 var(--mono);color:var(--muted);}
+
+/* publish modes */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:var(--s5);}
+@media(max-width:500px){.modes{grid-template-columns:1fr;}}
+.mode{padding:var(--s4) var(--s5);background:var(--inset);}
+.mode-label{font:600 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--s2);}
+.mode-title{font:700 15px/1.2 var(--serif);color:var(--heading);margin-bottom:var(--s2);}
+.mode-desc{font:400 12px/1.6 var(--mono);color:var(--faint);}
+.mode[data-scope="private"] .mode-label{color:var(--ember-text);}
+.mode[data-scope="public"] .mode-label{color:var(--blue-text);}
+
+/* credits */
+.credit-box{
+  background:var(--inset);border:1px solid var(--line);border-radius:2px;
+  padding:var(--s5) var(--s6);
+  display:grid;grid-template-columns:auto 1fr;gap:var(--s5) var(--s6);
+  align-items:start;
+}
+@media(max-width:600px){.credit-box{grid-template-columns:1fr;}}
+.credit-num{font:700 52px/1 var(--serif);color:var(--heading);letter-spacing:-.02em;}
+.credit-num sub{font:400 16px/1 var(--mono);color:var(--faint);vertical-align:baseline;letter-spacing:.02em;}
+.credit-detail h3{font:700 18px/1.2 var(--serif);color:var(--heading);margin-bottom:var(--s3);}
+.credit-detail p{font:400 13px/1.65 var(--mono);color:var(--muted);margin-bottom:var(--s3);}
+.credit-detail p:last-child{margin-bottom:0;}
+.rate-row{
+  display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap;
+  margin-top:var(--s4);padding-top:var(--s4);border-top:1px solid var(--line);
+}
+.rate{font:600 12px/1 var(--mono);color:var(--ember-text);letter-spacing:.04em;}
+.rate-sep{color:var(--line);}
+
+/* daybook preview */
+.db-preview{
+  background:var(--inset);border:1px solid var(--line);border-radius:2px;
+  overflow:hidden;
+}
+.db-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;border-bottom:1px solid var(--line);
+}
+.db-title{font:600 12px/1 var(--mono);color:var(--heading);}
+.db-date{font:400 11px/1 var(--mono);color:var(--faint);}
+.db-body{padding:var(--s4) var(--s5);}
+.db-entry{
+  padding:var(--s3) 0;border-bottom:1px solid var(--line);
+  display:flex;align-items:baseline;gap:var(--s4);
+}
+.db-entry:last-child{border-bottom:0;}
+.db-time{font:400 10px/1 var(--mono);color:var(--faint);flex-shrink:0;width:38px;}
+.db-text{font:400 13px/1.55 var(--serif);color:var(--text);}
+.db-scope{
+  margin-left:auto;flex-shrink:0;
+  font:500 9px/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;
+  padding:3px 7px;border-radius:2px;
+}
+.db-scope.priv{color:var(--ember-text);background:rgba(196,149,106,.1);}
+.db-scope.pub{color:var(--blue-text);background:var(--blue-dim);}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:var(--s7) 0;margin-top:var(--s7);}
+.footer-inner{max-width:900px;margin:0 auto;padding:0 6vw;
+  display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:var(--s4);}
+.footer-brand{font:700 16px/1 var(--serif);color:var(--heading);}
+.footer-legal{font:400 11px/1.6 var(--mono);color:var(--faint);}
+</style>
+</head>
+<body>
+
+<script>
+(function(){
+  var s=null;try{s=localStorage.getItem('cis-theme');}catch(e){}
+  var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m);
+})();
+</script>
+
+<div class="topbar">
+  <a class="brand" href="/">Techne<sub>parachute cloud</sub></a>
+  <nav>
+    <a href="#how">How it works</a>
+    <a href="#daybook">Daybook</a>
+    <a href="#credits">Credits</a>
+  </nav>
+  <button class="modebtn" id="modeBtn">light</button>
+</div>
+
+<div class="band">
+  <span style="background:var(--sun-gold)"></span>
+  <span style="background:var(--sun-amber)"></span>
+  <span style="background:var(--sun-coral)"></span>
+  <span style="background:var(--sun-rose)"></span>
+  <span style="background:var(--sun-violet)"></span>
+  <span style="background:var(--sun-blue)"></span>
+</div>
+
+<div class="hero wrap">
+  <div class="eyebrow"><span class="tk"></span>First cloud release &middot; July 2026</div>
+  <h1>A vault for your work. <em>Held in common.</em></h1>
+  <p class="hero-sub">
+    Parachute Cloud gives you a knowledge vault with the Daybook as its surface —
+    private notes that are yours, public entries that belong to your group.
+    Pay only for what you use, starting at three dollars.
+  </p>
+  <div class="cta-row">
+    <a class="btn primary" href="#credits">
+      Start with $3
+      <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+    <a class="btn ghost" href="#daybook">See the Daybook</a>
+  </div>
+  <div class="minimum">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ember)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2 2"/></svg>
+    Minimum balance: <span class="amount">$3.00 &nbsp;=&nbsp; 30 cloud credits</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- How it works -->
+  <div class="section" id="how">
+    <div class="section-label">How it works</div>
+    <div class="two">
+      <div class="feat">
+        <div class="feat-icon" style="background:rgba(196,149,106,.12);color:var(--ember-text);">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>One vault, two publishing modes</h3>
+        <p>Every entry you write sits in your private vault first. You choose what to make visible to your peer group — and when. Nothing is public by default.</p>
+        <div class="modes">
+          <div class="mode" data-scope="private">
+            <div class="mode-label">Private</div>
+            <div class="mode-title">Yours alone</div>
+            <div class="mode-desc">Drafts, reflections, unfinished thinking. Your individual layer. Only you can read it.</div>
+          </div>
+          <div class="mode" data-scope="public">
+            <div class="mode-label">Peer group</div>
+            <div class="mode-title">Held in common</div>
+            <div class="mode-desc">Settled entries posted to the group's shared daybook. Visible to all members of your group.</div>
+          </div>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon" style="background:var(--blue-dim);color:var(--blue-text);">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>The Daybook as surface</h3>
+        <p>The Daybook is not a note app. It's a <em>book of original entry</em> — a cooperative instrument for recording work, time, and value as it happens, in the colour of the hour it occurs.</p>
+        <p>Built on the Parachute vault protocol, it renders your notes in the seasonal rhythm of the day: each hour has a colour, each entry settles into the bloom of the day's work.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Daybook preview -->
+  <div class="section" id="daybook">
+    <div class="section-label">The Daybook</div>
+    <div class="two" style="align-items:start;">
+      <div>
+        <h2 style="font:700 28px/1.2 var(--serif);color:var(--heading);letter-spacing:-.012em;margin-bottom:var(--s4);">
+          A surface shaped around how cooperative work actually moves
+        </h2>
+        <p style="font:400 15px/1.7 var(--serif);color:var(--text);margin-bottom:var(--s4);">
+          Each entry carries a type — reflection, contribution, exchange, clearing —
+          and a time. The group's shared daybook accumulates these into a bloom:
+          a visualization of what the collective has made public, by hour, by kind.
+        </p>
+        <p style="font:400 15px/1.7 var(--serif);color:var(--text);">
+          Private entries stay in your vault, never visible in the shared bloom,
+          until you choose to post them. The act of posting is the act of
+          contributing to the common record.
+        </p>
+      </div>
+      <div class="db-preview">
+        <div class="db-header">
+          <span class="db-title">Daybook &middot; today</span>
+          <span class="db-date">Jul 1 &middot; 2:00 PM</span>
+        </div>
+        <div class="db-body">
+          <div class="db-entry">
+            <span class="db-time">9:14</span>
+            <span class="db-text">Read the Surface Starter note. The vault ships headless intentionally.</span>
+            <span class="db-scope priv">private</span>
+          </div>
+          <div class="db-entry">
+            <span class="db-time">10:30</span>
+            <span class="db-text">Contribution 2h → architecture work, parachute surface concept.</span>
+            <span class="db-scope pub">group</span>
+          </div>
+          <div class="db-entry">
+            <span class="db-time">13:00</span>
+            <span class="db-text">The surface we build should reflect the LCA's actual structure.</span>
+            <span class="db-scope pub">group</span>
+          </div>
+          <div class="db-entry">
+            <span class="db-time">14:00</span>
+            <span class="db-text">Exploring micro-credit model for cloud hosting.</span>
+            <span class="db-scope priv">private</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Credits -->
+  <div class="section" id="credits">
+    <div class="section-label">Service credits</div>
+    <div class="credit-box">
+      <div>
+        <div class="credit-num">$3<sub>&nbsp;to start</sub></div>
+      </div>
+      <div class="credit-detail">
+        <h3>Cloud credits — pay only for what you use</h3>
+        <p>
+          Parachute Cloud runs on a service credit model. One cloud credit covers
+          ten cents of compute, storage, and vault operations. Credits never expire.
+          There's no subscription, no seat pricing, no monthly minimum beyond your
+          opening balance.
+        </p>
+        <p>
+          The $3 opening balance is thirty credits — enough to use the Daybook
+          actively for a month, try the API, and understand your own usage before
+          deciding how much to add.
+        </p>
+        <div class="rate-row">
+          <span class="rate">1 credit = $0.10</span>
+          <span class="rate-sep">&middot;</span>
+          <span class="rate">$3 minimum = 30 credits</span>
+          <span class="rate-sep">&middot;</span>
+          <span class="rate">Credits never expire</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:var(--s6);padding:var(--s5) var(--s6);background:var(--surface);border:1px solid var(--line);border-radius:2px;">
+      <p style="font:400 13px/1.6 var(--mono);color:var(--muted);margin-bottom:var(--s4);">
+        Parachute Cloud is in early access. Add your name to be notified when accounts open.
+      </p>
+      <div style="display:flex;gap:var(--s3);flex-wrap:wrap;">
+        <input type="email" placeholder="your@email.com"
+          style="flex:1;min-width:200px;font:400 14px/1 var(--mono);color:var(--text);
+            background:var(--inset);border:1px solid var(--rule);border-radius:2px;
+            padding:11px 14px;outline:none;"
+          id="emailInput">
+        <button class="btn primary" style="padding:11px 22px;" onclick="handleNotify()">
+          Notify me
+          <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+      <div id="notifyConfirm" style="display:none;margin-top:var(--s3);font:400 12px/1.5 var(--mono);color:var(--ember-text);">
+        Noted. We'll reach you when accounts open.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-brand">Techne &middot; Parachute Cloud</span>
+    <span class="footer-legal">RegenHub, LCA &mdash; Boulder, Colorado &middot; 2026<br>
+      <a href="/legal/">Legal documents</a> &middot; <a href="/design-system/">Design system</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('modeBtn');
+  function paint(){btn.textContent=root.getAttribute('data-mode')==='dark'?'light':'dark';}
+  paint();
+  btn.addEventListener('click',function(){
+    var n=root.getAttribute('data-mode')==='dark'?'light':'dark';
+    root.setAttribute('data-mode',n);
+    try{localStorage.setItem('cis-theme',n);}catch(e){}
+    paint();
+  });
+})();
+function handleNotify(){
+  var v=document.getElementById('emailInput').value.trim();
+  if(!v)return;
+  document.getElementById('notifyConfirm').style.display='block';
+  document.getElementById('emailInput').value='';
+}
+</script>
+
+</body>
+</html>
