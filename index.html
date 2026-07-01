@@ -9,7 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
 <script>
   (function () {
-    var m = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    var stored = null;
+    try { stored = localStorage.getItem('cis-theme'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
     document.documentElement.setAttribute('data-mode', m);
   })();
 </script>
@@ -722,7 +724,9 @@ function paintMode() {
 }
 document.getElementById('modeToggle').addEventListener('click', function () {
   var cur = document.documentElement.getAttribute('data-mode');
-  document.documentElement.setAttribute('data-mode', cur === 'dark' ? 'light' : 'dark');
+  var next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-mode', next);
+  try { localStorage.setItem('cis-theme', next); } catch(e) {}
   paintMode();
 });
 
