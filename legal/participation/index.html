@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('cis-theme'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Participation Framework · Techne</title>
+  <meta name="description" content="Progressive participation levels for RegenHub, LCA — from Community Participant (Class Three) through Co-working Member (Class Two), Cooperative Member (Class One), and Investor Member (Class Four). Costs, rights, and pathways for each class.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+  html[data-mode="dark"] {
+    --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+    --line: #2A2A30; --rule: #3A3A42;
+    --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+    --blue: #6A8AC4; --blue-text: #97B5E8; --blue-dim: rgba(106,138,196,0.14);
+    --ember: #C4956A; --ember-text: #D4A57A; --ember-dim: rgba(196,149,106,0.14);
+    --ok: #6A9A6A; --info: #6A8AC4; --warn: #C46A6A;
+    color-scheme: dark;
+  }
+  html[data-mode="light"] {
+    --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+    --line: #D8D3C8; --rule: #9A958A;
+    --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+    --blue: #4A6FB0; --blue-text: #39588F; --blue-dim: rgba(74,111,176,0.10);
+    --ember: #8A6A4A; --ember-text: #6F5436; --ember-dim: rgba(138,106,74,0.10);
+    --ok: #4A7A4A; --info: #4A6FB0; --warn: #A84F4C;
+    color-scheme: light;
+  }
+  :root {
+    --serif: 'Libre Baskerville', Georgia, serif;
+    --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+    --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 1.5rem;
+    }
+    .page-header h1 {
+      font-family: var(--serif);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .page-header .org {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
+    }
+    .page-header .intro {
+      color: var(--ember-text);
+      font-size: 0.94rem;
+      max-width: 680px;
+      line-height: 1.75;
+    }
+
+    /* ── Track labels ── */
+    .track-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .track-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .track-access {
+      background: var(--sky-dim);
+      color: var(--sky);
+      border: 1px solid rgba(90,122,154,0.25);
+    }
+    .track-patron {
+      background: var(--ember-dim);
+      color: var(--ember);
+      border: 1px solid rgba(196,149,106,0.25);
+    }
+
+    /* ── Card grid ── */
+    .levels-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .levels-grid.full { grid-template-columns: 1fr; }
+
+    @media (max-width: 640px) {
+      .levels-grid { grid-template-columns: 1fr; }
+      .track-row   { grid-template-columns: 1fr; }
+    }
+
+    /* ── Level card ── */
+    .level-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .level-card.access  { border-top: 3px solid var(--sky); }
+    .level-card.patron  { border-top: 3px solid var(--ember); }
+    .level-card.capital { border-top: 3px solid var(--rust); }
+    .level-card.pending { opacity: 0.75; }
+
+    .card-head {
+      padding: 1.1rem 1.25rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .class-tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 0.3rem;
+    }
+    .level-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+    .level-card.access  .level-name { color: var(--sky); }
+    .level-card.patron  .level-name { color: var(--ember); }
+    .level-card.capital .level-name { color: var(--rust); }
+
+    .level-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .card-body {
+      padding: 1rem 1.25rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .card-section-label {
+      font-family: var(--mono);
+      font-size: 0.67rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 0.35rem;
+    }
+
+    /* Cost block */
+    .cost-block { }
+    .cost-tiers {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .cost-tier {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.85rem;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .cost-tier:last-child { border-bottom: none; }
+    .tier-name { color: var(--ember-text); }
+    .tier-price {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--text);
+    }
+    .tier-price.tbd { color: var(--faint); font-style: italic; }
+    .cost-once {
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+    .cost-note {
+      font-size: 0.77rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* Rights list */
+    .rights-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .rights-list li {
+      font-size: 0.83rem;
+      color: var(--ember-text);
+      padding-left: 1.1rem;
+      position: relative;
+      line-height: 1.5;
+    }
+    .rights-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--moss);
+      font-size: 0.75rem;
+    }
+    .rights-list li.no::before {
+      content: '–';
+      color: var(--faint);
+    }
+    .rights-list li.highlight::before {
+      color: var(--ember);
+    }
+
+    /* Admission block */
+    .admission-text {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Agreement badge */
+    .agreement-badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      text-decoration: none;
+      margin-top: 0.1rem;
+    }
+    .agreement-badge.live {
+      background: var(--ember-dim);
+      color: var(--ember);
+      border: 1px solid rgba(196,149,106,0.25);
+    }
+    .agreement-badge.live:hover { background: rgba(196,149,106,0.2); }
+    .agreement-badge.draft {
+      background: var(--sky-dim);
+      color: var(--sky);
+      border: 1px solid rgba(90,122,154,0.25);
+    }
+    .agreement-badge.pending {
+      background: var(--surface);
+      color: var(--faint);
+      border: 1px solid var(--line);
+    }
+
+    /* ── Conversion pathway ── */
+    .pathway-block {
+      background: var(--raised);
+      border: 1px solid rgba(196,149,106,0.2);
+      border-left: 3px solid var(--ember);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .pathway-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 0.4rem;
+    }
+    .pathway-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .pathway-desc {
+      font-size: 0.84rem;
+      color: var(--ember-text);
+      line-height: 1.65;
+    }
+    .pathway-steps {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .pathway-step {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px solid var(--line);
+    }
+    .pathway-step.from { color: var(--sky); border-color: rgba(90,122,154,0.25); background: var(--sky-dim); }
+    .pathway-step.to   { color: var(--ember); border-color: rgba(196,149,106,0.25); background: var(--ember-dim); }
+    .pathway-arrow { color: var(--faint); font-size: 0.8rem; }
+
+    /* ── Divider ── */
+    .section-divider {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin: 2rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    /* ── Status note ── */
+    .status-note {
+      font-size: 0.78rem;
+      color: var(--faint);
+      font-family: var(--mono);
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ── Back link ── */
+    .back-link {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 2rem;
+    }
+    .back-link:hover { color: var(--ember); }
+
+    /* ── Pending overlay ── */
+    .tbd-badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      color: var(--faint);
+      vertical-align: middle;
+      margin-left: 0.35rem;
+    }
+  </style>
+</head>
+<body>
+<button onclick="(function(){var m=document.documentElement.getAttribute('data-mode')=='dark'?'light':'dark';document.documentElement.setAttribute('data-mode',m);try{localStorage.setItem('cis-theme',m);}catch(e){}})()" style="position:fixed;top:12px;right:12px;z-index:1000;background:var(--surface);border:1px solid var(--line);color:var(--muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;border-radius:3px;letter-spacing:0.06em;" aria-label="Toggle dark/light mode">mode</button>
+<div class="wrap">
+
+  <a class="back-link" href="/legal/">← Back to Legal</a>
+
+  <div class="page-header">
+    <div class="org">RegenHub, LCA · Colorado Public Benefit Limited Cooperative Association</div>
+    <h1>Participation Levels</h1>
+    <p class="intro">RegenHub operates a four-class membership structure across two tracks. The <strong>access track</strong> is open enrollment — community participants and co-working members who use the hub. The <strong>patron track</strong> is by invitation — cooperative members with voting rights, capital accounts, and Schedule K-1 tax reporting. A conversion pathway connects the two tracks.</p>
+  </div>
+
+
+  <!-- TODO: Verify ratification status before publishing -->
+
+  <!-- ── ACCESS TRACK ── -->
+  <div class="section-divider">Access Track</div>
+
+  <div class="track-row">
+    <div class="track-label track-access">Access Track — Open Enrollment · Hub Membership Agreement</div>
+    <div></div>
+  </div>
+
+  <div class="levels-grid" style="margin-top:0.75rem;">
+
+    <!-- Class Three -->
+    <div class="level-card access">
+      <div class="card-head">
+        <div class="class-tag">Class Three</div>
+        <div class="level-name">Community Participant</div>
+        <div class="level-sub">Threshold · Footing · Standing</div>
+      </div>
+      <div class="card-body">
+
+        <div class="cost-block">
+          <div class="card-section-label">Access Tiers</div>
+          <div class="cost-tiers">
+            <div class="cost-tier">
+              <span class="tier-name">Threshold</span>
+              <span class="tier-price">$25 / mo</span>
+            </div>
+            <div class="cost-tier">
+              <span class="tier-name">Footing</span>
+              <span class="tier-price">$50 / mo</span>
+            </div>
+            <div class="cost-tier">
+              <span class="tier-name">Standing</span>
+              <span class="tier-price">$100 / mo</span>
+            </div>
+          </div>
+          <div class="cost-note">Adopted by board resolution, June 24, 2026. Standing replaces the $50/mo virtual membership.</div>
+        </div>
+
+        <div>
+          <div class="card-section-label">Rights &amp; Access</div>
+          <ul class="rights-list">
+            <li>Community access and participation</li>
+            <li>Hub space access (Footing and above)</li>
+            <li>Full hub access (Standing)</li>
+            <li class="no">No vote on cooperative governance</li>
+            <li class="no">No patronage allocation</li>
+            <li class="no">No capital account</li>
+            <li class="no">No Schedule K-1</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="card-section-label">Admission</div>
+          <div class="admission-text">Open enrollment. Cancel on reasonable notice. No buy-in required.</div>
+        </div>
+
+        <div>
+          <div class="card-section-label">Agreement</div>
+          <span class="agreement-badge pending">Hub Membership Agreement — to be drafted</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Class Two -->
+    <div class="level-card access">
+      <div class="card-head">
+        <div class="class-tag">Class Two</div>
+        <div class="level-name">Co-working Member</div>
+        <div class="level-sub">Desk access · Patronage tracking</div>
+      </div>
+      <div class="card-body">
+
+        <div class="cost-block">
+          <div class="card-section-label">Cost</div>
+          <div class="cost-tiers">
+            <div class="cost-tier">
+              <span class="tier-name">Hot desk</span>
+              <span class="tier-price">$250 / mo</span>
+            </div>
+            <div class="cost-tier">
+              <span class="tier-name">Dedicated desk or office</span>
+              <span class="tier-price">$500+ / mo</span>
+            </div>
+          </div>
+          <div class="cost-note">No one-time buy-in. Rates adopted June 24, 2026.</div>
+        </div>
+
+        <div>
+          <div class="card-section-label">Rights &amp; Access</div>
+          <ul class="rights-list">
+            <li>Full desk and hub access</li>
+            <li class="highlight">Patronage credits tracked toward conversion threshold</li>
+            <li class="no">No vote on cooperative governance</li>
+            <li class="no">No capital account</li>
+            <li class="no">No Schedule K-1</li>
+            <li class="no">Not a partner under Subchapter K</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="card-section-label">Admission</div>
+          <div class="admission-text">Hub Membership Agreement. No invitation required. Patronage is tracked from the date of first agreement execution.</div>
+        </div>
+
+        <div>
+          <div class="card-section-label">Agreement</div>
+          <span class="agreement-badge pending">Hub Membership Agreement — to be drafted</span>
+        </div>
+
+        <div class="status-note">Patronage conversion pathway: see below ↓</div>
+
+      </div>
+    </div>
+
+  </div><!-- /access grid -->
+
+
+  <!-- ── PATRONAGE CONVERSION PATHWAY ── -->
+  <div class="pathway-block">
+    <div class="pathway-label">Patronage Conversion Pathway</div>
+    <div class="pathway-title">Co-working → Cooperative Member</div>
+    <div class="pathway-desc">A Co-working Member (Class Two) who reaches a board-established patronage threshold may be invited to apply for Cooperative Member (Class One) status. Upon Board acceptance, the member executes the Membership Agreement, pays the $100 one-time share, and transitions fully to the patron track. Patronage credits earned as a Co-working Member inform the invitation — the threshold and credit methodology are set by board resolution and specified in Schedule A.</div>
+    <div class="pathway-steps">
+      <span class="pathway-step from">Class Two — Co-working Member</span>
+      <span class="pathway-arrow">→ patronage threshold met →</span>
+      <span class="pathway-step">Board invitation</span>
+      <span class="pathway-arrow">→ MA executed + $100 share →</span>
+      <span class="pathway-step to">Class One — Cooperative Member</span>
+    </div>
+  </div>
+
+
+  <!-- ── PATRON TRACK ── -->
+  <div class="section-divider">Patron Track</div>
+
+  <div class="track-row">
+    <div></div>
+    <div class="track-label track-patron">Patron Track — By Invitation · Membership Agreement v.2.3</div>
+  </div>
+
+  <div class="levels-grid" style="margin-top:0.75rem;">
+
+    <!-- Class One -->
+    <div class="level-card patron">
+      <div class="card-head">
+        <div class="class-tag">Class One</div>
+        <div class="level-name">Cooperative Member</div>
+        <div class="level-sub">Voting · Patronage · Capital Account</div>
+      </div>
+      <div class="card-body">
+
+        <div class="cost-block">
+          <div class="card-section-label">Cost</div>
+          <div class="cost-tiers">
+            <div class="cost-tier">
+              <span class="tier-name">One-time share</span>
+              <span class="tier-price">$100.00</span>
+            </div>
+            <div class="cost-tier">
+              <span class="tier-name">Annual dues</span>
+              <span class="tier-price">$100.00 / yr</span>
+            </div>
+          </div>
+          <div class="cost-note">Share opens capital account at $100. Dues set by Schedule A; 30-day notice before any increase.</div>
+        </div>
+
+        <div>
+          <div class="card-section-label">Rights &amp; Privileges</div>
+          <ul class="rights-list">
+            <li class="highlight">One vote — all cooperative governance matters</li>
+            <li class="highlight">Patronage allocation proportional to participation</li>
+            <li class="highlight">Capital account — grows with retained allocations</li>
+            <li class="highlight">Annual Schedule K-1 (distributive share, IRC §702)</li>
+            <li class="highlight">Tax Distribution — Cooperative covers estimated K-1 tax liability (adopted June 24, 2026)</li>
+            <li>Full financial information rights</li>
+            <li>Right to inspect books and records</li>
+            <li>Participation in surplus distribution</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="card-section-label">Admission</div>
+          <div class="admission-text">By invitation only. Board will not admit without approximately 90 days of established relationship (or such other period as the Board sets by resolution). Board retains discretion to admit or decline.</div>
+        </div>
+
+        <div>
+          <div class="card-section-label">Withdrawal</div>
+          <div class="admission-text">14-day written notice. Settlement at positive capital account balance — not par value — within 90-day target, 3-year outer limit. Obligations under IP, confidentiality, and indemnification survive.</div>
+        </div>
+
+        <div>
+          <div class="card-section-label">Agreement</div>
+          <a class="agreement-badge live" href="/legal/membership-agreement/">Membership Agreement v.2.3 →</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Class Four -->
+    <div class="level-card capital">
+      <div class="card-head">
+        <div class="class-tag">Class Four</div>
+        <div class="level-name">Investor Member</div>
+        <div class="level-sub">Capital contribution · K-1 from investment</div>
+      </div>
+      <div class="card-body">
+
+        <div class="cost-block">
+          <div class="card-section-label">Cost</div>
+          <div class="cost-tiers">
+            <div class="cost-tier">
+              <span class="tier-name">Capital contribution</span>
+              <span class="tier-price tbd">Terms TBD</span>
+            </div>
+            <div class="cost-tier">
+              <span class="tier-name">Membership fee</span>
+              <span class="tier-price">None</span>
+            </div>
+          </div>
+          <div class="cost-note">No annual dues. Returns come from capital account allocations, not patronage. Terms set by Investor Agreement and Schedule A.</div>
+        </div>
+
+        <div>
+          <div class="card-section-label">Rights &amp; Privileges</div>
+          <ul class="rights-list">
+            <li class="highlight">Capital account — allocated returns on investment</li>
+            <li class="highlight">Annual Schedule K-1 (capital allocations, IRC §702)</li>
+            <li class="no">No vote on cooperative governance (unless co-held with Class One)</li>
+            <li class="no">No patronage allocation</li>
+            <li class="no">No annual dues</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="card-section-label">Admission</div>
+          <div class="admission-text">Direct investment — not a progression from other classes. Governed by Investor Agreement. Terms set by Board.</div>
+        </div>
+
+        <div>
+          <div class="card-section-label">Agreement</div>
+          <span class="agreement-badge pending">Investor Agreement — to be drafted</span>
+        </div>
+
+        <div class="status-note">Drafting directed by Board, June 2026. Pending capital mechanics decisions.</div>
+
+      </div>
+    </div>
+
+  </div><!-- /patron grid -->
+
+
+  <!-- ── MEMBER CURVE ── -->
+  <div class="section-divider">The Member Curve</div>
+
+  <div style="background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:2rem;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;text-align:center;">
+
+      <div style="padding:0.75rem 0.5rem;border-right:1px solid var(--line);">
+        <div style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--sky);margin-bottom:0.35rem;">~90 days</div>
+        <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:0.25rem;">Relationship</div>
+        <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">Community or Co-working. Patronage tracked. Relationship established.</div>
+      </div>
+
+      <div style="padding:0.75rem 0.5rem;border-right:1px solid var(--line);">
+        <div style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ember);margin-bottom:0.35rem;">Day 0</div>
+        <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:0.25rem;">Admission</div>
+        <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">Invite accepted. MA signed. $100 share. Capital account opens at $100.</div>
+      </div>
+
+      <div style="padding:0.75rem 0.5rem;border-right:1px solid var(--line);">
+        <div style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ember);margin-bottom:0.35rem;">Annual cycle</div>
+        <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:0.25rem;">Accumulation</div>
+        <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">Patronage tracked. Net profits allocated. K-1 issued. Tax Distribution covers liability. Capital account grows.</div>
+      </div>
+
+      <div style="padding:0.75rem 0.5rem;">
+        <div style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--faint);margin-bottom:0.35rem;">On exit</div>
+        <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:0.25rem;">Withdrawal</div>
+        <div style="font-size:0.75rem;color:var(--muted);line-height:1.5;">14-day notice. Settlement at full capital account balance. 90-day target, 3-year outer limit.</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ── FOOTER LINKS ── -->
+  <div style="border-top:1px solid var(--line);padding-top:1.25rem;display:flex;flex-wrap:wrap;gap:1rem;">
+    <a href="/legal/" style="font-family:var(--mono);font-size:0.78rem;color:var(--muted);text-decoration:none;">← Legal index</a>
+    <a href="/legal/membership-agreement/" style="font-family:var(--mono);font-size:0.78rem;color:var(--sky);text-decoration:none;">Membership Agreement v.2.3 →</a>
+    
+    <a href="/legal/bylaws/" style="font-family:var(--mono);font-size:0.78rem;color:var(--muted);text-decoration:none;">Bylaws v.2 →</a>
+  </div>
+
+<footer style="border-top:1px solid var(--line);margin-top:var(--s8);padding:var(--s5) 0;font-family:var(--mono);font-size:11px;color:var(--muted);">
+  <div style="max-width:780px;margin:0 auto;padding:0 var(--s5);display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);">
+    <span style="color:var(--ember-text);">Techne · RegenHub, LCA</span>
+    <span>1515 Walnut Street · Boulder, Colorado</span>
+    <span>Colorado Limited Cooperative Association</span>
+    <span>SOS No. 20261163853</span>
+    <span><a href="/legal/" style="color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);">← Legal documents</a></span>
+  </div>
+</footer>
+</div><!-- /wrap -->
+</body>
+</html>
