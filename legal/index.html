@@ -2,174 +2,401 @@
 <html lang="en" data-mode="dark">
 <head>
   <script>
-  (function () {
-    var stored = null;
-    try { stored = localStorage.getItem('cis-theme'); } catch(e) {}
-    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-    document.documentElement.setAttribute('data-mode', m);
+  (function(){
+    var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+    var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+    document.documentElement.setAttribute('data-mode',m);
   })();
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Legal Documents · Techne</title>
-  <meta name="description" content="Legal documents of RegenHub, LCA — a Colorado Limited Cooperative Association. Bylaws, Membership Agreement, Participation Framework, and Community Supporter Agreement.">
+  <meta name="description" content="The legal foundation of RegenHub, LCA — articles, bylaws, membership agreement, and participation framework, labeled by status.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --serif:'Libre Baskerville',Georgia,serif;
+      --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+      --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+      --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
+    }
     html[data-mode="dark"] {
-      --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
-      --line: #2A2A30; --rule: #3A3A42;
-      --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
-      --blue: #6A8AC4; --blue-text: #97B5E8; --blue-dim: rgba(106,138,196,0.14);
-      --ember: #C4956A; --ember-text: #D4A57A; --ember-dim: rgba(196,149,106,0.14);
-      --ok: #6A9A6A; --info: #6A8AC4; --warn: #C46A6A;
-      color-scheme: dark;
+      --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;
+      --line:#2A2A30;--rule:#3A3A42;
+      --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
+      --blue:#6A8AC4;--blue-text:#97B5E8;--blue-dim:rgba(106,138,196,0.14);
+      --ember:#C4956A;--ember-text:#D4A57A;--ember-dim:rgba(196,149,106,0.14);
+      --ok:#6A9A6A;--ok-text:#7DAA7D;--ok-dim:rgba(106,154,106,0.14);
+      color-scheme:dark;
     }
     html[data-mode="light"] {
-      --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
-      --line: #D8D3C8; --rule: #9A958A;
-      --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
-      --blue: #4A6FB0; --blue-text: #39588F; --blue-dim: rgba(74,111,176,0.10);
-      --ember: #8A6A4A; --ember-text: #6F5436; --ember-dim: rgba(138,106,74,0.10);
-      --ok: #4A7A4A; --info: #4A6FB0; --warn: #A84F4C;
-      color-scheme: light;
+      --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
+      --line:#D8D3C8;--rule:#9A958A;
+      --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
+      --blue:#4A6FB0;--blue-text:#39588F;--blue-dim:rgba(74,111,176,0.10);
+      --ember:#8A6A4A;--ember-text:#6F5436;--ember-dim:rgba(138,106,74,0.10);
+      --ok:#4A7A4A;--ok-text:#3A6A3A;--ok-dim:rgba(74,122,74,0.10);
+      color-scheme:light;
     }
-    :root {
-      --serif: 'Libre Baskerville', Georgia, serif;
-      --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
-      --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
-      --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0ms!important;}}
+    body{
+      background:var(--bg);color:var(--text);
+      font-family:var(--serif);font-size:17px;line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+      transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--serif);
-      font-size: 15px;
-      line-height: 1.7;
+    em{font-style:italic;color:var(--heading);}
+
+    /* Topbar */
+    .topbar{
+      position:sticky;top:0;z-index:40;
+      display:flex;align-items:center;gap:var(--s5);
+      padding:0 6vw;height:60px;
+      background:color-mix(in srgb,var(--bg) 86%,transparent);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line);
     }
-    .wrap {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 3rem 2rem 6rem;
+    .brand{display:flex;align-items:center;text-decoration:none;flex-shrink:0;}
+    .brand .mark{font-family:var(--serif);font-weight:700;font-size:22px;color:var(--heading);letter-spacing:-0.01em;}
+    .nav-links{display:flex;align-items:center;gap:var(--s4);flex:1;list-style:none;}
+    .nav-links a{
+      font-family:var(--mono);font-size:13px;letter-spacing:0.04em;
+      color:var(--muted);text-decoration:none;padding:4px 0;
+      transition:color var(--micro) var(--ease);
     }
-    .page-header {
-      border-top: 2px solid var(--ember);
-      padding-top: 2rem;
-      margin-bottom: 2.5rem;
+    .nav-links a:hover{color:var(--text);}
+    .nav-links a[aria-current="page"]{color:var(--heading);}
+    .mode-toggle{
+      margin-left:auto;flex-shrink:0;
+      font-family:var(--mono);font-size:12px;color:var(--muted);
+      background:var(--surface);border:1px solid var(--line);border-radius:2px;
+      padding:9px 17px;cursor:pointer;
+      display:flex;align-items:center;gap:8px;
+      transition:border-color var(--micro) var(--ease),color var(--micro) var(--ease);
     }
-    .page-header .org {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--ember-text);
-      margin-bottom: 0.75rem;
+    .mode-toggle:hover{border-color:var(--blue);color:var(--blue-text);}
+    .mode-toggle:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
+    .mode-toggle svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+
+    /* Layout */
+    .wrap{max-width:780px;margin:0 auto;padding:0 var(--s5);}
+
+    /* Page masthead */
+    .page-mast{
+      padding:clamp(56px,8vw,96px) 0 var(--s7);
+      border-bottom:1px solid var(--line);
+      margin-bottom:var(--s7);
     }
-    .page-header h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--heading);
-      margin-bottom: 0.75rem;
-      line-height: 1.2;
+    .kick{
+      font-family:var(--mono);font-size:11px;text-transform:uppercase;
+      letter-spacing:0.16em;color:var(--ember-text);
+      margin-bottom:var(--s3);
     }
-    .page-header .intro {
-      font-size: 0.9rem;
-      color: var(--muted);
-      max-width: 600px;
-      line-height: 1.7;
+    .page-mast h1{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(32px,5vw,48px);line-height:1.15;
+      color:var(--heading);letter-spacing:-0.015em;
+      margin-bottom:var(--s3);
     }
-    .doc-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 2rem;
+    .sub{
+      font-size:18px;line-height:1.65;
+      color:var(--muted);max-width:56ch;
+      margin-bottom:var(--s6);
     }
-    .doc-card {
-      display: block;
-      text-decoration: none;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-left: 3px solid var(--ember);
-      border-radius: 4px;
-      padding: 1.25rem 1.5rem;
-      transition: border-color var(--micro) var(--ease), background var(--micro) var(--ease);
+    .entity-band{
+      display:flex;flex-wrap:wrap;gap:4px var(--s5);
+      font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:0.04em;
+      padding-top:var(--s4);border-top:1px solid var(--line);
     }
-    .doc-card:hover {
-      background: var(--raised);
-      border-left-color: var(--ember-text);
+
+    /* Status chips */
+    .st{
+      display:inline-block;
+      font-family:var(--mono);font-size:9.5px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.14em;
+      padding:3px 8px;border-radius:2px;white-space:nowrap;
     }
-    .doc-card-title {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--ember-text);
-      margin-bottom: 0.3rem;
-      letter-spacing: 0.02em;
+    .st-filed{border:1px solid var(--ok);color:var(--ok-text);}
+    .st-drafted{border:1px solid var(--ember);color:var(--ember-text);}
+    .st-antic{border:1px dashed var(--muted);color:var(--muted);}
+
+    /* Status legend */
+    .status-legend{
+      display:flex;flex-wrap:wrap;gap:var(--s3) var(--s6);
+      margin-bottom:var(--s7);
+      padding:var(--s4) var(--s5);
+      background:var(--inset);border:1px solid var(--line);
     }
-    .doc-card-desc {
-      font-size: 0.87rem;
-      color: var(--muted);
-      line-height: 1.6;
+    .leg-item{
+      display:flex;align-items:baseline;gap:var(--s2);
+      font-family:var(--mono);font-size:11px;color:var(--muted);
     }
-    .doc-card-meta {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      color: var(--faint);
-      margin-top: 0.5rem;
-      letter-spacing: 0.04em;
+
+    /* Document groups */
+    .doc-group{margin-bottom:var(--s7);}
+    .doc-group-head{
+      font-family:var(--mono);font-size:10px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.18em;color:var(--muted);
+      padding-bottom:var(--s3);border-bottom:1px solid var(--rule);
+      margin-bottom:var(--s4);
+    }
+
+    /* Linked document cards */
+    a.doc-card{
+      display:block;text-decoration:none;
+      border:1px solid var(--line);border-left:3px solid var(--ember);
+      padding:var(--s4) var(--s5);margin-bottom:var(--s3);
+      background:var(--surface);
+      transition:background var(--micro) var(--ease),border-left-color var(--micro) var(--ease);
+    }
+    a.doc-card:hover{background:var(--raised);border-left-color:var(--ember-text);}
+    a.doc-card:last-child{margin-bottom:0;}
+    .doc-card-head{
+      display:flex;align-items:baseline;justify-content:space-between;
+      gap:var(--s3);margin-bottom:var(--s2);
+    }
+    .doc-card-title{
+      font-family:var(--mono);font-size:13px;font-weight:500;
+      color:var(--ember-text);letter-spacing:0.02em;
+    }
+    .doc-card-desc{font-size:14px;color:var(--muted);line-height:1.6;}
+    .doc-card-meta{
+      font-family:var(--mono);font-size:11px;color:var(--faint);
+      margin-top:var(--s2);letter-spacing:0.03em;
+    }
+
+    /* Non-linked document items */
+    .doc-item{
+      display:grid;grid-template-columns:1fr auto;
+      gap:var(--s3) var(--s4);align-items:start;
+      padding:var(--s4) 0;border-bottom:1px solid var(--line);
+    }
+    .doc-item:first-of-type{border-top:1px solid var(--line);}
+    .doc-item .di-name{
+      font-family:var(--serif);font-size:15px;color:var(--heading);
+      margin-bottom:4px;
+    }
+    .doc-item .di-note{font-size:13px;color:var(--muted);line-height:1.55;}
+    .doc-item .di-tag{padding-top:2px;}
+
+    /* Coming note */
+    .coming-note{
+      margin-top:var(--s7);
+      padding:var(--s5);
+      background:var(--inset);border:1px solid var(--line);
+      font-size:15px;line-height:1.7;color:var(--muted);
+    }
+    .coming-note p+p{margin-top:var(--s3);}
+
+    /* Footer */
+    footer{
+      background:var(--inset);border-top:1px solid var(--line);
+      margin-top:var(--s8);padding:var(--s7) 0 var(--s8);
+    }
+    .foot-inner{
+      max-width:780px;margin:0 auto;padding:0 var(--s5);
+      display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);
+      font-family:var(--mono);font-size:12px;color:var(--muted);
+    }
+    .ft-brand{color:var(--ember-text);}
+    .foot-fine{
+      max-width:780px;margin:var(--s4) auto 0;padding:0 var(--s5);
+      font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:0.02em;
+    }
+
+    /* Responsive */
+    @media (max-width:600px){
+      body{font-size:16px;}
+      .topbar{padding:0 5vw;}
+      .nav-links{display:none;}
+      .wrap{padding:0 5vw;}
+      .doc-item{grid-template-columns:1fr;}
+      .doc-item .di-tag{padding-top:0;margin-top:var(--s2);}
     }
   </style>
 </head>
 <body>
-<button onclick="(function(){var m=document.documentElement.getAttribute('data-mode')=='dark'?'light':'dark';document.documentElement.setAttribute('data-mode',m);try{localStorage.setItem('cis-theme',m);}catch(e){}})()" style="position:fixed;top:12px;right:12px;z-index:1000;background:var(--surface);border:1px solid var(--line);color:var(--muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;border-radius:3px;letter-spacing:0.06em;" aria-label="Toggle dark/light mode">mode</button>
+
+<header>
+  <div class="topbar">
+    <a class="brand" href="/">
+      <span class="mark">Techne</span>
+    </a>
+    <nav aria-label="Site navigation">
+      <ul class="nav-links">
+        <li><a href="/about/">About</a></li>
+        <li><a href="/membership/">Membership</a></li>
+        <li><a href="/work/">Work</a></li>
+        <li><a href="/journal/">Journal</a></li>
+        <li><a href="/legal/" aria-current="page">Legal</a></li>
+      </ul>
+    </nav>
+    <button class="mode-toggle" id="modeToggle" aria-label="Toggle light and dark mode">
+      <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+      <span id="modeLabel">Light</span>
+    </button>
+  </div>
+</header>
 
 <div class="wrap">
 
-  <div class="page-header">
-    <div class="org">RegenHub, LCA · Colorado Limited Cooperative Association</div>
-    <h1>Legal Documents</h1>
-    <p class="intro">The legal foundation of RegenHub, LCA — a Colorado Limited Cooperative Association.</p>
+  <div class="page-mast">
+    <div class="kick">RegenHub, LCA · Legal Documents</div>
+    <h1>The legal foundation.</h1>
+    <p class="sub">The agreements and filings that constitute the cooperative — organized by layer, labeled by status. Every document says what it is.</p>
+    <div class="entity-band">
+      <span>RegenHub, LCA</span>
+      <span>Colorado Limited Cooperative Association · Public Benefit</span>
+      <span>Filed February 6, 2026</span>
+      <span>SOS No. 20261163853</span>
+    </div>
   </div>
 
-  <div class="doc-cards">
+  <div class="status-legend">
+    <div class="leg-item"><span class="st st-filed">Filed</span> Submitted to state; legally in effect.</div>
+    <div class="leg-item"><span class="st st-drafted">Drafted</span> Document exists; not yet formally ratified.</div>
+    <div class="leg-item"><span class="st st-antic">Anticipated</span> Identified; not yet drafted.</div>
+  </div>
+
+  <!-- Layer 0: Instantiation -->
+  <div class="doc-group">
+    <div class="doc-group-head">Layer 0 · Instantiation — Filed instruments</div>
+
+    <div class="doc-item">
+      <div>
+        <div class="di-name">Articles of Incorporation</div>
+        <div class="di-note">Filed with the Colorado Secretary of State on February 6, 2026. Names the entity, its Public Benefit purpose ("cultivating scenius"), address, and initial directors.</div>
+      </div>
+      <div class="di-tag"><span class="st st-filed">Filed</span></div>
+    </div>
+
+    <div class="doc-item">
+      <div>
+        <div class="di-name">Federal Employer Identification Number (EIN)</div>
+        <div class="di-note">Issued by the IRS. Required for banking, payroll, and tax filings.</div>
+      </div>
+      <div class="di-tag"><span class="st st-filed">Filed</span></div>
+    </div>
+
+    <div class="doc-item">
+      <div>
+        <div class="di-name">Trade Name registration for <em>Techne</em></div>
+        <div class="di-note">DBA filing that makes the public name legally usable alongside RegenHub, LCA.</div>
+      </div>
+      <div class="di-tag"><span class="st st-antic">Anticipated</span></div>
+    </div>
+  </div>
+
+  <!-- Layer 1: Constitution -->
+  <div class="doc-group">
+    <div class="doc-group-head">Layer 1 · Constitution — Governance</div>
 
     <a class="doc-card" href="/legal/bylaws/">
-      <div class="doc-card-title">Bylaws v2.1</div>
-      <div class="doc-card-desc">The governing rules of the cooperative. Ratified July 2026.</div>
-      <div class="doc-card-meta">Colorado ULCAA · C.R.S. Title 7, Art. 58</div>
+      <div class="doc-card-head">
+        <span class="doc-card-title">Bylaws v.2</span>
+        <span class="st st-drafted">Drafted</span>
+      </div>
+      <div class="doc-card-desc">The cooperative's governing rules — member classes, board composition and elections, committee structures, meeting protocols, amendment procedures, and the Subchapter K partnership tax election. Eighteen articles.</div>
+      <div class="doc-card-meta">Colorado ULCAA · C.R.S. Title 7, Art. 58 · Drafted with Jeff Pote (Pote Law Firm) · May 2026</div>
     </a>
+  </div>
+
+  <!-- Layer 2: Contract -->
+  <div class="doc-group">
+    <div class="doc-group-head">Layer 2 · Contract — Member agreements</div>
 
     <a class="doc-card" href="/legal/membership-agreement/">
-      <div class="doc-card-title">Membership Agreement v2.3</div>
-      <div class="doc-card-desc">The agreement between the cooperative and its members. Ratified July 2026.</div>
-      <div class="doc-card-meta">Cooperative Member (Class One) · Patron Track</div>
-    </a>
-
-    <a class="doc-card" href="/legal/participation/">
-      <div class="doc-card-title">Participation Framework</div>
-      <div class="doc-card-desc">How members participate and contribute.</div>
-      <div class="doc-card-meta">Class One through Four · Access &amp; Patron Tracks</div>
+      <div class="doc-card-head">
+        <span class="doc-card-title">Membership Agreement v.2.3</span>
+        <span class="st st-drafted">Drafted</span>
+      </div>
+      <div class="doc-card-desc">The standard contract each cooperative member (Class One — Labor Member) signs on admission. Establishes standing as a Subchapter K partner, capital account, information rights, obligations, and consent to partnership tax treatment.</div>
+      <div class="doc-card-meta">Cooperative Member · Class One · Labor Member · Patron Track</div>
     </a>
 
     <a class="doc-card" href="/legal/community-supporter/">
-      <div class="doc-card-title">Community Supporter Agreement</div>
-      <div class="doc-card-desc">Terms for Class One community supporters.</div>
+      <div class="doc-card-head">
+        <span class="doc-card-title">Community Supporter Agreement</span>
+        <span class="st st-drafted">Drafted</span>
+      </div>
+      <div class="doc-card-desc">A lightweight agreement for people who want to support the cooperative without taking on membership. Confers no membership rights, no vote, and no patronage. Not a membership instrument.</div>
       <div class="doc-card-meta">Contribution Agreement · ULCAA C.R.S. § 7-58-104</div>
     </a>
 
+    <div class="doc-item" style="margin-top:var(--s3);border-top:none;">
+      <div>
+        <div class="di-name">Hub Membership Agreement</div>
+        <div class="di-note">Governs Co-working Members (Class Two) and Community Participants (Class Three). Under review with legal counsel. Not yet published.</div>
+      </div>
+      <div class="di-tag"><span class="st st-drafted">Drafted</span></div>
+    </div>
+
+    <div class="doc-item">
+      <div>
+        <div class="di-name">Investor Member Agreement rider</div>
+        <div class="di-note">Specific terms for the Investor Member class (Class Four). Pending legal work.</div>
+      </div>
+      <div class="di-tag"><span class="st st-antic">Anticipated</span></div>
+    </div>
+  </div>
+
+  <!-- Layer 3: Recognition -->
+  <div class="doc-group">
+    <div class="doc-group-head">Layer 3 · Recognition — Patronage</div>
+
+    <a class="doc-card" href="/legal/participation/">
+      <div class="doc-card-head">
+        <span class="doc-card-title">Participation Framework</span>
+        <span class="st st-drafted">Drafted</span>
+      </div>
+      <div class="doc-card-desc">How members participate in cooperative Programs and how contributions accrue recognition. Covers the six Contribution Primitives, Program archetypes, and the path from contribution to capital account credit.</div>
+      <div class="doc-card-meta">Class One through Class Three · Companion to the Program Stack Patronage Plan v1</div>
+    </a>
+  </div>
+
+  <div class="coming-note">
+    <p>Additional documents are anticipated as the cooperative matures: Program policies for each ratified Program, Coordinator Agreements, board election procedures, a Conflict of Interest policy, and the first Annual Public Benefit Report.</p>
+    <p>Document statuses are updated as instruments are drafted, reviewed, and ratified. The source of truth is this page.</p>
   </div>
 
 </div><!-- /wrap -->
 
-<footer style="border-top:1px solid var(--line);margin-top:var(--s8);padding:var(--s5) 0;font-family:var(--mono);font-size:11px;color:var(--muted);">
-  <div style="max-width:780px;margin:0 auto;padding:0 var(--s5);display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);">
-    <span style="color:var(--ember-text);">Techne · RegenHub, LCA</span>
+<footer>
+  <div class="foot-inner">
+    <span class="ft-brand">Techne · RegenHub, LCA</span>
     <span>1515 Walnut Street · Boulder, Colorado</span>
     <span>Colorado Limited Cooperative Association</span>
+    <span>Public Benefit entity</span>
     <span>SOS No. 20261163853</span>
   </div>
+  <div class="foot-fine">Techne v4 · document grammar · Legal Documents</div>
 </footer>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var btn=document.getElementById('modeToggle');
+  var icon=document.getElementById('modeIcon');
+  var label=document.getElementById('modeLabel');
+  var SUN='<circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="7.05" y2="16.95"/><line x1="16.95" y1="7.05" x2="19.78" y2="4.22"/>';
+  var MOON='<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  function setMode(m){
+    root.setAttribute('data-mode',m);
+    icon.innerHTML=m==='dark'?SUN:MOON;
+    label.textContent=m==='dark'?'Light':'Dark';
+    try{localStorage.setItem('techne-mode',m);}catch(e){}
+  }
+  var stored=null;
+  try{stored=localStorage.getItem('techne-mode');}catch(e){}
+  setMode(stored||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'));
+  btn.addEventListener('click',function(){
+    setMode(root.getAttribute('data-mode')==='dark'?'light':'dark');
+  });
+})();
+</script>
 
 </body>
 </html>
