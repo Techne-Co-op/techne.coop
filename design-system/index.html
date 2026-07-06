@@ -368,7 +368,7 @@
 &lt;body data-auth-required&gt;</pre>
 
     <div class="subhead">Behaviour</div>
-    <p class="note">Self-injects the sticky nav and the site footer on <code>DOMContentLoaded</code>. Reads the Supabase session and shows the initials avatar and display name. The member chip opens a dropdown with <em>Edit Profile</em> and <em>Sign out</em>. The mode toggle writes to <code>localStorage('cis-theme')</code> and sets <code>data-mode</code> on the document. The active section is highlighted from <code>window.location.pathname</code>. <code>data-auth-required</code> on the body redirects unauthenticated visitors to the login route, and <code>window.cisUser</code> is exposed for page scripts that need member context.</p>
+    <p class="note">Self-injects the sticky nav and the site footer on <code>DOMContentLoaded</code>. Reads the Supabase session and shows the initials avatar and display name. The member chip opens a dropdown with <em>Edit Profile</em> and <em>Sign out</em>. The mode toggle writes to <code>localStorage('techne-mode')</code> and sets <code>data-mode</code> on the document. The active section is highlighted from <code>window.location.pathname</code>. <code>data-auth-required</code> on the body redirects unauthenticated visitors to the login route, and <code>window.cisUser</code> is exposed for page scripts that need member context.</p>
   </section>
 
   <!-- COMPONENTS -->
@@ -529,7 +529,7 @@ function Icon({ d, size = <span class="c2">16</span> }) {
     icon.innerHTML = target==='light' ? SUN : MOON;
   }
   var stored=null;
-  try{stored=localStorage.getItem('cis-theme');}catch(e){}
+  try{stored=localStorage.getItem('techne-mode');}catch(e){}
   var m=stored||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
   root.setAttribute('data-mode',m);
   paint(m);
@@ -537,7 +537,7 @@ function Icon({ d, size = <span class="c2">16</span> }) {
     var next=root.getAttribute('data-mode')==='dark'?'light':'dark';
     root.setAttribute('data-mode',next);
     paint(next);
-    try{localStorage.setItem('cis-theme',next);}catch(e){}
+    try{localStorage.setItem('techne-mode',next);}catch(e){}
   });
 })();
 </script>

@@ -10,7 +10,7 @@
 <script>
   (function () {
     var stored = null;
-    try { stored = localStorage.getItem('cis-theme'); } catch(e) {}
+    try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
     var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
     document.documentElement.setAttribute('data-mode', m);
   })();
@@ -738,7 +738,7 @@ document.getElementById('modeToggle').addEventListener('click', function () {
   var cur = document.documentElement.getAttribute('data-mode');
   var next = cur === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-mode', next);
-  try { localStorage.setItem('cis-theme', next); } catch(e) {}
+  try { localStorage.setItem('techne-mode', next); } catch(e) {}
   paintMode();
 });
 
