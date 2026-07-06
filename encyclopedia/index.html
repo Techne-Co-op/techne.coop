@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+  (function(){
+    var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+    var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+    document.documentElement.setAttribute('data-mode',m);
+  })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encyclopedia of Artifacts · Techne</title>
+  <meta name="description" content="The cooperative's named things — policies, practices, roles, agreements, and works — organized into nine shelves by kind. Each entry arrives by a named member's act of accession.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif:'Libre Baskerville',Georgia,serif;
+      --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+      --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+      --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
+      --sun-gold:#EAB668;--sun-amber:#E09A52;--sun-coral:#D1755A;
+      --sun-rose:#B45C7C;--sun-violet:#6E5494;--sun-blue:#5476B8;
+    }
+    html[data-mode="dark"] {
+      --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;
+      --line:#2A2A30;--rule:#3A3A42;
+      --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
+      --blue:#6A8AC4;--blue-text:#97B5E8;--blue-dim:rgba(106,138,196,0.14);
+      --ember:#C4956A;--ember-text:#D4A57A;--ember-dim:rgba(196,149,106,0.14);
+      --sun-gold-t:#EAB668;--sun-amber-t:#E5A562;--sun-coral-t:#DE8872;
+      --sun-rose-t:#CF7C9A;--sun-violet-t:#9E86C4;--sun-blue-t:#8FAEE0;
+      color-scheme:dark;
+    }
+    html[data-mode="light"] {
+      --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
+      --line:#D8D3C8;--rule:#9A958A;
+      --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
+      --blue:#4A6FB0;--blue-text:#39588F;--blue-dim:rgba(74,111,176,0.10);
+      --ember:#8A6A4A;--ember-text:#6F5436;--ember-dim:rgba(138,106,74,0.10);
+      --sun-gold-t:#87621F;--sun-amber-t:#8C581D;--sun-coral-t:#9C4636;
+      --sun-rose-t:#8C3D58;--sun-violet-t:#4C3870;--sun-blue-t:#3A5694;
+      color-scheme:light;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0ms!important;}}
+    body{
+      background:var(--bg);color:var(--text);
+      font-family:var(--serif);font-size:17px;line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+      transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);
+    }
+    em{font-style:italic;color:var(--heading);}
+    a{color:var(--blue-text);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    /* Topbar */
+    .topbar{
+      position:sticky;top:0;z-index:40;
+      display:flex;align-items:center;gap:var(--s5);
+      padding:0 6vw;height:60px;
+      background:color-mix(in srgb,var(--bg) 86%,transparent);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line);
+    }
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
+    .brand .mark{font-family:var(--serif);font-weight:700;font-size:22px;color:var(--heading);letter-spacing:-0.01em;}
+    .nav-links{display:flex;align-items:center;gap:var(--s4);flex:1;list-style:none;}
+    .nav-links a{
+      font-family:var(--mono);font-size:13px;letter-spacing:0.04em;
+      color:var(--muted);text-decoration:none;padding:4px 0;
+      transition:color var(--micro) var(--ease);
+    }
+    .nav-links a:hover{color:var(--text);}
+    .nav-links a[aria-current="page"]{color:var(--heading);}
+    .mode-toggle{
+      margin-left:auto;flex-shrink:0;
+      font-family:var(--mono);font-size:12px;color:var(--muted);
+      background:var(--surface);border:1px solid var(--line);border-radius:2px;
+      padding:9px 17px;cursor:pointer;
+      display:flex;align-items:center;gap:8px;
+      transition:border-color var(--micro) var(--ease),color var(--micro) var(--ease);
+    }
+    .mode-toggle:hover{border-color:var(--blue);color:var(--blue-text);}
+    .mode-toggle:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
+
+    /* Layout */
+    .wrap{max-width:900px;margin:0 auto;padding:0 var(--s5);}
+
+    /* Page masthead */
+    .page-mast{
+      padding:clamp(56px,8vw,96px) 0 var(--s7);
+      border-bottom:1px solid var(--line);
+      margin-bottom:var(--s7);
+    }
+    .kick{
+      font-family:var(--mono);font-size:11px;text-transform:uppercase;
+      letter-spacing:0.16em;color:var(--ember-text);
+      margin-bottom:var(--s3);
+    }
+    .page-mast h1{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(32px,5vw,48px);line-height:1.15;
+      color:var(--heading);letter-spacing:-0.015em;
+      margin-bottom:var(--s3);
+    }
+    .sub{
+      font-size:18px;line-height:1.65;
+      color:var(--muted);max-width:60ch;
+      margin-bottom:var(--s5);
+    }
+    .chips{display:flex;flex-wrap:wrap;gap:var(--s2);margin-bottom:var(--s5);}
+    .chip{
+      font-family:var(--mono);font-size:10px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.12em;
+      padding:5px 10px;border:1px solid var(--line);border-radius:2px;
+      color:var(--faint);background:var(--surface);white-space:nowrap;
+    }
+    .chip.amber{color:var(--ember-text);border-color:var(--ember);}
+    .entity-band{
+      display:flex;flex-wrap:wrap;gap:4px var(--s5);
+      font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:0.04em;
+      padding-top:var(--s4);border-top:1px solid var(--line);
+    }
+
+    /* Address context block */
+    .addr-block{
+      background:var(--inset);border:1px solid var(--line);
+      border-left:3px solid var(--blue);
+      padding:var(--s4) var(--s5);margin-bottom:var(--s7);
+    }
+    .addr-block-label{
+      font-family:var(--mono);font-size:9.5px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.14em;color:var(--blue-text);
+      margin-bottom:var(--s3);
+    }
+    .addr-block p{
+      font-size:14px;line-height:1.65;color:var(--muted);
+    }
+    .addr-block p+p{margin-top:var(--s2);}
+    .addr-block a{color:var(--blue-text);}
+
+    /* Section label */
+    .sec-label{
+      font-family:var(--mono);font-size:10px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.18em;color:var(--muted);
+      padding-bottom:var(--s3);border-bottom:1px solid var(--rule);
+      margin-bottom:var(--s5);
+    }
+
+    /* Shelf grid — 3 × 3 */
+    .shelves{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:var(--s4);
+      margin-bottom:var(--s8);
+    }
+    @media(max-width:720px){.shelves{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:480px){.shelves{grid-template-columns:1fr;}}
+
+    .shelf{
+      border:1px solid var(--line);
+      border-top:2px solid var(--shelf-hue, var(--rule));
+      padding:var(--s4);
+      background:var(--surface);
+      display:flex;flex-direction:column;gap:var(--s2);
+    }
+    .shelf-id{
+      font-family:var(--mono);font-size:9px;font-weight:500;
+      letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--shelf-hue-t, var(--faint));
+    }
+    .shelf h3{
+      font-family:var(--serif);font-weight:700;
+      font-size:17px;line-height:1.25;
+      color:var(--heading);letter-spacing:-0.005em;
+    }
+    .shelf-kingdom{
+      font-family:var(--mono);font-size:10px;letter-spacing:0.08em;
+      text-transform:uppercase;color:var(--faint);
+    }
+    .shelf-desc{
+      font-size:13px;line-height:1.6;color:var(--muted);
+      flex:1;
+    }
+    .shelf-count{
+      font-family:var(--mono);font-size:10px;letter-spacing:0.06em;
+      color:var(--faint);padding-top:var(--s2);
+      border-top:1px solid var(--line);
+      margin-top:auto;
+    }
+    .shelf-count.has-entries{color:var(--shelf-hue-t, var(--ember-text));}
+
+    /* Entry list under a shelf */
+    .entry-list{
+      list-style:none;
+      display:flex;flex-direction:column;gap:4px;
+      margin-top:var(--s2);
+    }
+    .entry-item{
+      display:flex;align-items:baseline;gap:var(--s2);
+    }
+    .entry-no{
+      font-family:var(--mono);font-size:9px;
+      color:var(--faint);flex-shrink:0;min-width:28px;
+    }
+    .entry-name{
+      font-size:12.5px;color:var(--text);line-height:1.4;
+    }
+
+    /* Footer */
+    footer{
+      background:var(--inset);border-top:1px solid var(--line);
+      margin-top:var(--s8);padding:var(--s7) 0 var(--s8);
+    }
+    .foot-inner{
+      max-width:900px;margin:0 auto;padding:0 var(--s5);
+      display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);
+      font-family:var(--mono);font-size:12px;color:var(--muted);
+    }
+    .ft-brand{color:var(--ember-text);}
+    .foot-fine{
+      max-width:900px;margin:var(--s4) auto 0;padding:0 var(--s5);
+      font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:0.02em;
+    }
+
+    @media(max-width:600px){
+      .topbar{padding:0 5vw;}
+      .nav-links{display:none;}
+      .wrap{padding:0 5vw;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <a class="brand" href="/">
+      <span class="mark">Techne</span>
+    </a>
+    <nav aria-label="Site navigation">
+      <ul class="nav-links">
+        <li><a href="/encyclopedia/" aria-current="page">Encyclopedia</a></li>
+        <li><a href="/legal/">Legal</a></li>
+      </ul>
+    </nav>
+    <button class="mode-toggle" id="modeToggle" aria-label="Toggle light and dark mode">
+      <span id="modeLabel">Light</span>
+    </button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="page-mast">
+    <div class="kick">RegenHub, LCA &middot; Techne &middot; Encyclopedia of Artifacts</div>
+    <h1>The named things.</h1>
+    <p class="sub">The cooperative&rsquo;s artifacts &mdash; policies, practices, roles, agreements, and works &mdash; organized into nine shelves by kind. Each entry arrives by accession: a named member&rsquo;s act of placing it on the record.</p>
+    <div class="chips">
+      <span class="chip amber">Blank canvas &middot; accepting accessions</span>
+      <span class="chip">July 2026</span>
+      <span class="chip">Nine shelves</span>
+    </div>
+    <div class="entity-band">
+      <span>RegenHub, LCA &mdash; operating as Techne</span>
+      <span>Boulder, Colorado</span>
+      <span>Colorado Public Benefit LCA</span>
+    </div>
+  </div>
+
+  <div class="addr-block">
+    <div class="addr-block-label">Two addresses &middot; one register</div>
+    <p>This is the production view &mdash; the cooperative&rsquo;s signed record of what it has named and ratified. Entries here have been placed by a named member&rsquo;s deliberate act of accession, not posted automatically.</p>
+    <p>The working register &mdash; where entries are drafted, reviewed, and navigated in a live force graph &mdash; lives at <a href="https://journal.techne.coop/encyclopedia/">journal.techne.coop/encyclopedia</a>. That is the workshop. This is the wall where finished pieces hang.</p>
+  </div>
+
+  <div class="sec-label">Nine shelves &middot; by kind</div>
+
+  <div class="shelves">
+
+    <!-- 1. Catalog -->
+    <div class="shelf" style="--shelf-hue:var(--sun-gold);--shelf-hue-t:var(--sun-gold-t)">
+      <div class="shelf-id">shelf &middot; catalog</div>
+      <h3>The Catalog</h3>
+      <div class="shelf-kingdom">kingdom &middot; meta</div>
+      <p class="shelf-desc">The organizing schema itself: the taxonomy of entry kinds, the shelf structure, the rules of accession. The encyclopedia&rsquo;s own entry in the encyclopedia.</p>
+      <div class="shelf-count">0 entries</div>
+    </div>
+
+    <!-- 2. Founding -->
+    <div class="shelf" style="--shelf-hue:var(--sun-amber);--shelf-hue-t:var(--sun-amber-t)">
+      <div class="shelf-id">shelf &middot; founding</div>
+      <h3>Founding</h3>
+      <div class="shelf-kingdom">kingdom &middot; governance</div>
+      <p class="shelf-desc">Founding-moment artifacts: the articles, the initial intentions, the documents that brought the cooperative into being and named what it hopes to become.</p>
+      <div class="shelf-count">0 entries</div>
+    </div>
+
+    <!-- 3. Governance -->
+    <div class="shelf" style="--shelf-hue:var(--sun-coral);--shelf-hue-t:var(--sun-coral-t)">
+      <div class="shelf-id">shelf &middot; governance</div>
+      <h3>Governance</h3>
+      <div class="shelf-kingdom">kingdom &middot; governance</div>
+      <p class="shelf-desc">How the cooperative governs itself: bylaws, board records, resolutions, policies in effect. The rules the cooperative has ratified and agreed to live by.</p>
+      <div class="shelf-count">0 entries</div>
+    </div>
+
+    <!-- 4. Operating -->
+    <div class="shelf" style="--shelf-hue:var(--sun-rose);--shelf-hue-t:var(--sun-rose-t)">
+      <div class="shelf-id">shelf &middot; operating</div>
+      <h3>Operating</h3>
+      <div class="shelf-kingdom">kingdom &middot; operations</div>
+      <p class="shelf-desc">How the work gets done: procedures, protocols, standards, the tools and platforms the cooperative runs on. Operational ground truth.</p>
+      <div class="shelf-count">0 entries</div>
+    </div>
+
+    <!-- 5. Voice -->
+    <div class="shelf" style="--shelf-hue:var(--sun-violet);--shelf-hue-t:var(--sun-violet-t)">
+      <div class="shelf-id">shelf &middot; voice</div>
+      <h3>Voice</h3>
+      <div class="shelf-kingdom">kingdom &middot; expression</div>
+      <p class="shelf-desc">The cooperative&rsquo;s outward expression: brand, writing, public-facing work. What Techne sounds like and looks like to people outside the workshop.</p>
+      <div class="shelf-count">0 entries</div>
+    </div>
+
+    <!-- 6. Programs -->
+    <div class="shelf" style="--shelf-hue:var(--sun-blue);--shelf-hue-t:var(--sun-blue-t)">
+      <div class="shelf-id">shelf &middot; programs</div>
+      <h3>Programs</h3>
+      <div class="shelf-kingdom">kingdom &middot; work</div>
+      <p class="shelf-desc">Chartered programs: each named body of shared work, with its purpose, its steward, and its conditions for ending well. The units around which patronage accumulates.</p>
+      <div class="shelf-count">0 entries</div>
+    </div>
+
+    <!-- 7. Reading -->
+    <div class="shelf" style="--shelf-hue:var(--sun-gold);--shelf-hue-t:var(--sun-gold-t)">
+      <div class="shelf-id">shelf &middot; reading</div>
+      <h3>Reading</h3>
+      <div class="shelf-kingdom">kingdom &middot; knowledge</div>
+      <p class="shelf-desc">The cooperative&rsquo;s shared intellectual ground: books, papers, essays, and references that have shaped the work. Gathered artifacts, not made ones.</p>
+      <div class="shelf-count">0 entries</div>
+    </div>
+
+    <!-- 8. Agreements -->
+    <div class="shelf" style="--shelf-hue:var(--sun-amber);--shelf-hue-t:var(--sun-amber-t)">
+      <div class="shelf-id">shelf &middot; agreements</div>
+      <h3>Agreements</h3>
+      <div class="shelf-kingdom">kingdom &middot; legal</div>
+      <p class="shelf-desc">Bilateral agreements with members, collaborators, and the world outside. Mutual commitments that have been named, signed, and placed on the record.</p>
+      <div class="shelf-count">0 entries</div>
+    </div>
+
+    <!-- 9. Seasons -->
+    <div class="shelf" style="--shelf-hue:var(--sun-coral);--shelf-hue-t:var(--sun-coral-t)">
+      <div class="shelf-id">shelf &middot; seasons</div>
+      <h3>Seasons</h3>
+      <div class="shelf-kingdom">kingdom &middot; ecological</div>
+      <p class="shelf-desc">Seasonal artifacts: intentions set at each turning, observations of the watershed, the cooperative&rsquo;s relationship to the rhythms of place and time.</p>
+      <div class="shelf-count">0 entries</div>
+    </div>
+
+  </div><!-- /.shelves -->
+
+</div><!-- /.wrap -->
+
+<footer>
+  <div class="foot-inner">
+    <span class="ft-brand">Techne</span>
+    <span>&middot;</span>
+    <span>Encyclopedia of Artifacts</span>
+    <span>&middot;</span>
+    <a href="/legal/">Legal</a>
+    <span>&middot;</span>
+    <a href="https://journal.techne.coop/encyclopedia/">Working register &rarr;</a>
+  </div>
+  <div class="foot-fine">
+    RegenHub, LCA, operating as Techne &middot; Colorado Public Benefit Limited Cooperative Association &middot; Boulder, CO &middot; July 2026
+  </div>
+</footer>
+
+<script>
+(function(){
+  var btn = document.getElementById('modeToggle');
+  var lbl = document.getElementById('modeLabel');
+  function apply(m) {
+    document.documentElement.setAttribute('data-mode', m);
+    lbl.textContent = (m === 'dark') ? 'Light' : 'Dark';
+  }
+  btn.addEventListener('click', function(){
+    var next = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try { localStorage.setItem('techne-mode', next); } catch(e) {}
+  });
+  // Set label to match initial mode (already applied in <head>)
+  var cur = document.documentElement.getAttribute('data-mode') || 'dark';
+  lbl.textContent = (cur === 'dark') ? 'Light' : 'Dark';
+})();
+</script>
+
+</body>
+</html>
