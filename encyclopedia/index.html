@@ -196,19 +196,34 @@
     /* Entry list under a shelf */
     .entry-list{
       list-style:none;
-      display:flex;flex-direction:column;gap:4px;
+      display:flex;flex-direction:column;
+      border-top:1px solid var(--line);
       margin-top:var(--s2);
+      padding-top:var(--s2);
+      gap:var(--s2);
     }
     .entry-item{
-      display:flex;align-items:baseline;gap:var(--s2);
+      display:flex;flex-direction:column;gap:2px;
     }
-    .entry-no{
-      font-family:var(--mono);font-size:9px;
-      color:var(--faint);flex-shrink:0;min-width:28px;
+    .entry-item-head{
+      display:flex;align-items:baseline;justify-content:space-between;gap:var(--s2);
     }
     .entry-name{
-      font-size:12.5px;color:var(--text);line-height:1.4;
+      font-size:12.5px;color:var(--text);line-height:1.4;flex:1;
     }
+    .entry-name a{color:var(--heading);text-decoration:none;}
+    .entry-name a:hover{text-decoration:underline;color:var(--blue-text);}
+    .entry-note{font-size:11px;color:var(--faint);line-height:1.45;}
+    /* Status tags — reused from legal */
+    .st{
+      display:inline-block;flex-shrink:0;
+      font-family:var(--mono);font-size:8.5px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.12em;
+      padding:2px 6px;border-radius:2px;white-space:nowrap;
+    }
+    .st-filed{border:1px solid var(--ok);color:var(--ok, #6A9A6A);}
+    .st-drafted{border:1px solid var(--ember);color:var(--ember-text);}
+    .st-antic{border:1px dashed var(--muted);color:var(--muted);}
 
     /* Footer */
     footer{
@@ -259,9 +274,9 @@
     <h1>The named things.</h1>
     <p class="sub">The cooperative&rsquo;s artifacts &mdash; policies, practices, roles, agreements, and works &mdash; organized into nine shelves by kind. Each entry arrives by accession: a named member&rsquo;s act of placing it on the record.</p>
     <div class="chips">
-      <span class="chip amber">Blank canvas &middot; accepting accessions</span>
-      <span class="chip">July 2026</span>
+      <span class="chip amber">Founding artifacts staged &middot; July 6, 2026</span>
       <span class="chip">Nine shelves</span>
+      <span class="chip">9 entries &middot; 3 shelves active</span>
     </div>
     <div class="entity-band">
       <span>RegenHub, LCA &mdash; operating as Techne</span>
@@ -295,7 +310,30 @@
       <h3>Founding</h3>
       <div class="shelf-kingdom">kingdom &middot; governance</div>
       <p class="shelf-desc">Founding-moment artifacts: the articles, the initial intentions, the documents that brought the cooperative into being and named what it hopes to become.</p>
-      <div class="shelf-count">0 entries</div>
+      <ul class="entry-list">
+        <li class="entry-item">
+          <div class="entry-item-head">
+            <span class="entry-name">Articles of Incorporation</span>
+            <span class="st st-filed">Filed</span>
+          </div>
+          <div class="entry-note">Filed with the Colorado Secretary of State · February 6, 2026 · SOS No. 20261163853</div>
+        </li>
+        <li class="entry-item">
+          <div class="entry-item-head">
+            <span class="entry-name">Federal EIN</span>
+            <span class="st st-filed">Filed</span>
+          </div>
+          <div class="entry-note">Employer Identification Number issued by the IRS. Required for banking, payroll, and tax filings.</div>
+        </li>
+        <li class="entry-item">
+          <div class="entry-item-head">
+            <span class="entry-name">Trade Name &ldquo;Techne&rdquo;</span>
+            <span class="st st-antic">Anticipated</span>
+          </div>
+          <div class="entry-note">DBA registration making the public name legally usable alongside RegenHub, LCA.</div>
+        </li>
+      </ul>
+      <div class="shelf-count has-entries">3 entries</div>
     </div>
 
     <!-- 3. Governance -->
@@ -304,7 +342,23 @@
       <h3>Governance</h3>
       <div class="shelf-kingdom">kingdom &middot; governance</div>
       <p class="shelf-desc">How the cooperative governs itself: bylaws, board records, resolutions, policies in effect. The rules the cooperative has ratified and agreed to live by.</p>
-      <div class="shelf-count">0 entries</div>
+      <ul class="entry-list">
+        <li class="entry-item">
+          <div class="entry-item-head">
+            <span class="entry-name"><a href="/legal/bylaws/">Bylaws v.2</a></span>
+            <span class="st st-drafted">Drafted</span>
+          </div>
+          <div class="entry-note">Eighteen articles governing member classes, board composition, meetings, amendments, and Subchapter K tax election. Drafted with counsel May 2026.</div>
+        </li>
+        <li class="entry-item">
+          <div class="entry-item-head">
+            <span class="entry-name"><a href="/legal/participation/">Participation Framework</a></span>
+            <span class="st st-drafted">Drafted</span>
+          </div>
+          <div class="entry-note">How members participate in Programs and how contributions accrue recognition. Six Contribution Primitives, Program archetypes, path to capital account credit.</div>
+        </li>
+      </ul>
+      <div class="shelf-count has-entries">2 entries</div>
     </div>
 
     <!-- 4. Operating -->
@@ -349,7 +403,37 @@
       <h3>Agreements</h3>
       <div class="shelf-kingdom">kingdom &middot; legal</div>
       <p class="shelf-desc">Bilateral agreements with members, collaborators, and the world outside. Mutual commitments that have been named, signed, and placed on the record.</p>
-      <div class="shelf-count">0 entries</div>
+      <ul class="entry-list">
+        <li class="entry-item">
+          <div class="entry-item-head">
+            <span class="entry-name"><a href="/legal/membership-agreement/">Membership Agreement v.2.3</a></span>
+            <span class="st st-drafted">Drafted</span>
+          </div>
+          <div class="entry-note">Standard contract for Class One Labor Members. Establishes Subchapter K partnership standing, capital account, information rights, and obligations.</div>
+        </li>
+        <li class="entry-item">
+          <div class="entry-item-head">
+            <span class="entry-name"><a href="/legal/community-supporter/">Community Supporter Agreement</a></span>
+            <span class="st st-drafted">Drafted</span>
+          </div>
+          <div class="entry-note">Lightweight agreement for supporters without membership standing. No vote, no patronage. Not a membership instrument.</div>
+        </li>
+        <li class="entry-item">
+          <div class="entry-item-head">
+            <span class="entry-name">Hub Membership Agreement</span>
+            <span class="st st-drafted">Drafted</span>
+          </div>
+          <div class="entry-note">Governs Co-working Members (Class Two) and Community Participants (Class Three). Under review with counsel. Not yet published.</div>
+        </li>
+        <li class="entry-item">
+          <div class="entry-item-head">
+            <span class="entry-name">Investor Member Agreement</span>
+            <span class="st st-antic">Anticipated</span>
+          </div>
+          <div class="entry-note">Terms for the Investor Member class (Class Four). Pending legal work.</div>
+        </li>
+      </ul>
+      <div class="shelf-count has-entries">4 entries</div>
     </div>
 
     <!-- 9. Seasons -->
