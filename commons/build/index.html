@@ -584,7 +584,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       </div>
       <div class="packet-row">
         <span class="pkt-addr">D-01</span>
-        <span class="pkt-intent">SMTP for CIS auth email: current Supabase shared SMTP is rate-limited to 2 emails/hr/IP and unbranded. Requires host, user, password, and sender address for mail@techne.coop or equivalent. Unblocks BEL-02.</span>
+        <span class="pkt-intent">SMTP for CIS auth email: current Supabase shared SMTP is rate-limited to 2 emails/hr/IP and unbranded. Requires host, user, password, and a sender address (techne.coop domain or existing org address). Unblocks BEL-02.</span>
         <span><span class="chip open"><span class="dot"></span>open</span></span>
         <span class="pkt-cites">Unblocks: BEL-02</span>
       </div>
@@ -612,7 +612,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
 
       <div class="decision-card">
         <div class="dc-addr">D-01 &middot; SMTP</div>
-        <div class="dc-q">Which email provider and credentials for mail@techne.coop on the CIS Supabase project?</div>
+        <div class="dc-q">Which sender address and SMTP provider should be used for CIS auth email? No techne.coop email address currently exists.</div>
         <div class="dc-unblocks">Unblocks &rarr; BEL-02 (digital signing)</div>
       </div>
 
@@ -692,8 +692,8 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
         <div class="loop-esc-rows">
           <div class="loop-esc-row"><span class="loop-esc-field">standing in</span><span class="loop-esc-val">BEL-02 &middot; membership agreement signing</span></div>
           <div class="loop-esc-row"><span class="loop-esc-field">found</span><span class="loop-esc-val">CIS Supabase (dgcoffcanzwsuwgpocbt) uses shared Supabase SMTP. Rate limit: 2 emails / hr / IP. Templates unbranded. Cannot be customized on free tier without custom SMTP.</span></div>
-          <div class="loop-esc-row"><span class="loop-esc-field">the question</span><span class="loop-esc-val">Which SMTP provider and credentials should be configured for the CIS project? A techne.coop sender address is preferred for member trust.</span></div>
-          <div class="loop-esc-row"><span class="loop-esc-field">a default</span><span class="loop-esc-val">PrivateEmail (matching the Workshop Supabase setup at mail.privateemail.com:465) with a mail@techne.coop sender. Requires domain DNS access and account credentials from Todd.</span></div>
+          <div class="loop-esc-row"><span class="loop-esc-field">the question</span><span class="loop-esc-val">Which sender address and SMTP provider should be used? No techne.coop email address currently exists. Options: (a) provision one, (b) use an existing org address, (c) use a transactional service (Resend, Postmark) with a verified domain.</span></div>
+          <div class="loop-esc-row"><span class="loop-esc-field">a default</span><span class="loop-esc-val">Resend with techne.coop DNS verification: add one DKIM record, use a noreply@techne.coop sender, free tier covers 3,000 emails/month. No mailbox required. Todd confirms DNS access and Resend account or preference.</span></div>
         </div>
       </div>
     </div>
