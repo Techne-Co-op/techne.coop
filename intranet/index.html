@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intranet · Techne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try { var m = localStorage.getItem('techne-mode'); if (m) document.documentElement.setAttribute('data-mode', m); } catch(e) {}
+  })();
+</script>
+<style>
+/* ============================================================
+   Techne v4 tokens
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --blue-dim: rgba(106, 138, 196, 0.14);
+  --ember-dim: rgba(196, 149, 106, 0.14);
+  --ok: #6A9A6A; --warn: #C46A6A;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --blue-dim: rgba(74, 111, 176, 0.10);
+  --ember-dim: rgba(138, 106, 74, 0.10);
+  --ok: #4A7A4A; --warn: #A84F4C;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.65;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ---- top bar ---- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--s5);
+  height: 48px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.topbar-brand {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ember);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+.mode-btn {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--line);
+  padding: 3px 10px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+.mode-btn:hover { color: var(--ember); border-color: var(--ember); }
+
+/* ---- auth gate ---- */
+.auth-gate {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s7) var(--s5);
+}
+.auth-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: var(--s7) var(--s8);
+  max-width: 440px;
+  width: 100%;
+}
+.auth-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--ember);
+  text-transform: uppercase;
+  margin-bottom: var(--s3);
+  display: block;
+}
+.auth-heading {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  color: var(--heading);
+  font-weight: 400;
+  margin-bottom: var(--s3);
+  line-height: 1.3;
+}
+.auth-body {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: var(--s6);
+  line-height: 1.6;
+}
+.field {
+  margin-bottom: var(--s4);
+}
+.field label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-bottom: var(--s2);
+}
+.field input {
+  width: 100%;
+  background: var(--inset);
+  border: 1px solid var(--line);
+  color: var(--heading);
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  padding: 10px var(--s3);
+  outline: none;
+  transition: border-color var(--micro) var(--ease);
+}
+.field input:focus { border-color: var(--blue); }
+.field input::placeholder { color: var(--faint); }
+.btn-primary {
+  width: 100%;
+  background: var(--ember-dim);
+  border: 1px solid var(--ember);
+  color: var(--ember-text);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  padding: 11px;
+  cursor: pointer;
+  margin-top: var(--s2);
+  transition: background var(--micro) var(--ease);
+}
+.btn-primary:hover { background: rgba(196, 149, 106, 0.25); }
+.btn-primary:disabled { opacity: 0.4; cursor: default; }
+.auth-status {
+  margin-top: var(--s4);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  min-height: 1.4em;
+}
+.auth-status.ok { color: var(--ok); }
+.auth-status.err { color: var(--warn); }
+.auth-status.info { color: var(--muted); }
+
+/* ---- intranet shell (shown when authed) ---- */
+.intranet-shell { display: none; flex: 1; }
+.intranet-shell.visible { display: flex; }
+
+.intranet-nav {
+  width: 200px;
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  padding: var(--s5) 0;
+  flex-shrink: 0;
+}
+.intranet-nav .nav-section {
+  padding: var(--s2) var(--s4);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  text-transform: uppercase;
+  margin-top: var(--s4);
+}
+.intranet-nav a {
+  display: block;
+  padding: 7px var(--s4);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: color var(--micro) var(--ease), background var(--micro) var(--ease);
+}
+.intranet-nav a:hover, .intranet-nav a.active {
+  color: var(--ember);
+  background: var(--ember-dim);
+}
+.intranet-nav a.active { border-left: 2px solid var(--ember); padding-left: calc(var(--s4) - 2px); }
+
+.intranet-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--s6) var(--s7);
+}
+
+.page-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--ember);
+  text-transform: uppercase;
+  margin-bottom: var(--s2);
+}
+.page-title {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--heading);
+  font-weight: 400;
+  margin-bottom: var(--s5);
+  line-height: 1.25;
+}
+
+.member-strip {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: var(--s4) var(--s5);
+  margin-bottom: var(--s6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  flex-wrap: wrap;
+}
+.member-email {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--heading);
+}
+.member-role {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+.signout-btn {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--line);
+  padding: 4px 10px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+.signout-btn:hover { color: var(--warn); border-color: var(--warn); }
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--s4);
+  margin-bottom: var(--s7);
+}
+.dash-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: var(--s5);
+}
+.dash-card .card-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  text-transform: uppercase;
+  margin-bottom: var(--s2);
+}
+.dash-card .card-value {
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  color: var(--ember);
+  line-height: 1.2;
+}
+.dash-card .card-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-top: var(--s2);
+  line-height: 1.5;
+}
+.dash-card.planned {
+  border-style: dashed;
+  opacity: 0.6;
+}
+
+.section-head {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--ember);
+  text-transform: uppercase;
+  padding-bottom: var(--s2);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--s4);
+}
+
+.notice {
+  background: var(--surface);
+  border-left: 3px solid var(--blue);
+  padding: var(--s3) var(--s4);
+  margin-bottom: var(--s4);
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+.notice strong { color: var(--blue-text); }
+
+.agent-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s3) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.85rem;
+}
+.agent-row:last-child { border-bottom: none; }
+.agent-kind {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  color: var(--faint);
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  min-width: 60px;
+  text-align: center;
+}
+.agent-name { color: var(--heading); flex: 1; }
+
+/* ---- footer ---- */
+footer {
+  border-top: 1px solid var(--line);
+  padding: var(--s4) var(--s5);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--faint);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  background: var(--surface);
+}
+
+@media (max-width: 640px) {
+  .auth-card { padding: var(--s5); }
+  .intranet-shell { flex-direction: column; }
+  .intranet-nav { width: 100%; border-right: none; border-bottom: 1px solid var(--line); padding: var(--s3) 0; display: flex; flex-wrap: wrap; }
+  .intranet-nav .nav-section { display: none; }
+  .intranet-nav a { padding: var(--s2) var(--s3); font-size: 0.72rem; }
+  .intranet-main { padding: var(--s4); }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="https://techne.coop" class="topbar-brand">Techne · intranet</a>
+  <div class="topbar-right">
+    <span id="topbar-status" style="font-family:var(--mono);font-size:0.68rem;color:var(--faint)"></span>
+    <button class="mode-btn" onclick="toggleMode()">◐</button>
+  </div>
+</div>
+
+<!-- ====== AUTH GATE ====== -->
+<div class="auth-gate" id="auth-gate">
+  <div class="auth-card">
+    <span class="auth-label">Techne · RegenHub, LCA</span>
+    <h1 class="auth-heading">Member intranet</h1>
+    <p class="auth-body">For cooperative members. Enter your email address — we'll send a sign-in link. No password to manage.</p>
+
+    <div id="login-form">
+      <div class="field">
+        <label for="email-input">EMAIL ADDRESS</label>
+        <input type="email" id="email-input" placeholder="you@example.com" autocomplete="email" />
+      </div>
+      <button class="btn-primary" id="login-btn" onclick="sendMagicLink()">Send sign-in link</button>
+      <div class="auth-status info" id="auth-status"></div>
+    </div>
+
+    <div id="link-sent" style="display:none">
+      <p style="color:var(--ok);font-family:var(--mono);font-size:0.85rem;margin-bottom:var(--s3)">✓ Sign-in link sent.</p>
+      <p style="font-size:0.85rem;color:var(--muted)">Check your email and click the link to continue. You can close this tab.</p>
+      <button style="margin-top:var(--s4);background:none;border:none;color:var(--muted);font-family:var(--mono);font-size:0.75rem;cursor:pointer;text-decoration:underline" onclick="document.getElementById('login-form').style.display='';document.getElementById('link-sent').style.display='none'">Send another link</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== INTRANET SHELL (shown when authenticated) ====== -->
+<div class="intranet-shell" id="intranet-shell">
+  <nav class="intranet-nav">
+    <div class="nav-section">Cooperative</div>
+    <a href="#" class="active" onclick="showSection('dashboard',this)">Dashboard</a>
+    <a href="#" onclick="showSection('agreements',this)">Agreements</a>
+    <a href="#" onclick="showSection('agents',this)">Members</a>
+    <div class="nav-section">Records</div>
+    <a href="#" onclick="showSection('treasury',this)">Treasury</a>
+    <a href="#" onclick="showSection('bylaws',this)">Bylaws</a>
+    <div class="nav-section">Reference</div>
+    <a href="../" style="color:var(--faint)">← techne.coop</a>
+    <a href="https://techne-co-op.github.io/cis-reference/" target="_blank" style="color:var(--faint)">CIS Reference ↗</a>
+  </nav>
+
+  <main class="intranet-main">
+
+    <!-- DASHBOARD -->
+    <div id="section-dashboard">
+      <div class="page-label">Techne · RegenHub, LCA</div>
+      <h1 class="page-title">Intranet</h1>
+
+      <div class="member-strip">
+        <div>
+          <div class="member-email" id="member-email">—</div>
+          <div class="member-role" id="member-role">checking role…</div>
+        </div>
+        <button class="signout-btn" onclick="signOut()">Sign out</button>
+      </div>
+
+      <div class="notice">
+        <strong>Phase 1 in progress.</strong> Auth is live. Member directory, capital accounts, and governance surfaces are being built. Data you see here comes directly from the CIS (dgcoffcanzwsuwgpocbt).
+      </div>
+
+      <div class="dash-grid">
+        <div class="dash-card">
+          <div class="card-label">Agents in CIS</div>
+          <div class="card-value" id="stat-agents">—</div>
+          <div class="card-desc">Natural persons, legal entities, and AI agents registered in the cooperative's information system.</div>
+        </div>
+        <div class="dash-card">
+          <div class="card-label">Bylaws sections</div>
+          <div class="card-value" id="stat-sections">—</div>
+          <div class="card-desc">Clauses of Bylaws v2 loaded with stable addresses. Draft — not yet ratified.</div>
+        </div>
+        <div class="dash-card">
+          <div class="card-label">Agreements</div>
+          <div class="card-value" id="stat-agreements">—</div>
+          <div class="card-desc">Documents in the CIS agreements repository. Bylaws v2 is the current record.</div>
+        </div>
+        <div class="dash-card planned">
+          <div class="card-label">Capital accounts</div>
+          <div class="card-value">—</div>
+          <div class="card-desc">Phase 2. Per-member capital balances, patronage allocation, and K-1 data.</div>
+        </div>
+        <div class="dash-card planned">
+          <div class="card-label">Next meeting</div>
+          <div class="card-value">—</div>
+          <div class="card-desc">Phase 3. Meeting calendar, notices, and quorum tracking.</div>
+        </div>
+        <div class="dash-card planned">
+          <div class="card-label">Open motions</div>
+          <div class="card-value">—</div>
+          <div class="card-desc">Phase 3. Votes, consents, and governance decisions in flight.</div>
+        </div>
+      </div>
+
+      <div class="section-head">Registered Agents</div>
+      <div id="agents-list">Loading…</div>
+    </div>
+
+    <!-- AGREEMENTS -->
+    <div id="section-agreements" style="display:none">
+      <div class="page-label">CIS · Agreements</div>
+      <h1 class="page-title">Agreements</h1>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s5)">Bylaws, membership agreements, and other governing documents. Bylaws v2 is currently in draft.</p>
+      <div id="agreements-list">Loading…</div>
+    </div>
+
+    <!-- AGENTS -->
+    <div id="section-agents" style="display:none">
+      <div class="page-label">CIS · Agents</div>
+      <h1 class="page-title">Members</h1>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s5)">Directory of agents in the cooperative information system. Visibility governed by §1.7.</p>
+      <div id="members-list">Loading…</div>
+    </div>
+
+    <!-- TREASURY -->
+    <div id="section-treasury" style="display:none">
+      <div class="page-label">Treasury</div>
+      <h1 class="page-title">Financial statements</h1>
+      <div class="notice"><strong>Phase 2 planned.</strong> Capital accounts and treasury integration are being built. Monthly statements are available in the legacy intranet during the transition.</div>
+      <p style="color:var(--muted);font-size:0.9rem;margin-top:var(--s4)">
+        June 2026 statement: <a href="https://techne.institute/intranet/treasury/statements/2026-06.html" style="color:var(--blue-text)">techne.institute ↗</a>
+      </p>
+    </div>
+
+    <!-- BYLAWS -->
+    <div id="section-bylaws" style="display:none">
+      <div class="page-label">CIS · Bylaws</div>
+      <h1 class="page-title">Bylaws v2</h1>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s4)">Full text of Bylaws v2 — 187 sections with stable addresses. Loaded directly from the CIS database.</p>
+      <div class="notice"><strong>Draft status.</strong> Not yet ratified. Two known issues tracked in CIS metadata.</div>
+      <p style="margin-top:var(--s4);font-size:0.9rem;color:var(--muted)">
+        Browse the full bylaws: <a href="https://techne-co-op.github.io/cis-reference/bylaws.html" style="color:var(--blue-text)">CIS Reference → Bylaws ↗</a>
+      </p>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <span>Techne intranet · RegenHub, LCA · Boulder, Colorado</span>
+  <span>CIS: dgcoffcanzwsuwgpocbt · Phase 1</span>
+</footer>
+
+<!-- Supabase JS client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL = 'https://dgcoffcanzwsuwgpocbt.supabase.co';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnY29mZmNhbnp3c3V3Z3BvY2J0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyMjE5MzYsImV4cCI6MjA5Njc5NzkzNn0.UYmAI7RrvC_5-ZD6TQKLzfShL06QsiPMszhq-YzbwLY';
+
+const supabase = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
+
+// ---- Auth state ----
+async function init() {
+  // Handle magic link token in URL
+  const { data: { session }, error } = await supabase.auth.getSession();
+  if (session) {
+    showIntranet(session.user);
+  } else {
+    showGate();
+  }
+
+  // Listen for auth state changes (magic link redirect)
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (session) {
+      showIntranet(session.user);
+    } else {
+      showGate();
+    }
+  });
+}
+
+function showGate() {
+  document.getElementById('auth-gate').style.display = 'flex';
+  document.getElementById('intranet-shell').classList.remove('visible');
+  document.getElementById('topbar-status').textContent = '';
+}
+
+async function showIntranet(user) {
+  document.getElementById('auth-gate').style.display = 'none';
+  document.getElementById('intranet-shell').classList.add('visible');
+  document.getElementById('member-email').textContent = user.email || user.id.slice(0,8);
+  document.getElementById('topbar-status').textContent = user.email || '';
+
+  // Load CIS data
+  loadDashboardData(user);
+}
+
+async function sendMagicLink() {
+  const email = document.getElementById('email-input').value.trim();
+  const btn = document.getElementById('login-btn');
+  const status = document.getElementById('auth-status');
+
+  if (!email) { status.textContent = 'Enter an email address.'; status.className = 'auth-status err'; return; }
+
+  btn.disabled = true;
+  status.textContent = 'Sending…';
+  status.className = 'auth-status info';
+
+  const redirectTo = window.location.href.split('?')[0].split('#')[0];
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: redirectTo }
+  });
+
+  if (error) {
+    status.textContent = error.message;
+    status.className = 'auth-status err';
+    btn.disabled = false;
+  } else {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('link-sent').style.display = '';
+  }
+}
+
+async function signOut() {
+  await supabase.auth.signOut();
+  showGate();
+}
+
+// ---- CIS data ----
+async function loadDashboardData(user) {
+  // Get the user's session token for auth'd requests
+  const { data: { session } } = await supabase.auth.getSession();
+  const token = session?.access_token || ANON_KEY;
+
+  async function fetchWithAuth(path) {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+      headers: {
+        'apikey': ANON_KEY,
+        'Authorization': `Bearer ${token}`,
+        'Prefer': 'count=exact',
+        'Range': '0-0'
+      }
+    });
+    const range = r.headers.get('content-range');
+    return range ? parseInt((range.match(/\/(\d+)/) || [])[1] || 0) : 0;
+  }
+
+  async function fetchData(path) {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+      headers: {
+        'apikey': ANON_KEY,
+        'Authorization': `Bearer ${token}`,
+      }
+    });
+    return r.json();
+  }
+
+  try {
+    // Stat chips
+    const [agentCount, sectionCount, agreementCount] = await Promise.all([
+      fetchWithAuth('agents?select=id'),
+      fetchWithAuth('agreement_sections?select=id'),
+      fetchWithAuth('agreements?select=id'),
+    ]);
+    document.getElementById('stat-agents').textContent = agentCount || '—';
+    document.getElementById('stat-sections').textContent = sectionCount || '—';
+    document.getElementById('stat-agreements').textContent = agreementCount || '—';
+
+    // Member role check
+    const roleData = await fetchData('role_assignments?select=role,agent_id&limit=50');
+    let memberRole = 'authenticated';
+    if (Array.isArray(roleData)) {
+      // Show roles if visible (directors/admins only)
+      if (roleData.length > 0) memberRole = roleData.map(r => r.role).join(' · ');
+    }
+    document.getElementById('member-role').textContent = memberRole;
+
+    // Agents list
+    const agents = await fetchData('agents?select=id,kind,display_name&order=created_at.asc&limit=50');
+    const agentsList = document.getElementById('agents-list');
+    if (Array.isArray(agents) && agents.length > 0) {
+      agentsList.innerHTML = agents.map(a => `
+        <div class="agent-row">
+          <span class="agent-kind">${a.kind}</span>
+          <span class="agent-name">${a.display_name}</span>
+        </div>
+      `).join('');
+    } else {
+      agentsList.innerHTML = '<p style="color:var(--muted);font-size:0.85rem;font-family:var(--mono)">No agents visible at your access level.</p>';
+    }
+
+  } catch(e) {
+    console.warn('CIS load error:', e);
+  }
+}
+
+// Section navigation
+const sections = ['dashboard', 'agreements', 'agents', 'treasury', 'bylaws'];
+
+function showSection(id, linkEl) {
+  sections.forEach(s => {
+    const el = document.getElementById('section-' + s);
+    if (el) el.style.display = s === id ? '' : 'none';
+  });
+  document.querySelectorAll('.intranet-nav a').forEach(a => a.classList.remove('active'));
+  if (linkEl) linkEl.classList.add('active');
+
+  // Lazy-load section data
+  if (id === 'agreements') loadAgreements();
+  if (id === 'agents') loadAgents();
+}
+
+async function loadAgreements() {
+  const { data: { session } } = await supabase.auth.getSession();
+  const token = session?.access_token || ANON_KEY;
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/agreements?select=*&order=effective_at.desc`, {
+    headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${token}` }
+  });
+  const data = await r.json();
+  const el = document.getElementById('agreements-list');
+  if (!Array.isArray(data) || data.length === 0) {
+    el.innerHTML = '<p style="color:var(--muted);font-family:var(--mono);font-size:0.82rem">No agreements visible at your access level.</p>';
+    return;
+  }
+  el.innerHTML = data.map(a => `
+    <div style="background:var(--surface);border:1px solid var(--line);padding:var(--s4) var(--s5);margin-bottom:var(--s3)">
+      <div style="font-family:var(--mono);font-size:0.7rem;color:var(--ember);margin-bottom:var(--s1)">${a.kind} · ${a.version || 'v1'}</div>
+      <div style="color:var(--heading);font-size:0.95rem;margin-bottom:var(--s2)">${a.title}</div>
+      <div style="font-family:var(--mono);font-size:0.68rem;color:var(--muted)">
+        Effective: ${a.effective_at ? a.effective_at.slice(0,10) : '—'}
+        · Status: ${a.metadata?.status || '—'}
+        ${a.document_uri ? ` · <a href="${a.document_uri}" style="color:var(--blue-text)" target="_blank">Document ↗</a>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+async function loadAgents() {
+  const { data: { session } } = await supabase.auth.getSession();
+  const token = session?.access_token || ANON_KEY;
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/agents?select=id,kind,display_name,email,created_at&order=created_at.asc`, {
+    headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${token}` }
+  });
+  const data = await r.json();
+  const el = document.getElementById('members-list');
+  if (!Array.isArray(data) || data.length === 0) {
+    el.innerHTML = '<p style="color:var(--muted);font-family:var(--mono);font-size:0.82rem">No agents visible at your access level. §1.7 — members\' inspection rights govern directory visibility.</p>';
+    return;
+  }
+  el.innerHTML = data.map(a => `
+    <div class="agent-row">
+      <span class="agent-kind">${a.kind}</span>
+      <span class="agent-name">${a.display_name}${a.email ? ` <span style="color:var(--muted);font-size:0.8em">${a.email}</span>` : ''}</span>
+      <span style="font-family:var(--mono);font-size:0.65rem;color:var(--faint)">${a.created_at ? a.created_at.slice(0,10) : ''}</span>
+    </div>
+  `).join('');
+}
+
+// Theme
+function toggleMode() {
+  const html = document.documentElement;
+  const next = html.dataset.mode === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-mode', next);
+  try { localStorage.setItem('techne-mode', next); } catch(e) {}
+}
+
+// Boot
+init();
+</script>
+</body>
+</html>
