@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-mode="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
 <script>
   (function () {
-    try { var m = localStorage.getItem('techne-mode'); if (m) document.documentElement.setAttribute('data-mode', m); } catch(e) {}
+    try {
+      var m = localStorage.getItem('techne-mode');
+      if (!m) m = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-mode', m);
+    } catch(e) {}
   })();
 </script>
 <style>
