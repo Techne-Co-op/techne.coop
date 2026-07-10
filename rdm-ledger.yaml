@@ -87,7 +87,7 @@ substrate:
   - address: SUB-03
     title: Provision database environment
     intent: Provision a fresh database environment and apply 0001_substrate.sql.
-    status: open · escalation-Q-SUB03
+    status: anticipated
     cites: [IM, VS]
     ready_when: SUB-01 verified.
     deliverable: Supabase project with 0001_substrate.sql applied. db-verify green, first run.
@@ -103,9 +103,9 @@ substrate:
       the_question: Do we provision a new Supabase project and migrate the three valuable
         rows from v2 (RegenHub LCA agent, Bylaws v2 agreement), or do we apply
         in-place ALTER TABLE migrations to dgcoffcanzwsuwgpocbt?
-      default: Provision fresh. Migrate 3 agents + 1 agreement by seed script.
-        Archive the 187 agreement_sections separately (they may serve the Commons MCP
-        but are not in v3 CIS scope). Decommission the v2 loop/social layer.
+      decision: Completely fresh provision, no migration. Decided by Todd Youngblood,
+        2026-07-10. v2 project (dgcoffcanzwsuwgpocbt) will be decommissioned after
+        0001_substrate.sql is applied and db-verify passes on the new project.
 
   - address: SUB-04
     title: Apply RLS policies
