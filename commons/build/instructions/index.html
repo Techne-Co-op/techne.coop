@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Agent instructions for the CIS build: the Build Protocol, the RDM v1 ledger, and alignment with the Techne design system. Read this before the packet.">
+<title>Agent Instructions &middot; BP v1 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/build/instructions/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/build/instructions/">
+<meta property="og:title" content="Agent Instructions · BP v1 · Techne">
+<meta property="og:description" content="Build Protocol, roadmap, and design system alignment for agents working on the CIS. Read this before the packet.">
+<meta property="og:site_name" content="Techne">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<style>
+/* ============================================================
+   TOKENS — techne v4
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --ok-dim:rgba(106,154,106,0.13);
+  --info:#6A8AC4; --info-dim:rgba(106,138,196,0.13);
+  --warn:#C46A6A; --warn-dim:rgba(196,106,106,0.13);
+  --ember-dim:rgba(196,149,106,0.13);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --ok-dim:rgba(74,122,74,0.10);
+  --info:#4A6FB0; --info-dim:rgba(74,111,176,0.10);
+  --warn:#A84F4C; --warn-dim:rgba(168,79,76,0.10);
+  --ember-dim:rgba(138,106,74,0.10);
+  color-scheme: light;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* { margin:0; padding:0; box-sizing:border-box; }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition-duration:0ms !important; } }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--serif); font-size:16px; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+code { font-family:var(--mono); font-size:0.84em; color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
+em { font-style:italic; color:var(--heading); }
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.topbar {
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; gap:var(--s5);
+  padding:0 var(--s5); height:52px;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.brand { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+.brand-mark { font-family:var(--mono); font-size:0.78rem; font-weight:500; letter-spacing:0.06em; color:var(--heading); transition:color var(--micro) var(--ease); }
+.brand:hover .brand-mark { color:var(--ember-text); }
+.top-nav { flex:1; display:flex; gap:var(--s4); list-style:none; }
+.top-nav a { font-family:var(--mono); font-size:0.72rem; letter-spacing:0.04em; color:var(--muted); text-decoration:none; transition:color var(--micro) var(--ease); }
+.top-nav a:hover { color:var(--heading); }
+.top-nav a[aria-current="page"] { color:var(--ember-text); }
+.mode-toggle {
+  margin-left:auto; display:flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:0.7rem; color:var(--muted);
+  background:none; border:1px solid var(--line); border-radius:2px;
+  padding:5px 9px; cursor:pointer;
+  transition:color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.mode-toggle:hover { color:var(--heading); border-color:var(--rule); }
+.mode-toggle svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+.mast {
+  padding:var(--s7) var(--s5) var(--s6);
+  border-bottom:1px solid var(--rule);
+  max-width:860px; margin:0 auto;
+}
+.mast-eyebrow { font-family:var(--mono); font-size:0.65rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s3); }
+.mast h1 { font-family:var(--serif); font-size:clamp(1.8rem,3.5vw,2.4rem); font-weight:700; color:var(--heading); line-height:1.12; letter-spacing:-0.01em; margin-bottom:var(--s4); }
+.mast-dek { font-size:1.05rem; line-height:1.65; color:var(--text); max-width:62ch; }
+.mast-meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font-family:var(--mono); font-size:0.68rem; color:var(--muted); }
+.mast-meta .cite { color:var(--blue-text); }
+
+/* ============================================================
+   DOCUMENT BODY
+   ============================================================ */
+.doc-wrap { max-width:860px; margin:0 auto; padding:0 var(--s5) var(--s8); }
+
+.sec { padding:var(--s7) 0 0; }
+.sec .addr { font-family:var(--mono); font-size:0.65rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s2); }
+.sec h2 { font-family:var(--serif); font-size:1.45rem; font-weight:700; color:var(--heading); letter-spacing:-0.01em; margin-bottom:var(--s4); padding-left:14px; border-left:3px solid var(--ember); }
+.sec p { margin-bottom:var(--s4); max-width:68ch; }
+.sec p:last-child { margin-bottom:0; }
+.lead { font-size:1.05rem; line-height:1.7; }
+
+/* ============================================================
+   ANATOMY — packet fields
+   ============================================================ */
+.anatomy {
+  margin:var(--s4) 0;
+  background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--ember);
+}
+.an-row {
+  display:grid; grid-template-columns:130px 1fr; gap:var(--s3);
+  padding:9px var(--s4); border-bottom:1px solid var(--line); align-items:baseline;
+}
+.an-row:last-child { border-bottom:0; }
+.an-row .f { font-family:var(--mono); font-size:0.72rem; font-weight:500; color:var(--ember-text); }
+.an-row .v { font-size:0.88rem; line-height:1.6; color:var(--text); }
+
+/* ============================================================
+   DECIDE / ESCALATE TWIN
+   ============================================================ */
+.twin { display:grid; grid-template-columns:1fr 1fr; gap:var(--s3); margin:var(--s4) 0; }
+.panel { background:var(--surface); border:1px solid var(--line); }
+.panel .ph { padding:9px var(--s3); border-bottom:1px solid var(--line); }
+.panel .ph .pt { font-family:var(--mono); font-size:0.7rem; font-weight:600; text-transform:lowercase; letter-spacing:0.04em; }
+.panel.decide { border-top:2px solid var(--blue); }
+.panel.decide .pt { color:var(--blue-text); }
+.panel.escalate { border-top:2px solid var(--ember); }
+.panel.escalate .pt { color:var(--ember-text); }
+.panel ul { list-style:none; padding:var(--s3) var(--s4); }
+.panel ul li { font-size:0.84rem; line-height:1.6; color:var(--text); padding:6px 0 6px 14px; border-bottom:1px solid var(--line); position:relative; }
+.panel ul li:last-child { border-bottom:0; }
+.panel.decide ul li::before { content:""; position:absolute; left:0; top:14px; width:6px; height:6px; background:var(--blue); }
+.panel.escalate ul li::before { content:""; position:absolute; left:0; top:14px; width:6px; height:6px; border:1px solid var(--ember); background:transparent; }
+
+/* ============================================================
+   ESCALATION CARD
+   ============================================================ */
+.esc {
+  margin:var(--s4) 0; background:var(--inset);
+  border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s4);
+}
+.esc .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); margin-bottom:var(--s3); }
+.esc .er { display:grid; grid-template-columns:110px 1fr; gap:var(--s3); padding:6px 0; border-bottom:1px solid var(--line); align-items:baseline; }
+.esc .er:last-child { border-bottom:0; }
+.esc .er .f { font-family:var(--mono); font-size:0.68rem; color:var(--muted); }
+.esc .er .v { font-size:0.84rem; line-height:1.6; color:var(--text); }
+
+/* ============================================================
+   DEFINITION ROWS
+   ============================================================ */
+.def { margin:var(--s4) 0; border-top:1px solid var(--rule); }
+.def-row { display:grid; grid-template-columns:190px 1fr; gap:var(--s4); padding:var(--s3) 0; border-bottom:1px solid var(--line); }
+.def-row .t { font-weight:700; font-size:0.9rem; color:var(--heading); line-height:1.5; }
+.def-row .t .k { display:block; font-family:var(--mono); font-size:0.62rem; font-weight:500; color:var(--ember-text); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:2px; }
+.def-row .d { font-size:0.88rem; line-height:1.65; color:var(--text); }
+
+/* ============================================================
+   SESSION ORDER
+   ============================================================ */
+.session-steps { margin:var(--s4) 0; counter-reset:step; }
+.step { display:grid; grid-template-columns:36px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--line); align-items:baseline; }
+.step:last-child { border-bottom:0; }
+.step-n { font-family:var(--mono); font-size:0.68rem; font-weight:600; color:var(--ember-text); text-align:right; padding-top:3px; }
+.step-body { font-size:0.88rem; line-height:1.65; color:var(--text); }
+.step-body strong { font-weight:700; color:var(--heading); }
+
+/* ============================================================
+   LEDGER TRAIN TABLE
+   ============================================================ */
+.train-table { width:100%; border-collapse:collapse; margin:var(--s4) 0; border:1px solid var(--line); }
+.train-table th { font-family:var(--mono); font-size:0.62rem; font-weight:600; letter-spacing:0.08em; text-transform:lowercase; text-align:left; padding:8px var(--s3); background:var(--raised); border-bottom:1px solid var(--rule); color:var(--muted); }
+.train-table td { font-size:0.82rem; padding:8px var(--s3); border-bottom:1px solid var(--line); color:var(--text); vertical-align:top; }
+.train-table tr:last-child td { border-bottom:0; }
+.train-table .addr-cell { font-family:var(--mono); font-size:0.68rem; font-weight:600; color:var(--ember-text); white-space:nowrap; }
+.train-table .gate-row td { background:var(--inset); }
+.train-table .gate-row .addr-cell { color:var(--blue-text); }
+
+/* ============================================================
+   STATUS CHIPS
+   ============================================================ */
+.chip {
+  display:inline-flex; align-items:center; gap:5px;
+  font-family:var(--mono); font-size:0.6rem; font-weight:500; letter-spacing:0.05em;
+  padding:3px 7px; border-radius:2px; border:1px solid var(--line);
+  background:var(--surface); white-space:nowrap; vertical-align:middle; color:var(--muted);
+}
+.chip .dot { width:5px; height:5px; border-radius:1px; flex-shrink:0; }
+.chip.drafted     { color:var(--blue-text); border-color:var(--blue); background:var(--info-dim); }
+.chip.drafted .dot { background:var(--blue); }
+.chip.anticipated { color:var(--faint); border-color:var(--line); }
+.chip.anticipated .dot { background:transparent; border:1px solid var(--faint); }
+.chip.open        { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
+.chip.open .dot   { background:transparent; border:1px solid var(--warn); }
+.chip.ok          { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
+.chip.ok .dot     { background:var(--ok); }
+
+/* ============================================================
+   DESIGN SYSTEM TOKEN BLOCKS
+   ============================================================ */
+.token-group { margin:var(--s4) 0; }
+.token-group-label { font-family:var(--mono); font-size:0.62rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s2); padding-bottom:var(--s1); border-bottom:1px solid var(--line); }
+.token-row { display:grid; grid-template-columns:160px 1fr; gap:var(--s3); padding:6px 0; border-bottom:1px solid var(--line); align-items:baseline; font-size:0.84rem; }
+.token-row:last-child { border-bottom:0; }
+.token-name { font-family:var(--mono); font-size:0.72rem; color:var(--ember-text); }
+.token-val { color:var(--text); }
+
+/* ============================================================
+   AGENTS.MD DISTILLATION
+   ============================================================ */
+pre.agents {
+  background:var(--inset); border:1px solid var(--line); border-left:2px solid var(--ember);
+  padding:var(--s5); overflow-x:auto;
+  font-family:var(--mono); font-size:0.78rem; line-height:1.85; color:var(--text);
+  margin:var(--s4) 0;
+}
+pre.agents .k { color:var(--ember-text); font-weight:500; }
+
+/* ============================================================
+   MEMO / CLOSING
+   ============================================================ */
+.memo {
+  margin:var(--s7) 0 0; padding:var(--s4) 0;
+  border-top:1px solid var(--rule); border-bottom:4px double var(--heading);
+}
+.memo .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); margin-bottom:var(--s2); }
+.memo p { margin:0; font-size:0.94rem; max-width:66ch; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s4) var(--s5) var(--s8); font-family:var(--mono); font-size:0.65rem; color:var(--faint); display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:700px) {
+  .twin { grid-template-columns:1fr; }
+  .def-row { grid-template-columns:1fr; gap:var(--s1); }
+  .an-row { grid-template-columns:1fr; gap:2px; }
+  .esc .er { grid-template-columns:1fr; gap:2px; }
+  .token-row { grid-template-columns:1fr; gap:2px; }
+  .mast h1 { font-size:1.7rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header>
+  <div class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">Techne</span>
+    </a>
+    <ul class="top-nav">
+      <li><a href="/commons/">Commons</a></li>
+      <li><a href="/commons/build/">Build</a></li>
+      <li><a href="/commons/build/instructions/" aria-current="page">Instructions</a></li>
+    </ul>
+    <button class="mode-toggle" id="modeToggle" aria-label="Toggle color mode">
+      <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+      <span id="modeLabel">Light</span>
+    </button>
+  </div>
+</header>
+
+<!-- MASTHEAD -->
+<div class="mast">
+  <div class="mast-eyebrow">agent instructions &middot; BP v1 &middot; RDM v1 &middot; UI v1</div>
+  <h1>Build Instructions</h1>
+  <p class="mast-dek">Read this before the packet. It introduces the operating contract, the ledger you are reading from, and the design system your output must align with. The instructions summarize; the series governs. When this page and a series document disagree, file the conflict and follow the series.</p>
+  <div class="mast-meta">
+    <span>contract &middot; <span class="cite">BP v1</span></span>
+    <span>roadmap &middot; <span class="cite">RDM v1</span></span>
+    <span>design &middot; <span class="cite">UI v1</span></span>
+    <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
+  </div>
+</div>
+
+<!-- DOCUMENT -->
+<div class="doc-wrap">
+
+  <!-- §1 — The build protocol -->
+  <section class="sec" id="s1">
+    <div class="addr">&sect;1</div>
+    <h2>The build protocol</h2>
+    <p class="lead">The single operating contract is BP v1. It consolidates the agent instructions, governance mechanics, repository conventions, and packet authoring guide into one document. The machine-facing distillation lives at the repository root as <code>AGENTS.md</code>; the full text is at <a href="/workspace/group/attachments/build-protocol-v1.html">BP v1</a>. What follows is an orientation, not a substitute.</p>
+
+    <p>The protocol's first premise is the system's first principle applied to the build itself: agents draft, surface, and guide; humans decide, sign, and govern. Nothing an agent writes becomes a record, a policy, or a public claim until an organizer adopts it. Adoption is a visible act in the history.</p>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Three parties</h3>
+    <div class="def">
+      <div class="def-row">
+        <span class="t"><span class="k">deciding</span>Organizers</span>
+        <span class="d">Todd as steward for operational and design decisions; the board where a decision is board-scoped; members where the bylaws reserve it to them. Organizers record decisions, approve merges, adopt drafts, and own outcomes. Responsibility never transfers to an agent.</span>
+      </div>
+      <div class="def-row">
+        <span class="t"><span class="k">drafting</span>Build agents</span>
+        <span class="d">Session-scoped instruments with capabilities, not authority. No memory between sessions, no standing, no authority. Working context derives entirely from this series and the packet in hand.</span>
+      </div>
+      <div class="def-row">
+        <span class="t"><span class="k">operating</span>Nou</span>
+        <span class="d">The runtime instrument governed by its own Nou Charter (NC), not by BP. Build agents are not Nou. Nothing in BP grants a build agent Nou's runtime scopes, or the reverse.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- §2 — The packet -->
+  <section class="sec" id="s2">
+    <div class="addr">&sect;2</div>
+    <h2>The packet</h2>
+    <p class="lead">The packet is the unit of work. It is a validated YAML entry in the ledger, small enough for one session to advance and complete enough for a stranger to pick up. A packet is not done until its upstream dependencies are verified. The validator enforces schema compliance, dependency acyclicity, and gating consistency on every change.</p>
+
+    <div class="anatomy">
+      <div class="an-row"><span class="f">address</span><span class="v">A citable code, unique in the ledger. Used in branches, commits, and escalation cards. Example: <code>SUB-01</code>, <code>B-03</code>, <code>G-G</code>.</span></div>
+      <div class="an-row"><span class="f">intent</span><span class="v">One sentence, plain language, readable by a curious member with no prior context.</span></div>
+      <div class="an-row"><span class="f">cites</span><span class="v">Artifact sections this packet depends on, by code, version, and section. An uncited constraint does not bind. A needed-but-missing citation is an escalation.</span></div>
+      <div class="an-row"><span class="f">ready_when</span><span class="v">The condition under which work may begin. No dates. Conditions name upstream packets or named decisions.</span></div>
+      <div class="an-row"><span class="f">deliverable</span><span class="v">What exists when the packet is done: files, migrations, documents, or a recorded decision brief.</span></div>
+      <div class="an-row"><span class="f">acceptance</span><span class="v">How done is judged, stated so the Verification Spec can check it. Slice work uses PRD v0.3 &sect;4 member-capability sentences as acceptance language.</span></div>
+      <div class="an-row"><span class="f">status</span><span class="v">The honest mark. Marks: <span class="chip drafted"><span class="dot"></span>drafted</span> &nbsp;<span class="chip anticipated"><span class="dot"></span>anticipated</span> &nbsp;<span class="chip open"><span class="dot"></span>open &middot; (blocker name)</span></span></div>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">What you decide. What you escalate.</h3>
+    <div class="twin">
+      <div class="panel decide">
+        <div class="ph"><span class="pt">decide freely</span></div>
+        <ul>
+          <li>Implementation detail inside cited constraints: code structure, query shape, test arrangement, file layout.</li>
+          <li>Naming of internal things under the conventions of BP v1 &sect;6.</li>
+          <li>Draft copy and draft documents, marked as drafts.</li>
+          <li>Order of your own steps within a session; when to abandon an approach that is not working.</li>
+          <li>Sharpening options in a deliberation brief. Never the outcome.</li>
+        </ul>
+      </div>
+      <div class="panel escalate">
+        <div class="ph"><span class="pt">stop and escalate</span></div>
+        <ul>
+          <li>Any permission or visibility not already in the Authority Map; any schema change not in the Information Model.</li>
+          <li>Anything touching money, membership standing, or governance semantics.</li>
+          <li>Any new dependency: package, service, font, endpoint. Each requires a decision record.</li>
+          <li>A conflict between two cited artifacts, or between an artifact and the code.</li>
+          <li>Public names and public claims. Naming belongs to Todd.</li>
+          <li>Anything that would lower a floor of PRD v0.3 &sect;9, or where the bylaws are silent.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>Escalations follow one shape:</p>
+    <div class="esc">
+      <div class="k">the escalation card</div>
+      <div class="er"><span class="f">standing in</span><span class="v">The packet address and the step within it.</span></div>
+      <div class="er"><span class="f">found</span><span class="v">What was encountered, with citations to the artifacts that frame it.</span></div>
+      <div class="er"><span class="f">the question</span><span class="v">The smallest question whose answer unblocks the work. One question per card.</span></div>
+      <div class="er"><span class="f">a default</span><span class="v">Your proposed answer, marked as a proposal. A busy organizer can say yes, no, or otherwise.</span></div>
+    </div>
+  </section>
+
+  <!-- §3 — Session sequence -->
+  <section class="sec" id="s3">
+    <div class="addr">&sect;3</div>
+    <h2>Session sequence</h2>
+    <p class="lead">A session begins the same way every time, because the agent beginning it remembers nothing. Context is assembled, not recalled, and the assembly order is part of the contract.</p>
+
+    <div class="session-steps">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div class="step-body"><strong>Load the contract.</strong> Read <code>AGENTS.md</code> at the repository root, which points to BP v1. If the two ever disagree, BP governs and the disagreement is filed.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div class="step-body"><strong>Read the map.</strong> Read the RDM v1 series overview and the living roadmap at <a href="/commons/build/">/commons/build/</a> to locate where this packet sits and what its neighbors are.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div class="step-body"><strong>Read the packet, and every artifact it cites, in full.</strong> A cited section that cannot be found is an escalation. An uncited constraint does not bind.</div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div class="step-body"><strong>Only then, the code.</strong> Work proceeds inside cited constraints, at whatever speed the constraints allow.</div>
+      </div>
+    </div>
+
+    <p>A session closes by committing with provenance, updating status by commit, filing any open questions as escalation cards rather than resolving them, and leaving a short note of what was tried and abandoned, so the next session inherits judgment and not just files.</p>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Provenance marks</h3>
+    <div class="def">
+      <div class="def-row">
+        <span class="t">Commit trailers</span>
+        <span class="d">Agent-authored commits carry an authorship trailer naming the agent role and the packet address. Example: <code>Authored-by: build-agent / SUB-01</code>.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Draft marking</span>
+        <span class="d">Every agent-authored document carries its status in front matter. Nothing becomes a record or policy until an organizer adopts it by visible act.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Simulation rule</span>
+        <span class="d">Simulated and illustrative entries are marked at creation and write nothing back to live records. A demonstration that leaks into the ledger is a defect.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Voice preservation</span>
+        <span class="d">When editing human-authored prose, clear obstacles rather than smooth toward the average. Flag changes of rhythm or word choice so the choice stays with the author.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- §4 — The ledger and trains -->
+  <section class="sec" id="s4">
+    <div class="addr">&sect;4</div>
+    <h2>The ledger and the trains</h2>
+    <p class="lead">The roadmap is a validated YAML ledger at <code>rdm-ledger.yaml</code>, read by the living roadmap at <a href="/commons/build/">/commons/build/</a>. Work is organized into trains: dependency-ordered sequences of packets that advance in parallel once their substrate is verified. There are no dates. The only scheduling constraint is the readiness condition on each packet.</p>
+
+    <p>The current ledger has 40 items: 7 series documents and 33 work packets across 6 trains. July 2026 state: 7 drafted, 23 anticipated, 10 open.</p>
+
+    <table class="train-table">
+      <thead>
+        <tr>
+          <th>train</th>
+          <th>packets</th>
+          <th>gate</th>
+          <th>ready when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="addr-cell">Series</td>
+          <td>SER · PRD · BP · UI · IM · VS · AM</td>
+          <td>&mdash;</td>
+          <td>7 drafted <span class="chip drafted"><span class="dot"></span>drafted</span></td>
+        </tr>
+        <tr>
+          <td class="addr-cell">Substrate</td>
+          <td>SUB-01 through SUB-05</td>
+          <td>G0</td>
+          <td>SUB-01 is workable now</td>
+        </tr>
+        <tr>
+          <td class="addr-cell">Belong</td>
+          <td>B-01 through B-05</td>
+          <td>G-B</td>
+          <td>G0 attested</td>
+        </tr>
+        <tr>
+          <td class="addr-cell">Gather</td>
+          <td>G-01 through G-03</td>
+          <td>G-G</td>
+          <td>G0 attested</td>
+        </tr>
+        <tr>
+          <td class="addr-cell">Find</td>
+          <td>F-01 through F-03</td>
+          <td>G-F</td>
+          <td>G-B attested</td>
+        </tr>
+        <tr>
+          <td class="addr-cell">Share</td>
+          <td>S-01 · S-02</td>
+          <td>G-S</td>
+          <td>Q3 counting rules adopted <span class="chip open"><span class="dot"></span>open &middot; Q3</span></td>
+        </tr>
+        <tr>
+          <td class="addr-cell">Cross-cutting</td>
+          <td>X-01 through X-09</td>
+          <td>G-R</td>
+          <td>Various; see ledger</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Gates are <em>gate.attested</em> events, not automatic merges. Each gate requires human attestation before the next train opens. G-B and G-G require the August 14, 2026 gathering as a readiness condition, appearing as a condition, not a date.</p>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Open conditions at session start</h3>
+    <p>Before claiming a packet, check the signal loop at <a href="/commons/build/">/commons/build/</a> for named open conditions. An open packet bears its blocker in the status field: <span class="chip open"><span class="dot"></span>open &middot; Q3</span> means the packet waits on the Q3 counting-rules decision. Do not claim an open packet; file an escalation if you believe the condition is resolvable.</p>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Repository conventions</h3>
+    <div class="def">
+      <div class="def-row">
+        <span class="t">Branch and merge</span>
+        <span class="d">One packet per branch, named by the packet address. The pull request cites the address, states what was decided and what was escalated, merges only with the validator green.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Review tiers</span>
+        <span class="d">Tier A (work within cited scope): one organizer approves. Tier B (schema, authority, money, membership): organizer review plus a decision record. Tier C (series artifacts): Todd approves.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Migrations</span>
+        <span class="d">Timestamped and ordered. Every row-level policy carries a comment naming its bylaw anchor. A policy without an anchor does not merge.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Precedence</span>
+        <span class="d">When documents disagree: law and bylaws &rarr; board policy &rarr; PRD &rarr; IM and AM &rarr; BP and VS &rarr; packet briefs &rarr; code. Lower yields to higher. The disagreement is filed either way.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- §5 — Design system -->
+  <section class="sec" id="s5">
+    <div class="addr">&sect;5</div>
+    <h2>Design system alignment</h2>
+    <p class="lead">Agent-produced HTML must align with Techne v4, documented at <a href="/design-system/">techne.coop/design-system</a>. What follows is a working reference. The full specification is UI v1 (Drafted). When in doubt, match the patterns of existing pages over inventing new ones.</p>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Tokens</h3>
+    <div class="token-group">
+      <div class="token-group-label">type</div>
+      <div class="token-row"><span class="token-name">--serif</span><span class="token-val">Libre Baskerville · narrative, headings, document body</span></div>
+      <div class="token-row"><span class="token-name">--mono</span><span class="token-val">IBM Plex Mono · labels, addresses, chips, instrument base font</span></div>
+    </div>
+    <div class="token-group">
+      <div class="token-group-label">ground</div>
+      <div class="token-row"><span class="token-name">--bg</span><span class="token-val">Page background. Dark: <code>#0F0F12</code> · Light: <code>#F7F5F0</code></span></div>
+      <div class="token-row"><span class="token-name">--surface</span><span class="token-val">Card and panel fill. Dark: <code>#16161B</code> · Light: <code>#FCFBF8</code></span></div>
+      <div class="token-row"><span class="token-name">--inset</span><span class="token-val">Pre blocks, inset regions. Dark: <code>#08080A</code> · Light: <code>#EBE7DF</code></span></div>
+      <div class="token-row"><span class="token-name">--line / --rule</span><span class="token-val">Borders: line is subtle, rule is structural</span></div>
+    </div>
+    <div class="token-group">
+      <div class="token-group-label">text</div>
+      <div class="token-row"><span class="token-name">--heading</span><span class="token-val">Primary headings and strong emphasis</span></div>
+      <div class="token-row"><span class="token-name">--text</span><span class="token-val">Body text, most content</span></div>
+      <div class="token-row"><span class="token-name">--muted</span><span class="token-val">Secondary labels, metadata</span></div>
+      <div class="token-row"><span class="token-name">--faint</span><span class="token-val">Tertiary, placeholder, suppressed</span></div>
+    </div>
+    <div class="token-group">
+      <div class="token-group-label">accent</div>
+      <div class="token-row"><span class="token-name">--ember / --ember-text</span><span class="token-val">Primary accent: addresses, eyebrows, active nav, left borders</span></div>
+      <div class="token-row"><span class="token-name">--blue / --blue-text</span><span class="token-val">Primary interactive: links, <code>drafted</code> chips, decide panels</span></div>
+      <div class="token-row"><span class="token-name">--ok / --ok-dim</span><span class="token-val">Positive / filed / verified state</span></div>
+      <div class="token-row"><span class="token-name">--warn / --warn-dim</span><span class="token-val">Open / blocked / escalation state</span></div>
+    </div>
+    <div class="token-group">
+      <div class="token-group-label">sunset sweep — section tints</div>
+      <div class="token-row"><span class="token-name">--sun-gold-t through --sun-blue-t</span><span class="token-val">Six section accent colors sweeping gold &rarr; amber &rarr; coral &rarr; rose &rarr; violet &rarr; blue. Use <code>data-tint</code> on section elements.</span></div>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Two grammars</h3>
+    <div class="twin">
+      <div class="panel decide">
+        <div class="ph"><span class="pt">document grammar</span></div>
+        <ul>
+          <li>Prose-first. Libre Baskerville body, 16px, 1.75 line-height.</li>
+          <li>Max-width 760&ndash;920px, centered. Breathing room over density.</li>
+          <li>Sections with address eyebrow (<code>&sect;N</code>) and left-bordered heading.</li>
+          <li>Use for: series artifacts, onboarding pages, this page.</li>
+        </ul>
+      </div>
+      <div class="panel escalate">
+        <div class="ph"><span class="pt">instrument grammar</span></div>
+        <ul>
+          <li>Data-first. IBM Plex Mono base, 13px, dense.</li>
+          <li>Full-width with structured regions: topbar, rail, main, signal.</li>
+          <li>Tabs, sticky headers, live-update regions.</li>
+          <li>Use for: HUDs, dashboards, ledger views, the build page.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Status chips</h3>
+    <p>Every claim wears its status. Use the chip component with the correct mark. Never omit a status chip from an artifact header or packet entry.</p>
+    <div class="anatomy">
+      <div class="an-row"><span class="f">drafted</span><span class="v"><span class="chip drafted"><span class="dot"></span>drafted</span> &mdash; blue. The document exists and governs. May still change before ratification.</span></div>
+      <div class="an-row"><span class="f">anticipated</span><span class="v"><span class="chip anticipated"><span class="dot"></span>anticipated</span> &mdash; faint. Work is defined, upstream must clear first.</span></div>
+      <div class="an-row"><span class="f">open</span><span class="v"><span class="chip open"><span class="dot"></span>open &middot; (blocker)</span> &mdash; warn. Blocked. The mark names what blocks it.</span></div>
+      <div class="an-row"><span class="f">filed</span><span class="v"><span class="chip ok"><span class="dot"></span>filed</span> &mdash; ok/green. Estate practice confirmed and carried.</span></div>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Mode toggle</h3>
+    <p>Every page carries a mode toggle. Store the preference in <code>localStorage</code> under the key <code>techne-mode</code> (values: <code>dark</code> or <code>light</code>). Apply it early in a blocking script to prevent flash. The topbar button switches the <code>data-mode</code> attribute on <code>&lt;html&gt;</code> and updates the stored value.</p>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">House style — what the agent writes</h3>
+    <div class="def">
+      <div class="def-row">
+        <span class="t">No emoji</span>
+        <span class="d">None. In code, in prose, in labels. Not as decoration, not as status markers. Use text chips.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">No em dashes</span>
+        <span class="d">Use commas, colons, or restructured sentences. The en dash (&ndash;) for ranges is fine.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">No exclamation points</span>
+        <span class="d">None. The prose is quiet and direct. Enthusiasm appears in the work, not the punctuation.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Italics for key terms</span>
+        <span class="d">Use <code>&lt;em&gt;</code> for first use of key terms and for genuine emphasis in running prose. Not bold.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Subchapter K vocabulary</span>
+        <span class="d">Distributive share, capital account, allocation. Never: patronage dividend, written notice of allocation, per-unit retain. Patronage as an economic basis is valid; as a tax term, retired.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Status-honest</span>
+        <span class="d">Every artifact says what it is. A drafted document is marked drafted. A planned feature is marked anticipated. Nothing wears a status it has not earned.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Plain about money and law</span>
+        <span class="d">Money sentences state what is given, kept, and not promised. Legal status named at top, not footnote. Candor is the rarest brand asset.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- §6 — AGENTS.md distillation -->
+  <section class="sec" id="s6">
+    <div class="addr">&sect;6</div>
+    <h2>The distillation</h2>
+    <p class="lead">The text below is reproduced verbatim from BP v1 &sect;10. It lives at the repository root as <code>AGENTS.md</code>, where agent harnesses load it automatically. This document governs; the distillation summarizes. When the two disagree, the disagreement is filed and BP governs.</p>
+
+<pre class="agents"><span class="k">READ</span>    this file summarizes BP v1; BP governs. read your
+        packet and every artifact it cites before any code.
+
+<span class="k">STAND</span>   you are a session-scoped instrument: no memory, no
+        standing, no authority. organizers decide and adopt.
+
+<span class="k">WORK</span>    one packet per branch, named by its address. commits
+        carry your authorship trailer and the address.
+
+<span class="k">STOP</span>    schema, permissions, money, membership, governance,
+        new dependencies, public names, artifact conflicts:
+        stop and ask rather than invent. file the card:
+        standing-in / found / the question / a default.
+
+<span class="k">MARK</span>    drafts are drafts until a person adopts them.
+        simulated data never writes back to live records.
+        every claim wears its status mark.
+
+<span class="k">STYLE</span>   subchapter k vocabulary only. no emoji. no em dashes.
+        two grammars: document 760-920px, instrument HUD.
+
+<span class="k">DONE</span>    validator green, upstream verified, status changed
+        by commit. if unsure whether done: not done.</pre>
+
+    <div class="memo">
+      <div class="k">the working agreement</div>
+      <p>An agent that stops is doing its job. An agent that invents is doing someone else's. The build goes fast precisely because the boundary is bright: inside a packet's citations, full speed; at the boundary, a card, a question, and a person.</p>
+    </div>
+  </section>
+
+</div><!-- /doc-wrap -->
+
+<footer>
+  <span>Agent Instructions &middot; BP v1 &middot; RDM v1 &middot; UI v1</span>
+  <span>RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
+  <span><a href="/commons/build/">Living Roadmap</a></span>
+  <span><a href="/design-system/">Design System</a></span>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn  = document.getElementById('modeToggle');
+  var icon = document.getElementById('modeIcon');
+  var lbl  = document.getElementById('modeLabel');
+
+  var sunPaths = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  var moonPaths = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+
+  function apply(m) {
+    root.setAttribute('data-mode', m);
+    icon.innerHTML = m === 'dark' ? sunPaths : moonPaths;
+    lbl.textContent = m === 'dark' ? 'Light' : 'Dark';
+  }
+
+  var stored = null;
+  try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+  var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  apply(m);
+
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try { localStorage.setItem('techne-mode', next); } catch(e) {}
+  });
+})();
+</script>
+</body>
+</html>
