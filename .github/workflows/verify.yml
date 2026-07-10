@@ -45,7 +45,7 @@ jobs:
         run: |
           set -e
           shopt -s nullglob
-          files=(supabase/migrations/*.sql migrations/*.sql *.sql)
+          files=(supabase/migrations/*.sql migrations/*.sql commons/im/*.sql commons/authority-map/*.sql *.sql)
           [ ${#files[@]} -gt 0 ] || { echo "no migrations found"; exit 1; }
           for f in "${files[@]}"; do
             echo "lint: $f"
@@ -55,7 +55,7 @@ jobs:
         run: |
           set -e
           shopt -s nullglob
-          for f in supabase/migrations/*.sql migrations/*.sql *.sql; do
+          for f in supabase/migrations/*.sql migrations/*.sql commons/im/*.sql commons/authority-map/*.sql *.sql; do
             if grep -qi "create policy" "$f"; then
               # each CREATE POLICY must be preceded within 3 lines by a bylaw anchor comment (§ or Art.)
               awk 'BEGIN{IGNORECASE=1} /create policy/ { if (prev3 !~ /§|Art\./) { print FILENAME": policy without bylaw anchor"; bad=1 } } { prev3 = prev2"\n"prev1"\n"$0; prev2=prev1; prev1=$0 } END{ exit bad }' "$f"
@@ -197,7 +197,14 @@ jobs:
       - name: vocabulary quarantine (Subchapter K grammar)
         run: |
           set -e
-          if grep -rniE "patronage dividend|written notice of allocation|per-unit retain" --include='*.html' --include='*.md' . ; then
+          # Exclude governance documents that name the quarantined terms to define the quarantine itself.
+          # commons/bp/ and commons/build/ explain the rule; CONTRIBUTORS.md lists it.
+          # All authored content pages are still checked.
+          if grep -rniE "patronage dividend|written notice of allocation|per-unit retain" \
+            --include='*.html' --include='*.md' \
+            --exclude-dir=bp --exclude-dir=build \
+            --exclude='CONTRIBUTORS.md' \
+            . ; then
             echo "::error::retired cooperative-tax vocabulary found (BP v1 §6)"; exit 1
           fi
       - name: no em dashes in authored documents
