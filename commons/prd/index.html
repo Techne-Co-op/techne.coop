@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Product Requirements Document v0.3 for the Common Information System of RegenHub, LCA. Supersedes v0.2. Carries the ten principles, retires the CROPS gate, and defines the four launch slices: Belong, Gather, Find one another, See your share.">
+<title>Common Information System &middot; PRD v0.3 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/prd/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/prd/">
+<meta property="og:title" content="Common Information System · PRD v0.3 · Techne">
+<meta property="og:description" content="The canonical specification for the system that holds the authoritative state of RegenHub, LCA. Ten principles, four launch slices, and the deprecation of CROPS as a delivery gate.">
+<meta property="og:site_name" content="Techne">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<style>
+  :root {
+    --serif:"Libre Baskerville",Georgia,serif;
+    --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+    --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+    --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+    --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A; --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+  }
+  html[data-mode="dark"] {
+    --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+    --line:#2A2A30; --rule:#3A3A42;
+    --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+    --blue:#6A8AC4; --blue-text:#97B5E8;
+    --ember:#C4956A; --ember-text:#D4A57A;
+    --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+    --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872; --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+  }
+  html[data-mode="light"] {
+    --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+    --line:#D8D3C8; --rule:#9A958A;
+    --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+    --blue:#4A6FB0; --blue-text:#39588F;
+    --ember:#8A6A4A; --ember-text:#6F5436;
+    --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+    --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636; --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { color-scheme:light dark; scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--text);
+    font:400 16px/1.75 var(--serif);
+    -webkit-font-smoothing:antialiased;
+    transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+  .mono { font-family:var(--mono); }
+  em { font-style:italic; color:var(--heading); }
+  code { font:400 .85em/1 var(--mono); color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
+  a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; transition:text-decoration-thickness var(--micro) var(--ease); }
+  a:hover { text-decoration-thickness:2px; }
+  :focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+
+  /* topbar */
+  .topbar {
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; gap:var(--s5);
+    padding:0 var(--s5); height:52px;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+  .brand-mark { font-family:var(--mono); font-size:0.78rem; font-weight:500; letter-spacing:0.06em; color:var(--heading); transition:color var(--micro) var(--ease); }
+  .brand:hover .brand-mark { color:var(--ember-text); }
+  .top-nav { flex:1; display:flex; gap:var(--s4); list-style:none; }
+  .top-nav a { font-family:var(--mono); font-size:0.72rem; letter-spacing:0.04em; color:var(--muted); text-decoration:none; transition:color var(--micro) var(--ease); }
+  .top-nav a:hover { color:var(--heading); }
+  .top-nav a[aria-current="page"] { color:var(--ember-text); }
+  .mode-toggle {
+    margin-left:auto; display:flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:0.7rem; color:var(--muted);
+    background:none; border:1px solid var(--line); border-radius:2px;
+    padding:5px 9px; cursor:pointer;
+    transition:color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+  }
+  .mode-toggle:hover { color:var(--heading); border-color:var(--rule); }
+  .mode-toggle svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+  /* document grammar */
+  .wrap { max-width:880px; margin:0 auto; padding:0 var(--s5); }
+
+  /* masthead */
+  .mast { border-bottom:1px solid var(--rule); padding:var(--s8) 0 var(--s6); }
+  .mast .kick { font:500 11px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.12em; }
+  .mast h1 { font:700 36px/1.2 var(--serif); color:var(--heading); margin:var(--s3) 0 var(--s4); letter-spacing:-.01em; }
+  .mast .dek { font:400 17.5px/1.65 var(--serif); color:var(--text); margin:0; max-width:64ch; }
+  .mast .meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font:400 11px/1.6 var(--mono); color:var(--muted); }
+  .mast .meta b { color:var(--blue-text); font-weight:600; }
+  .mast .meta .em { color:var(--ember-text); }
+
+  /* chips */
+  .chip { display:inline-flex; align-items:center; gap:6px; font:500 10.5px/1 var(--mono); padding:4px 9px; border:1px solid var(--line); border-radius:2px; background:var(--surface); white-space:nowrap; color:var(--muted); vertical-align:middle; }
+  .chip .dot { width:6px; height:6px; flex:none; border-radius:1px; }
+  .chip.filed { color:var(--ok); }        .chip.filed .dot { background:var(--ok); }
+  .chip.ratified { color:var(--ok); }     .chip.ratified .dot { background:var(--ok); }
+  .chip.drafted { color:var(--info); }    .chip.drafted .dot { background:var(--info); }
+  .chip.anticipated { color:var(--muted); } .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+  .chip.open { color:var(--warn); }       .chip.open .dot { background:transparent; border:1px solid var(--warn); }
+
+  /* sections on the sunset sweep, paired */
+  .sec { padding:var(--s7) 0 0; }
+  #s1,#s2   { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+  #s3,#s4   { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+  #s5,#s6   { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+  #s7,#s8   { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+  #s9,#s10  { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+  #s11      { --shue:var(--sun-blue);   --shue-t:var(--sun-blue-t); }
+  .sec .addr { font:600 12px/1 var(--mono); color:var(--shue-t); margin-bottom:var(--s2); }
+  .sec h2 { font:700 25px/1.25 var(--serif); color:var(--heading); margin:0 0 var(--s4); letter-spacing:-.01em; padding-left:14px; border-left:3px solid var(--shue); }
+  .sec h3 { font:600 13px/1.5 var(--mono); color:var(--heading); text-transform:lowercase; letter-spacing:.02em; margin:var(--s6) 0 var(--s3); padding-bottom:6px; border-bottom:1px solid var(--shue); }
+  .sec p { margin:0 0 var(--s4); max-width:68ch; }
+  .lead { font-size:17px; }
+
+  /* the deprecation record */
+  .record { margin:var(--s5) 0; background:var(--surface); border:1px solid var(--line); border-top:4px double var(--heading); }
+  .record .rh { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:var(--s2) var(--s3); padding:10px var(--s4); border-bottom:1px solid var(--line); }
+  .record .rh .rt { font:600 11px/1.5 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; }
+  .record .rh .ra { font:600 11px/1.5 var(--mono); color:var(--muted); }
+  .record .rb { padding:var(--s4); }
+  .record .rb p { font-size:14px; margin:0 0 var(--s3); max-width:66ch; }
+  .record .rb p:last-child { margin-bottom:0; }
+
+  /* principle register */
+  .reg { margin:var(--s4) 0 var(--s2); border-top:1px solid var(--rule); }
+  .reg-row { display:grid; grid-template-columns:44px 210px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--line); }
+  .reg-row .no { font:500 11px/1.7 var(--mono); color:var(--shue-t); }
+  .reg-row .t { font:700 14px/1.5 var(--serif); color:var(--heading); }
+  .reg-row .d { font:400 13px/1.7 var(--serif); color:var(--text); }
+
+  /* slice cards */
+  .slice { margin:var(--s5) 0 0; background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--shue); padding:var(--s4); }
+  .slice .sh { display:flex; flex-wrap:wrap; align-items:baseline; gap:var(--s2) var(--s3); margin-bottom:var(--s2); }
+  .slice .sc { font:600 12px/1 var(--mono); color:var(--shue-t); }
+  .slice .sn { font:700 17px/1.4 var(--serif); color:var(--heading); flex:1; min-width:160px; }
+  .slice .sp { font:400 13.5px/1.7 var(--serif); color:var(--text); margin:0 0 var(--s3); max-width:66ch; }
+  .slice .can { margin:0 0 var(--s3); padding:var(--s3); background:var(--inset); border:1px solid var(--line); font:400 13px/1.7 var(--serif); color:var(--text); max-width:100%; }
+  .slice .can .k { display:block; font:500 9.5px/1.8 var(--mono); color:var(--faint); text-transform:uppercase; letter-spacing:.1em; }
+  .slice .al { font:400 10.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); padding-top:8px; }
+  .slice .al b { color:var(--heading); font-weight:600; }
+  .slice .al .row { display:block; }
+  .slice .al .k { color:var(--faint); display:inline-block; min-width:64px; }
+
+  /* definition rows */
+  .def { margin:var(--s4) 0 var(--s2); border-top:1px solid var(--rule); }
+  .def-row { display:grid; grid-template-columns:190px 1fr; gap:var(--s4); padding:var(--s3) 0; border-bottom:1px solid var(--line); }
+  .def-row .t { font:700 14px/1.5 var(--serif); color:var(--heading); }
+  .def-row .t .k { display:block; font:500 9.5px/1.8 var(--mono); color:var(--shue-t); text-transform:uppercase; letter-spacing:.1em; }
+  .def-row .d { font:400 13.5px/1.7 var(--serif); color:var(--text); }
+
+  /* open questions */
+  .oq { margin:var(--s4) 0; border-top:1px solid var(--rule); }
+  .oq-row { display:grid; grid-template-columns:1fr; gap:2px; padding:var(--s3) 0; border-bottom:1px solid var(--line); }
+  .oq-row .qt { font:700 14px/1.5 var(--serif); color:var(--heading); }
+  .oq-row .qd { font:400 13px/1.7 var(--serif); color:var(--text); max-width:66ch; }
+  .oq-row .qm { font:400 10.5px/1.8 var(--mono); color:var(--muted); margin-top:2px; }
+  .oq-row .qm .k { color:var(--faint); }
+
+  /* memorandum */
+  .memo { margin:var(--s6) 0 0; padding:var(--s4) 0; border-top:1px solid var(--rule); border-bottom:4px double var(--heading); }
+  .memo .k { font:500 10px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; }
+  .memo p { margin:0; font-size:15px; max-width:68ch; }
+
+  .cap { font:400 10.5px/1.7 var(--mono); color:var(--faint); margin-top:8px; }
+
+  footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s5) 0 var(--s8); font:400 11px/1.8 var(--mono); color:var(--muted); }
+  footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
+
+  @media (max-width:760px){
+    .mast h1 { font-size:28px; }
+    .reg-row { grid-template-columns:36px 1fr; }
+    .reg-row .d { grid-column:2; }
+    .def-row { grid-template-columns:1fr; gap:var(--s1); }
+    .top-nav { gap:var(--s3); }
+  }
+  @media (prefers-reduced-motion: reduce){ * { transition:none !important; } }
+</style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Site navigation">
+  <a href="/" class="brand" aria-label="Techne home">
+    <span class="brand-mark">TECHNE</span>
+  </a>
+  <ul class="top-nav" role="list">
+    <li><a href="/commons/">Commons</a></li>
+    <li><a href="/commons/series/">Series</a></li>
+    <li><a href="/commons/prd/" aria-current="page">PRD v0.3</a></li>
+  </ul>
+  <button class="mode-toggle" id="modeBtn" aria-label="Switch color mode">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <span id="modeLbl">dark</span>
+  </button>
+</nav>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="kick">governing specification &middot; PRD v0.3 &middot; supersedes v0.2</div>
+    <h1>Common Information System<br>Product Requirements</h1>
+    <p class="dek">The canonical specification for the system that holds the authoritative state of RegenHub, LCA and makes that state legible to members, directors, officers, auditors, and the agents that build and operate it. Version 0.3 carries the ten principles unchanged, retires an external design gate whose funder context has ended, and defines four launch slices in place of a phased calendar.</p>
+    <div class="meta">
+      <span>status &middot; <span class="chip drafted"><span class="dot"></span>Drafted</span></span>
+      <span>cites &middot; <b>SER v0.1</b> &middot; bylaws v2 (Drafted) &middot; membership agreement v2 (Drafted)</span>
+      <span class="em">series &middot; The Common Record &middot; PRD</span>
+      <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
+    </div>
+  </header>
+
+  <section class="sec" id="s1">
+    <div class="addr">&sect;1</div>
+    <h2>Preamble</h2>
+    <p class="lead">This document specifies the Common Information System for RegenHub, LCA, a Colorado public benefit limited cooperative association operating publicly as Techne. The system's purpose is unchanged from the first version: to hold the cooperative's authoritative state and to make that state legible. It is the book of record and the interface through which the cooperative operates itself. It is written for organizers, for members, for counsel, and for the build and runtime agents whose working context is assembled from this series.</p>
+    <p>Version 0.3 differs from version 0.2 by two removals and one addition. Removed: the sections that established an external design discipline as a gate on delivery, and the rule that a phase shipping below its target had shipped a regression. Added: four launch slices as the unit of scope, replacing the phased calendar. Everything else carries, and where a v0.2 structure is inherited this document says so, because a refactor that hides its lineage is not legible. The removal is recorded formally below, at a citable address, so that the change is a fact in the record rather than an absence.</p>
+
+    <div class="record" id="s1a">
+      <div class="rh"><span class="rt">Deprecation record</span><span class="ra">PRD v0.3 &sect;1a</span></div>
+      <div class="rb">
+        <p>The four properties of the Ethereum Foundation Mandate (Censorship Resistance, Open Source, Privacy, Security, collectively CROPS) served in v0.2 as the design discipline against which architectural decisions were gated, with an evolutionary pathway and per-phase stage targets. The Ethereum Foundation's community hub program has ended, and the cooperative's eligibility for that funding ended with it. <span class="chip filed"><span class="dot"></span>Filed &middot; as reported</span></p>
+        <p>Effective this version, CROPS is retired as a requirement and as a delivery gate. It is retained in the record as a design note and as history. The ten principles of &sect;2, which predate the mapping and were always the cooperative's own, carry forward unchanged and are the sole design authority of this specification. Properties formerly credited to the mapping survive only where a principle holds them on the cooperative's own reasoning: openness under principles 02, 04, 07, and 10; security as conservation, traceability, and audit under principles 04, 05, and 09; privacy under principle 06; and portability under principle 08. Censorship resistance is not carried as a requirement. On-chain attestation of the event log moves from commitment to optional layer, adoptable later only with its own stated justification.</p>
+        <p>The sibling document Hub Operations PRD v0.1, which specified the grant-reporting surface, is retired as a governing specification. Its application, event registration, and attendance modules are salvaged into the Belong and Gather slices of &sect;4. Its KPI and compliance machinery is retired with the grant. Nothing is deleted; the superseded documents remain in the record as history. <span class="chip drafted"><span class="dot"></span>Drafted &middot; this record</span></p>
+      </div>
+    </div>
+
+    <p>Document conventions follow the series overview <span class="mono">(SER v0.1 &sect;2)</span>: every claim wears a status mark; citations use code, version, and section; supersession is explicit; only humans record decisions; the Subchapter K vocabulary quarantine holds throughout.</p>
+  </section>
+
+  <section class="sec" id="s2">
+    <div class="addr">&sect;2</div>
+    <h2>Principles</h2>
+    <p class="lead">Ten principles, carried from v0.2 with their numbering intact so existing citations continue to resolve. What is removed is only the mapping layer that annotated them against an external mandate. They now stand, as they always could have, on the cooperative's own authority.</p>
+    <div class="reg">
+      <div class="reg-row"><span class="no">01</span><span class="t">Augmentation, not automation</span><span class="d">The system exists to improve human coordination, not to replace human judgment. Agents draft, surface, and guide. Humans decide, sign, and govern.</span></div>
+      <div class="reg-row"><span class="no">02</span><span class="t">Legibility is the product</span><span class="d">A governance system that confuses its members works against the thesis that justifies its existence. Every interface must pass the test of a curious new member, not a co-op MBA.</span></div>
+      <div class="reg-row"><span class="no">03</span><span class="t">Bylaws are the specification</span><span class="d">The legal documents define the entities, events, thresholds, and rights the system must faithfully represent. Where bylaws are silent, board policy fills the space. Where both are silent, a deliberate product decision is required and recorded.</span></div>
+      <div class="reg-row"><span class="no">04</span><span class="t">Traceability over opacity</span><span class="d">Every record links to the authority that governs it. Every derived value links to its inputs. A member following a question back to its source never hits an unexplained boundary.</span></div>
+      <div class="reg-row"><span class="no">05</span><span class="t">Conservation at the ledger</span><span class="d">Votes, stock, and capital accounts are conserved quantities. What enters a balance must leave another. The schema enforces this before any interface renders it.</span></div>
+      <div class="reg-row"><span class="no">06</span><span class="t">Confidentiality at the data layer</span><span class="d">Privacy is a property of the record, not the screen. Interfaces inherit access constraints from the underlying data, so no view can accidentally expose what the record itself protects.</span></div>
+      <div class="reg-row"><span class="no">07</span><span class="t">Democratic by default</span><span class="d">Any member can see what governs them. Aggregate figures, meeting minutes, board policies, and the benefit report are accessible without friction. Exceptions require a reason rooted in the bylaws.</span></div>
+      <div class="reg-row"><span class="no">08</span><span class="t">Portable by construction</span><span class="d">Data belongs to the cooperative, not the vendor. Every table has an export path; every record resolves to an open format. Vendor lock-in at the data layer is a governance failure, regardless of tool choice.</span></div>
+      <div class="reg-row"><span class="no">09</span><span class="t">Audit by design</span><span class="d">Every change to state is an event row with actor, timestamp, and prior value. The system answers what happened, when, and why the same way it answers what is true now.</span></div>
+      <div class="reg-row"><span class="no">10</span><span class="t">Composability with other cooperatives</span><span class="d">The schema and interfaces are designed so the model generalizes. What works for RegenHub should work for the next LCA, the next credit union, the next housing cooperative, with minimal adaptation.</span></div>
+    </div>
+    <div class="cap">carried from CIS PRD v0.2 &sect;02 &middot; numbering stable for citation &middot; mapping annotations removed per &sect;1a</div>
+  </section>
+
+  <section class="sec" id="s3">
+    <div class="addr">&sect;3</div>
+    <h2>System definition</h2>
+    <p class="lead">One authoritative state with three doors. The doors differ; the room does not. Browse is the graphical surface, Ask is the natural-language surface, Verify is the ledger and its audit views. All three read the same underlying record; none holds private state of its own.</p>
+    <p>The system remains defined as much by what it is not. It is not a marketing site: the public door <span class="mono">(LP)</span> introduces the system but is not the system. It is not a CRM: people appear in the record as agents with memberships and agreements, not as leads. And it is not a social platform: the Find one another slice of &sect;4 adds a bulletin surface where members post offers and invitations to play, practice, and work, but entries there are governed records with authors and lifecycles, not a feed ranked for engagement. This is a clarification of the v0.2 boundary rather than a breach of it, and it is named here so the departure is chosen, not slipped.</p>
+    <p>The ratification vote of August 14, 2026 is recorded in the system as a governed event with signatures, but the full governance module (motions, ballots, threshold machinery) is post-launch scope, sequenced in the roadmap <span class="mono">(RDM)</span> after the four launch slices. <span class="chip anticipated"><span class="dot"></span>Anticipated</span></p>
+  </section>
+
+  <section class="sec" id="s4">
+    <div class="addr">&sect;4</div>
+    <h2>Scope &middot; the four launch slices</h2>
+    <p class="lead">The unit of scope is the slice: a coherent capability a member can use the day it lands, named identically on the public page and in the work plan. Slices replace phases. There are no dates below except the single gate the cooperative already holds; readiness conditions do the sequencing, and a blocked slice wears the mark of what blocks it, by name.</p>
+
+    <div class="slice">
+      <div class="sh"><span class="sc">SLICE 01</span><span class="sn">Belong</span><span class="chip anticipated"><span class="dot"></span>Anticipated &middot; August 14, 2026</span></div>
+      <p class="sp">Identity, membership, and agreement. The slice through which a person becomes, and remains, legible to the cooperative: one agent record that persists as their relationship changes, from visitor to member, whatever their class.</p>
+      <div class="can"><span class="k">a member can</span>Read every agreement that binds them, with version and standing marked. Sign the membership agreement and see the signature recorded. Appear in the member directory with a profile they control. Complete onboarding without a meeting.</div>
+      <div class="al">
+        <span class="row"><span class="k">holds</span> agents &middot; memberships &middot; agreements &middot; signatures &middot; directory &middot; onboarding</span>
+        <span class="row"><span class="k">salvage</span> v0.2 Phase 01 (Agent &amp; Agreement) &middot; Hub Ops application form</span>
+        <span class="row"><span class="k">ready</span> now buildable; agreements bind at ratification <b>(R1, R2 open)</b></span>
+      </div>
+    </div>
+
+    <div class="slice">
+      <div class="sh"><span class="sc">SLICE 02</span><span class="sn">Gather</span><span class="chip anticipated"><span class="dot"></span>Anticipated &middot; August 14, 2026</span></div>
+      <p class="sp">Events and presence. The slice that makes the studio's calendar part of the record: what is happening, who is hosting, who came, and what came of it.</p>
+      <div class="can"><span class="k">a member can</span>See upcoming events and sessions. Register, and cancel, without asking anyone. Have attendance counted where the record counts it. Host an event under a named agreement or policy.</div>
+      <div class="al">
+        <span class="row"><span class="k">holds</span> events &middot; sessions &middot; registrations &middot; attendance</span>
+        <span class="row"><span class="k">salvage</span> Hub Ops event registration and attendance capture, stripped of KPI machinery</span>
+        <span class="row"><span class="k">ready</span> when IM settles the event entities; targeted to the same gate</span>
+      </div>
+    </div>
+
+    <div class="slice">
+      <div class="sh"><span class="sc">SLICE 03</span><span class="sn">Find one another</span><span class="chip anticipated"><span class="dot"></span>Anticipated &middot; following slice</span></div>
+      <p class="sp">The opportunity surface. The genuinely new slice of this version, with no v0.2 predecessor: a bulletin of offers and invitations to play, practice, and work, where relationships and livelihoods begin. Entries are governed records with an author, a lifecycle, and an outcome, not posts in a feed.</p>
+      <div class="can"><span class="k">a member can</span>Browse open invitations by kind: play, practice, work. Post an offer or a need, and close it when it resolves. See what an invitation led to, when the parties choose to record it.</div>
+      <div class="al">
+        <span class="row"><span class="k">holds</span> opportunities &middot; responses &middot; resolutions</span>
+        <span class="row"><span class="k">salvage</span> none; new surface, flagged as such</span>
+        <span class="row"><span class="k">ready</span> when Belong lands, since every entry hangs off an agent record</span>
+      </div>
+    </div>
+
+    <div class="slice">
+      <div class="sh"><span class="sc">SLICE 04</span><span class="sn">See your share</span><span class="chip anticipated"><span class="dot"></span>Anticipated &middot; after counting rules adopt</span></div>
+      <p class="sp">Contribution and account, read-only at first. The slice through which each member sees what they have put in, whether work, patronage, or capital, and the share of results that follows, alongside the written rules that computed it. Balances are computed from the event log, never stored as editable numbers.</p>
+      <div class="can"><span class="k">a member can</span>See their contribution history, itemized. See their capital account as a fold over that history. Follow any figure to the events and the policy that produced it.</div>
+      <div class="al">
+        <span class="row"><span class="k">holds</span> valued events &middot; capital accounts (computed) &middot; allocation views</span>
+        <span class="row"><span class="k">salvage</span> v0.2 capital and patronage model; the eleven laws already drafted</span>
+        <span class="row"><span class="k">blocked by</span> <b>Open</b> &middot; adoption of the patronage counting rules and Schedule A rates (&sect;11)</span>
+      </div>
+    </div>
+
+    <p style="margin-top:var(--s5);">Beyond the launch slices, two capability areas remain in system scope but out of launch scope: the governance module (motions, ballots, notice machinery) and treasury execution (distributions, multi-signature authorization). Their packets sequence in the roadmap after the four above, under slice names to be settled there. <span class="chip open"><span class="dot"></span>Open &middot; naming in RDM</span></p>
+  </section>
+
+  <section class="sec" id="s5">
+    <div class="addr">&sect;5</div>
+    <h2>Information model, at the level of meaning</h2>
+    <p class="lead">Everything in the system resolves to one of four primitives: <em>Agents</em>, who participate; <em>Resources</em>, which flow; <em>Events</em>, which happen; and <em>Agreements</em>, which bind. Agreements are first-class records, not metadata, and every relationship between records is itself an event. The vocabulary is closed: a new kind of thing is admitted only by expressing it through these four. This is what lets a contribution, a vote, a payment, and a membership be reasoned about in one grammar, and it derives from the REA accounting ontology (McCarthy, 1982) as extended in v0.2.</p>
+    <p>All authoritative state is a deterministic fold over one ordered, append-only log of events. Balances are computed, never stored. Nothing in the past is edited; a correction is a new compensating event, so the history of a fact travels with the fact. The conserved quantities named by principle 05 are enforced at the data layer: one voting share per voting member, vote tallies equal to the sum of cast votes, each capital account equal to the fold of that member's capital events, and the patron-majority economic floor the Colorado act requires. An operation that would break one of these is refused before it is written, not flagged after. <span class="chip drafted"><span class="dot"></span>Drafted &middot; eleven laws</span></p>
+    <p>Every surfaced claim carries the three-axis status contract, generalized from the instrument work into the system-wide vocabulary: <em>provenance</em> (real or illustrative, authored), <em>settlement</em> (settled, anticipated, or open, authored), and <em>temporal state</em> (elapsed or ahead, derived from the clock and never authored). The three axes are independent and are not collapsed into a single status field.</p>
+    <p>The canonical schema belongs to the Information Model artifact <span class="mono">(IM)</span>, whose seed is the eleven invariant laws already drafted in <em>The System Before Its Name</em> together with the C6 schema reference card. The nineteen cooperative core tables carry; the twelve Hub extension tables reduce to what Gather actually needs, with the final count settled in IM, not here. <span class="chip anticipated"><span class="dot"></span>Anticipated &middot; IM v0.1</span></p>
+  </section>
+
+  <section class="sec" id="s6">
+    <div class="addr">&sect;6</div>
+    <h2>Authority, at the level of meaning</h2>
+    <p class="lead">What an agent may see is a pure function of their role, the record's class, and the governing section of the bylaws. It is defined by the governing documents, not granted or revoked by an administrator for convenience. The default is disclosure to members; the exceptions are structural rather than toggled: tax identifiers, personal contact details, and sensitive deliberations.</p>
+    <p>Cite-as-you-enforce is the discipline that ties the books to the law, and it is concrete. Under the drafted bylaws, the memberships records cite &sect;1.1 to 1.4; capital accounts cite &sect;5.1; votes cite &sect;1.6 and &sect;1.14; meeting attendance cites &sect;2.7; notices cite &sect;2.4 and Article X; confidentiality obligations run end to end under Article 18. These anchors are real today and provisional today, because the bylaws they cite are themselves Drafted; every policy that cites them hardens at ratification and is re-verified then. <span class="chip drafted"><span class="dot"></span>Drafted &middot; hardens at R1</span></p>
+    <p>Member classes are defined by the bylaws, including the patron-majority requirement that patron members receive the majority of economic benefit at the cooperative level. The full class structure, including the patron and investor classes and the question of whether co-working members are partners for tax purposes with capital accounts, remains before the board and counsel. This document does not resolve it; it requires only that the system represent whatever the bylaws settle, faithfully, per principle 03. <span class="chip open"><span class="dot"></span>Open &middot; &sect;11</span></p>
+    <p>No agent, human or machine, may invent a permission. The Authority Map <span class="mono">(<a href="/commons/authority-map/">AM v0.1</a>)</span> is the citable catalog of roles and row-level policies, each with its bylaw anchor; the runtime instrument operates under scoped impersonation so that an answer never draws on more than the asking member could see themselves.</p>
+  </section>
+
+  <section class="sec" id="s7">
+    <div class="addr">&sect;7</div>
+    <h2>The three doors</h2>
+    <div class="def">
+      <div class="def-row">
+        <span class="t"><span class="k">door one</span>Browse</span>
+        <span class="d">The graphical surface, in two grammars per the interface artifact <span class="mono">(UI)</span>: a document grammar for written and governing content, a reading column of 760 to 920 pixels; and an instrument grammar for operational surfaces, widescreen and no-scroll. Both modes, both grammars, must pass the curious-new-member test of principle 02.</span>
+      </div>
+      <div class="def-row">
+        <span class="t"><span class="k">door two</span>Ask</span>
+        <span class="d">The natural-language surface, operated by Nou under its charter <span class="mono">(NC)</span>. Three constraints carry from the estate's gateway harness: scoped impersonation, read-before-write, and the citation requirement, so every answer names where it read. Nou drafts and retrieves; it does not decide, sign, or record. A draft is not a record until a person makes it one. Principle 01 governs this door entirely.</span>
+      </div>
+      <div class="def-row">
+        <span class="t"><span class="k">door three</span>Verify</span>
+        <span class="d">The ledger and its audit views: the event browser, the derivation trail behind any figure, and the export path behind any table. This door exists so that trust in the other two is optional. Principles 04, 08, and 09 govern it.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="s8">
+    <div class="addr">&sect;8</div>
+    <h2>Stack and substrate</h2>
+    <p class="lead">The substrate carries from the estate and is named honestly as a constraint: static pages served from the repository, with Supabase as the data layer. There is no application server the cooperative runs, which is why enforcement lives in the database. Row-level security, append-only event tables, and declared constraints are not implementation details here; they are where the principles become load-bearing.</p>
+    <div class="def">
+      <div class="def-row"><span class="t">Supabase</span><span class="d">Postgres as the single authoritative store: row-level security per the Authority Map, append-only event sourcing per &sect;5, timestamped migrations per the build conventions.</span></div>
+      <div class="def-row"><span class="t">Repository &amp; CI</span><span class="d">GitHub as the home of the series, the packet ledger, and the validators that enforce dependency order and gate consistency on every change. Pages serves the documents and instruments.</span></div>
+      <div class="def-row"><span class="t">Claude API</span><span class="d">The runtime of the Ask door, operating as Nou under charter constraints. Build agents operate against the Build Protocol <span class="mono">(BP)</span>, a separate contract.</span></div>
+      <div class="def-row"><span class="t">Make.com</span><span class="d">Orchestration where a workflow needs a scheduler or a bridge between services. Every automation remains legible and auditable as a sequence of named steps.</span></div>
+      <div class="def-row"><span class="t">Mercury</span><span class="d">Banking adjacency. Treasury records in the system reference bank facts; the system is the record of the money, not the money.</span></div>
+      <div class="def-row"><span class="t">Base</span><span class="d">On-chain attestation of the event log, formerly a staged commitment, now an optional layer per &sect;1a. It returns only with a stated justification and a decision record.</span></div>
+    </div>
+    <p>New dependencies require a decision record under the Build Protocol. The substrate's limits are accepted deliberately: what cannot be done well on static pages plus a governed database is deferred, not improvised.</p>
+  </section>
+
+  <section class="sec" id="s9">
+    <div class="addr">&sect;9</div>
+    <h2>Non-functional requirements</h2>
+    <p class="lead">Stated on the cooperative's own authority, each anchored to the principles it serves. These are the floor below which no slice ships.</p>
+    <div class="def">
+      <div class="def-row"><span class="t"><span class="k">principles 02 &middot; 08 &middot; 10</span>Publication</span><span class="d">The repository is public, the governing documents are served openly, and every record resolves to an open format. Another cooperative can read everything needed to start its own.</span></div>
+      <div class="def-row"><span class="t"><span class="k">principles 04 &middot; 05 &middot; 09</span>Security floor</span><span class="d">Conservation laws enforced in the database, not the interface. The audit log structural from day one. Backup and restore tested, not merely present. Key and secret custody named in the runbook. The estate's security-floor gate carries unchanged into the Verification Spec.</span></div>
+      <div class="def-row"><span class="t"><span class="k">principle 06</span>Privacy as minimization</span><span class="d">The record keeps the minimum about each person and says plainly what it keeps. Confidentiality is a property of the record, inherited by every surface, with the bylaws' obligations running end to end.</span></div>
+      <div class="def-row"><span class="t"><span class="k">principle 02</span>Accessibility</span><span class="d">Both color modes with device default, visible keyboard focus, reduced motion respected, and prose a curious new member can follow. Nothing essential lives only behind a hover.</span></div>
+      <div class="def-row"><span class="t"><span class="k">principle 09</span>Operability</span><span class="d">The runbook exists before operations do. Migrations are timestamped and ordered; environments are named; a failed restore is a launch blocker, not a footnote.</span></div>
+      <div class="def-row"><span class="t"><span class="k">principles 08 &middot; 10</span>Portability</span><span class="d">Every table has an export path, and the walkaway test of &sect;10 is an executable check, not a slogan.</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="s10">
+    <div class="addr">&sect;10</div>
+    <h2>Success criteria</h2>
+    <p class="lead">The acceptance criteria for each slice are the plain-language capability blocks in &sect;4: each sentence beginning <em>a member can</em> is a test, verified per the Verification Spec. Above the slices sit six system-level criteria, each of which can be checked rather than asserted.</p>
+    <div class="def">
+      <div class="def-row"><span class="t">The curious new member</span><span class="d">A new member finds what governs them, what they have contributed, and what is happening next without asking anyone. Principles 02 and 07, tested with real newcomers, not personas.</span></div>
+      <div class="def-row"><span class="t">No unexplained boundary</span><span class="d">Following any enforcement or any figure to its source ends at a citation and recoverable inputs, never at a wall. Principle 04.</span></div>
+      <div class="def-row"><span class="t">Replay holds</span><span class="d">A deterministic replay of the event log reproduces every published balance and tally exactly. Principle 05 and the fold law of &sect;5.</span></div>
+      <div class="def-row"><span class="t">The walkaway test</span><span class="d">The published schema, bylaw mappings, formulas, and agent code are usable by another cooperative without renegotiation. Principles 08 and 10, executable in the Verification Spec.</span></div>
+      <div class="def-row"><span class="t">Restore proven</span><span class="d">A full restore from backup has actually been performed before members depend on the system. A tested restore is the difference between a record and a hope.</span></div>
+      <div class="def-row"><span class="t">No plan dressed as a fact</span><span class="d">Every surfaced claim wears its status mark, and nothing displays Ratified before the members have voted. The system's honesty about itself is a launch criterion, not a virtue.</span></div>
+    </div>
+    <p>The single gate the cooperative holds: Belong and Gather usable by members at the ratification gathering of August 14, 2026. <span class="chip anticipated"><span class="dot"></span>Anticipated</span></p>
+  </section>
+
+  <section class="sec" id="s11">
+    <div class="addr">&sect;11</div>
+    <h2>Open questions</h2>
+    <p class="lead">Each question names its owner and what it blocks. None blocks the start of the build; each becomes blocking exactly where its scope becomes material, and a blocked packet wears the mark of the question that blocks it.</p>
+    <div class="oq">
+      <div class="oq-row">
+        <span class="qt">Q1 &middot; The working name</span>
+        <span class="qd">The Common Record is proposed as the public name, with Common Information System retained as the formal name. Adoption is a naming decision, not a design one.</span>
+        <span class="qm"><span class="k">owner</span> Todd &nbsp;&middot;&nbsp; <span class="k">blocks</span> LP v0.2 masthead only</span>
+      </div>
+      <div class="oq-row">
+        <span class="qt">Q2 &middot; Ratification</span>
+        <span class="qd">The bylaws and membership agreement remain Drafted until the members vote. Every citation in &sect;6 hardens then and is re-verified.</span>
+        <span class="qm"><span class="k">owner</span> the members, August 14, 2026 &nbsp;&middot;&nbsp; <span class="k">blocks</span> marks flipping to Ratified; agreements binding</span>
+      </div>
+      <div class="oq-row">
+        <span class="qt">Q3 &middot; Counting rules</span>
+        <span class="qd">The patronage counting rules and Schedule A rates must be adopted as prospective board policy before member accounts can be computed and shown.</span>
+        <span class="qm"><span class="k">owner</span> the board, with tax counsel &nbsp;&middot;&nbsp; <span class="k">blocks</span> the See your share slice</span>
+      </div>
+      <div class="oq-row">
+        <span class="qt">Q4 &middot; Class structure</span>
+        <span class="qd">The patron and investor class design, including whether co-working members are partners for tax purposes with capital accounts, remains before the board and counsel.</span>
+        <span class="qm"><span class="k">owner</span> board and counsel &nbsp;&middot;&nbsp; <span class="k">blocks</span> AM hardening; See your share semantics</span>
+      </div>
+      <div class="oq-row">
+        <span class="qt">Q5 &middot; Licensing the system outward</span>
+        <span class="qd">The tiers under which the system is offered to other cooperatives remain a board item. Composability under principle 10 proceeds regardless; the offering does not.</span>
+        <span class="qm"><span class="k">owner</span> the board (D-03) &nbsp;&middot;&nbsp; <span class="k">blocks</span> the outward offering only</span>
+      </div>
+      <div class="oq-row">
+        <span class="qt">Q6 &middot; Post-launch slice names</span>
+        <span class="qd">Governance and treasury execution need slice names of the same plainness as the launch four before their packets are authored.</span>
+        <span class="qm"><span class="k">owner</span> Todd &nbsp;&middot;&nbsp; <span class="k">blocks</span> RDM structure for post-launch work</span>
+      </div>
+      <div class="oq-row">
+        <span class="qt">Q7 &middot; One door or two</span>
+        <span class="qd">Whether a single landing page serves both the cooperative's public address and the repository's front door, or two registers of the same page serve each.</span>
+        <span class="qm"><span class="k">owner</span> Todd &nbsp;&middot;&nbsp; <span class="k">blocks</span> LP v0.2</span>
+      </div>
+      <div class="oq-row">
+        <span class="qt">Q8 &middot; Attestation's return</span>
+        <span class="qd">On-chain attestation of the event log is optional per &sect;1a and returns only with a stated justification and a decision record.</span>
+        <span class="qm"><span class="k">owner</span> the board &nbsp;&middot;&nbsp; <span class="k">blocks</span> nothing</span>
+      </div>
+      <div class="oq-row">
+        <span class="qt">Q9 &middot; Adjacent watch item</span>
+        <span class="qd">The two-instrument media currency design and the related barter-exchange reporting question sit with counsel. If adopted, they introduce new resource types into IM; they are not a launch dependency.</span>
+        <span class="qm"><span class="k">owner</span> counsel, then board &nbsp;&middot;&nbsp; <span class="k">blocks</span> future IM resource types only</span>
+      </div>
+    </div>
+
+    <div class="memo">
+      <div class="k">the working agreement of this document</div>
+      <p>The specification is the part of the system that can be read before it can be run. If a build agent and a curious member read this document and come away disagreeing about what the system is, the document has failed principle 02, and the fix begins here, not in the code.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="row">
+      <span>Common Information System &middot; PRD v0.3 &middot; Drafted</span>
+      <span>supersedes v0.2 &middot; deprecation record at &sect;1a</span>
+      <span>The Common Record Series &middot; <a href="/commons/series/">SER v0.2</a></span>
+      <span>techne.coop &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn  = document.getElementById('modeBtn');
+  var lbl  = document.getElementById('modeLbl');
+  function sync() {
+    var m = root.getAttribute('data-mode');
+    lbl.textContent = m === 'dark' ? 'light' : 'dark';
+  }
+  sync();
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-mode', next);
+    try { localStorage.setItem('techne-mode', next); } catch(e) {}
+    sync();
+  });
+})();
+</script>
+</body>
+</html>
