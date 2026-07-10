@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Living roadmap for the Common Information System — packet ledger, signal loop, and repository tree. RegenHub, LCA · Techne · Boulder.">
+<title>Living Roadmap &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/build/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/build/">
+<meta property="og:title" content="Living Roadmap · Techne">
+<meta property="og:description" content="Implementation HUD, signal loop, and repository tree for the CIS v0.3 build. RegenHub, LCA.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --ok-dim:rgba(106,154,106,0.13);
+  --info:#6A8AC4; --info-dim:rgba(106,138,196,0.13);
+  --warn:#C46A6A; --warn-dim:rgba(196,106,106,0.13);
+  --ember-dim:rgba(196,149,106,0.13);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --ok-dim:rgba(74,122,74,0.10);
+  --info:#4A6FB0; --info-dim:rgba(74,111,176,0.10);
+  --warn:#A84F4C; --warn-dim:rgba(168,79,76,0.10);
+  --ember-dim:rgba(138,106,74,0.10);
+  color-scheme: light;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* { margin:0; padding:0; box-sizing:border-box; }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition-duration:0ms !important; } }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--mono); font-size:13px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.topbar {
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; gap:var(--s5);
+  padding:0 var(--s5); height:52px;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.brand { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+.brand-mark { font-family:var(--mono); font-size:0.78rem; font-weight:500; letter-spacing:0.06em; color:var(--heading); transition:color var(--micro) var(--ease); }
+.brand:hover .brand-mark { color:var(--ember-text); }
+.top-nav { flex:1; display:flex; gap:var(--s4); list-style:none; }
+.top-nav a { font-size:0.72rem; letter-spacing:0.04em; color:var(--muted); text-decoration:none; transition:color var(--micro) var(--ease); }
+.top-nav a:hover { color:var(--heading); }
+.top-nav a[aria-current="page"] { color:var(--ember-text); }
+.mode-toggle {
+  margin-left:auto; display:flex; align-items:center; gap:6px;
+  font-size:0.7rem; color:var(--muted);
+  background:none; border:1px solid var(--line); border-radius:2px;
+  padding:5px 9px; cursor:pointer;
+  transition:color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.mode-toggle:hover { color:var(--heading); border-color:var(--rule); }
+.mode-toggle svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+.mast {
+  padding:var(--s6) var(--s5) var(--s5);
+  border-bottom:1px solid var(--rule);
+  display:flex; flex-wrap:wrap; align-items:flex-end; gap:var(--s4) var(--s7);
+}
+.mast-left { flex:1; min-width:260px; }
+.mast-eyebrow { font-size:0.65rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s2); }
+.mast-title { font-family:var(--serif); font-size:clamp(1.4rem,3vw,2rem); font-weight:700; color:var(--heading); line-height:1.15; letter-spacing:-0.01em; margin-bottom:var(--s2); }
+.mast-dek { font-size:0.8rem; line-height:1.65; color:var(--muted); max-width:62ch; }
+.mast-stats { display:flex; flex-wrap:wrap; gap:var(--s2); align-items:center; }
+.stat-chip {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:0.65rem; font-weight:500; letter-spacing:0.06em;
+  padding:5px 10px; border-radius:2px; border:1px solid var(--line);
+}
+.stat-chip .n { font-size:0.9rem; font-weight:500; }
+.stat-chip.done { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
+.stat-chip.active { color:var(--blue-text); border-color:var(--blue); background:var(--info-dim); }
+.stat-chip.ready { color:var(--ember-text); border-color:var(--ember); background:var(--ember-dim); }
+.stat-chip.blocked { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
+.stat-chip.stub { color:var(--faint); border-color:var(--line); }
+
+/* ============================================================
+   TAB STRIP
+   ============================================================ */
+.tabs {
+  display:flex; border-bottom:1px solid var(--line);
+  background:var(--surface); position:sticky; top:52px; z-index:40;
+}
+.tab-btn {
+  font-family:var(--mono); font-size:0.7rem; font-weight:500; letter-spacing:0.08em;
+  text-transform:lowercase; color:var(--muted);
+  padding:0 var(--s5); height:42px; background:none; border:none;
+  border-right:1px solid var(--line); cursor:pointer;
+  transition:color var(--micro) var(--ease), background-color var(--micro) var(--ease);
+  position:relative;
+}
+.tab-btn:first-child { border-left:none; }
+.tab-btn:hover { color:var(--heading); background:var(--raised); }
+.tab-btn.active { color:var(--blue-text); background:var(--bg); }
+.tab-btn.active::after {
+  content:""; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--blue);
+}
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+/* ============================================================
+   HUD LAYOUT
+   ============================================================ */
+.hud-wrap { display:grid; grid-template-columns:160px 1fr 220px; min-height:calc(100vh - 160px); }
+
+/* Slice rail */
+.slice-rail {
+  border-right:1px solid var(--line);
+  position:sticky; top:94px; height:calc(100vh - 94px);
+  overflow-y:auto; padding:var(--s4) 0;
+}
+.rail-group { margin-bottom:var(--s3); }
+.rail-label { font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--faint); padding:var(--s2) var(--s4) var(--s1); }
+.rail-link {
+  display:block; padding:7px var(--s4); font-size:0.7rem; color:var(--muted);
+  text-decoration:none; border-left:2px solid transparent;
+  transition:color var(--micro) var(--ease), border-color var(--micro) var(--ease), background var(--micro) var(--ease);
+}
+.rail-link:hover { color:var(--heading); background:var(--surface); }
+.rail-link.active { color:var(--ember-text); border-left-color:var(--ember); }
+
+/* Packet table */
+.packet-main { padding:0; }
+.slice-group { border-bottom:1px solid var(--rule); }
+.slice-header {
+  padding:var(--s4) var(--s5) var(--s3);
+  border-bottom:1px solid var(--line);
+  background:var(--surface);
+  position:sticky; top:94px; z-index:10;
+}
+.slice-addr { font-size:0.6rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:4px; }
+.slice-name { font-family:var(--serif); font-size:1.05rem; font-weight:700; color:var(--heading); }
+.slice-cap { font-size:0.72rem; color:var(--muted); margin-top:4px; }
+.slice-target { font-size:0.62rem; color:var(--faint); margin-top:3px; letter-spacing:0.04em; }
+
+.packet-row {
+  display:grid; grid-template-columns:80px 1fr 110px 130px;
+  gap:var(--s3); padding:10px var(--s5);
+  border-bottom:1px solid var(--line);
+  align-items:baseline;
+  transition:background var(--micro) var(--ease);
+}
+.packet-row:hover { background:var(--surface); }
+.packet-row:last-child { border-bottom:0; }
+.pkt-addr { font-size:0.65rem; font-weight:600; color:var(--ember-text); letter-spacing:0.04em; white-space:nowrap; }
+.pkt-intent { font-size:0.8rem; color:var(--text); line-height:1.5; }
+.pkt-cites { font-size:0.62rem; color:var(--faint); line-height:1.5; }
+
+/* Status chips */
+.chip {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:0.6rem; font-weight:500; letter-spacing:0.05em;
+  padding:3px 7px; border-radius:2px; border:1px solid var(--line);
+  background:var(--surface); white-space:nowrap; vertical-align:middle;
+  color:var(--muted);
+}
+.chip .dot { width:5px; height:5px; border-radius:1px; flex-shrink:0; }
+.chip.done { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
+.chip.done .dot { background:var(--ok); }
+.chip.active { color:var(--blue-text); border-color:var(--blue); background:var(--info-dim); }
+.chip.active .dot { background:var(--blue); }
+.chip.workable { color:var(--ember-text); border-color:var(--ember); background:var(--ember-dim); }
+.chip.workable .dot { background:transparent; border:1px solid var(--ember-text); }
+.chip.blocked { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
+.chip.blocked .dot { background:transparent; border:1px solid var(--warn); }
+.chip.stub { color:var(--faint); border-color:var(--line); }
+.chip.stub .dot { background:transparent; border:1px solid var(--faint); }
+.chip.open { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
+.chip.open .dot { background:transparent; border:1px solid var(--warn); }
+
+/* Signal panel */
+.signal-panel {
+  border-left:1px solid var(--line);
+  position:sticky; top:94px; height:calc(100vh - 94px);
+  overflow-y:auto; padding:var(--s4);
+}
+.signal-sec { margin-bottom:var(--s5); }
+.signal-sec:last-child { margin-bottom:0; }
+.signal-label { font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s3); padding-bottom:var(--s2); border-bottom:1px solid var(--line); }
+.decision-card {
+  background:var(--surface); border:1px solid var(--line);
+  border-left:2px solid var(--ember); padding:var(--s3);
+  margin-bottom:var(--s2); border-radius:1px;
+}
+.decision-card:last-child { margin-bottom:0; }
+.dc-addr { font-size:0.6rem; font-weight:600; color:var(--ember-text); margin-bottom:3px; }
+.dc-q { font-size:0.72rem; color:var(--text); line-height:1.5; margin-bottom:4px; }
+.dc-unblocks { font-size:0.6rem; color:var(--faint); }
+.signal-note { font-size:0.72rem; color:var(--muted); line-height:1.6; }
+.signal-ts { font-size:0.6rem; color:var(--faint); margin-top:var(--s3); }
+
+/* ============================================================
+   LOOP LAYOUT
+   ============================================================ */
+.loop-wrap { max-width:860px; padding:var(--s6) var(--s5); display:grid; gap:var(--s4); }
+.loop-q {
+  background:var(--surface); border:1px solid var(--line);
+  border-top:2px solid var(--ember);
+}
+.loop-q-head { padding:var(--s4) var(--s5) var(--s3); border-bottom:1px solid var(--line); }
+.loop-q-n { font-size:0.6rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:4px; }
+.loop-q-label { font-family:var(--serif); font-size:1.05rem; font-weight:700; color:var(--heading); }
+.loop-q-body { padding:var(--s4) var(--s5); }
+.loop-answer { font-size:0.8rem; color:var(--text); line-height:1.7; margin-bottom:var(--s3); }
+.loop-items { list-style:none; }
+.loop-item { display:flex; align-items:baseline; gap:var(--s3); padding:6px 0; border-bottom:1px solid var(--line); font-size:0.78rem; }
+.loop-item:last-child { border-bottom:0; }
+.loop-item-addr { font-size:0.65rem; font-weight:600; color:var(--ember-text); flex-shrink:0; width:70px; }
+.loop-item-text { color:var(--text); flex:1; }
+.loop-item-status { flex-shrink:0; }
+.loop-escalation {
+  background:var(--inset); border:1px solid var(--line); border-left:2px solid var(--warn);
+  padding:var(--s3) var(--s4); margin-top:var(--s3);
+}
+.loop-esc-label { font-size:0.6rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--warn); margin-bottom:var(--s2); }
+.loop-esc-rows { display:grid; gap:var(--s2); }
+.loop-esc-row { display:grid; grid-template-columns:100px 1fr; gap:var(--s3); font-size:0.72rem; }
+.loop-esc-field { color:var(--muted); }
+.loop-esc-val { color:var(--text); }
+
+/* ============================================================
+   TREE LAYOUT
+   ============================================================ */
+.tree-wrap { max-width:900px; padding:var(--s6) var(--s5); }
+.tree-sec { margin-bottom:var(--s7); }
+.tree-sec:last-child { margin-bottom:0; }
+.tree-sec-label { font-size:0.6rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s4); padding-bottom:var(--s2); border-bottom:1px solid var(--line); }
+pre.tree { background:var(--inset); border:1px solid var(--line); padding:var(--s4); overflow-x:auto; font-size:0.78rem; line-height:1.7; color:var(--text); }
+pre.tree .done { color:var(--ok); }
+pre.tree .active { color:var(--blue-text); }
+pre.tree .planned { color:var(--faint); }
+pre.tree .ember { color:var(--ember-text); }
+.migration-table { width:100%; border-collapse:collapse; border:1px solid var(--line); }
+.migration-table th { font-size:0.62rem; font-weight:600; letter-spacing:0.08em; text-transform:lowercase; text-align:left; padding:8px var(--s3); background:var(--raised); border-bottom:1px solid var(--rule); color:var(--muted); }
+.migration-table td { font-size:0.72rem; padding:8px var(--s3); border-bottom:1px solid var(--line); background:var(--surface); color:var(--text); }
+.migration-table tr:last-child td { border-bottom:0; }
+.migration-table .addr-cell { font-weight:600; color:var(--ember-text); font-size:0.65rem; }
+.migration-table .name-cell { color:var(--heading); }
+.migration-table .desc-cell { color:var(--muted); font-size:0.7rem; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7); font-size:0.65rem; color:var(--faint); display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1040px) {
+  .hud-wrap { grid-template-columns:140px 1fr; }
+  .signal-panel { display:none; }
+}
+@media (max-width:720px) {
+  .hud-wrap { grid-template-columns:1fr; }
+  .slice-rail { display:none; }
+  .packet-row { grid-template-columns:70px 1fr; }
+  .pkt-cites { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header>
+  <div class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">Techne</span>
+    </a>
+    <ul class="top-nav">
+      <li><a href="/commons/">Commons</a></li>
+      <li><a href="/commons/build/" aria-current="page">Build</a></li>
+      <li><a href="/legal/">Legal</a></li>
+      <li><a href="/intranet/">Intranet</a></li>
+    </ul>
+    <button class="mode-toggle" id="modeToggle" aria-label="Toggle color mode">
+      <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+      <span id="modeLabel">Light</span>
+    </button>
+  </div>
+</header>
+
+<!-- MASTHEAD -->
+<div class="mast">
+  <div class="mast-left">
+    <div class="mast-eyebrow">Common Information System &middot; Build Ledger &middot; July 2026</div>
+    <h1 class="mast-title">Living Roadmap</h1>
+    <p class="mast-dek">Implementation HUD, signal loop, and repository tree for the CIS v0.3 build. Every packet carries its own address, intent, and honest status. Agents draft; organizers decide and adopt. Cites: PRD v0.3 &middot; BP v1.</p>
+  </div>
+  <div class="mast-stats" id="statsRow">
+    <span class="stat-chip done"><span class="n" id="cnt-done">5</span>&thinsp;done</span>
+    <span class="stat-chip active"><span class="n" id="cnt-active">1</span>&thinsp;in progress</span>
+    <span class="stat-chip ready"><span class="n" id="cnt-workable">4</span>&thinsp;workable</span>
+    <span class="stat-chip blocked"><span class="n" id="cnt-blocked">9</span>&thinsp;blocked</span>
+    <span class="stat-chip stub"><span class="n" id="cnt-stub">5</span>&thinsp;stub</span>
+  </div>
+</div>
+
+<!-- TAB STRIP -->
+<div class="tabs" role="tablist">
+  <button class="tab-btn active" id="tab-hud" role="tab" aria-selected="true" aria-controls="panel-hud">HUD</button>
+  <button class="tab-btn" id="tab-loop" role="tab" aria-selected="false" aria-controls="panel-loop">Loop</button>
+  <button class="tab-btn" id="tab-tree" role="tab" aria-selected="false" aria-controls="panel-tree">Tree</button>
+</div>
+
+<!-- ====== HUD PANEL ====== -->
+<div class="tab-panel active" id="panel-hud" role="tabpanel" aria-labelledby="tab-hud">
+<div class="hud-wrap">
+
+  <!-- SLICE RAIL -->
+  <nav class="slice-rail" aria-label="Slice navigation">
+    <div class="rail-group">
+      <div class="rail-label">infrastructure</div>
+      <a class="rail-link active" href="#inf">INF</a>
+    </div>
+    <div class="rail-group">
+      <div class="rail-label">slice 01</div>
+      <a class="rail-link" href="#bel">Belong</a>
+    </div>
+    <div class="rail-group">
+      <div class="rail-label">slice 02</div>
+      <a class="rail-link" href="#gat">Gather</a>
+    </div>
+    <div class="rail-group">
+      <div class="rail-label">slice 03</div>
+      <a class="rail-link" href="#fnd">Find</a>
+    </div>
+    <div class="rail-group">
+      <div class="rail-label">slice 04</div>
+      <a class="rail-link" href="#acc">Account</a>
+    </div>
+    <div class="rail-group">
+      <div class="rail-label">decisions</div>
+      <a class="rail-link" href="#dec">D-series</a>
+    </div>
+  </nav>
+
+  <!-- PACKET TABLE -->
+  <main class="packet-main">
+
+    <!-- INF -->
+    <div class="slice-group" id="inf">
+      <div class="slice-header">
+        <div class="slice-addr">INF &middot; Infrastructure</div>
+        <div class="slice-name">Foundation</div>
+        <div class="slice-cap">Database, auth, static site, tooling. Ready-when: nothing. These run first.</div>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">INF-01</span>
+        <span class="pkt-intent">L1 substrate: agents, agreements, resources, events, event_lines, agreement_sections, role_assignments schema + RLS + bylaws seed applied to Supabase <code>dgcoffcanzwsuwgpocbt</code>.</span>
+        <span><span class="chip done"><span class="dot"></span>done</span></span>
+        <span class="pkt-cites">PRD v0.3 &sect;5 &middot; 3 migrations</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">INF-02</span>
+        <span class="pkt-intent">Auth gate: Supabase magic link flow, intranet shell, redirect allowlist set, rate limit noted.</span>
+        <span><span class="chip done"><span class="dot"></span>done</span></span>
+        <span class="pkt-cites">PRD v0.3 &sect;7 Browse door</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">INF-03</span>
+        <span class="pkt-intent">Static site: techne.coop homepage (ecosystem cut), commons landing, legal, design system (v4, CIS v0.3-aligned), favicon, SEO layer applied to all pages.</span>
+        <span><span class="chip done"><span class="dot"></span>done</span></span>
+        <span class="pkt-cites">PRD v0.3 &sect;1 &middot; BP v1 &sect;6</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">INF-04</span>
+        <span class="pkt-intent">CIS reference site at <code>cis-reference</code> repo: update from PRD v0.2 to v0.3 (slices replace phases, CROPS removed, four-door reframe).</span>
+        <span><span class="chip workable"><span class="dot"></span>workable</span></span>
+        <span class="pkt-cites">PRD v0.3 &sect;4 &middot; prior INF-03</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">INF-05</span>
+        <span class="pkt-intent">Living roadmap: commons/build HUD, Loop, Tree panels. This page.</span>
+        <span><span class="chip active"><span class="dot"></span>in progress</span></span>
+        <span class="pkt-cites">BP v1 &sect;8 &middot; PRD v0.3 &sect;4</span>
+      </div>
+
+    </div>
+
+    <!-- BEL -->
+    <div class="slice-group" id="bel">
+      <div class="slice-header">
+        <div class="slice-addr">BEL &middot; Slice 01</div>
+        <div class="slice-name">Belong</div>
+        <div class="slice-cap">A member can: read every agreement that binds them; sign the membership agreement; appear in the directory; complete onboarding without a meeting.</div>
+        <div class="slice-target">Target &middot; August 14, 2026</div>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">BEL-01</span>
+        <span class="pkt-intent">Agreement browse: authenticated member reads every agreement_section that applies to their role, with version and standing marked. Read-only, no editing.</span>
+        <span><span class="chip workable"><span class="dot"></span>workable</span></span>
+        <span class="pkt-cites">PRD v0.3 &sect;4 &middot; INF-01 (agreements table) &middot; INF-02 (auth)</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">BEL-02</span>
+        <span class="pkt-intent">Membership agreement digital signing: member signs via authenticated flow; signature recorded as event in event_lines; agreement status updated.</span>
+        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; D-01</span></span>
+        <span class="pkt-cites">D-01 (auth email branding) &middot; PRD v0.3 &sect;4</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">BEL-03</span>
+        <span class="pkt-intent">Member directory: patron_member can read peer profiles. Privacy policy required before schema work; each profile field carries visibility control.</span>
+        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; BEL-01</span></span>
+        <span class="pkt-cites">PRD v0.3 &sect;5 (agents) &middot; BEL-01</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">BEL-04</span>
+        <span class="pkt-intent">Onboarding sequence: applicant invited &rarr; reads agreements &rarr; signs &rarr; patron_member record active. Role assignment timestamped via role_assignments table.</span>
+        <span><span class="chip stub"><span class="dot"></span>stub</span></span>
+        <span class="pkt-cites">BEL-01 &middot; BEL-02 &middot; BEL-03</span>
+      </div>
+
+    </div>
+
+    <!-- GAT -->
+    <div class="slice-group" id="gat">
+      <div class="slice-header">
+        <div class="slice-addr">GAT &middot; Slice 02</div>
+        <div class="slice-name">Gather</div>
+        <div class="slice-cap">A member can: see upcoming events; register and cancel self-serve; have attendance counted; host an event under a named agreement or policy.</div>
+        <div class="slice-target">Target &middot; August 14, 2026</div>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">GAT-01</span>
+        <span class="pkt-intent">Events schema: migration adding events table (name, start_at, end_at, location, agreement_id FK, host agent_id FK). RLS: patron_member can read; host can write own events.</span>
+        <span><span class="chip workable"><span class="dot"></span>workable</span></span>
+        <span class="pkt-cites">PRD v0.3 &sect;5 (events) &middot; INF-01</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">GAT-02</span>
+        <span class="pkt-intent">Event listing + registration: authenticated member sees upcoming events; registers (creates attendee event_line); cancels own registration. Self-serve, no human gate.</span>
+        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; GAT-01</span></span>
+        <span class="pkt-cites">GAT-01 &middot; PRD v0.3 &sect;4</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">GAT-03</span>
+        <span class="pkt-intent">Attendance counted: attendance recorded in event_lines when event closes. Member can see their own attendance history. Attendance feeds contribution record in Slice 04.</span>
+        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; GAT-01</span></span>
+        <span class="pkt-cites">GAT-01 &middot; INF-01 (event_lines)</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">GAT-04</span>
+        <span class="pkt-intent">Host-an-event: member can create an event record linked to a named agreement or board-approved policy. Hosting record is itself an event line.</span>
+        <span><span class="chip stub"><span class="dot"></span>stub</span></span>
+        <span class="pkt-cites">GAT-01 &middot; GAT-02 &middot; D-03 (policy anchors)</span>
+      </div>
+
+    </div>
+
+    <!-- FND -->
+    <div class="slice-group" id="fnd">
+      <div class="slice-header">
+        <div class="slice-addr">FND &middot; Slice 03</div>
+        <div class="slice-name">Find one another</div>
+        <div class="slice-cap">A member can: browse open offers and invitations; post an offer or need; close it when resolved; see what an invitation led to, when parties choose to record it.</div>
+        <div class="slice-target">Ready-when: Belong delivered (BEL-04 done)</div>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">FND-01</span>
+        <span class="pkt-intent">Offers schema: migration adding offers table (kind, description, offered_by agent_id FK, status, resolution event_id FK). RLS: patron_member can read open; own-row write.</span>
+        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; BEL-04</span></span>
+        <span class="pkt-cites">PRD v0.3 &sect;4 (Find) &middot; INF-01 (agents)</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">FND-02</span>
+        <span class="pkt-intent">Offer browse: authenticated member sees open offers and invitations, filterable by kind (play, practice, work). No account required to browse; record required to post.</span>
+        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; FND-01</span></span>
+        <span class="pkt-cites">FND-01 &middot; PRD v0.3 &sect;4</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">FND-03</span>
+        <span class="pkt-intent">Post and close: member posts an offer or need; closes their own offer when resolved. Closed with resolution note; resolution optionally linked to an event.</span>
+        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; FND-01</span></span>
+        <span class="pkt-cites">FND-01 &middot; BEL-04</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">FND-04</span>
+        <span class="pkt-intent">What it led to: parties may record what an invitation led to as an event_line. Voluntary, not required. Feeds contribution history in Slice 04.</span>
+        <span><span class="chip stub"><span class="dot"></span>stub</span></span>
+        <span class="pkt-cites">FND-03 &middot; INF-01 (event_lines)</span>
+      </div>
+
+    </div>
+
+    <!-- ACC -->
+    <div class="slice-group" id="acc">
+      <div class="slice-header">
+        <div class="slice-addr">ACC &middot; Slice 04</div>
+        <div class="slice-name">See your share</div>
+        <div class="slice-cap">A member can: see their contribution history, itemized; see their capital account; follow any figure to the events and policy that produced it. Balances computed, never stored as editable numbers.</div>
+        <div class="slice-target">Ready-when: counting rules adopted by board (D-02)</div>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">ACC-01</span>
+        <span class="pkt-intent">Contribution history view: member sees all event_lines where they appear, itemized by type and date. Read-only. No computation yet; raw event record display.</span>
+        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; D-02</span></span>
+        <span class="pkt-cites">D-02 (counting rules) &middot; INF-01 (event_lines)</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">ACC-02</span>
+        <span class="pkt-intent">Capital account: member sees their capital account balance as a computed fold over contribution history. Account is a view, not a stored number. Traceable to ACC-03.</span>
+        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; ACC-01</span></span>
+        <span class="pkt-cites">D-02 &middot; ACC-01 &middot; PRD v0.3 &sect;4</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">ACC-03</span>
+        <span class="pkt-intent">Audit trail: any figure shown to a member can be followed to the event_lines that produced it and the agreement_section that authorized the counting rule. One click to source.</span>
+        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; ACC-01</span></span>
+        <span class="pkt-cites">PRD v0.3 &sect;3 (authoritative state) &middot; ACC-01</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">ACC-04</span>
+        <span class="pkt-intent">Allocation and notice: distributive share allocated per Subchapter K; notice generated as a document referencing event_lines. Written notice of allocation delivered to member record.</span>
+        <span><span class="chip stub"><span class="dot"></span>stub</span></span>
+        <span class="pkt-cites">D-02 &middot; ACC-02 &middot; Bylaws &sect;8</span>
+      </div>
+
+    </div>
+
+    <!-- D-SERIES -->
+    <div class="slice-group" id="dec">
+      <div class="slice-header">
+        <div class="slice-addr">D-series &middot; Open Decisions</div>
+        <div class="slice-name">Decision Register</div>
+        <div class="slice-cap">Questions whose answers unblock downstream packets. Agents draft briefs; only organizers record outcomes. A resolved decision unblocks every packet that cited it.</div>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">D-01</span>
+        <span class="pkt-intent">SMTP for CIS auth email: current Supabase shared SMTP is rate-limited to 2 emails/hr/IP and unbranded. Requires host, user, password, and sender address for mail@techne.coop or equivalent. Unblocks BEL-02.</span>
+        <span><span class="chip open"><span class="dot"></span>open</span></span>
+        <span class="pkt-cites">Unblocks: BEL-02</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">D-02</span>
+        <span class="pkt-intent">Counting rules: board resolution adopting the patronage counting rules (what counts as a contribution, at what FMV rate, which event types). The condition that makes a member account honest rather than illustrative. Unblocks entire Slice 04.</span>
+        <span><span class="chip open"><span class="dot"></span>open</span></span>
+        <span class="pkt-cites">Unblocks: ACC-01, ACC-02, ACC-03, ACC-04</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">D-03</span>
+        <span class="pkt-intent">Estate reconciliation (BP &sect;1): each rule in AGENTS.md, GOVERNANCE.md, CONVENTIONS.md, and C10 is either adopted into BP v1 by amendment or retired by name. An open packet per the preamble.</span>
+        <span><span class="chip open"><span class="dot"></span>open</span></span>
+        <span class="pkt-cites">BP v1 &sect;1 &middot; Unblocks: GAT-04</span>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- SIGNAL PANEL -->
+  <aside class="signal-panel" aria-label="Signal: open decisions and build state">
+    <div class="signal-sec">
+      <div class="signal-label">Open decisions</div>
+
+      <div class="decision-card">
+        <div class="dc-addr">D-01 &middot; SMTP</div>
+        <div class="dc-q">Which email provider and credentials for mail@techne.coop on the CIS Supabase project?</div>
+        <div class="dc-unblocks">Unblocks &rarr; BEL-02 (digital signing)</div>
+      </div>
+
+      <div class="decision-card">
+        <div class="dc-addr">D-02 &middot; Counting rules</div>
+        <div class="dc-q">Board resolution: what counts as a contribution, at what FMV rate, which event types?</div>
+        <div class="dc-unblocks">Unblocks &rarr; entire Slice 04 (ACC-01 through ACC-04)</div>
+      </div>
+
+      <div class="decision-card">
+        <div class="dc-addr">D-03 &middot; Estate reconcile</div>
+        <div class="dc-q">Which rules from AGENTS.md / GOVERNANCE.md / CONVENTIONS.md are adopted into BP v1, which are retired by name?</div>
+        <div class="dc-unblocks">Unblocks &rarr; GAT-04 (policy anchors)</div>
+      </div>
+    </div>
+
+    <div class="signal-sec">
+      <div class="signal-label">Build state</div>
+      <p class="signal-note">Infrastructure is done. The auth gate is live. Slices 01 and 02 are workable at the schema and UI level; BEL-02 is the only hard gate (needs SMTP). Slices 03 and 04 wait on downstream readiness. The most leveraged next step is D-01: one decision unblocks the signing flow that makes Belong real before August 14.</p>
+    </div>
+
+    <div class="signal-sec">
+      <div class="signal-label">Protocol</div>
+      <p class="signal-note">BP v1 &middot; Drafted. One packet per branch, named by address. Commits carry authorship trailer. Schema, permissions, money, membership: stop and ask. This instrument reads the ledger; it does not write to it.</p>
+      <div class="signal-ts">Ledger updated &middot; 2026-07-10 &middot; Nou</div>
+    </div>
+  </aside>
+
+</div>
+</div>
+
+<!-- ====== LOOP PANEL ====== -->
+<div class="tab-panel" id="panel-loop" role="tabpanel" aria-labelledby="tab-loop">
+<div class="loop-wrap">
+
+  <div class="loop-q">
+    <div class="loop-q-head">
+      <div class="loop-q-n">Q1 &middot; signal loop</div>
+      <div class="loop-q-label">What is workable now?</div>
+    </div>
+    <div class="loop-q-body">
+      <p class="loop-answer">Four packets have no unresolved upstream. They can start immediately, in any order, with the context already in the repository. Each is bounded: one branch, one commit scope, one deliverable.</p>
+      <ul class="loop-items">
+        <li class="loop-item">
+          <span class="loop-item-addr">INF-04</span>
+          <span class="loop-item-text">Update CIS reference site to PRD v0.3: slices replace phases, CROPS removed, four-door reframe applied to schema.html and policies.html.</span>
+          <span class="loop-item-status"><span class="chip workable"><span class="dot"></span>workable</span></span>
+        </li>
+        <li class="loop-item">
+          <span class="loop-item-addr">BEL-01</span>
+          <span class="loop-item-text">Agreement browse: authenticated intranet view of agreement_sections, grouped by article, with version and standing marked. Reads from live Supabase with anon key.</span>
+          <span class="loop-item-status"><span class="chip workable"><span class="dot"></span>workable</span></span>
+        </li>
+        <li class="loop-item">
+          <span class="loop-item-addr">GAT-01</span>
+          <span class="loop-item-text">Events schema migration: events table, FK to agreements and agents, RLS policy with bylaw anchor. Builds on L1 substrate already applied.</span>
+          <span class="loop-item-status"><span class="chip workable"><span class="dot"></span>workable</span></span>
+        </li>
+        <li class="loop-item">
+          <span class="loop-item-addr">INF-05</span>
+          <span class="loop-item-text">This page. Living roadmap at commons/build. Packet table, signal loop, repository tree. Commit closes the packet.</span>
+          <span class="loop-item-status"><span class="chip active"><span class="dot"></span>in progress</span></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="loop-q">
+    <div class="loop-q-head">
+      <div class="loop-q-n">Q2 &middot; signal loop</div>
+      <div class="loop-q-label">Which open decision unblocks the most?</div>
+    </div>
+    <div class="loop-q-body">
+      <p class="loop-answer">D-02 (counting rules) unblocks four packets in Slice 04, but Slice 04 is gated behind Slice 01 completion in any case. D-01 (SMTP) is the more leveraged decision for the August 14 target: without it, members cannot receive the magic link email that completes the signing flow, and BEL-02 cannot close.</p>
+      <div class="loop-escalation">
+        <div class="loop-esc-label">escalation card &middot; D-01</div>
+        <div class="loop-esc-rows">
+          <div class="loop-esc-row"><span class="loop-esc-field">standing in</span><span class="loop-esc-val">BEL-02 &middot; membership agreement signing</span></div>
+          <div class="loop-esc-row"><span class="loop-esc-field">found</span><span class="loop-esc-val">CIS Supabase (dgcoffcanzwsuwgpocbt) uses shared Supabase SMTP. Rate limit: 2 emails / hr / IP. Templates unbranded. Cannot be customized on free tier without custom SMTP.</span></div>
+          <div class="loop-esc-row"><span class="loop-esc-field">the question</span><span class="loop-esc-val">Which SMTP provider and credentials should be configured for the CIS project? A techne.coop sender address is preferred for member trust.</span></div>
+          <div class="loop-esc-row"><span class="loop-esc-field">a default</span><span class="loop-esc-val">PrivateEmail (matching the Workshop Supabase setup at mail.privateemail.com:465) with a mail@techne.coop sender. Requires domain DNS access and account credentials from Todd.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="loop-q">
+    <div class="loop-q-head">
+      <div class="loop-q-n">Q3 &middot; signal loop</div>
+      <div class="loop-q-label">What has stalled quietly?</div>
+    </div>
+    <div class="loop-q-body">
+      <p class="loop-answer">Three things are not blocked by any dependency, but have not advanced: the CIS reference site update (INF-04), the estate reconciliation decision (D-03), and the events schema migration (GAT-01). None requires a human decision before work begins. The first two are agent work; they need only a packet branch and a session.</p>
+      <ul class="loop-items">
+        <li class="loop-item">
+          <span class="loop-item-addr">INF-04</span>
+          <span class="loop-item-text">CIS reference site: still aligned to PRD v0.2. Workable since v0.3 was drafted. No owner.</span>
+          <span class="loop-item-status"><span class="chip workable"><span class="dot"></span>workable</span></span>
+        </li>
+        <li class="loop-item">
+          <span class="loop-item-addr">GAT-01</span>
+          <span class="loop-item-text">Events table migration: the database has no events table yet. Slice 02 (Gather) cannot start until this exists. No owner.</span>
+          <span class="loop-item-status"><span class="chip workable"><span class="dot"></span>workable</span></span>
+        </li>
+        <li class="loop-item">
+          <span class="loop-item-addr">D-03</span>
+          <span class="loop-item-text">Estate reconciliation: named as an open packet in BP v1 &sect;1. No brief written. No owner. Not blocking August 14, but a gap in the build record.</span>
+          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open</span></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ====== TREE PANEL ====== -->
+<div class="tab-panel" id="panel-tree" role="tabpanel" aria-labelledby="tab-tree">
+<div class="tree-wrap">
+
+  <div class="tree-sec">
+    <div class="tree-sec-label">Repository &middot; Techne-Co-op / techne.coop</div>
+    <pre class="tree">techne.coop/
+<span class="done">&#9632;</span> <span class="done">index.html</span>                   ecosystem-cut homepage
+<span class="done">&#9632;</span> <span class="done">favicon.svg</span>                  cooperative grid mark
+  commons/
+<span class="done">  &#9632;</span> <span class="done">index.html</span>                 The Commonplace Book landing
+    build/
+<span class="active">    &#9632;</span> <span class="active">index.html</span>               Living roadmap (this page) &larr; INF-05
+  design-system/
+<span class="done">  &#9632;</span> <span class="done">index.html</span>                 Palette &amp; component reference (CIS v0.3)
+  legal/
+<span class="done">  &#9632;</span> <span class="done">index.html</span>                 Articles, bylaws, membership agreement
+  intranet/
+<span class="done">  &#9632;</span> <span class="done">index.html</span>                 Auth gate + session shell
+<span class="planned">  &#9633;</span> <span class="planned">belong/index.html</span>          Agreements browse + member profile &larr; BEL-01
+<span class="planned">  &#9633;</span> <span class="planned">gather/index.html</span>          Events list + registration &larr; GAT-02</pre>
+  </div>
+
+  <div class="tree-sec">
+    <div class="tree-sec-label">Repository &middot; Techne-Co-op / cis-reference (GitHub Pages)</div>
+    <pre class="tree">cis-reference/                     https://techne-co-op.github.io/cis-reference/
+<span class="done">&#9632;</span> <span class="done">index.html</span>                   Overview (PRD v0.2 &mdash; needs v0.3 update) &larr; INF-04
+<span class="done">&#9632;</span> <span class="done">schema.html</span>                  Tables reference
+<span class="done">&#9632;</span> <span class="done">policies.html</span>                RLS policies with bylaw citations
+<span class="done">&#9632;</span> <span class="done">roles.html</span>                   15 roles, member journey
+<span class="done">&#9632;</span> <span class="done">bylaws.html</span>                  Loaded agreement sections
+<span class="done">&#9632;</span> <span class="done">migrations.html</span>              Migration history</pre>
+  </div>
+
+  <div class="tree-sec">
+    <div class="tree-sec-label">Database &middot; Supabase dgcoffcanzwsuwgpocbt &middot; us-west-2</div>
+    <table class="migration-table">
+      <thead>
+        <tr><th>address</th><th>migration</th><th>introduces</th><th>status</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="addr-cell">L1-01</td>
+          <td class="name-cell">20260522000000_L1-L2-substrate.sql</td>
+          <td class="desc-cell">agents, agreements, resources, events, event_lines, agreement_sections, role_assignments tables with audit columns</td>
+          <td><span class="chip done"><span class="dot"></span>applied</span></td>
+        </tr>
+        <tr>
+          <td class="addr-cell">L1-02</td>
+          <td class="name-cell">20260522000001_phase2-rls-policies.sql</td>
+          <td class="desc-cell">Row-level security policies for all 7 tables, cite-as-you-enforce, 15 roles</td>
+          <td><span class="chip done"><span class="dot"></span>applied</span></td>
+        </tr>
+        <tr>
+          <td class="addr-cell">L1-03</td>
+          <td class="name-cell">20260522000002_bylaws-v2-seed.sql</td>
+          <td class="desc-cell">agreement_sections seeded with Bylaws v2 articles and sections by stable address</td>
+          <td><span class="chip done"><span class="dot"></span>applied</span></td>
+        </tr>
+        <tr>
+          <td class="addr-cell">GAT-01</td>
+          <td class="name-cell">20260800000000_events-table.sql</td>
+          <td class="desc-cell">events table with RLS; enables Gather slice</td>
+          <td><span class="chip workable"><span class="dot"></span>workable</span></td>
+        </tr>
+        <tr>
+          <td class="addr-cell">FND-01</td>
+          <td class="name-cell">20260900000000_offers-table.sql</td>
+          <td class="desc-cell">offers table with RLS; enables Find one another slice</td>
+          <td><span class="chip blocked"><span class="dot"></span>blocked &middot; BEL-04</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tree-sec">
+    <div class="tree-sec-label">Series artifacts &middot; CIS Common Record Series</div>
+    <pre class="tree">SER v0.1    Series Overview                    <span class="ember">Drafted</span>   defines slices, readiness conditions
+PRD v0.3    Product Requirements Document       <span class="ember">Drafted</span>   10 principles, 4 slices, 3 doors, info model
+BP v1       Build Protocol                      <span class="ember">Drafted</span>   packet ledger, decide/escalate, provenance
+VS          Verification Spec                   <span class="planned">Planned</span>   acceptance criteria, executable checks
+IM          Information Model                   <span class="planned">Planned</span>   REA primitives, agent taxonomy, events
+AM          Authority Map                       <span class="planned">Planned</span>   role &times; table matrix, bylaw anchors</pre>
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>Living Roadmap &middot; Common Information System</span>
+  <span>Cites: PRD v0.3 &middot; BP v1</span>
+  <span>RegenHub, LCA &middot; Boulder, Colorado</span>
+  <span>Techne &middot; techne.coop/commons/build</span>
+  <span>Nou &middot; 2026-07-10</span>
+</footer>
+
+<script>
+/* ============================================================
+   MODE TOGGLE
+   ============================================================ */
+var ICON = {
+  moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  sun:  '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>'
+};
+function paintMode() {
+  var dark = document.documentElement.getAttribute('data-mode') === 'dark';
+  document.getElementById('modeIcon').innerHTML = dark ? ICON.sun : ICON.moon;
+  document.getElementById('modeLabel').textContent = dark ? 'Light' : 'Dark';
+}
+document.getElementById('modeToggle').addEventListener('click', function () {
+  var cur = document.documentElement.getAttribute('data-mode');
+  var next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-mode', next);
+  try { localStorage.setItem('techne-mode', next); } catch(e) {}
+  paintMode();
+});
+paintMode();
+
+/* ============================================================
+   TABS
+   ============================================================ */
+var tabs = document.querySelectorAll('.tab-btn');
+var panels = document.querySelectorAll('.tab-panel');
+tabs.forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var target = btn.getAttribute('aria-controls');
+    tabs.forEach(function(b) {
+      b.classList.remove('active');
+      b.setAttribute('aria-selected', 'false');
+    });
+    panels.forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    document.getElementById(target).classList.add('active');
+  });
+});
+
+/* ============================================================
+   SLICE RAIL — highlight on scroll
+   ============================================================ */
+var groups = document.querySelectorAll('.slice-group');
+var railLinks = document.querySelectorAll('.rail-link');
+if (groups.length && 'IntersectionObserver' in window) {
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        var id = e.target.getAttribute('id');
+        railLinks.forEach(function(l) {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+  groups.forEach(function(g) { io.observe(g); });
+}
+</script>
+</body>
+</html>
