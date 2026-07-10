@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The covering document for the refactor of the Common Information System: eleven principal artifacts, what each is for, what it inherits, what it retires, and the order in which the set becomes ready to write.">
+<title>The Common Record Series &middot; SER v0.2 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/series/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/series/">
+<meta property="og:title" content="The Common Record Series · SER v0.2 · Techne">
+<meta property="og:description" content="Eleven principal artifacts. What each is for, what it inherits, what it retires, and the order in which the set becomes ready to write.">
+<meta property="og:site_name" content="Techne">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<style>
+  :root {
+    --serif:"Libre Baskerville",Georgia,serif;
+    --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+    --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+    --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+    --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A; --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+  }
+  html[data-mode="dark"] {
+    --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+    --line:#2A2A30; --rule:#3A3A42;
+    --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+    --blue:#6A8AC4; --blue-text:#97B5E8;
+    --ember:#C4956A; --ember-text:#D4A57A;
+    --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+    --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872; --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+  }
+  html[data-mode="light"] {
+    --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+    --line:#D8D3C8; --rule:#9A958A;
+    --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+    --blue:#4A6FB0; --blue-text:#39588F;
+    --ember:#8A6A4A; --ember-text:#6F5436;
+    --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+    --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636; --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { color-scheme:light dark; scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--text);
+    font:400 16px/1.75 var(--serif);
+    -webkit-font-smoothing:antialiased;
+    transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+  .mono { font-family:var(--mono); }
+  em { font-style:italic; color:var(--heading); }
+  code { font:400 .85em/1 var(--mono); color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
+  a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; transition:text-decoration-thickness var(--micro) var(--ease); }
+  a:hover { text-decoration-thickness:2px; }
+  :focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+
+  /* topbar */
+  .topbar {
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; gap:var(--s5);
+    padding:0 var(--s5); height:52px;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+  .brand-mark { font-family:var(--mono); font-size:0.78rem; font-weight:500; letter-spacing:0.06em; color:var(--heading); transition:color var(--micro) var(--ease); }
+  .brand:hover .brand-mark { color:var(--ember-text); }
+  .top-nav { flex:1; display:flex; gap:var(--s4); list-style:none; }
+  .top-nav a { font-family:var(--mono); font-size:0.72rem; letter-spacing:0.04em; color:var(--muted); text-decoration:none; transition:color var(--micro) var(--ease); }
+  .top-nav a:hover { color:var(--heading); }
+  .top-nav a[aria-current="page"] { color:var(--ember-text); }
+  .mode-toggle {
+    margin-left:auto; display:flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:0.7rem; color:var(--muted);
+    background:none; border:1px solid var(--line); border-radius:2px;
+    padding:5px 9px; cursor:pointer;
+    transition:color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+  }
+  .mode-toggle:hover { color:var(--heading); border-color:var(--rule); }
+  .mode-toggle svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+  /* masthead */
+  .wrap { max-width:880px; margin:0 auto; padding:0 var(--s5); }
+  .mast { border-bottom:1px solid var(--rule); padding:var(--s8) 0 var(--s6); }
+  .mast .kick { font:500 11px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.12em; }
+  .mast h1 { font:700 38px/1.15 var(--serif); color:var(--heading); margin:var(--s3) 0 var(--s4); letter-spacing:-.01em; }
+  .mast .dek { font:400 17.5px/1.65 var(--serif); color:var(--text); margin:0; max-width:64ch; }
+  .mast .meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font:400 11px/1.6 var(--mono); color:var(--muted); }
+  .mast .meta b { color:var(--blue-text); font-weight:600; }
+  .mast .meta .em { color:var(--ember-text); }
+
+  /* the shelf */
+  .shelf { display:flex; flex-wrap:wrap; gap:6px; margin-top:var(--s6); align-items:flex-end; }
+  .spine { width:60px; height:132px; background:var(--surface); border:1px solid var(--line); border-radius:0; position:relative; display:flex; flex-direction:column; padding:8px 0 9px; align-items:center; text-decoration:none; }
+  .spine .code { font:600 10px/1 var(--mono); color:var(--heading); }
+  .spine .nm { flex:1; display:flex; align-items:center; }
+  .spine .nm span { writing-mode:vertical-rl; transform:rotate(180deg); font:400 9px/1.2 var(--mono); color:var(--muted); letter-spacing:.04em; }
+  .spine .st { width:7px; height:7px; border-radius:0; }
+  .spine.drafted { border-top:3px solid var(--ember); }
+  .spine.drafted .st { background:var(--ember); }
+  .spine.drafted:hover { border-color:var(--ember); background:var(--raised); }
+  .spine.anticipated { border-top:3px solid var(--line); }
+  .spine.anticipated .st { background:transparent; border:1px solid var(--muted); }
+  .cap { font:400 10.5px/1.7 var(--mono); color:var(--faint); margin-top:8px; }
+
+  /* chips */
+  .chip { display:inline-flex; align-items:center; gap:6px; font:500 10.5px/1 var(--mono); padding:4px 9px; border:1px solid var(--line); border-radius:2px; background:var(--surface); white-space:nowrap; color:var(--muted); vertical-align:middle; }
+  .chip .dot { width:6px; height:6px; flex:none; border-radius:1px; }
+  .chip.filed { color:var(--ok); }        .chip.filed .dot { background:var(--ok); }
+  .chip.ratified { color:var(--blue-text); } .chip.ratified .dot { background:var(--blue); }
+  .chip.drafted { color:var(--ember-text); } .chip.drafted .dot { background:var(--ember); }
+  .chip.anticipated { color:var(--muted); } .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+  .chip.open { color:var(--warn); }       .chip.open .dot { background:transparent; border:1px solid var(--warn); }
+
+  /* sections */
+  .sec { padding:var(--s7) 0 0; }
+  #s1 { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+  #s2 { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+  #s3 { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+  #s4 { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+  #s5 { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+  #s6 { --shue:var(--sun-blue);   --shue-t:var(--sun-blue-t); }
+  .sec .addr { font:600 12px/1 var(--mono); color:var(--shue-t); margin-bottom:var(--s2); }
+  .sec h2 { font:700 25px/1.25 var(--serif); color:var(--heading); margin:0 0 var(--s4); letter-spacing:-.01em; padding-left:14px; border-left:3px solid var(--shue); }
+  .sec p { margin:0 0 var(--s4); max-width:68ch; }
+  .lead { font-size:17px; }
+
+  /* register entries */
+  .art { margin:var(--s5) 0 0; background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--shue); padding:var(--s4); }
+  .art .ah { display:flex; flex-wrap:wrap; align-items:baseline; gap:var(--s2) var(--s3); margin-bottom:var(--s2); }
+  .art .ac { font:600 12px/1 var(--mono); color:var(--shue-t); }
+  .art .an { font:700 16px/1.4 var(--serif); color:var(--heading); flex:1; min-width:180px; }
+  .art .ap { font:400 13.5px/1.7 var(--serif); color:var(--text); margin:0 0 var(--s3); max-width:66ch; }
+  .art .al { font:400 10.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); padding-top:8px; }
+  .art .al b { color:var(--heading); font-weight:600; }
+  .art .al .row { display:block; }
+  .art .al .k { color:var(--faint); display:inline-block; min-width:64px; }
+
+  /* creation order */
+  ol.order { margin:var(--s4) 0; padding-left:0; list-style:none; counter-reset:o; max-width:70ch; }
+  ol.order li { counter-increment:o; padding:var(--s3) 0 var(--s3) 44px; border-bottom:1px solid var(--line); position:relative; }
+  ol.order li::before { content:counter(o,decimal-leading-zero); position:absolute; left:0; top:14px; font:500 11px/1.6 var(--mono); color:var(--shue-t); }
+  ol.order li .ot { font:700 14.5px/1.5 var(--serif); color:var(--heading); }
+  ol.order li .ot .oc { font:600 11px/1 var(--mono); color:var(--muted); font-weight:600; margin-left:6px; }
+  ol.order li .ow { font:400 12.5px/1.7 var(--serif); color:var(--text); margin-top:2px; }
+  ol.order li .ow .k { font:500 10px/1.6 var(--mono); color:var(--faint); text-transform:uppercase; letter-spacing:.08em; margin-right:6px; }
+
+  /* memorandum */
+  .memo { margin:var(--s6) 0 0; padding:var(--s4) 0; border-top:1px solid var(--rule); border-bottom:4px double var(--heading); }
+  .memo .k { font:500 10px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; }
+  .memo p { margin:0; font-size:15px; max-width:68ch; }
+
+  footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s5) 0 var(--s8); font:400 11px/1.8 var(--mono); color:var(--muted); }
+  footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
+
+  @media (max-width:700px){
+    .mast h1 { font-size:30px; }
+    .spine { width:52px; height:120px; }
+  }
+  @media (prefers-reduced-motion: reduce){ * { transition:none !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">Techne</span>
+    </a>
+    <ul class="top-nav">
+      <li><a href="/commons/">Commons</a></li>
+      <li><a href="/commons/series/" aria-current="page">Series</a></li>
+      <li><a href="/commons/build/">Build</a></li>
+    </ul>
+    <button class="mode-toggle" id="modeToggle" aria-label="Toggle color mode">
+      <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+      <span id="modeLabel">Light</span>
+    </button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="kick">working document &middot; series overview &middot; SER v0.2 &middot; <span class="chip drafted" style="vertical-align:baseline;"><span class="dot"></span>Drafted</span></div>
+    <h1>The Common Record Series</h1>
+    <p class="dek">The covering document for the refactor of the Common Information System: eleven principal artifacts, what each is for, what it inherits from the existing estate, what it retires, and the order in which the set becomes ready to write. There are no dates in this series. Dependency is the schedule.</p>
+    <div class="meta">
+      <span>eleven artifacts &middot; <b>one system</b></span>
+      <span>agent-driven build &middot; authority stays human</span>
+      <span class="em">working name &middot; The Common Record, proposed</span>
+      <span>RegenHub, LCA &middot; Boulder</span>
+    </div>
+
+    <div class="shelf" aria-label="The eleven artifacts of the series">
+      <a class="spine drafted" href="/commons/series/" aria-current="page" title="Series Overview · SER"><span class="code">SER</span><span class="nm"><span>series overview</span></span><span class="st"></span></a>
+      <div class="spine drafted" title="Product Requirements · PRD"><span class="code">PRD</span><span class="nm"><span>product requirements</span></span><span class="st"></span></div>
+      <div class="spine drafted" title="Information Model · IM"><span class="code">IM</span><span class="nm"><span>information model</span></span><span class="st"></span></div>
+      <div class="spine drafted" title="Authority Map · AM"><span class="code">AM</span><span class="nm"><span>authority map</span></span><span class="st"></span></div>
+      <div class="spine drafted" title="Build Protocol · BP"><span class="code">BP</span><span class="nm"><span>build protocol</span></span><span class="st"></span></div>
+      <div class="spine drafted" title="Verification Spec · VS"><span class="code">VS</span><span class="nm"><span>verification spec</span></span><span class="st"></span></div>
+      <div class="spine anticipated" title="Nou Charter · NC"><span class="code">NC</span><span class="nm"><span>nou charter</span></span><span class="st"></span></div>
+      <div class="spine anticipated" title="Operations Runbook · OR"><span class="code">OR</span><span class="nm"><span>operations runbook</span></span><span class="st"></span></div>
+      <div class="spine drafted" title="Interface Tokens &amp; Patterns · UI"><span class="code">UI</span><span class="nm"><span>tokens &amp; patterns</span></span><span class="st"></span></div>
+      <a class="spine drafted" href="/commons/build/" title="Roadmap · RDM"><span class="code">RDM</span><span class="nm"><span>roadmap</span></span><span class="st"></span></a>
+      <div class="spine drafted" title="Landing Page · LP"><span class="code">LP</span><span class="nm"><span>landing page</span></span><span class="st"></span></div>
+    </div>
+    <div class="cap">The shelf. Ember top edge marks Drafted; open top edge marks Anticipated. As each artifact lands, its spine changes here. Revised to v0.2 as PRD, BP, UI, and IM landed; UI and IM each carry an emission.</div>
+  </header>
+
+  <section class="sec" id="s1">
+    <div class="addr">&sect;1</div>
+    <h2>What this series is</h2>
+    <p class="lead">In an agent-driven build, these artifacts are not documentation of the work. They are the medium of it. A build agent's working context is assembled from exactly these documents, so each one is versioned in the repository, citable by section, and honest about its own status. An ambiguity here is an ambiguity multiplied across every packet of work downstream.</p>
+    <p>This series is a refactor, not a greenfield. An estate already exists at the commons repository: a seventy-milestone ledger organized into waves, ten recorded decisions, an operating contract for agents, a validator that enforces dependency order, a schema reference, a probe matrix, gate definitions, and live instruments. Much of that estate was shaped around a grant that no longer exists, and the design discipline it carried has been retired as a requirement. The mechanics, however, were sound. Each entry in this series therefore carries a <em>lineage</em> line naming what it supersedes, what it salvages, and what it retires, so that nothing is erased and nothing is quietly carried forward either.</p>
+    <p>Two vocabularies bind the whole set. The status marks (Filed, Ratified, Drafted, Anticipated, Open) apply to every claim in every artifact. And the four slices named on the public page (<em>Belong</em>, <em>Gather</em>, <em>Find one another</em>, <em>See your share</em>) are the shared shape of the build, so that the public promise and the work plan use one language. The series includes itself: SER is the first entry in its own register.</p>
+  </section>
+
+  <section class="sec" id="s2">
+    <div class="addr">&sect;2</div>
+    <h2>How artifacts cite, version, and block</h2>
+    <p class="lead">Because there are no time estimates, readiness does the scheduling. A packet of work is ready when everything it cites is settled enough, and a blocked packet wears the chip of the item that blocks it, by name.</p>
+    <p>The citation grammar is code, version, section: <code>IM v0.1 &sect;3</code> is a complete address. The section addressing scheme already decided in the estate (D7) carries forward unchanged. Supersession is always explicit: a new version names what it replaces in its preamble, and the replaced document remains in the record as history. Nothing in this series is deleted; things are succeeded.</p>
+    <p>Three further disciplines carry from the estate and from board practice. First, only humans record decisions; agents may improve a deliberation brief but never resolve it. Second, the vocabulary quarantine holds: Subchapter K grammar throughout (distributive share, capital account, allocation), with the retired cooperative-tax vocabulary kept out of every artifact. Third, provenance is marked conservatively: agent-authored work is labeled as such, and simulated or illustrative entries write nothing back to the live record.</p>
+  </section>
+
+  <section class="sec" id="s3">
+    <div class="addr">&sect;3</div>
+    <h2>The register</h2>
+    <p class="lead">Eleven artifacts. Each entry names its purpose, what it cites upstream, and its lineage against the estate.</p>
+
+    <div class="art">
+      <div class="ah"><span class="ac">SER</span><span class="an">Series Overview</span><span class="chip drafted"><span class="dot"></span>Drafted</span></div>
+      <p class="ap">This document. The map of the set, including itself: what each artifact is for, its readiness condition, and its lineage. Revised whenever an artifact lands or the set changes shape.</p>
+      <div class="al">
+        <span class="row"><span class="k">cites</span> the refactor decision, to be recorded in PRD v0.3's preamble</span>
+        <span class="row"><span class="k">lineage</span> succeeds the Builder's Collection Map v0.1 as the covering document; the map remains as history</span>
+      </div>
+    </div>
+
+    <div class="art">
+      <div class="ah"><span class="ac">PRD</span><span class="an">Product Requirements, v0.3</span><span class="chip drafted"><span class="dot"></span>Drafted</span></div>
+      <p class="ap">What the system is and does: the four slices as scope, the information model at the level of meaning, success criteria including the walkaway test, and open questions. Its preamble absorbs the deprecation record, stating plainly that the CROPS discipline moved from gate to design note when the funder context ended, so the change is recorded rather than absorbed.</p>
+      <div class="al">
+        <span class="row"><span class="k">cites</span> SER; bylaws v2 <b>(Drafted)</b>; membership agreement v2 <b>(Drafted)</b></span>
+        <span class="row"><span class="k">lineage</span> supersedes CIS PRD v0.2; retires Hub Operations PRD v0.1 as a governing spec, salvaging its application, event, and attendance modules into Belong and Gather</span>
+      </div>
+    </div>
+
+    <div class="art">
+      <div class="ah"><span class="ac">IM</span><span class="an">Information Model &amp; Invariants</span><span class="chip drafted"><span class="dot"></span>Drafted</span></div>
+      <p class="ap">The canonical schema: agents, memberships, agreements, signatures, and the REA event log, with the conservation laws stated declaratively (one share per member, vote arithmetic, accounts that balance) and the three-axis status contract (provenance, settlement, temporal state) generalized as the system-wide vocabulary. The single artifact every build agent touches.</p>
+      <div class="al">
+        <span class="row"><span class="k">cites</span> PRD</span>
+        <span class="row"><span class="k">lineage</span> absorbs the C6 schema reference card; the nineteen cooperative core tables carry, the twelve Hub extension tables reduce to what Gather actually needs; seeded by the eleven laws of The System Before Its Name</span>
+      </div>
+    </div>
+
+    <div class="art">
+      <div class="ah"><span class="ac">AM</span><span class="an">Authority Map</span><span class="chip drafted"><span class="dot"></span>Drafted</span></div>
+      <p class="ap">Member classes, roles, and every row-level policy, each citing its bylaw anchor. Drafted honestly against Drafted bylaws and hardened at ratification. Agents are never permitted to invent a permission; this is the document they cite instead.</p>
+      <div class="al">
+        <span class="row"><span class="k">cites</span> IM; bylaws v2 <b>(Drafted, hardens at R1)</b></span>
+        <span class="row"><span class="k">lineage</span> absorbs the C7 probe matrix (fifteen roles across thirty-one tables) and the RLS conventions; role and table counts re-derived after the Hub reduction; anchored in Bylaws v2.1 as published at techne.coop/legal, with the instrument-versus-index status discrepancy filed at AM v0.1 &sect;1a</span>
+      </div>
+    </div>
+
+    <div class="art">
+      <div class="ah"><span class="ac">BP</span><span class="an">Build Protocol</span><span class="chip drafted"><span class="dot"></span>Drafted</span></div>
+      <p class="ap">The methodology: the shape of a work packet, what an agent may decide and what it must escalate, how agent-authored work is provenance-marked, branch and review conventions, and decision records for anything consequential, so agency stays visibly with the organizers.</p>
+      <div class="al">
+        <span class="row"><span class="k">cites</span> SER</span>
+        <span class="row"><span class="k">lineage</span> consolidates AGENTS.md, GOVERNANCE.md, CONVENTIONS.md, and the C10 authoring guide into one operating contract; mostly salvage, rewritten from waves to slices; opens the estate reconciliation packet</span>
+      </div>
+    </div>
+
+    <div class="art">
+      <div class="ah"><span class="ac">VS</span><span class="an">Verification Spec</span><span class="chip drafted"><span class="dot"></span>Drafted</span></div>
+      <p class="ap">How done is judged without a clock or a supervisor: invariant checks that run as code, acceptance criteria per packet, slice gates with human attestation, and eventually the walkaway test as an executable check. The security floor gate carries unchanged.</p>
+      <div class="al">
+        <span class="row"><span class="k">cites</span> BP; IM</span>
+        <span class="row"><span class="k">lineage</span> consolidates VERIFICATION.md, C3, and the C11 wave gates; retires the C9 KPI fixture pack along with the grant it measured; grows the reconciliation packet to include the verification files</span>
+      </div>
+    </div>
+
+    <div class="art">
+      <div class="ah"><span class="ac">NC</span><span class="an">Nou Charter, v2</span><span class="chip anticipated"><span class="dot"></span>Anticipated</span></div>
+      <p class="ap">The runtime instrument, distinct from the build agents: read scope, draft scope, the citation duty, and refusal boundaries for the Ask door. Retrieves and drafts; members and the board decide. Supersedes the charter that still points at the retired token set.</p>
+      <div class="al">
+        <span class="row"><span class="k">cites</span> AM; UI</span>
+        <span class="row"><span class="k">lineage</span> keeps the C8 gateway harness (scoped impersonation, read-before-write, citation requirement) as its wire-level half</span>
+      </div>
+    </div>
+
+    <div class="art">
+      <div class="ah"><span class="ac">OR</span><span class="an">Operations Runbook</span><span class="chip anticipated"><span class="dot"></span>Anticipated</span></div>
+      <p class="ap">Where the verb <em>operate</em> lives: environments, migrations, backup and restore actually tested rather than merely present, key custody, and secret handling. Thin at first, growing with the slices, but never absent.</p>
+      <div class="al">
+        <span class="row"><span class="k">cites</span> IM</span>
+        <span class="row"><span class="k">lineage</span> consolidates SECRETS.md and the operational half of the developer reference; absorbs the four prerequisites the pre-build audit named before core work may begin</span>
+      </div>
+    </div>
+
+    <div class="art">
+      <div class="ah"><span class="ac">UI</span><span class="an">Interface Tokens &amp; Patterns</span><span class="chip drafted"><span class="dot"></span>Drafted</span></div>
+      <p class="ap">Techne v4 as the shared token layer in code, the two-grammar rule (document and instrument), and a pattern inventory, so agents apply the design system rather than reinterpret it on each surface.</p>
+      <div class="al">
+        <span class="row"><span class="k">cites</span> Techne Design System v4</span>
+        <span class="row"><span class="k">lineage</span> supersedes the site's shared stylesheet and the v3 reference currently served on the commons pages</span>
+      </div>
+    </div>
+
+    <div class="art">
+      <div class="ah"><span class="ac">RDM</span><span class="an">Roadmap</span><span class="chip drafted"><span class="dot"></span>Drafted</span></div>
+      <p class="ap">The dependency-ordered packet ledger, shaped by slice rather than by wave, with a readiness condition on every packet and no dates anywhere. Kept separate from the PRD deliberately: the PRD should stay stable while the roadmap versions rapidly under agent traffic.</p>
+      <div class="al">
+        <span class="row"><span class="k">cites</span> PRD; IM; BP; VS</span>
+        <span class="row"><span class="k">lineage</span> supersedes the private alpha implementation plan and reshapes the wave ledger into slice ledgers; salvages the milestone infrastructure, the validator, the HUD, and the signal loop as its instruments; retires the KPI-gated wave</span>
+      </div>
+    </div>
+
+    <div class="art">
+      <div class="ah"><span class="ac">LP</span><span class="an">Landing Page</span><span class="chip drafted"><span class="dot"></span>Drafted</span></div>
+      <p class="ap">The public door of the record, replacing the current index at the commons address. Leads with the system rather than the build, and may claim only what a series artifact holds; every public sentence should be traceable to a code. The instruments remain linked, quietly, rather than centered.</p>
+      <div class="al">
+        <span class="row"><span class="k">cites</span> PRD; SER</span>
+        <span class="row"><span class="k">lineage</span> replaces index.html at techne-co-op.github.io/commons; v0.1 exists as the introduction titled The Common Record, written for a reader with no prior context</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="s4">
+    <div class="addr">&sect;4</div>
+    <h2>Order of creation</h2>
+    <p class="lead">The sequence below is dependency order, not a calendar. Each entry names the condition under which it is ready to write; several can proceed in parallel once their conditions hold.</p>
+    <ol class="order">
+      <li><span class="ot">Series Overview <span class="oc">SER</span></span><div class="ow"><span class="k">ready</span>now; this document, revised as the set moves</div></li>
+      <li><span class="ot">Product Requirements v0.3 <span class="oc">PRD</span></span><div class="ow"><span class="k">ready</span>now; the refactor frame is settled and the deprecation record can be written</div></li>
+      <li><span class="ot">Build Protocol <span class="oc">BP</span></span><div class="ow"><span class="k">ready</span>now; consolidation of the existing operating contracts, in parallel with PRD</div></li>
+      <li><span class="ot">Interface Tokens &amp; Patterns <span class="oc">UI</span></span><div class="ow"><span class="k">ready</span>now; v4 exists and needs only codifying</div></li>
+      <li><span class="ot">Information Model &amp; Invariants <span class="oc">IM</span></span><div class="ow"><span class="k">ready</span>when PRD names the slices and their scope; salvages the schema card</div></li>
+      <li><span class="ot">Verification Spec <span class="oc">VS</span></span><div class="ow"><span class="k">ready</span>when BP settles the packet shape</div></li>
+      <li><span class="ot">Authority Map <span class="oc">AM</span></span><div class="ow"><span class="k">ready</span>when IM's entities settle; hardens at ratification of the bylaws</div></li>
+      <li><span class="ot">Nou Charter v2 <span class="oc">NC</span></span><div class="ow"><span class="k">ready</span>when AM drafts the read scopes</div></li>
+      <li><span class="ot">Roadmap <span class="oc">RDM</span></span><div class="ow"><span class="k">ready</span>when PRD, IM, and BP exist, since every packet cites them</div></li>
+      <li><span class="ot">Operations Runbook <span class="oc">OR</span></span><div class="ow"><span class="k">ready</span>when the first environment stands; absorbs the audit's four prerequisites at once</div></li>
+      <li><span class="ot">Landing Page v0.2 <span class="oc">LP</span></span><div class="ow"><span class="k">ready</span>when PRD v0.3 settles the positioning; the v0.1 draft holds the door until then</div></li>
+    </ol>
+  </section>
+
+  <section class="sec" id="s5">
+    <div class="addr">&sect;5</div>
+    <h2>The public door</h2>
+    <p class="lead">The landing page is a series member, not an afterthought, because it is the artifact where the refactor's positioning becomes a public promise.</p>
+    <p>Its rule is simple: the page may claim only what a series artifact holds. The current index at the commons address leads with the build (milestones, waves, decision registers); the replacement leads with the system, in the voice of the v0.1 introduction, and lets the instruments recede to a quiet strip. Whether one page serves both the cooperative's public address and the repository's front door, or the two addresses carry different registers of the same page, is an open design choice that belongs with Todd, as does the working name itself.</p>
+    <div class="cap" style="margin-top:0;">naming &middot; The Common Record is proposed, not adopted &middot; decision with Todd <span class="chip open" style="margin-left:8px;"><span class="dot"></span>Open</span></div>
+  </section>
+
+  <section class="sec" id="s6">
+    <div class="addr">&sect;6</div>
+    <h2>What the series retires, and what it leaves out</h2>
+    <p class="lead">A covering document earns its keep by naming its edges.</p>
+    <p><em>Retired with the grant:</em> the Hub Operations PRD as a governing specification, the KPI fixture pack, the liaison interface decision, and the KPI-gated wave. Their salvageable parts are named in the register above; the documents themselves remain in the record as history. The eight remaining recorded decisions carry forward unless a slice reopens one, and the two ratification items stay open where they belong, with the members, gated to August 14.</p>
+    <p><em>Left out of the series, deliberately:</em> the bylaws, membership agreement, and patronage policy, which are upstream dependencies owned by the board and counsel rather than build artifacts, though AM and PRD consume them. The dispatch cadence, which documents the build publicly but does not govern it. And member-facing content, which is an output of the system rather than an input to it.</p>
+    <div class="memo">
+      <div class="k">the working agreement of the series</div>
+      <p>Nothing erased, everything succeeded. Every claim wears a mark. Dependency is the schedule. Agents draft and build; people decide. And the public page never says more than the shelf can back.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="row">
+      <span>The Common Record Series &middot; SER v0.2 &middot; <span class="chip drafted" style="vertical-align:baseline;font-size:10px;"><span class="dot"></span>Drafted</span></span>
+      <span>eleven artifacts &middot; dependency ordered</span>
+      <span><a href="/commons/">The Commonplace Book</a></span>
+      <span><a href="/commons/build/">Living Roadmap</a></span>
+      <span>RegenHub, LCA &middot; Boulder, Colorado &middot; 2026</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn  = document.getElementById('modeToggle');
+  var icon = document.getElementById('modeIcon');
+  var lbl  = document.getElementById('modeLabel');
+  var sunP = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  var moonP = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  function apply(m) {
+    root.setAttribute('data-mode', m);
+    icon.innerHTML = m === 'dark' ? sunP : moonP;
+    lbl.textContent = m === 'dark' ? 'Light' : 'Dark';
+  }
+  var stored = null;
+  try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+  var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  apply(m);
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try { localStorage.setItem('techne-mode', next); } catch(e) {}
+  });
+})();
+</script>
+</body>
+</html>
