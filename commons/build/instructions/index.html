@@ -317,7 +317,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
   <section class="sec" id="s1">
     <div class="addr">&sect;1</div>
     <h2>The build protocol</h2>
-    <p class="lead">The single operating contract is BP v1. It consolidates the agent instructions, governance mechanics, repository conventions, and packet authoring guide into one document. The machine-facing distillation lives at the repository root as <code>AGENTS.md</code>; the full text is at <a href="/workspace/group/attachments/build-protocol-v1.html">BP v1</a>. What follows is an orientation, not a substitute.</p>
+    <p class="lead">The single operating contract is BP v1. It consolidates the agent instructions, governance mechanics, repository conventions, and packet authoring guide into one document. The machine-facing distillation lives at the repository root as <code>AGENTS.md</code>; the full text will be published at <a href="/commons/bp/">techne.coop/commons/bp/</a> as BP lands in the series. What follows is an orientation, not a substitute.</p>
 
     <p>The protocol's first premise is the system's first principle applied to the build itself: agents draft, surface, and guide; humans decide, sign, and govern. Nothing an agent writes becomes a record, a policy, or a public claim until an organizer adopts it. Adoption is a visible act in the history.</p>
 
@@ -631,9 +631,52 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     </div>
   </section>
 
-  <!-- §6 — AGENTS.md distillation -->
+  <!-- §6 — The repository -->
   <section class="sec" id="s6">
     <div class="addr">&sect;6</div>
+    <h2>The repository</h2>
+    <p class="lead">The build target is <a href="https://github.com/Techne-Co-op/techne.coop">Techne-Co-op/techne.coop</a>, served as GitHub Pages at <a href="https://techne.coop">techne.coop</a>. All HTML is static and inline-styled (no build step, no framework). The CNAME is <code>techne.coop</code>; HTTPS is enforced. Commits to <code>main</code> deploy directly.</p>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Directory layout</h3>
+    <div class="anatomy">
+      <div class="an-row"><span class="f">AGENTS.md</span><span class="v">Machine-facing distillation of BP v1. Read this first, every session. Governess: BP v1.</span></div>
+      <div class="an-row"><span class="f">CONTRIBUTORS.md</span><span class="v">Human and agent contribution paths, vocabulary, escalation card shape, and status marks.</span></div>
+      <div class="an-row"><span class="f">index.html</span><span class="v">Landing page. Techne cooperative home, opening August 14, 2026.</span></div>
+      <div class="an-row"><span class="f">commons/</span><span class="v">The Commonplace Book. The cooperative's shared record. Member-facing landing at <code>commons/index.html</code>.</span></div>
+      <div class="an-row"><span class="f">commons/series/</span><span class="v">The Common Record Series (SER v0.2). Eleven artifacts, the register, dependency order.</span></div>
+      <div class="an-row"><span class="f">commons/build/</span><span class="v">Living Roadmap (RDM v1). Packet ledger, signal loop, repository tree. The instrument you are reading from.</span></div>
+      <div class="an-row"><span class="f">commons/build/instructions/</span><span class="v">This page. Agent instructions for the build.</span></div>
+      <div class="an-row"><span class="f">design-system/</span><span class="v">Techne v4 token and pattern reference. The source for the design system section of these instructions.</span></div>
+      <div class="an-row"><span class="f">legal/</span><span class="v">Formation documents: bylaws, membership agreement, participation terms, community supporter template.</span></div>
+      <div class="an-row"><span class="f">intranet/</span><span class="v">Member intranet (authenticated). Out of scope for the CIS build until Belong is verified.</span></div>
+      <div class="an-row"><span class="f">assets/</span><span class="v">Shared icons and fonts. No compiled CSS; tokens are inline on every page.</span></div>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">What this repository is not</h3>
+    <div class="def">
+      <div class="def-row">
+        <span class="t">Not a framework app</span>
+        <span class="d">No React, no build pipeline, no package.json. HTML files are self-contained. CSS is inline per page, using the shared token set. This is intentional: the output is readable without tooling, and every page deploys as a file.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Not the database</span>
+        <span class="d">The Supabase CIS project (<code>wdrsmhwtdwdfyvlbugdq</code>) holds the live data. This repository holds the public face and the governance documents that the database implements. Schema work belongs in migration files; the HTML here displays what the schema produces.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Not the journal</span>
+        <span class="d">The daybook and working notes live at <a href="https://journal.techne.coop">journal.techne.coop</a> (<a href="https://github.com/Techne-Co-op/journal">Techne-Co-op/journal</a>). Publishing to the journal is a separate path with its own conventions.</span>
+      </div>
+    </div>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Branch and deploy convention</h3>
+    <p>Branch from <code>main</code> using the packet address as the branch name: <code>git checkout -b SUB-01</code>. Every commit on a packet branch carries the packet address in the message. The PR title names the address and summarizes the deliverable. After organizer approval and validator green, squash-merge to <code>main</code>. GitHub Pages deploys within 60 seconds.</p>
+
+    <p>The CIS reference site (<a href="https://github.com/Techne-Co-op/cis-reference">Techne-Co-op/cis-reference</a>) provides a live schema and policy reference, with row counts fetched from Supabase. It is a companion instrument, not a build target for packets in this ledger.</p>
+  </section>
+
+  <!-- §7 — AGENTS.md distillation -->
+  <section class="sec" id="s7">
+    <div class="addr">&sect;7</div>
     <h2>The distillation</h2>
     <p class="lead">The text below is reproduced verbatim from BP v1 &sect;10. It lives at the repository root as <code>AGENTS.md</code>, where agent harnesses load it automatically. This document governs; the distillation summarizes. When the two disagree, the disagreement is filed and BP governs.</p>
 
