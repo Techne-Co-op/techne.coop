@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>The Common Information System &middot; Techne</title>
+<meta name="description" content="One shared record of who Techne's members are, what they have agreed to, what each has contributed, and what happens next. An introduction for newcomers and builders alike.">
+<link rel="canonical" href="https://techne.coop/commons/lp/">
+<meta property="og:title" content="The Common Information System &middot; Techne">
+<meta property="og:description" content="One shared record of who Techne's members are, what they have agreed to, what each has contributed, and what happens next.">
+<meta property="og:url" content="https://techne.coop/commons/lp/">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+  document.documentElement.setAttribute('data-mode',m);
+})();
+</script>
+<style>
+/* ============================================================
+   commons.css · Techne v4 token and pattern layer
+   UI v1 emission · The Common Record Series
+   aligned to techne.coop/design-system (the live constitution)
+   governs: ui-tokens-and-patterns-v1 (the document governs;
+   this stylesheet distills). supersedes commons.css v3, the v3
+   reference on the commons pages, and the local v4 reference
+   file; the live constitution is techne.coop/design-system.
+   RegenHub, LCA · Boulder, Colorado · July 2026
+   ============================================================ */
+
+/* ---------- tokens ---------- */
+:root {
+  --serif:Georgia,"Times New Roman",serif;              /* document voice */
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --sans:"Inter","Helvetica Neue",Arial,sans-serif;     /* interface layer */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  /* sunset range: a twilight-to-sunset sweep, gold at the top of a page, blue at the foot */
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;     /* primary accent */
+  --ember:#C4956A; --ember-text:#D4A57A;   /* secondary accent */
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --heat-1:#6E5494; --heat-2:#B45C7C; --heat-3:#D1755A; --heat-4:#E09A52; --heat-5:#EAB668;
+  --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872;
+  --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  --heat-1:#EAB668; --heat-2:#E09A52; --heat-3:#D1755A; --heat-4:#B45C7C; --heat-5:#6E5494;
+  --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636;
+  --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+}
+
+/* ---------- base ---------- */
+* { box-sizing:border-box; }
+html { color-scheme:light dark; }
+body { margin:0; background:var(--bg); color:var(--text);
+  font:400 16px/1.75 var(--serif);
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+.mono { font-family:var(--mono); }
+.num { font-variant-numeric:tabular-nums; }
+.sans { font-family:var(--sans); }
+.dash-h { font:800 1.75rem/1.2 var(--sans); color:var(--heading); }   /* dashboard heading */
+.seclabel { font:700 .68rem/1.6 var(--sans); text-transform:uppercase; letter-spacing:.08em; color:var(--faint); }
+em { font-style:italic; color:var(--heading); }
+code { font:400 .85em/1 var(--mono); color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; transition:text-decoration-thickness var(--micro) var(--ease); }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+
+/* ---------- the two grammars ---------- */
+/* document grammar: a reading column, 760 to 920px, prose-forward, scrolls */
+.wrap { max-width:920px; margin:0 auto; padding:0 var(--s5); }
+/* instrument grammar: widescreen, no-scroll intent, mono-forward, to 1600px */
+.wrap-hud { max-width:1600px; margin:0 auto; padding:0 var(--s4); }
+
+/* ---------- sweep assignment: data-tint ---------- */
+[data-tint="gold"]   { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+[data-tint="amber"]  { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+[data-tint="coral"]  { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+[data-tint="rose"]   { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+[data-tint="violet"] { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+[data-tint="blue"]   { --shue:var(--sun-blue);   --shue-t:var(--sun-blue-t); }
+
+/* ---------- topbar ---------- */
+.topbar { position:sticky; top:0; z-index:200; background:var(--bg); opacity:.95; backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+.tb-inner { display:flex; align-items:center; gap:var(--s4); max-width:920px; margin:0 auto; padding:0 var(--s5); height:44px; }
+.brand { font:700 13px/1 var(--mono); color:var(--heading); text-decoration:none; letter-spacing:.04em; flex:none; }
+.brand:hover { color:var(--ember-text); }
+.top-nav { display:flex; align-items:center; gap:0; list-style:none; margin:0; padding:0; flex:1; }
+.top-nav li a { font:500 11px/1 var(--mono); color:var(--muted); text-decoration:none; padding:4px 10px; }
+.top-nav li a:hover { color:var(--heading); }
+.top-nav li a.current { color:var(--heading); }
+.top-nav li + li::before { content:"/"; color:var(--faint); font:400 11px/1 var(--mono); }
+.mode-toggle { margin-left:auto; display:flex; align-items:center; gap:6px; font:500 11px/1 var(--mono); color:var(--muted); background:none; border:1px solid var(--line); border-radius:2px; padding:5px 9px; cursor:pointer; }
+.mode-toggle:hover { color:var(--heading); border-color:var(--rule); }
+.mode-toggle svg { stroke:currentColor; }
+
+/* ---------- masthead (document grammar) ---------- */
+.mast { border-bottom:1px solid var(--rule); padding:var(--s8) 0 var(--s6); }
+.mast .kick { font:500 11px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.12em; }
+.mast h1 { font:700 38px/1.15 var(--serif); color:var(--heading); margin:var(--s3) 0 var(--s4); letter-spacing:-.01em; }
+.mast .dek { font:400 17.5px/1.65 var(--serif); color:var(--text); margin:0; max-width:64ch; }
+.mast .meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font:400 11px/1.6 var(--mono); color:var(--muted); }
+.mast .meta b { color:var(--blue-text); font-weight:600; }
+.mast .meta .em { color:var(--ember-text); }
+.band { display:flex; height:6px; margin-top:var(--s5); border:1px solid var(--line); }
+.band span { flex:1; }
+
+/* ---------- sections with citable addresses ---------- */
+.sec { padding:var(--s7) 0 0; }
+.sec .addr { font:600 12px/1 var(--mono); color:var(--shue-t); margin-bottom:var(--s2); }
+.sec h2 { font:700 25px/1.25 var(--serif); color:var(--heading); margin:0 0 var(--s4); letter-spacing:-.01em; padding-left:14px; border-left:3px solid var(--shue); }
+.sec h3 { font:600 13px/1.5 var(--mono); color:var(--heading); text-transform:lowercase; letter-spacing:.02em; margin:var(--s6) 0 var(--s3); padding-bottom:6px; border-bottom:1px solid var(--shue); }
+.sec p { margin:0 0 var(--s4); max-width:68ch; }
+.lead { font-size:17px; }
+.cap { font:400 10.5px/1.7 var(--mono); color:var(--faint); margin-top:8px; }
+
+/* ---------- status chips ---------- */
+.chip { display:inline-flex; align-items:center; gap:6px; font:500 10.5px/1 var(--mono); padding:4px 9px; border:1px solid var(--line); border-radius:2px; background:var(--surface); white-space:nowrap; color:var(--muted); vertical-align:middle; }
+.chip .dot { width:6px; height:6px; flex:none; }
+.chip.filed { color:var(--ok); }           .chip.filed .dot { background:var(--ok); }
+.chip.ratified { color:var(--ok); }        .chip.ratified .dot { background:var(--ok); }
+.chip.drafted { color:var(--info); }       .chip.drafted .dot { background:var(--info); }
+.chip.anticipated { color:var(--muted); }  .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+.chip.open { color:var(--warn); }          .chip.open .dot { background:transparent; border:1px solid var(--warn); }
+.chip.role { color:var(--ember-text); }    .chip.role .dot { background:var(--ember); }
+.chiprow { display:flex; gap:var(--s2); flex-wrap:wrap; align-items:center; margin:var(--s3) 0; }
+
+/* ---------- provenance ---------- */
+.prov { display:inline-flex; align-items:center; gap:6px; font:400 10.5px/1.5 var(--mono); color:var(--muted); padding:4px 9px; border:1px solid var(--line); border-left:2px solid var(--ember); border-radius:2px; background:var(--surface); }
+.prov b { color:var(--heading); font-weight:600; }
+
+/* ---------- registers and definition rows ---------- */
+.reg { margin:var(--s4) 0 var(--s2); border-top:1px solid var(--rule); }
+.reg-row { display:grid; grid-template-columns:44px 210px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--line); }
+.reg-row .no { font:500 11px/1.7 var(--mono); color:var(--shue-t); }
+.reg-row .t { font:700 14px/1.5 var(--serif); color:var(--heading); }
+.reg-row .d { font:400 13px/1.7 var(--serif); color:var(--text); }
+.def { margin:var(--s4) 0 var(--s2); border-top:1px solid var(--rule); }
+.def-row { display:grid; grid-template-columns:180px 1fr; gap:var(--s4); padding:var(--s3) 0; border-bottom:1px solid var(--line); }
+.def-row .t { font:700 14px/1.5 var(--serif); color:var(--heading); }
+.def-row .t .k { display:block; font:500 9.5px/1.8 var(--mono); font-weight:500; color:var(--shue-t); text-transform:uppercase; letter-spacing:.1em; }
+.def-row .d { font:400 13.5px/1.7 var(--serif); color:var(--text); }
+
+/* ---------- record panel ---------- */
+.record { margin:var(--s5) 0; background:var(--surface); border:1px solid var(--line); border-top:4px double var(--heading); }
+.record .rh { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:var(--s2) var(--s3); padding:10px var(--s4); border-bottom:1px solid var(--line); }
+.record .rh .rt { font:600 11px/1.5 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; }
+.record .rh .ra { font:600 11px/1.5 var(--mono); color:var(--muted); }
+.record .rb { padding:var(--s4); }
+.excerpt { margin:var(--s5) 0 0; background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--ember); }
+.xrow { display:grid; grid-template-columns:118px 1fr auto; gap:var(--s3); align-items:baseline; padding:10px var(--s4); border-bottom:1px solid var(--line); }
+.xrow:last-of-type { border-bottom:0; }
+.xrow .xd { font:400 10.5px/1.7 var(--mono); color:var(--muted); }
+.xrow .xe { font:400 13.5px/1.6 var(--serif); color:var(--heading); }
+.anatomy { margin:var(--s4) 0; background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--shue); }
+.an-row { display:grid; grid-template-columns:140px 1fr; gap:var(--s3); padding:9px var(--s4); border-bottom:1px solid var(--line); align-items:baseline; }
+.an-row:last-child { border-bottom:0; }
+.an-row .f { font:600 11px/1.7 var(--mono); color:var(--shue-t); }
+.an-row .v { font:400 13px/1.7 var(--serif); color:var(--text); }
+
+/* ---------- twin panels ---------- */
+.twin { display:grid; grid-template-columns:1fr 1fr; gap:var(--s3); margin:var(--s4) 0; }
+.panel { background:var(--surface); border:1px solid var(--line); }
+.panel .ph { display:flex; align-items:center; justify-content:space-between; gap:var(--s2); padding:8px var(--s3); border-bottom:1px solid var(--line); }
+.panel .ph .pt { font:600 11px/1.4 var(--mono); color:var(--heading); text-transform:lowercase; }
+.panel .pb { padding:var(--s3); }
+.panel.decide { border-top:2px solid var(--blue); }
+.panel.decide .pt { color:var(--blue-text); }
+.panel.escalate { border-top:2px solid var(--ember); }
+.panel.escalate .pt { color:var(--ember-text); }
+
+/* ---------- escalation card ---------- */
+.esc { margin:var(--s4) 0; background:var(--inset); border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s4); }
+.esc .k { font:500 10px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; margin-bottom:var(--s2); }
+.esc .er { display:grid; grid-template-columns:110px 1fr; gap:var(--s3); padding:6px 0; border-bottom:1px solid var(--line); align-items:baseline; }
+.esc .er:last-child { border-bottom:0; }
+.esc .er .f { font:600 10.5px/1.7 var(--mono); color:var(--muted); }
+.esc .er .v { font:400 13px/1.65 var(--serif); color:var(--text); }
+
+/* ---------- memorandum ---------- */
+.memo { margin:var(--s6) 0 0; padding:var(--s4) 0; border-top:1px solid var(--rule); border-bottom:4px double var(--heading); }
+.memo .k { font:500 10px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; }
+.memo p { margin:0; font-size:15px; max-width:68ch; }
+
+/* ---------- buttons ---------- */
+.btn { font:500 12px/1 var(--mono); color:var(--heading); background:var(--surface); border:1px solid var(--rule); border-radius:2px; padding:0 14px; height:32px; cursor:pointer; display:inline-flex; align-items:center; gap:7px; transition:background-color var(--micro) var(--ease), border-color var(--micro) var(--ease); }
+.btn:hover { background:var(--raised); border-color:var(--heading); }
+.btn.primary { border-color:var(--blue); color:var(--blue-text); }
+.btn.secondary { border-color:var(--ember); color:var(--ember-text); }
+.btn:hover.primary, .btn:hover.secondary { background:var(--raised); }
+
+/* ---------- instrument grammar elements ---------- */
+.stage { background:var(--inset); border:1px solid var(--line); padding:var(--s4); margin:var(--s4) 0; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s3); }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:var(--s3); }
+.board { display:grid; grid-template-columns:1fr 1fr 1fr; gap:var(--s3); }
+.tile { background:var(--surface); border:1px solid var(--line); padding:var(--s3); }
+.tile .tl { font:500 10px/1.5 var(--mono); color:var(--muted); display:flex; justify-content:space-between; }
+.tile .tf { font:500 24px/1.2 var(--mono); color:var(--heading); margin-top:5px; font-variant-numeric:tabular-nums; }
+.tile .ts { font:400 10px/1.5 var(--mono); color:var(--faint); margin-top:2px; }
+.gauge { height:6px; background:var(--inset); border:1px solid var(--line); position:relative; margin-top:8px; }
+.gauge .g { position:absolute; left:0; top:0; bottom:0; background:var(--muted); }
+.gauge .tick { position:absolute; top:-2px; bottom:-2px; width:1px; background:var(--heading); }
+table.dt { border-collapse:collapse; width:100%; }
+table.dt thead th { font:600 9.5px/1.6 var(--mono); color:var(--muted); text-transform:lowercase; text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--raised); }
+table.dt thead th.r { text-align:right; }
+table.dt tbody td { font:400 11.5px/1.5 var(--mono); color:var(--text); padding:6px 10px; border-bottom:1px solid var(--line); }
+table.dt tbody td.r { text-align:right; font-variant-numeric:tabular-nums; }
+table.dt tbody td.s { font:400 12px/1.5 var(--serif); color:var(--heading); }
+table.dt tbody tr.total td { border-top:1px solid var(--rule); border-bottom:4px double var(--heading); color:var(--heading); }
+.heat { display:grid; grid-template-columns:repeat(10,1fr); gap:3px; }
+.heat .cell { aspect-ratio:1; border:1px solid var(--line); border-radius:1px; }
+.h1{background:var(--heat-1)} .h2{background:var(--heat-2)} .h3{background:var(--heat-3)} .h4{background:var(--heat-4)} .h5{background:var(--heat-5)} .h0{background:var(--inset)}
+.ramp-legend { display:flex; gap:6px; margin:var(--s3) 0; }
+.ramp-legend .s { flex:1; }
+.ramp-legend .s .c { height:22px; border:1px solid var(--line); border-radius:2px; }
+.ramp-legend .s .n { font:400 9px/1.5 var(--mono); color:var(--muted); margin-top:4px; text-align:center; }
+.bars { display:flex; align-items:flex-end; gap:8px; height:110px; }
+.bars .bar { flex:1; display:flex; flex-direction:column-reverse; }
+.bars .seg { border:1px solid var(--line); border-bottom:0; }
+.seg-g{background:var(--sun-gold)} .seg-c{background:var(--sun-coral)} .seg-v{background:var(--sun-violet)}
+.vlegend { display:flex; gap:var(--s3); margin-top:10px; }
+.vlegend .lk { display:flex; align-items:center; gap:5px; font:400 9px/1 var(--mono); color:var(--muted); }
+.vlegend .lk .sw { width:9px; height:9px; border:1px solid var(--line); }
+
+/* ---------- agent block ---------- */
+pre.agent { background:var(--inset); border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s4); overflow-x:auto; font:400 11.5px/1.8 var(--mono); color:var(--text); margin:var(--s4) 0; }
+
+/* ---------- footer ---------- */
+footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s5) 0 var(--s8); font:400 11px/1.8 var(--mono); color:var(--muted); }
+footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
+
+/* ---------- responsive and motion ---------- */
+@media (max-width:760px){
+  .mast h1 { font-size:30px; }
+  .grid3, .board { grid-template-columns:1fr 1fr; }
+  .twin { grid-template-columns:1fr; }
+  .reg-row { grid-template-columns:36px 1fr; }
+  .reg-row .d { grid-column:2; }
+  .def-row { grid-template-columns:1fr; gap:var(--s1); }
+  .an-row { grid-template-columns:1fr; gap:2px; }
+  .xrow { grid-template-columns:1fr auto; }
+  .xrow .xd { grid-column:1 / -1; }
+}
+@media (max-width:520px){
+  .grid3, .board { grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion: reduce){ * { transition:none !important; } }
+</style>
+<style>
+/* page-local: the builders' shelf strip */
+.shelfline { display:flex; flex-wrap:wrap; gap:6px; margin:var(--s3) 0; }
+.shelfline .sp { font:500 10.5px/1 var(--mono); color:var(--muted); border:1px solid var(--line); border-top:2px solid var(--ember); background:var(--surface); padding:6px 9px; }
+.shelfline .sp a { text-decoration:none; color:inherit; }
+.shelfline .sp a:hover { color:var(--heading); }
+.shelfline .sp b { color:var(--heading); font-weight:600; }
+</style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Site navigation">
+  <div class="tb-inner">
+    <a class="brand" href="/">Techne</a>
+    <ul class="top-nav">
+      <li><a href="/commons/">Commons</a></li>
+      <li><a href="/commons/series/">Series</a></li>
+      <li><a class="current" href="/commons/lp/" aria-current="page">LP v0.2</a></li>
+    </ul>
+    <button id="modeBtn" class="mode-toggle" aria-label="Switch color mode">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <span id="modeLbl">dark</span>
+    </button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="kick">techne.coop &middot; an introduction, for newcomers and builders</div>
+    <h1>The Common Information System</h1>
+    <p class="dek">One shared record of who Techne's members are, what they have agreed to, what each has contributed, and what happens next. Kept in common, readable by every member, honest about how settled each fact is, and checked by machinery anyone may inspect. This page introduces it twice at once: in plain words for a newcomer, and, in the small print each section ends with, by exact address for a builder.</p>
+    <div class="meta">
+      <span>Techne &middot; a cooperative studio</span>
+      <span>Boulder, Colorado</span>
+      <span>read time &middot; <b>about six minutes</b></span>
+    </div>
+
+    <div class="excerpt" aria-label="An excerpt of the record">
+      <div class="xrow">
+        <span class="xd">2026&#8202;&middot;&#8202;02&#8202;&middot;&#8202;06</span>
+        <span class="xe">Articles of organization accepted by the Colorado Secretary of State, no. 20261163853.</span>
+        <span class="chip filed"><span class="dot"></span>Filed</span>
+      </div>
+      <div class="xrow">
+        <span class="xd">2026&#8202;&middot;&#8202;07</span>
+        <span class="xe">Bylaws, version 2.1, published at techne.coop/legal; the strongest mark awaits its gate.</span>
+        <span class="chip drafted"><span class="dot"></span>Drafted</span>
+      </div>
+      <div class="xrow">
+        <span class="xd">2026&#8202;&middot;&#8202;07</span>
+        <span class="xe">Membership agreement, version 2.3, published and under review.</span>
+        <span class="chip drafted"><span class="dot"></span>Drafted</span>
+      </div>
+      <div class="xrow">
+        <span class="xd">2026&#8202;&middot;&#8202;08&#8202;&middot;&#8202;14</span>
+        <span class="xe">The members' gathering, and the public launch.</span>
+        <span class="chip anticipated"><span class="dot"></span>Anticipated</span>
+      </div>
+      <div class="xrow">
+        <span class="xd">before the board</span>
+        <span class="xe">Licensing terms for the cooperative's shared software.</span>
+        <span class="chip open"><span class="dot"></span>Open</span>
+      </div>
+    </div>
+    <div class="cap">an excerpt of the record itself, as of July 2026 &middot; every fact on this page wears one of these marks; the marks are explained in &sect;4</div>
+  </header>
+
+  <section class="sec" id="s1" data-tint="gold">
+    <div class="addr">&sect;1</div>
+    <h2>What this is, and why it exists</h2>
+    <p class="lead">Techne is a cooperative: a studio owned and governed by the people who use it. Ours is organized in Colorado as RegenHub, LCA, and works from a shared space on Walnut Street in Boulder, where members gather to build things together.</p>
+    <p>Every durable community keeps its memory somewhere outside any one person's head. A town has its minute book and its deed drawer; a parish kept its register; a ship keeps its log. A cooperative needs this more than most, because it runs on a particular kind of confidence: that what was agreed can be found by anyone it binds, that what was contributed is counted by rules written in advance, and that what happens next is decided in the open. That confidence needs a home, and this system is that home.</p>
+    <p>The name is meant literally, one word at a time. <em>Common</em>: it belongs to the members together, not to an office or an administrator, and what it says about you, you can see. <em>Information</em>: not opinions and not marketing, but the facts the cooperative knows about itself, people, promises, money, work, and plans, with their history kept. <em>System</em>: kept in working order by rules rather than by heroics, so that when something changes, the record changes with it and shows its work.</p>
+    <div class="cap">holds &middot; <a href="/commons/prd/">PRD v0.3</a> &sect;1, &sect;3 &middot; the book of record and the interface through which the cooperative operates itself</div>
+  </section>
+
+  <section class="sec" id="s2" data-tint="gold">
+    <div class="addr">&sect;2</div>
+    <h2>What it holds</h2>
+    <p class="lead">Four kinds of fact, which together are enough to run a cooperative.</p>
+    <div class="reg">
+      <div class="reg-row"><span class="no">a</span><span class="t">People</span><span class="d">Every person has one entry that stays with them as their relationship changes, from first visit to full membership. Who you are, what kind of member you are, and what that lets you see and do.</span></div>
+      <div class="reg-row"><span class="no">b</span><span class="t">Agreements</span><span class="d">The documents that govern: articles, bylaws, membership agreements, and policies, published at techne.coop/legal. Everything that binds you is findable by you, with its version and standing plainly marked.</span></div>
+      <div class="reg-row"><span class="no">c</span><span class="t">Contributions</span><span class="d">What each member has put in, whether work, patronage, or capital, and the share of results that follows. Counted by written rules adopted before they apply, with every figure traceable back to the events that produced it.</span></div>
+      <div class="reg-row"><span class="no">d</span><span class="t">Happenings</span><span class="d">Events, sessions, and open invitations to play, practice, and work together. What is coming, who is hosting it, and what came of it afterward.</span></div>
+    </div>
+    <div class="cap">holds &middot; <a href="/commons/prd/">PRD v0.3</a> &sect;4, &sect;5 &middot; four primitives, agents, resources, events, agreements, and nothing outside them</div>
+  </section>
+
+  <section class="sec" id="s3" data-tint="amber">
+    <div class="addr">&sect;3</div>
+    <h2>Three doors, one room</h2>
+    <p class="lead">The record is one body of fact with three ways in. The doors differ; the room does not.</p>
+    <div class="grid3">
+      <div class="panel">
+        <div class="ph"><span class="pt">browse</span></div>
+        <div class="pb"><p style="font-size:13px; margin:0;">Pages like this one: a member directory, a calendar, a reading room of agreements. If you can read a website, you can read the record. No training required.</p></div>
+      </div>
+      <div class="panel">
+        <div class="ph"><span class="pt">ask</span></div>
+        <div class="pb"><p style="font-size:13px; margin:0;">Nou is the cooperative's reading and drafting instrument. Ask in plain language and it answers from the record, citing where it read. It retrieves and drafts; members and the board decide, sign, and govern. Always.</p></div>
+      </div>
+      <div class="panel">
+        <div class="ph"><span class="pt">verify</span></div>
+        <div class="pb"><p style="font-size:13px; margin:0;">Beneath both sits the ledger: every entry in the order it happened, none erased. A correction is a new entry, so the history of a fact travels with the fact. Anyone who needs to check, can.</p></div>
+      </div>
+    </div>
+    <div class="cap">holds &middot; <a href="/commons/prd/">PRD v0.3</a> &sect;7 &middot; the augmentation bound, Law X: the instrument may compute, retrieve, draft, surface, propose; never decide, sign, govern</div>
+  </section>
+
+  <section class="sec" id="s4" data-tint="amber">
+    <div class="addr">&sect;4</div>
+    <h2>The record says how solid each fact is</h2>
+    <p class="lead">Most systems present everything with the same confidence. This one does not. Every fact wears a mark, and the marks are few enough to learn in a minute: green for what an authority or the members have made solid, blue for what is written and in review, a neutral outline for what is planned, red for a genuine open question.</p>
+    <div class="legend">
+      <div class="leg-row" style="display:grid;grid-template-columns:130px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline;">
+        <span class="chip filed"><span class="dot"></span>Filed</span>
+        <span style="font-size:13.5px;">Accepted by an authority outside the cooperative, such as the Colorado Secretary of State. As settled as a fact gets.</span>
+      </div>
+      <div class="leg-row" style="display:grid;grid-template-columns:130px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline;">
+        <span class="chip ratified"><span class="dot"></span>Ratified</span>
+        <span style="font-size:13.5px;">Adopted by the members and re-verified through a checked gate. The cooperative's own strongest word, and deliberately the slowest to appear.</span>
+      </div>
+      <div class="leg-row" style="display:grid;grid-template-columns:130px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline;">
+        <span class="chip drafted"><span class="dot"></span>Drafted</span>
+        <span style="font-size:13.5px;">Written, published, and in review. Real, but not yet wearing the strongest mark.</span>
+      </div>
+      <div class="leg-row" style="display:grid;grid-template-columns:130px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline;">
+        <span class="chip anticipated"><span class="dot"></span>Anticipated</span>
+        <span style="font-size:13.5px;">Planned and expected, with a date wherever one exists. A plan, and marked as one.</span>
+      </div>
+      <div class="leg-row" style="display:grid;grid-template-columns:130px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);align-items:baseline;">
+        <span class="chip open"><span class="dot"></span>Open</span>
+        <span style="font-size:13.5px;">A genuine question, named rather than hidden, usually with the body responsible for answering it.</span>
+      </div>
+    </div>
+    <p>As of this writing, nothing on this page wears <em>Ratified</em>. The governing documents are published in their latest versions at techne.coop/legal, and the strongest mark appears only after a gate re-verifies every citation against the adopted text, following the members' gathering of August 14, 2026. A record that awarded its best word casually would not be worth keeping. The discipline runs one way only: a plan is never dressed as a fact.</p>
+    <div class="cap">holds &middot; <a href="/commons/prd/">PRD v0.3</a> &sect;5 status contract &middot; <a href="/commons/vs/">VS v1</a> &sect;5, the G-R gate &middot; until it passes, a Ratified mark anywhere is itself a test failure</div>
+  </section>
+
+  <section class="sec" id="s5" data-tint="coral">
+    <div class="addr">&sect;5</div>
+    <h2>What the record promises, and how each promise is checked</h2>
+    <p class="lead">Five commitments, and none of them is a slogan: each one is enforced by the system's own structure and tried, continuously, by tests that attempt to break it and pass only when they fail to.</p>
+    <div class="reg">
+      <div class="reg-row"><span class="no">i</span><span class="t">Open by default</span><span class="d">The rules, the counting formulas, the database schema, and the code that runs the record are published. Another cooperative could take them and start its own without asking permission, and that claim is written as a procedure meant to be executed, not admired.</span></div>
+      <div class="reg-row"><span class="no">ii</span><span class="t">Nothing vanishes</span><span class="d">Entries are added, never erased; a correction is a new entry that cites what it corrects. This is not a policy but a refusal: the database itself rejects any attempt to edit the past, and a test tries that attempt on every change.</span></div>
+      <div class="reg-row"><span class="no">iii</span><span class="t">Only what is needed</span><span class="d">The record keeps the minimum about each person and says plainly what it keeps. Tax identifiers have no column anywhere in the system at all, which is the strongest privacy policy there is.</span></div>
+      <div class="reg-row"><span class="no">iv</span><span class="t">The arithmetic holds</span><span class="d">One member, one vote, enforced as a rule of the database rather than a habit of the interface. Balances are never stored numbers someone could quietly edit; each is recomputed from the full history every time it is shown.</span></div>
+      <div class="reg-row"><span class="no">v</span><span class="t">Every rule cites its source</span><span class="d">Each of the record's access rules names the bylaws section that authorizes it, thirty of them at this writing, and a check refuses any new rule that arrives without its citation. Authority here is cited, never assumed.</span></div>
+    </div>
+    <div class="cap">holds &middot; <a href="/commons/im/">IM v0.1</a> &sect;6 conserved quantities &middot; <a href="/commons/vs/">VS v1</a> &sect;4 assertions by attempted violation &middot; AM v0.1, thirty anchored policies &middot; <a href="/commons/vs/">VS v1</a> &sect;8, the walkaway procedure</div>
+  </section>
+
+  <section class="sec" id="s6" data-tint="rose">
+    <div class="addr">&sect;6</div>
+    <h2>What you can do, and when</h2>
+    <p class="lead">The system opens in slices, each one usable the day it arrives, and the first two open with the cooperative itself.</p>
+    <div class="slices" style="margin:16px 0 8px;border-top:1px solid var(--rule);">
+      <div class="slice" style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line);">
+        <div><div style="font:700 14.5px/1.5 var(--serif);color:var(--heading);">Belong</div><div style="font-size:13.5px;max-width:58ch;">Read every agreement that would bind you, sign your membership, and take your place in the member directory.</div></div>
+        <span class="chip anticipated"><span class="dot"></span>Anticipated &middot; August 14, 2026</span>
+      </div>
+      <div class="slice" style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line);">
+        <div><div style="font:700 14.5px/1.5 var(--serif);color:var(--heading);">Gather</div><div style="font-size:13.5px;max-width:58ch;">See what is happening at the studio, register for events and sessions, and have your presence counted where it counts.</div></div>
+        <span class="chip anticipated"><span class="dot"></span>Anticipated &middot; August 14, 2026</span>
+      </div>
+      <div class="slice" style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line);">
+        <div><div style="font:700 14.5px/1.5 var(--serif);color:var(--heading);">Find</div><div style="font-size:13.5px;max-width:58ch;">Browse open invitations to play, practice, and work together, and post your own. The board where relationships and livelihoods begin.</div></div>
+        <span class="chip anticipated"><span class="dot"></span>Anticipated &middot; following slice</span>
+      </div>
+      <div class="slice" style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line);">
+        <div><div style="font:700 14.5px/1.5 var(--serif);color:var(--heading);">Account</div><div style="font-size:13.5px;max-width:58ch;">See your contributions and your capital account, with every figure traceable to the events and the written rules that computed it. Arrives after the board adopts those counting rules.</div></div>
+        <span class="chip anticipated"><span class="dot"></span>Anticipated &middot; after counting rules</span>
+      </div>
+    </div>
+    <div class="cap">holds &middot; <a href="/commons/prd/">PRD v0.3</a> &sect;4 &middot; RDM v1 &sect;4, &sect;6 &middot; the labels above are the live navigation's; the statuses are set by the board and update as slices land</div>
+  </section>
+
+  <section class="sec" id="s7" data-tint="blue">
+    <div class="addr">&sect;7</div>
+    <h2>For builders and agents</h2>
+    <p class="lead">Everything above has an exact address underneath it. The system is specified by a series of governing documents, and each one distills into something a machine can run, so the distance between the promise and the code stays inspectable.</p>
+    <div class="shelfline" aria-label="The series and its emissions">
+      <span class="sp"><a href="/commons/series/"><b>SER</b> the series map</a></span>
+      <span class="sp"><a href="/commons/prd/"><b>PRD</b> requirements</a></span>
+      <span class="sp"><a href="/commons/bp/"><b>BP</b> &rarr; AGENTS.md</a></span>
+      <span class="sp"><a href="/commons/ui/"><b>UI</b> &rarr; commons.css</a></span>
+      <span class="sp"><a href="/commons/im/"><b>IM</b> &rarr; 0001_substrate.sql</a></span>
+      <span class="sp"><a href="/commons/authority-map/"><b>AM</b> &rarr; 0002_policies.sql</a></span>
+      <span class="sp"><a href="/commons/vs/"><b>VS</b> &rarr; verify.yml</a></span>
+      <span class="sp"><b>RDM</b> &rarr; the packet ledger</span>
+    </div>
+    <p>Concretely: the schema applies to a fresh database and refuses, at the data layer, anything that would break a conserved quantity. The thirty access policies each carry the bylaws citation that authorizes them, and a lint rejects any policy without one. The verification workflow proves the refusals by attempting them. The ledger of work has no dates, only readiness conditions, and its status table reads as a set of reasons. Agents contributing to the build begin at the operating contract in the repository root, whose first rule is the whole method: stop and ask rather than invent.</p>
+    <p>And the walkaway test is the promise made executable: from the published artifacts alone, on infrastructure the cooperative does not control, a stranger can rebuild the record and arrive at the same balances. If that ever stops being true, the tests say so before we do.</p>
+    <div class="cap">holds &middot; <a href="/commons/series/">SER</a> &middot; <a href="/commons/bp/">BP v1</a> &sect;10 &middot; <a href="/commons/vs/">VS v1</a> &sect;8 &middot; instruments: the HUD, the signal loop, and the site tree remain linked from the workspace, quietly</div>
+
+    <div class="memo">
+      <div class="k">if you are reading this as a newcomer</div>
+      <p>The record is the first thing we would show you anyway. The governing documents live at <a href="https://techne.coop/legal">techne.coop/legal</a>, the studio is at 1515 Walnut Street in Boulder, and the door, like the record, is meant to be open.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="row">
+      <span>The Common Information System &middot; an introduction &middot; LP v0.2</span>
+      <span>every section footed by the series address that backs it</span>
+      <span><a href="/commons/series/">The Common Record Series</a> &middot; LP</span>
+      <span>techne.coop &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn  = document.getElementById('modeBtn');
+  var lbl  = document.getElementById('modeLbl');
+  var stored = null;
+  try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+  var m = stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  root.setAttribute('data-mode', m);
+  lbl.textContent = m === 'dark' ? 'light' : 'dark';
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-mode', next);
+    lbl.textContent = next === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('techne-mode', next); } catch(e) {}
+  });
+})();
+</script>
+</body>
+</html>
