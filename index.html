@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Techne · a cooperative in Boulder</title>
+<title>Techne · technology as craft · Boulder</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
@@ -485,11 +485,77 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
 }
 
 /* ============================================================
+   GROWS — four-things feeds chain (Section 02)
+   ============================================================ */
+.grows { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.grow {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 34px 30px;
+  display: flex; flex-direction: column;
+  transition: border-color var(--micro) var(--ease), transform var(--micro) var(--ease);
+}
+.grow:hover { border-color: var(--rule); transform: translateY(-2px); }
+.grow .tag {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ember-text);
+  margin-bottom: 14px;
+}
+.grow h3 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: 22px; color: var(--heading); margin-bottom: 14px;
+}
+.grow p { font-size: 17px; line-height: 1.65; color: var(--text); }
+.grow .feeds {
+  margin-top: auto; padding-top: 20px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+  color: var(--blue-text); border-top: 1px solid var(--line);
+}
+.grows-note {
+  font-family: var(--mono); font-size: 13px; color: var(--muted);
+  margin-top: 22px; max-width: 72ch; line-height: 1.85;
+}
+.grows-note em { font-style: italic; color: var(--text); }
+
+/* ============================================================
+   SHOP NOTES — cooperative principles in workshop register
+   ============================================================ */
+.notes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.note {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 34px 30px;
+  transition: border-color var(--micro) var(--ease), transform var(--micro) var(--ease);
+}
+.note:hover { border-color: var(--rule); transform: translateY(-2px); }
+.note .tag {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ember-text);
+  margin-bottom: 14px;
+}
+.note h3 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: 22px; color: var(--heading); margin-bottom: 14px;
+}
+.note p { font-size: 17px; line-height: 1.65; color: var(--text); }
+.note .local {
+  font-family: var(--mono); font-size: 13px; color: var(--ember-text);
+  margin-top: 18px; padding-top: 16px; line-height: 1.75;
+  border-top: 1px solid var(--line);
+}
+.attrib {
+  font-family: var(--mono); font-size: 12px; color: var(--faint);
+  margin-top: 22px; max-width: 72ch; line-height: 1.9;
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 980px) {
   .steps { grid-template-columns: repeat(2, 1fr); }
   .cards-3 { grid-template-columns: 1fr; }
+  .grows { grid-template-columns: 1fr; }
+  .notes { grid-template-columns: 1fr; }
 }
 @media (max-width: 720px) {
   .cards-4 { grid-template-columns: 1fr; }
@@ -546,13 +612,13 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
 <!-- ===== HERO ===== -->
 <header class="hero">
   <div class="hero-inner">
-    <div class="eyebrow"><span>A member-owned cooperative</span><span class="sep"></span><span>Boulder, Colorado</span></div>
+    <div class="eyebrow"><span class="mono">techn&#275;</span><span class="sep"></span><span>the old word for craft</span></div>
     <span class="accent-rule"></span>
-    <h1>A workshop for people and the earth.<span class="alt">Built together, owned together.</span></h1>
-    <p class="purpose">A place to do good work, learn by building, and share the tools we make. Owned by its members, in service of the commons.</p>
+    <h1>This summer,<br>the workshop opens.<span class="alt">Technology as craft. Owned in common.</span></h1>
+    <p class="purpose">Techne takes its name from the Greek for craft — skill held in the hands and in the community, before art and craft were divided. It is a cooperative workshop in downtown Boulder: a place to do serious technical work, to build with others, and to own the tools that come out of it. On August 14, a stake in the whole — not a subscription to any part.</p>
 
     <div class="cd">
-      <span class="cd-label">Counting down to launch</span>
+      <span class="cd-label">Counting toward &mdash; not down</span>
       <div class="cd-clock">
         <div class="cd-unit"><span class="cd-num t" id="cd-d">--</span><span class="cd-cap">days</span></div>
         <span class="cd-colon">:</span>
@@ -562,16 +628,15 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
         <span class="cd-colon">:</span>
         <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><span class="cd-cap">sec</span></div>
       </div>
-      <span class="cd-when">August 14, 2026 · 3:00 PM Mountain</span>
-      <span class="cd-since">One year since the first conversation.</span>
-      <span class="cd-since">The launch party.</span>
+      <span class="cd-when">August 14, 2026 &middot; 3:00 PM Mountain &middot; 1515 Walnut Street &middot; the launch party</span>
+      <span class="cd-since">Nothing runs out when this reaches zero. A workshop opens its doors.</span>
     </div>
 
     <div class="cta-row">
       <a class="btn primary" href="#ways">Become a member
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
-      <a class="btn ghost" href="#hello">Come by and say hello</a>
+      <a class="btn ghost" href="#grows">See what takes shape here</a>
     </div>
   </div>
 </header>
@@ -614,41 +679,85 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
   </div>
 </section>
 
-<!-- ===== SECTION 02 · WHAT YOU'D BE JOINING (page · amber) ===== -->
-<section class="page" data-tint="amber">
+<!-- ===== SECTION 02 · THE WORKSHOP (page · amber) ===== -->
+<section class="page" data-tint="amber" id="grows">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow"><span class="num">02</span><span class="sep"></span><span>What you would be joining</span></div>
+      <div class="eyebrow"><span class="num">02</span><span class="sep"></span><span>The workshop</span></div>
       <span class="accent-rule"></span>
-      <h2 class="section-title">A studio, a practice, and a commons.</h2>
-      <p class="section-lede">Membership is not a subscription to a product. It is a stake in a shared workshop and in the tools that come out of it.</p>
+      <h2 class="section-title">Four things take shape here, and each feeds the next.</h2>
+      <p class="section-lede">A workshop is judged by what leaves its bench. Four things do here &mdash; and each feeds the next, which is what keeps the whole alive.</p>
     </div>
-    <div class="cards-4">
-      <div class="cardx">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/></svg></div>
-        <h3>A studio and a space</h3>
-        <p>A coworking studio in downtown Boulder. A real place to do the work, alongside people who care about how it gets made.</p>
+    <div class="grows">
+      <div class="grow">
+        <span class="tag">01 &middot; the hands</span>
+        <h3>The people</h3>
+        <p>Relationships form the old way &mdash; around real work, at the bench and at gatherings, over time. A community of practice: newcomers learn beside experienced hands, and belonging grows with skill.</p>
+        <div class="feeds">feeds &rarr; the practice</div>
       </div>
-      <div class="cardx">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg></div>
-        <h3>Programs that teach by building</h3>
-        <p>Learning that happens by making things, not just watching. A way to grow skills with others, and to bring your own work into the room.</p>
+      <div class="grow">
+        <span class="tag">02 &middot; the method</span>
+        <h3>The practice</h3>
+        <p>Craft is learned by making, not watching. Courses, daily rituals, and shared work hold technology to the standard of craft &mdash; augmentation, not automation &mdash; and you bring your own work into the room.</p>
+        <div class="feeds">feeds &rarr; the work</div>
       </div>
-      <div class="cardx">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg></div>
-        <h3>Tools held in common</h3>
-        <p>We build open tools for ourselves first, then share them. The infrastructure stays a commons, not a product locked behind a paywall.</p>
+      <div class="grow">
+        <span class="tag">03 &middot; the made</span>
+        <h3>The work</h3>
+        <p>What members make joins a common record &mdash; added to, never erased, each piece carrying its maker&rsquo;s name, the way a workshop signs what leaves its bench. Single efforts become a body of work none of us could make alone.</p>
+        <div class="feeds">feeds &rarr; the tools</div>
       </div>
-      <div class="cardx">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <h3>A share in the whole</h3>
-        <p>Members are owners. Decisions are made one member, one vote, and surplus flows back into the community rather than out to shareholders.</p>
+      <div class="grow">
+        <span class="tag">04 &middot; the instruments</span>
+        <h3>The tools</h3>
+        <p>We build our tools the way a workshop should: for ourselves first, used daily, then shared. The record, the publishing, the infrastructure underneath stay a commons, owned by the members who use them. No streaks, no scores, no engagement mechanics &mdash; instruments that serve the work rather than mine the attention.</p>
+        <div class="feeds">feeds &rarr; the people</div>
       </div>
     </div>
+    <p class="grows-note">The workshop keeps a quiet ecological grammar for what it makes: a <em>seed</em> is one contributor&rsquo;s tending, a <em>venture</em> is two or more hands committed, a <em>program</em> is a habitat the whole cooperative sustains.</p>
   </div>
 </section>
 
-<!-- ===== SECTION 03 · THREE WAYS IN (band · coral, the choosing) ===== -->
+<!-- ===== SECTION 02b · SHOP NOTES ON COOPERATION (band · amber) ===== -->
+<section class="band" data-tint="amber">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="sep"></span><span>Shop notes on cooperation</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">A cooperative, in four notes.</h2>
+      <p class="section-lede">Cooperatives are an old, tested form &mdash; a business owned and governed by the people who use it. Four of their principles, and what each looks like here.</p>
+    </div>
+    <div class="notes">
+      <div class="note">
+        <span class="tag">Shop note &middot; 01</span>
+        <h3>Open, voluntary membership</h3>
+        <p>A cooperative is open to those who can use it and are willing to accept the responsibilities of membership.</p>
+        <div class="local">Here: three ways in, and the lowest step is a visit.</div>
+      </div>
+      <div class="note">
+        <span class="tag">Shop note &middot; 02</span>
+        <h3>One member, one vote</h3>
+        <p>Control follows people, not capital. Those who use the cooperative govern it, each with an equal voice.</p>
+        <div class="local">Here: every member-owner carries one vote when ownership opens on August 14.</div>
+      </div>
+      <div class="note">
+        <span class="tag">Shop note &middot; 03</span>
+        <h3>Surplus serves the members and the work</h3>
+        <p>What a cooperative earns beyond its costs returns to its members and its purpose, at the members&rsquo; direction.</p>
+        <div class="local">Here: surplus is reinvested in the community, not distributed to outside shareholders.</div>
+      </div>
+      <div class="note">
+        <span class="tag">Shop note &middot; 04</span>
+        <h3>Concern for community</h3>
+        <p>Cooperatives work for the sustainable development of the communities they live in.</p>
+        <div class="local">Here: a public-benefit commitment, in writing, in the founding documents.</div>
+      </div>
+    </div>
+    <p class="attrib">After the Rochdale Pioneers (1844) and the International Co-operative Alliance&rsquo;s Statement on the Co-operative Identity (1995). Techne is organized as a Colorado limited cooperative association &mdash; a cooperative entity form under Colorado law.</p>
+  </div>
+</section>
+
+<!-- ===== SECTION 03 · THREE WAYS IN (page · rose, the choosing) ===== -->
 <section class="band" data-tint="coral" id="ways">
   <div class="wrap">
     <div class="section-head">
