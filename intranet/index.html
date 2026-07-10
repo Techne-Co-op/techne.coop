@@ -539,9 +539,9 @@ footer {
 const SUPABASE_URL = 'https://dgcoffcanzwsuwgpocbt.supabase.co';
 const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnY29mZmNhbnp3c3V3Z3BvY2J0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyMjE5MzYsImV4cCI6MjA5Njc5NzkzNn0.UYmAI7RrvC_5-ZD6TQKLzfShL06QsiPMszhq-YzbwLY';
 
-let supabase;
+let sb;
 try {
-  supabase = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
+  sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
 } catch(e) {
   console.error('Supabase init failed — CDN may not have loaded:', e);
 }
@@ -549,7 +549,7 @@ try {
 // ---- Auth state ----
 async function init() {
   // Handle magic link token in URL
-  const { data: { session }, error } = await supabase.auth.getSession();
+  const { data: { session }, error } = await sb.auth.getSession();
   if (session) {
     showIntranet(session.user);
   } else {
@@ -557,7 +557,7 @@ async function init() {
   }
 
   // Listen for auth state changes (magic link redirect)
-  supabase.auth.onAuthStateChange((event, session) => {
+  sb.auth.onAuthStateChange((event, session) => {
     if (session) {
       showIntranet(session.user);
     } else {
@@ -594,7 +594,7 @@ async function sendMagicLink() {
   status.className = 'auth-status info';
 
   const redirectTo = window.location.href.split('?')[0].split('#')[0];
-  const { error } = await supabase.auth.signInWithOtp({
+  const { error } = await sb.auth.signInWithOtp({
     email,
     options: { emailRedirectTo: redirectTo }
   });
@@ -610,14 +610,14 @@ async function sendMagicLink() {
 }
 
 async function signOut() {
-  await supabase.auth.signOut();
+  await sb.auth.signOut();
   showGate();
 }
 
 // ---- CIS data ----
 async function loadDashboardData(user) {
   // Get the user's session token for auth'd requests
-  const { data: { session } } = await supabase.auth.getSession();
+  const { data: { session } } = await sb.auth.getSession();
   const token = session?.access_token || ANON_KEY;
 
   async function fetchWithAuth(path) {
@@ -699,7 +699,7 @@ function showSection(id, linkEl) {
 }
 
 async function loadAgreements() {
-  const { data: { session } } = await supabase.auth.getSession();
+  const { data: { session } } = await sb.auth.getSession();
   const token = session?.access_token || ANON_KEY;
   const r = await fetch(`${SUPABASE_URL}/rest/v1/agreements?select=*&order=effective_at.desc`, {
     headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${token}` }
@@ -724,7 +724,7 @@ async function loadAgreements() {
 }
 
 async function loadAgents() {
-  const { data: { session } } = await supabase.auth.getSession();
+  const { data: { session } } = await sb.auth.getSession();
   const token = session?.access_token || ANON_KEY;
   const r = await fetch(`${SUPABASE_URL}/rest/v1/agents?select=id,kind,display_name,email,created_at&order=created_at.asc`, {
     headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${token}` }
