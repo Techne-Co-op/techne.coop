@@ -4,9 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-
-<meta name="description" content="Techne Design System, palette and component reference, updated to the v4 palette: a warm parchment ground, blue primary and ember secondary accents, three earth states, and a sunset range.">
-<title>Techne Design System &middot; Palette Reference</title>
+<meta name="description" content="Techne Design System — palette and component reference for techne.coop. v4 palette: warm parchment ground, blue primary accent, ember secondary, three earth states, sunset range.">
+<title>Palette Reference &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/design-system/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/design-system/">
+<meta property="og:title" content="Palette Reference · Techne">
+<meta property="og:description" content="Techne Design System — palette and component reference for techne.coop. v4: blue primary, ember secondary, sunset range.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -148,8 +156,7 @@
   .navdemo{border:1px solid var(--line);border-radius:2px;margin:var(--s3) 0;}
   .nav{display:flex;align-items:center;gap:var(--s4);padding:0 var(--s4);height:52px;background:var(--surface);
     border-bottom:1px solid var(--line);}
-  .nav .mark{width:26px;height:26px;border:1px solid var(--ember);border-radius:2px;display:grid;place-items:center;
-    font:600 15px/1 var(--serif);color:var(--ember-text);}
+  .nav .wordmark{font:500 12px/1 var(--mono);color:var(--ember-text);letter-spacing:.06em;flex-shrink:0;}
   .nav .links{display:flex;gap:var(--s4);align-items:center;flex:1;}
   .nav .links a{font:500 12px/1 var(--sans);color:var(--muted);text-decoration:none;}
   .nav .links a.active{color:var(--blue-text);position:relative;}
@@ -340,25 +347,28 @@
   <!-- CIS NAVIGATION -->
   <section class="sec" id="nav">
     <h2>CIS Primary Navigation</h2>
-    <p class="lead">The sticky navigation carries the Techne mark, the primary sections, and the signed-in member. The active section is marked in <em>blue</em>, the primary accent, since it is the reader's current position and the one interactive cue in the bar. Shown in both modes.</p>
+    <p class="lead">The sticky navigation carries the Techne wordmark, the four launch slices, and the signed-in member. The active slice is marked in <em>blue</em>, the primary accent, since it is the reader's current position and the one interactive cue in the bar. The four slices map directly to the v0.3 PRD: Belong, Gather, Find, Account. Shown in both modes.</p>
 
     <div class="navdemo mode-light">
       <div class="nav">
-        <span class="mark">&tau;</span>
-        <div class="links"><a href="#" class="active">CIS</a><a href="#">People</a><a href="#">Agreements</a><a href="#">Treasury</a><a href="#">Activity</a><a href="#">Board</a><a href="#">Enroll</a></div>
+        <span class="wordmark">Techne</span>
+        <div class="links"><a href="#" class="active">Belong</a><a href="#">Gather</a><a href="#">Find</a><a href="#">Account</a><a href="#">Agreements</a></div>
         <div class="user"><span class="av">TY</span><span class="un">Todd &#9662;</span></div>
       </div>
-      <div class="navcap">light</div>
+      <div class="navcap">light &middot; CIS v0.3 slices</div>
     </div>
 
     <div class="navdemo mode-dark">
       <div class="nav">
-        <span class="mark">&tau;</span>
-        <div class="links"><a href="#" class="active">CIS</a><a href="#">People</a><a href="#">Agreements</a><a href="#">Treasury</a><a href="#">Activity</a><a href="#">Board</a><a href="#">Enroll</a></div>
+        <span class="wordmark">Techne</span>
+        <div class="links"><a href="#" class="active">Belong</a><a href="#">Gather</a><a href="#">Find</a><a href="#">Account</a><a href="#">Agreements</a></div>
         <div class="user"><span class="av">TY</span><span class="un">Todd &#9662;</span></div>
       </div>
-      <div class="navcap">dark</div>
+      <div class="navcap">dark &middot; CIS v0.3 slices</div>
     </div>
+
+    <div class="subhead">Slice mapping</div>
+    <p class="note"><b>Belong</b> — member directory, profiles, onboarding, membership agreement. <b>Gather</b> — events at the studio, registration, attendance. <b>Find</b> — open offers, invitations, connections between members. <b>Account</b> — contribution history, capital account, balances traced to events (opens when counting rules are adopted). <b>Agreements</b> — browse governing documents and ratified bylaw sections.</p>
 
     <div class="subhead">Usage</div>
     <pre class="code"><span class="c1">&lt;!-- in &lt;head&gt;, after font loading --&gt;</span>
@@ -368,7 +378,7 @@
 &lt;body data-auth-required&gt;</pre>
 
     <div class="subhead">Behaviour</div>
-    <p class="note">Self-injects the sticky nav and the site footer on <code>DOMContentLoaded</code>. Reads the Supabase session and shows the initials avatar and display name. The member chip opens a dropdown with <em>Edit Profile</em> and <em>Sign out</em>. The mode toggle writes to <code>localStorage('techne-mode')</code> and sets <code>data-mode</code> on the document. The active section is highlighted from <code>window.location.pathname</code>. <code>data-auth-required</code> on the body redirects unauthenticated visitors to the login route, and <code>window.cisUser</code> is exposed for page scripts that need member context.</p>
+    <p class="note">Self-injects the sticky nav and the site footer on <code>DOMContentLoaded</code>. Reads the Supabase session and shows the initials avatar and display name. The member chip opens a dropdown with <em>Edit Profile</em> and <em>Sign out</em>. The mode toggle writes to <code>localStorage('techne-mode')</code> and sets <code>data-mode</code> on the document. The active slice is highlighted from <code>window.location.pathname</code>. <code>data-auth-required</code> on the body redirects unauthenticated visitors to the intranet login, and <code>window.cisUser</code> is exposed for page scripts that need member context.</p>
   </section>
 
   <!-- COMPONENTS -->
@@ -393,16 +403,16 @@
       <span class="chip info"><span class="dot"></span>open</span>
       <span class="chip neutral"><span class="dot"></span>archived</span>
       <span class="chip role"><span class="dot"></span>steward</span>
-      <span class="chip neutral"><span class="dot"></span>class 1 &middot; labor</span>
+      <span class="chip role"><span class="dot"></span>patron member</span>
     </div>
-    <p class="note">Where the earlier palette gave rejected and pending separate hues, v4 collapses both to <em>red</em> and lets the word carry the distinction. Roles such as <em>steward</em> take the ember mark, since a role is structure rather than condition.</p>
+    <p class="note">Where the earlier palette gave rejected and pending separate hues, v4 collapses both to <em>red</em> and lets the word carry the distinction. Roles such as <em>steward</em> and <em>patron member</em> take the ember mark, since a role is structure rather than condition. Role names follow the CIS v0.3 information model: patron_member, director, steward, applicant.</p>
 
     <div class="subhead">Metric cards</div>
     <div class="grid">
-      <div class="tile"><div class="tl"><span>capital account</span></div><div class="tf">$2,400</div><div class="ts">updated apr 1</div></div>
-      <div class="tile"><div class="tl"><span>state verifier</span></div><div class="tf ok"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>verified</div><div class="ts">a1b2c3d4&hellip;ef56</div></div>
+      <div class="tile"><div class="tl"><span>capital account</span></div><div class="tf">$2,400</div><div class="ts">updated apr 1, 2026</div></div>
+      <div class="tile"><div class="tl"><span>member standing</span></div><div class="tf ok"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>active</div><div class="ts">patron member &middot; since feb 2026</div></div>
       <div class="tile"><div class="tl"><span>governance</span></div><div class="tf">3</div><div class="ts">proposals awaiting votes</div></div>
-      <div class="tile"><div class="tl"><span>labor</span></div><div class="tf">48.5<span style="font-size:12px;color:var(--muted)"> hrs</span></div><div class="ts">fmv: $5,820</div></div>
+      <div class="tile"><div class="tl"><span>contributions</span></div><div class="tf">48.5<span style="font-size:12px;color:var(--muted)"> hrs</span></div><div class="ts">fmv: $5,820</div></div>
     </div>
 
     <div class="subhead">Document page header</div>
@@ -417,6 +427,67 @@
       <span class="prov"><b>meeting 14</b> &middot; 2026-04-06 &middot; edited notes</span>
       <span class="prov"><b>bylaws v.2</b> &middot; techne.coop/legal</span>
     </div>
+  </section>
+
+  <!-- SEO & FAVICON -->
+  <section class="sec" id="seo">
+    <h2>SEO &amp; Favicon</h2>
+    <p class="lead">Every page on techne.coop carries a standard head block: charset, viewport, color-scheme, title, description, Open Graph, and canonical. The favicon is the cooperative grid mark — an ember-ground 2&times;2 quad, no letter, no tau.</p>
+
+    <div class="subhead">Required &lt;head&gt; block</div>
+    <pre class="code"><span class="c1">&lt;!-- 1. Core --&gt;</span>
+&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;meta name="color-scheme" content="dark light"&gt;
+
+<span class="c1">&lt;!-- 2. SEO --&gt;</span>
+&lt;title&gt;<span class="c2">Page Name</span> &amp;middot; Techne&lt;/title&gt;
+&lt;meta name="description" content="<span class="c2">One or two sentences. 120–160 characters. Plain language, no keyword stuffing.</span>"&gt;
+&lt;link rel="canonical" href="<span class="c2">https://techne.coop/page/</span>"&gt;
+
+<span class="c1">&lt;!-- 3. Open Graph --&gt;</span>
+&lt;meta property="og:type" content="website"&gt;
+&lt;meta property="og:url" content="<span class="c2">https://techne.coop/page/</span>"&gt;
+&lt;meta property="og:title" content="<span class="c2">Page Name · Techne</span>"&gt;
+&lt;meta property="og:description" content="<span class="c2">Same as meta description or a tighter social pull-quote.</span>"&gt;
+&lt;meta property="og:site_name" content="Techne"&gt;
+&lt;meta property="og:image" content="https://techne.coop/assets/og-default.png"&gt;
+
+<span class="c1">&lt;!-- 4. Favicon --&gt;</span>
+&lt;link rel="icon" type="image/svg+xml" href="/favicon.svg"&gt;
+&lt;link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32"&gt;
+
+<span class="c1">&lt;!-- 5. Mode flash prevention (inline, before CSS) --&gt;</span>
+&lt;script&gt;
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+&lt;/script&gt;</pre>
+
+    <div class="subhead">Title pattern</div>
+    <div class="standard">
+      <div class="strow head"><div>Context</div><div>Title format</div></div>
+      <div class="strow"><div class="avoid">Homepage</div><div class="use"><b>Techne &middot; technology as craft &middot; Boulder</b></div></div>
+      <div class="strow"><div class="avoid">Section / feature</div><div class="use"><b>Page name &middot; Techne</b> (e.g. "The Commonplace Book &middot; Techne")</div></div>
+      <div class="strow"><div class="avoid">Design system / internal reference</div><div class="use"><b>Descriptor &middot; Techne</b> (e.g. "Palette Reference &middot; Techne")</div></div>
+    </div>
+
+    <div class="subhead">Description guidelines</div>
+    <p class="note">120&ndash;160 characters. Active voice. No "welcome to" opener. Lead with what the page holds rather than what the organization does. Every page on the same domain must have a distinct description. The homepage description names the cooperative and the August 14 milestone; section descriptions name what a reader finds on arrival.</p>
+
+    <div class="subhead">Favicon &middot; cooperative grid mark</div>
+    <p class="note">The favicon is a 32&times;32 SVG: ember-ground square, 2&times;2 grid of cream marks, bottom-right mark at 38% opacity to suggest work-in-progress. No letter, no tau. The mark is at <code>/favicon.svg</code> in the repo root. All pages link it from root regardless of depth using the absolute path <code>/favicon.svg</code>.</p>
+    <pre class="code"><span class="c1">&lt;!-- /favicon.svg — the canonical source --&gt;</span>
+&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"&gt;
+  &lt;rect width="32" height="32" rx="3" fill="#C4956A"/&gt;
+  &lt;rect x="7" y="7" width="8" height="8" rx="1" fill="#F7F5F0" opacity="0.88"/&gt;
+  &lt;rect x="17" y="7" width="8" height="8" rx="1" fill="#F7F5F0" opacity="0.88"/&gt;
+  &lt;rect x="7" y="17" width="8" height="8" rx="1" fill="#F7F5F0" opacity="0.88"/&gt;
+  &lt;rect x="17" y="17" width="8" height="8" rx="1" fill="#F7F5F0" opacity="0.38"/&gt;
+&lt;/svg&gt;</pre>
+
+    <div class="subhead">Open Graph image</div>
+    <p class="note">The default OG image (<code>/assets/og-default.png</code>) is 1200&times;630px, dark-mode background (#0F0F12), Techne wordmark in ember-text center, subtitle in muted mono. Pages may supply a custom <code>og:image</code> but must not omit the tag; fall back to the default if no page-specific image exists.</p>
   </section>
 
   <!-- TYPOGRAPHY -->
