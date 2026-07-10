@@ -341,6 +341,21 @@ body {
 }
 .notice strong { color: var(--blue-text); }
 
+.slice-chip {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  margin-bottom: var(--s3);
+  text-transform: uppercase;
+}
+.slice-chip.anticipated { border-color: var(--blue); color: var(--blue-text); }
+.slice-chip.open        { border-color: var(--warn); color: var(--warn); }
+.slice-chip.settled     { border-color: var(--ok);   color: var(--ok); }
+
 .agent-row {
   display: flex;
   align-items: center;
@@ -424,23 +439,26 @@ footer {
 <!-- ====== INTRANET SHELL (shown when authenticated) ====== -->
 <div class="intranet-shell" id="intranet-shell">
   <nav class="intranet-nav">
-    <div class="nav-section">Cooperative</div>
-    <a href="#" id="nav-dashboard" class="active">Dashboard</a>
+    <a href="#" id="nav-dashboard" class="active">Overview</a>
+    <div class="nav-section">Belong</div>
+    <a href="#" id="nav-agents">Directory</a>
     <a href="#" id="nav-agreements">Agreements</a>
-    <a href="#" id="nav-agents">Members</a>
-    <div class="nav-section">Records</div>
-    <a href="#" id="nav-treasury">Treasury</a>
-    <a href="#" id="nav-bylaws">Bylaws</a>
-    <div class="nav-section">Reference</div>
+    <div class="nav-section">Gather</div>
+    <a href="#" id="nav-gather">Events</a>
+    <div class="nav-section">Find one another</div>
+    <a href="#" id="nav-find">Opportunities</a>
+    <div class="nav-section">See your share</div>
+    <a href="#" id="nav-share">Your account</a>
+    <div class="nav-section" style="margin-top:var(--s6)"></div>
     <a href="../" style="color:var(--faint)">← techne.coop</a>
   </nav>
 
   <main class="intranet-main">
 
-    <!-- DASHBOARD -->
+    <!-- OVERVIEW -->
     <div id="section-dashboard">
       <div class="page-label">Techne · RegenHub, LCA</div>
-      <h1 class="page-title">Intranet</h1>
+      <h1 class="page-title">Member intranet</h1>
 
       <div class="member-strip">
         <div>
@@ -451,78 +469,89 @@ footer {
       </div>
 
       <div class="notice">
-        <strong>Phase 1 in progress.</strong> Auth is live. Member directory, capital accounts, and governance surfaces are being built. Data you see here comes directly from the CIS (dgcoffcanzwsuwgpocbt).
+        <strong>CIS PRD v0.3 · Four launch slices.</strong> Belong and Gather are anticipated for ratification day, August 14, 2026. Find one another follows. See your share is open — blocked on adoption of patronage counting rules. Data comes directly from the CIS (dgcoffcanzwsuwgpocbt).
       </div>
 
       <div class="dash-grid">
         <div class="dash-card">
-          <div class="card-label">Agents in CIS</div>
+          <div class="card-label">Members in CIS</div>
           <div class="card-value" id="stat-agents">—</div>
           <div class="card-desc">Natural persons, legal entities, and AI agents registered in the cooperative's information system.</div>
         </div>
         <div class="dash-card">
           <div class="card-label">Bylaws sections</div>
           <div class="card-value" id="stat-sections">—</div>
-          <div class="card-desc">Clauses of Bylaws v2 loaded with stable addresses. Draft — not yet ratified.</div>
+          <div class="card-desc">Clauses of Bylaws v2 with stable addresses. Drafted — ratification vote August 14.</div>
         </div>
         <div class="dash-card">
           <div class="card-label">Agreements</div>
           <div class="card-value" id="stat-agreements">—</div>
-          <div class="card-desc">Documents in the CIS agreements repository. Bylaws v2 is the current record.</div>
+          <div class="card-desc">Governing documents in the CIS agreements repository.</div>
         </div>
         <div class="dash-card planned">
-          <div class="card-label">Capital accounts</div>
+          <div class="card-label">Gather · Events</div>
           <div class="card-value">—</div>
-          <div class="card-desc">Phase 2. Per-member capital balances, patronage allocation, and K-1 data.</div>
+          <div class="card-desc">Anticipated · Aug 14. Sessions, registrations, and attendance.</div>
         </div>
         <div class="dash-card planned">
-          <div class="card-label">Next meeting</div>
+          <div class="card-label">Find one another</div>
           <div class="card-value">—</div>
-          <div class="card-desc">Phase 3. Meeting calendar, notices, and quorum tracking.</div>
+          <div class="card-desc">Anticipated · after Belong. Offers, invitations, opportunities.</div>
         </div>
         <div class="dash-card planned">
-          <div class="card-label">Open motions</div>
+          <div class="card-label">See your share</div>
           <div class="card-value">—</div>
-          <div class="card-desc">Phase 3. Votes, consents, and governance decisions in flight.</div>
+          <div class="card-desc">Open · blocked. Contribution history and capital account — requires counting rules adoption.</div>
         </div>
       </div>
-
-      <div class="section-head">Registered Agents</div>
-      <div id="agents-list">Loading…</div>
     </div>
 
-    <!-- AGREEMENTS -->
-    <div id="section-agreements" style="display:none">
-      <div class="page-label">CIS · Agreements</div>
-      <h1 class="page-title">Agreements</h1>
-      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s5)">Bylaws, membership agreements, and other governing documents. Bylaws v2 is currently in draft.</p>
-      <div id="agreements-list">Loading…</div>
-    </div>
-
-    <!-- AGENTS -->
+    <!-- BELONG · DIRECTORY -->
     <div id="section-agents" style="display:none">
-      <div class="page-label">CIS · Agents</div>
+      <div class="slice-chip anticipated">Belong · Slice 01 · Anticipated Aug 14</div>
+      <div class="page-label">CIS · Directory</div>
       <h1 class="page-title">Members</h1>
       <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s5)">Directory of agents in the cooperative information system. Visibility governed by §1.7.</p>
       <div id="members-list">Loading…</div>
     </div>
 
-    <!-- TREASURY -->
-    <div id="section-treasury" style="display:none">
-      <div class="page-label">Treasury</div>
-      <h1 class="page-title">Financial statements</h1>
-      <div class="notice"><strong>Phase 2 planned.</strong> Capital accounts and treasury integration are being built. Monthly statements are available in the legacy intranet during the transition.</div>
-      <p style="color:var(--muted);font-size:0.9rem;margin-top:var(--s4)">
-        June 2026 statement: <a href="https://techne.institute/intranet/treasury/statements/2026-06.html" style="color:var(--blue-text)">techne.institute ↗</a>
-      </p>
+    <!-- BELONG · AGREEMENTS -->
+    <div id="section-agreements" style="display:none">
+      <div class="slice-chip anticipated">Belong · Slice 01 · Anticipated Aug 14</div>
+      <div class="page-label">CIS · Agreements</div>
+      <h1 class="page-title">Agreements</h1>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s5)">Bylaws, membership agreements, and other governing documents that bind cooperative members. Bylaws v2 is currently drafted — ratification vote August 14.</p>
+      <div id="agreements-list">Loading…</div>
     </div>
 
-    <!-- BYLAWS -->
-    <div id="section-bylaws" style="display:none">
-      <div class="page-label">CIS · Bylaws</div>
-      <h1 class="page-title">Bylaws v2</h1>
-      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s4)">Full text of Bylaws v2 — 187 sections with stable addresses. Loaded directly from the CIS database.</p>
-      <div class="notice"><strong>Draft status.</strong> Not yet ratified. Two known issues tracked in CIS metadata.</div>
+    <!-- GATHER · EVENTS -->
+    <div id="section-gather" style="display:none">
+      <div class="slice-chip anticipated">Gather · Slice 02 · Anticipated Aug 14</div>
+      <div class="page-label">CIS · Events</div>
+      <h1 class="page-title">Events</h1>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s4)">Sessions, registrations, and attendance. What is happening, who is hosting, who came, and what came of it.</p>
+      <div class="notice"><strong>Anticipated · August 14, 2026.</strong> When IM settles event entities, a member will be able to see upcoming events, register and cancel without asking, and have attendance counted where the record counts it.</div>
+    </div>
+
+    <!-- FIND ONE ANOTHER · OPPORTUNITIES -->
+    <div id="section-find" style="display:none">
+      <div class="slice-chip anticipated">Find one another · Slice 03 · Anticipated after Belong</div>
+      <div class="page-label">CIS · Opportunities</div>
+      <h1 class="page-title">Find one another</h1>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s4)">A bulletin of offers and invitations to play, practice, and work. Entries are governed records with author, lifecycle, and outcome.</p>
+      <div class="notice"><strong>Anticipated · after Belong lands.</strong> A member will be able to browse invitations by kind (play, practice, work), post an offer or need, and close it when resolved. Every entry hangs off an agent record.</div>
+    </div>
+
+    <!-- SEE YOUR SHARE -->
+    <div id="section-share" style="display:none">
+      <div class="slice-chip open">See your share · Slice 04 · Open — blocked</div>
+      <div class="page-label">CIS · Capital account</div>
+      <h1 class="page-title">Your account</h1>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s4)">Contribution history, capital account, and patronage allocation. Each member will see what they put in and the share of results that follows.</p>
+      <div class="notice"><strong>Open — blocked on counting rules.</strong> Patronage counting rules and Schedule A rates must be adopted as board policy before member accounts can be computed. Until then, contribution history is not displayed here.</div>
+      <p style="color:var(--muted);font-size:0.85rem;margin-top:var(--s4)">
+        June 2026 financial statement: <a href="https://techne.institute/intranet/treasury/statements/2026-06.html" style="color:var(--blue-text)">techne.institute ↗</a>
+      </p>
     </div>
 
   </main>
@@ -530,7 +559,7 @@ footer {
 
 <footer>
   <span>Techne intranet · RegenHub, LCA · Boulder, Colorado</span>
-  <span>CIS: dgcoffcanzwsuwgpocbt · Phase 1</span>
+  <span>CIS: dgcoffcanzwsuwgpocbt · PRD v0.3</span>
 </footer>
 
 <!-- Supabase JS client -->
@@ -663,27 +692,13 @@ async function loadDashboardData(user) {
     }
     document.getElementById('member-role').textContent = memberRole;
 
-    // Agents list
-    const agents = await fetchData('agents?select=id,kind,display_name&order=created_at.asc&limit=50');
-    const agentsList = document.getElementById('agents-list');
-    if (Array.isArray(agents) && agents.length > 0) {
-      agentsList.innerHTML = agents.map(a => `
-        <div class="agent-row">
-          <span class="agent-kind">${a.kind}</span>
-          <span class="agent-name">${a.display_name}</span>
-        </div>
-      `).join('');
-    } else {
-      agentsList.innerHTML = '<p style="color:var(--muted);font-size:0.85rem;font-family:var(--mono)">No agents visible at your access level.</p>';
-    }
-
   } catch(e) {
     console.warn('CIS load error:', e);
   }
 }
 
 // Section navigation
-const sections = ['dashboard', 'agreements', 'agents', 'treasury', 'bylaws'];
+const sections = ['dashboard', 'agents', 'agreements', 'gather', 'find', 'share'];
 
 function showSection(id, linkEl) {
   sections.forEach(s => {
@@ -696,6 +711,7 @@ function showSection(id, linkEl) {
   // Lazy-load section data
   if (id === 'agreements') loadAgreements();
   if (id === 'agents') loadAgents();
+  // gather, find, share: no live data yet — stubs render from HTML
 }
 
 async function loadAgreements() {
@@ -772,10 +788,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var navMap = [
     ['nav-dashboard', 'dashboard'],
-    ['nav-agreements', 'agreements'],
     ['nav-agents', 'agents'],
-    ['nav-treasury', 'treasury'],
-    ['nav-bylaws', 'bylaws']
+    ['nav-agreements', 'agreements'],
+    ['nav-gather', 'gather'],
+    ['nav-find', 'find'],
+    ['nav-share', 'share']
   ];
   navMap.forEach(function(pair) {
     var el = document.getElementById(pair[0]);
