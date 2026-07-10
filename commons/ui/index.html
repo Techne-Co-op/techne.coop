@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Interface Tokens &amp; Patterns v1: the Techne v4 design system as code for the Common Information System. Token layer, two-grammar rule, named pattern inventory, and the commons.css emission.">
+<title>Interface Tokens &amp; Patterns &middot; UI v1 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/ui/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/ui/">
+<meta property="og:title" content="Interface Tokens &amp; Patterns · UI v1 · Techne">
+<meta property="og:description" content="The Techne v4 design system rendered operational: token layer as code, the two-grammar rule, and a named pattern inventory so build agents apply the system rather than reinterpret it.">
+<meta property="og:site_name" content="Techne">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<style>
+/* ============================================================
+   commons.css · Techne v4 token and pattern layer
+   UI v1 emission · The Common Record Series
+   aligned to techne.coop/design-system (the live constitution)
+   governs: ui-tokens-and-patterns-v1 (the document governs;
+   this stylesheet distills). supersedes commons.css v3, the v3
+   reference on the commons pages, and the local v4 reference
+   file; the live constitution is techne.coop/design-system.
+   RegenHub, LCA · Boulder, Colorado · July 2026
+   ============================================================ */
+
+/* ---------- tokens ---------- */
+:root {
+  --serif:Georgia,"Times New Roman",serif;              /* document voice */
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --sans:"Inter","Helvetica Neue",Arial,sans-serif;     /* interface layer */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  /* sunset range: a twilight-to-sunset sweep, gold at the top of a page, blue at the foot */
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;     /* primary accent */
+  --ember:#C4956A; --ember-text:#D4A57A;   /* secondary accent */
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --heat-1:#6E5494; --heat-2:#B45C7C; --heat-3:#D1755A; --heat-4:#E09A52; --heat-5:#EAB668;
+  --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872;
+  --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  --heat-1:#EAB668; --heat-2:#E09A52; --heat-3:#D1755A; --heat-4:#B45C7C; --heat-5:#6E5494;
+  --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636;
+  --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+}
+
+/* ---------- base ---------- */
+* { box-sizing:border-box; }
+html { color-scheme:light dark; }
+body { margin:0; background:var(--bg); color:var(--text);
+  font:400 16px/1.75 var(--serif);
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+.mono { font-family:var(--mono); }
+.num { font-variant-numeric:tabular-nums; }
+.sans { font-family:var(--sans); }
+.dash-h { font:800 1.75rem/1.2 var(--sans); color:var(--heading); }   /* dashboard heading */
+.seclabel { font:700 .68rem/1.6 var(--sans); text-transform:uppercase; letter-spacing:.08em; color:var(--faint); }
+em { font-style:italic; color:var(--heading); }
+code { font:400 .85em/1 var(--mono); color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; transition:text-decoration-thickness var(--micro) var(--ease); }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+
+/* ---------- topbar ---------- */
+.topbar {
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; gap:var(--s5);
+  padding:0 var(--s5); height:52px;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.brand { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+.brand-mark { font-family:var(--mono); font-size:0.78rem; font-weight:500; letter-spacing:0.06em; color:var(--heading); transition:color var(--micro) var(--ease); }
+.brand:hover .brand-mark { color:var(--ember-text); }
+.top-nav { flex:1; display:flex; gap:var(--s4); list-style:none; margin:0; padding:0; }
+.top-nav a { font-family:var(--mono); font-size:0.72rem; letter-spacing:0.04em; color:var(--muted); text-decoration:none; transition:color var(--micro) var(--ease); }
+.top-nav a:hover { color:var(--heading); }
+.top-nav a[aria-current="page"] { color:var(--ember-text); }
+.mode-toggle {
+  margin-left:auto; display:flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:0.7rem; color:var(--muted);
+  background:none; border:1px solid var(--line); border-radius:2px;
+  padding:5px 9px; cursor:pointer;
+  transition:color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.mode-toggle:hover { color:var(--heading); border-color:var(--rule); }
+.mode-toggle svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ---------- the two grammars ---------- */
+/* document grammar: a reading column, 760 to 920px, prose-forward, scrolls */
+.wrap { max-width:920px; margin:0 auto; padding:0 var(--s5); }
+/* instrument grammar: widescreen, no-scroll intent, mono-forward, to 1600px */
+.wrap-hud { max-width:1600px; margin:0 auto; padding:0 var(--s4); }
+
+/* ---------- sweep assignment: data-tint ---------- */
+[data-tint="gold"]   { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+[data-tint="amber"]  { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+[data-tint="coral"]  { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+[data-tint="rose"]   { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+[data-tint="violet"] { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+[data-tint="blue"]   { --shue:var(--sun-blue);   --shue-t:var(--sun-blue-t); }
+
+/* ---------- masthead (document grammar) ---------- */
+.mast { border-bottom:1px solid var(--rule); padding:var(--s8) 0 var(--s6); }
+.mast .kick { font:500 11px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.12em; }
+.mast h1 { font:700 38px/1.15 var(--serif); color:var(--heading); margin:var(--s3) 0 var(--s4); letter-spacing:-.01em; }
+.mast .dek { font:400 17.5px/1.65 var(--serif); color:var(--text); margin:0; max-width:64ch; }
+.mast .meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font:400 11px/1.6 var(--mono); color:var(--muted); }
+.mast .meta b { color:var(--blue-text); font-weight:600; }
+.mast .meta .em { color:var(--ember-text); }
+.band { display:flex; height:6px; margin-top:var(--s5); border:1px solid var(--line); }
+.band span { flex:1; }
+
+/* ---------- sections with citable addresses ---------- */
+.sec { padding:var(--s7) 0 0; }
+.sec .addr { font:600 12px/1 var(--mono); color:var(--shue-t); margin-bottom:var(--s2); }
+.sec h2 { font:700 25px/1.25 var(--serif); color:var(--heading); margin:0 0 var(--s4); letter-spacing:-.01em; padding-left:14px; border-left:3px solid var(--shue); }
+.sec h3 { font:600 13px/1.5 var(--mono); color:var(--heading); text-transform:lowercase; letter-spacing:.02em; margin:var(--s6) 0 var(--s3); padding-bottom:6px; border-bottom:1px solid var(--shue); }
+.sec p { margin:0 0 var(--s4); max-width:68ch; }
+.lead { font-size:17px; }
+.cap { font:400 10.5px/1.7 var(--mono); color:var(--faint); margin-top:8px; }
+
+/* ---------- status chips: a word and a square mark, never color alone ----------
+   earth-state mapping per the live reference: green carries filed and ratified,
+   blue carries drafted (in review), red carries open; the word carries the
+   distinction. roles are structure, not condition, and take the ember mark. */
+.chip { display:inline-flex; align-items:center; gap:6px; font:500 10.5px/1 var(--mono); padding:4px 9px; border:1px solid var(--line); border-radius:2px; background:var(--surface); white-space:nowrap; color:var(--muted); vertical-align:middle; }
+.chip .dot { width:6px; height:6px; flex:none; }
+.chip.filed { color:var(--ok); }           .chip.filed .dot { background:var(--ok); }
+.chip.ratified { color:var(--ok); }        .chip.ratified .dot { background:var(--ok); }
+.chip.drafted { color:var(--info); }       .chip.drafted .dot { background:var(--info); }
+.chip.anticipated { color:var(--muted); }  .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+.chip.open { color:var(--warn); }          .chip.open .dot { background:transparent; border:1px solid var(--warn); }
+.chip.role { color:var(--ember-text); }    .chip.role .dot { background:var(--ember); }
+/* blocked is not a sixth mark: a blocked thing wears the Open chip naming its blocker */
+.chiprow { display:flex; gap:var(--s2); flex-wrap:wrap; align-items:center; margin:var(--s3) 0; }
+
+/* ---------- provenance ---------- */
+.prov { display:inline-flex; align-items:center; gap:6px; font:400 10.5px/1.5 var(--mono); color:var(--muted); padding:4px 9px; border:1px solid var(--line); border-left:2px solid var(--ember); border-radius:2px; background:var(--surface); }
+.prov b { color:var(--heading); font-weight:600; }
+
+/* ---------- registers and definition rows ---------- */
+.reg { margin:var(--s4) 0 var(--s2); border-top:1px solid var(--rule); }
+.reg-row { display:grid; grid-template-columns:44px 210px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--line); }
+.reg-row .no { font:500 11px/1.7 var(--mono); color:var(--shue-t); }
+.reg-row .t { font:700 14px/1.5 var(--serif); color:var(--heading); }
+.reg-row .d { font:400 13px/1.7 var(--serif); color:var(--text); }
+.def { margin:var(--s4) 0 var(--s2); border-top:1px solid var(--rule); }
+.def-row { display:grid; grid-template-columns:180px 1fr; gap:var(--s4); padding:var(--s3) 0; border-bottom:1px solid var(--line); }
+.def-row .t { font:700 14px/1.5 var(--serif); color:var(--heading); }
+.def-row .t .k { display:block; font:500 9.5px/1.8 var(--mono); font-weight:500; color:var(--shue-t); text-transform:uppercase; letter-spacing:.1em; }
+.def-row .d { font:400 13.5px/1.7 var(--serif); color:var(--text); }
+
+/* ---------- record panel (excerpt, deprecation record, anatomy) ---------- */
+.record { margin:var(--s5) 0; background:var(--surface); border:1px solid var(--line); border-top:4px double var(--heading); }
+.record .rh { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:var(--s2) var(--s3); padding:10px var(--s4); border-bottom:1px solid var(--line); }
+.record .rh .rt { font:600 11px/1.5 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; }
+.record .rh .ra { font:600 11px/1.5 var(--mono); color:var(--muted); }
+.record .rb { padding:var(--s4); }
+.excerpt { margin:var(--s5) 0 0; background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--ember); }
+.xrow { display:grid; grid-template-columns:118px 1fr auto; gap:var(--s3); align-items:baseline; padding:10px var(--s4); border-bottom:1px solid var(--line); }
+.xrow:last-of-type { border-bottom:0; }
+.xrow .xd { font:400 10.5px/1.7 var(--mono); color:var(--muted); }
+.xrow .xe { font:400 13.5px/1.6 var(--serif); color:var(--heading); }
+.anatomy { margin:var(--s4) 0; background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--shue); }
+.an-row { display:grid; grid-template-columns:140px 1fr; gap:var(--s3); padding:9px var(--s4); border-bottom:1px solid var(--line); align-items:baseline; }
+.an-row:last-child { border-bottom:0; }
+.an-row .f { font:600 11px/1.7 var(--mono); color:var(--shue-t); }
+.an-row .v { font:400 13px/1.7 var(--serif); color:var(--text); }
+
+/* ---------- twin panels (decide / escalate and kin) ---------- */
+.twin { display:grid; grid-template-columns:1fr 1fr; gap:var(--s3); margin:var(--s4) 0; }
+.panel { background:var(--surface); border:1px solid var(--line); }
+.panel .ph { display:flex; align-items:center; justify-content:space-between; gap:var(--s2); padding:8px var(--s3); border-bottom:1px solid var(--line); }
+.panel .ph .pt { font:600 11px/1.4 var(--mono); color:var(--heading); text-transform:lowercase; }
+.panel .pb { padding:var(--s3); }
+.panel.decide { border-top:2px solid var(--blue); }
+.panel.decide .pt { color:var(--blue-text); }
+.panel.escalate { border-top:2px solid var(--ember); }
+.panel.escalate .pt { color:var(--ember-text); }
+
+/* ---------- escalation card ---------- */
+.esc { margin:var(--s4) 0; background:var(--inset); border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s4); }
+.esc .k { font:500 10px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; margin-bottom:var(--s2); }
+.esc .er { display:grid; grid-template-columns:110px 1fr; gap:var(--s3); padding:6px 0; border-bottom:1px solid var(--line); align-items:baseline; }
+.esc .er:last-child { border-bottom:0; }
+.esc .er .f { font:600 10.5px/1.7 var(--mono); color:var(--muted); }
+.esc .er .v { font:400 13px/1.65 var(--serif); color:var(--text); }
+
+/* ---------- memorandum ---------- */
+.memo { margin:var(--s6) 0 0; padding:var(--s4) 0; border-top:1px solid var(--rule); border-bottom:4px double var(--heading); }
+.memo .k { font:500 10px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; }
+.memo p { margin:0; font-size:15px; max-width:68ch; }
+
+/* ---------- buttons ---------- */
+.btn { font:500 12px/1 var(--mono); color:var(--heading); background:var(--surface); border:1px solid var(--rule); border-radius:2px; padding:0 14px; height:32px; cursor:pointer; display:inline-flex; align-items:center; gap:7px; transition:background-color var(--micro) var(--ease), border-color var(--micro) var(--ease); }
+.btn:hover { background:var(--raised); border-color:var(--heading); }
+.btn.primary { border-color:var(--blue); color:var(--blue-text); }
+.btn.secondary { border-color:var(--ember); color:var(--ember-text); }
+.btn:hover.primary, .btn:hover.secondary { background:var(--raised); }
+
+/* ---------- instrument grammar elements ---------- */
+.stage { background:var(--inset); border:1px solid var(--line); padding:var(--s4); margin:var(--s4) 0; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s3); }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:var(--s3); }
+.board { display:grid; grid-template-columns:1fr 1fr 1fr; gap:var(--s3); }
+.tile { background:var(--surface); border:1px solid var(--line); padding:var(--s3); }
+.tile .tl { font:500 10px/1.5 var(--mono); color:var(--muted); display:flex; justify-content:space-between; }
+.tile .tf { font:500 24px/1.2 var(--mono); color:var(--heading); margin-top:5px; font-variant-numeric:tabular-nums; }
+.tile .ts { font:400 10px/1.5 var(--mono); color:var(--faint); margin-top:2px; }
+.gauge { height:6px; background:var(--inset); border:1px solid var(--line); position:relative; margin-top:8px; }
+.gauge .g { position:absolute; left:0; top:0; bottom:0; background:var(--muted); }
+.gauge .tick { position:absolute; top:-2px; bottom:-2px; width:1px; background:var(--heading); }
+table.dt { border-collapse:collapse; width:100%; }
+table.dt thead th { font:600 9.5px/1.6 var(--mono); color:var(--muted); text-transform:lowercase; text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--raised); }
+table.dt thead th.r { text-align:right; }
+table.dt tbody td { font:400 11.5px/1.5 var(--mono); color:var(--text); padding:6px 10px; border-bottom:1px solid var(--line); }
+table.dt tbody td.r { text-align:right; font-variant-numeric:tabular-nums; }
+table.dt tbody td.s { font:400 12px/1.5 var(--serif); color:var(--heading); }
+table.dt tbody tr.total td { border-top:1px solid var(--rule); border-bottom:4px double var(--heading); color:var(--heading); }
+.heat { display:grid; grid-template-columns:repeat(10,1fr); gap:3px; }
+.heat .cell { aspect-ratio:1; border:1px solid var(--line); border-radius:1px; }
+.h1{background:var(--heat-1)} .h2{background:var(--heat-2)} .h3{background:var(--heat-3)} .h4{background:var(--heat-4)} .h5{background:var(--heat-5)} .h0{background:var(--inset)}
+.ramp-legend { display:flex; gap:6px; margin:var(--s3) 0; }
+.ramp-legend .s { flex:1; }
+.ramp-legend .s .c { height:22px; border:1px solid var(--line); border-radius:2px; }
+.ramp-legend .s .n { font:400 9px/1.5 var(--mono); color:var(--muted); margin-top:4px; text-align:center; }
+.bars { display:flex; align-items:flex-end; gap:8px; height:110px; }
+.bars .bar { flex:1; display:flex; flex-direction:column-reverse; }
+.bars .seg { border:1px solid var(--line); border-bottom:0; }
+.seg-g{background:var(--sun-gold)} .seg-c{background:var(--sun-coral)} .seg-v{background:var(--sun-violet)}
+.vlegend { display:flex; gap:var(--s3); margin-top:10px; }
+.vlegend .lk { display:flex; align-items:center; gap:5px; font:400 9px/1 var(--mono); color:var(--muted); }
+.vlegend .lk .sw { width:9px; height:9px; border:1px solid var(--line); }
+
+/* ---------- agent block ---------- */
+pre.agent { background:var(--inset); border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s4); overflow-x:auto; font:400 11.5px/1.8 var(--mono); color:var(--text); margin:var(--s4) 0; }
+
+/* ---------- footer ---------- */
+footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s5) 0 var(--s8); font:400 11px/1.8 var(--mono); color:var(--muted); }
+footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
+
+/* ---------- responsive and motion ---------- */
+@media (max-width:760px){
+  .mast h1 { font-size:30px; }
+  .grid3, .board { grid-template-columns:1fr 1fr; }
+  .twin { grid-template-columns:1fr; }
+  .reg-row { grid-template-columns:36px 1fr; }
+  .reg-row .d { grid-column:2; }
+  .def-row { grid-template-columns:1fr; gap:var(--s1); }
+  .an-row { grid-template-columns:1fr; gap:2px; }
+  .xrow { grid-template-columns:1fr auto; }
+  .xrow .xd { grid-column:1 / -1; }
+  .top-nav { gap:var(--s3); }
+}
+@media (max-width:520px){
+  .grid3, .board { grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion: reduce){ * { transition:none !important; } }
+
+</style>
+<style>
+/* page-local demo helpers, this document only */
+.swatch { width:14px; height:14px; border:1px solid var(--line); display:inline-block; vertical-align:-2px; margin-right:7px; }
+.inv-row { display:grid; grid-template-columns:170px 200px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--line); }
+.inv { margin:var(--s4) 0 var(--s2); border-top:1px solid var(--rule); }
+.inv-row .n { font:700 13.5px/1.5 var(--serif); color:var(--heading); }
+.inv-row .c { font:400 10.5px/1.8 var(--mono); color:var(--ember-text); }
+.inv-row .u { font:400 12.5px/1.65 var(--serif); color:var(--text); }
+@media (max-width:760px){ .inv-row { grid-template-columns:1fr; gap:2px; } }
+</style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Site navigation">
+  <a href="/" class="brand" aria-label="Techne home">
+    <span class="brand-mark">TECHNE</span>
+  </a>
+  <ul class="top-nav" role="list">
+    <li><a href="/commons/">Commons</a></li>
+    <li><a href="/commons/series/">Series</a></li>
+    <li><a href="/commons/ui/" aria-current="page">UI v1</a></li>
+  </ul>
+  <button class="mode-toggle" id="modeBtn" aria-label="Switch color mode">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <span id="modeLbl">dark</span>
+  </button>
+</nav>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="kick">operating layer &middot; UI v1 &middot; the document governs, the stylesheet distills</div>
+    <h1>Interface Tokens &amp; Patterns</h1>
+    <p class="dek">The Techne v4 design system rendered operational: the token layer as code, the two-grammar rule, and a named pattern inventory, so that a build agent applies the system rather than reinterpreting it on every surface. This page is set entirely in the layer it specifies; almost every pattern it names is live somewhere on it.</p>
+    <div class="meta">
+      <span>status &middot; <span class="chip drafted"><span class="dot"></span>Drafted</span></span>
+      <span>cites &middot; <b><a href="https://techne.coop/design-system">techne.coop/design-system</a></b> &middot; <a href="/commons/series/">SER v0.1</a> &middot; BP v1</span>
+      <span class="em">emits &middot; <a href="/commons/ui/commons.css">commons.css (v4)</a></span>
+      <span>revised &middot; aligned to the live reference &middot; July 2026</span>
+      <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
+    </div>
+    <div class="band" aria-hidden="true">
+      <span style="background:var(--sun-gold)"></span><span style="background:var(--sun-amber)"></span><span style="background:var(--sun-coral)"></span><span style="background:var(--sun-rose)"></span><span style="background:var(--sun-violet)"></span><span style="background:var(--sun-blue)"></span>
+    </div>
+  </header>
+
+  <section class="sec" id="s1" data-tint="gold">
+    <div class="addr">&sect;1</div>
+    <h2>Preamble</h2>
+    <p class="lead">Two documents share this territory and do different work. The constitution is the live Palette and Component Reference at <a href="https://techne.coop/design-system">techne.coop/design-system</a>: why the parchment ground, why blue is primary and ember secondary, what the sunset sweep means, and the site-wide standards every page inherits. It supersedes the local v4 reference file this draft first cited, which remains in the record as history. This artifact is the operating layer beneath it: what an agent actually types. It does not re-argue a single choice; every why here is a citation to it.</p>
+    <p>Its lineage in the estate: it supersedes the shared stylesheet and the v3 design-system reference currently served on the commons pages. Its emission follows the pattern the Build Protocol set with its root distillation: this document governs, and <code>commons.css</code> distills it into the file every page links. If the stylesheet and this inventory ever disagree, this document wins and the disagreement is filed, per BP v1 &sect;9.</p>
+    <p>One constraint stated honestly: in the artifact viewer where series documents are drafted and reviewed, pages cannot link a shared stylesheet, so each inlines the layer verbatim. On the site, pages link <code>commons.css</code> and inline nothing. The inlined copies are emissions too, and drift between any copy and this document is a defect.</p>
+  </section>
+
+  <section class="sec" id="s2" data-tint="gold">
+    <div class="addr">&sect;2</div>
+    <h2>The tokens</h2>
+    <p class="lead">Every color, size, and duration in the system is a named variable. The binding rule is short: pages use tokens only, and a raw hex value outside the token layer does not merge. The groups, with their live values shown in the current mode:</p>
+    <div class="def">
+      <div class="def-row"><span class="t"><span class="k">two modes</span>Ground</span><span class="d"><span class="swatch" style="background:var(--bg)"></span><code>--bg</code> <span class="swatch" style="background:var(--inset)"></span><code>--inset</code> <span class="swatch" style="background:var(--surface)"></span><code>--surface</code> <span class="swatch" style="background:var(--raised)"></span><code>--raised</code>, with <code>--line</code> and <code>--rule</code> for structure. Warm neutral, parchment in light, never a tinted field.</span></div>
+      <div class="def-row"><span class="t">Ink</span><span class="d"><code>--heading</code>, <code>--text</code>, <code>--muted</code>, <code>--faint</code>: the four steps of emphasis. Prose is text; titles and em are heading; captions are faint.</span></div>
+      <div class="def-row"><span class="t"><span class="k">edges and marks only</span>Accents</span><span class="d"><span class="swatch" style="background:var(--blue)"></span><code>--blue</code> is primary: links, primary action, focus, selection. <span class="swatch" style="background:var(--ember)"></span><code>--ember</code> is secondary: section marks, provenance edges, secondary action. Each has a readable <code>-text</code> partner. Neither ever fills a panel.</span></div>
+      <div class="def-row"><span class="t">States</span><span class="d"><span class="swatch" style="background:var(--ok)"></span><code>--ok</code> <span class="swatch" style="background:var(--info)"></span><code>--info</code> <span class="swatch" style="background:var(--warn)"></span><code>--warn</code>, instruments and chips only, always paired with a word and a square mark. Never the sign of a number; signs are parentheses.</span></div>
+      <div class="def-row"><span class="t"><span class="k">six stops</span>Sunset</span><span class="d"><span class="swatch" style="background:var(--sun-gold)"></span><span class="swatch" style="background:var(--sun-amber)"></span><span class="swatch" style="background:var(--sun-coral)"></span><span class="swatch" style="background:var(--sun-rose)"></span><span class="swatch" style="background:var(--sun-violet)"></span><span class="swatch" style="background:var(--sun-blue)"></span> The sweep, gold to twilight blue, with readable <code>-t</code> partners per mode, and a five-step heat scale whose mapping flips with the mode so luminance order holds.</span></div>
+      <div class="def-row"><span class="t">Space, type, motion</span><span class="d">An eight-step spacing scale <code>--s1</code> to <code>--s8</code> on a 4px base. Three faces: Georgia carries the document voice, Inter carries the interface layer (dashboard headings, section labels, navigation), and IBM Plex Mono carries labels, addresses, figures, and the status bar. Motion is <code>--micro</code> for response and <code>--dur</code> for mode, honored only when the device permits it.</span></div>
+    </div>
+    <div class="cap">values and rationale &middot; <a href="https://techne.coop/design-system">techne.coop/design-system</a> &middot; this page renders them live</div>
+  </section>
+
+  <section class="sec" id="s3" data-tint="amber">
+    <div class="addr">&sect;3</div>
+    <h2>The two grammars</h2>
+    <p class="lead">Every surface chooses one of two grammars before anything else is decided, and the choice is the first line of its packet. Mixing grammars on one surface is an escalation, not an experiment.</p>
+    <div class="twin">
+      <div class="panel decide">
+        <div class="ph"><span class="pt">document grammar &middot; .wrap</span></div>
+        <div class="pb">
+          <p style="font-size:13.5px; margin-bottom:8px;">For written and governing content: specifications, guides, records, the public page. A reading column of 760 to 920 pixels, prose-forward in the serif, scrolling as a document should. Structure comes from citable section addresses, register rows, and the sweep as atmosphere.</p>
+          <p style="font-size:13.5px; margin:0;" class="mono">this page &middot; the PRD &middot; the protocol &middot; the landing page</p>
+        </div>
+      </div>
+      <div class="panel escalate">
+        <div class="ph"><span class="pt">instrument grammar &middot; .wrap-hud</span></div>
+        <div class="pb">
+          <p style="font-size:13.5px; margin-bottom:8px;">For operational surfaces watching live state: the HUD, the signal loop, dashboards. Widescreen to 1600 pixels with no-scroll intent, mono-forward, built from stages, panels, tiles, gauges, and data tables. Structure comes from layout, not headings.</p>
+          <p style="font-size:13.5px; margin:0;" class="mono">the implementation HUD &middot; the signal loop &middot; the wheel kit</p>
+        </div>
+      </div>
+    </div>
+    <p>The decision rule, plainly: if a person will read it top to bottom, document grammar. If a person will glance at it and act, instrument grammar. When a surface seems to want both, it is two surfaces, and the packet says so.</p>
+  </section>
+
+  <section class="sec" id="s4" data-tint="amber">
+    <div class="addr">&sect;4</div>
+    <h2>The sweep, by attribute</h2>
+    <p class="lead">Version 4 assigned the sweep per page with paired selectors. This layer codifies the established attribute form: a section declares <code>data-tint</code> and inherits its hue for the address, the heading spine, and subhead rules. This page uses the mechanism live; the amber left of this heading is <code>data-tint="amber"</code> doing its work.</p>
+    <p>The usage rules carry from v4 unchanged: the sweep is atmosphere on written structure and encoding inside charts, ordered warm at the top of a page to twilight blue at the foot; it never colors a control, and never carries the sign of a number. Sections pair through the sweep so a long document crosses all six stops roughly twice at most, and a short one at least once.</p>
+  </section>
+
+  <section class="sec" id="s5" data-tint="coral">
+    <div class="addr">&sect;5</div>
+    <h2>Pattern inventory &middot; document grammar</h2>
+    <p class="lead">Patterns are named so a packet can cite one instead of describing one: <span class="mono">UI v1 &sect;5 &middot; chip</span> is a complete instruction. Most patterns below are live on this very page; the three that benefit from a close look are demonstrated inline.</p>
+    <div class="inv">
+      <div class="inv-row"><span class="n">masthead</span><span class="c">.mast &middot; .kick .dek .meta .band</span><span class="u">Opens every document: kicker states the document's standing, dek states its purpose, meta carries status and citations.</span></div>
+      <div class="inv-row"><span class="n">citable section</span><span class="c">.sec[data-tint] &middot; .addr h2 h3</span><span class="u">The unit of citation. Address in mono, heading on the tinted spine, lowercase mono subheads within.</span></div>
+      <div class="inv-row"><span class="n">status chip</span><span class="c">.chip.filed &middot; .ratified &middot; .drafted &middot; .anticipated &middot; .open</span><span class="u">The five marks on the three earth states: green carries Filed and Ratified, blue carries Drafted as in-review, red carries Open, and Anticipated keeps a neutral outline; the word carries every distinction. Blocked is not a sixth mark, it is the Open chip naming its blocker. Roles are structure, not condition, and take the ember mark.</span></div>
+      <div class="inv-row"><span class="n">provenance chip</span><span class="c">.prov</span><span class="u">Names a source or derivation, conservatively: direct citation earns one, interpretive resonance does not.</span></div>
+      <div class="inv-row"><span class="n">numbered register</span><span class="c">.reg &middot; .reg-row</span><span class="u">For enumerated canon such as the ten principles, where the numbers themselves are citable.</span></div>
+      <div class="inv-row"><span class="n">definition rows</span><span class="c">.def &middot; .def-row</span><span class="u">Term and meaning, with an optional mono eyebrow. The workhorse of every specification, including this one.</span></div>
+      <div class="inv-row"><span class="n">record panel</span><span class="c">.record &middot; .rh .rb</span><span class="u">A formal, addressed entry under a double rule: the deprecation record, adopted resolutions, anything quoted as an instrument of record.</span></div>
+      <div class="inv-row"><span class="n">excerpt rows</span><span class="c">.excerpt &middot; .xrow</span><span class="u">Ledger entries shown as exhibit: date, entry, mark. The public page opens with one.</span></div>
+      <div class="inv-row"><span class="n">anatomy rows</span><span class="c">.anatomy &middot; .an-row</span><span class="u">Field-and-value structure for a defined thing, like the work packet in BP v1 &sect;3.</span></div>
+      <div class="inv-row"><span class="n">twin panels</span><span class="c">.twin &middot; .panel.decide .panel.escalate</span><span class="u">A paired boundary: blue edge for the permitted side, ember for the stop-and-ask side. Live in &sect;3 above.</span></div>
+      <div class="inv-row"><span class="n">escalation card</span><span class="c">.esc &middot; .er</span><span class="u">The four-field question shape from BP v1 &sect;4, reusable wherever a small well-formed ask is wanted.</span></div>
+      <div class="inv-row"><span class="n">memorandum</span><span class="c">.memo</span><span class="u">One paragraph under an ember key, closing a document with its working agreement. One per document at most.</span></div>
+      <div class="inv-row"><span class="n">agent block</span><span class="c">pre.agent</span><span class="u">Machine-facing distillations and constraint blocks, mono behind an ember edge. Live in &sect;8 below.</span></div>
+      <div class="inv-row"><span class="n">caption</span><span class="c">.cap</span><span class="u">Faint mono line beneath an exhibit: provenance, scope, or a pointer.</span></div>
+    </div>
+    <h3>the chips, live</h3>
+    <div class="chiprow">
+      <span class="chip filed"><span class="dot"></span>Filed</span>
+      <span class="chip ratified"><span class="dot"></span>Ratified</span>
+      <span class="chip drafted"><span class="dot"></span>Drafted</span>
+      <span class="chip anticipated"><span class="dot"></span>Anticipated</span>
+      <span class="chip open"><span class="dot"></span>Open</span>
+      <span class="chip open"><span class="dot"></span>blocked &middot; Q3</span>
+      <span class="chip role"><span class="dot"></span>steward</span>
+      <span class="prov"><b>derives from</b> Techne v4 &middot; state vocabulary</span>
+    </div>
+    <h3>the excerpt, live</h3>
+    <div class="excerpt" aria-label="Excerpt pattern sample">
+      <div class="xrow"><span class="xd">2026&#8202;&middot;&#8202;02&#8202;&middot;&#8202;06</span><span class="xe">Articles of organization accepted by the Colorado Secretary of State.</span><span class="chip filed"><span class="dot"></span>Filed</span></div>
+      <div class="xrow"><span class="xd">before the board</span><span class="xe">Licensing terms for the cooperative's shared software.</span><span class="chip open"><span class="dot"></span>Open</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="s6" data-tint="coral">
+    <div class="addr">&sect;6</div>
+    <h2>Pattern inventory &middot; instrument grammar</h2>
+    <p class="lead">The elements a HUD is built from. A compact stage is demonstrated below; the fuller data-visualization vocabulary is live in the v4 reference and is named here so packets can cite it.</p>
+    <div class="stage" aria-label="Instrument stage sample">
+      <div class="grid3">
+        <div class="tile"><div class="tl"><span>packets done</span><span>ledger</span></div><div class="tf">14</div><div class="ts">of 41 authored</div></div>
+        <div class="tile"><div class="tl"><span>open questions</span><span><a href="/commons/prd/">prd &sect;11</a></span></div><div class="tf">9</div><div class="ts">2 blocking</div></div>
+        <div class="tile"><div class="tl"><span>slice &middot; belong</span><span>gate aug 14</span></div><div class="tf">62%</div><div class="gauge"><span class="g" style="width:62%"></span><span class="tick" style="left:80%"></span></div></div>
+      </div>
+      <table class="dt" style="margin-top:12px;">
+        <thead><tr><th>packet</th><th>slice</th><th class="r">status</th></tr></thead>
+        <tbody>
+          <tr><td>B-04</td><td class="s">Belong &middot; signatures</td><td class="r">done</td></tr>
+          <tr><td>G-02</td><td class="s">Gather &middot; registration</td><td class="r">in review</td></tr>
+          <tr><td>S-01</td><td class="s">See your share &middot; folds</td><td class="r">blocked &middot; Q3</td></tr>
+          <tr class="total"><td>ledger</td><td class="s"></td><td class="r">41 entries</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cap">figures illustrative &middot; provenance: illustrative, settlement: open &middot; per <a href="/commons/prd/">PRD v0.3</a> &sect;5, nothing here writes back</div>
+    <div class="inv">
+      <div class="inv-row"><span class="n">stage</span><span class="c">.stage &middot; .grid2 .grid3 .board</span><span class="u">The inset field that groups an instrument's panels and tiles.</span></div>
+      <div class="inv-row"><span class="n">tile</span><span class="c">.tile &middot; .tl .tf .ts</span><span class="u">Label, mono figure, sub-line. The figure is tabular-numeric; its sign, if any, is a parenthesis.</span></div>
+      <div class="inv-row"><span class="n">gauge</span><span class="c">.gauge &middot; .g .tick</span><span class="u">A thin measure with an optional target tick. Fill is muted; meaning comes from the tick and the label.</span></div>
+      <div class="inv-row"><span class="n">data table</span><span class="c">table.dt &middot; td.r td.s tr.total</span><span class="u">Mono figures right-aligned, serif names, totals under a double rule.</span></div>
+      <div class="inv-row"><span class="n">heat grid</span><span class="c">.heat &middot; .h0 to .h5 &middot; .ramp-legend</span><span class="u">The five-step sunset scale on a cell grid, mapping flipped by mode. Live in the v4 reference.</span></div>
+      <div class="inv-row"><span class="n">stacked bars</span><span class="c">.bars &middot; .seg-g .seg-c .seg-v &middot; .vlegend</span><span class="u">Sunset stops as categorical segments, always with the square-swatch legend. Live in the v4 reference.</span></div>
+      <div class="inv-row"><span class="n">hud column</span><span class="c">.wrap-hud</span><span class="u">The widescreen container, to 1600px, for no-scroll instrument layouts.</span></div>
+      <div class="inv-row"><span class="n">primary navigation</span><span class="c">/intranet/nav.js &middot; data-auth-required</span><span class="u">Site chrome, self-injected: sticky wordmark, slice links, and the member chip, active slice marked in blue. The live labels run Belong, Gather, Find, Account, Agreements; whether the short forms supersede the long slice names of <a href="/commons/prd/">PRD v0.3</a> &sect;4 is before Todd. <span class="chip open"><span class="dot"></span>Open &middot; naming</span></span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="s7" data-tint="rose">
+    <div class="addr">&sect;7</div>
+    <h2>Interaction constants</h2>
+    <p class="lead">The parts a hand touches, identical on every surface. <a href="#s1">Links are underlined</a>, so affordance survives grayscale; focus is a visible 2px blue outline wherever it lands; nothing essential lives only behind a hover.</p>
+    <div class="chiprow">
+      <button class="btn" type="button">plain action</button>
+      <button class="btn primary" type="button">primary action</button>
+      <button class="btn secondary" type="button">secondary action</button>
+    </div>
+    <p>Buttons are mono, 2px radius, bordered rather than filled, with blue and ember carried on the border and text only. The mode toggle sits in the topbar of every page, and persists the choice under <code>techne-mode</code>. The rite is inline in the head, before any stylesheet, so no page flashes the wrong mode:</p>
+<pre class="agent">&lt;!-- mode flash prevention: inline in &lt;head&gt;, before CSS --&gt;
+&lt;script&gt;
+(function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+document.documentElement.setAttribute('data-mode',m)})();
+&lt;/script&gt;</pre>
+    <p>Every site page also carries the required head block from the live reference: <code>color-scheme</code> declared as <code>dark light</code>, a title on the pattern <em>Page Name &middot; Techne</em>, a description of 120 to 160 characters leading with what the page holds, a canonical link, the Open Graph set with the default image as fallback, and the favicon linked by absolute path. The favicon is the cooperative grid mark, an ember-ground square with a 2&times;2 quad of cream marks, the last at partial opacity to suggest work in progress; its canonical source lives at <code>/favicon.svg</code>.</p>
+    <p>Content standards are absolute: no emoji anywhere on the surface, in copy, badges, avatars, or controls, with typographic and geometric Unicode carrying the work instead, arrows and shapes such as &rarr; and &#9672; and &#11041;. Icons are inline SVG on a 16 or 24 viewBox at 1.5 stroke, color inherited from <code>currentColor</code>, with paths kept in one shared constant rather than an icon library.</p>
+    <p>Two declarations remain non-optional: <code>color-scheme</code> on the root so native controls render correctly in both modes, and a <code>prefers-reduced-motion</code> block that disables transitions entirely. Where distinctiveness and accessibility conflict, distinctiveness loses, per the constitution.</p>
+  </section>
+
+  <section class="sec" id="s8" data-tint="rose">
+    <div class="addr">&sect;8</div>
+    <h2>The agent audit</h2>
+    <p class="lead">Adapted from the constitution's closing constraints and kept negative on purpose: these are what hold the line when generation drifts toward the generic. An agent runs the audit against the rendered page, in both modes, before a surface leaves its packet.</p>
+<pre class="agent">GRAMMAR  choose one: document (.wrap, 760-920) or instrument
+         (.wrap-hud). a surface wanting both is two surfaces.
+
+GROUND   warm-neutral tokens only; never a tinted field;
+         no raw hex outside the layer.
+
+ACCENTS  blue is PRIMARY (links, primary action, focus,
+         selection). ember is SECONDARY (marks, provenance
+         edges, secondary action). edges and marks only;
+         never fill a panel.
+
+SUNSET   data-tint for atmosphere on written structure;
+         the five-step heat scale inside charts. never on
+         a control, never the sign of a number.
+
+STATE    the five chips on three earth states, a word and
+         a square mark, never color alone. filed+ratified
+         green, drafted blue, open red, roles ember.
+         blocked = the Open chip, named. signs are
+         parentheses, never a hue.
+
+TYPE     three faces: georgia document voice, inter
+         interface layer, plex mono labels and figures,
+         tabular and right-aligned.
+
+SHAPE    radius 2px controls, 0 surfaces; no gradient, no
+         shadow, no blur; motion only in answer to action,
+         and none when the device says so.</pre>
+    <div class="anatomy">
+      <div class="an-row"><span class="f">audit 1</span><span class="v">Contrast holds in both modes; the toggle works, names its target mode, and persists.</span></div>
+      <div class="an-row"><span class="f">audit 2</span><span class="v">Every chip carries a word and a mark; no figure shows its sign by color.</span></div>
+      <div class="an-row"><span class="f">audit 3</span><span class="v">The sweep appears only as atmosphere or chart encoding; controls are unswept.</span></div>
+      <div class="an-row"><span class="f">audit 4</span><span class="v">Keyboard focus is visible on every interactive element; nothing essential is hover-only.</span></div>
+      <div class="an-row"><span class="f">audit 5</span><span class="v">Illustrative content is marked illustrative and writes nothing back, per the simulation rule.</span></div>
+    </div>
+    <div class="cap">adapted from Techne Design System v4 &sect;10 &middot; the constitution's audit list carries within it</div>
+  </section>
+
+  <section class="sec" id="s9" data-tint="blue">
+    <div class="addr">&sect;9</div>
+    <h2>Adoption, versioning, and emission</h2>
+    <p class="lead">Site pages consume the layer by linking <a href="/commons/ui/commons.css"><code>commons.css</code></a>; series documents drafted in the viewer inline it verbatim, per &sect;1. The stylesheet opens with a version header naming this document as its governor, and it changes only the way this document changes: a Tier C review under BP v1 &sect;6, since the layer is a series artifact, with token changes recorded as decisions.</p>
+    <p>Migration from v3 is packet work: each commons page that still links the old stylesheet becomes one packet, citing this artifact, converting sweep assignment to <code>data-tint</code>, and passing the &sect;8 audit before merge. The v3 stylesheet and reference remain in the record as history, superseded and cited, never deleted.</p>
+    <div class="memo">
+      <div class="k">the working agreement of this layer</div>
+      <p>The layer exists so that taste is spent once. Name the pattern, cite its address, and let every surface inherit the decision instead of relitigating it. When a needed pattern has no name, that is not a license to improvise; it is a packet to extend this inventory.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="row">
+      <span>Interface Tokens &amp; Patterns &middot; UI v1 &middot; Drafted</span>
+      <span>emits <a href="/commons/ui/commons.css">commons.css</a> &middot; aligned to <a href="https://techne.coop/design-system">techne.coop/design-system</a></span>
+      <span><a href="/commons/series/">The Common Record Series</a> &middot; UI</span>
+      <span>techne.coop &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn  = document.getElementById('modeBtn');
+  var lbl  = document.getElementById('modeLbl');
+  var stored = null;
+  try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+  var m = stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  root.setAttribute('data-mode', m);
+  lbl.textContent = m === 'dark' ? 'light' : 'dark';
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-mode', next);
+    lbl.textContent = next === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('techne-mode', next); } catch(e) {}
+  });
+})();
+</script>
+</body>
+</html>
