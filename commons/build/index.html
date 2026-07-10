@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="Living roadmap for the Common Information System — packet ledger, signal loop, and repository tree. RegenHub, LCA · Techne · Boulder.">
-<title>Living Roadmap &middot; Techne</title>
+<meta name="description" content="Living roadmap for the Common Information System — RDM v1 packet ledger, signal loop, and repository tree. RegenHub, LCA · Techne · Boulder.">
+<title>Living Roadmap &middot; RDM v1 &middot; Techne</title>
 <link rel="canonical" href="https://techne.coop/commons/build/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://techne.coop/commons/build/">
-<meta property="og:title" content="Living Roadmap · Techne">
-<meta property="og:description" content="Implementation HUD, signal loop, and repository tree for the CIS v0.3 build. RegenHub, LCA.">
+<meta property="og:title" content="Living Roadmap · RDM v1 · Techne">
+<meta property="og:description" content="RDM v1 packet ledger, signal loop, and repository tree for the CIS v3 build. RegenHub, LCA.">
 <meta property="og:site_name" content="Techne">
 <meta property="og:image" content="https://techne.coop/assets/og-default.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -126,11 +126,9 @@ a:hover { text-decoration-thickness:2px; }
   padding:5px 10px; border-radius:2px; border:1px solid var(--line);
 }
 .stat-chip .n { font-size:0.9rem; font-weight:500; }
-.stat-chip.done { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
-.stat-chip.active { color:var(--blue-text); border-color:var(--blue); background:var(--info-dim); }
-.stat-chip.ready { color:var(--ember-text); border-color:var(--ember); background:var(--ember-dim); }
-.stat-chip.blocked { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
-.stat-chip.stub { color:var(--faint); border-color:var(--line); }
+.stat-chip.drafted  { color:var(--blue-text); border-color:var(--blue); background:var(--info-dim); }
+.stat-chip.anticipated { color:var(--faint); border-color:var(--line); }
+.stat-chip.open     { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
 
 /* ============================================================
    TAB STRIP
@@ -188,11 +186,10 @@ a:hover { text-decoration-thickness:2px; }
 }
 .slice-addr { font-size:0.6rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:4px; }
 .slice-name { font-family:var(--serif); font-size:1.05rem; font-weight:700; color:var(--heading); }
-.slice-cap { font-size:0.72rem; color:var(--muted); margin-top:4px; }
-.slice-target { font-size:0.62rem; color:var(--faint); margin-top:3px; letter-spacing:0.04em; }
+.slice-cap { font-size:0.72rem; color:var(--muted); margin-top:4px; max-width:60ch; }
 
 .packet-row {
-  display:grid; grid-template-columns:80px 1fr 110px 130px;
+  display:grid; grid-template-columns:80px 1fr 110px 160px;
   gap:var(--s3); padding:10px var(--s5);
   border-bottom:1px solid var(--line);
   align-items:baseline;
@@ -202,7 +199,7 @@ a:hover { text-decoration-thickness:2px; }
 .packet-row:last-child { border-bottom:0; }
 .pkt-addr { font-size:0.65rem; font-weight:600; color:var(--ember-text); letter-spacing:0.04em; white-space:nowrap; }
 .pkt-intent { font-size:0.8rem; color:var(--text); line-height:1.5; }
-.pkt-cites { font-size:0.62rem; color:var(--faint); line-height:1.5; }
+.pkt-ready { font-size:0.62rem; color:var(--faint); line-height:1.5; }
 
 /* Status chips */
 .chip {
@@ -213,18 +210,12 @@ a:hover { text-decoration-thickness:2px; }
   color:var(--muted);
 }
 .chip .dot { width:5px; height:5px; border-radius:1px; flex-shrink:0; }
-.chip.done { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
-.chip.done .dot { background:var(--ok); }
-.chip.active { color:var(--blue-text); border-color:var(--blue); background:var(--info-dim); }
-.chip.active .dot { background:var(--blue); }
-.chip.workable { color:var(--ember-text); border-color:var(--ember); background:var(--ember-dim); }
-.chip.workable .dot { background:transparent; border:1px solid var(--ember-text); }
-.chip.blocked { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
-.chip.blocked .dot { background:transparent; border:1px solid var(--warn); }
-.chip.stub { color:var(--faint); border-color:var(--line); }
-.chip.stub .dot { background:transparent; border:1px solid var(--faint); }
-.chip.open { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
-.chip.open .dot { background:transparent; border:1px solid var(--warn); }
+.chip.drafted     { color:var(--blue-text); border-color:var(--blue); background:var(--info-dim); }
+.chip.drafted .dot { background:var(--blue); }
+.chip.anticipated { color:var(--faint); border-color:var(--line); }
+.chip.anticipated .dot { background:transparent; border:1px solid var(--faint); }
+.chip.open        { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
+.chip.open .dot   { background:transparent; border:1px solid var(--warn); }
 
 /* Signal panel */
 .signal-panel {
@@ -235,15 +226,15 @@ a:hover { text-decoration-thickness:2px; }
 .signal-sec { margin-bottom:var(--s5); }
 .signal-sec:last-child { margin-bottom:0; }
 .signal-label { font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s3); padding-bottom:var(--s2); border-bottom:1px solid var(--line); }
-.decision-card {
+.condition-card {
   background:var(--surface); border:1px solid var(--line);
-  border-left:2px solid var(--ember); padding:var(--s3);
+  border-left:2px solid var(--warn); padding:var(--s3);
   margin-bottom:var(--s2); border-radius:1px;
 }
-.decision-card:last-child { margin-bottom:0; }
-.dc-addr { font-size:0.6rem; font-weight:600; color:var(--ember-text); margin-bottom:3px; }
-.dc-q { font-size:0.72rem; color:var(--text); line-height:1.5; margin-bottom:4px; }
-.dc-unblocks { font-size:0.6rem; color:var(--faint); }
+.condition-card:last-child { margin-bottom:0; }
+.cc-addr { font-size:0.6rem; font-weight:600; color:var(--warn); margin-bottom:3px; }
+.cc-q { font-size:0.72rem; color:var(--text); line-height:1.5; margin-bottom:4px; }
+.cc-unblocks { font-size:0.6rem; color:var(--faint); }
 .signal-note { font-size:0.72rem; color:var(--muted); line-height:1.6; }
 .signal-ts { font-size:0.6rem; color:var(--faint); margin-top:var(--s3); }
 
@@ -272,7 +263,7 @@ a:hover { text-decoration-thickness:2px; }
 }
 .loop-esc-label { font-size:0.6rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--warn); margin-bottom:var(--s2); }
 .loop-esc-rows { display:grid; gap:var(--s2); }
-.loop-esc-row { display:grid; grid-template-columns:100px 1fr; gap:var(--s3); font-size:0.72rem; }
+.loop-esc-row { display:grid; grid-template-columns:110px 1fr; gap:var(--s3); font-size:0.72rem; }
 .loop-esc-field { color:var(--muted); }
 .loop-esc-val { color:var(--text); }
 
@@ -284,10 +275,10 @@ a:hover { text-decoration-thickness:2px; }
 .tree-sec:last-child { margin-bottom:0; }
 .tree-sec-label { font-size:0.6rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s4); padding-bottom:var(--s2); border-bottom:1px solid var(--line); }
 pre.tree { background:var(--inset); border:1px solid var(--line); padding:var(--s4); overflow-x:auto; font-size:0.78rem; line-height:1.7; color:var(--text); }
-pre.tree .done { color:var(--ok); }
-pre.tree .active { color:var(--blue-text); }
-pre.tree .planned { color:var(--faint); }
-pre.tree .ember { color:var(--ember-text); }
+pre.tree .ok      { color:var(--ok); }
+pre.tree .drafted { color:var(--blue-text); }
+pre.tree .ant     { color:var(--faint); }
+pre.tree .ember   { color:var(--ember-text); }
 .migration-table { width:100%; border-collapse:collapse; border:1px solid var(--line); }
 .migration-table th { font-size:0.62rem; font-weight:600; letter-spacing:0.08em; text-transform:lowercase; text-align:left; padding:8px var(--s3); background:var(--raised); border-bottom:1px solid var(--rule); color:var(--muted); }
 .migration-table td { font-size:0.72rem; padding:8px var(--s3); border-bottom:1px solid var(--line); background:var(--surface); color:var(--text); }
@@ -312,7 +303,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
   .hud-wrap { grid-template-columns:1fr; }
   .slice-rail { display:none; }
   .packet-row { grid-template-columns:70px 1fr; }
-  .pkt-cites { display:none; }
+  .pkt-ready { display:none; }
 }
 </style>
 </head>
@@ -340,16 +331,14 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
 <!-- MASTHEAD -->
 <div class="mast">
   <div class="mast-left">
-    <div class="mast-eyebrow">Common Information System &middot; Build Ledger &middot; July 2026</div>
+    <div class="mast-eyebrow">Common Information System &middot; RDM v1 &middot; packet ledger &middot; July 2026</div>
     <h1 class="mast-title">Living Roadmap</h1>
-    <p class="mast-dek">Implementation HUD, signal loop, and repository tree for the CIS v0.3 build. Every packet carries its own address, intent, and honest status. Agents draft; organizers decide and adopt. Cites: PRD v0.3 &middot; BP v1.</p>
+    <p class="mast-dek">The work plan as a ledger: every packet with an address, a readiness condition, its citations into the series, and an honest mark. No dates except the single gate the cooperative already holds — and that appears as a condition, not a deadline. Cites: RDM v1 &middot; PRD v0.3 &middot; BP v1 &middot; VS v1 &middot; AM v0.1.</p>
   </div>
-  <div class="mast-stats" id="statsRow">
-    <span class="stat-chip done"><span class="n" id="cnt-done">5</span>&thinsp;done</span>
-    <span class="stat-chip active"><span class="n" id="cnt-active">1</span>&thinsp;in progress</span>
-    <span class="stat-chip ready"><span class="n" id="cnt-workable">4</span>&thinsp;workable</span>
-    <span class="stat-chip blocked"><span class="n" id="cnt-blocked">9</span>&thinsp;blocked</span>
-    <span class="stat-chip stub"><span class="n" id="cnt-stub">5</span>&thinsp;stub</span>
+  <div class="mast-stats">
+    <span class="stat-chip drafted"><span class="n">7</span>&thinsp;drafted</span>
+    <span class="stat-chip anticipated"><span class="n">23</span>&thinsp;anticipated</span>
+    <span class="stat-chip open"><span class="n">10</span>&thinsp;open</span>
   </div>
 </div>
 
@@ -365,279 +354,396 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
 <div class="hud-wrap">
 
   <!-- SLICE RAIL -->
-  <nav class="slice-rail" aria-label="Slice navigation">
+  <nav class="slice-rail" aria-label="Train navigation">
     <div class="rail-group">
-      <div class="rail-label">infrastructure</div>
-      <a class="rail-link active" href="#inf">INF</a>
+      <div class="rail-label">series</div>
+      <a class="rail-link active" href="#ser">Series</a>
     </div>
     <div class="rail-group">
-      <div class="rail-label">slice 01</div>
+      <div class="rail-label">substrate</div>
+      <a class="rail-link" href="#sub">SUB</a>
+    </div>
+    <div class="rail-group">
+      <div class="rail-label">train B</div>
       <a class="rail-link" href="#bel">Belong</a>
     </div>
     <div class="rail-group">
-      <div class="rail-label">slice 02</div>
+      <div class="rail-label">train G</div>
       <a class="rail-link" href="#gat">Gather</a>
     </div>
     <div class="rail-group">
-      <div class="rail-label">slice 03</div>
+      <div class="rail-label">train F</div>
       <a class="rail-link" href="#fnd">Find</a>
     </div>
     <div class="rail-group">
-      <div class="rail-label">slice 04</div>
-      <a class="rail-link" href="#acc">Account</a>
+      <div class="rail-label">train S</div>
+      <a class="rail-link" href="#sha">Share</a>
     </div>
     <div class="rail-group">
-      <div class="rail-label">decisions</div>
-      <a class="rail-link" href="#dec">D-series</a>
+      <div class="rail-label">cross-cutting</div>
+      <a class="rail-link" href="#xct">X-train</a>
     </div>
   </nav>
 
   <!-- PACKET TABLE -->
   <main class="packet-main">
 
-    <!-- INF -->
-    <div class="slice-group" id="inf">
+    <!-- SERIES -->
+    <div class="slice-group" id="ser">
       <div class="slice-header">
-        <div class="slice-addr">INF &middot; Infrastructure</div>
-        <div class="slice-name">Foundation</div>
-        <div class="slice-cap">Database, auth, static site, tooling. Ready-when: nothing. These run first.</div>
+        <div class="slice-addr">Series &middot; Governing documents</div>
+        <div class="slice-name">Common Record Series</div>
+        <div class="slice-cap">The seven covering documents. All drafted; none done — done requires the suites and the suites require the substrate. The document governs; emissions distill.</div>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">INF-01</span>
-        <span class="pkt-intent">L1 substrate: agents, agreements, resources, events, event_lines, agreement_sections, role_assignments schema + RLS + bylaws seed applied to Supabase <code>dgcoffcanzwsuwgpocbt</code>.</span>
-        <span><span class="chip done"><span class="dot"></span>done</span></span>
-        <span class="pkt-cites">PRD v0.3 &sect;5 &middot; 3 migrations</span>
+        <span class="pkt-addr">SER</span>
+        <span class="pkt-intent">Series Overview — the covering document of the refactor, including itself.</span>
+        <span><span class="chip drafted"><span class="dot"></span>drafted</span></span>
+        <span class="pkt-ready">governs this ledger</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">INF-02</span>
-        <span class="pkt-intent">Auth gate: Supabase magic link flow, intranet shell, redirect allowlist set, rate limit noted.</span>
-        <span><span class="chip done"><span class="dot"></span>done</span></span>
-        <span class="pkt-cites">PRD v0.3 &sect;7 Browse door</span>
+        <span class="pkt-addr">PRD</span>
+        <span class="pkt-intent">Product Requirements v0.3 — deprecation record at &sect;1a, four slices, three doors, ten principles.</span>
+        <span><span class="chip drafted"><span class="dot"></span>drafted</span></span>
+        <span class="pkt-ready">cites: §1a deprecation</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">INF-03</span>
-        <span class="pkt-intent">Static site: techne.coop homepage (ecosystem cut), commons landing, legal, design system (v4, CIS v0.3-aligned), favicon, SEO layer applied to all pages.</span>
-        <span><span class="chip done"><span class="dot"></span>done</span></span>
-        <span class="pkt-cites">PRD v0.3 &sect;1 &middot; BP v1 &sect;6</span>
+        <span class="pkt-addr">BP</span>
+        <span class="pkt-intent">Build Protocol — one operating contract, packet ledger grammar, decide/escalate, provenance. Emits AGENTS.md.</span>
+        <span><span class="chip drafted"><span class="dot"></span>drafted</span></span>
+        <span class="pkt-ready">emits AGENTS.md</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">INF-04</span>
-        <span class="pkt-intent">CIS reference site at <code>cis-reference</code> repo: update from PRD v0.2 to v0.3 (slices replace phases, CROPS removed, four-door reframe).</span>
-        <span><span class="chip workable"><span class="dot"></span>workable</span></span>
-        <span class="pkt-cites">PRD v0.3 &sect;4 &middot; prior INF-03</span>
+        <span class="pkt-addr">UI</span>
+        <span class="pkt-intent">Tokens and patterns aligned to techne.coop/design-system. Emits commons.css.</span>
+        <span><span class="chip drafted"><span class="dot"></span>drafted</span></span>
+        <span class="pkt-ready">emits commons.css</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">INF-05</span>
-        <span class="pkt-intent">Living roadmap: commons/build HUD, Loop, Tree panels. This page.</span>
-        <span><span class="chip active"><span class="dot"></span>in progress</span></span>
-        <span class="pkt-cites">BP v1 &sect;8 &middot; PRD v0.3 &sect;4</span>
+        <span class="pkt-addr">IM</span>
+        <span class="pkt-intent">Information model and the eleven laws. Emits 0001_substrate.sql.</span>
+        <span><span class="chip drafted"><span class="dot"></span>drafted</span></span>
+        <span class="pkt-ready">emits 0001_substrate.sql</span>
       </div>
-
+      <div class="packet-row">
+        <span class="pkt-addr">VS</span>
+        <span class="pkt-intent">Verification contract — five suites and six gates. Emits verify.yml.</span>
+        <span><span class="chip drafted"><span class="dot"></span>drafted</span></span>
+        <span class="pkt-ready">emits verify.yml</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">AM</span>
+        <span class="pkt-intent">Authority map anchored in Bylaws v2.1. Emits 0002_policies.sql.</span>
+        <span><span class="chip drafted"><span class="dot"></span>drafted</span></span>
+        <span class="pkt-ready">emits 0002_policies.sql</span>
+      </div>
     </div>
 
-    <!-- BEL -->
+    <!-- SUBSTRATE -->
+    <div class="slice-group" id="sub">
+      <div class="slice-header">
+        <div class="slice-addr">SUB &middot; Substrate train</div>
+        <div class="slice-name">Foundation</div>
+        <div class="slice-cap">Everything else waits on these. The train ends at G0, the security floor, and G0 ends with a restore that actually happened. Nothing in this train is allowed to be clever.</div>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">SUB-01</span>
+        <span class="pkt-intent">Stand the repository on the estate layout with the validator reshaped to slices. Emits repo tree, validator, generated index.json and STATUS.md.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">ready now</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">SUB-02</span>
+        <span class="pkt-intent">Install the governing emissions at root: AGENTS.md from BP v1 &sect;10, verify.yml, commons.css. Acceptance: style-lint and schema-lint green.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">SUB-01 verified</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">SUB-03</span>
+        <span class="pkt-intent">Provision the database environment and apply 0001_substrate.sql. Acceptance: db-verify green, first run.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">SUB-01 verified</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">SUB-04</span>
+        <span class="pkt-intent">Apply 0002_policies.sql. Acceptance: rls-audit expectations sourced from AM v0.1 &sect;5, green.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">SUB-03 verified</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">SUB-05</span>
+        <span class="pkt-intent">Back up, restore onto fresh infrastructure, prove the folds match. A failed restore is a launch blocker, not a footnote.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">SUB-04 verified</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">G0</span>
+        <span class="pkt-intent">Security floor attested as an event per VS v1 &sect;6. Gate: human attestation recorded. Opens every slice train.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">SUB-05 verified</span>
+      </div>
+    </div>
+
+    <!-- BELONG -->
     <div class="slice-group" id="bel">
       <div class="slice-header">
-        <div class="slice-addr">BEL &middot; Slice 01</div>
+        <div class="slice-addr">Train B &middot; gate G-B</div>
         <div class="slice-name">Belong</div>
-        <div class="slice-cap">A member can: read every agreement that binds them; sign the membership agreement; appear in the directory; complete onboarding without a meeting.</div>
-        <div class="slice-target">Target &middot; August 14, 2026</div>
+        <div class="slice-cap">Identity binding wired to sign-in, onboarding and application intake, agreements shelf, signature flow, member directory, then gate demonstration with two-party attestation. Target: August 14, 2026 gathering.</div>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">BEL-01</span>
-        <span class="pkt-intent">Agreement browse: authenticated member reads every agreement_section that applies to their role, with version and standing marked. Read-only, no editing.</span>
-        <span><span class="chip workable"><span class="dot"></span>workable</span></span>
-        <span class="pkt-cites">PRD v0.3 &sect;4 &middot; INF-01 (agreements table) &middot; INF-02 (auth)</span>
+        <span class="pkt-addr">B-01</span>
+        <span class="pkt-intent">Wire the identity binding to sign-in so the visibility function knows who asks. Auth flow binding auth_user_id to agents.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">G0 attested</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">BEL-02</span>
-        <span class="pkt-intent">Membership agreement digital signing: member signs via authenticated flow; signature recorded as event in event_lines; agreement status updated.</span>
-        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; D-01</span></span>
-        <span class="pkt-cites">D-01 (auth email branding) &middot; PRD v0.3 &sect;4</span>
+        <span class="pkt-addr">B-02</span>
+        <span class="pkt-intent">Onboarding and application intake. Application surface writing applications and events. Acceptance: complete onboarding without a meeting.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">B-01 verified</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">BEL-03</span>
-        <span class="pkt-intent">Member directory: patron_member can read peer profiles. Privacy policy required before schema work; each profile field carries visibility control.</span>
-        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; BEL-01</span></span>
-        <span class="pkt-cites">PRD v0.3 &sect;5 (agents) &middot; BEL-01</span>
+        <span class="pkt-addr">B-03</span>
+        <span class="pkt-intent">The agreements shelf. Surface over agreements with version and standing marked. Acceptance: read every agreement that binds you.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">B-01 verified</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">BEL-04</span>
-        <span class="pkt-intent">Onboarding sequence: applicant invited &rarr; reads agreements &rarr; signs &rarr; patron_member record active. Role assignment timestamped via role_assignments table.</span>
-        <span><span class="chip stub"><span class="dot"></span>stub</span></span>
-        <span class="pkt-cites">BEL-01 &middot; BEL-02 &middot; BEL-03</span>
+        <span class="pkt-addr">B-04</span>
+        <span class="pkt-intent">The signature flow. Signing surface writing signatures and the recording event. Acceptance: sign the membership agreement and see the signature recorded.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">B-03 verified</span>
       </div>
-
+      <div class="packet-row">
+        <span class="pkt-addr">B-05</span>
+        <span class="pkt-intent">The member directory. Directory view over agents and memberships. Acceptance: appear in the directory with a profile you control.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">B-01 verified</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">G-B</span>
+        <span class="pkt-intent">Belong demonstrated end to end. Gate attested with organizer and non-organizer member. Every Belong sentence demonstrated live.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">B-02, B-04, B-05 verified &middot; August 14</span>
+      </div>
     </div>
 
-    <!-- GAT -->
+    <!-- GATHER -->
     <div class="slice-group" id="gat">
       <div class="slice-header">
-        <div class="slice-addr">GAT &middot; Slice 02</div>
+        <div class="slice-addr">Train G &middot; gate G-G</div>
         <div class="slice-name">Gather</div>
-        <div class="slice-cap">A member can: see upcoming events; register and cancel self-serve; have attendance counted; host an event under a named agreement or policy.</div>
-        <div class="slice-target">Target &middot; August 14, 2026</div>
+        <div class="slice-cap">Calendar of gatherings and sessions, registration and cancellation, attendance recording by host or steward, then gate. Hub designs stripped of KPI machinery per PRD v0.3 &sect;1a. Target: August 14.</div>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">GAT-01</span>
-        <span class="pkt-intent">Events schema: migration adding events table (name, start_at, end_at, location, agreement_id FK, host agent_id FK). RLS: patron_member can read; host can write own events.</span>
-        <span><span class="chip workable"><span class="dot"></span>workable</span></span>
-        <span class="pkt-cites">PRD v0.3 &sect;5 (events) &middot; INF-01</span>
+        <span class="pkt-addr">G-01</span>
+        <span class="pkt-intent">The calendar of gatherings and sessions. Surface over gatherings and sessions. Acceptance: see what is happening and who hosts it.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">G0 attested</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">GAT-02</span>
-        <span class="pkt-intent">Event listing + registration: authenticated member sees upcoming events; registers (creates attendee event_line); cancels own registration. Self-serve, no human gate.</span>
-        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; GAT-01</span></span>
-        <span class="pkt-cites">GAT-01 &middot; PRD v0.3 &sect;4</span>
+        <span class="pkt-addr">G-02</span>
+        <span class="pkt-intent">Registration and cancellation, self-service. Acceptance: register and cancel without asking anyone.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">G-01 verified</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">GAT-03</span>
-        <span class="pkt-intent">Attendance counted: attendance recorded in event_lines when event closes. Member can see their own attendance history. Attendance feeds contribution record in Slice 04.</span>
-        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; GAT-01</span></span>
-        <span class="pkt-cites">GAT-01 &middot; INF-01 (event_lines)</span>
+        <span class="pkt-addr">G-03</span>
+        <span class="pkt-intent">Attendance recording by host or steward with recorder captured. Acceptance: presence counted where the record counts it.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">G-02 verified</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">GAT-04</span>
-        <span class="pkt-intent">Host-an-event: member can create an event record linked to a named agreement or board-approved policy. Hosting record is itself an event line.</span>
-        <span><span class="chip stub"><span class="dot"></span>stub</span></span>
-        <span class="pkt-cites">GAT-01 &middot; GAT-02 &middot; D-03 (policy anchors)</span>
+        <span class="pkt-addr">G-G</span>
+        <span class="pkt-intent">Gather demonstrated end to end. Gate attested with two-party attestation. Every Gather sentence demonstrated live.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">G-03 verified &middot; August 14</span>
       </div>
-
     </div>
 
-    <!-- FND -->
+    <!-- FIND -->
     <div class="slice-group" id="fnd">
       <div class="slice-header">
-        <div class="slice-addr">FND &middot; Slice 03</div>
+        <div class="slice-addr">Train F &middot; gate G-F</div>
         <div class="slice-name">Find one another</div>
-        <div class="slice-cap">A member can: browse open offers and invitations; post an offer or need; close it when resolved; see what an invitation led to, when parties choose to record it.</div>
-        <div class="slice-target">Ready-when: Belong delivered (BEL-04 done)</div>
+        <div class="slice-cap">Opportunity board, responses, resolution as an event (never a table), then gate. Ready when G-B passes. Public label awaits the naming question.</div>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">FND-01</span>
-        <span class="pkt-intent">Offers schema: migration adding offers table (kind, description, offered_by agent_id FK, status, resolution event_id FK). RLS: patron_member can read open; own-row write.</span>
-        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; BEL-04</span></span>
-        <span class="pkt-cites">PRD v0.3 &sect;4 (Find) &middot; INF-01 (agents)</span>
+        <span class="pkt-addr">F-01</span>
+        <span class="pkt-intent">The opportunity board — play, practice, work. Board surface over opportunities. Acceptance: browse open invitations by kind and post your own.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">G-B attested</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">FND-02</span>
-        <span class="pkt-intent">Offer browse: authenticated member sees open offers and invitations, filterable by kind (play, practice, work). No account required to browse; record required to post.</span>
-        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; FND-01</span></span>
-        <span class="pkt-cites">FND-01 &middot; PRD v0.3 &sect;4</span>
+        <span class="pkt-addr">F-02</span>
+        <span class="pkt-intent">Responses between responder and author. Response flow scoped per the matrix. Acceptance: answer an open opportunity, visible to its author.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">F-01 verified</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">FND-03</span>
-        <span class="pkt-intent">Post and close: member posts an offer or need; closes their own offer when resolved. Closed with resolution note; resolution optionally linked to an event.</span>
-        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; FND-01</span></span>
-        <span class="pkt-cites">FND-01 &middot; BEL-04</span>
+        <span class="pkt-addr">F-03</span>
+        <span class="pkt-intent">Resolution as an event, never a table. Resolution event kind and closing flow. Acceptance: see what an invitation led to, when the parties record it.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">F-02 verified</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">FND-04</span>
-        <span class="pkt-intent">What it led to: parties may record what an invitation led to as an event_line. Voluntary, not required. Feeds contribution history in Slice 04.</span>
-        <span><span class="chip stub"><span class="dot"></span>stub</span></span>
-        <span class="pkt-cites">FND-03 &middot; INF-01 (event_lines)</span>
+        <span class="pkt-addr">G-F</span>
+        <span class="pkt-intent">Find demonstrated end to end. Gate attested: open to resolved, landing as an event. Public label awaits Q1 naming resolution.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; Q1 naming</span></span>
+        <span class="pkt-ready">F-03 verified; label awaits Q1</span>
       </div>
-
     </div>
 
-    <!-- ACC -->
-    <div class="slice-group" id="acc">
+    <!-- SHARE -->
+    <div class="slice-group" id="sha">
       <div class="slice-header">
-        <div class="slice-addr">ACC &middot; Slice 04</div>
+        <div class="slice-addr">Train S &middot; gate G-S</div>
         <div class="slice-name">See your share</div>
-        <div class="slice-cap">A member can: see their contribution history, itemized; see their capital account; follow any figure to the events and policy that produced it. Balances computed, never stored as editable numbers.</div>
-        <div class="slice-target">Ready-when: counting rules adopted by board (D-02)</div>
+        <div class="slice-cap">Contribution posting paths, the member's fold surface with traceable inputs, then gate. Stubs by design until the counting rules adopt.</div>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">ACC-01</span>
-        <span class="pkt-intent">Contribution history view: member sees all event_lines where they appear, itemized by type and date. Read-only. No computation yet; raw event record display.</span>
-        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; D-02</span></span>
-        <span class="pkt-cites">D-02 (counting rules) &middot; INF-01 (event_lines)</span>
+        <span class="pkt-addr">S-01</span>
+        <span class="pkt-intent">Contribution posting paths, both deltas per Law VII. Stub — promotes at the Share boundary when counting rules are recorded.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; Q3</span></span>
+        <span class="pkt-ready">Q3 recorded (counting rules + Schedule A adopted)</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">ACC-02</span>
-        <span class="pkt-intent">Capital account: member sees their capital account balance as a computed fold over contribution history. Account is a view, not a stored number. Traceable to ACC-03.</span>
-        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; ACC-01</span></span>
-        <span class="pkt-cites">D-02 &middot; ACC-01 &middot; PRD v0.3 &sect;4</span>
+        <span class="pkt-addr">S-02</span>
+        <span class="pkt-intent">The member's fold surface with traceable inputs per Law IV. Stub — promotes when S-01 is verified.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; Q3</span></span>
+        <span class="pkt-ready">S-01 verified</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">ACC-03</span>
-        <span class="pkt-intent">Audit trail: any figure shown to a member can be followed to the event_lines that produced it and the agreement_section that authorized the counting rule. One click to source.</span>
-        <span><span class="chip blocked"><span class="dot"></span>blocked &middot; ACC-01</span></span>
-        <span class="pkt-cites">PRD v0.3 &sect;3 (authoritative state) &middot; ACC-01</span>
+        <span class="pkt-addr">G-S</span>
+        <span class="pkt-intent">The fold shown equals the fold computed by hand. Gate attested: hand-computed equality, both projections.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; Q3</span></span>
+        <span class="pkt-ready">S-02 verified</span>
       </div>
-      <div class="packet-row">
-        <span class="pkt-addr">ACC-04</span>
-        <span class="pkt-intent">Allocation and notice: distributive share allocated per Subchapter K; notice generated as a document referencing event_lines. Written notice of allocation delivered to member record.</span>
-        <span><span class="chip stub"><span class="dot"></span>stub</span></span>
-        <span class="pkt-cites">D-02 &middot; ACC-02 &middot; Bylaws &sect;8</span>
-      </div>
-
     </div>
 
-    <!-- D-SERIES -->
-    <div class="slice-group" id="dec">
+    <!-- CROSS-CUTTING -->
+    <div class="slice-group" id="xct">
       <div class="slice-header">
-        <div class="slice-addr">D-series &middot; Open Decisions</div>
-        <div class="slice-name">Decision Register</div>
-        <div class="slice-cap">Questions whose answers unblock downstream packets. Agents draft briefs; only organizers record outcomes. A resolved decision unblocks every packet that cited it.</div>
+        <div class="slice-addr">X-train &middot; Cross-cutting</div>
+        <div class="slice-name">Cross-cutting work</div>
+        <div class="slice-cap">Work that serves every slice or none in particular, drawn directly from the chips the series has accumulated. Nothing here invents; each row cites the artifact that owes it.</div>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">D-01</span>
-        <span class="pkt-intent">SMTP for CIS auth email: current Supabase shared SMTP is rate-limited to 2 emails/hr/IP and unbranded. Requires host, user, password, and a sender address (techne.coop domain or existing org address). Unblocks BEL-02.</span>
-        <span><span class="chip open"><span class="dot"></span>open</span></span>
-        <span class="pkt-cites">Unblocks: BEL-02</span>
+        <span class="pkt-addr">X-01</span>
+        <span class="pkt-intent">Estate reconciliation: AGENTS.md, GOVERNANCE.md, CONVENTIONS.md, C10, VERIFICATION.md, C3, C11 — merged rule by rule, each adopted by amendment or retired by name.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; reconciliation</span></span>
+        <span class="pkt-ready">SUB-01 verified</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">D-02</span>
-        <span class="pkt-intent">Counting rules: board resolution adopting the patronage counting rules (what counts as a contribution, at what FMV rate, which event types). The condition that makes a member account honest rather than illustrative. Unblocks entire Slice 04.</span>
-        <span><span class="chip open"><span class="dot"></span>open</span></span>
-        <span class="pkt-cites">Unblocks: ACC-01, ACC-02, ACC-03, ACC-04</span>
+        <span class="pkt-addr">X-02</span>
+        <span class="pkt-intent">C6 reconciliation: every remaining core table confirmed or retired against the schema card per IM v0.1 &sect;1.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; reconciliation</span></span>
+        <span class="pkt-ready">SUB-01 verified</span>
       </div>
       <div class="packet-row">
-        <span class="pkt-addr">D-03</span>
-        <span class="pkt-intent">Estate reconciliation (BP &sect;1): each rule in AGENTS.md, GOVERNANCE.md, CONVENTIONS.md, and C10 is either adopted into BP v1 by amendment or retired by name. An open packet per the preamble.</span>
-        <span><span class="chip open"><span class="dot"></span>open</span></span>
-        <span class="pkt-cites">BP v1 &sect;1 &middot; Unblocks: GAT-04</span>
+        <span class="pkt-addr">X-03</span>
+        <span class="pkt-intent">IM v0.2: adopt the AM addenda (identity binding, role grants), ratify the naming resolutions, carry the Law IX ground note. Supersedes IM v0.1 explicitly.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; Todd</span></span>
+        <span class="pkt-ready">Todd nods on addenda and names</span>
       </div>
-
+      <div class="packet-row">
+        <span class="pkt-addr">X-04</span>
+        <span class="pkt-intent">Anchor correction: estate documents citing the moved vote anchors updated to &sect;1.4, &sect;1.11, &sect;1.12.2, &sect;2.6, per AM v0.1 &sect;8.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">X-01 underway</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-05</span>
+        <span class="pkt-intent">Re-splice: PRD, BP, IM, SER, and the landing page draft re-emitted on the aligned layer so Ratified reads green and techne-mode holds everywhere.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; Todd</span></span>
+        <span class="pkt-ready">Todd's word</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-06</span>
+        <span class="pkt-intent">NC v2, the Nou Charter: runtime scopes over the AM read model, keeping C8 harness as wire-level half. Deferred by sequencing, condition unchanged.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">AM read scopes drafted; deferred</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-07</span>
+        <span class="pkt-intent">OR v0.1, Operations Runbook: opens when SUB-03 stands an environment, absorbs the audit's four prerequisites. Acceptance: a stranger can run the restore alone.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">SUB-03 stands an environment</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-08</span>
+        <span class="pkt-intent">Per-table exports and the scheduled walkaway run per VS v1 &sect;8. Acceptance: fresh-infrastructure reconstruction within the bounded window.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">G0 attested</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-09</span>
+        <span class="pkt-intent">LP v0.2, the public door: ready when Q1 naming and Q7 one-door questions resolve. The v0.1 draft holds until then.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; Q1, Q7</span></span>
+        <span class="pkt-ready">Q1 and Q7 recorded</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">G-R</span>
+        <span class="pkt-intent">The ratification flip: every anchor re-verified against the governing text. Marks may flip to Ratified only through here. Acceptance: anchor re-verification complete.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; status discrepancy</span></span>
+        <span class="pkt-ready">instrument and legal index agree</span>
+      </div>
     </div>
 
   </main>
 
   <!-- SIGNAL PANEL -->
-  <aside class="signal-panel" aria-label="Signal: open decisions and build state">
+  <aside class="signal-panel" aria-label="Signal: open conditions and build state">
     <div class="signal-sec">
-      <div class="signal-label">Open decisions</div>
+      <div class="signal-label">Open conditions</div>
 
-      <div class="decision-card">
-        <div class="dc-addr">D-01 &middot; SMTP</div>
-        <div class="dc-q">Which sender address and SMTP provider should be used for CIS auth email? No techne.coop email address currently exists.</div>
-        <div class="dc-unblocks">Unblocks &rarr; BEL-02 (digital signing)</div>
+      <div class="condition-card">
+        <div class="cc-addr">ready now</div>
+        <div class="cc-q">SUB-01 has no upstream dependency. It can start today.</div>
+        <div class="cc-unblocks">Unblocks &rarr; entire ledger</div>
       </div>
 
-      <div class="decision-card">
-        <div class="dc-addr">D-02 &middot; Counting rules</div>
-        <div class="dc-q">Board resolution: what counts as a contribution, at what FMV rate, which event types?</div>
-        <div class="dc-unblocks">Unblocks &rarr; entire Slice 04 (ACC-01 through ACC-04)</div>
+      <div class="condition-card">
+        <div class="cc-addr">Q3 &middot; counting rules</div>
+        <div class="cc-q">Board resolution: what counts as a contribution, at what FMV rate, which event types? Schedule A must be adopted.</div>
+        <div class="cc-unblocks">Unblocks &rarr; entire Share train (S-01, S-02, G-S)</div>
       </div>
 
-      <div class="decision-card">
-        <div class="dc-addr">D-03 &middot; Estate reconcile</div>
-        <div class="dc-q">Which rules from AGENTS.md / GOVERNANCE.md / CONVENTIONS.md are adopted into BP v1, which are retired by name?</div>
-        <div class="dc-unblocks">Unblocks &rarr; GAT-04 (policy anchors)</div>
+      <div class="condition-card">
+        <div class="cc-addr">Todd nod</div>
+        <div class="cc-q">X-03: AM addenda and naming resolutions. X-05: re-splice series onto the aligned layer.</div>
+        <div class="cc-unblocks">Unblocks &rarr; X-03, X-05</div>
+      </div>
+
+      <div class="condition-card">
+        <div class="cc-addr">Q1 &middot; naming</div>
+        <div class="cc-q">What is the public label for the Find one another slice? Q7: the one-door question.</div>
+        <div class="cc-unblocks">Unblocks &rarr; G-F (label), X-09 (with Q7)</div>
+      </div>
+
+      <div class="condition-card">
+        <div class="cc-addr">reconciliation</div>
+        <div class="cc-q">Estate rules: each one adopted into BP v1 by amendment or retired by name. No estate rule left unaccounted.</div>
+        <div class="cc-unblocks">Unblocks &rarr; X-01, X-02 (and X-04 downstream)</div>
+      </div>
+
+      <div class="condition-card">
+        <div class="cc-addr">status discrepancy</div>
+        <div class="cc-q">The instrument and the legal index do not yet agree on status. G-R cannot attest until they do.</div>
+        <div class="cc-unblocks">Unblocks &rarr; G-R (ratification flip)</div>
       </div>
     </div>
 
     <div class="signal-sec">
       <div class="signal-label">Build state</div>
-      <p class="signal-note">Infrastructure is done. The auth gate is live. Slices 01 and 02 are workable at the schema and UI level; BEL-02 is the only hard gate (needs SMTP). Slices 03 and 04 wait on downstream readiness. The most leveraged next step is D-01: one decision unblocks the signing flow that makes Belong real before August 14.</p>
+      <p class="signal-note">The series is drafted. Nothing else has started. The critical path is short: SUB-01 through G0 is the only serial stretch, then Belong and Gather run in parallel. SUB-01 is ready now — it has no dependency and no open condition. That is the first packet.</p>
     </div>
 
     <div class="signal-sec">
       <div class="signal-label">Protocol</div>
-      <p class="signal-note">BP v1 &middot; Drafted. One packet per branch, named by address. Commits carry authorship trailer. Schema, permissions, money, membership: stop and ask. This instrument reads the ledger; it does not write to it.</p>
-      <div class="signal-ts">Ledger updated &middot; 2026-07-10 &middot; Nou</div>
+      <p class="signal-note">BP v1 &middot; Drafted. One packet per branch. Commits carry authorship trailer. Schema, permissions, money, membership: stop and ask. This instrument reads the ledger; it does not write to it.</p>
+      <div class="signal-ts">RDM v1 &middot; Ledger updated 2026-07-10 &middot; Nou</div>
     </div>
   </aside>
 
@@ -654,27 +760,12 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="loop-q-label">What is workable now?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">Four packets have no unresolved upstream. They can start immediately, in any order, with the context already in the repository. Each is bounded: one branch, one commit scope, one deliverable.</p>
+      <p class="loop-answer">One packet has no upstream dependency: SUB-01. Everything else — the substrate train, both parallel slice trains, the entire cross-cutting train — waits on SUB-01 to verify. The ledger has a single front.</p>
       <ul class="loop-items">
         <li class="loop-item">
-          <span class="loop-item-addr">INF-04</span>
-          <span class="loop-item-text">Update CIS reference site to PRD v0.3: slices replace phases, CROPS removed, four-door reframe applied to schema.html and policies.html.</span>
-          <span class="loop-item-status"><span class="chip workable"><span class="dot"></span>workable</span></span>
-        </li>
-        <li class="loop-item">
-          <span class="loop-item-addr">BEL-01</span>
-          <span class="loop-item-text">Agreement browse: authenticated intranet view of agreement_sections, grouped by article, with version and standing marked. Reads from live Supabase with anon key.</span>
-          <span class="loop-item-status"><span class="chip workable"><span class="dot"></span>workable</span></span>
-        </li>
-        <li class="loop-item">
-          <span class="loop-item-addr">GAT-01</span>
-          <span class="loop-item-text">Events schema migration: events table, FK to agreements and agents, RLS policy with bylaw anchor. Builds on L1 substrate already applied.</span>
-          <span class="loop-item-status"><span class="chip workable"><span class="dot"></span>workable</span></span>
-        </li>
-        <li class="loop-item">
-          <span class="loop-item-addr">INF-05</span>
-          <span class="loop-item-text">This page. Living roadmap at commons/build. Packet table, signal loop, repository tree. Commit closes the packet.</span>
-          <span class="loop-item-status"><span class="chip active"><span class="dot"></span>in progress</span></span>
+          <span class="loop-item-addr">SUB-01</span>
+          <span class="loop-item-text">Stand the repository on the estate layout with the validator reshaped to slices. Deliverable: repo tree, validator, generated index.json and STATUS.md. Acceptance: ledger-validate green on a seeded ledger.</span>
+          <span class="loop-item-status"><span class="chip anticipated"><span class="dot"></span>ready now</span></span>
         </li>
       </ul>
     </div>
@@ -683,17 +774,17 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
   <div class="loop-q">
     <div class="loop-q-head">
       <div class="loop-q-n">Q2 &middot; signal loop</div>
-      <div class="loop-q-label">Which open decision unblocks the most?</div>
+      <div class="loop-q-label">Which open condition unblocks the most?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">D-02 (counting rules) unblocks four packets in Slice 04, but Slice 04 is gated behind Slice 01 completion in any case. D-01 (SMTP) is the more leveraged decision for the August 14 target: without it, members cannot receive the magic link email that completes the signing flow, and BEL-02 cannot close.</p>
+      <p class="loop-answer">Among the human-held conditions, Q3 (counting rules) unblocks the entire Share train. But counting rules are a board decision that cannot arrive before the ledger has infrastructure to record them into. The sequencing is: SUB-01 first, then the conditions rank by what they unblock. The panel below names the one decision that is purely human and not infrastructure-gated.</p>
       <div class="loop-escalation">
-        <div class="loop-esc-label">escalation card &middot; D-01</div>
+        <div class="loop-esc-label">escalation card &middot; Q3 &middot; counting rules</div>
         <div class="loop-esc-rows">
-          <div class="loop-esc-row"><span class="loop-esc-field">standing in</span><span class="loop-esc-val">BEL-02 &middot; membership agreement signing</span></div>
-          <div class="loop-esc-row"><span class="loop-esc-field">found</span><span class="loop-esc-val">CIS Supabase (dgcoffcanzwsuwgpocbt) uses shared Supabase SMTP. Rate limit: 2 emails / hr / IP. Templates unbranded. Cannot be customized on free tier without custom SMTP.</span></div>
-          <div class="loop-esc-row"><span class="loop-esc-field">the question</span><span class="loop-esc-val">Which sender address and SMTP provider should be used? No techne.coop email address currently exists. Options: (a) provision one, (b) use an existing org address, (c) use a transactional service (Resend, Postmark) with a verified domain.</span></div>
-          <div class="loop-esc-row"><span class="loop-esc-field">a default</span><span class="loop-esc-val">Resend with techne.coop DNS verification: add one DKIM record, use a noreply@techne.coop sender, free tier covers 3,000 emails/month. No mailbox required. Todd confirms DNS access and Resend account or preference.</span></div>
+          <div class="loop-esc-row"><span class="loop-esc-field">standing in</span><span class="loop-esc-val">S-01 &middot; contribution posting paths</span></div>
+          <div class="loop-esc-row"><span class="loop-esc-field">the condition</span><span class="loop-esc-val">Q3 recorded: counting rules and Schedule A adopted. Board resolution required. Not gated behind any infrastructure packet — can be decided in parallel with the substrate train.</span></div>
+          <div class="loop-esc-row"><span class="loop-esc-field">what it unblocks</span><span class="loop-esc-val">The entire Share train: S-01, S-02, and G-S. Once counting rules exist, agents can begin the contribution posting and fold surfaces without waiting on any other decision.</span></div>
+          <div class="loop-esc-row"><span class="loop-esc-field">what is already in place</span><span class="loop-esc-val">The Program Stack Patronage Plan v1 defines the six primitives and archetype weights. Schedule A was adopted June 24, 2026. The counting rules decision names specific FMV rates and event types for the first accounting year.</span></div>
         </div>
       </div>
     </div>
@@ -705,22 +796,17 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="loop-q-label">What has stalled quietly?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">Three things are not blocked by any dependency, but have not advanced: the CIS reference site update (INF-04), the estate reconciliation decision (D-03), and the events schema migration (GAT-01). None requires a human decision before work begins. The first two are agent work; they need only a packet branch and a session.</p>
+      <p class="loop-answer">Two cross-cutting packets wait on Todd's word alone — no infrastructure, no other packet, no board decision stands between them and the work beginning. They are open because they need a human signal, and that signal has not arrived. They are not on the critical path to August 14, but their conditions are the lightest to clear.</p>
       <ul class="loop-items">
         <li class="loop-item">
-          <span class="loop-item-addr">INF-04</span>
-          <span class="loop-item-text">CIS reference site: still aligned to PRD v0.2. Workable since v0.3 was drafted. No owner.</span>
-          <span class="loop-item-status"><span class="chip workable"><span class="dot"></span>workable</span></span>
+          <span class="loop-item-addr">X-03</span>
+          <span class="loop-item-text">IM v0.2: adopt the AM addenda and the naming resolutions. Ready when Todd nods on the addenda and names. The nod is the entire condition. Agent work follows immediately.</span>
+          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open · Todd</span></span>
         </li>
         <li class="loop-item">
-          <span class="loop-item-addr">GAT-01</span>
-          <span class="loop-item-text">Events table migration: the database has no events table yet. Slice 02 (Gather) cannot start until this exists. No owner.</span>
-          <span class="loop-item-status"><span class="chip workable"><span class="dot"></span>workable</span></span>
-        </li>
-        <li class="loop-item">
-          <span class="loop-item-addr">D-03</span>
-          <span class="loop-item-text">Estate reconciliation: named as an open packet in BP v1 &sect;1. No brief written. No owner. Not blocking August 14, but a gap in the build record.</span>
-          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open</span></span>
+          <span class="loop-item-addr">X-05</span>
+          <span class="loop-item-text">Re-splice the series artifacts onto the aligned design layer. Ready on Todd's word. PRD, BP, IM, SER, LP re-emitted so Ratified reads green and techne-mode holds everywhere.</span>
+          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open · Todd</span></span>
         </li>
       </ul>
     </div>
@@ -734,84 +820,105 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
 <div class="tree-wrap">
 
   <div class="tree-sec">
+    <div class="tree-sec-label">Repository layout &middot; after SUB-01 (anticipated)</div>
+    <pre class="tree"><span class="ant">commons/</span>                                  Techne-Co-op / commons (GitHub Pages)
+<span class="ant">  AGENTS.md</span>                               operating contract from BP v1 §10
+<span class="ant">  GOVERNANCE.md</span>                           governance rules (estate, pending reconciliation)
+<span class="ant">  verify.yml</span>                              verification harness from VS v1
+<span class="ant">  commons.css</span>                             design token layer from UI v1
+<span class="ant">  index.json</span>                              generated packet index (ledger-validate reads this)
+<span class="ant">  STATUS.md</span>                               generated status table
+<span class="ant">  packets/</span>                                per-packet files (splits from rdm-ledger.yaml at SUB-01)
+<span class="ant">    sub-01.yaml  sub-02.yaml  ...</span>
+<span class="ant">    b-01.yaml    b-02.yaml    ...</span>
+<span class="ant">    g-01.yaml    ...</span>
+<span class="ant">    f-01.yaml    ...</span>
+<span class="ant">    s-01.yaml    ...</span>
+<span class="ant">    x-01.yaml    ...</span>
+<span class="ant">  supabase/</span>                               database migrations
+<span class="ant">    0001_substrate.sql</span>                    from IM v0.1 §9
+<span class="ant">    0002_policies.sql</span>                     from AM v0.1 §9</pre>
+  </div>
+
+  <div class="tree-sec">
     <div class="tree-sec-label">Repository &middot; Techne-Co-op / techne.coop</div>
     <pre class="tree">techne.coop/
-<span class="done">&#9632;</span> <span class="done">index.html</span>                   ecosystem-cut homepage
-<span class="done">&#9632;</span> <span class="done">favicon.svg</span>                  cooperative grid mark
+<span class="ok">&#9632;</span> <span class="ok">index.html</span>                   ecosystem-cut homepage
+<span class="ok">&#9632;</span> <span class="ok">favicon.svg</span>                  cooperative grid mark
   commons/
-<span class="done">  &#9632;</span> <span class="done">index.html</span>                 The Commonplace Book landing
+<span class="ok">  &#9632;</span> <span class="ok">index.html</span>                 The Commonplace Book landing
     build/
-<span class="active">    &#9632;</span> <span class="active">index.html</span>               Living roadmap (this page) &larr; INF-05
+<span class="ok">    &#9632;</span> <span class="ok">index.html</span>               Living roadmap (this page) &middot; RDM v1
   design-system/
-<span class="done">  &#9632;</span> <span class="done">index.html</span>                 Palette &amp; component reference (CIS v0.3)
+<span class="ok">  &#9632;</span> <span class="ok">index.html</span>                 Palette &amp; component reference (UI v1 aligned)
   legal/
-<span class="done">  &#9632;</span> <span class="done">index.html</span>                 Articles, bylaws, membership agreement
+<span class="ok">  &#9632;</span> <span class="ok">index.html</span>                 Articles, bylaws, membership agreement
   intranet/
-<span class="done">  &#9632;</span> <span class="done">index.html</span>                 Auth gate + session shell
-<span class="planned">  &#9633;</span> <span class="planned">belong/index.html</span>          Agreements browse + member profile &larr; BEL-01
-<span class="planned">  &#9633;</span> <span class="planned">gather/index.html</span>          Events list + registration &larr; GAT-02</pre>
+<span class="ok">  &#9632;</span> <span class="ok">index.html</span>                 Auth gate + session shell
+<span class="ant">  &#9633;</span> <span class="ant">belong/index.html</span>          Agreements browse + member profile &larr; B-01, B-03
+<span class="ant">  &#9633;</span> <span class="ant">gather/index.html</span>          Events list + registration &larr; G-01, G-02</pre>
   </div>
 
   <div class="tree-sec">
-    <div class="tree-sec-label">Repository &middot; Techne-Co-op / cis-reference (GitHub Pages)</div>
-    <pre class="tree">cis-reference/                     https://techne-co-op.github.io/cis-reference/
-<span class="done">&#9632;</span> <span class="done">index.html</span>                   Overview (PRD v0.2 &mdash; needs v0.3 update) &larr; INF-04
-<span class="done">&#9632;</span> <span class="done">schema.html</span>                  Tables reference
-<span class="done">&#9632;</span> <span class="done">policies.html</span>                RLS policies with bylaw citations
-<span class="done">&#9632;</span> <span class="done">roles.html</span>                   15 roles, member journey
-<span class="done">&#9632;</span> <span class="done">bylaws.html</span>                  Loaded agreement sections
-<span class="done">&#9632;</span> <span class="done">migrations.html</span>              Migration history</pre>
-  </div>
-
-  <div class="tree-sec">
-    <div class="tree-sec-label">Database &middot; Supabase dgcoffcanzwsuwgpocbt &middot; us-west-2</div>
+    <div class="tree-sec-label">Database migrations &middot; substrate train</div>
     <table class="migration-table">
       <thead>
-        <tr><th>address</th><th>migration</th><th>introduces</th><th>status</th></tr>
+        <tr><th>address</th><th>file</th><th>introduces</th><th>status</th></tr>
       </thead>
       <tbody>
         <tr>
-          <td class="addr-cell">L1-01</td>
-          <td class="name-cell">20260522000000_L1-L2-substrate.sql</td>
-          <td class="desc-cell">agents, agreements, resources, events, event_lines, agreement_sections, role_assignments tables with audit columns</td>
-          <td><span class="chip done"><span class="dot"></span>applied</span></td>
+          <td class="addr-cell">SUB-03 · M-01</td>
+          <td class="name-cell">0001_substrate.sql</td>
+          <td class="desc-cell">Emitted by IM v0.1 §9. Agents, agreements, resources, events, event_lines, agreement_sections, role_assignments. Eleven laws as schema comments.</td>
+          <td><span class="chip anticipated"><span class="dot"></span>anticipated</span></td>
         </tr>
         <tr>
-          <td class="addr-cell">L1-02</td>
-          <td class="name-cell">20260522000001_phase2-rls-policies.sql</td>
-          <td class="desc-cell">Row-level security policies for all 7 tables, cite-as-you-enforce, 15 roles</td>
-          <td><span class="chip done"><span class="dot"></span>applied</span></td>
+          <td class="addr-cell">SUB-04 · M-02</td>
+          <td class="name-cell">0002_policies.sql</td>
+          <td class="desc-cell">Emitted by AM v0.1 §9. RLS policies, cite-as-you-enforce, AM §5 matrix. rls-audit goes green.</td>
+          <td><span class="chip anticipated"><span class="dot"></span>anticipated</span></td>
         </tr>
         <tr>
-          <td class="addr-cell">L1-03</td>
-          <td class="name-cell">20260522000002_bylaws-v2-seed.sql</td>
-          <td class="desc-cell">agreement_sections seeded with Bylaws v2 articles and sections by stable address</td>
-          <td><span class="chip done"><span class="dot"></span>applied</span></td>
+          <td class="addr-cell">B-01 · M-03</td>
+          <td class="name-cell">identity-binding.sql</td>
+          <td class="desc-cell">Auth flow binding auth_user_id to agents. Enables the visibility function to know who asks.</td>
+          <td><span class="chip anticipated"><span class="dot"></span>anticipated · G0</span></td>
         </tr>
         <tr>
-          <td class="addr-cell">GAT-01</td>
-          <td class="name-cell">20260800000000_events-table.sql</td>
-          <td class="desc-cell">events table with RLS; enables Gather slice</td>
-          <td><span class="chip workable"><span class="dot"></span>workable</span></td>
+          <td class="addr-cell">G-01 · M-04</td>
+          <td class="name-cell">gatherings.sql</td>
+          <td class="desc-cell">Calendar of gatherings and sessions with RLS. Enables the Gather slice.</td>
+          <td><span class="chip anticipated"><span class="dot"></span>anticipated · G0</span></td>
         </tr>
         <tr>
-          <td class="addr-cell">FND-01</td>
-          <td class="name-cell">20260900000000_offers-table.sql</td>
-          <td class="desc-cell">offers table with RLS; enables Find one another slice</td>
-          <td><span class="chip blocked"><span class="dot"></span>blocked &middot; BEL-04</span></td>
+          <td class="addr-cell">F-01 · M-05</td>
+          <td class="name-cell">opportunities.sql</td>
+          <td class="desc-cell">Opportunity board table with RLS. Enables the Find slice.</td>
+          <td><span class="chip anticipated"><span class="dot"></span>anticipated · G-B</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="tree-sec">
-    <div class="tree-sec-label">Series artifacts &middot; CIS Common Record Series</div>
-    <pre class="tree">SER v0.1    Series Overview                    <span class="ember">Drafted</span>   defines slices, readiness conditions
-PRD v0.3    Product Requirements Document       <span class="ember">Drafted</span>   10 principles, 4 slices, 3 doors, info model
-BP v1       Build Protocol                      <span class="ember">Drafted</span>   packet ledger, decide/escalate, provenance
-VS          Verification Spec                   <span class="planned">Planned</span>   acceptance criteria, executable checks
-IM          Information Model                   <span class="planned">Planned</span>   REA primitives, agent taxonomy, events
-AM          Authority Map                       <span class="planned">Planned</span>   role &times; table matrix, bylaw anchors</pre>
+    <div class="tree-sec-label">Series artifacts &middot; CIS Common Record Series &middot; all drafted</div>
+    <pre class="tree">SER v0.1    Series Overview                    <span class="drafted">Drafted</span>   the covering document of the refactor
+PRD v0.3    Product Requirements Document       <span class="drafted">Drafted</span>   deprecation record §1a, four slices, three doors
+BP v1       Build Protocol                      <span class="drafted">Drafted</span>   packet ledger, decide/escalate, AGENTS.md
+UI v1       Tokens and Patterns                 <span class="drafted">Drafted</span>   commons.css, aligned to techne.coop/design-system
+IM v0.1     Information Model                   <span class="drafted">Drafted</span>   eleven laws, REA primitives, emits 0001_substrate.sql
+VS v1       Verification Specification          <span class="drafted">Drafted</span>   five suites, six gates, emits verify.yml
+AM v0.1     Authority Map                       <span class="drafted">Drafted</span>   Bylaws v2.1 anchored, emits 0002_policies.sql</pre>
+  </div>
+
+  <div class="tree-sec">
+    <div class="tree-sec-label">The six gates &middot; each attested as an event, none authored as a date</div>
+    <pre class="tree">G0    Security floor attested                  <span class="ant">anticipated</span>   opens every slice train
+G-B   Belong demonstrated end to end           <span class="ant">anticipated</span>   August 14 condition
+G-G   Gather demonstrated end to end           <span class="ant">anticipated</span>   August 14 condition
+G-F   Find demonstrated end to end             <span class="ant">open · Q1</span>     label awaits naming question
+G-S   Fold shown equals fold computed          <span class="ant">open · Q3</span>     counting rules required
+G-R   Ratification flip, anchors re-verified   <span class="ant">open · discrepancy</span>  instrument and index must agree</pre>
   </div>
 
 </div>
@@ -819,8 +926,9 @@ AM          Authority Map                       <span class="planned">Planned</s
 
 <!-- FOOTER -->
 <footer>
-  <span>Living Roadmap &middot; Common Information System</span>
-  <span>Cites: PRD v0.3 &middot; BP v1</span>
+  <span>Living Roadmap &middot; RDM v1 &middot; Common Information System</span>
+  <span>Cites: RDM v1 &middot; PRD v0.3 &middot; BP v1 &middot; VS v1 &middot; AM v0.1</span>
+  <span>emits rdm-ledger.yaml &middot; supersedes the private alpha plan</span>
   <span>RegenHub, LCA &middot; Boulder, Colorado</span>
   <span>Techne &middot; techne.coop/commons/build</span>
   <span>Nou &middot; 2026-07-10</span>
