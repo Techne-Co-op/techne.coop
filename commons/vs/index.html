@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Verification Spec v1 for the Common Information System of RegenHub, LCA. How done is judged without a clock or a supervisor: five suites, packet acceptance, slice gates with human attestation, and the walkaway test as an executable check.">
+<title>Verification Spec &middot; VS v1 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/vs/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/vs/">
+<meta property="og:title" content="Verification Spec · VS v1 · Techne">
+<meta property="og:description" content="How done is judged without a clock or a supervisor: five suites, packet acceptance, slice gates with human attestation, and the walkaway test as an executable check.">
+<meta property="og:site_name" content="Techne">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<style>
+/* ============================================================
+   commons.css · Techne v4 token and pattern layer
+   UI v1 emission · The Common Record Series
+   aligned to techne.coop/design-system (the live constitution)
+   governs: ui-tokens-and-patterns-v1 (the document governs;
+   this stylesheet distills). supersedes commons.css v3, the v3
+   reference on the commons pages, and the local v4 reference
+   file; the live constitution is techne.coop/design-system.
+   RegenHub, LCA · Boulder, Colorado · July 2026
+   ============================================================ */
+
+/* ---------- tokens ---------- */
+:root {
+  --serif:Georgia,"Times New Roman",serif;              /* document voice */
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --sans:"Inter","Helvetica Neue",Arial,sans-serif;     /* interface layer */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  /* sunset range: a twilight-to-sunset sweep, gold at the top of a page, blue at the foot */
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;     /* primary accent */
+  --ember:#C4956A; --ember-text:#D4A57A;   /* secondary accent */
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --heat-1:#6E5494; --heat-2:#B45C7C; --heat-3:#D1755A; --heat-4:#E09A52; --heat-5:#EAB668;
+  --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872;
+  --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  --heat-1:#EAB668; --heat-2:#E09A52; --heat-3:#D1755A; --heat-4:#B45C7C; --heat-5:#6E5494;
+  --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636;
+  --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+}
+
+/* ---------- base ---------- */
+* { box-sizing:border-box; }
+html { color-scheme:light dark; }
+body { margin:0; background:var(--bg); color:var(--text);
+  font:400 16px/1.75 var(--serif);
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+.mono { font-family:var(--mono); }
+.num { font-variant-numeric:tabular-nums; }
+.sans { font-family:var(--sans); }
+em { font-style:italic; color:var(--heading); }
+code { font:400 .85em/1 var(--mono); color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; transition:text-decoration-thickness var(--micro) var(--ease); }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+
+/* ---------- topbar ---------- */
+.topbar {
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; gap:var(--s5);
+  padding:0 var(--s5); height:52px;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.brand { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+.brand-mark { font-family:var(--mono); font-size:0.78rem; font-weight:500; letter-spacing:0.06em; color:var(--heading); transition:color var(--micro) var(--ease); }
+.brand:hover .brand-mark { color:var(--ember-text); }
+.top-nav { flex:1; display:flex; gap:var(--s4); list-style:none; margin:0; padding:0; }
+.top-nav a { font-family:var(--mono); font-size:0.72rem; letter-spacing:0.04em; color:var(--muted); text-decoration:none; transition:color var(--micro) var(--ease); }
+.top-nav a:hover { color:var(--heading); }
+.top-nav a[aria-current="page"] { color:var(--ember-text); }
+.mode-toggle {
+  margin-left:auto; display:flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:0.7rem; color:var(--muted);
+  background:none; border:1px solid var(--line); border-radius:2px;
+  padding:5px 9px; cursor:pointer;
+  transition:color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.mode-toggle:hover { color:var(--heading); border-color:var(--rule); }
+.mode-toggle svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ---------- the two grammars ---------- */
+.wrap { max-width:920px; margin:0 auto; padding:0 var(--s5); }
+.wrap-hud { max-width:1600px; margin:0 auto; padding:0 var(--s4); }
+
+/* ---------- sweep assignment: data-tint ---------- */
+[data-tint="gold"]   { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+[data-tint="amber"]  { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+[data-tint="coral"]  { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+[data-tint="rose"]   { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+[data-tint="violet"] { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+[data-tint="blue"]   { --shue:var(--sun-blue);   --shue-t:var(--sun-blue-t); }
+
+/* ---------- masthead (document grammar) ---------- */
+.mast { border-bottom:1px solid var(--rule); padding:var(--s8) 0 var(--s6); }
+.mast .kick { font:500 11px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.12em; }
+.mast h1 { font:700 38px/1.15 var(--serif); color:var(--heading); margin:var(--s3) 0 var(--s4); letter-spacing:-.01em; }
+.mast .dek { font:400 17.5px/1.65 var(--serif); color:var(--text); margin:0; max-width:64ch; }
+.mast .meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font:400 11px/1.6 var(--mono); color:var(--muted); }
+.mast .meta b { color:var(--blue-text); font-weight:600; }
+.mast .meta .em { color:var(--ember-text); }
+
+/* ---------- sections with citable addresses ---------- */
+.sec { padding:var(--s7) 0 0; }
+.sec .addr { font:600 12px/1 var(--mono); color:var(--shue-t); margin-bottom:var(--s2); }
+.sec h2 { font:700 25px/1.25 var(--serif); color:var(--heading); margin:0 0 var(--s4); letter-spacing:-.01em; padding-left:14px; border-left:3px solid var(--shue); }
+.sec h3 { font:600 13px/1.5 var(--mono); color:var(--heading); text-transform:lowercase; letter-spacing:.02em; margin:var(--s6) 0 var(--s3); padding-bottom:6px; border-bottom:1px solid var(--shue); }
+.sec p { margin:0 0 var(--s4); max-width:68ch; }
+.lead { font-size:17px; }
+.cap { font:400 10.5px/1.7 var(--mono); color:var(--faint); margin-top:8px; }
+
+/* ---------- status chips ---------- */
+.chip { display:inline-flex; align-items:center; gap:6px; font:500 10.5px/1 var(--mono); padding:4px 9px; border:1px solid var(--line); border-radius:2px; background:var(--surface); white-space:nowrap; color:var(--muted); vertical-align:middle; }
+.chip .dot { width:6px; height:6px; flex:none; }
+.chip.filed { color:var(--ok); }           .chip.filed .dot { background:var(--ok); }
+.chip.ratified { color:var(--ok); }        .chip.ratified .dot { background:var(--ok); }
+.chip.drafted { color:var(--info); }       .chip.drafted .dot { background:var(--info); }
+.chip.anticipated { color:var(--muted); }  .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+.chip.open { color:var(--warn); }          .chip.open .dot { background:transparent; border:1px solid var(--warn); }
+.chip.role { color:var(--ember-text); }    .chip.role .dot { background:var(--ember); }
+.chiprow { display:flex; gap:var(--s2); flex-wrap:wrap; align-items:center; margin:var(--s3) 0; }
+
+/* ---------- provenance ---------- */
+.prov { display:inline-flex; align-items:center; gap:6px; font:400 10.5px/1.5 var(--mono); color:var(--muted); padding:4px 9px; border:1px solid var(--line); border-left:2px solid var(--ember); border-radius:2px; background:var(--surface); }
+.prov b { color:var(--heading); font-weight:600; }
+
+/* ---------- registers and definition rows ---------- */
+.reg { margin:var(--s4) 0 var(--s2); border-top:1px solid var(--rule); }
+.reg-row { display:grid; grid-template-columns:44px 210px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--line); }
+.reg-row .no { font:500 11px/1.7 var(--mono); color:var(--shue-t); }
+.reg-row .t { font:700 14px/1.5 var(--serif); color:var(--heading); }
+.reg-row .d { font:400 13px/1.7 var(--serif); color:var(--text); }
+.def { margin:var(--s4) 0 var(--s2); border-top:1px solid var(--rule); }
+.def-row { display:grid; grid-template-columns:180px 1fr; gap:var(--s4); padding:var(--s3) 0; border-bottom:1px solid var(--line); }
+.def-row .t { font:700 14px/1.5 var(--serif); color:var(--heading); }
+.def-row .t .k { display:block; font:500 9.5px/1.8 var(--mono); font-weight:500; color:var(--shue-t); text-transform:uppercase; letter-spacing:.1em; }
+.def-row .d { font:400 13.5px/1.7 var(--serif); color:var(--text); }
+
+/* ---------- record panel (excerpt, deprecation record, anatomy) ---------- */
+.record { margin:var(--s5) 0; background:var(--surface); border:1px solid var(--line); border-top:4px double var(--heading); }
+.record .rh { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:var(--s2) var(--s3); padding:10px var(--s4); border-bottom:1px solid var(--line); }
+.record .rh .rt { font:600 11px/1.5 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; }
+.record .rh .ra { font:600 11px/1.5 var(--mono); color:var(--muted); }
+.record .rb { padding:var(--s4); }
+.excerpt { margin:var(--s5) 0 0; background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--ember); }
+.xrow { display:grid; grid-template-columns:118px 1fr auto; gap:var(--s3); align-items:baseline; padding:10px var(--s4); border-bottom:1px solid var(--line); }
+.xrow:last-of-type { border-bottom:0; }
+.xrow .xd { font:400 10.5px/1.7 var(--mono); color:var(--muted); }
+.xrow .xe { font:400 13.5px/1.6 var(--serif); color:var(--heading); }
+.anatomy { margin:var(--s4) 0; background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--shue); }
+.an-row { display:grid; grid-template-columns:140px 1fr; gap:var(--s3); padding:9px var(--s4); border-bottom:1px solid var(--line); align-items:baseline; }
+.an-row:last-child { border-bottom:0; }
+.an-row .f { font:600 11px/1.7 var(--mono); color:var(--shue-t); }
+.an-row .v { font:400 13px/1.7 var(--serif); color:var(--text); }
+
+/* ---------- twin panels ---------- */
+.twin { display:grid; grid-template-columns:1fr 1fr; gap:var(--s3); margin:var(--s4) 0; }
+.panel { background:var(--surface); border:1px solid var(--line); }
+.panel .ph { display:flex; align-items:center; justify-content:space-between; gap:var(--s2); padding:8px var(--s3); border-bottom:1px solid var(--line); }
+.panel .ph .pt { font:600 11px/1.4 var(--mono); color:var(--heading); text-transform:lowercase; }
+.panel .pb { padding:var(--s3); }
+.panel.decide { border-top:2px solid var(--blue); }
+.panel.decide .pt { color:var(--blue-text); }
+.panel.escalate { border-top:2px solid var(--ember); }
+.panel.escalate .pt { color:var(--ember-text); }
+
+/* ---------- escalation card ---------- */
+.esc { margin:var(--s4) 0; background:var(--inset); border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s4); }
+.esc .k { font:500 10px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; margin-bottom:var(--s2); }
+.esc .er { display:grid; grid-template-columns:110px 1fr; gap:var(--s3); padding:6px 0; border-bottom:1px solid var(--line); align-items:baseline; }
+.esc .er:last-child { border-bottom:0; }
+.esc .er .f { font:600 10.5px/1.7 var(--mono); color:var(--muted); }
+.esc .er .v { font:400 13px/1.65 var(--serif); color:var(--text); }
+
+/* ---------- memorandum ---------- */
+.memo { margin:var(--s6) 0 0; padding:var(--s4) 0; border-top:1px solid var(--rule); border-bottom:4px double var(--heading); }
+.memo .k { font:500 10px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; }
+.memo p { margin:0; font-size:15px; max-width:68ch; }
+
+/* ---------- agent block ---------- */
+pre.agent { background:var(--inset); border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s4); overflow-x:auto; font:400 11.5px/1.8 var(--mono); color:var(--text); margin:var(--s4) 0; }
+
+/* ---------- footer ---------- */
+footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s5) 0 var(--s8); font:400 11px/1.8 var(--mono); color:var(--muted); }
+footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
+
+/* ---------- responsive and motion ---------- */
+@media (max-width:760px){
+  .mast h1 { font-size:30px; }
+  .twin { grid-template-columns:1fr; }
+  .def-row { grid-template-columns:1fr; gap:var(--s1); }
+  .an-row { grid-template-columns:1fr; gap:2px; }
+  .xrow { grid-template-columns:1fr auto; }
+  .xrow .xd { grid-column:1 / -1; }
+  .top-nav { gap:var(--s3); }
+}
+@media (prefers-reduced-motion: reduce){ * { transition:none !important; } }
+</style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Site navigation">
+  <a href="/" class="brand" aria-label="Techne home">
+    <span class="brand-mark">TECHNE</span>
+  </a>
+  <ul class="top-nav" role="list">
+    <li><a href="/commons/">Commons</a></li>
+    <li><a href="/commons/series/">Series</a></li>
+    <li><a href="/commons/vs/" aria-current="page">VS v1</a></li>
+  </ul>
+  <button class="mode-toggle" id="modeBtn" aria-label="Switch color mode">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <span id="modeLbl">dark</span>
+  </button>
+</nav>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="kick">verification contract &middot; VS v1 &middot; how done is judged</div>
+    <h1>Verification Spec</h1>
+    <p class="dek">In a build with no dates and no supervisor, done must be a fact about the record rather than a feeling about the work. This document defines that fact: the five suites that run as code, how a packet proves its acceptance, the gates each slice must pass with a human attestation, and the walkaway test as something executed rather than admired. The document governs; the workflow it emits distills.</p>
+    <div class="meta">
+      <span>status &middot; <span class="chip drafted"><span class="dot"></span>Drafted</span></span>
+      <span>cites &middot; <b>BP v1</b> &middot; <b><a href="/commons/im/">IM v0.1</a></b> &middot; <a href="/commons/prd/">PRD v0.3</a> &middot; <a href="/commons/series/">SER v0.1</a></span>
+      <span class="em">consolidates &middot; VERIFICATION.md &middot; C3 &middot; C11 &middot; retires C9</span>
+      <span>emits &middot; <a href="/commons/vs/verify.yml">verify.yml</a></span>
+      <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
+    </div>
+  </header>
+
+  <section class="sec" id="s1" data-tint="gold">
+    <div class="addr">&sect;1</div>
+    <h2>Preamble</h2>
+    <p class="lead">This contract consolidates the estate's verification layer: the CI job contracts of VERIFICATION.md, the verification definitions of C3, and the C11 wave gates, rewritten from waves to slices. The C9 KPI fixture pack retires with the grant it measured, per the deprecation record at <a href="/commons/prd/">PRD v0.3</a> &sect;1a; its useful habit, designed pass and fail cases, carries without its KPIs, under the fixture discipline of &sect;7.</p>
+    <p>The same honest limit that bound the Build Protocol binds this document: the estate files hold check contracts at a finer grain than the commons index records, and those are not silently dropped. The reconciliation packet BP v1 &sect;1 opened grows in scope to include VERIFICATION.md, C3, and C11: at the merge, each finer-grained contract is adopted here by amendment or retired by name. <span class="chip open"><span class="dot"></span>Open &middot; reconciliation packet, scope grown</span></p>
+    <p>The emission continues the series pattern: <a href="/commons/vs/verify.yml"><code>verify.yml</code></a> is the workflow the repository actually runs, and the invariant assertions inside it execute against the substrate migration <a href="/commons/im/">IM v0.1</a> emitted, so the schema's refusals are proven, not presumed. What the workflow cannot honestly run yet, it names as deferred rather than faking green.</p>
+  </section>
+
+  <section class="sec" id="s2" data-tint="gold">
+    <div class="addr">&sect;2</div>
+    <h2>The five suites</h2>
+    <p class="lead">Every merge runs five suites. Three are fully runnable today; two run in their honest partial form and grow with the artifacts they wait on.</p>
+    <div class="def">
+      <div class="def-row"><span class="t"><span class="k">carries unchanged</span>ledger-validate</span><span class="d">The estate's validator on the packet ledger: schema compliance, dependency acyclicity, and gating consistency, with done requiring verified upstream. This suite is why the ledger can be trusted as a scheduler.</span></div>
+      <div class="def-row"><span class="t"><span class="k">new &middot; audit prerequisite</span>schema-lint</span><span class="d">Static discipline on the substrate: migrations timestamped and ordered, every table commented, every future policy carrying its bylaw anchor per cite-as-you-enforce. A policy without an anchor does not merge; the lint is how that rule stops being a sentence and becomes a gate. Absorbs the schema-lint prerequisite the pre-build audit named.</span></div>
+      <div class="def-row"><span class="t"><span class="k">runnable now</span>db-verify</span><span class="d">The invariant suite of &sect;4: a fresh database, the migrations applied, and the conserved quantities of <a href="/commons/im/">IM v0.1</a> &sect;6 proven by attempted violation. The substrate is trusted because it demonstrably refuses.</span></div>
+      <div class="def-row"><span class="t"><span class="k">honest partial</span>rls-audit</span><span class="d">The visibility suite. Until the Authority Map lands, its whole expectation matrix is one row repeated: every probe, on every table, denied. That is runnable today and is exactly what the deny-by-default posture claims. When AM cites its anchors, the C7 probe shape returns as roles by tables, expectations sourced from the map, never from the code.</span></div>
+      <div class="def-row"><span class="t"><span class="k">new</span>style-lint</span><span class="d">The house rules as CI, on authored documents and pages: the vocabulary quarantine (the retired cooperative-tax terms appear nowhere), no em dashes, no emoji, and no raw hex outside the token layer on site pages. Editorial discipline that runs on every merge stops depending on anyone's vigilance, including Todd's.</span></div>
+    </div>
+    <p>The signal loop's synchronization job carries alongside these but is not of them: it feeds an attention instrument, and an instrument is not an authority, per BP v1 &sect;8.</p>
+  </section>
+
+  <section class="sec" id="s3" data-tint="amber">
+    <div class="addr">&sect;3</div>
+    <h2>Proving a packet</h2>
+    <p class="lead">A packet's acceptance field is its test statement, written so this document can check it. For slice work, the member-capability sentences of <a href="/commons/prd/">PRD v0.3</a> &sect;4 are the acceptance language verbatim: each sentence beginning <em>a member can</em> is demonstrated, not asserted.</p>
+    <p>Done is a conjunction, never a mood: the five suites green on the packet's branch; the acceptance demonstrated in a way the reviewer can reproduce; the review tier of BP v1 &sect;6 satisfied, with a decision record where the tier demands one; and the status changed by commit. A failed check does not argue, it names: the packet's status becomes the Open chip carrying the check's name, <span class="mono">blocked &middot; db-verify/one-voting-share</span>, so the status table reads as reasons. And the protocol's last line binds here with full force: if unsure whether done, not done.</p>
+  </section>
+
+  <section class="sec" id="s4" data-tint="amber">
+    <div class="addr">&sect;4</div>
+    <h2>The invariant assertions</h2>
+    <p class="lead">What db-verify proves, each assertion mapped to the law and locus it exercises. The suite's method is attempted violation: the test tries to break the invariant and passes only when the substrate refuses.</p>
+    <div class="anatomy">
+      <div class="an-row"><span class="f">append-only</span><span class="v">An update and a delete are attempted on <code>events</code>; the trigger must raise. Law I, <a href="/commons/im/">IM v0.1</a> &sect;4.</span></div>
+      <div class="an-row"><span class="f">one-voting-share</span><span class="v">A second issued voting share for the same agent is inserted; the partial unique index must refuse. Law III, <a href="/commons/im/">IM v0.1</a> &sect;6.</span></div>
+      <div class="an-row"><span class="f">lifecycle-legality</span><span class="v">An illegal transition, applied straight to suspended, is attempted; the automaton trigger must raise. Law VI.</span></div>
+      <div class="an-row"><span class="f">no-stored-balance</span><span class="v">The information schema is scanned: no base table carries a balance-like column. Balances exist only as folds. Law VII, <a href="/commons/im/">IM v0.1</a> &sect;7.</span></div>
+      <div class="an-row"><span class="f">replay-holds</span><span class="v">Known capital events are inserted and the <code>capital_accounts</code> view must equal their hand-computed folds, both projections. Law I and VII, the smallest true replay.</span></div>
+      <div class="an-row"><span class="f">rls-everywhere</span><span class="v">Every launch table reports row security enabled; a probe role with table grants and no policies reads zero rows. Law V in its deny-by-default form.</span></div>
+    </div>
+    <p>Assertions for vote arithmetic, the patron-majority floor, allocation sums under substantial economic effect, and the paired covering distribution are stated in <a href="/commons/im/">IM v0.1</a> &sect;6 and enter this suite when their slices land; listing them green before their schema exists would be a plan dressed as a fact. <span class="chip anticipated"><span class="dot"></span>Anticipated &middot; with their slices</span></p>
+  </section>
+
+  <section class="sec" id="s5" data-tint="coral">
+    <div class="addr">&sect;5</div>
+    <h2>The gates</h2>
+    <p class="lead">Gates replace the wave gates one for one in mechanics and change only in shape: a gate now closes a slice, not a wave. Each gate is a named set of required checks plus a human attestation, and passing it is what unlocks the packets that cite it. Parts are proven by steps; the whole is proven here, and that estate phrase carries verbatim.</p>
+    <div class="def">
+      <div class="def-row"><span class="t"><span class="k">carries unchanged</span>G0 &middot; security floor</span><span class="d">The pre-slice gate, inherited whole: conservation enforced in the database, the audit log structural, row security enabled and denying without the map, backup taken and restore actually performed. No slice gate can be attempted while G0 is red.</span></div>
+      <div class="def-row"><span class="t"><span class="k">gate &middot; august 14</span>G-B &middot; Belong</span><span class="d">The Belong acceptance sentences demonstrated end to end: read, sign, appear, onboard. All five suites green; attestation by an organizer and by one member who is not an organizer, since the curious-newcomer criterion cannot be self-attested.</span></div>
+      <div class="def-row"><span class="t"><span class="k">gate &middot; august 14</span>G-G &middot; Gather</span><span class="d">The Gather sentences demonstrated: see, register, cancel, be counted. Same suites, same two-party attestation.</span></div>
+      <div class="def-row"><span class="t"><span class="k">following slice</span>G-F &middot; Find one another</span><span class="d">The opportunity lifecycle demonstrated open to resolved, with the resolution landing as an event, not a table row. Slice name pending the short-form question. <span class="chip open"><span class="dot"></span>Open &middot; naming</span></span></div>
+      <div class="def-row"><span class="t"><span class="k">after counting rules</span>G-S &middot; See your share</span><span class="d">The fold shown to a member equals the fold computed by hand from their events, both projections, with every figure traceable to its inputs. <span class="chip open"><span class="dot"></span>blocked &middot; Q3</span></span></div>
+      <div class="def-row"><span class="t"><span class="k">the flip</span>G-R &middot; ratification</span><span class="d">The gate the vote opens. Every bylaw anchor in the schema and the Authority Map is re-verified against the ratified text, and only through this gate may any surface begin to display the Ratified mark. Until G-R passes, a Ratified chip anywhere is itself a lint failure.</span></div>
+    </div>
+  </section>
+
+  <section class="sec" id="s6" data-tint="coral">
+    <div class="addr">&sect;6</div>
+    <h2>Attestation as events</h2>
+    <p class="lead">A gate attestation is not a checkbox in a workflow run; it is a record in the system the gate protects. Passing a gate writes an event, <span class="mono">gate.attested</span>, carrying the gate's name, the suites' run references, and the human actors, per Laws II and X: the act of attesting is a happening, and it belongs to people.</p>
+    <p>This closes a loop worth naming: the record verifies the build, and the build's verification becomes part of the record. An auditor asking whether a gate truly passed queries the same ledger a member queries for their capital account, with the same traceability, and the answer never depends on a CI provider's retention window.</p>
+  </section>
+
+  <section class="sec" id="s7" data-tint="rose">
+    <div class="addr">&sect;7</div>
+    <h2>Fixtures and simulation</h2>
+    <p class="lead">C9 retires, its habit survives. Designed cases that should pass and designed cases that must fail remain the best way to prove an assertion means something; only the KPIs they measured are gone.</p>
+    <p>Fixture discipline follows the simulation rule of BP v1 &sect;5 without exception: fixture and demonstration data carries <span class="mono">provenance: illustrative</span> at creation, lives only in test databases and branch environments, and writes nothing back to live records. The db-verify suite builds its world fresh on every run and discards it after; a fixture that leaks into the ledger is a defect the suites themselves should catch, which is why the live record is also linted for illustrative provenance outside designated demonstration surfaces.</p>
+  </section>
+
+  <section class="sec" id="s8" data-tint="rose">
+    <div class="addr">&sect;8</div>
+    <h2>The walkaway test, executable</h2>
+    <p class="lead">Law XI's promise, turned into a procedure: on infrastructure the cooperative does not control, a stranger with only the published artifacts can stand the system up and arrive at the same state.</p>
+    <p>The procedure, stated so a harness can run it: provision a fresh database from nothing but the public repository; apply the migrations in order; load each table's documented export together with the event log; replay; and compare every fold, both capital projections included, against the folds published by the source system. The run must complete within the bounded recovery window Law XI names, and it must require no conversation with anyone at RegenHub, which is what without renegotiation means operationally.</p>
+    <p>The harness is a packet, not yet a suite: it enters <a href="/commons/vs/verify.yml"><code>verify.yml</code></a> on a schedule rather than on every merge once the first per-table exports land, and its first green run is a success criterion of <a href="/commons/prd/">PRD v0.3</a> &sect;10, not a decoration. <span class="chip anticipated"><span class="dot"></span>Anticipated &middot; harness packet</span></p>
+  </section>
+
+  <section class="sec" id="s9" data-tint="blue">
+    <div class="addr">&sect;9</div>
+    <h2>The emission, and amendment</h2>
+    <p class="lead">The workflow <a href="/commons/vs/verify.yml"><code>verify.yml</code></a> distills this document into five jobs. Today it runs honestly: ledger-validate calls the estate validator where the ledger exists; schema-lint and style-lint run whole; db-verify provisions a database in the runner, applies <a href="/commons/im/0001_substrate.sql"><code>0001_substrate.sql</code></a>, and executes every &sect;4 assertion by attempted violation; rls-audit proves deny-by-default with a grant-bearing, policy-less probe role. The probe matrix, the walkaway harness, and the with-their-slices assertions are named in the workflow as deferred, in comments a reader can find, because a suite that fakes green teaches people to ignore it.</p>
+    <p>Changes to this document are Tier C under BP v1 &sect;6, and a change that weakens a check is a regression to be named, never absorbed, which is the one sentence of the old gate discipline this refactor keeps with pride. The workflow versions with the document; supersession is explicit; the superseded contracts remain in the record as history.</p>
+    <div class="memo">
+      <div class="k">the working agreement of this contract</div>
+      <p>A green suite is not the truth; it is the absence of known lies, kept honest by checks that try to break what they protect. The suites exist so that done is a fact about the record, and so that trust in the build, like trust in the cooperative, never has to be taken on anyone's word, including ours.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="row">
+      <span>Verification Spec &middot; VS v1 &middot; Drafted</span>
+      <span>emits <a href="/commons/vs/verify.yml">verify.yml</a> &middot; consolidates VERIFICATION.md, C3, C11 &middot; retires C9</span>
+      <span><a href="/commons/series/">The Common Record Series</a> &middot; VS</span>
+      <span>techne.coop &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn  = document.getElementById('modeBtn');
+  var lbl  = document.getElementById('modeLbl');
+  var stored = null;
+  try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+  var m = stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  root.setAttribute('data-mode', m);
+  lbl.textContent = m === 'dark' ? 'light' : 'dark';
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-mode', next);
+    lbl.textContent = next === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('techne-mode', next); } catch(e) {}
+  });
+})();
+</script>
+</body>
+</html>
