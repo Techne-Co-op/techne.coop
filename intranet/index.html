@@ -389,7 +389,7 @@ footer {
   <a href="https://techne.coop" class="topbar-brand">Techne · intranet</a>
   <div class="topbar-right">
     <span id="topbar-status" style="font-family:var(--mono);font-size:0.68rem;color:var(--faint)"></span>
-    <button class="mode-btn" onclick="toggleMode()">◐</button>
+    <button class="mode-btn" id="mode-btn">◐</button>
   </div>
 </div>
 
@@ -405,14 +405,14 @@ footer {
         <label for="email-input">EMAIL ADDRESS</label>
         <input type="email" id="email-input" placeholder="you@example.com" autocomplete="email" />
       </div>
-      <button class="btn-primary" id="login-btn" onclick="sendMagicLink()">Send sign-in link</button>
+      <button class="btn-primary" id="login-btn">Send sign-in link</button>
       <div class="auth-status info" id="auth-status"></div>
     </div>
 
     <div id="link-sent" style="display:none">
       <p style="color:var(--ok);font-family:var(--mono);font-size:0.85rem;margin-bottom:var(--s3)">✓ Sign-in link sent.</p>
       <p style="font-size:0.85rem;color:var(--muted)">Check your email and click the link to continue. You can close this tab.</p>
-      <button style="margin-top:var(--s4);background:none;border:none;color:var(--muted);font-family:var(--mono);font-size:0.75rem;cursor:pointer;text-decoration:underline" onclick="document.getElementById('login-form').style.display='';document.getElementById('link-sent').style.display='none'">Send another link</button>
+      <button id="resend-link" style="margin-top:var(--s4);background:none;border:none;color:var(--muted);font-family:var(--mono);font-size:0.75rem;cursor:pointer;text-decoration:underline">Send another link</button>
     </div>
   </div>
 </div>
@@ -421,12 +421,12 @@ footer {
 <div class="intranet-shell" id="intranet-shell">
   <nav class="intranet-nav">
     <div class="nav-section">Cooperative</div>
-    <a href="#" class="active" onclick="showSection('dashboard',this)">Dashboard</a>
-    <a href="#" onclick="showSection('agreements',this)">Agreements</a>
-    <a href="#" onclick="showSection('agents',this)">Members</a>
+    <a href="#" id="nav-dashboard" class="active">Dashboard</a>
+    <a href="#" id="nav-agreements">Agreements</a>
+    <a href="#" id="nav-agents">Members</a>
     <div class="nav-section">Records</div>
-    <a href="#" onclick="showSection('treasury',this)">Treasury</a>
-    <a href="#" onclick="showSection('bylaws',this)">Bylaws</a>
+    <a href="#" id="nav-treasury">Treasury</a>
+    <a href="#" id="nav-bylaws">Bylaws</a>
     <div class="nav-section">Reference</div>
     <a href="../" style="color:var(--faint)">← techne.coop</a>
     <a href="https://techne-co-op.github.io/cis-reference/" target="_blank" style="color:var(--faint)">CIS Reference ↗</a>
@@ -444,7 +444,7 @@ footer {
           <div class="member-email" id="member-email">—</div>
           <div class="member-role" id="member-role">checking role…</div>
         </div>
-        <button class="signout-btn" onclick="signOut()">Sign out</button>
+        <button class="signout-btn" id="signout-btn">Sign out</button>
       </div>
 
       <div class="notice">
@@ -539,7 +539,12 @@ footer {
 const SUPABASE_URL = 'https://dgcoffcanzwsuwgpocbt.supabase.co';
 const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnY29mZmNhbnp3c3V3Z3BvY2J0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyMjE5MzYsImV4cCI6MjA5Njc5NzkzNn0.UYmAI7RrvC_5-ZD6TQKLzfShL06QsiPMszhq-YzbwLY';
 
-const supabase = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
+let supabase;
+try {
+  supabase = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
+} catch(e) {
+  console.error('Supabase init failed — CDN may not have loaded:', e);
+}
 
 // ---- Auth state ----
 async function init() {
@@ -746,6 +751,40 @@ function toggleMode() {
   html.setAttribute('data-mode', next);
   try { localStorage.setItem('techne-mode', next); } catch(e) {}
 }
+
+// ---- Event binding ----
+// Bind all interactive elements via JS (never rely on inline onclick attributes)
+document.addEventListener('DOMContentLoaded', function() {
+  var loginBtn = document.getElementById('login-btn');
+  if (loginBtn) loginBtn.addEventListener('click', sendMagicLink);
+
+  var signoutBtn = document.getElementById('signout-btn');
+  if (signoutBtn) signoutBtn.addEventListener('click', signOut);
+
+  var modeBtn = document.getElementById('mode-btn');
+  if (modeBtn) modeBtn.addEventListener('click', toggleMode);
+
+  var resendLink = document.getElementById('resend-link');
+  if (resendLink) resendLink.addEventListener('click', function() {
+    document.getElementById('login-form').style.display = '';
+    document.getElementById('link-sent').style.display = 'none';
+  });
+
+  var navMap = [
+    ['nav-dashboard', 'dashboard'],
+    ['nav-agreements', 'agreements'],
+    ['nav-agents', 'agents'],
+    ['nav-treasury', 'treasury'],
+    ['nav-bylaws', 'bylaws']
+  ];
+  navMap.forEach(function(pair) {
+    var el = document.getElementById(pair[0]);
+    if (el) el.addEventListener('click', function(e) {
+      e.preventDefault();
+      showSection(pair[1], el);
+    });
+  });
+});
 
 // Boot
 init();
