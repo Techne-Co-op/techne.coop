@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The Commonplace Book is the cooperative's shared record — who the members are, what they've agreed to, what has happened, and what each member's share amounts to. RegenHub, LCA · Techne · Boulder.">
+<title>The Commonplace Book · Techne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<style>
+/* ============================================================
+   TOKENS — techne v4
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --sun-gold: #EAB668; --sun-amber: #E09A52; --sun-coral: #D1755A;
+  --sun-rose: #B45C7C; --sun-violet: #6E5494; --sun-blue: #5476B8;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --blue-dim: rgba(106,138,196,0.14); --ember-dim: rgba(196,149,106,0.14);
+  --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.14);
+  --warn: #C46A6A;
+  --sun-gold-t: #EAB668; --sun-amber-t: #E5A562; --sun-coral-t: #DE8872;
+  --sun-rose-t: #CF7C9A; --sun-violet-t: #9E86C4; --sun-blue-t: #8FAEE0;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --blue-dim: rgba(74,111,176,0.10); --ember-dim: rgba(138,106,74,0.10);
+  --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
+  --warn: #A84F4C;
+  --sun-gold-t: #87621F; --sun-amber-t: #8C581D; --sun-coral-t: #9C4636;
+  --sun-rose-t: #8C3D58; --sun-violet-t: #4C3870; --sun-blue-t: #3A5694;
+  color-scheme: light;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0ms !important; } }
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--serif);
+  font-size: 18px; line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.topbar {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: var(--s5);
+  padding: 0 6vw; height: 60px;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  display: flex; align-items: center; gap: 12px;
+  text-decoration: none; flex-shrink: 0;
+}
+.mark {
+  font-family: var(--mono); font-size: 0.82rem; font-weight: 500;
+  letter-spacing: 0.06em; color: var(--heading);
+  transition: color var(--micro) var(--ease);
+}
+.brand:hover .mark { color: var(--ember-text); }
+nav { flex: 1; }
+.nav-links {
+  list-style: none; display: flex; gap: var(--s4); align-items: center;
+}
+.nav-links a {
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 400;
+  letter-spacing: 0.04em; color: var(--muted);
+  text-decoration: none;
+  transition: color var(--micro) var(--ease);
+}
+.nav-links a:hover { color: var(--heading); }
+.nav-links a[aria-current="page"] { color: var(--ember-text); }
+.mode-toggle {
+  margin-left: auto; display: flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 0.7rem; font-weight: 400;
+  color: var(--muted); background: none; border: 1px solid var(--line);
+  border-radius: 3px; padding: 5px 10px; cursor: pointer;
+  transition: color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.mode-toggle:hover { color: var(--heading); border-color: var(--rule); }
+.mode-toggle svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+.mast {
+  padding: var(--s8) 6vw var(--s7);
+  border-bottom: 1px solid var(--rule);
+  max-width: 860px;
+}
+.eyebrow {
+  font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ember-text); margin-bottom: var(--s4);
+}
+.mast h1 {
+  font-size: clamp(2rem, 5vw, 3rem); font-weight: 700;
+  color: var(--heading); line-height: 1.12;
+  letter-spacing: -0.02em; margin-bottom: var(--s4);
+}
+.mast .dek {
+  font-size: 1.05rem; line-height: 1.7; color: var(--text);
+  max-width: 62ch;
+}
+
+/* ============================================================
+   CONTENT COLUMN
+   ============================================================ */
+.col { max-width: 860px; padding: 0 6vw; }
+
+/* ============================================================
+   PROSE SECTIONS
+   ============================================================ */
+.prose-sec {
+  padding: var(--s7) 0 0;
+}
+.prose-sec h2 {
+  font-size: 1.18rem; font-weight: 700; color: var(--heading);
+  margin-bottom: var(--s4);
+  padding-left: 14px;
+  border-left: 3px solid var(--ember);
+}
+.prose-sec p {
+  font-size: 1rem; line-height: 1.75; color: var(--text);
+  max-width: 66ch; margin-bottom: var(--s4);
+}
+.prose-sec p:last-child { margin-bottom: 0; }
+
+/* ============================================================
+   SLICES
+   ============================================================ */
+.slices-sec {
+  padding: var(--s7) 0 0;
+}
+.slices-sec h2 {
+  font-size: 1.18rem; font-weight: 700; color: var(--heading);
+  margin-bottom: var(--s5);
+  padding-left: 14px;
+  border-left: 3px solid var(--blue);
+}
+.slices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s3);
+}
+.slice {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--ember);
+  padding: var(--s4) var(--s5) var(--s5);
+  border-radius: 2px;
+}
+.slice-n {
+  font-family: var(--mono); font-size: 0.62rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--faint); margin-bottom: var(--s2);
+}
+.slice-name {
+  font-size: 1.05rem; font-weight: 700; color: var(--heading);
+  margin-bottom: var(--s3);
+}
+.slice-cap {
+  font-family: var(--mono); font-size: 0.65rem; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--faint); margin-bottom: 6px;
+}
+.slice-body {
+  font-size: 0.88rem; line-height: 1.68; color: var(--text);
+  margin-bottom: var(--s4);
+}
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono); font-size: 0.6rem; font-weight: 500;
+  letter-spacing: 0.06em;
+  padding: 3px 8px; border-radius: 2px;
+  border: 1px solid var(--line); background: var(--inset);
+  color: var(--muted); white-space: nowrap;
+}
+.chip-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.chip.anticipated { color: var(--ember-text); border-color: var(--ember); background: var(--ember-dim); }
+.chip.anticipated .chip-dot { background: transparent; border: 1px solid var(--ember-text); }
+.chip.blocked { color: var(--muted); }
+.chip.blocked .chip-dot { background: transparent; border: 1px solid var(--faint); }
+.chip.open { color: var(--blue-text); border-color: var(--blue); background: var(--blue-dim); }
+.chip.open .chip-dot { background: transparent; border: 1px solid var(--blue-text); }
+
+/* ============================================================
+   GATE NOTE
+   ============================================================ */
+.gate {
+  margin-top: var(--s5);
+  padding: var(--s4) var(--s5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--ember);
+  font-family: var(--mono); font-size: 0.75rem; line-height: 1.7;
+  color: var(--muted);
+}
+.gate strong { color: var(--heading); font-weight: 600; }
+
+/* ============================================================
+   CTAs
+   ============================================================ */
+.ctas-sec {
+  padding: var(--s7) 0;
+  border-top: 1px solid var(--rule);
+  margin-top: var(--s7);
+  display: flex; gap: var(--s4); flex-wrap: wrap; align-items: center;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  font-family: var(--mono); font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 13px var(--s5); border-radius: 3px;
+  text-decoration: none; cursor: pointer;
+  transition: background-color var(--micro) var(--ease), color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.btn-primary {
+  background: var(--ember); color: #F7F5F0;
+  border: 1px solid var(--ember);
+}
+html[data-mode="light"] .btn-primary { color: #1A1A1F; }
+.btn-primary:hover { background: var(--ember-text); border-color: var(--ember-text); }
+.btn-secondary {
+  background: transparent; color: var(--heading);
+  border: 1px solid var(--rule);
+}
+.btn-secondary:hover { background: var(--surface); border-color: var(--heading); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  border-top: 1px solid var(--line);
+  padding: var(--s5) 6vw var(--s7);
+  font-family: var(--mono); font-size: 0.68rem; color: var(--faint);
+  display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .slices { grid-template-columns: 1fr; }
+  .mast { padding: var(--s7) var(--s5) var(--s6); }
+  .col { padding: 0 var(--s5); }
+  .ctas-sec { flex-direction: column; align-items: flex-start; }
+  footer { padding: var(--s5) var(--s5) var(--s7); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <a class="brand" href="/">
+      <span class="mark">Techne</span>
+    </a>
+    <nav aria-label="Site navigation">
+      <ul class="nav-links">
+        <li><a href="/commons/" aria-current="page">Commons</a></li>
+        <li><a href="/legal/">Legal</a></li>
+        <li><a href="/intranet/">Intranet</a></li>
+      </ul>
+    </nav>
+    <button class="mode-toggle" id="modeToggle" aria-label="Toggle light and dark mode">
+      <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+      <span id="modeLabel">Light</span>
+    </button>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="eyebrow">RegenHub, LCA &middot; Techne &middot; Boulder, Colorado</div>
+  <h1>The Commonplace<br>Book</h1>
+  <p class="dek">The cooperative's shared record &mdash; named after the centuries-old practice of keeping what matters, organized for use, in one place everyone can read.</p>
+</div>
+
+<main>
+  <div class="col">
+
+    <section class="prose-sec" aria-labelledby="what-h">
+      <h2 id="what-h">What it is</h2>
+      <p>Scholars and craftspeople have kept commonplace books for centuries: not an archive, but a working tool. You copy in what governs your practice, what you've agreed to, what has happened and what it led to. The entries are organized for use rather than display. When someone needs to understand the whole, they open the book.</p>
+      <p>RegenHub's Commonplace Book is that practice carried into cooperative life. It holds the authoritative state of the cooperative: who the members are, what agreements bind them, what events have taken place, and what each person's share of the work and the results amounts to. Every figure can be traced to the events that produced it. Every rule can be traced to the governing document that established it. Nothing is hidden behind a decision no one can follow back to its source.</p>
+      <p>The book is not an app for doing the work. It is the layer that remembers what has been done &mdash; so that the next question has an honest answer, and the next member doesn't have to ask.</p>
+    </section>
+
+    <section class="slices-sec" aria-labelledby="holds-h">
+      <h2 id="holds-h">What it holds</h2>
+      <div class="slices">
+
+        <div class="slice">
+          <div class="slice-n">Slice 01</div>
+          <div class="slice-name">Belong</div>
+          <div class="slice-cap">A member can</div>
+          <p class="slice-body">Read every agreement that binds them, with version and standing marked. Sign the membership agreement and see the signature recorded. Appear in the member directory with a profile they control. Complete onboarding without a meeting.</p>
+          <span class="chip anticipated"><span class="chip-dot"></span>Anticipated &middot; Aug 14, 2026</span>
+        </div>
+
+        <div class="slice">
+          <div class="slice-n">Slice 02</div>
+          <div class="slice-name">Gather</div>
+          <div class="slice-cap">A member can</div>
+          <p class="slice-body">See upcoming events and sessions at the studio. Register, and cancel, without asking anyone. Have attendance counted where the record counts it. Host an event under a named agreement or policy.</p>
+          <span class="chip anticipated"><span class="chip-dot"></span>Anticipated &middot; Aug 14, 2026</span>
+        </div>
+
+        <div class="slice">
+          <div class="slice-n">Slice 03</div>
+          <div class="slice-name">Find one another</div>
+          <div class="slice-cap">A member can</div>
+          <p class="slice-body">Browse open offers and invitations &mdash; to play, practice, and work. Post their own offer or need, and close it when it resolves. See what an invitation led to, when the parties choose to record it.</p>
+          <span class="chip open"><span class="chip-dot"></span>Following Belong</span>
+        </div>
+
+        <div class="slice">
+          <div class="slice-n">Slice 04</div>
+          <div class="slice-name">See your share</div>
+          <div class="slice-cap">A member can</div>
+          <p class="slice-body">See their contribution history, itemized. See their capital account as a fold over that history. Follow any figure to the events and the policy that produced it. Balances computed, never stored as editable numbers.</p>
+          <span class="chip blocked"><span class="chip-dot"></span>After counting rules adopt</span>
+        </div>
+
+      </div>
+
+      <div class="gate">
+        <strong>Opening August 14, 2026.</strong> Belong and Gather open to members at the ratification gathering. Find one another follows once every entry has an agent record to hang from. See your share opens when the board adopts the patronage counting rules &mdash; the condition that makes a member account honest rather than illustrative.
+      </div>
+    </section>
+
+    <div class="ctas-sec">
+      <a class="btn btn-primary" href="/legal/">Become a member</a>
+      <a class="btn btn-secondary" href="https://techne-co-op.github.io/cis-reference/">Explore the Commonplace</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <span>The Commonplace Book &middot; Common Information System</span>
+  <span>RegenHub, LCA &middot; Boulder, Colorado</span>
+  <span>Techne &middot; techne.coop</span>
+</footer>
+
+<script>
+var ICON = {
+  moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  sun:  '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>'
+};
+function paintMode() {
+  var dark = document.documentElement.getAttribute('data-mode') === 'dark';
+  document.getElementById('modeIcon').innerHTML = dark ? ICON.sun : ICON.moon;
+  document.getElementById('modeLabel').textContent = dark ? 'Light' : 'Dark';
+}
+document.getElementById('modeToggle').addEventListener('click', function () {
+  var cur = document.documentElement.getAttribute('data-mode');
+  var next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-mode', next);
+  try { localStorage.setItem('techne-mode', next); } catch(e) {}
+  paintMode();
+});
+paintMode();
+</script>
+</body>
+</html>
