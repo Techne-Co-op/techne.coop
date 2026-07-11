@@ -468,8 +468,10 @@ footer {
         <button class="signout-btn" id="signout-btn">Sign out</button>
       </div>
 
+      <div class="notice" id="identity-notice" style="display:none"></div>
+
       <div class="notice">
-        <strong>CIS PRD v0.3 · Four launch slices.</strong> Belong and Gather are anticipated for ratification day, August 14, 2026. Find one another follows. See your share is open  --  blocked on adoption of patronage counting rules. Data comes directly from the CIS (dgcoffcanzwsuwgpocbt).
+        <strong>CIS PRD v0.3 · Four launch slices.</strong> Belong and Gather are anticipated for ratification day, August 14, 2026. Find one another follows. See your share is open  --  blocked on adoption of patronage counting rules. Data comes directly from the CIS (ujujwgopdwirebgcpekc).
       </div>
 
       <div class="dash-grid">
@@ -479,9 +481,9 @@ footer {
           <div class="card-desc">Natural persons, legal entities, and AI agents registered in the cooperative's information system.</div>
         </div>
         <div class="dash-card">
-          <div class="card-label">Bylaws sections</div>
+          <div class="card-label">Events recorded</div>
           <div class="card-value" id="stat-sections"> -- </div>
-          <div class="card-desc">Clauses of Bylaws v2 with stable addresses. Drafted  --  ratification vote August 14.</div>
+          <div class="card-desc">Append-only event log. The audit trail of cooperative acts. Sourced from live CIS.</div>
         </div>
         <div class="dash-card">
           <div class="card-label">Agreements</div>
@@ -559,14 +561,14 @@ footer {
 
 <footer>
   <span>Techne intranet · RegenHub, LCA · Boulder, Colorado</span>
-  <span>CIS: dgcoffcanzwsuwgpocbt · PRD v0.3</span>
+  <span>CIS: ujujwgopdwirebgcpekc · PRD v0.3 · B-01</span>
 </footer>
 
 <!-- Supabase JS client -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-const SUPABASE_URL = 'https://dgcoffcanzwsuwgpocbt.supabase.co';
-const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnY29mZmNhbnp3c3V3Z3BvY2J0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyMjE5MzYsImV4cCI6MjA5Njc5NzkzNn0.UYmAI7RrvC_5-ZD6TQKLzfShL06QsiPMszhq-YzbwLY';
+const SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
 
 let sb;
 try {
@@ -607,8 +609,44 @@ async function showIntranet(user) {
   document.getElementById('member-email').textContent = user.email || user.id.slice(0,8);
   document.getElementById('topbar-status').textContent = user.email || '';
 
+  // B-01: check identity binding -- app_agent_id() must return non-null
+  await checkIdentityBinding(user);
+
   // Load CIS data
   loadDashboardData(user);
+}
+
+async function checkIdentityBinding(user) {
+  // Query agents table for a row whose auth_user_id matches this session's auth.uid().
+  // This is exactly what app_agent_id() does server-side.
+  const { data: { session } } = await sb.auth.getSession();
+  const token = session?.access_token;
+  const notice = document.getElementById('identity-notice');
+
+  try {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/agents?auth_user_id=eq.${user.id}&select=id,display_name,kind`, {
+      headers: {
+        'apikey': ANON_KEY,
+        'Authorization': `Bearer ${token}`,
+      }
+    });
+    const rows = await r.json();
+    if (Array.isArray(rows) && rows.length > 0) {
+      const agent = rows[0];
+      // Bound -- app_agent_id() returns agent.id
+      document.getElementById('member-role').textContent = agent.display_name + ' · ' + agent.kind;
+      notice.style.display = 'none';
+    } else {
+      // Unbound -- auth.uid() has no matching agents row
+      notice.style.display = '';
+      notice.innerHTML = '<strong>Identity not yet bound.</strong> Your sign-in is valid but not yet linked to a cooperative agent record. Auth UID: <code style="font-family:var(--mono);font-size:0.8em;user-select:all">' + user.id + '</code> -- contact a steward to complete the binding (B-01).';
+      document.getElementById('member-role').textContent = 'unbound -- no agent record';
+    }
+  } catch(e) {
+    console.warn('Identity binding check failed:', e);
+    notice.style.display = '';
+    notice.textContent = 'Could not check identity binding. See console.';
+  }
 }
 
 async function sendMagicLink() {
@@ -673,24 +711,23 @@ async function loadDashboardData(user) {
   }
 
   try {
-    // Stat chips
-    const [agentCount, sectionCount, agreementCount] = await Promise.all([
+    // Stat chips -- agents, agreements (agreement_sections not in v1 schema)
+    const [agentCount, agreementCount, eventCount] = await Promise.all([
       fetchWithAuth('agents?select=id'),
-      fetchWithAuth('agreement_sections?select=id'),
       fetchWithAuth('agreements?select=id'),
+      fetchWithAuth('events?select=id'),
     ]);
     document.getElementById('stat-agents').textContent = agentCount || ' -- ';
-    document.getElementById('stat-sections').textContent = sectionCount || ' -- ';
+    document.getElementById('stat-sections').textContent = eventCount || ' -- ';
     document.getElementById('stat-agreements').textContent = agreementCount || ' -- ';
 
-    // Member role check
-    const roleData = await fetchData('role_assignments?select=role,agent_id&limit=50');
-    let memberRole = 'authenticated';
-    if (Array.isArray(roleData)) {
-      // Show roles if visible (directors/admins only)
-      if (roleData.length > 0) memberRole = roleData.map(r => r.role).join(' · ');
+    // Role grants (role_grants table per AM v0.1; role_assignments is not in v1 schema)
+    const roleData = await fetchData('role_grants?select=role,agent_id&revoked_at=is.null&limit=50');
+    if (Array.isArray(roleData) && roleData.length > 0) {
+      // Only visible to the agent whose roles they are (RLS enforces)
+      document.getElementById('member-role').textContent = roleData.map(r => r.role).join(' · ');
     }
-    document.getElementById('member-role').textContent = memberRole;
+    // If member-role still shows "checking role..." that means no role_grants visible -- normal for unbound
 
   } catch(e) {
     console.warn('CIS load error:', e);
