@@ -1,0 +1,378 @@
+# rdm-ledger.yaml · RDM v1 · Drafted
+# Living roadmap for the Common Record Series build.
+# The Common Record Series · RegenHub, LCA · July 2026
+# Validator: scripts/validate.py — schema, acyclicity, gating.
+# Status marks: drafted | anticipated | open · (blocker)
+# No dates. Dependency is the schedule.
+# 40 items: 7 series documents + 33 work packets across 6 trains.
+
+series:
+
+  - address: SER
+    title: Series Overview
+    intent: The covering document of the refactor, including itself.
+    status: drafted
+    cites: []
+    deliverable: commons/series/index.html
+    acceptance: Published at techne.coop/commons/series/. Eleven artifacts listed with status.
+
+  - address: PRD
+    title: Product Requirements v0.3
+    intent: Deprecation record, four slices, three doors, ten principles.
+    status: drafted
+    cites: [SER]
+    deliverable: commons/prd/index.html
+    acceptance: Published. Slice names match living roadmap. Deprecation at §1a.
+
+  - address: BP
+    title: Build Protocol
+    intent: One operating contract, packet ledger grammar, decide/escalate, provenance. Emits AGENTS.md.
+    status: drafted
+    cites: [SER, PRD]
+    deliverable: commons/bp/index.html, AGENTS.md
+    acceptance: AGENTS.md at repo root. Instructions at techne.coop/commons/build/instructions/.
+
+  - address: UI
+    title: Tokens and Patterns
+    intent: Design tokens and patterns aligned to techne.coop/design-system. Emits commons.css.
+    status: drafted
+    cites: [SER, BP]
+    deliverable: commons/ui/index.html, commons.css
+    acceptance: commons.css present. Style-lint green.
+
+  - address: IM
+    title: Information Model
+    intent: Information model and the eleven laws. Emits 0001_substrate.sql.
+    status: drafted
+    cites: [SER, PRD]
+    deliverable: commons/im/index.html, commons/im/0001_substrate.sql
+    acceptance: 0001_substrate.sql present. db-verify green on first run.
+
+  - address: VS
+    title: Verification Spec
+    intent: Five suites and six gates. Emits verify.yml.
+    status: drafted
+    cites: [SER, BP, IM]
+    deliverable: commons/vs/verify.yml, .github/workflows/verify.yml
+    acceptance: verify.yml wired to CI. All non-deferred suites green on main.
+
+  - address: AM
+    title: Authority Map
+    intent: Authority map anchored in Bylaws v2.1. Emits 0002_policies.sql.
+    status: drafted
+    cites: [SER, PRD, IM]
+    deliverable: commons/authority-map/index.html, commons/authority-map/0002_policies.sql
+    acceptance: 0002_policies.sql present. rls-audit green after SUB-04.
+
+substrate:
+
+  - address: SUB-01
+    title: Repository scaffold
+    intent: Stand the repository on the estate layout with the validator reshaped to slices.
+    status: open · in-session
+    cites: [BP, RDM]
+    ready_when: SUB-01 is workable now.
+    deliverable: rdm-ledger.yaml, scripts/validate.py, STATUS.md, .github/workflows/verify.yml
+    acceptance: ledger-validate green. Repository tree matches estate layout.
+
+  - address: SUB-02
+    title: Governing emissions at root
+    intent: Install AGENTS.md, verify.yml, and commons.css at canonical paths.
+    status: anticipated
+    cites: [BP, VS, UI]
+    ready_when: SUB-01 verified.
+    deliverable: AGENTS.md (confirmed), .github/workflows/verify.yml, commons.css
+    acceptance: style-lint and schema-lint green. AGENTS.md unchanged or updated to BP v1 §10.
+
+  - address: SUB-03
+    title: Provision database environment
+    intent: Provision a fresh database environment and apply 0001_substrate.sql.
+    status: anticipated
+    cites: [IM, VS]
+    ready_when: SUB-01 verified.
+    deliverable: Supabase project with 0001_substrate.sql applied. db-verify green, first run.
+    acceptance: All five invariant assertions pass. RLS enabled, no policies, deny-by-default.
+    escalation:
+      standing_in: SUB-03
+      found: >
+        The live v2 project (dgcoffcanzwsuwgpocbt) has conflicting tables:
+        agents (different kind enum), agreements (different column names),
+        plus 14 tables not in v3 (ledger_entries, peers, loop_events, etc.).
+        187 agreement_sections rows carry bylaws text and embeddings — valuable data
+        not represented in the v3 schema. 0001_substrate.sql cannot apply as-is.
+      the_question: Do we provision a new Supabase project and migrate the three valuable
+        rows from v2 (RegenHub LCA agent, Bylaws v2 agreement), or do we apply
+        in-place ALTER TABLE migrations to dgcoffcanzwsuwgpocbt?
+      decision: Completely fresh provision, no migration. Decided by Todd Youngblood,
+        2026-07-10. v2 project (dgcoffcanzwsuwgpocbt) will be decommissioned after
+        0001_substrate.sql is applied and db-verify passes on the new project.
+
+  - address: SUB-04
+    title: Apply RLS policies
+    intent: Apply 0002_policies.sql, flipping from deny-all to the AM v0.1 policy matrix.
+    status: anticipated
+    cites: [AM, VS]
+    ready_when: SUB-03 verified.
+    deliverable: Policies applied. rls-audit expectations sourced from AM v0.1 §5.
+    acceptance: rls-audit green. Every policy carries a bylaw anchor comment.
+
+  - address: SUB-05
+    title: Restore test
+    intent: Back up, restore onto fresh infrastructure, prove the folds match.
+    status: anticipated
+    cites: [VS]
+    ready_when: SUB-04 verified.
+    deliverable: Restore completed. SHA comparison recorded.
+    acceptance: Restore diff is empty. Recorded as an event per VS v1 §6.
+
+gates:
+
+  - address: G0
+    title: Security floor
+    intent: Security floor attested as an event per VS v1 §6. Opens every slice train.
+    status: anticipated
+    ready_when: SUB-05 verified.
+    gate: Human attestation recorded.
+
+  - address: G-B
+    title: Belong gate
+    intent: Belong demonstrated end to end with two-party attestation.
+    status: anticipated
+    ready_when: B-02, B-04, B-05 verified. August 14, 2026 gathering.
+    gate: Organizer and non-organizer member demonstrate every Belong sentence live.
+
+  - address: G-G
+    title: Gather gate
+    intent: Gather demonstrated end to end with two-party attestation.
+    status: anticipated
+    ready_when: G-03 verified. August 14, 2026 gathering.
+    gate: Two-party attestation. Every Gather sentence demonstrated live.
+
+  - address: G-F
+    title: Find gate
+    intent: Find demonstrated end to end.
+    status: anticipated
+    ready_when: F-03 verified. G-B attested.
+    gate: Human attestation recorded.
+
+  - address: G-S
+    title: Share gate
+    intent: See Your Share demonstrated end to end.
+    status: anticipated
+    ready_when: S-02 verified. Q3 counting rules adopted.
+    gate: Human attestation recorded.
+
+  - address: G-R
+    title: Cross-cutting gate
+    intent: All cross-cutting packets verified.
+    status: anticipated
+    ready_when: X-01 through X-09 verified.
+    gate: Human attestation recorded.
+
+belong:
+
+  - address: B-01
+    title: Identity binding
+    intent: Wire the identity binding to sign-in so the visibility function knows who asks.
+    status: anticipated
+    cites: [IM, AM, PRD]
+    ready_when: G0 attested.
+    deliverable: Auth flow binding auth_user_id to agents.
+    acceptance: Authenticated user resolves to an agent row. app_agent_id() returns non-null.
+
+  - address: B-02
+    title: Onboarding and application intake
+    intent: Application surface writing applications and events.
+    status: anticipated
+    cites: [IM, AM, PRD]
+    ready_when: B-01 verified.
+    deliverable: Application form, event record, steward notification.
+    acceptance: Complete onboarding without a meeting.
+
+  - address: B-03
+    title: Agreements shelf
+    intent: Surface over agreements with version and standing marked.
+    status: anticipated
+    cites: [IM, AM, PRD]
+    ready_when: B-01 verified.
+    deliverable: /commons/agreements/ page reading from agreements table.
+    acceptance: Read every agreement that binds you.
+
+  - address: B-04
+    title: Signature flow
+    intent: Signing surface writing signatures and the recording event.
+    status: anticipated
+    cites: [IM, AM, PRD]
+    ready_when: B-03 verified.
+    deliverable: Signature capture, event row, confirmation.
+    acceptance: Sign the membership agreement and see the signature recorded.
+
+  - address: B-05
+    title: Member directory
+    intent: Directory view over agents and memberships.
+    status: anticipated
+    cites: [IM, AM, PRD]
+    ready_when: B-01 verified.
+    deliverable: /commons/directory/ page.
+    acceptance: Appear in the directory with a profile you control.
+
+gather:
+
+  - address: G-01
+    title: Calendar
+    intent: The calendar of gatherings and sessions.
+    status: anticipated
+    cites: [IM, AM, PRD]
+    ready_when: G0 attested.
+    deliverable: /commons/gatherings/ page reading from gatherings and sessions tables.
+    acceptance: See what is happening and who hosts it.
+
+  - address: G-02
+    title: Registration and cancellation
+    intent: Self-service registration and cancellation.
+    status: anticipated
+    cites: [IM, AM, PRD]
+    ready_when: G-01 verified.
+    deliverable: Registration and cancellation flows.
+    acceptance: Register and cancel without asking anyone.
+
+  - address: G-03
+    title: Attendance recording
+    intent: Attendance recording by host or steward with recorder captured.
+    status: anticipated
+    cites: [IM, AM, PRD]
+    ready_when: G-02 verified.
+    deliverable: Attendance recording surface.
+    acceptance: Presence counted where the record counts it.
+
+find:
+
+  - address: F-01
+    title: Opportunity board
+    intent: "The opportunity board: plays, practices, and work."
+    status: anticipated
+    cites: [IM, AM, PRD]
+    ready_when: G-B attested.
+    deliverable: /commons/opportunities/ page.
+    acceptance: Post an opportunity and see it on the board.
+
+  - address: F-02
+    title: Response flow
+    intent: Respond to an opportunity; author sees the response.
+    status: anticipated
+    cites: [IM, AM, PRD]
+    ready_when: F-01 verified.
+    deliverable: Response capture, scoped visibility.
+    acceptance: Respond and see the response; author sees it too.
+
+  - address: F-03
+    title: Resolution
+    intent: Resolve an opportunity; state transition recorded as event.
+    status: anticipated
+    cites: [IM, AM, PRD]
+    ready_when: F-02 verified.
+    deliverable: Resolution flow and event record.
+    acceptance: Resolve an opportunity and see it closed.
+
+share:
+
+  - address: S-01
+    title: Capital account view
+    intent: A member reads their own capital account.
+    status: open · Q3
+    cites: [IM, AM, PRD]
+    ready_when: G0 attested. Q3 counting rules adopted.
+    deliverable: /commons/account/ page folding events to book and tax balances.
+    acceptance: Read your capital account balance.
+
+  - address: S-02
+    title: Allocation event
+    intent: A steward posts a patronage allocation; event appears in each member account.
+    status: open · Q3
+    cites: [IM, AM, PRD]
+    ready_when: S-01 verified. Q3 counting rules adopted.
+    deliverable: Allocation event write, propagation to capital_accounts view.
+    acceptance: See your allocation in your account.
+
+cross_cutting:
+
+  - address: X-01
+    title: Error boundary and observability
+    intent: Errors surface to the steward without leaking to the member.
+    status: anticipated
+    cites: [BP, VS]
+    ready_when: G0 attested.
+    deliverable: Error logging, steward notification path.
+    acceptance: An unhandled error produces a log entry, not a stack trace to the member.
+
+  - address: X-02
+    title: Notices v1
+    intent: Transactional email for admission, signature, and registration events.
+    status: anticipated
+    cites: [BP, IM]
+    ready_when: B-02 verified.
+    deliverable: Email rail wired to key events.
+    acceptance: Admission notice delivered on membership.state transition to applied.
+
+  - address: X-03
+    title: Export paths
+    intent: Per-table CSV/JSON exports for the walkaway rehearsal.
+    status: anticipated
+    cites: [VS, IM]
+    ready_when: G0 attested.
+    deliverable: export.* views, download path.
+    acceptance: Full export completes without error. SHA recorded.
+
+  - address: X-04
+    title: Document manifest and site index
+    intent: index.json enumerating every page for exhaustiveness validation.
+    status: anticipated
+    cites: [BP]
+    ready_when: SUB-01 verified.
+    deliverable: index.json at repo root.
+    acceptance: Every HTML file in the repository appears in index.json.
+
+  - address: X-05
+    title: Grammar lint
+    intent: CI check for vocabulary quarantine, no em dashes, no emoji.
+    status: anticipated
+    cites: [BP, VS]
+    ready_when: SUB-01 verified.
+    deliverable: style-lint job in verify.yml.
+    acceptance: style-lint green on main.
+
+  - address: X-06
+    title: Design token audit
+    intent: Verify no hard-coded color values in authored pages.
+    status: anticipated
+    cites: [UI, VS]
+    ready_when: SUB-02 verified.
+    deliverable: Token audit step in CI.
+    acceptance: No hard-coded hex values in page CSS.
+
+  - address: X-07
+    title: Decision coherence
+    intent: Every escalation card has a recorded decision before the blocked packet opens.
+    status: anticipated
+    cites: [BP, RDM]
+    ready_when: G0 attested.
+    deliverable: Coherence check in validate.py.
+    acceptance: No open packet with unresolved escalation card in the ledger.
+
+  - address: X-08
+    title: Probe matrix
+    intent: RLS probe matrix testing each role against each table.
+    status: open · AM-pending
+    cites: [AM, VS]
+    ready_when: SUB-04 verified.
+    deliverable: rls-audit job extended with probe matrix.
+    acceptance: Every cell in the AM v0.1 §5 matrix has a passing assertion.
+
+  - address: X-09
+    title: Walkaway rehearsal
+    intent: Full backup, restore on fresh infrastructure, fold verification.
+    status: anticipated
+    cites: [VS]
+    ready_when: X-03 verified. G-R approaching.
+    deliverable: Restore run, SHA comparison, recorded event.
+    acceptance: Restore diff is empty. Event recorded per VS v1 §6.

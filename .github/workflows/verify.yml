@@ -1,0 +1,226 @@
+# ============================================================
+# verify.yml · emission of VS v1 · Drafted
+# The Common Record Series · RegenHub, LCA · July 2026
+# The document governs; this workflow distills.
+# Five suites per VS v1 §2. Deferred checks are NAMED, not
+# faked green: the rls probe matrix awaits AM v0.1; the
+# walkaway harness and the with-their-slices assertions are
+# Anticipated (VS v1 §4, §8). A change that weakens a check
+# is a regression to be named, never absorbed (VS v1 §9).
+# ============================================================
+
+name: verify
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+
+  ledger-validate:
+    # VS v1 §2 · carries the estate validator: schema compliance,
+    # dependency acyclicity, gating consistency; done requires
+    # verified upstream. Skips with a visible notice until the
+    # packet ledger lands in this repository.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: validate packet ledger
+        run: |
+          if [ -f scripts/validate.py ] && [ -f rdm-ledger.yaml ]; then
+            python3 scripts/validate.py
+          else
+            pip install pyyaml --quiet && python3 scripts/validate.py
+          fi
+
+  schema-lint:
+    # VS v1 §2 · static discipline on the substrate: timestamped
+    # migration order, comments on every table, and (once policies
+    # exist) a bylaw anchor on every policy, per cite-as-you-enforce.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: migrations are ordered and commented
+        run: |
+          set -e
+          shopt -s nullglob
+          files=(supabase/migrations/*.sql migrations/*.sql commons/im/*.sql commons/authority-map/*.sql *.sql)
+          [ ${#files[@]} -gt 0 ] || { echo "no migrations found"; exit 1; }
+          for f in "${files[@]}"; do
+            echo "lint: $f"
+            grep -q "comment on table" "$f" || { echo "::error file=$f::tables must carry comments (BP v1 §6)"; exit 1; }
+          done
+      - name: every policy cites its anchor
+        run: |
+          set -e
+          shopt -s nullglob
+          for f in supabase/migrations/*.sql migrations/*.sql commons/im/*.sql commons/authority-map/*.sql *.sql; do
+            if grep -qi "create policy" "$f"; then
+              # each CREATE POLICY must be preceded within 3 lines by a bylaw anchor comment (§ or Art.)
+              awk 'BEGIN{IGNORECASE=1} /create policy/ { if (prev3 !~ /§|Art\./) { print FILENAME": policy without bylaw anchor"; bad=1 } } { prev3 = prev2"\n"prev1"\n"$0; prev2=prev1; prev1=$0 } END{ exit bad }' "$f"
+            fi
+          done
+
+  db-verify:
+    # VS v1 §4 · the invariant suite: attempted violation against
+    # the substrate. Passes only when the schema refuses.
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_PASSWORD: postgres }
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PGURL: postgresql://postgres:postgres@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - name: apply substrate
+        run: psql "$PGURL" -v ON_ERROR_STOP=1 -f commons/im/0001_substrate.sql
+      - name: assert · append-only (Law I)
+        run: |
+          psql "$PGURL" -v ON_ERROR_STOP=1 <<'SQL'
+          insert into agents (kind, display_name) values ('person','Probe A');
+          insert into events (occurred_at, kind, provenance, settlement)
+            values (now(), 'probe.noop', 'illustrative', 'open');
+          do $$ begin
+            begin
+              update events set kind = 'probe.mutated';
+              raise exception 'FAIL: events accepted an update';
+            exception when others then
+              if sqlerrm like 'FAIL:%' then raise; end if;  -- refusal is the pass
+            end;
+            begin
+              delete from events;
+              raise exception 'FAIL: events accepted a delete';
+            exception when others then
+              if sqlerrm like 'FAIL:%' then raise; end if;
+            end;
+          end $$;
+          SQL
+      - name: assert · one voting share per member (Law III)
+        run: |
+          psql "$PGURL" -v ON_ERROR_STOP=1 <<'SQL'
+          insert into agents (id, kind, display_name)
+            values ('00000000-0000-0000-0000-000000000001','person','Probe B');
+          insert into stock_ledger (agent_id) values ('00000000-0000-0000-0000-000000000001');
+          do $$ begin
+            begin
+              insert into stock_ledger (agent_id) values ('00000000-0000-0000-0000-000000000001');
+              raise exception 'FAIL: second issued voting share accepted';
+            exception when unique_violation then null;  -- the refusal is the pass
+            end;
+          end $$;
+          SQL
+      - name: assert · lifecycle legality (Law VI)
+        run: |
+          psql "$PGURL" -v ON_ERROR_STOP=1 <<'SQL'
+          insert into agents (id, kind, display_name)
+            values ('00000000-0000-0000-0000-000000000002','person','Probe C');
+          insert into memberships (agent_id) values ('00000000-0000-0000-0000-000000000002');
+          do $$ begin
+            begin
+              update memberships set state = 'suspended'
+                where agent_id = '00000000-0000-0000-0000-000000000002';
+              raise exception 'FAIL: illegal transition applied -> suspended accepted';
+            exception when others then
+              if sqlerrm like 'FAIL:%' then raise; end if;
+            end;
+          end $$;
+          SQL
+      - name: assert · no stored balance (Law VII)
+        run: |
+          psql "$PGURL" -v ON_ERROR_STOP=1 <<'SQL'
+          do $$ declare n int; begin
+            select count(*) into n
+            from information_schema.columns c
+            join information_schema.tables t
+              on t.table_name = c.table_name and t.table_schema = c.table_schema
+            where t.table_schema = 'public' and t.table_type = 'BASE TABLE'
+              and c.column_name ilike '%balance%';
+            if n > 0 then raise exception 'FAIL: % stored balance column(s) found', n; end if;
+          end $$;
+          SQL
+      - name: assert · replay holds (Laws I, VII)
+        run: |
+          psql "$PGURL" -v ON_ERROR_STOP=1 <<'SQL'
+          insert into agents (id, kind, display_name)
+            values ('00000000-0000-0000-0000-000000000003','person','Probe D');
+          insert into events (occurred_at, kind, agent_id, book_delta, tax_delta, provenance)
+            values (now(),'capital.contribution','00000000-0000-0000-0000-000000000003',100.00,100.00,'illustrative'),
+                   (now(),'capital.contribution','00000000-0000-0000-0000-000000000003', 50.00, 40.00,'illustrative');
+          do $$ declare b numeric; t numeric; begin
+            select book_balance, tax_balance into b, t
+            from capital_accounts where agent_id = '00000000-0000-0000-0000-000000000003';
+            if b is distinct from 150.00 or t is distinct from 140.00 then
+              raise exception 'FAIL: fold mismatch, book % tax %', b, t;
+            end if;
+          end $$;
+          SQL
+      - name: assert · rls everywhere, denying (Law V)
+        run: |
+          psql "$PGURL" -v ON_ERROR_STOP=1 <<'SQL'
+          do $$ declare n int; begin
+            select count(*) into n from pg_class c
+            join pg_namespace ns on ns.oid = c.relnamespace
+            where ns.nspname = 'public' and c.relkind = 'r' and not c.relrowsecurity;
+            if n > 0 then raise exception 'FAIL: % table(s) without row security', n; end if;
+          end $$;
+          create role cis_probe nologin;
+          grant usage on schema public to cis_probe;
+          grant select on all tables in schema public to cis_probe;
+          set role cis_probe;
+          do $$ declare n int; begin
+            select count(*) into n from agents;
+            if n > 0 then raise exception 'FAIL: probe read % row(s) with no policies', n; end if;
+          end $$;
+          reset role;
+          SQL
+
+  rls-audit:
+    # VS v1 §2 · honest partial: deny-by-default proven in db-verify
+    # above; the roles-by-tables probe matrix returns when AM v0.1
+    # cites its anchors. Named deferred, not faked green.
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "::notice::rls-audit matrix deferred pending AM v0.1 (VS v1 §2); deny-by-default proven in db-verify"
+
+  style-lint:
+    # VS v1 §2 · the house rules as CI: vocabulary quarantine,
+    # no em dashes, no emoji in authored documents and pages.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: vocabulary quarantine (Subchapter K grammar)
+        run: |
+          set -e
+          # Exclude governance documents that name the quarantined terms to define the quarantine itself.
+          # commons/bp/ and commons/build/ explain the rule; CONTRIBUTORS.md lists it.
+          # All authored content pages are still checked.
+          if grep -rniE "patronage dividend|written notice of allocation|per-unit retain" \
+            --include='*.html' --include='*.md' \
+            --exclude-dir=bp --exclude-dir=build \
+            --exclude='CONTRIBUTORS.md' \
+            . ; then
+            echo "::error::retired cooperative-tax vocabulary found (BP v1 §6)"; exit 1
+          fi
+      - name: no em dashes in authored documents
+        run: |
+          set -e
+          if grep -rn "—" --include='*.html' --include='*.md' . ; then
+            echo "::error::em dash found; use commas, colons, or restructure (BP v1 §6)"; exit 1
+          fi
+      - name: no emoji on the surface
+        run: |
+          set -e
+          if grep -rnP "[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}]" --include='*.html' --include='*.md' . ; then
+            echo "::error::emoji found; the rule is absolute (techne.coop/design-system)"; exit 1
+          fi
+
+# deferred by design (VS v1 §8, §9): the walkaway harness enters on a
+# schedule once per-table exports land; with-their-slices assertions
+# (vote arithmetic, patron-majority floor, allocation sums, paired
+# covering distribution) enter with their schema.
