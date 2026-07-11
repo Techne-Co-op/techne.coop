@@ -243,6 +243,25 @@ jobs:
       - uses: actions/checkout@v4
       - name: apply substrate
         run: psql "$PGURL" -v ON_ERROR_STOP=1 -f commons/im/0001_substrate.sql
+      - name: apply AM v0.1 schema addenda (auth_user_id, role_grants)
+        # 0002_policies.sql contains Supabase-specific helper functions (auth.uid())
+        # that cannot run on plain Postgres. Apply only the portable DDL addenda
+        # so the restored schema matches the export format. Policies are not
+        # restored here; they live in Supabase and are proven in rls-audit.
+        run: |
+          psql "$PGURL" -v ON_ERROR_STOP=1 <<'SQL'
+          alter table agents add column auth_user_id uuid unique;
+          create type appointment as enum ('director','secretary','treasurer','steward');
+          create table role_grants (
+            id         uuid primary key default gen_random_uuid(),
+            agent_id   uuid not null references agents(id),
+            role       appointment not null,
+            granted_at timestamptz not null default now(),
+            revoked_at timestamptz,
+            event_id   uuid references events(id)
+          );
+          comment on table role_grants is 'AM v0.1 addendum: Board appointments. Restored schema only; policies live in Supabase.';
+          SQL
       - name: load restore baseline
         run: |
           python3 - << 'PYEOF'
