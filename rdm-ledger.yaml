@@ -151,11 +151,18 @@ gates:
   - address: G0
     title: Security floor
     intent: Security floor attested as an event per VS v1 §6. Opens every slice train.
-    status: anticipated
+    status: open · attested
     ready_when: SUB-05 verified.
     gate: Human attestation recorded.
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
     acceptance: G0 status updated to attested. SUB-05 verified.
+    resolution: >
+      Attested by Todd Youngblood (Ventures and Operations Steward), 2026-07-11.
+      Attestation: "G0 attested. Security floor established."
+      gate.attested event: 8c5d2d37-2f19-4d50-a775-0dcf2dd77b9f.
+      CI run: 71ed9283. All six suites green: ledger-validate, schema-lint,
+      db-verify, rls-audit, restore-test, style-lint.
+      Unlocks all slice trains: Belong, Gather, Find, Share, Cross-cutting.
 
   - address: G-B
     title: Belong gate
