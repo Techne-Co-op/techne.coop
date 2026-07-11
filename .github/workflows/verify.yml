@@ -210,7 +210,9 @@ jobs:
       - name: no em dashes in authored documents
         run: |
           set -e
-          if grep -rn "—" --include='*.html' --include='*.md' . ; then
+          # legal/ is exempt: ratified cooperative agreements carry the original
+          # instrument text and may not be reformatted (BP v1 §6 note).
+          if grep -rn "—" --include='*.html' --include='*.md' --exclude-dir=legal . ; then
             echo "::error::em dash found; use commas, colons, or restructure (BP v1 §6)"; exit 1
           fi
       - name: no emoji on the surface

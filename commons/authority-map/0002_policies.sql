@@ -123,8 +123,10 @@ create policy signatures_self_insert on signatures
 -- intake; the Board decides admission.
 create policy applications_read on applications
   for select using (agent_id = app_agent_id() or app_is_overseer());
+-- §1.3.1(d): the application is the applicant's own written statement.
 create policy applications_self_insert on applications
   for insert with check (agent_id = app_agent_id());
+-- §1.3.3, §1.7: the steward manages intake; the Board decides admission.
 create policy applications_steward_write on applications
   for update using (app_has_role('steward') or app_has_role('director'))
   with check (app_has_role('steward') or app_has_role('director'));
@@ -153,11 +155,14 @@ create policy events_scoped_insert on events
 -- hosts and the steward keep it.
 create policy gatherings_member_read on gatherings
   for select using (app_is_member() or app_is_overseer());
+-- §2.1: the host creates and manages their gathering; the steward may act as host.
 create policy gatherings_host_write on gatherings
   for all using (host_agent_id = app_agent_id() or app_has_role('steward'))
   with check (host_agent_id = app_agent_id() or app_has_role('steward'));
+-- §2.1: sessions belong to the gathering; same member visibility.
 create policy sessions_member_read on sessions
   for select using (app_is_member() or app_is_overseer());
+-- §2.1: the host writes sessions within their gathering.
 create policy sessions_host_write on sessions
   for all using (
     app_has_role('steward') or exists (select 1 from gatherings g
@@ -173,8 +178,10 @@ create policy registrations_scoped on registrations
     agent_id = app_agent_id() or app_is_overseer()
     or exists (select 1 from sessions s join gatherings g on g.id = s.gathering_id
                where s.id = session_id and g.host_agent_id = app_agent_id()));
+-- PRD v0.3 §4 Gather: members register without asking anyone.
 create policy registrations_self_write on registrations
   for insert with check (agent_id = app_agent_id() and app_is_member());
+-- PRD v0.3 §4 Gather: members cancel their own registration.
 create policy registrations_self_update on registrations
   for update using (agent_id = app_agent_id()) with check (agent_id = app_agent_id());
 
@@ -184,6 +191,7 @@ create policy attendance_scoped_read on attendance
   for select using (agent_id = app_agent_id() or app_is_overseer()
     or exists (select 1 from sessions s join gatherings g on g.id = s.gathering_id
                where s.id = session_id and g.host_agent_id = app_agent_id()));
+-- §2.7: presence is recorded by the host or steward, not self-reported.
 create policy attendance_recorder_write on attendance
   for insert with check (
     app_has_role('steward') or exists (select 1 from sessions s join gatherings g on g.id = s.gathering_id
@@ -202,6 +210,7 @@ create policy responses_scoped_read on responses
     agent_id = app_agent_id() or app_is_overseer()
     or exists (select 1 from opportunities o
                where o.id = opportunity_id and o.author_agent_id = app_agent_id()));
+-- §18.2: a response is a member act directed to the opportunity's author.
 create policy responses_self_insert on responses
   for insert with check (agent_id = app_agent_id() and app_is_member());
 

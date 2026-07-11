@@ -70,7 +70,7 @@ substrate:
     title: Repository scaffold
     intent: Stand the repository on the estate layout with the validator reshaped to slices.
     status: open · in-session
-    cites: [BP, RDM]
+    cites: [BP]
     ready_when: SUB-01 is workable now.
     deliverable: rdm-ledger.yaml, scripts/validate.py, STATUS.md, .github/workflows/verify.yml
     acceptance: ledger-validate green. Repository tree matches estate layout.
@@ -166,6 +166,8 @@ gates:
     status: anticipated
     ready_when: F-03 verified. G-B attested.
     gate: Human attestation recorded.
+    deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
+    acceptance: G-F status updated to attested. F-01, F-02, F-03 all verified.
 
   - address: G-S
     title: Share gate
@@ -173,6 +175,8 @@ gates:
     status: anticipated
     ready_when: S-02 verified. Q3 counting rules adopted.
     gate: Human attestation recorded.
+    deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
+    acceptance: G-S status updated to attested. S-01, S-02 verified. Q3 counting rules on record.
 
   - address: G-R
     title: Cross-cutting gate
@@ -180,6 +184,8 @@ gates:
     status: anticipated
     ready_when: X-01 through X-09 verified.
     gate: Human attestation recorded.
+    deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
+    acceptance: G-R status updated to attested. X-01 through X-09 all verified.
 
 belong:
 
@@ -366,7 +372,7 @@ cross_cutting:
     title: Decision coherence
     intent: Every escalation card has a recorded decision before the blocked packet opens.
     status: anticipated
-    cites: [BP, RDM]
+    cites: [BP]
     ready_when: G0 attested.
     deliverable: Coherence check in validate.py.
     acceptance: No open packet with unresolved escalation card in the ledger.

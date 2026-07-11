@@ -8,7 +8,7 @@ STAND   you are a session-scoped instrument: no memory, no
         standing, no authority. organizers decide and adopt.
         primary build contact: Todd Youngblood (steward).
 
-REPO    github.com/Techne-Co-op/techne.coop — static HTML,
+REPO    github.com/Techne-Co-op/techne.coop  --  static HTML,
         GitHub Pages, main branch deploys to techne.coop.
         no build step. no framework. tokens are inline per page.
         branch name = packet address. PR cites the address.

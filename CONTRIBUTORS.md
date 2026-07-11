@@ -38,7 +38,7 @@ Organizers are the decision-making body. They record outcomes, approve merges, a
 
 ## Build agents
 
-Build agents are session-scoped instruments — capabilities without authority. They hold no standing between sessions and presume no memory. Their entire working context is assembled from the series artifacts and the packet in hand.
+Build agents are session-scoped instruments  --  capabilities without authority. They hold no standing between sessions and presume no memory. Their entire working context is assembled from the series artifacts and the packet in hand.
 
 ### Session start (every session, every time)
 
@@ -68,7 +68,7 @@ Agents stop and file an escalation card for anything touching:
 ```
 standing in:  <packet address and step>
 found:        <what was encountered, with artifact citations>
-the question: <the smallest question whose answer unblocks the work — one question>
+the question: <the smallest question whose answer unblocks the work  --  one question>
 a default:    <proposed answer, marked as a proposal>
 ```
 
@@ -120,11 +120,11 @@ Every claim wears its mark:
 
 ## The ledger
 
-The roadmap lives at `commons/build/index.html` and reads from `rdm-ledger.yaml`. Do not edit the living roadmap directly — it is generated from the ledger and the series. The validator enforces schema compliance, dependency acyclicity, and gating consistency on every change.
+The roadmap lives at `commons/build/index.html` and reads from `rdm-ledger.yaml`. Do not edit the living roadmap directly  --  it is generated from the ledger and the series. The validator enforces schema compliance, dependency acyclicity, and gating consistency on every change.
 
 Current state (July 2026): 7 drafted series documents · 23 anticipated packets · 10 open conditions.
 
-The one immediately workable packet: **SUB-01** — stand the repository on the estate layout with the validator reshaped to slices.
+The one immediately workable packet: **SUB-01**  --  stand the repository on the estate layout with the validator reshaped to slices.
 
 ---
 
