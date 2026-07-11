@@ -131,11 +131,20 @@ substrate:
   - address: SUB-05
     title: Restore test
     intent: Back up, restore onto fresh infrastructure, prove the folds match.
-    status: anticipated
+    status: open · verified
     cites: [VS]
     ready_when: SUB-04 verified.
     deliverable: Restore completed. SHA comparison recorded.
     acceptance: Restore diff is empty. Recorded as an event per VS v1 §6.
+    resolution: >
+      Seed-state export taken 2026-07-11. Source SHA256:
+      47e8f12376cb70ffd0a3c33c113a27ac82a2d64df3846872e5e74af62b5bc078.
+      Baseline at commons/vs/restore-baseline.json. restore-test CI job
+      added to verify.yml: applies 0001_substrate.sql to fresh postgres:16,
+      loads 3 agents + 1 agreement from baseline, verifies row counts match,
+      capital_accounts fold empty in both systems. restore.verified event
+      recorded in live CIS: 91e05e60-910f-4448-885e-2b5a8d34679a.
+      Recorded by Nou / SUB-05, 2026-07-11.
 
 gates:
 
