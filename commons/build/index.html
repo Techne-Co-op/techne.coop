@@ -129,6 +129,7 @@ a:hover { text-decoration-thickness:2px; }
 .stat-chip.drafted  { color:var(--blue-text); border-color:var(--blue); background:var(--info-dim); }
 .stat-chip.anticipated { color:var(--faint); border-color:var(--line); }
 .stat-chip.open     { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
+.stat-chip.verified { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
 
 /* ============================================================
    TAB STRIP
@@ -216,6 +217,8 @@ a:hover { text-decoration-thickness:2px; }
 .chip.anticipated .dot { background:transparent; border:1px solid var(--faint); }
 .chip.open        { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
 .chip.open .dot   { background:transparent; border:1px solid var(--warn); }
+.chip.verified    { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
+.chip.verified .dot { background:var(--ok); }
 
 /* Signal panel */
 .signal-panel {
@@ -337,8 +340,9 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
   </div>
   <div class="mast-stats">
     <span class="stat-chip drafted"><span class="n">7</span>&thinsp;drafted</span>
-    <span class="stat-chip anticipated"><span class="n">23</span>&thinsp;anticipated</span>
-    <span class="stat-chip open"><span class="n">10</span>&thinsp;open</span>
+    <span class="stat-chip anticipated"><span class="n">20</span>&thinsp;anticipated</span>
+    <span class="stat-chip open"><span class="n">11</span>&thinsp;open</span>
+    <span class="stat-chip verified"><span class="n">2</span>&thinsp;verified</span>
   </div>
 </div>
 
@@ -449,8 +453,8 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="packet-row">
         <span class="pkt-addr">SUB-01</span>
         <span class="pkt-intent">Stand the repository on the estate layout with the validator reshaped to slices. Emits repo tree, validator, generated index.json and STATUS.md.</span>
-        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
-        <span class="pkt-ready">ready now</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">in progress &middot; PR merged 2026-07-11</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">SUB-02</span>
@@ -461,14 +465,14 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="packet-row">
         <span class="pkt-addr">SUB-03</span>
         <span class="pkt-intent">Provision the database environment and apply 0001_substrate.sql. Acceptance: db-verify green, first run.</span>
-        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
-        <span class="pkt-ready">SUB-01 verified</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Project ujujwgopdwirebgcpekc provisioned &middot; 2026-07-11 &middot; 13 tables + capital_accounts view &middot; db-verify green</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">SUB-04</span>
         <span class="pkt-intent">Apply 0002_policies.sql. Acceptance: rls-audit expectations sourced from AM v0.1 &sect;5, green.</span>
-        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
-        <span class="pkt-ready">SUB-03 verified</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">30 policies across 14 tables &middot; 6 helper functions &middot; role_grants live &middot; 2026-07-11</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">SUB-05</span>
