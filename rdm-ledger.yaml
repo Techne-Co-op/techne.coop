@@ -115,11 +115,18 @@ substrate:
   - address: SUB-04
     title: Apply RLS policies
     intent: Apply 0002_policies.sql, flipping from deny-all to the AM v0.1 policy matrix.
-    status: anticipated
+    status: open · verified
     cites: [AM, VS]
     ready_when: SUB-03 verified.
     deliverable: Policies applied. rls-audit expectations sourced from AM v0.1 §5.
     acceptance: rls-audit green. Every policy carries a bylaw anchor comment.
+    resolution: >
+      0002_policies.sql applied 2026-07-11. 30 policies across 14 tables confirmed.
+      appointment enum (director, secretary, treasurer, steward) created. role_grants
+      table live with RLS. 5 helper functions (app_agent_id, app_is_member,
+      app_is_applicant, app_has_role, app_is_officer, app_is_overseer) confirmed.
+      auth_user_id column added to agents. Grants: authenticated role receives
+      select/insert/update on all tables; anon receives nothing.
 
   - address: SUB-05
     title: Restore test
