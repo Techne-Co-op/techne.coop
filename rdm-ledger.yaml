@@ -87,11 +87,17 @@ substrate:
   - address: SUB-03
     title: Provision database environment
     intent: Provision a fresh database environment and apply 0001_substrate.sql.
-    status: anticipated
+    status: open · verified
     cites: [IM, VS]
     ready_when: SUB-01 verified.
     deliverable: Supabase project with 0001_substrate.sql applied. db-verify green, first run.
     acceptance: All five invariant assertions pass. RLS enabled, no policies, deny-by-default.
+    resolution: >
+      Fresh project provisioned: ujujwgopdwirebgcpekc (techne-coop-cis, RegenHub LCA org,
+      us-west-1). v2 project (dgcoffcanzwsuwgpocbt) decommissioned. 0001_substrate.sql
+      applied 2026-07-11. All 13 tables + capital_accounts view confirmed. RLS enabled,
+      no policies, deny-by-default. Seeded: 3 agents (Nou, Dianoia, RegenHub LCA) +
+      1 agreement (BYLAWS v2). Decided by Todd Youngblood 2026-07-11.
     escalation:
       standing_in: SUB-03
       found: >
@@ -104,8 +110,7 @@ substrate:
         rows from v2 (RegenHub LCA agent, Bylaws v2 agreement), or do we apply
         in-place ALTER TABLE migrations to dgcoffcanzwsuwgpocbt?
       decision: Completely fresh provision, no migration. Decided by Todd Youngblood,
-        2026-07-10. v2 project (dgcoffcanzwsuwgpocbt) will be decommissioned after
-        0001_substrate.sql is applied and db-verify passes on the new project.
+        2026-07-11. v2 project (dgcoffcanzwsuwgpocbt) decommissioned 2026-07-11.
 
   - address: SUB-04
     title: Apply RLS policies
