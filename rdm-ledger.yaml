@@ -243,11 +243,19 @@ belong:
   - address: B-03
     title: Agreements shelf
     intent: Surface over agreements with version and standing marked.
-    status: open · in-session
+    status: open · verified
     cites: [IM, AM, PRD]
     ready_when: B-01 verified.
     deliverable: /commons/agreements/ page reading from agreements table.
     acceptance: Read every agreement that binds you.
+    resolution: >
+      techne.coop/commons/agreements/ live. Fetches agreements + signatures via
+      authenticated Supabase session. Magic link auth gate for unauthenticated visitors.
+      Signed/unsigned chips render correctly. Verified by Todd Youngblood 2026-07-12:
+      Bylaws of RegenHub LCA listed with version, effective date, not-yet-signed chip.
+      Verification event: a4fc7004-d757-492b-890a-832ca2852da3.
+      Note: founding organizer agent required manual membership row (active) — seeded
+      before membership table existed. B-04 opens.
 
   - address: B-04
     title: Signature flow
