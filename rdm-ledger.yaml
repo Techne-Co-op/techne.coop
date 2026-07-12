@@ -260,11 +260,21 @@ belong:
   - address: B-04
     title: Signature flow
     intent: Signing surface writing signatures and the recording event.
-    status: open · in-session
+    status: open · verified
     cites: [IM, AM, PRD]
     ready_when: B-03 verified.
     deliverable: Signature capture, event row, confirmation.
     acceptance: Sign the membership agreement and see the signature recorded.
+    resolution: >
+      Inline signing added to techne.coop/commons/agreements/. Confirmation panel
+      shows member name, agreement title, version, effective date, and binding statement.
+      Three writes: signatures INSERT, signature.signed event INSERT, signature PATCH
+      to link event_id. Verified by Todd Youngblood 2026-07-12: signed Bylaws of
+      RegenHub LCA live. Signature: 0c8bde48, event: 8a81c3bb, signed_at:
+      2026-07-12T20:28:22Z. Note: PATCH event_id from browser blocked by RLS UPDATE
+      policy (signatures_self covers SELECT and INSERT only) — linked via service key
+      post-verification. Follow-up: add UPDATE policy or handle in SECURITY DEFINER.
+      Verification event: 86adb322-27a1-4d80-919b-04009e5c4071.
 
   - address: B-05
     title: Member directory
