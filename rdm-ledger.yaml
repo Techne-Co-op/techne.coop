@@ -228,11 +228,17 @@ belong:
   - address: B-02
     title: Onboarding and application intake
     intent: Application surface writing applications and events.
-    status: open · in-session
+    status: open · verified
     cites: [IM, AM, PRD]
     ready_when: B-01 verified.
     deliverable: Application form, event record, steward notification.
     acceptance: Complete onboarding without a meeting.
+    resolution: >
+      techne.coop/commons/join/ live. apply_for_membership() SECURITY DEFINER function
+      creates agent, application, membership (state: applied), and event atomically.
+      Verified by Todd Youngblood 2026-07-12: submitted live form, CIS recorded
+      event 4d71a6ff (membership.applied), agent d6ee0933, application cb93ff24,
+      membership 5dc4c0b4. Verification event: 7a40383e-b146-426f-9977-46aae555acbb.
 
   - address: B-03
     title: Agreements shelf
