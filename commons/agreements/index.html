@@ -73,7 +73,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
 
 /* auth gate */
-#auth-gate { text-align: center; padding: var(--s8) 0; display: none; }
+#auth-gate { text-align: center; padding: var(--s7) 0; display: none; }
 #auth-gate p { color: var(--muted); margin-bottom: var(--s5); }
 .btn { font-family: var(--mono); font-size: 0.85rem; padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer; }
 .btn-primary { background: var(--ember); color: #fff; }
@@ -90,7 +90,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
-  padding: var(--s5) var(--s5);
+  padding: var(--s5);
   margin-bottom: var(--s4);
 }
 .agreement-header {
@@ -130,6 +130,64 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
   text-decoration: none;
 }
 .agreement-link:hover { text-decoration: underline; }
+
+/* sign panel */
+.sign-btn {
+  display: inline-block;
+  margin-top: var(--s3);
+  margin-left: var(--s4);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ember-text);
+  background: none;
+  border: 1px solid var(--ember);
+  border-radius: 4px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: background var(--micro) var(--ease);
+}
+.sign-btn:hover { background: rgba(196,149,106,0.10); }
+.sign-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.sign-panel {
+  display: none;
+  margin-top: var(--s4);
+  padding: var(--s4);
+  background: var(--inset);
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+.sign-panel.open { display: block; }
+.sign-panel p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: var(--s4);
+  line-height: 1.6;
+}
+.sign-panel p strong { color: var(--heading); }
+.sign-actions { display: flex; align-items: center; gap: var(--s4); flex-wrap: wrap; }
+.sign-confirm-btn {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  padding: 8px 20px;
+  border-radius: 5px;
+  border: none;
+  background: var(--ember);
+  color: #fff;
+  cursor: pointer;
+}
+.sign-confirm-btn:hover { opacity: 0.88; }
+.sign-confirm-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.sign-cancel {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--faint);
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-decoration: underline;
+}
+.sign-cancel:hover { color: var(--muted); }
 
 footer { border-top: 1px solid var(--line); padding: var(--s4) var(--s5); font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center; }
 footer a { color: var(--faint); }
@@ -176,15 +234,15 @@ footer a { color: var(--faint); }
     <h1>Agreements</h1>
     <div class="section-rule"></div>
     <p style="color:var(--muted);margin-bottom:var(--s6);font-size:0.95rem;">
-      Every agreement that governs your membership in RegenHub, LCA -- with your standing under each marked.
-      Cites bylaws Art. XVI and §1.2.9.
+      Every agreement that governs your membership in RegenHub, LCA &mdash; with your standing under each marked.
+      Cites bylaws Art. XVI and &sect;1.2.9.
     </p>
     <div id="agreements-list"></div>
   </div>
 </main>
 
 <footer>
-  <span>CIS: ujujwgopdwirebgcpekc &middot; B-03 &middot; Art. XVI, §1.2.9</span>
+  <span>CIS: ujujwgopdwirebgcpekc &middot; B-03, B-04 &middot; Art. XVI, &sect;1.2.9</span>
   &nbsp;&middot;&nbsp;
   <a href="/legal">legal</a>
 </footer>
@@ -204,8 +262,6 @@ document.getElementById('mode-btn').addEventListener('click', function () {
 
 (async function init() {
   sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
-
-  // handle magic link callback
   const { data: { session } } = await sb.auth.getSession();
 
   document.getElementById('loading').style.display = 'none';
@@ -242,28 +298,28 @@ function wireMagicLink() {
 async function loadAgreements(user) {
   document.getElementById('content').style.display = 'block';
 
-  const headers = {
-    'apikey': ANON_KEY,
-    'Authorization': 'Bearer ' + (await sb.auth.getSession()).data.session.access_token
-  };
+  const { data: { session } } = await sb.auth.getSession();
+  const token = session.access_token;
+  const headers = { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + token };
 
   // fetch agreements
   const agRes = await fetch(`${SUPABASE_URL}/rest/v1/agreements?select=*&order=effective_date.desc`, { headers });
   const agreements = await agRes.json();
 
   // fetch this user's agent id
-  const agentRes = await fetch(`${SUPABASE_URL}/rest/v1/agents?auth_user_id=eq.${user.id}&select=id`, { headers });
+  const agentRes = await fetch(`${SUPABASE_URL}/rest/v1/agents?auth_user_id=eq.${user.id}&select=id,display_name`, { headers });
   const agentRows = await agentRes.json();
   const agentId = agentRows.length ? agentRows[0].id : null;
+  const agentName = agentRows.length ? agentRows[0].display_name : 'Member';
 
   // fetch signatures
   let signatures = [];
   if (agentId) {
-    const sigRes = await fetch(`${SUPABASE_URL}/rest/v1/signatures?agent_id=eq.${agentId}&select=agreement_id,signed_at`, { headers });
+    const sigRes = await fetch(`${SUPABASE_URL}/rest/v1/signatures?agent_id=eq.${agentId}&select=id,agreement_id,signed_at`, { headers });
     signatures = await sigRes.json();
   }
   const sigMap = {};
-  signatures.forEach(s => { sigMap[s.agreement_id] = s.signed_at; });
+  signatures.forEach(s => { sigMap[s.agreement_id] = s; });
 
   const list = document.getElementById('agreements-list');
   if (!agreements.length) {
@@ -272,25 +328,154 @@ async function loadAgreements(user) {
   }
 
   agreements.forEach(ag => {
-    const signedAt = sigMap[ag.id];
-    const chip = signedAt
-      ? `<span class="sig-chip signed">signed ${fmtDate(signedAt)}</span>`
-      : `<span class="sig-chip unsigned">not yet signed</span>`;
-
+    const sig = sigMap[ag.id];
     const card = document.createElement('div');
     card.className = 'agreement-card';
-    card.innerHTML = `
-      <div class="agreement-header">
-        <div>
-          <div class="agreement-title">${esc(ag.title)}</div>
-          <div class="agreement-meta">${esc(ag.code)} &middot; ${esc(ag.version)} &middot; effective ${fmtDate(ag.effective_date)}</div>
-        </div>
-        ${chip}
-      </div>
-      ${ag.uri ? `<a class="agreement-link" href="${esc(ag.uri)}" target="_blank" rel="noopener">Read the full text &rarr;</a>` : ''}
-    `;
+    card.dataset.agreementId = ag.id;
+
+    renderCard(card, ag, sig, agentId, agentName, token);
     list.appendChild(card);
   });
+}
+
+function renderCard(card, ag, sig, agentId, agentName, token) {
+  const chip = sig
+    ? `<span class="sig-chip signed">signed ${fmtDate(sig.signed_at)}</span>`
+    : `<span class="sig-chip unsigned">not yet signed</span>`;
+
+  const readLink = ag.uri
+    ? `<a class="agreement-link" href="${esc(ag.uri)}" target="_blank" rel="noopener">Read the full text &rarr;</a>`
+    : '';
+
+  const signBtn = (!sig && agentId)
+    ? `<button class="sign-btn" data-ag-id="${esc(ag.id)}">Sign this agreement</button>`
+    : '';
+
+  const signPanel = (!sig && agentId) ? `
+    <div class="sign-panel" id="panel-${esc(ag.id)}">
+      <p>
+        By confirming, <strong>${esc(agentName)}</strong>, you acknowledge that you have read
+        <strong>${esc(ag.title)}</strong> (${esc(ag.version)}, effective ${fmtDate(ag.effective_date)})
+        and agree to be bound by its terms as a member of RegenHub, LCA.
+        This action will be recorded as an event in the cooperative&rsquo;s information system.
+      </p>
+      <div class="sign-actions">
+        <button class="sign-confirm-btn" data-ag-id="${esc(ag.id)}" data-ag-title="${esc(ag.title)}">Confirm signature</button>
+        <button class="sign-cancel" data-ag-id="${esc(ag.id)}">Cancel</button>
+      </div>
+      <div class="notice" id="sign-notice-${esc(ag.id)}"></div>
+    </div>` : '';
+
+  card.innerHTML = `
+    <div class="agreement-header">
+      <div>
+        <div class="agreement-title">${esc(ag.title)}</div>
+        <div class="agreement-meta">${esc(ag.code)} &middot; ${esc(ag.version)} &middot; effective ${fmtDate(ag.effective_date)}</div>
+      </div>
+      <span id="chip-${esc(ag.id)}">${chip}</span>
+    </div>
+    <div>
+      ${readLink}${signBtn}
+    </div>
+    ${signPanel}
+  `;
+
+  // wire sign button
+  const btn = card.querySelector('.sign-btn');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      const panel = document.getElementById('panel-' + this.dataset.agId);
+      if (panel) panel.classList.add('open');
+      this.style.display = 'none';
+    });
+  }
+
+  // wire cancel
+  const cancel = card.querySelector('.sign-cancel');
+  if (cancel) {
+    cancel.addEventListener('click', function () {
+      const panel = document.getElementById('panel-' + this.dataset.agId);
+      if (panel) panel.classList.remove('open');
+      const signBtn = card.querySelector('.sign-btn');
+      if (signBtn) signBtn.style.display = '';
+    });
+  }
+
+  // wire confirm
+  const confirm = card.querySelector('.sign-confirm-btn');
+  if (confirm) {
+    confirm.addEventListener('click', async function () {
+      const agId = this.dataset.agId;
+      const notice = document.getElementById('sign-notice-' + agId);
+      this.disabled = true;
+      this.textContent = 'Recording...';
+      const cancelBtn = card.querySelector('.sign-cancel');
+      if (cancelBtn) cancelBtn.disabled = true;
+
+      try {
+        const headers = {
+          'apikey': ANON_KEY,
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=representation'
+        };
+
+        const now = new Date().toISOString();
+
+        // 1. Insert signature
+        const sigRes = await fetch(`${SUPABASE_URL}/rest/v1/signatures`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ agent_id: agentId, agreement_id: agId, signed_at: now })
+        });
+        if (!sigRes.ok) throw new Error('Signature insert failed: ' + sigRes.status);
+        const sigRows = await sigRes.json();
+        const sigId = sigRows[0].id;
+
+        // 2. Insert event
+        const evRes = await fetch(`${SUPABASE_URL}/rest/v1/events`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            occurred_at: now,
+            kind: 'signature.signed',
+            actor_agent_id: agentId,
+            agent_id: agentId,
+            agreement_id: agId,
+            provenance: 'real',
+            settlement: 'settled',
+            payload: { signature_id: sigId, agreement_code: ag ? ag.code : agId }
+          })
+        });
+        if (!evRes.ok) throw new Error('Event insert failed: ' + evRes.status);
+        const evRows = await evRes.json();
+        const eventId = evRows[0].id;
+
+        // 3. Patch signature with event_id
+        await fetch(`${SUPABASE_URL}/rest/v1/signatures?id=eq.${sigId}`, {
+          method: 'PATCH',
+          headers,
+          body: JSON.stringify({ event_id: eventId })
+        });
+
+        // Update UI
+        const chipEl = document.getElementById('chip-' + agId);
+        if (chipEl) chipEl.innerHTML = `<span class="sig-chip signed">signed ${fmtDate(now)}</span>`;
+        const panel = document.getElementById('panel-' + agId);
+        if (panel) {
+          panel.innerHTML = `<p style="color:var(--ok);font-family:var(--mono);font-size:0.8rem;">
+            Signature recorded &middot; event ${eventId.slice(0,8)}&hellip;
+          </p>`;
+        }
+
+      } catch (err) {
+        this.disabled = false;
+        this.textContent = 'Confirm signature';
+        if (cancelBtn) cancelBtn.disabled = false;
+        showNotice(notice, 'err', 'Something went wrong: ' + (err.message || 'unknown error'));
+      }
+    });
+  }
 }
 
 function fmtDate(iso) {
