@@ -168,7 +168,10 @@ gates:
     title: Belong gate
     intent: Belong demonstrated end to end with two-party attestation.
     status: anticipated
-    ready_when: B-02, B-04, B-05 verified. August 14, 2026 gathering.
+    ready_when: >
+      B-02, B-04, B-05 verified. B-04 escalation resolved (sign_agreement()
+      SECURITY DEFINER function or equivalent RLS fix applied and verified).
+      August 14, 2026 gathering.
     gate: Organizer and non-organizer member demonstrate every Belong sentence live.
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
     acceptance: G-B status updated to attested. B-02, B-04, B-05 all verified.
@@ -271,10 +274,25 @@ belong:
       Three writes: signatures INSERT, signature.signed event INSERT, signature PATCH
       to link event_id. Verified by Todd Youngblood 2026-07-12: signed Bylaws of
       RegenHub LCA live. Signature: 0c8bde48, event: 8a81c3bb, signed_at:
-      2026-07-12T20:28:22Z. Note: PATCH event_id from browser blocked by RLS UPDATE
-      policy (signatures_self covers SELECT and INSERT only) — linked via service key
-      post-verification. Follow-up: add UPDATE policy or handle in SECURITY DEFINER.
-      Verification event: 86adb322-27a1-4d80-919b-04009e5c4071.
+      2026-07-12T20:28:22Z. Verification event: 86adb322-27a1-4d80-919b-04009e5c4071.
+    escalation:
+      standing_in: B-04, step 3 (link event_id to signature row)
+      found: >
+        The PATCH from the browser to set signatures.event_id was blocked by RLS.
+        The signatures_self policy (AM v0.1) covers SELECT and INSERT only — no UPDATE
+        clause exists. The event_id column on the live signature row (0c8bde48) was
+        linked post-verification via service key. Any future signer will have the same
+        gap: their signature and event are recorded and cross-referenced in the event
+        payload, but signatures.event_id will remain null until patched server-side.
+      the_question: >
+        Should the fix be (a) a scoped UPDATE policy on signatures allowing the owning
+        agent to set event_id on their own rows, or (b) a SECURITY DEFINER function
+        that wraps all three writes atomically and eliminates the browser-side PATCH?
+      a_default: >
+        Proposed: option (b) — SECURITY DEFINER function sign_agreement(p_agreement_id uuid)
+        that inserts the signature, inserts the event, and updates event_id in one
+        transaction. Simpler RLS surface, atomic, no partial-write failure mode.
+        Requires a new migration before G-B gate.
 
   - address: B-05
     title: Member directory
