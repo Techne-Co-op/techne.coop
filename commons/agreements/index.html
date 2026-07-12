@@ -413,54 +413,19 @@ function renderCard(card, ag, sig, agentId, agentName, token) {
       if (cancelBtn) cancelBtn.disabled = true;
 
       try {
-        const headers = {
-          'apikey': ANON_KEY,
-          'Authorization': 'Bearer ' + token,
-          'Content-Type': 'application/json',
-          'Prefer': 'return=representation'
-        };
-
-        const now = new Date().toISOString();
-
-        // 1. Insert signature
-        const sigRes = await fetch(`${SUPABASE_URL}/rest/v1/signatures`, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({ agent_id: agentId, agreement_id: agId, signed_at: now })
+        // Single atomic RPC — inserts signature, event, and links event_id
+        // in one SECURITY DEFINER transaction (0003_sign_agreement.sql)
+        const { data, error } = await sb.rpc('sign_agreement', {
+          p_agreement_id: agId
         });
-        if (!sigRes.ok) throw new Error('Signature insert failed: ' + sigRes.status);
-        const sigRows = await sigRes.json();
-        const sigId = sigRows[0].id;
+        if (error) throw new Error(error.message);
 
-        // 2. Insert event
-        const evRes = await fetch(`${SUPABASE_URL}/rest/v1/events`, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({
-            occurred_at: now,
-            kind: 'signature.signed',
-            actor_agent_id: agentId,
-            agent_id: agentId,
-            agreement_id: agId,
-            provenance: 'real',
-            settlement: 'settled',
-            payload: { signature_id: sigId, agreement_code: ag ? ag.code : agId }
-          })
-        });
-        if (!evRes.ok) throw new Error('Event insert failed: ' + evRes.status);
-        const evRows = await evRes.json();
-        const eventId = evRows[0].id;
-
-        // 3. Patch signature with event_id
-        await fetch(`${SUPABASE_URL}/rest/v1/signatures?id=eq.${sigId}`, {
-          method: 'PATCH',
-          headers,
-          body: JSON.stringify({ event_id: eventId })
-        });
+        const signedAt = data.signed_at || new Date().toISOString();
+        const eventId  = data.event_id || '';
 
         // Update UI
         const chipEl = document.getElementById('chip-' + agId);
-        if (chipEl) chipEl.innerHTML = `<span class="sig-chip signed">signed ${fmtDate(now)}</span>`;
+        if (chipEl) chipEl.innerHTML = `<span class="sig-chip signed">signed ${fmtDate(signedAt)}</span>`;
         const panel = document.getElementById('panel-' + agId);
         if (panel) {
           panel.innerHTML = `<p style="color:var(--ok);font-family:var(--mono);font-size:0.8rem;">

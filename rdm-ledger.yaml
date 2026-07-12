@@ -169,9 +169,8 @@ gates:
     intent: Belong demonstrated end to end with two-party attestation.
     status: anticipated
     ready_when: >
-      B-02, B-04, B-05 verified. B-04 escalation resolved (sign_agreement()
-      SECURITY DEFINER function or equivalent RLS fix applied and verified).
-      August 14, 2026 gathering.
+      B-02, B-04, B-05 verified. B-04 escalation resolved — sign_agreement()
+      SECURITY DEFINER applied 2026-07-12. August 14, 2026 gathering.
     gate: Organizer and non-organizer member demonstrate every Belong sentence live.
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
     acceptance: G-B status updated to attested. B-02, B-04, B-05 all verified.
@@ -293,6 +292,12 @@ belong:
         that inserts the signature, inserts the event, and updates event_id in one
         transaction. Simpler RLS surface, atomic, no partial-write failure mode.
         Requires a new migration before G-B gate.
+      decision: Option (b) approved by Todd Youngblood 2026-07-12.
+      resolution: >
+        sign_agreement(p_agreement_id uuid) SECURITY DEFINER function created and
+        applied to CIS ujujwgopdwirebgcpekc. Migration: commons/authority-map/0003_sign_agreement.sql.
+        agreements/index.html updated to call sb.rpc('sign_agreement') — three-step
+        REST flow replaced with single atomic RPC. Applied 2026-07-12.
 
   - address: B-05
     title: Member directory
