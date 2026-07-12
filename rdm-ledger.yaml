@@ -269,11 +269,17 @@ belong:
   - address: B-05
     title: Member directory
     intent: Directory view over agents and memberships.
-    status: open · in-session
+    status: open · verified
     cites: [IM, AM, PRD]
     ready_when: B-01 verified.
     deliverable: /commons/directory/ page.
     acceptance: Appear in the directory with a profile you control.
+    resolution: >
+      techne.coop/commons/directory/ live. Lists all agents (kind != instrument)
+      with membership state chips. Self-edit of display_name via PATCH to agents table.
+      Verified by Todd Youngblood 2026-07-12: appeared in directory, edited display name,
+      confirmed update persisted after refresh.
+      Verification event: 40a30ce1-9712-4581-a619-69aa5fd9ed4a.
 
 gather:
 
