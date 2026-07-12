@@ -121,88 +121,64 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .gathering-host span { color: var(--ember-text); }
 
 .upcoming-chip {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: var(--ok-dim);
-  color: var(--ok);
-  border: 1px solid var(--ok);
-  white-space: nowrap;
-  flex-shrink: 0;
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+  background: var(--ok-dim); color: var(--ok); border: 1px solid var(--ok);
+  white-space: nowrap; flex-shrink: 0;
 }
 .past-chip {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: var(--raised);
-  color: var(--faint);
-  border: 1px solid var(--line);
-  white-space: nowrap;
-  flex-shrink: 0;
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+  background: var(--raised); color: var(--faint); border: 1px solid var(--line);
+  white-space: nowrap; flex-shrink: 0;
 }
 
 /* sessions list */
 .sessions-list { padding: var(--s4) var(--s5); }
 .sessions-label {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: var(--s3);
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint); margin-bottom: var(--s3);
 }
 .session-row {
-  display: flex;
-  align-items: center;
-  gap: var(--s4);
-  padding: var(--s3) 0;
-  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: var(--s4);
+  padding: var(--s3) 0; border-bottom: 1px solid var(--line);
 }
 .session-row:last-child { border-bottom: none; }
 .session-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--ember);
-  flex-shrink: 0;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--ember); flex-shrink: 0;
 }
 .session-dot.past { background: var(--faint); }
 .session-time {
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  color: var(--text);
-  flex: 1;
+  font-family: var(--mono); font-size: 0.78rem; color: var(--text); flex: 1;
 }
-.session-duration {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  color: var(--faint);
+.session-duration { font-family: var(--mono); font-size: 0.7rem; color: var(--faint); }
+
+/* registration controls */
+.reg-btn {
+  font-family: var(--mono); font-size: 0.72rem; padding: 4px 12px;
+  border-radius: 4px; border: 1px solid var(--ember); background: transparent;
+  color: var(--ember-text); cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  transition: background var(--micro) var(--ease), color var(--micro) var(--ease);
 }
+.reg-btn:hover { background: var(--ember); color: #fff; }
+.reg-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.reg-btn.registered {
+  border-color: var(--ok); color: var(--ok); background: var(--ok-dim);
+}
+.reg-btn.registered:hover { background: var(--ok); color: #fff; }
+.reg-btn.cancelled {
+  border-color: var(--faint); color: var(--faint); background: transparent;
+}
+.reg-btn.cancelled:hover { border-color: var(--ember); color: var(--ember-text); background: transparent; }
 
 .no-sessions {
-  padding: var(--s4) var(--s5);
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  color: var(--faint);
-  font-style: italic;
+  padding: var(--s4) var(--s5); font-family: var(--mono); font-size: 0.78rem;
+  color: var(--faint); font-style: italic;
 }
-
-/* empty state */
-.empty-state {
-  text-align: center;
-  padding: var(--s7) 0;
-  color: var(--muted);
-}
+.empty-state { text-align: center; padding: var(--s7) 0; color: var(--muted); }
 .empty-state p { font-family: var(--mono); font-size: 0.85rem; }
 
 footer {
-  border-top: 1px solid var(--line);
-  padding: var(--s4) var(--s5);
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  color: var(--faint);
-  text-align: center;
+  border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
+  font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center;
 }
 footer a { color: var(--faint); }
 </style>
@@ -235,13 +211,13 @@ footer a { color: var(--faint); }
   <div id="content">
     <h1>Gatherings</h1>
     <div class="section-rule"></div>
-    <p class="lead">What is happening and who hosts it. Sessions show the time and duration.</p>
+    <p class="lead">What is happening and who hosts it. Register or cancel your spot directly.</p>
     <div id="gatherings-list"></div>
   </div>
 </main>
 
 <footer>
-  <span>CIS: ujujwgopdwirebgcpekc &middot; G-01 &middot; gatherings &amp; sessions</span>
+  <span>CIS: ujujwgopdwirebgcpekc &middot; G-01, G-02 &middot; gatherings, sessions, registrations</span>
   &nbsp;&middot;&nbsp;
   <a href="/legal">legal</a>
 </footer>
@@ -250,7 +226,9 @@ footer a { color: var(--faint); }
 <script>
 const SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
 const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
-let sb;
+let sb, currentAgentId;
+// session_id → registration row (or null)
+const regMap = {};
 
 document.getElementById('mode-btn').addEventListener('click', function () {
   var cur = document.documentElement.getAttribute('data-mode');
@@ -259,30 +237,74 @@ document.getElementById('mode-btn').addEventListener('click', function () {
   try { localStorage.setItem('techne-mode', next); } catch(e) {}
 });
 
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 function formatDate(iso) {
-  const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  return new Date(iso).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 }
-
 function formatTime(iso) {
-  const d = new Date(iso);
-  return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+  return new Date(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
 }
-
 function durationMinutes(startIso, endIso) {
   if (!endIso) return null;
   const mins = Math.round((new Date(endIso) - new Date(startIso)) / 60000);
-  if (mins >= 60) {
-    const h = Math.floor(mins / 60);
-    const m = mins % 60;
-    return m > 0 ? `${h}h ${m}m` : `${h}h`;
-  }
+  if (mins >= 60) { const h = Math.floor(mins/60), m = mins%60; return m > 0 ? `${h}h ${m}m` : `${h}h`; }
   return `${mins}m`;
 }
+function isPast(iso) { return new Date(iso) < new Date(); }
 
-function isPast(iso) {
-  return new Date(iso) < new Date();
+// ── Registration actions ──────────────────────────────────────────────────────
+
+async function handleRegBtn(btn, sessionId) {
+  const existing = regMap[sessionId];
+  btn.disabled = true;
+
+  if (!existing) {
+    // INSERT new registration
+    const { data, error } = await sb.from('registrations').insert({
+      session_id: sessionId,
+      agent_id:   currentAgentId,
+      state:      'registered',
+      at:         new Date().toISOString()
+    }).select().single();
+    if (error) { alert('Could not register: ' + error.message); btn.disabled = false; return; }
+    regMap[sessionId] = data;
+  } else if (existing.state === 'registered') {
+    // UPDATE to cancelled
+    const { data, error } = await sb.from('registrations')
+      .update({ state: 'cancelled', at: new Date().toISOString() })
+      .eq('id', existing.id)
+      .select().single();
+    if (error) { alert('Could not cancel: ' + error.message); btn.disabled = false; return; }
+    regMap[sessionId] = data;
+  } else {
+    // UPDATE cancelled → registered
+    const { data, error } = await sb.from('registrations')
+      .update({ state: 'registered', at: new Date().toISOString() })
+      .eq('id', existing.id)
+      .select().single();
+    if (error) { alert('Could not register: ' + error.message); btn.disabled = false; return; }
+    regMap[sessionId] = data;
+  }
+
+  updateRegBtn(btn, sessionId);
 }
+
+function updateRegBtn(btn, sessionId) {
+  const reg = regMap[sessionId];
+  btn.disabled = false;
+  if (!reg || reg.state === 'cancelled') {
+    btn.className = reg ? 'reg-btn cancelled' : 'reg-btn';
+    btn.textContent = reg ? 'Cancelled — register again' : 'Register';
+  } else {
+    btn.className = 'reg-btn registered';
+    btn.textContent = 'Registered — cancel?';
+  }
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
 
 function renderGatherings(gatherings) {
   const container = document.getElementById('gatherings-list');
@@ -291,21 +313,23 @@ function renderGatherings(gatherings) {
     return;
   }
 
-  // Sort: upcoming first, then past
   gatherings.sort((a, b) => {
     const aFirst = a.sessions && a.sessions.length ? a.sessions[0].starts_at : a.created_at;
     const bFirst = b.sessions && b.sessions.length ? b.sessions[0].starts_at : b.created_at;
-    const aPast = isPast(aFirst);
-    const bPast = isPast(bFirst);
+    const aPast = isPast(aFirst), bPast = isPast(bFirst);
     if (aPast !== bPast) return aPast ? 1 : -1;
     return new Date(aFirst) - new Date(bFirst);
   });
 
-  container.innerHTML = gatherings.map(g => {
+  container.innerHTML = '';
+  gatherings.forEach(g => {
     const sessions = (g.sessions || []).slice().sort((a, b) => new Date(a.starts_at) - new Date(b.starts_at));
     const firstSession = sessions[0];
     const past = firstSession ? isPast(firstSession.starts_at) : false;
     const hostName = g.agents ? g.agents.display_name : 'Unknown';
+
+    const card = document.createElement('div');
+    card.className = 'gathering-card';
 
     const statusChip = past
       ? '<span class="past-chip">past</span>'
@@ -319,21 +343,22 @@ function renderGatherings(gatherings) {
         const dotClass = isPast(s.starts_at) ? 'session-dot past' : 'session-dot';
         const dur = durationMinutes(s.starts_at, s.ends_at);
         const durHtml = dur ? `<span class="session-duration">${dur}</span>` : '';
-        const dateStr = formatDate(s.starts_at);
-        const timeStr = formatTime(s.starts_at);
+        const regBtnId = `reg-${s.id}`;
+        const reg = regMap[s.id];
+        let btnClass = 'reg-btn', btnText = 'Register';
+        if (reg && reg.state === 'registered') { btnClass = 'reg-btn registered'; btnText = 'Registered \u2014 cancel?'; }
+        if (reg && reg.state === 'cancelled')  { btnClass = 'reg-btn cancelled';  btnText = 'Cancelled \u2014 register again'; }
+        const regBtn = past ? '' : `<button class="${btnClass}" id="${regBtnId}" data-session="${s.id}">${btnText}</button>`;
         return `<div class="session-row">
           <span class="${dotClass}"></span>
-          <span class="session-time">${dateStr} &middot; ${timeStr}</span>
-          ${durHtml}
+          <span class="session-time">${formatDate(s.starts_at)} &middot; ${formatTime(s.starts_at)}</span>
+          ${durHtml}${regBtn}
         </div>`;
       }).join('');
-      sessionsHtml = `<div class="sessions-list">
-        <div class="sessions-label">Sessions</div>
-        ${rows}
-      </div>`;
+      sessionsHtml = `<div class="sessions-list"><div class="sessions-label">Sessions</div>${rows}</div>`;
     }
 
-    return `<div class="gathering-card">
+    card.innerHTML = `
       <div class="gathering-header">
         <div>
           <div class="gathering-title">${escHtml(g.title)}</div>
@@ -341,28 +366,56 @@ function renderGatherings(gatherings) {
         </div>
         ${statusChip}
       </div>
-      ${sessionsHtml}
-    </div>`;
-  }).join('');
+      ${sessionsHtml}`;
+
+    container.appendChild(card);
+
+    // wire registration buttons
+    sessions.forEach(s => {
+      const btn = document.getElementById(`reg-${s.id}`);
+      if (btn) {
+        btn.addEventListener('click', () => handleRegBtn(btn, s.id));
+      }
+    });
+  });
 }
 
-function escHtml(str) {
-  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+// ── Data loading ──────────────────────────────────────────────────────────────
 
-async function loadGatherings() {
-  const { data, error } = await sb
+async function loadAll(session) {
+  document.getElementById('content').style.display = 'block';
+
+  // Resolve current agent from agents table
+  const { data: agents } = await sb.from('agents').select('id,auth_user_id');
+  const self = agents && agents.find(a => a.auth_user_id === session.user.id);
+  currentAgentId = self ? self.id : null;
+
+  // Load gatherings + sessions
+  const { data: gatherings, error: gErr } = await sb
     .from('gatherings')
     .select('*, agents(display_name), sessions(*)')
     .order('created_at', { ascending: true });
 
-  if (error) {
+  if (gErr) {
     document.getElementById('gatherings-list').innerHTML =
-      `<div class="notice err" style="display:block">Error loading gatherings: ${escHtml(error.message)}</div>`;
+      `<div class="notice err" style="display:block">Error loading gatherings: ${escHtml(gErr.message)}</div>`;
     return;
   }
-  renderGatherings(data);
+
+  // Collect all session IDs and load registrations for self
+  const sessionIds = (gatherings || []).flatMap(g => (g.sessions || []).map(s => s.id));
+  if (sessionIds.length > 0 && currentAgentId) {
+    const { data: regs } = await sb
+      .from('registrations')
+      .select('*')
+      .in('session_id', sessionIds);
+    (regs || []).forEach(r => { regMap[r.session_id] = r; });
+  }
+
+  renderGatherings(gatherings);
 }
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
 
 function wireMagicLink() {
   const emailInput = document.getElementById('magic-email');
@@ -370,57 +423,37 @@ function wireMagicLink() {
   const notice = document.getElementById('magic-notice');
 
   function showNotice(cls, msg) {
-    notice.className = 'notice ' + cls;
-    notice.textContent = msg;
-    notice.style.display = 'block';
+    notice.className = 'notice ' + cls; notice.textContent = msg; notice.style.display = 'block';
   }
 
   btn.addEventListener('click', async function () {
     const email = emailInput.value.trim();
     if (!email) { showNotice('err', 'Enter your email address.'); return; }
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-    const { error } = await sb.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: window.location.href }
-    });
-    if (error) {
-      showNotice('err', error.message);
-      btn.disabled = false;
-      btn.textContent = 'Send sign-in link';
-    } else {
-      showNotice('ok', 'Check your email for a sign-in link.');
-      btn.textContent = 'Link sent';
-    }
+    btn.disabled = true; btn.textContent = 'Sending\u2026';
+    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
+    if (error) { showNotice('err', error.message); btn.disabled = false; btn.textContent = 'Send sign-in link'; }
+    else { showNotice('ok', 'Check your email for a sign-in link.'); btn.textContent = 'Link sent'; }
   });
-
-  emailInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') btn.click();
-  });
+  emailInput.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
 }
 
 (async function init() {
   sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
-
-  // Handle magic link token in URL
-  const { data: { session: urlSession }, error: urlErr } = await sb.auth.getSession();
-
+  const { data: { session } } = await sb.auth.getSession();
   document.getElementById('loading').style.display = 'none';
 
-  if (!urlSession) {
+  if (!session) {
     document.getElementById('auth-gate').style.display = 'block';
     wireMagicLink();
     return;
   }
 
-  document.getElementById('content').style.display = 'block';
-  await loadGatherings();
+  await loadAll(session);
 
-  sb.auth.onAuthStateChange(async (event, session) => {
-    if (event === 'SIGNED_IN' && session) {
+  sb.auth.onAuthStateChange(async (event, s) => {
+    if (event === 'SIGNED_IN' && s) {
       document.getElementById('auth-gate').style.display = 'none';
-      document.getElementById('content').style.display = 'block';
-      await loadGatherings();
+      await loadAll(s);
     }
     if (event === 'SIGNED_OUT') {
       document.getElementById('content').style.display = 'none';
