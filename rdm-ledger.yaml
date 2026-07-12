@@ -319,11 +319,17 @@ gather:
   - address: G-01
     title: Calendar
     intent: The calendar of gatherings and sessions.
-    status: open · in-session
+    status: open · verified
     cites: [IM, AM, PRD]
     ready_when: G0 attested.
     deliverable: /commons/gatherings/ page reading from gatherings and sessions tables.
     acceptance: See what is happening and who hosts it.
+    resolution: >
+      Authenticated page at /commons/gatherings/ reads gatherings + sessions
+      via joined REST query. One seeded gathering: RegenHub August Gathering,
+      Aug 14 at 3:00 PM ET, hosted by Todd R. Youngblood. Display timezone
+      follows visitor's browser (corrected from hardcoded MT after first review).
+      Verification: Todd confirmed 2026-07-12.
 
   - address: G-02
     title: Registration and cancellation
