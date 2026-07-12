@@ -214,16 +214,21 @@ belong:
   - address: B-01
     title: Identity binding
     intent: Wire the identity binding to sign-in so the visibility function knows who asks.
-    status: open · in-session
+    status: open · verified
     cites: [IM, AM, PRD]
     ready_when: G0 attested.
     deliverable: Auth flow binding auth_user_id to agents.
     acceptance: Authenticated user resolves to an agent row. app_agent_id() returns non-null.
+    resolution: >
+      auth_user_id column added to agents table (SUB-04). checkIdentityBinding() queries
+      agents where auth_user_id = auth.uid(). Todd Youngblood bound:
+      auth_user_id a28689aa-ebff-460c-b29c-39a533e0c226 -> agent 25a88d3a-1300-4d38-ab9c-107663de9644.
+      Verified at techne.coop/intranet/ 2026-07-12. Event: 91165551-14f1-4c41-953d-77446e19d20f.
 
   - address: B-02
     title: Onboarding and application intake
     intent: Application surface writing applications and events.
-    status: anticipated
+    status: open · in-session
     cites: [IM, AM, PRD]
     ready_when: B-01 verified.
     deliverable: Application form, event record, steward notification.
@@ -232,7 +237,7 @@ belong:
   - address: B-03
     title: Agreements shelf
     intent: Surface over agreements with version and standing marked.
-    status: anticipated
+    status: open · in-session
     cites: [IM, AM, PRD]
     ready_when: B-01 verified.
     deliverable: /commons/agreements/ page reading from agreements table.
@@ -250,7 +255,7 @@ belong:
   - address: B-05
     title: Member directory
     intent: Directory view over agents and memberships.
-    status: anticipated
+    status: open · in-session
     cites: [IM, AM, PRD]
     ready_when: B-01 verified.
     deliverable: /commons/directory/ page.

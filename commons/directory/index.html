@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Member directory -- the people and entities of RegenHub, LCA.">
+<title>Directory &middot; Techne</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem('techne-mode');
+      if (!m) m = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-mode', m);
+    } catch(e) {}
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
+  --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text); font-family: var(--serif);
+  font-size: 16px; line-height: 1.65; min-height: 100vh; display: flex; flex-direction: column;
+}
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--s5); height: 48px; border-bottom: 1px solid var(--line);
+  background: var(--surface); position: sticky; top: 0; z-index: 10;
+}
+.topbar-brand { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); text-decoration: none; }
+.topbar-brand strong { color: var(--heading); font-weight: 500; }
+.topbar-nav { display: flex; gap: var(--s4); align-items: center; }
+.topbar-nav a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; }
+.topbar-nav a:hover { color: var(--heading); }
+.mode-btn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 4px; padding: 3px 8px; cursor: pointer; }
+.mode-btn:hover { color: var(--heading); }
+
+main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
+.section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
+
+/* auth gate */
+#auth-gate { text-align: center; padding: var(--s8) 0; display: none; }
+#auth-gate p { color: var(--muted); margin-bottom: var(--s5); }
+.btn { font-family: var(--mono); font-size: 0.85rem; padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer; }
+.btn-primary { background: var(--ember); color: #fff; }
+.btn-primary:hover { opacity: 0.88; }
+.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+#loading { text-align: center; padding: var(--s7) 0; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; }
+#content { display: none; }
+
+/* your card */
+.your-card {
+  border: 1px solid var(--ember);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: var(--s5);
+  margin-bottom: var(--s6);
+}
+.your-label { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ember-text); margin-bottom: var(--s3); }
+.your-name { font-size: 1.2rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s2); }
+.your-meta { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+
+/* edit form */
+.edit-row { display: flex; gap: var(--s3); align-items: center; margin-top: var(--s4); }
+.edit-row input {
+  flex: 1; background: var(--inset); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--heading); font-family: var(--serif); font-size: 0.95rem; padding: 8px var(--s4); outline: none;
+}
+.edit-row input:focus { border-color: var(--ember); }
+.edit-row button { font-family: var(--mono); font-size: 0.78rem; padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; background: var(--ember); color: #fff; }
+.edit-row button:hover { opacity: 0.88; }
+.edit-hint { font-family: var(--mono); font-size: 0.7rem; color: var(--faint); margin-top: var(--s2); }
+
+/* directory list */
+.dir-header { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin-bottom: var(--s4); }
+.dir-entry {
+  display: flex; align-items: center; gap: var(--s4);
+  padding: var(--s4) 0; border-bottom: 1px solid var(--line);
+}
+.dir-entry:last-child { border-bottom: none; }
+.dir-initials {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--raised);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 0.72rem; color: var(--muted); flex-shrink: 0;
+}
+.dir-info { flex: 1; }
+.dir-name { font-weight: 700; color: var(--heading); font-size: 0.95rem; }
+.dir-kind { font-family: var(--mono); font-size: 0.7rem; color: var(--faint); }
+.state-chip {
+  font-family: var(--mono); font-size: 0.68rem; padding: 2px 7px;
+  border-radius: 4px; border: 1px solid var(--line); color: var(--faint); white-space: nowrap;
+}
+.state-chip.active { border-color: var(--ok); color: var(--ok); background: var(--ok-dim); }
+.state-chip.applied { border-color: var(--ember); color: var(--ember-text); }
+.state-chip.suspended { border-color: var(--warn); color: var(--warn); background: var(--warn-dim); }
+
+/* magic link form */
+#magic-form { max-width: 400px; margin: 0 auto; }
+#magic-form input[type=email] {
+  width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--heading); font-family: var(--serif); font-size: 1rem; padding: 10px var(--s4); outline: none; margin-bottom: var(--s4);
+}
+#magic-form input:focus { border-color: var(--ember); }
+.notice { padding: var(--s4); border-radius: 6px; margin: var(--s4) 0; font-size: 0.88rem; display: none; }
+.notice.ok { background: var(--ok-dim); color: var(--ok); border: 1px solid var(--ok); }
+.notice.err { background: var(--warn-dim); color: var(--warn); border: 1px solid var(--warn); }
+.notice.info { background: rgba(106,138,196,0.10); color: var(--muted); border: 1px solid var(--line); }
+
+footer { border-top: 1px solid var(--line); padding: var(--s4) var(--s5); font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center; }
+footer a { color: var(--faint); }
+</style>
+</head>
+<body>
+<nav class="topbar">
+  <a class="topbar-brand" href="/"><strong>Techne</strong> &middot; commons</a>
+  <div class="topbar-nav">
+    <a href="/commons/">commons</a>
+    <a href="/commons/agreements/">agreements</a>
+    <a href="/intranet/">intranet</a>
+    <button class="mode-btn" id="mode-btn">light / dark</button>
+  </div>
+</nav>
+
+<main>
+  <div id="loading">Loading...</div>
+
+  <div id="auth-gate">
+    <h1>Directory</h1>
+    <div class="section-rule"></div>
+    <p>Sign in to view the member directory.</p>
+    <div id="magic-form">
+      <div class="notice" id="magic-notice"></div>
+      <input type="email" id="magic-email" placeholder="your@email.com" autocomplete="email">
+      <button class="btn btn-primary" id="magic-btn">Send sign-in link</button>
+    </div>
+  </div>
+
+  <div id="content">
+    <h1>Directory</h1>
+    <div class="section-rule"></div>
+    <p style="color:var(--muted);margin-bottom:var(--s6);font-size:0.95rem;">
+      The people and entities of RegenHub, LCA. Cites bylaws §2.9 (the membership list is a member right).
+    </p>
+
+    <div id="your-section"></div>
+
+    <div id="save-notice" class="notice"></div>
+
+    <div class="dir-header" id="dir-header"></div>
+    <div id="dir-list"></div>
+  </div>
+</main>
+
+<footer>
+  <span>CIS: ujujwgopdwirebgcpekc &middot; B-05 &middot; §2.9</span>
+  &nbsp;&middot;&nbsp;
+  <a href="/legal">legal</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
+let sb;
+
+document.getElementById('mode-btn').addEventListener('click', function () {
+  var cur = document.documentElement.getAttribute('data-mode');
+  var next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-mode', next);
+  try { localStorage.setItem('techne-mode', next); } catch(e) {}
+});
+
+(async function init() {
+  sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
+  const { data: { session } } = await sb.auth.getSession();
+  document.getElementById('loading').style.display = 'none';
+  if (!session) {
+    document.getElementById('auth-gate').style.display = 'block';
+    wireMagicLink();
+    return;
+  }
+  await loadDirectory(session);
+})();
+
+function wireMagicLink() {
+  document.getElementById('magic-btn').addEventListener('click', async function () {
+    const email = document.getElementById('magic-email').value.trim();
+    const notice = document.getElementById('magic-notice');
+    if (!email) { showNotice(notice, 'err', 'Enter your email address.'); return; }
+    this.disabled = true; this.textContent = 'Sending...';
+    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
+    if (error) {
+      showNotice(notice, 'err', error.message);
+      this.disabled = false; this.textContent = 'Send sign-in link';
+    } else {
+      showNotice(notice, 'ok', 'Check your email for a sign-in link.');
+      this.disabled = true; this.textContent = 'Sent';
+    }
+  });
+}
+
+async function loadDirectory(session) {
+  document.getElementById('content').style.display = 'block';
+  const token = session.access_token;
+  const headers = { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + token };
+
+  // get agents + memberships
+  const [agentsRes, membershipsRes] = await Promise.all([
+    fetch(`${SUPABASE_URL}/rest/v1/agents?select=id,kind,display_name,auth_user_id&order=display_name.asc`, { headers }),
+    fetch(`${SUPABASE_URL}/rest/v1/memberships?select=agent_id,state,member_class`, { headers })
+  ]);
+  const agents = await agentsRes.json();
+  const memberships = await membershipsRes.json();
+
+  if (!Array.isArray(agents)) {
+    document.getElementById('dir-list').innerHTML = '<p style="color:var(--muted)">Could not load directory.</p>';
+    return;
+  }
+
+  const memMap = {};
+  if (Array.isArray(memberships)) {
+    memberships.forEach(m => { memMap[m.agent_id] = m; });
+  }
+
+  // find self
+  const self = agents.find(a => a.auth_user_id === session.user.id);
+
+  // render your card
+  if (self) {
+    renderYourCard(self, memMap[self.id], token);
+  }
+
+  // render directory (exclude instruments, show persons + cooperatives + programs)
+  const visible = agents.filter(a => a.kind !== 'instrument');
+  document.getElementById('dir-header').textContent = visible.length + ' ' + (visible.length === 1 ? 'entry' : 'entries');
+
+  const list = document.getElementById('dir-list');
+  visible.forEach(agent => {
+    const mem = memMap[agent.id];
+    const initials = (agent.display_name || '?').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+    const stateChip = mem ? `<span class="state-chip ${mem.state}">${mem.state}</span>` : '';
+    const isSelf = agent.auth_user_id === session.user.id;
+    const div = document.createElement('div');
+    div.className = 'dir-entry';
+    div.innerHTML = `
+      <div class="dir-initials">${esc(initials)}</div>
+      <div class="dir-info">
+        <div class="dir-name">${esc(agent.display_name)}${isSelf ? ' <span style="font-family:var(--mono);font-size:0.68rem;color:var(--ember-text)">(you)</span>' : ''}</div>
+        <div class="dir-kind">${esc(agent.kind)}${mem && mem.member_class ? ' &middot; ' + esc(mem.member_class) : ''}</div>
+      </div>
+      ${stateChip}
+    `;
+    list.appendChild(div);
+  });
+}
+
+function renderYourCard(agent, mem, token) {
+  const section = document.getElementById('your-section');
+  section.innerHTML = `
+    <div class="your-card">
+      <div class="your-label">Your profile</div>
+      <div class="your-name" id="your-name-display">${esc(agent.display_name)}</div>
+      <div class="your-meta">${esc(agent.kind)}${mem ? ' &middot; ' + esc(mem.state) : ''}</div>
+      <div class="edit-row">
+        <input type="text" id="name-input" value="${esc(agent.display_name)}" placeholder="Your display name" autocomplete="off">
+        <button id="save-name-btn">Save</button>
+      </div>
+      <div class="edit-hint">§1.13: each member keeps their own record current.</div>
+    </div>
+  `;
+  document.getElementById('save-name-btn').addEventListener('click', async function () {
+    const val = document.getElementById('name-input').value.trim();
+    const notice = document.getElementById('save-notice');
+    if (!val) { showNotice(notice, 'err', 'Name cannot be empty.'); return; }
+    this.disabled = true; this.textContent = 'Saving...';
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/agents?id=eq.${agent.id}`, {
+      method: 'PATCH',
+      headers: {
+        'apikey': ANON_KEY,
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=representation'
+      },
+      body: JSON.stringify({ display_name: val })
+    });
+    if (res.ok) {
+      document.getElementById('your-name-display').textContent = val;
+      showNotice(notice, 'ok', 'Display name updated.');
+    } else {
+      showNotice(notice, 'err', 'Could not save -- check your permissions.');
+    }
+    this.disabled = false; this.textContent = 'Save';
+  });
+}
+
+function esc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function showNotice(el, type, msg) {
+  el.className = 'notice ' + type;
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+</script>
+</body>
+</html>
