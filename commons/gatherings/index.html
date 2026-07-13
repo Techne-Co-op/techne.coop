@@ -169,6 +169,69 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 }
 .reg-btn.cancelled:hover { border-color: var(--ember); color: var(--ember-text); background: transparent; }
 
+/* attendance toggle button */
+.attend-btn {
+  font-family: var(--mono); font-size: 0.68rem; padding: 3px 10px;
+  border-radius: 4px; border: 1px solid var(--line); background: transparent;
+  color: var(--muted); cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  transition: color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.attend-btn:hover { color: var(--heading); border-color: var(--rule); }
+.attend-btn.open { color: var(--ember-text); border-color: var(--ember); }
+
+/* attendance panel */
+.attend-panel {
+  display: none;
+  padding: var(--s4) var(--s5);
+  border-top: 1px solid var(--line);
+  background: var(--inset);
+}
+.attend-panel-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: var(--s3);
+}
+.attend-panel-label {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint);
+}
+.attend-count {
+  font-family: var(--mono); font-size: 0.72rem; color: var(--ember-text);
+}
+.attend-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 0; border-bottom: 1px solid var(--line);
+}
+.attend-row:last-child { border-bottom: none; }
+.attend-check-label {
+  display: flex; align-items: center; gap: var(--s3); cursor: pointer;
+  font-family: var(--serif); font-size: 0.88rem; color: var(--text);
+}
+.attend-check-label input { cursor: pointer; accent-color: var(--ember); width: 15px; height: 15px; }
+.attend-check-label input[disabled] { cursor: not-allowed; opacity: 0.6; }
+.attend-recorded-chip {
+  font-family: var(--mono); font-size: 0.63rem; padding: 2px 6px;
+  border-radius: 3px; background: var(--ok-dim); color: var(--ok);
+  border: 1px solid var(--ok); white-space: nowrap;
+}
+.attend-actions {
+  margin-top: var(--s4); display: flex; align-items: center; gap: var(--s4); flex-wrap: wrap;
+}
+.attend-save-btn {
+  font-family: var(--mono); font-size: 0.72rem; padding: 5px 14px;
+  border-radius: 4px; border: 1px solid var(--ember); background: transparent;
+  color: var(--ember-text); cursor: pointer;
+  transition: background var(--micro) var(--ease), color var(--micro) var(--ease);
+}
+.attend-save-btn:hover { background: var(--ember); color: #fff; }
+.attend-save-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.attend-status-msg { font-family: var(--mono); font-size: 0.72rem; color: var(--ok); }
+.attend-status-msg.err { color: var(--warn); }
+.attend-empty {
+  font-family: var(--mono); font-size: 0.78rem; color: var(--faint);
+  font-style: italic; padding: var(--s2) 0;
+}
+.attend-loading { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); padding: var(--s2) 0; }
+
 .no-sessions {
   padding: var(--s4) var(--s5); font-family: var(--mono); font-size: 0.78rem;
   color: var(--faint); font-style: italic;
@@ -217,7 +280,7 @@ footer a { color: var(--faint); }
 </main>
 
 <footer>
-  <span>CIS: ujujwgopdwirebgcpekc &middot; G-01, G-02 &middot; gatherings, sessions, registrations</span>
+  <span>CIS: ujujwgopdwirebgcpekc &middot; G-01, G-02, G-03 &middot; gatherings, sessions, registrations, attendance</span>
   &nbsp;&middot;&nbsp;
   <a href="/legal">legal</a>
 </footer>
@@ -227,8 +290,9 @@ footer a { color: var(--faint); }
 const SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
 const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
 let sb, currentAgentId;
-// session_id → registration row (or null)
-const regMap = {};
+const regMap = {};      // session_id → registration row
+const hostMap = {};     // gathering_id → bool (current user is host)
+let currentIsOverseer = false;
 
 document.getElementById('mode-btn').addEventListener('click', function () {
   var cur = document.documentElement.getAttribute('data-mode');
@@ -240,7 +304,6 @@ document.getElementById('mode-btn').addEventListener('click', function () {
 function escHtml(s) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
 function formatDate(iso) {
   return new Date(iso).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 }
@@ -255,40 +318,31 @@ function durationMinutes(startIso, endIso) {
 }
 function isPast(iso) { return new Date(iso) < new Date(); }
 
-// ── Registration actions ──────────────────────────────────────────────────────
+// ── Registration ──────────────────────────────────────────────────────────────
 
 async function handleRegBtn(btn, sessionId) {
   const existing = regMap[sessionId];
   btn.disabled = true;
-
   if (!existing) {
-    // INSERT new registration
     const { data, error } = await sb.from('registrations').insert({
-      session_id: sessionId,
-      agent_id:   currentAgentId,
-      state:      'registered',
-      at:         new Date().toISOString()
+      session_id: sessionId, agent_id: currentAgentId,
+      state: 'registered', at: new Date().toISOString()
     }).select().single();
     if (error) { alert('Could not register: ' + error.message); btn.disabled = false; return; }
     regMap[sessionId] = data;
   } else if (existing.state === 'registered') {
-    // UPDATE to cancelled
     const { data, error } = await sb.from('registrations')
       .update({ state: 'cancelled', at: new Date().toISOString() })
-      .eq('id', existing.id)
-      .select().single();
+      .eq('id', existing.id).select().single();
     if (error) { alert('Could not cancel: ' + error.message); btn.disabled = false; return; }
     regMap[sessionId] = data;
   } else {
-    // UPDATE cancelled → registered
     const { data, error } = await sb.from('registrations')
       .update({ state: 'registered', at: new Date().toISOString() })
-      .eq('id', existing.id)
-      .select().single();
+      .eq('id', existing.id).select().single();
     if (error) { alert('Could not register: ' + error.message); btn.disabled = false; return; }
     regMap[sessionId] = data;
   }
-
   updateRegBtn(btn, sessionId);
 }
 
@@ -297,11 +351,130 @@ function updateRegBtn(btn, sessionId) {
   btn.disabled = false;
   if (!reg || reg.state === 'cancelled') {
     btn.className = reg ? 'reg-btn cancelled' : 'reg-btn';
-    btn.textContent = reg ? 'Cancelled — register again' : 'Register';
+    btn.textContent = reg ? 'Cancelled \u2014 register again' : 'Register';
   } else {
     btn.className = 'reg-btn registered';
-    btn.textContent = 'Registered — cancel?';
+    btn.textContent = 'Registered \u2014 cancel?';
   }
+}
+
+// ── Attendance (G-03) ─────────────────────────────────────────────────────────
+
+async function toggleAttendPanel(sessionId) {
+  const panel = document.getElementById('attend-panel-' + sessionId);
+  const btn   = document.getElementById('attend-btn-' + sessionId);
+  if (!panel) return;
+
+  if (panel.style.display === 'block') {
+    panel.style.display = 'none';
+    btn.classList.remove('open');
+    return;
+  }
+
+  panel.style.display = 'block';
+  btn.classList.add('open');
+
+  // Only load once
+  if (panel.dataset.loaded) return;
+  panel.dataset.loaded = '1';
+
+  const list    = document.getElementById('attend-list-' + sessionId);
+  const counter = document.getElementById('attend-count-' + sessionId);
+  list.innerHTML = '<div class="attend-loading">Loading\u2026</div>';
+
+  // Registered members for this session
+  const { data: regs, error: rErr } = await sb
+    .from('registrations')
+    .select('agent_id, agents(display_name)')
+    .eq('session_id', sessionId)
+    .eq('state', 'registered');
+
+  // Existing attendance
+  const { data: existing, error: aErr } = await sb
+    .from('attendance')
+    .select('agent_id')
+    .eq('session_id', sessionId);
+
+  if (rErr || aErr) {
+    list.innerHTML = '<div class="attend-empty">Error loading attendance data.</div>';
+    return;
+  }
+
+  const attendedSet = new Set((existing || []).map(a => a.agent_id));
+  counter.textContent = attendedSet.size === 0 ? 'none recorded' : attendedSet.size + ' recorded';
+
+  if (!regs || regs.length === 0) {
+    list.innerHTML = '<div class="attend-empty">No registered members for this session.</div>';
+    return;
+  }
+
+  list.innerHTML = regs.map(r => {
+    const name = r.agents ? r.agents.display_name : 'Unknown';
+    const already = attendedSet.has(r.agent_id);
+    return `<div class="attend-row">
+      <label class="attend-check-label">
+        <input type="checkbox" class="attend-check" data-agent="${escHtml(r.agent_id)}" ${already ? 'checked disabled' : ''}>
+        <span>${escHtml(name)}</span>
+      </label>
+      ${already ? '<span class="attend-recorded-chip">recorded</span>' : ''}
+    </div>`;
+  }).join('');
+}
+
+async function saveAttendance(sessionId) {
+  const btn    = document.getElementById('attend-save-' + sessionId);
+  const status = document.getElementById('attend-status-' + sessionId);
+  const counter= document.getElementById('attend-count-' + sessionId);
+  if (!btn) return;
+
+  btn.disabled = true;
+  status.textContent = '';
+  status.className = 'attend-status-msg';
+
+  const newChecks = document.querySelectorAll(
+    '#attend-list-' + sessionId + ' .attend-check:not([disabled]):checked'
+  );
+  const newAgentIds = Array.from(newChecks).map(c => c.dataset.agent);
+
+  if (newAgentIds.length === 0) {
+    status.textContent = 'Nothing new to save.';
+    btn.disabled = false;
+    return;
+  }
+
+  const rows = newAgentIds.map(agentId => ({
+    session_id:  sessionId,
+    agent_id:    agentId,
+    recorded_by: currentAgentId,
+    recorded_at: new Date().toISOString()
+  }));
+
+  const { error } = await sb.from('attendance').insert(rows);
+  if (error) {
+    status.textContent = 'Error: ' + error.message;
+    status.className = 'attend-status-msg err';
+    btn.disabled = false;
+    return;
+  }
+
+  // Freeze newly saved checkboxes
+  newChecks.forEach(c => {
+    c.disabled = true;
+    const row = c.closest('.attend-row');
+    if (row && !row.querySelector('.attend-recorded-chip')) {
+      const chip = document.createElement('span');
+      chip.className = 'attend-recorded-chip';
+      chip.textContent = 'recorded';
+      row.appendChild(chip);
+    }
+  });
+
+  const allRecorded = document.querySelectorAll(
+    '#attend-list-' + sessionId + ' .attend-check[disabled]:checked'
+  );
+  counter.textContent = allRecorded.length + ' recorded';
+  status.textContent = newAgentIds.length + (newAgentIds.length === 1 ? ' person' : ' people') + ' marked present.';
+  btn.disabled = false;
 }
 
 // ── Render ────────────────────────────────────────────────────────────────────
@@ -327,6 +500,7 @@ function renderGatherings(gatherings) {
     const firstSession = sessions[0];
     const past = firstSession ? isPast(firstSession.starts_at) : false;
     const hostName = g.agents ? g.agents.display_name : 'Unknown';
+    const canTakeAttendance = hostMap[g.id] || currentIsOverseer;
 
     const card = document.createElement('div');
     card.className = 'gathering-card';
@@ -342,18 +516,39 @@ function renderGatherings(gatherings) {
       const rows = sessions.map(s => {
         const dotClass = isPast(s.starts_at) ? 'session-dot past' : 'session-dot';
         const dur = durationMinutes(s.starts_at, s.ends_at);
-        const durHtml = dur ? `<span class="session-duration">${dur}</span>` : '';
-        const regBtnId = `reg-${s.id}`;
+        const durHtml = dur ? `<span class="session-duration">${escHtml(dur)}</span>` : '';
+
         const reg = regMap[s.id];
         let btnClass = 'reg-btn', btnText = 'Register';
         if (reg && reg.state === 'registered') { btnClass = 'reg-btn registered'; btnText = 'Registered \u2014 cancel?'; }
         if (reg && reg.state === 'cancelled')  { btnClass = 'reg-btn cancelled';  btnText = 'Cancelled \u2014 register again'; }
-        const regBtn = past ? '' : `<button class="${btnClass}" id="${regBtnId}" data-session="${s.id}">${btnText}</button>`;
-        return `<div class="session-row">
-          <span class="${dotClass}"></span>
-          <span class="session-time">${formatDate(s.starts_at)} &middot; ${formatTime(s.starts_at)}</span>
-          ${durHtml}${regBtn}
-        </div>`;
+
+        const attendBtnHtml = canTakeAttendance
+          ? `<button class="attend-btn" id="attend-btn-${s.id}" data-session="${s.id}">attendance</button>`
+          : '';
+
+        const attendPanelHtml = canTakeAttendance ? `
+          <div class="attend-panel" id="attend-panel-${s.id}">
+            <div class="attend-panel-header">
+              <span class="attend-panel-label">Attendance &middot; §2.7</span>
+              <span class="attend-count" id="attend-count-${s.id}"></span>
+            </div>
+            <div id="attend-list-${s.id}"></div>
+            <div class="attend-actions">
+              <button class="attend-save-btn" id="attend-save-${s.id}" data-session="${s.id}">Save attendance</button>
+              <span class="attend-status-msg" id="attend-status-${s.id}"></span>
+            </div>
+          </div>` : '';
+
+        return `
+          <div class="session-row">
+            <span class="${dotClass}"></span>
+            <span class="session-time">${escHtml(formatDate(s.starts_at))} &middot; ${escHtml(formatTime(s.starts_at))}</span>
+            ${durHtml}
+            <button class="${btnClass}" id="reg-${s.id}" data-session="${s.id}">${btnText}</button>
+            ${attendBtnHtml}
+          </div>
+          ${attendPanelHtml}`;
       }).join('');
       sessionsHtml = `<div class="sessions-list"><div class="sessions-label">Sessions</div>${rows}</div>`;
     }
@@ -370,11 +565,16 @@ function renderGatherings(gatherings) {
 
     container.appendChild(card);
 
-    // wire registration buttons
+    // Wire buttons
     sessions.forEach(s => {
-      const btn = document.getElementById(`reg-${s.id}`);
-      if (btn) {
-        btn.addEventListener('click', () => handleRegBtn(btn, s.id));
+      const regBtn = document.getElementById('reg-' + s.id);
+      if (regBtn) regBtn.addEventListener('click', () => handleRegBtn(regBtn, s.id));
+
+      if (canTakeAttendance) {
+        const attendBtn = document.getElementById('attend-btn-' + s.id);
+        if (attendBtn) attendBtn.addEventListener('click', () => toggleAttendPanel(s.id));
+        const saveBtn = document.getElementById('attend-save-' + s.id);
+        if (saveBtn) saveBtn.addEventListener('click', () => saveAttendance(s.id));
       }
     });
   });
@@ -385,10 +585,21 @@ function renderGatherings(gatherings) {
 async function loadAll(session) {
   document.getElementById('content').style.display = 'block';
 
-  // Resolve current agent from agents table
+  // Resolve current agent
   const { data: agents } = await sb.from('agents').select('id,auth_user_id');
   const self = agents && agents.find(a => a.auth_user_id === session.user.id);
   currentAgentId = self ? self.id : null;
+
+  // Check overseer roles (director, secretary, treasurer, steward)
+  if (currentAgentId) {
+    const { data: grants } = await sb
+      .from('role_grants')
+      .select('role')
+      .eq('agent_id', currentAgentId)
+      .is('revoked_at', null);
+    const overseerRoles = ['director','secretary','treasurer','steward'];
+    currentIsOverseer = (grants || []).some(g => overseerRoles.includes(g.role));
+  }
 
   // Load gatherings + sessions
   const { data: gatherings, error: gErr } = await sb
@@ -402,8 +613,13 @@ async function loadAll(session) {
     return;
   }
 
-  // Collect all session IDs and load registrations for self
-  const sessionIds = (gatherings || []).flatMap(g => (g.sessions || []).map(s => s.id));
+  // Build host map and load registrations
+  const sessionIds = [];
+  (gatherings || []).forEach(g => {
+    hostMap[g.id] = currentAgentId && g.host_agent_id === currentAgentId;
+    (g.sessions || []).forEach(s => sessionIds.push(s.id));
+  });
+
   if (sessionIds.length > 0 && currentAgentId) {
     const { data: regs } = await sb
       .from('registrations')
