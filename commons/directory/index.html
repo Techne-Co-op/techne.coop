@@ -138,6 +138,30 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 
 footer { border-top: 1px solid var(--line); padding: var(--s4) var(--s5); font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center; }
 footer a { color: var(--faint); }
+
+/* ── Responsive / mobile ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* Topbar */
+  .topbar { padding: 0 var(--s4); }
+  .topbar-nav a { display: none; }
+
+  /* Main layout */
+  main { padding: var(--s5) var(--s4); }
+  h1 { font-size: 1.35rem; }
+
+  /* Your card — edit row stacks vertically */
+  .edit-row { flex-direction: column; align-items: stretch; }
+  .edit-row input { font-size: 16px; /* prevent iOS auto-zoom */ }
+  .edit-row button { min-height: 44px; }
+
+  /* Directory entries — chip stays inline but smaller */
+  .dir-entry { gap: var(--s3); }
+  .state-chip { font-size: 0.63rem; padding: 2px 5px; }
+
+  /* Auth gate */
+  .btn-primary { width: 100%; min-height: 44px; }
+  #magic-form input[type=email] { font-size: 16px; }
+}
 </style>
 </head>
 <body>
@@ -335,3 +359,4 @@ function showNotice(el, type, msg) {
 </script>
 </body>
 </html>
+
