@@ -203,6 +203,30 @@ footer a { color: var(--faint); }
 .notice { padding: var(--s4); border-radius: 6px; margin: var(--s4) 0; font-size: 0.88rem; display: none; }
 .notice.ok { background: var(--ok-dim); color: var(--ok); border: 1px solid var(--ok); }
 .notice.err { background: rgba(196,106,106,0.10); color: var(--warn); border: 1px solid var(--warn); }
+
+/* ── Responsive / mobile ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* Topbar */
+  .topbar { padding: 0 var(--s4); }
+  .topbar-nav a { display: none; }
+
+  /* Main layout */
+  main { padding: var(--s5) var(--s4); }
+  h1 { font-size: 1.35rem; }
+
+  /* Agreement card — header stacks vertically so chip sits below title */
+  .agreement-card { padding: var(--s4); }
+  .agreement-header { flex-direction: column; gap: var(--s2); }
+  .sig-chip { align-self: flex-start; }
+
+  /* Sign panel actions stack vertically */
+  .sign-actions { flex-direction: column; align-items: flex-start; }
+  .sign-confirm-btn { min-height: 44px; padding: 10px 20px; width: 100%; }
+
+  /* Auth gate */
+  .btn-primary { width: 100%; min-height: 44px; }
+  #magic-form input[type=email] { font-size: 16px; /* prevent iOS auto-zoom */ }
+}
 </style>
 </head>
 <body>
@@ -460,3 +484,4 @@ function showNotice(el, type, msg) {
 </script>
 </body>
 </html>
+
