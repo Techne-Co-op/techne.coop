@@ -244,6 +244,68 @@ footer {
   font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center;
 }
 footer a { color: var(--faint); }
+
+/* ── Responsive / mobile ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* Topbar: hide nav links, keep brand + mode toggle */
+  .topbar { padding: 0 var(--s4); }
+  .topbar-nav a { display: none; }
+
+  /* Main layout */
+  main { padding: var(--s5) var(--s4); }
+  h1 { font-size: 1.35rem; }
+
+  /* Gathering card internals */
+  .gathering-header { padding: var(--s3) var(--s4); flex-wrap: wrap; gap: var(--s2); }
+  .gathering-title { font-size: 1rem; }
+  .sessions-list { padding: var(--s3) var(--s4); }
+  .attend-panel { padding: var(--s3) var(--s4); }
+
+  /*
+   * Session row: wrap so time occupies first line, then
+   * duration + buttons flow onto a second line.
+   * Dot stays left-aligned with the time.
+   */
+  .session-row {
+    flex-wrap: wrap;
+    row-gap: var(--s2);
+    align-items: center;
+    padding: var(--s3) 0 var(--s4);
+  }
+  .session-dot { align-self: flex-start; margin-top: 5px; }
+  .session-time {
+    /* consume remaining first-row space and wrap to own line */
+    flex: 1 1 calc(100% - 30px);
+    min-width: 0;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  /* Second line: duration left, buttons pushed right */
+  .session-duration {
+    margin-left: 22px; /* indent past dot */
+    font-size: 0.68rem;
+  }
+  .reg-btn {
+    margin-left: auto;
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 0.75rem;
+  }
+  .attend-btn {
+    min-height: 44px;
+    padding: 8px 14px;
+    font-size: 0.7rem;
+  }
+
+  /* Attendance panel — larger tap targets */
+  .attend-check-label { font-size: 0.88rem; }
+  .attend-check-label input { width: 18px; height: 18px; }
+  .attend-save-btn { min-height: 44px; padding: 10px 18px; }
+
+  /* Auth gate */
+  .btn-primary { width: 100%; min-height: 44px; }
+  #magic-form input[type=email] { font-size: 16px; /* prevent iOS auto-zoom */ }
+}
 </style>
 </head>
 <body>
