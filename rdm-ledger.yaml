@@ -334,20 +334,39 @@ gather:
   - address: G-02
     title: Registration and cancellation
     intent: Self-service registration and cancellation.
-    status: open · in-session
+    status: open · verified
     cites: [IM, AM, PRD]
     ready_when: G-01 verified.
     deliverable: Registration and cancellation flows.
     acceptance: Register and cancel without asking anyone.
+    resolution: >
+      Registration and cancellation wired to /commons/gatherings/. Authenticated members
+      see a Register button per session; state cycles: null -> registered -> cancelled ->
+      registered. Writes to registrations table: session_id, agent_id, state, at.
+      RLS policy registration_self covers INSERT and UPDATE for the owning agent.
+      Cancel state preserved (not deleted) for audit trail per IM v0.1 append-only
+      principle. Mobile-responsive layout applied 2026-07-12.
+      Verified by Todd Youngblood 2026-07-12.
 
   - address: G-03
     title: Attendance recording
     intent: Attendance recording by host or steward with recorder captured.
-    status: anticipated
+    status: open · verified
     cites: [IM, AM, PRD]
     ready_when: G-02 verified.
     deliverable: Attendance recording surface.
     acceptance: Presence counted where the record counts it.
+    resolution: >
+      Attendance panel added to /commons/gatherings/ behind a host/steward gate.
+      Host (gathering.host_agent_id = current agent) or steward (role_grants role in
+      director/secretary/treasurer/steward) sees an "attendance" button per session.
+      Panel lazy-loads registered members; host checks off who attended and saves.
+      Writes to attendance table: session_id, agent_id, recorded_by, recorded_at.
+      RLS policy attendance_recorder_write enforces host-or-steward write.
+      attendance_scoped_read: member reads own rows, host reads their gathering's rows,
+      overseer reads all. Append-only: no UPDATE policy -- recorded presence is permanent.
+      Mobile-responsive layout applied 2026-07-12.
+      Verified by Todd Youngblood 2026-07-12.
 
 find:
 
@@ -480,3 +499,4 @@ cross_cutting:
     ready_when: X-03 verified. G-R approaching.
     deliverable: Restore run, SHA comparison, recorded event.
     acceptance: Restore diff is empty. Event recorded per VS v1 §6.
+
