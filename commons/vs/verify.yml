@@ -49,7 +49,14 @@ jobs:
           [ ${#files[@]} -gt 0 ] || { echo "no migrations found"; exit 1; }
           for f in "${files[@]}"; do
             echo "lint: $f"
-            grep -q "comment on table" "$f" || { echo "::error file=$f::tables must carry comments (BP v1 §6)"; exit 1; }
+            # Only migrations that create a table must comment it, scoped the
+            # same way the policy-anchor check below is scoped to create-policy
+            # files. Function-only or policy-only migrations legitimately create
+            # no table. Intent (BP v1 §6: every table commented) is preserved;
+            # this removes a false positive, it does not weaken the check.
+            if grep -qiE "create[[:space:]]+table" "$f"; then
+              grep -qi "comment on table" "$f" || { echo "::error file=$f::tables must carry comments (BP v1 §6)"; exit 1; }
+            fi
           done
       - name: every policy cites its anchor
         run: |
