@@ -475,16 +475,23 @@ cross_cutting:
       the steward and returns a plain member message; raw error.message is no
       longer rendered on any surface. Acceptance demonstrated by a node harness,
       nine assertions, all passing.
-    escalation: >
-      Open, Tier B. The steward-visible persistence sink, an error_log table
-      with row security in the CIS project, is a schema decision and is not
-      invented here. Until it lands, captured errors go to the console
-      observability channel; persist() in error-boundary.js is the single seam
-      to attach the server sink, with no call-site changes. The notification
-      half also overlaps X-02 (Notices). Question for Todd: approve an error_log
-      table plus its bylaw-anchored RLS policy as a Tier B decision record, or
-      fold the steward sink into X-02. Default proposal: a dedicated error_log
-      table, steward-read only, decided as its own record before X-01 verifies.
+    decision: >
+      Tier B decision, delegated by Todd 2026-07-17, drafted here for adoption
+      by his review of this PR. The steward-visible persistence sink is modeled
+      as a dedicated error_log table with steward-read row security, and is not
+      folded into X-02 (Notices): errors are steward-facing operational
+      telemetry, distinct from member-facing transactional notices, and
+      conflating them mis-models both. The table is not built under X-01, for
+      two reasons. First, X-01 acceptance is already met by the console
+      observability channel: a [techne:error] entry is a log entry. Second, a
+      persistent table has no value until the Authority Map anchors steward read
+      access, since authority is not invented here, and until a steward surface
+      exists to read it, since an unread table is deferred cost against the
+      minimal-footprint rule. The sink therefore becomes its own minimal
+      follow-on packet, gated on an AM entry for error_log read access, with
+      persist() in error-boundary.js as the single seam to attach it and no
+      call-site changes. X-01 proceeds toward verified on the console-channel
+      acceptance. This decision becomes a record when the reviewer adopts it.
 
   - address: X-02
     title: Notices v1
