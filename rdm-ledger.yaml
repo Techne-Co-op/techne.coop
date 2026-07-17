@@ -600,11 +600,22 @@ cross_cutting:
   - address: X-07
     title: Decision coherence
     intent: Every escalation card has a recorded decision before the blocked packet opens.
-    status: anticipated
+    status: open · in-review
     cites: [BP]
     ready_when: G0 attested.
     deliverable: Coherence check in validate.py.
     acceptance: No open packet with unresolved escalation card in the ledger.
+    resolution: >
+      Added check_decision_coherence() to scripts/validate.py, wired into the
+      validate run. It formalizes the escalation-card convention already in use
+      (SUB-03): an escalation is a packet's `escalation` field in the BP v1 §2
+      shape, resolved when a decision is recorded, either a `decision` key inside
+      the escalation mapping or a sibling `decision` field. The rule: a packet
+      whose status has opened must not carry an unresolved escalation card. The
+      two escalation cards in the ledger (SUB-03, B-04) both carry decisions, so
+      the check passes on the current ledger. Proven by a negative unit test: a
+      synthetic open packet with an undecided escalation is flagged; the same
+      packet with a decision passes.
 
   - address: X-08
     title: Probe matrix
