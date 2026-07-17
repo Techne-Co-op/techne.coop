@@ -308,6 +308,7 @@ footer a { color: var(--faint); }
   #magic-form input[type=email] { font-size: 16px; /* prevent iOS auto-zoom */ }
 }
 </style>
+<script src="/assets/error-boundary.js"></script>
 </head>
 <body>
 <nav class="topbar">
@@ -391,19 +392,19 @@ async function handleRegBtn(btn, sessionId) {
       session_id: sessionId, agent_id: currentAgentId,
       state: 'registered', at: new Date().toISOString()
     }).select().single();
-    if (error) { alert('Could not register: ' + error.message); btn.disabled = false; return; }
+    if (error) { alert(Techne.report(error, 'Could not register right now, please try again.')); btn.disabled = false; return; }
     regMap[sessionId] = data;
   } else if (existing.state === 'registered') {
     const { data, error } = await sb.from('registrations')
       .update({ state: 'cancelled', at: new Date().toISOString() })
       .eq('id', existing.id).select().single();
-    if (error) { alert('Could not cancel: ' + error.message); btn.disabled = false; return; }
+    if (error) { alert(Techne.report(error, 'Could not cancel right now, please try again.')); btn.disabled = false; return; }
     regMap[sessionId] = data;
   } else {
     const { data, error } = await sb.from('registrations')
       .update({ state: 'registered', at: new Date().toISOString() })
       .eq('id', existing.id).select().single();
-    if (error) { alert('Could not register: ' + error.message); btn.disabled = false; return; }
+    if (error) { alert(Techne.report(error, 'Could not register right now, please try again.')); btn.disabled = false; return; }
     regMap[sessionId] = data;
   }
   updateRegBtn(btn, sessionId);
@@ -514,7 +515,7 @@ async function saveAttendance(sessionId) {
 
   const { error } = await sb.from('attendance').insert(rows);
   if (error) {
-    status.textContent = 'Error: ' + error.message;
+    status.textContent = Techne.report(error, 'Could not save attendance, please try again.');
     status.className = 'attend-status-msg err';
     btn.disabled = false;
     return;
@@ -672,7 +673,7 @@ async function loadAll(session) {
 
   if (gErr) {
     document.getElementById('gatherings-list').innerHTML =
-      `<div class="notice err" style="display:block">Error loading gatherings: ${escHtml(gErr.message)}</div>`;
+      `<div class="notice err" style="display:block">${escHtml(Techne.report(gErr, 'Could not load gatherings right now. Please reload the page.'))}</div>`;
     return;
   }
 
@@ -710,7 +711,7 @@ function wireMagicLink() {
     if (!email) { showNotice('err', 'Enter your email address.'); return; }
     btn.disabled = true; btn.textContent = 'Sending\u2026';
     const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
-    if (error) { showNotice('err', error.message); btn.disabled = false; btn.textContent = 'Send sign-in link'; }
+    if (error) { showNotice('err', Techne.report(error, 'Could not send the sign-in link. Please check the address and try again.')); btn.disabled = false; btn.textContent = 'Send sign-in link'; }
     else { showNotice('ok', 'Check your email for a sign-in link.'); btn.textContent = 'Link sent'; }
   });
   emailInput.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });

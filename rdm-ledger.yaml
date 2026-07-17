@@ -460,11 +460,31 @@ cross_cutting:
   - address: X-01
     title: Error boundary and observability
     intent: Errors surface to the steward without leaking to the member.
-    status: anticipated
+    status: open · in-review
     cites: [BP, VS]
     ready_when: G0 attested.
     deliverable: Error logging, steward notification path.
     acceptance: An unhandled error produces a log entry, not a stack trace to the member.
+    resolution: >
+      Delivered assets/error-boundary.js: a dependency-free global boundary
+      installed first in <head> on the four interactive surfaces (gatherings,
+      agreements, directory, join). window error and unhandledrejection events
+      produce a structured [techne:error] log entry and show the member a quiet
+      house-style fallback, never a stack trace. The eleven handled-error call
+      sites route through Techne.report(), which logs the internal detail for
+      the steward and returns a plain member message; raw error.message is no
+      longer rendered on any surface. Acceptance demonstrated by a node harness,
+      nine assertions, all passing.
+    escalation: >
+      Open, Tier B. The steward-visible persistence sink, an error_log table
+      with row security in the CIS project, is a schema decision and is not
+      invented here. Until it lands, captured errors go to the console
+      observability channel; persist() in error-boundary.js is the single seam
+      to attach the server sink, with no call-site changes. The notification
+      half also overlaps X-02 (Notices). Question for Todd: approve an error_log
+      table plus its bylaw-anchored RLS policy as a Tier B decision record, or
+      fold the steward sink into X-02. Default proposal: a dedicated error_log
+      table, steward-read only, decided as its own record before X-01 verifies.
 
   - address: X-02
     title: Notices v1

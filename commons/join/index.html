@@ -197,6 +197,7 @@ footer {
 }
 footer a { color: var(--faint); }
 </style>
+<script src="/assets/error-boundary.js"></script>
 </head>
 <body>
 <nav class="topbar">
@@ -292,7 +293,7 @@ document.getElementById('submit-btn').addEventListener('click', async function (
   } catch (err) {
     btn.disabled = false;
     btn.textContent = 'Submit application';
-    showErr('Something went wrong: ' + (err.message || 'unknown error') + '. Please try again or email a steward directly.');
+    showErr(Techne.report(err, 'Something went wrong. Please try again or email a steward directly.'));
   }
 });
 
