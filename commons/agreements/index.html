@@ -214,7 +214,7 @@ footer a { color: var(--faint); }
   main { padding: var(--s5) var(--s4); }
   h1 { font-size: 1.35rem; }
 
-  /* Agreement card — header stacks vertically so chip sits below title */
+  /* Agreement card: header stacks vertically so chip sits below title */
   .agreement-card { padding: var(--s4); }
   .agreement-header { flex-direction: column; gap: var(--s2); }
   .sig-chip { align-self: flex-start; }
@@ -437,7 +437,7 @@ function renderCard(card, ag, sig, agentId, agentName, token) {
       if (cancelBtn) cancelBtn.disabled = true;
 
       try {
-        // Single atomic RPC — inserts signature, event, and links event_id
+        // Single atomic RPC: inserts signature, event, and links event_id
         // in one SECURITY DEFINER transaction (0003_sign_agreement.sql)
         const { data, error } = await sb.rpc('sign_agreement', {
           p_agreement_id: agId
