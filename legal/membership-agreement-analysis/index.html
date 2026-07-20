@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+    (function() {
+      var s = localStorage.getItem('techne-mode');
+      if (s === 'light' || s === 'dark') document.documentElement.setAttribute('data-mode', s);
+      else document.documentElement.setAttribute('data-mode', 'dark');
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership Agreement — Analysis &amp; Proposed Modifications · Techne</title>
+  <meta name="description" content="Legal analysis and proposed modifications to the RegenHub Patron Member Membership Agreement v.1, grounded in Colorado ULCAA and federal tax provisions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif: 'Libre Baskerville', Georgia, serif;
+      --mono:  'IBM Plex Mono', 'Courier New', monospace;
+    }
+
+    [data-mode="dark"] {
+      --bg:           #08080a;
+      --surface:      #111114;
+      --raised:       #18181c;
+      --border:       rgba(196,149,106,0.12);
+      --border-dim:   rgba(255,255,255,0.06);
+      --text:         #e0d8cc;
+      --text-warm:    #c8bca8;
+      --text-muted:   rgba(200,188,168,0.55);
+      --text-dim:     rgba(200,188,168,0.28);
+      --gold:         #c4956a;
+      --moss:         #6a8a5e;
+      --rust:         #9a5a5a;
+      --sky:          #5a7a9a;
+    }
+
+    [data-mode="light"] {
+      --bg:           #f7f5f0;
+      --surface:      #ebe7df;
+      --raised:       #ffffff;
+      --border:       rgba(196,149,106,0.20);
+      --border-dim:   rgba(0,0,0,0.08);
+      --text:         #2a2520;
+      --text-warm:    #3a3028;
+      --text-muted:   rgba(60,48,36,0.60);
+      --text-dim:     rgba(60,48,36,0.30);
+      --gold:         #8a6a3a;
+      --moss:         #4a6a3a;
+      --rust:         #8a3a3a;
+      --sky:          #3a5a7a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── DOC HEADER ── */
+    .doc-header {
+      border-top: 2px solid var(--gold);
+      padding-top: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .doc-header .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .doc-header h1 {
+      font-family: var(--serif);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--border-dim);
+      border-bottom: 1px solid var(--border-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .meta-item .meta-label {
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      margin-bottom: 0.2rem;
+    }
+
+    .meta-item .meta-val {
+      font-size: 0.80rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .framing-note {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 1rem 1.25rem;
+      border-left: 2px solid var(--border);
+    }
+
+    /* ── ISSUE SUMMARY TABLE ── */
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 3rem;
+      font-size: 0.80rem;
+    }
+
+    .summary-table th {
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .summary-table td {
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid var(--border-dim);
+      color: var(--text-warm);
+      vertical-align: top;
+      line-height: 1.45;
+    }
+
+    .summary-table tr:last-child td { border-bottom: none; }
+
+    .summary-table td:first-child {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--gold);
+      white-space: nowrap;
+      width: 4.5rem;
+    }
+
+    .summary-table td:nth-child(2) {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .priority-high   { color: var(--rust) !important; }
+    .priority-medium { color: var(--gold) !important; }
+    .priority-low    { color: var(--moss) !important; }
+
+    /* ── SECTION STRUCTURE ── */
+    .section {
+      margin-bottom: 3.5rem;
+      padding-bottom: 3.5rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .issue-num {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--gold);
+      background: rgba(196,149,106,0.08);
+      border: 1px solid rgba(196,149,106,0.18);
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .section h2 {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    /* sub-blocks */
+    .block {
+      margin-bottom: 1.75rem;
+    }
+
+    .block-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .block-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-dim);
+    }
+
+    .block-label.current  { color: var(--text-dim); }
+    .block-label.problem  { color: var(--rust); }
+    .block-label.statute  { color: var(--sky); }
+    .block-label.proposed { color: var(--moss); }
+    .block-label.note     { color: var(--text-dim); }
+    .block-label.question { color: var(--gold); }
+
+    /* current language */
+    .current-lang {
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      border-left: 3px solid var(--text-dim);
+      padding: 0.9rem 1.1rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.6;
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* problem text */
+    .problem-text {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--text-warm);
+    }
+
+    .problem-text p + p { margin-top: 0.9rem; }
+
+    /* statute citations */
+    .statute-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .statute-list li {
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--text-warm);
+      padding-left: 1.1rem;
+      position: relative;
+    }
+
+    .statute-list li::before {
+      content: '§';
+      position: absolute;
+      left: 0;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--sky);
+    }
+
+    .statute-cite {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--sky);
+      font-weight: 500;
+    }
+
+    /* proposed language */
+    .proposed-lang {
+      background: rgba(106,138,94,0.06);
+      border: 1px solid rgba(106,138,94,0.18);
+      border-left: 3px solid var(--moss);
+      padding: 1rem 1.25rem;
+      font-size: 0.83rem;
+      line-height: 1.65;
+      color: var(--text-warm);
+      border-radius: 0 3px 3px 0;
+      margin-bottom: 0.75rem;
+    }
+
+    .proposed-lang .proposed-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--moss);
+      margin-bottom: 0.5rem;
+    }
+
+    .proposed-lang strong {
+      color: var(--text);
+    }
+
+    /* note callout */
+    .note-callout {
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      padding: 0.85rem 1.1rem;
+      font-size: 0.80rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    /* question callout */
+    .question-callout {
+      background: rgba(196,149,106,0.04);
+      border: 1px solid rgba(196,149,106,0.14);
+      padding: 0.85rem 1.1rem;
+      font-size: 0.82rem;
+      color: var(--text-warm);
+      line-height: 1.6;
+    }
+
+    .question-callout .q-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 0.35rem;
+    }
+
+    /* inline code / citation */
+    code {
+      font-family: var(--mono);
+      font-size: 0.82em;
+      color: var(--sky);
+      background: rgba(90,122,154,0.08);
+      padding: 0.1em 0.35em;
+      border-radius: 2px;
+    }
+
+    /* sub-label for proposed blocks */
+    .sub-proposed {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--moss);
+      margin-top: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+
+    /* ── JEFF CARD ── */
+    .jeff-card {
+      background: rgba(106,138,94,0.06);
+      border: 1px solid rgba(106,138,94,0.22);
+      padding: 0.9rem 1.15rem;
+    }
+    .jeff-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--moss);
+      margin-bottom: 0.45rem;
+    }
+    .jeff-body {
+      font-size: 0.81rem;
+      color: var(--text-warm);
+      line-height: 1.65;
+    }
+    .jeff-body p { margin: 0; }
+    .jeff-body p + p { margin-top: 0.75rem; }
+
+
+    /* ── BOARD/MEMBER CARD ── */
+    .board-card {
+      background: rgba(90,122,154,0.05);
+      border: 1px solid rgba(90,122,154,0.18);
+      padding: 0.9rem 1.15rem;
+    }
+    .board-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--sky);
+      margin-bottom: 0.45rem;
+    }
+    .board-body {
+      font-size: 0.84rem;
+      color: var(--text-warm);
+      line-height: 1.68;
+    }
+    .board-body p { margin: 0; }
+    .board-body p + p { margin-top: 0.75rem; }
+
+    /* ── CROSS-CUTTING ── */
+    .rec-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .rec-item {
+      display: grid;
+      grid-template-columns: 1.75rem 1fr;
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    .rec-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--gold);
+      padding-top: 0.1rem;
+    }
+
+    .rec-body {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--text-warm);
+    }
+
+    .rec-body strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    /* ── QUESTIONS TABLE ── */
+    .questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .q-item {
+      padding: 0.9rem 1.1rem;
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      border-left: 3px solid var(--gold);
+    }
+
+    .q-item .q-num {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .q-item .q-topic {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .q-item .q-body {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ── FOOTER ── */
+    .doc-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-dim);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 1.5rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    /* ── PROSE HELPERS ── */
+    p { font-size: 0.88rem; line-height: 1.72; color: var(--text-warm); }
+    p + p { margin-top: 0.9rem; }
+
+    h3 {
+      font-family: var(--serif);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .meta-grid { grid-template-columns: 1fr 1fr; }
+      .section-header { flex-direction: column; gap: 0.4rem; }
+    }
+  
+    /* ── ADDENDUM ── */
+    .addendum-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 4rem 0 3rem;
+    }
+    .addendum-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--sky);
+      opacity: 0.25;
+    }
+    .addendum-divider-label {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--sky);
+      white-space: nowrap;
+    }
+    .addendum-banner {
+      background: rgba(90,122,154,0.05);
+      border: 1px solid rgba(90,122,154,0.20);
+      border-left: 3px solid var(--sky);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .addendum-banner .addendum-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--sky);
+      margin-bottom: 0.5rem;
+    }
+    .concur-card {
+      background: rgba(90,122,154,0.05);
+      border: 1px solid rgba(90,122,154,0.18);
+      padding: 0.9rem 1.15rem;
+      margin-bottom: 1.75rem;
+    }
+    .concur-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--sky);
+      margin-bottom: 0.45rem;
+    }
+    .concur-body {
+      font-size: 0.84rem;
+      color: var(--text-warm);
+      line-height: 1.68;
+    }
+    .concur-body p { margin: 0; }
+    .concur-body p + p { margin-top: 0.75rem; }
+    .diverge-card {
+      background: rgba(196,149,106,0.05);
+      border: 1px solid rgba(196,149,106,0.22);
+      padding: 0.9rem 1.15rem;
+      margin-bottom: 1.75rem;
+    }
+    .diverge-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 0.45rem;
+    }
+    .diverge-body {
+      font-size: 0.84rem;
+      color: var(--text-warm);
+      line-height: 1.68;
+    }
+    .diverge-body p { margin: 0; }
+    .diverge-body p + p { margin-top: 0.75rem; }
+    .affirm-card {
+      background: rgba(106,138,94,0.05);
+      border: 1px solid rgba(106,138,94,0.20);
+      padding: 0.9rem 1.15rem;
+      margin-bottom: 1.75rem;
+    }
+    .affirm-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--moss);
+      margin-bottom: 0.45rem;
+    }
+    .affirm-body {
+      font-size: 0.84rem;
+      color: var(--text-warm);
+      line-height: 1.68;
+    }
+    .affirm-body p { margin: 0; }
+    .affirm-body p + p { margin-top: 0.75rem; }
+    .issue-num.addendum { background: rgba(90,122,154,0.08); border-color: rgba(90,122,154,0.22); color: var(--sky); }
+
+  </style>
+  <script src="/intranet/comments.js" defer></script>
+</head>
+<body data-doc-path="/legal/membership-agreement-analysis/">
+<button onclick="(function(){var m=document.documentElement.getAttribute('data-mode')=='dark'?'light':'dark';document.documentElement.setAttribute('data-mode',m);try{localStorage.setItem('techne-mode',m);}catch(e){}})()" style="position:fixed;top:12px;right:12px;z-index:1000;background:var(--surface);border:1px solid var(--border-dim);color:var(--text-muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;border-radius:3px;letter-spacing:0.06em;" aria-label="Toggle dark/light mode">mode</button>
+
+<div class="wrap">
+
+  <div style="background:rgba(196,149,106,0.06);border:1px solid rgba(196,149,106,0.25);border-radius:4px;padding:0.7rem 1.1rem;font-family:var(--mono);font-size:0.68rem;line-height:1.6;color:var(--text-muted);margin-bottom:1.5rem;">
+    <span style="color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">Formation-era commentary</span> ·
+    Prepared May&ndash;July 2026, during drafting and ratification. Published for member education: the reasoning behind the governing documents.
+    The ratified instruments are the source of truth: <a href="/legal/bylaws/" style="color:var(--gold);text-decoration:none;">Bylaws v.2.1</a> · <a href="/legal/membership-agreement/" style="color:var(--gold);text-decoration:none;">Membership Agreement v.2.3</a>.
+  </div>
+
+
+  <!-- VERSION NAV -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0.65rem 1rem;margin-bottom:1.5rem;background:var(--raised);border:1px solid var(--border);border-radius:6px;font-size:0.82rem;flex-wrap:wrap;gap:0.5rem;">
+    <span style="color:var(--text-muted);">Analysis of changes from <strong style="color:var(--sky);">MA v.1</strong> → <strong style="color:var(--gold);">MA v.2</strong></span>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+      <a href="https://techne.institute/legal/membership-agreement-v1/" style="color:var(--sky);text-decoration:none;padding:0.2rem 0.6rem;border:1px solid rgba(90,122,154,0.35);border-radius:4px;">MA v.1 (original) ↗</a>
+      <a href="/legal/membership-agreement/" style="color:var(--gold);text-decoration:none;padding:0.2rem 0.6rem;border:1px solid rgba(196,149,106,0.35);border-radius:4px;">MA v.2 (revised) ↗</a>
+      <a href="https://techne.institute/legal/membership-agreement-modifications/changes/" style="color:var(--text-muted);text-decoration:none;padding:0.2rem 0.6rem;border:1px solid var(--border-dim);border-radius:4px;">Proposed changes index ↗</a>
+    </div>
+  </div>
+
+  <!-- DOCUMENT HEADER -->
+  <header class="doc-header">
+    <div class="eyebrow">Legal Working Document · RegenHub, LCA · May 11, 2026</div>
+    <h1>Membership Agreement v.1<br>Analysis &amp; Proposed Modifications</h1>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Agreement reviewed</div>
+        <div class="meta-val">Membership Agreement (RegenHub) v.1 · April 23, 2026 · Jeff Pote / Pote Law Firm</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Scope</div>
+        <div class="meta-val">Class A Patron Member agreement only. Separate Techne co-op agreement ($25 class) anticipated.</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-val">Working draft for board review and outside counsel. Not legal advice.</div>
+      </div>
+    </div>
+
+    <div class="framing-note">
+      This analysis is grounded in the Colorado Uniform Limited Cooperative Association Act (<code>C.R.S. Title 7, Article 58</code>), relevant federal tax provisions (<code>IRC §§ 704(b), 1381–1388</code>), and cooperative legal practice. Proposed replacement language is offered as a starting point for Jeff's redraft. The agreement is competent commercial boilerplate; the revisions below align it with the cooperative's actual structure, public benefit purpose, and tax positioning.
+    </div>
+  </header>
+
+  <!-- ISSUE SUMMARY -->
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Issue</th>
+        <th>Priority</th>
+        <th>Blocking board authorization?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>IP assignment scope — overbroad works-made-for-hire</td>
+        <td class="priority-high">High</td>
+        <td>Yes — affects what members are agreeing to</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Voluntary withdrawal and stock redemption mechanics missing</td>
+        <td class="priority-high">High</td>
+        <td>Yes — basic gap for any membership agreement</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Patronage accounting and federal tax alignment</td>
+        <td class="priority-high">High</td>
+        <td>Yes — IRC 704(b) safe harbor requires capital account framework</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Recital describes a coworking space, not a cooperative of practice</td>
+        <td class="priority-medium">Medium</td>
+        <td>Advisable before authorization</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Termination — no cure period or procedural protection for patron members</td>
+        <td class="priority-medium">Medium</td>
+        <td>Depends on bylaws dispute resolution strength</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Membership class architecture — no explicit Class A scope statement</td>
+        <td class="priority-low">Low</td>
+        <td>Advisable before second class is established</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ── ISSUE 1 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 01</span>
+      <h2>Intellectual Property — Scope Misaligned with Cooperative Model</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 tightens IP assignment to "Cooperative-Commissioned Work" — a defined term requiring a written task assignment, express identification as work-for-hire, and compensation beyond the member share. The original "scope of service" is undefined and could inadvertently capture IP members create in independent professional practice; C.R.S. § 7-58-602 does not require IP assignment.
+      <p>The portfolio license shifts from prior-permission-per-occasion to notice-and-objection, which reflects that patron members are owner-practitioners, not employees. If existing client contracts require broader IP control over member deliverables, those constraints should flow through individual engagement letters, not the base agreement.</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">This change defines exactly which work the co-op owns. Under the original agreement, anything you created while participating in Techne could potentially belong to the co-op. Under v2, the co-op only owns work you were specifically hired and paid to produce for it — a contracted project with a written task assignment.
+      <p>Your independent professional work, client projects, and personal portfolio stay yours. The portfolio display rule also changes: instead of asking permission every time you want to show co-op work, you give notice and the co-op can only object if there's a specific, documented client confidentiality reason.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current language — Section 3.3</div>
+      <div class="current-lang">
+        "the Cooperative shall have title to, ownership of, and all proprietary rights in and to any Intellectual Property, including all works-in-progress, developed or created within Applicant's scope of their service (if any) to the Cooperative… all of which shall be considered 'works made for hire'"
+        <br><br>
+        The portfolio license-back (§ 3.3.3) requires prior written permission from the Cooperative <em>on each occasion</em> before a member may display their own work in their portfolio.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>"Scope of their service" is undefined and overbroad. Patron members are owner-practitioners, not employees or contractors. A member who writes software, designs a system, produces a curriculum, or creates visual work while participating in Techne cooperative activities could inadvertently assign that IP entirely to the Cooperative — with a license-back more restrictive than most employment agreements.</p>
+        <p>This is not required by Colorado LCA statute. <code>C.R.S. § 7-58-602</code> defines patron member interests as financial rights and governance rights tied to patronage; IP assignment is purely contractual. For a cooperative of builders and practitioners, the current provision is backwards.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed modifications</div>
+
+      <div class="sub-proposed">Add definition</div>
+      <div class="proposed-lang">
+        <strong>"Cooperative-Commissioned Work"</strong> means Intellectual Property developed by Applicant pursuant to a written task assignment, statement of work, or engagement letter executed by an authorized officer of the Cooperative, expressly identifying the deliverable as a work-made-for-hire for the Cooperative, and for which Applicant has received or is entitled to receive compensation from the Cooperative beyond the standard member share and any patronage allocation.
+      </div>
+
+      <div class="sub-proposed">Replace § 3.3 works-made-for-hire scope</div>
+      <div class="proposed-lang">
+        The Cooperative shall have title to, ownership of, and all proprietary rights in and to any Intellectual Property constituting <strong>Cooperative-Commissioned Work</strong>. All such work shall be considered "works made for hire" as defined by 17 U.S.C. §§ 101 and 201(b). To the extent any Cooperative-Commissioned Work is not deemed a work made for hire, Applicant hereby assigns all right, title, and interest therein to the Cooperative. <strong>Intellectual Property developed by Applicant outside the scope of Cooperative-Commissioned Work — including Applicant's independent professional practice, open-source contributions, and prior work — remains Applicant's property and is not affected by this Agreement.</strong>
+      </div>
+
+      <div class="sub-proposed">Replace § 3.3.3 portfolio license — notice-and-objection model</div>
+      <div class="proposed-lang">
+        The Cooperative grants Applicant a perpetual, royalty-free, non-exclusive license to display Cooperative-Commissioned Work in Applicant's professional portfolio and in the marketing of Applicant's services. Before any such display, Applicant shall provide the Cooperative written notice identifying the specific work and proposed use. The Cooperative may, within <strong>ten (10) business days</strong> of such notice, provide written objection based solely on a specific client confidentiality obligation binding on the Cooperative. Absent a timely objection, Applicant may proceed.
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 tightens IP assignment to "Cooperative-Commissioned Work" — a defined term requiring a written task assignment, express identification as work-for-hire, and compensation beyond the member share. The original "scope of service" is undefined and could inadvertently capture IP members create in independent professional practice; C.R.S. § 7-58-602 does not require IP assignment.
+      <p>The portfolio license shifts from prior-permission-per-occasion to notice-and-objection, which reflects that patron members are owner-practitioners, not employees. If existing client contracts require broader IP control over member deliverables, those constraints should flow through individual engagement letters, not the base agreement.</p></div>
+    </div>
+  </div>
+
+
+  <!-- ── ISSUE 2 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 02</span>
+      <h2>Voluntary Withdrawal and Membership Interest Redemption</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds a voluntary withdrawal mechanism (new § 5.6) because C.R.S. § 7-58-1101(1) gives members an unconditional right to dissociate — the agreement cannot eliminate this right, only implement it. The original was silent, leaving a statutory right unaddressed.
+      <p>The 90-day at-par redemption is the proposed default. The key open question for the board: should the bylaws or the membership agreement govern redemption mechanics, and should the redemption price be par ($100) or book value? The answer to the second question determines whether the 90-day language is final or needs a cross-reference to the bylaws.</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">The original agreement had no exit process. Colorado law says you can always leave a cooperative — but the agreement needs to spell out what happens when you do. This adds a clear mechanism: give written notice, and within 90 days the co-op pays back your $100 share purchase (as long as the co-op is financially able to do so).
+      <p>Your membership rights and obligations continue until the withdrawal date. Outstanding balances you owe the co-op are settled before redemption. The IP, confidentiality, and arbitration obligations survive withdrawal.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current gap</div>
+      <div class="current-lang">
+        The agreement addresses termination (Cooperative expels member) but is silent on voluntary resignation. Section 9.1 prohibits transfer without written consent but provides no exit mechanism or redemption process for the $100 Class A stock.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label statute">Statutory basis</div>
+      <ul class="statute-list">
+        <li><span class="statute-cite">C.R.S. § 7-58-1101(1):</span> "A member has the power to dissociate at any time, rightfully or wrongfully, by notice in a record." This is a statutory right the agreement cannot eliminate — only implement.</li>
+        <li><span class="statute-cite">C.R.S. § 7-58-1006:</span> Redemption or repurchase requires board authorization and is governed by the articles or bylaws. Board has discretion to deny.</li>
+        <li><span class="statute-cite">C.R.S. § 7-58-1007:</span> Distributions (including redemptions) are limited when the association is insolvent or the distribution would render it insolvent.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed addition — new Section 5.6</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Voluntary Withdrawal</div>
+        Applicant may voluntarily withdraw from membership at any time by providing written notice to the Cooperative. Withdrawal is effective upon the date the Cooperative receives such notice, unless Applicant specifies a later effective date. Upon the effective withdrawal date: (a) Applicant's right to access Cooperative services, participate in governance, and receive future profit allocations shall terminate; and (b) the Cooperative shall redeem Applicant's Class A stock at its original purchase price (<strong>$100.00 per share</strong>) within <strong>ninety (90) days</strong> of the effective date, subject to (i) the limitations on distributions under <code>C.R.S. § 7-58-1007</code>, (ii) any outstanding financial obligations of Applicant to the Cooperative as of the withdrawal date, and (iii) Board authorization as required by <code>C.R.S. § 7-58-1006</code>. Any patronage credits formally noticed and allocated to Applicant's capital account but not yet distributed shall be redeemed in accordance with the Cooperative's then-current patronage redemption schedule. Applicant's obligations under Sections 3.3, 4, 6, 7, and 9 survive withdrawal.
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds a voluntary withdrawal mechanism (new § 5.6) because C.R.S. § 7-58-1101(1) gives members an unconditional right to dissociate — the agreement cannot eliminate this right, only implement it. The original was silent, leaving a statutory right unaddressed.
+      <p>The 90-day at-par redemption is the proposed default. The key open question for the board: should the bylaws or the membership agreement govern redemption mechanics, and should the redemption price be par ($100) or book value? The answer to the second question determines whether the 90-day language is final or needs a cross-reference to the bylaws.</p></div>
+    </div>
+
+    <div class="question-callout">
+      <div class="q-label">Question for Jeff</div>
+      Is $100 par the intended redemption price on voluntary withdrawal, or does the board want discretion to adjust for changes in book value? The answer determines whether the 90-day / par-value language is right, or whether the bylaws should govern redemption price separately.
+    </div>
+  </div>
+
+
+  <!-- ── ISSUE 3 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 03</span>
+      <h2>Patronage Accounting and Federal Tax Alignment</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds a Patronage Plan requirement (new § 2.4) and IRC § 704(b) capital account consent language because full board discretion over allocation methodology creates two compliance risks: it undermines the capital account maintenance framework required for the Subchapter K substantial economic effect safe harbor, and it departs from the C.R.S. § 7-58-1004 proportional-to-patronage default without a proper mechanism.
+      <p>Tax treatment is confirmed as Subchapter K. The 90-day Patronage Plan clock starts on first patron member admission. Tax counsel should confirm the capital account methodology, deficit restoration or qualified income offset election, and the form of annual K-1 notices of allocation before the plan is adopted — these elections should not be deferred to the first fiscal year end.</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">This creates a requirement for the board to write down exactly how profits will be measured and shared — called a Patronage Plan. It must be adopted within 90 days of the first member joining. The plan has to document how each member's contribution to co-op work is tracked, and profits are distributed in proportion to those contributions.
+      <p>Without this, the board has full discretion to set or change the profit formula at any time without member input. The 90-day clock and the requirement for member approval of any methodology change protect members from post-hoc formula changes. You'll receive an annual statement (a K-1 form) showing your share of co-op income or loss each year.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current language — Section 2.3</div>
+      <div class="current-lang">
+        "The Board establishes the formula for profit share and may change the formula at the Board's discretion."
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem — two layers</div>
+      <div class="problem-text">
+        <p><strong>Layer 1 — <code>IRC § 704(b)</code> (Subchapter K / partnership treatment — confirmed operative framework).</strong> Allocations must have "substantial economic effect" under Treas. Reg. § 1.704-1(b)(2). The safe harbor requires: (a) capital accounts maintained per regulation standards; (b) liquidating distributions made in accordance with positive capital account balances; and (c) a deficit restoration obligation or qualified income offset. Full Board discretion with no documented capital account framework undermines this safe harbor.</p>
+        <p><strong>Layer 2 — <code>IRC §§ 1381–1388</code> (Subchapter T / cooperative treatment).</strong> Not applicable — the Cooperative is confirmed to be taxed under Subchapter K. The Subchapter T qualified patronage dividend requirements are noted for reference only and do not govern this agreement.</p>
+        <p><strong>Colorado statutory default — <code>C.R.S. § 7-58-1004</code>.</strong> Absent bylaws specification, all profits must be allocated to patron members in proportion to their patronage. The Board may set aside reserves before allocation, but proportionality is the statutory default. Full discretion departs from this baseline.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed additions</div>
+
+      <div class="sub-proposed">New Section 2.4 — Patronage Plan</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Patronage Plan</div>
+        The Board shall adopt a written Patronage Plan within <strong>ninety (90) days</strong> of admitting the first patron member. The Patronage Plan shall specify: (a) the method for calculating each patron member's patronage for each fiscal year; (b) the basis for allocating net margins among patron members in proportion to their patronage, consistent with <code>C.R.S. § 7-58-1004</code>; (c) the form and timing of patronage dividends, including the minimum percentage to be paid in cash; (d) the procedures for issuing written notices of allocation to each patron member; and (e) the procedures for maintaining and adjusting patron capital accounts. The Board may amend the Patronage Plan, provided that any amendment reducing the cash component of patronage dividends or changing the patronage basis shall require approval by a majority of patron members at a duly noticed meeting.
+      </div>
+
+      <div class="sub-proposed">Add to Section 3.3 — Consent to Tax Treatment</div>
+      <div class="proposed-lang">
+        Applicant further acknowledges that: (a) the Cooperative intends to maintain capital accounts for patron members in accordance with Treasury Regulation § 1.704-1(b)(2)(iv); (b) the Cooperative will provide Applicant with annual written notices of allocation reflecting Applicant's distributive share of net income or loss for each fiscal year; and (c) such allocations are intended to have substantial economic effect within the meaning of <code>IRC § 704(b)</code>.
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds a Patronage Plan requirement (new § 2.4) and IRC § 704(b) capital account consent language because full board discretion over allocation methodology creates two compliance risks: it undermines the capital account maintenance framework required for the Subchapter K substantial economic effect safe harbor, and it departs from the C.R.S. § 7-58-1004 proportional-to-patronage default without a proper mechanism.
+      <p>Tax treatment is confirmed as Subchapter K. The 90-day Patronage Plan clock starts on first patron member admission. Tax counsel should confirm the capital account methodology, deficit restoration or qualified income offset election, and the form of annual K-1 notices of allocation before the plan is adopted — these elections should not be deferred to the first fiscal year end.</p></div>
+    </div>
+  </div>
+
+
+  <!-- ── ISSUE 4 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 04</span>
+      <h2>Recital — Foundational Framing</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 replaces the recital because foundational framing affects how ambiguous provisions are interpreted throughout the agreement — including IP assignment scope, confidentiality obligations, and service terms. The original described a real-estate and facilities operator; the entity is a Public Benefit LCA organized to cultivate scenius. No substantive rights change; only the interpretive lens.
+      <p>The replacement accurately identifies the Cooperative's public benefit purpose, its hybrid membership base (Boulder + virtual), and its cooperative-of-practice character. Jeff should confirm the replacement aligns with the Articles of Organization language before board authorization.</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">The opening description of the co-op is updated to match what it actually is. The original called it a "coworking space and community venue" — a landlord-style description. The v2 language describes a cooperative of practitioners organized around cultivating collective intelligence and scenius, serving members in Boulder and virtually.
+      <p>This matters because courts and arbitrators use the opening recital to interpret everything else in the agreement when the language is ambiguous. Accurate foundational language protects the co-op and its members.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current language</div>
+      <div class="current-lang">
+        "RegenHub is a coworking space and community venue in Boulder, Colorado, providing affordable workspace and event infrastructure for technologies, creatives, and changemakers building towards regenerative futures."
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>This describes a real-estate and facilities operation. It omits the Cooperative's stated public benefit ("Cultivating scenius"), its Colorado Public Benefit LCA status, its hybrid membership base (Boulder + virtual), and its orientation as a cooperative of practice rather than a facility operator.</p>
+        <p>Foundational framing in recitals affects how courts and arbitrators interpret ambiguous provisions throughout the agreement — including IP assignment scope, confidentiality obligations, and service obligations. The current language misrepresents the actual entity.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed replacement recital</div>
+      <div class="proposed-lang">
+        RegenHub, LCA (&ldquo;Cooperative&rdquo;) is a Colorado Public Benefit Limited Cooperative Association organized to cultivate scenius — the collective intelligence that arises from communities of practice — through right relationship between tools and the people who use them. The Cooperative serves patron members who are practitioners, builders, and thinkers operating across Boulder, Colorado and aligned virtual and regional communities. The Cooperative may operate physical gathering space, digital infrastructure, programs, and services in furtherance of this public benefit purpose.
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 replaces the recital because foundational framing affects how ambiguous provisions are interpreted throughout the agreement — including IP assignment scope, confidentiality obligations, and service terms. The original described a real-estate and facilities operator; the entity is a Public Benefit LCA organized to cultivate scenius. No substantive rights change; only the interpretive lens.
+      <p>The replacement accurately identifies the Cooperative's public benefit purpose, its hybrid membership base (Boulder + virtual), and its cooperative-of-practice character. Jeff should confirm the replacement aligns with the Articles of Organization language before board authorization.</p></div>
+    </div>
+  </div>
+
+
+  <!-- ── ISSUE 5 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 05</span>
+      <h2>Termination — Procedural Protections for Patron Members</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds Notice and Cure because patron members are owner-members with equity stakes, not at-will participants. Termination without notice and a response opportunity is procedurally thin for an ownership interest. C.R.S. § 7-58-1101 permits termination provisions in governing documents — but good cooperative governance requires minimum procedural protections consistent with that ownership status.
+      <p>The 30-day cure period is limited to breaches reasonably capable of cure; false statement and criminal conduct remain subject to immediate action. This provision is only coherent if the bylaws contain a real dispute resolution procedure — the bylaws v2 analysis addresses this directly. Jeff should confirm alignment between the two documents before the board authorizes either.</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">Before this change, for most termination reasons the board could vote to end your membership with no prior warning. This adds a 30-day notice and the right to submit a written response before any termination takes effect — except for fraud or criminal conduct, where the co-op can still act immediately.
+      <p>As an owner-member with equity in the co-op, you have the right to know what you're alleged to have done wrong and the chance to address it before a final decision is made. This is the minimum procedural protection appropriate for an ownership interest.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current structure</div>
+      <div class="current-lang">
+        Board may terminate membership for: failure to comply with governing documents; non-payment (30 days cure); false statement; conduct "detrimental to operations/reputation"; "good faith belief" of inaccurate reporting; conduct inhibiting other members' participation. Only non-payment includes a cure period.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>Patron members are owner-members of the Cooperative, not at-will participants. Termination without notice, cure opportunity, or appeal is procedurally thin for an owner class. <code>C.R.S. § 7-58-1101</code> permits associations to specify termination events in governing documents — but the membership agreement should establish minimum procedural protections consistent with cooperative governance principles.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed addition — after Section 5's list of grounds</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Notice and Cure</div>
+        Before exercising any termination right under this Section 5 (other than under Section 5(b) [non-payment] or Section 5(c) [false statement]), the Cooperative shall provide Applicant with: (a) written notice specifying the ground(s) for the proposed termination and identifying the conduct or omission at issue; and (b) a <strong>thirty (30)-day</strong> period to cure, where the breach is reasonably capable of cure. Termination shall be carried out in accordance with the dispute resolution procedures in the Bylaws. Prior to any final termination determination, Applicant shall have the right to submit a written response to the Board or its designated committee.
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds Notice and Cure because patron members are owner-members with equity stakes, not at-will participants. Termination without notice and a response opportunity is procedurally thin for an ownership interest. C.R.S. § 7-58-1101 permits termination provisions in governing documents — but good cooperative governance requires minimum procedural protections consistent with that ownership status.
+      <p>The 30-day cure period is limited to breaches reasonably capable of cure; false statement and criminal conduct remain subject to immediate action. This provision is only coherent if the bylaws contain a real dispute resolution procedure — the bylaws v2 analysis addresses this directly. Jeff should confirm alignment between the two documents before the board authorizes either.</p></div>
+    </div>
+  </div>
+
+
+  <!-- ── ISSUE 6 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 06</span>
+      <h2>Membership Class Architecture — Explicit Scope Statement</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds a scope statement because with a Techne co-op agreement anticipated, both instruments need explicit scope statements to prevent ambiguity about which governs which class. The addition changes nothing substantive — it only makes the class architecture legible on the face of the document.
+      <p>The Section 1.1 addition provides a clean path for future membership classes without requiring this agreement to be amended. Jeff should confirm timing on the Techne co-op agreement so the definitions in both documents (Governing Documents, Board, Confidential Information) can be kept consistent.</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">This makes explicit that this agreement is specifically for Class A Patron Members — not investors or any future membership class. It also sets up a clean framework so that when the co-op creates new membership classes (like the Techne $25 co-op membership), each class gets its own agreement rather than everyone sharing one document.
+      <p>Nothing changes about your rights as a patron member. This simply labels the system clearly so there's no ambiguity about which agreement governs which type of membership.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Gap</div>
+      <div class="current-lang">
+        The agreement does not identify itself as the Class A Patron Member agreement. With a separate Techne co-op agreement anticipated, both instruments need clear scope statements to avoid ambiguity about which governs which class.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed additions</div>
+
+      <div class="sub-proposed">Section 1 — opening sentence</div>
+      <div class="proposed-lang">
+        This Agreement governs <strong>Class A patron membership</strong> in RegenHub, LCA. It does not govern investor membership or any other membership class established by the Board after the date of this Agreement.
+      </div>
+
+      <div class="sub-proposed">Section 1.1 — after stock price mechanics</div>
+      <div class="proposed-lang">
+        The Board may establish additional membership classes with different financial rights, governance rights, and stock prices. Membership in any such additional class shall be governed by a separate membership agreement or addendum specific to that class.
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds a scope statement because with a Techne co-op agreement anticipated, both instruments need explicit scope statements to prevent ambiguity about which governs which class. The addition changes nothing substantive — it only makes the class architecture legible on the face of the document.
+      <p>The Section 1.1 addition provides a clean path for future membership classes without requiring this agreement to be amended. Jeff should confirm timing on the Techne co-op agreement so the definitions in both documents (Governing Documents, Board, Confidential Information) can be kept consistent.</p></div>
+    </div>
+  </div>
+
+
+  <!-- ── CROSS-CUTTING ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Rec</span>
+      <h2>Cross-Cutting Recommendations</h2>
+    </div>
+
+    <div class="rec-list">
+      <div class="rec-item">
+        <div class="rec-num">01</div>
+        <div class="rec-body">
+          <strong>Bylaws cross-reference audit</strong>
+          Before the board authorizes this agreement, confirm the bylaws contain the termination and dispute resolution procedures referenced in Sections 5 and 9.6–9.7. If the bylaws are thin on these points, the protections proposed in Issue 5 should be incorporated directly into the membership agreement.
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">02</div>
+        <div class="rec-body">
+          <strong>Tax counsel engagement before Patronage Plan</strong>
+          The Cooperative is taxed under Subchapter K. The 90-day clock on the Patronage Plan starts on the date of first patron member admission. Before the board adopts the Plan, the tax lawyer Todd has referenced should confirm the capital account methodology, the deficit restoration or qualified income offset election, and the form of annual written notices of allocation under IRC § 704(b).
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">03</div>
+        <div class="rec-body">
+          <strong>Techne co-op agreement architecture</strong>
+          When Jeff drafts the $25 Techne membership agreement, it should use consistent definitions for Governing Documents, Board, and Confidential Information. IP scope for Techne members may differ from Patron Members. The two agreements should be legible as a system.
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">04</div>
+        <div class="rec-body">
+          <strong>Annual patronage notice resolution</strong>
+          Before the first fiscal year end, the board should adopt a resolution establishing the form and timing of written patronage notices. Simple board action — but must happen before any patronage is allocated.
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">05</div>
+        <div class="rec-body">
+          <strong>"Status of Parties" clause — affirm what the relationship is</strong>
+          Section 9.4 disclaims agency, partnership, and employment. For a cooperative, consider adding: <em>"Applicant is an owner-member of the Cooperative with the rights and obligations set forth in this Agreement and the Governing Documents."</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── QUESTIONS FOR JEFF ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Q&amp;A</span>
+      <h2>Questions for Jeff Pote</h2>
+    </div>
+
+    <div class="questions-list">
+      <div class="q-item">
+        <div class="q-num">Question 01</div>
+        <div class="q-topic">IP scope</div>
+        <div class="q-body">Is there any reason the broader "scope of service" language is needed for the Patron Member class? If the Cooperative has client agreements requiring broader IP control over member deliverables, can those constraints be handled through individual engagement letters rather than the base membership agreement?</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Question 02</div>
+        <div class="q-topic">Voluntary withdrawal redemption</div>
+        <div class="q-body">Is $100 par the intended redemption price on voluntary withdrawal, or does the board want discretion to adjust for changes in book value? Should redemption mechanics live in this agreement or in the bylaws?</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Question 03</div>
+        <div class="q-topic">Patronage Plan — capital account methodology</div>
+        <div class="q-body">Subchapter K (partnership treatment) is confirmed. For Jeff and tax counsel: What capital account methodology should the Patronage Plan specify? Will the Cooperative adopt a deficit restoration obligation or a qualified income offset to satisfy the IRC § 704(b) safe harbor? These elections should be reflected in the Patronage Plan before the first fiscal year end.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Question 04</div>
+        <div class="q-topic">Bylaws termination procedure</div>
+        <div class="q-body">Does the current bylaws draft provide the procedural protections proposed in Issue 5? If not, should they be added to the bylaws or to this agreement?</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Question 05</div>
+        <div class="q-topic">Recital update</div>
+        <div class="q-body">Should the recital be revised before the board authorizes the agreement? The current language describes a coworking space; the entity is a Public Benefit LCA with a cooperative-of-practice purpose.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Question 06</div>
+        <div class="q-topic">Dual-class consistency</div>
+        <div class="q-body">When will the Techne co-op agreement be drafted, and what is the timeline for the investor member class? Understanding the sequence determines how much the Patron Member agreement needs to anticipate other classes now.</div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- ── ADDENDUM ── -->
+
+  <div class="addendum-divider">
+    <div class="addendum-divider-line"></div>
+    <span class="addendum-divider-label">Addendum &mdash; May 2026</span>
+    <div class="addendum-divider-line"></div>
+  </div>
+
+  <div class="addendum-banner">
+    <div class="addendum-label">Additional Research Read</div>
+    <p>The following findings are drawn from an independent Colorado legal research read of both v.2 documents, oriented to the ratification window. The read reviewed Bylaws v.2 and Membership Agreement v.2 together against Colorado ULCAA, IRC Subchapter K, and cooperative governance standards. Where findings concur with existing issues above, cross-references are noted. Where they diverge, the divergence is made explicit. Research posture, not legal advice.</p>
+  </div>
+
+
+  <!-- ── MA-A01 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">Concurs &mdash; Extends</span>
+      <h2>Schedule A Is Empty and the Share Price Lives in Two Places</h2>
+    </div>
+
+    <div class="concur-card">
+      <div class="concur-label">Concurs with Bylaws Issue 04</div>
+      <div class="concur-body">
+        <p>The research read concurs that Schedule A leaving share price and dues as bracketed placeholders is a blocking issue. This read adds a specific MA-level problem: &sect; 1.4 hard-codes the Class A share price at one hundred dollars while Schedule A for the same class is still a placeholder. Nothing can be issued until Schedule A is populated, and once it is, the figure must match &sect; 1.4 or the two instruments will drift apart when the Board revises the price.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">MA-specific problem</div>
+      <div class="problem-text">
+        <p>Bylaws &sect;&sect; 1.2.4 and 5.1.2 make the Schedule A price both the trigger for membership and the opening entry in a member's capital account. The Membership Agreement's hard-coded $100 in &sect; 1.4 creates a parallel source of truth. Any future Schedule A revision would require a simultaneous MA amendment, or the two documents would contradict each other on the price that determines the initial capital account balance.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Path</div>
+      <div class="proposed-lang">
+        Populate Schedule A with the definitive per-class figures before execution. Revise MA &sect; 1.4 to reference the Schedule A price for Class A rather than restating it as a fixed dollar amount. This creates a single source of truth that the Board can revise through a Schedule A amendment without requiring a parallel MA amendment.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── MA-A02 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">New &mdash; Blocking</span>
+      <h2>The Agreement Still Speaks Subchapter T Inside a Subchapter K Entity</h2>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>MA &sect; 3.3 says allocations are taken into account on the member's return <em>in the taxable year in which they were received</em>. Sections 2.3 and 2.4 use <em>net margins</em>, <em>patronage dividends</em>, and <em>written notices of allocation</em>. These are cooperative-taxation concepts belonging to <code>IRC &sect; 1388</code> and Subchapter T of the Internal Revenue Code.</p>
+        <p>The cooperative has elected partnership tax treatment under Subchapter K. Under that election, a member reports their <em>distributive share</em> on a Schedule K-1 in the year the cooperative's fiscal year closes &mdash; whether or not any distribution is made. This is precisely what Bylaws &sect;&sect; 1.10 and 6.1 state. The "in the year received" framing in MA &sect; 3.3 therefore contradicts both the bylaws and the elected tax treatment.</p>
+        <p>The distinction is material: under Subchapter T, a patronage dividend is taxable to the member only when distributed. Under Subchapter K, a member's distributive share is taxable in the year allocated, even if retained. A member reading &sect; 3.3 as written would have an incorrect understanding of their tax obligation.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label statute">Statutory basis</div>
+      <ul class="statute-list">
+        <li><span class="statute-cite">IRC &sect; 702; Treas. Reg. &sect; 1.702-1:</span> A partner reports their distributive share of partnership income in the partnership's taxable year &mdash; the year-of-allocation, not year-of-distribution, rule.</li>
+        <li><span class="statute-cite">IRC &sect;&sect; 1381&ndash;1388 (Subchapter T):</span> The cooperative tax regime the cooperative has <em>not</em> elected &mdash; patronage dividends, written notices of allocation, and the "year received" rule are Subchapter T concepts.</li>
+        <li><span class="statute-cite">C.R.S. &sect; 7-58-1004:</span> State-law patronage hook &mdash; may remain in the MA; it is the <em>federal</em> framing that needs correcting.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Path</div>
+      <div class="proposed-lang">
+        Conform MA &sect;&sect; 2.3, 2.4, and 3.3 to partnership vocabulary: replace <em>net margins</em> with <em>net income</em> or <em>taxable income</em>; replace <em>patronage dividends</em> and <em>written notices of allocation</em> with <em>distributive share</em> and <em>capital account allocation</em>; replace the "in the year received" tax-reporting rule with "in the taxable year of the Cooperative in which such income is allocated, as reported on the member's Schedule K-1." The state-law patronage hook at C.R.S. &sect; 7-58-1004 can remain as a cooperative-purpose provision; only the federal tax framing needs correction.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── MA-A03 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">Extends</span>
+      <h2>Withdrawal Returns an Unclear Amount on an Inconsistent Clock</h2>
+    </div>
+
+    <div class="concur-card">
+      <div class="concur-label">Extends Existing Issue &mdash; Adds Tax Dimension</div>
+      <div class="concur-body">
+        <p>The existing analysis flags the 90-day vs. 5-year timing conflict between the MA and the bylaws. The research read concurs and identifies a deeper economic problem specific to the Subchapter K election that is the more significant fairness issue.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">The capital-account problem</div>
+      <div class="problem-text">
+        <p>Three provisions describe what a departing member receives and they do not line up. Bylaws &sect; 1.7.4 settles the capital account at book value under <code>Treas. Reg. &sect; 1.704-1(b)(2)(iv)</code>. MA &sect; 5.4 redeems the share at its $100 original price within ninety days, then handles allocated-but-undistributed patronage credits separately under a redemption schedule that does not yet exist. Bylaws &sect;&sect; 1.7.3 and 1.9 give the Board up to twelve months. The timing conflict is the smaller half of the problem.</p>
+        <p>The larger half is specific to Subchapter K. Under the partnership election, a member pays income tax each year on profit allocated to their capital account &mdash; whether or not the cash is distributed. If withdrawal returns only the $100 share price and not the accumulated capital-account balance (which includes all those taxed-but-retained allocations), the member has paid tax on value they will never receive. This is the sharpest economic and fairness question in the package, and it is embedded in the current MA structure.</p>
+        <p>MA &sect; 5.4's separate "patronage credit" redemption schedule is the right instinct, but as written it sits beside the capital account rather than being defined to equal it. The two mechanisms need to be unified.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label statute">Statutory and regulatory basis</div>
+      <ul class="statute-list">
+        <li><span class="statute-cite">Treas. Reg. &sect; 1.704-1(b)(2)(iv):</span> Capital account maintenance rules &mdash; the capital account balance is the authoritative record of what the cooperative holds on a member's behalf.</li>
+        <li><span class="statute-cite">C.R.S. &sect; 7-58-1007:</span> Distribution limits for a Colorado LCA &mdash; withdrawal payments are subject to solvency constraints; the board's payment discretion operates within these limits, not as a separate override.</li>
+        <li><span class="statute-cite">Bylaws &sect; 1.7.4:</span> Book-value settlement on withdrawal &mdash; must be reconciled with MA &sect; 5.4's par-value-plus-separate-credits structure.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Path</div>
+      <div class="proposed-lang">
+        State one rule in the MA: a withdrawing member is paid their positive capital-account balance &mdash; which already contains the original $100 share price plus all retained allocations &mdash; on a single stated timeline, subject to the distribution limits in C.R.S. &sect; 7-58-1007. Remove or reconcile the separate par-value redemption and patronage-credit redemption provisions in MA &sect; 5.4 so they reference the capital-account balance as the authoritative figure. This eliminates the tax-phantom problem and produces a single, clear rule. The 90-day / 12-month timing question should be resolved between the MA and bylaws with one document identified as controlling.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── MA-A04 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">Diverges</span>
+      <h2>IP Section Is Materially Improved in v.2</h2>
+    </div>
+
+    <div class="diverge-card">
+      <div class="diverge-label">Diverges from Existing Analysis &mdash; No Longer Blocking</div>
+      <div class="diverge-body">
+        <p>The existing analysis above flagged the IP provisions in MA &sect;&sect; 3.4.1&ndash;3.4.4 as a blocking member-overreach concern. The research read reached a different conclusion on v.2: assignment has been narrowed to expressly commissioned, separately compensated work, with the member's prior work, independent practice, and open-source contributions carved out, and a portfolio license returned to the member. On this read, the member-overreach concern is largely resolved in v.2.</p>
+        <p>Two narrow residual items remain, neither blocking on their own.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Residual item 1 &mdash; work-made-for-hire label</div>
+      <div class="problem-text">
+        <p>The assignment language uses the work-made-for-hire label as a backup mechanism. For a non-employee member, software and inventions rarely qualify as statutory works made for hire under <code>17 U.S.C. &sect; 101</code> &mdash; that category is narrow and requires either employment or a written agreement for one of the nine enumerated categories. Where the work-made-for-hire label does not apply as a matter of law, the assignment language (not the label) is what actually transfers rights. Confirm in the drafting notes that the <em>assignment</em> provision, not the work-made-for-hire label, is the operative mechanism for IP transfer.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Residual item 2 &mdash; venture IP scope</div>
+      <div class="problem-text">
+        <p>Confirm that this patron member agreement is not expected to capture intellectual property developed within spun-out ventures. Venture IP belongs in separate venture instruments (founders' agreements, venture formation docs) rather than the base membership agreement. If there is any ambiguity about which work product is covered by the patron member assignment, it should be resolved in the drafting notes before ratification.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label note">Note on the existing analysis</div>
+      <div class="note-callout">
+        The divergence between the existing analysis (blocking) and the research read (largely resolved) appears to reflect differences in the v.1 and v.2 drafts. If the existing analysis was prepared against v.1, the concerns it identified may have been addressed in the v.2 revisions. Confirm against the current v.2 text before the board vote.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── SUB K ADDENDUM DIVIDER ── -->
+  <div class="addendum-divider">
+    <div class="addendum-divider-line"></div>
+    <span class="addendum-divider-label">Subchapter K Vocabulary — Applied &middot; June 17, 2026</span>
+    <div class="addendum-divider-line"></div>
+  </div>
+
+  <div class="addendum-banner">
+    <div class="addendum-label">Changes Applied to MA v.2</div>
+    <p>The following Subchapter K vocabulary corrections have been incorporated directly into the MA v.2 document as inline annotations (mark-revised / mark-new), consistent with the v.1 → v.2 change-tracking format. These changes resolve MA-A02 (identified in the May 2026 research read) and reflect the Jeff Pote analysis of May 2026 confirming that the Cooperative is taxed as a partnership under Subchapter K, not as a cooperative under Subchapter T.</p>
+    <p>Five Subchapter T mechanisms have been removed and replaced with their Subchapter K equivalents. One new disclosure (phantom income acknowledgment) has been added. All changes are annotated with <code>data-original</code> (prior text) and <code>data-reason</code> (Sub K rationale) and are visible on hover in the MA v.2 document.</p>
+  </div>
+
+
+  <!-- ── MA-A05 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">Resolves MA-A02</span>
+      <h2>Subchapter K Vocabulary Scrub — Applied</h2>
+    </div>
+
+    <div class="affirm-card">
+      <div class="affirm-label">Applied in MA v.2 · June 17, 2026</div>
+      <div class="affirm-body">
+        <p>MA-A02 (research read, May 2026) identified five Subchapter T mechanisms embedded in a Subchapter K document. All five have been corrected inline in MA v.2. One additional disclosure (phantom income acknowledgment in § 3.3) has been added. The Patronage Plan's data-reason note in § 2.4 has also been corrected to remove a reference to Subchapter T that was present in the original annotation.</p>
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">
+        <p>The five Subchapter T mechanisms identified in MA-A02 have been replaced with their Subchapter K equivalents throughout §§ 2.4, 3.3, and 5.4. Each substitution is documented inline with the prior text (<code>data-original</code>) and the Subchapter K rationale (<code>data-reason</code>). The changes are:</p>
+        <p><strong>§ 2.4(b)</strong> — "net margins" → "net income." C.R.S. § 7-58-1001 uses "margins" in the Subchapter T context. Under Sub K the allocable figure is net income, defined consistently with § 5.3.1 of the Bylaws and IRC § 704(b).</p>
+        <p><strong>§ 2.4(c)</strong> — "patronage dividends, including the minimum percentage to be paid in cash" → "Patronage Distributions, including the minimum percentage of each Patronage Allocation to be paid as a cash distribution in the fiscal year of allocation." "Patronage dividend" is a defined term under IRC § 1388 (Subchapter T) — it does not apply to a Sub K entity. The two-step framework (Patronage Allocation = capital account credit; Patronage Distribution = cash paid out) is the correct Sub K mechanics. The IRC § 1388 minimum-20%-cash requirement is eliminated — our minimum percentage is whatever the Plan specifies.</p>
+        <p><strong>§ 2.4(d)</strong> — "written notices of allocation" → "Schedule K-1 forms." Written Notice of Allocation is the defined Subchapter T instrument (IRC § 1388(b)). Under Sub K, the annual member tax document is the Schedule K-1 (Form 1065-K1).</p>
+        <p><strong>§ 3.3 opening</strong> — "in the taxable year in which they were received by Applicant" → "in the taxable year of the Cooperative in which the allocation is made, whether or not a cash distribution is made in that year." The "year received" rule is Subchapter T timing. Under Sub K (IRC § 702, Treas. Reg. § 1.702-1), a partner's distributive share is taxable in the partnership's taxable year of allocation, not the year of distribution. A phantom income disclosure has been added immediately after this clause.</p>
+        <p><strong>§ 3.3(b)</strong> — "annual written notices of allocation" → "Schedule K-1." Consistent with § 2.4(d) above. Language also updated to specify that the K-1 reflects the member's Patronage Allocation and Capital Account balance, consistent with standard Sub K K-1 practice.</p>
+        <p><strong>§ 5.4</strong> — "patronage credits formally noticed and allocated" → "Patronage Allocations credited to Applicant's Capital Account." "Formally noticed" is the Sub T written-notice mechanism; under Sub K, allocations are credited to the capital account by accounting entry. "Patronage redemption schedule" → "distribution schedule, subject to the distribution limitations of C.R.S. § 7-58-1007 and the Bylaws."</p>
+        <p>Jeff should review whether the C.R.S. § 7-58-1004 citation in § 2.4(b) should be retained (it is the Colorado state-law proportionality hook) or replaced with a general ULCAA reference. MA-A02 notes the § 7-58-1004 citation is a state-law cooperative-purpose provision that can remain even in a Sub K entity — the federal framing is what required correction. The citation is retained in v.2 pending Jeff's confirmation.</p>
+      </div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">
+        <p>Several technical tax terms in the membership agreement were written for a different type of cooperative — one that files its taxes as a corporation under what's called "Subchapter T." RegenHub files as a partnership under "Subchapter K," and the difference matters for how and when members owe taxes on their share of co-op income.</p>
+        <p>The most important practical change is in § 3.3: the agreement now correctly states that your share of co-op income is taxable in the year the co-op earns it — not the year you receive a cash payment. A new sentence explicitly acknowledges that this can result in a tax bill in a year when no cash distribution was made. This is called "phantom income," and members should factor it into their financial planning. The co-op will deliver a Schedule K-1 (the standard partnership tax form) each year showing your share.</p>
+        <p>The term "patronage dividends" has been replaced with "Patronage Distributions" throughout § 2.4. "Patronage dividend" is a specific tax term for a corporate cooperative; we use "Patronage Distribution" to mean cash actually paid from your capital account. Your capital account is credited with a "Patronage Allocation" first (the paper entry); then when cash is distributed, that's a "Patronage Distribution." The two steps are now named clearly in the agreement.</p>
+      </div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Changes Applied — Summary Table</div>
+      <div class="current-lang">
+        <table style="width:100%;border-collapse:collapse;font-size:0.80rem;">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.15);font-family:var(--mono);font-size:0.56rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);">Location</th>
+              <th style="text-align:left;padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.15);font-family:var(--mono);font-size:0.56rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);">Before (Sub T)</th>
+              <th style="text-align:left;padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.15);font-family:var(--mono);font-size:0.56rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-dim);">After (Sub K)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--gold);font-family:var(--mono);font-size:0.70rem;">§ 2.4(b)</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--text-muted);">net margins</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--moss);">net income</td>
+            </tr>
+            <tr>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--gold);font-family:var(--mono);font-size:0.70rem;">§ 2.4(c)</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--text-muted);">patronage dividends … minimum percentage to be paid in cash</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--moss);">Patronage Distributions … minimum percentage of each Patronage Allocation to be paid as a cash distribution in the fiscal year of allocation</td>
+            </tr>
+            <tr>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--gold);font-family:var(--mono);font-size:0.70rem;">§ 2.4(d)</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--text-muted);">issuing written notices of allocation to each patron member</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--moss);">preparing and delivering Schedule K-1 forms to each Patron Member</td>
+            </tr>
+            <tr>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--gold);font-family:var(--mono);font-size:0.70rem;">§ 3.3 opening</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--text-muted);">in the taxable year in which they were received by Applicant</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--moss);">in the taxable year of the Cooperative in which the allocation is made, whether or not a cash distribution is made in that year</td>
+            </tr>
+            <tr>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--gold);font-family:var(--mono);font-size:0.70rem;">§ 3.3 — added</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--text-muted);">[no prior text]</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--moss);">Phantom income disclosure: "Applicant acknowledges that this may result in taxable income without a corresponding cash distribution in the same year."</td>
+            </tr>
+            <tr>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--gold);font-family:var(--mono);font-size:0.70rem;">§ 3.3(b)</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--text-muted);">annual written notices of allocation</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--moss);">Schedule K-1 (also: K-1 now specified to include Capital Account balance)</td>
+            </tr>
+            <tr>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--gold);font-family:var(--mono);font-size:0.70rem;">§ 5.4</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--text-muted);">patronage credits formally noticed and allocated … patronage redemption schedule</td>
+              <td style="padding:0.4rem 0.5rem;border-bottom:1px solid rgba(200,188,168,0.06);color:var(--moss);">Patronage Allocations credited to Applicant's Capital Account … distribution schedule, subject to C.R.S. § 7-58-1007 and the Bylaws</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label note">Open items — not yet applied</div>
+      <div class="note-callout">
+        <p><strong>Defined terms (Patronage Allocation, Patronage Distribution, Patronage Ratio, Patronage Ledger, Capital Account).</strong> These six terms are used in the revised §§ 2.4 and 3.3 but are not yet formally defined in the agreement. Per the Sub K vocabulary workup (June 2026), they belong in the MA definitions section or a new Schedule B. Recommend Jeff add a Definitions section to MA v.2 before ratification. Full definitions are available in the Sub K vocabulary workup on file.</p>
+        <p><strong>C.R.S. § 7-58-1004 citation in § 2.4(b).</strong> Retained pending Jeff's confirmation. The citation is the Colorado state-law proportionality hook and is not a Subchapter T provision per se — it can coexist with Subchapter K. However, MA-A02 noted this citation may imply Subchapter T mandatory distribution rules (the 20% minimum cash rule under IRC § 1388) that do not apply to us. Jeff should confirm whether to retain as-is, replace with a general ULCAA reference, or remove.</p>
+        <p><strong>MA-A03 (capital account / withdrawal amount reconciliation).</strong> Not addressed in this scrub. The timing and amount conflict between MA § 5.4 (par value + patronage credits) and Bylaws § 1.7.4 (book value / capital account balance) remains open and is the more significant fairness issue flagged in MA-A03. Recommend addressing in the same edit cycle as the definitions issue above.</p>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ADDENDUM — JUNE 2026 / MEMBERSHIP MATRIX   -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <div class="addendum-divider">
+    <div class="addendum-divider-line"></div>
+    <span class="addendum-divider-label">Addendum &mdash; June 2026 &middot; Membership Matrix</span>
+    <div class="addendum-divider-line"></div>
+  </div>
+
+  <div class="addendum-banner">
+    <div class="addendum-label">Four-Class Matrix Analysis</div>
+    <p>The following issues arise from the four-class membership matrix adopted by board memo (June 2026) and the bylaw ratification that preceded it. They are documented here as the analysis trail for the next round of MA revisions. MA-A06 through MA-A09 are partially applied in v.2.2–v.2.3 and partially pending board action.</p>
+  </div>
+
+
+<!-- ── MA-A06 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">New &mdash; Applied</span>
+      <h2>Class Two (Co-working Member): Access Track — Resolved June 2026</h2>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Issue</div>
+      <div class="problem-text">
+        <p>The four-class membership matrix (board memo §3, June 2026) named Class Two (Co-working Member) as a distinct class with two open cells marked <em>†</em>: patronage eligibility and capital account / K-1 status. The board memo §5 Q4 asked: <em>"Is Class Two co-working a partner for tax, with a capital account and a K-1, or a customer on the Hub track?"</em></p>
+        <p>The answer determines which agreement Co-working Members execute. If partners: this Agreement. If customers: the Hub Membership Agreement.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label note">Resolution — June 24, 2026</div>
+      <div class="note-callout">Board determination: Class Two (Co-working Member) are <strong>customers on the access track</strong>, not partners under Subchapter K. Co-working Members execute the Hub Membership Agreement, do not hold capital accounts, and do not receive Schedule K-1s. A Co-working Member who reaches a board-established patronage threshold may be invited to apply for Cooperative Member (Class One) status and, upon acceptance, executes this Agreement (Patronage Conversion Pathway).</div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Applied in v.2.3</div>
+      <div class="proposed-lang">§ 1.0 notice paragraph updated from "pending counsel's determination" to reflect the board's resolution: Class Two is the access track, governed by the Hub Membership Agreement, with a Patronage Conversion Pathway to Class One. Updated June 24, 2026.</div>
+    </div>
+  </div>
+
+
+  <!-- ── MA-A07 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">New &mdash; Applied</span>
+      <h2>Cooperative Member Admission Is an Invited Class, Not Open Enrollment</h2>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Issue</div>
+      <div class="problem-text">
+        <p>Neither MA v.1 nor v.2 stated any admission process or relationship threshold for Cooperative Member (Class One). The four-class membership matrix board memo (§4, June 2026) establishes Class One as an invited class earned over a relationship of approximately ninety days before admission. Without this language in the Agreement, the document is silent on what the admission process actually requires, which could create inconsistency between the member's expectations and the Cooperative's practice.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Applied in v.2.2</div>
+      <div class="proposed-lang">Added a paragraph to § 1.1 stating that Cooperative Member admission is by invitation, that the Board will not admit a member without a relationship of approximately ninety (90) days or such other period as the Board sets by resolution, and that the Cooperative retains discretion to admit or decline in accordance with the Governing Documents.</div>
+    </div>
+  </div>
+
+
+  <!-- ── MA-A08 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">New &mdash; Pending</span>
+      <h2>Withdrawal Redemption Outer Limit: Board Memo Names Five Years; Document Currently References Three</h2>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Issue</div>
+      <div class="problem-text">
+        <p>MA-A03 identified the withdrawal mechanics conflict (capital-account vs. par-value redemption; 90-day vs. 12-month timing). That issue remains open. The four-class membership matrix board memo (§4, June 2026) adds a specific outer limit: <em>"the share and any positive capital balance are redeemed on a schedule of up to five years."</em></p>
+        <p>MA v.2.2 § 5.4 currently references Bylaws §§ 1.7.3–1.7.4, which set the outer limit at three years. The board memo's five-year statement appears to be a new policy position, not yet reflected in the Bylaws or the MA. If the board intends a five-year outer limit, both the Bylaws and the MA will need amendment — the MA cannot unilaterally contradict the Bylaws (MA § 1.2 makes the Bylaws the senior document in case of conflict).</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Pending</div>
+      <div class="proposed-lang">
+        <p style="margin:0 0 0.5rem;">Confirm with board and counsel whether the intended outer limit is three years (Bylaws current) or five years (board memo intent). If five years: amend Bylaws §§ 1.7.3–1.7.4 first, then conform MA § 5.4 to the amended Bylaws. Do not change the MA in isolation. This item is not applied in v.2.2; the § 5.4 cross-reference to the Bylaws remains as the operative rule pending that determination.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label note">Referral</div>
+      <div class="note-callout">Jeff Pote / Pote Law Firm — confirm intended redemption outer limit and whether a Bylaws amendment is required before the MA can be conformed.</div>
+    </div>
+  </div>
+
+
+  <!-- ── MA-A09 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">New &mdash; Partially Applied</span>
+      <h2>No-Phantom-Tax Distribution Policy — Reference Added, Board Resolution Pending</h2>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Issue</div>
+      <div class="problem-text">
+        <p>MA §§ 2.4(c) and 3.3 (as revised in MA-A05) flag that distributive shares are taxable in the year of allocation, whether or not distributed in cash — the phantom income risk. The board memo (§4, June 2026) states that the no-phantom-tax discipline "should be explicit board policy," meaning the Board commits to sizing tax distributions to cover each member's estimated annual liability on patronage allocations.</p>
+        <p>This is a stronger commitment than disclosure. A disclosure tells the member they may face phantom income. A policy tells them the Board will act to prevent it. The distinction matters for member recruitment and member trust. The MA should reflect the policy once adopted — not only the disclosure.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Partially applied in v.2.2</div>
+      <div class="proposed-lang">Added a paragraph to § 3.3 referencing the Board's intent to adopt a Tax Distribution policy by board resolution, defining Tax Distribution as an amount sufficient to cover each member's estimated annual liability on their distributive share, and incorporating that policy by reference once adopted. The paragraph also preserves the phantom income disclosure as the operative statement until the board resolution is passed. This creates a visible placeholder that will activate when the board acts.</div>
+    </div>
+
+    <div class="block">
+      <div class="block-label note">Board action required</div>
+      <div class="note-callout">The Tax Distribution policy must be adopted by board resolution before the § 3.3 reference becomes operative. The board memo §5 Q2 asks the board to adopt this alongside the rate schedule (Schedule A). The two actions can be combined in a single board resolution: adopt Schedule A and adopt the no-phantom-tax distribution policy simultaneously.</div>
+  <!-- PROPOSED CHANGES INDEX LINK -->
+  <div style="margin-bottom: 2.5rem; padding: 1.25rem 1.5rem; background: rgba(196,149,106,0.04); border: 1px solid rgba(196,149,106,0.15); border-radius: 4px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <div style="font-family: var(--mono); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 0.3rem;">Proposed Changes Index</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">All proposed changes serialized with stable IDs for reference in board discussion and amendment motions.</div>
+    </div>
+    <a href="https://techne.institute/legal/membership-agreement-modifications/changes/" style="font-family: var(--mono); font-size: 0.68rem; color: var(--gold); text-decoration: none; border: 1px solid rgba(196,149,106,0.30); padding: 0.5rem 1rem; border-radius: 3px; white-space: nowrap; flex-shrink: 0;">View Changes Index →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="doc-footer">
+    Analysis prepared by Nou — collective intelligence agent, Techne Studio / RegenHub, LCA.<br>
+    Statutory citations: Colorado Revised Statutes, Title 7, Article 58 (Uniform Limited Cooperative Association Act).<br>
+    Federal tax citations: IRC §§ 702, 704(b), 731, 1381–1388; Treasury Regulation § 1.704-1(b)(2).<br>
+    MA-A01–MA-A04: May 2026 research read. MA-A05–MA-A09: June 2026, four-class membership matrix analysis.<br>
+    <strong>Not legal advice — for review by outside counsel before board action.</strong>
+  </footer>
+
+</div>
+
+<footer style="border-top:1px solid var(--border-dim);margin-top:4rem;padding:1.5rem 0 3rem;font-family:var(--mono);font-size:11px;color:var(--text-muted);">
+  <div style="max-width:780px;margin:0 auto;padding:0 1.5rem;display:flex;flex-wrap:wrap;gap:8px 24px;">
+    <span style="color:var(--gold);">Techne · RegenHub, LCA</span>
+    <span>1515 Walnut Street · Boulder, Colorado</span>
+    <span>Colorado Limited Cooperative Association</span>
+    <span>SOS No. 20261163853</span>
+    <span><a href="/legal/" style="color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border-dim);">&larr; Legal documents</a></span>
+  </div>
+</footer>
+</body>
+</html>
