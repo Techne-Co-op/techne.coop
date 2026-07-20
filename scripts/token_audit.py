@@ -14,13 +14,10 @@ Two checks over every HTML page and commons.css:
    (UI v1 section 1: drift between any copy and the document is a
    defect; detection assigned to X-06 by the SUB-02 decision record).
 
-   Scope: color tokens only, those whose canonical value is a hex
-   color. Typeface tokens are excluded by name until the type question
-   on the X-06 escalation card is decided: the documented chain
-   (design-system, UI v1, commons.css) says Georgia and Inter; the
-   deployed practice and AGENTS.md say Libre Baskerville and IBM Plex
-   Mono. Enforcing either side before the decision would pick the
-   winner by lint.
+   Scope: every shared token, typefaces included. The type question on
+   the X-06 escalation card was decided 2026-07-20 (adopt the deployed
+   practice: Libre Baskerville and IBM Plex Mono, two faces), so
+   font-stack drift is a defect like any other.
 
 Exit non-zero on any finding. Exemptions are named per VS v1 section 9:
 
@@ -90,7 +87,7 @@ def audit():
                     if sc:
                         canon = tokens.get((sc, prop))
                         mine = norm(val)
-                        if canon is not None and HEX_RE.search(canon) and mine != canon:
+                        if canon is not None and mine != canon:
                             findings.append(f"{rel}: token drift in {sc}: {prop}: {val} (commons.css: {tokens[(sc, prop)]})")
                 elif HEX_RE.search(val):
                     findings.append(f"{rel}: hex outside a token definition: {sel} {{ {prop}: {val} }}")

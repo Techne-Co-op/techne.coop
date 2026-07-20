@@ -546,11 +546,22 @@ cross_cutting:
   - address: X-06
     title: Design token audit
     intent: Verify no hard-coded color values in authored pages.
-    status: open · in-session
+    status: open · verified
     cites: [UI, VS]
     ready_when: SUB-02 verified.
     deliverable: Token audit step in CI.
     acceptance: No hard-coded hex values in page CSS.
+    resolution: >
+      scripts/token_audit.py live in the style-lint job: hex only inside
+      custom-property definitions, token drift against commons.css a defect,
+      exemptions named per VS v1 section 9 (design-system as the palette
+      constitution, legal as the formation-era record). Thirteen stray hex
+      literals tokenized across seven pages with zero visual change. PR 13
+      merged 2026-07-20. Typeface card decided the same day: deployed practice
+      adopted; design-system reference, UI v1, and commons.css amended; the
+      three Georgia-declaring pages (lp, ui, vs) aligned to Libre Baskerville;
+      typeface exclusion removed from the audit, which runs clean under full
+      drift enforcement. Verified by Todd Youngblood 2026-07-20.
     escalation:
       standing_in: X-06, drift detection between inline token copies and commons.css
       found: >
@@ -577,6 +588,14 @@ cross_cutting:
         would visually change every deployed page. On adoption, the typeface
         exclusion in scripts/token_audit.py is removed and font-stack drift
         becomes a defect like any other.
+      decision: >
+        Default adopted by Todd Youngblood 2026-07-20. The deployed two-face
+        practice governs: Libre Baskerville carries the document voice, IBM
+        Plex Mono the interface layer. design-system reference, UI v1 (sections
+        on type, both prose and distillation), and commons.css amended by this
+        record; lp, ui, and vs pages aligned; the design-system page's own
+        Inter-based interface styling stands until its re-emission, noted
+        inline. Typeface exclusion removed from the audit.
 
   - address: X-07
     title: Decision coherence

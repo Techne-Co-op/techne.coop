@@ -16,7 +16,7 @@
 <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <script>
   (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
   var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
@@ -36,7 +36,7 @@
 
 /* ---------- tokens ---------- */
 :root {
-  --serif:Georgia,"Times New Roman",serif;              /* document voice */
+  --serif:"Libre Baskerville",Georgia,serif;            /* document voice, X-06 decision 2026-07-20 */
   --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
   --sans:"Inter","Helvetica Neue",Arial,sans-serif;     /* interface layer */
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
@@ -348,7 +348,7 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
       <div class="def-row"><span class="t"><span class="k">edges and marks only</span>Accents</span><span class="d"><span class="swatch" style="background:var(--blue)"></span><code>--blue</code> is primary: links, primary action, focus, selection. <span class="swatch" style="background:var(--ember)"></span><code>--ember</code> is secondary: section marks, provenance edges, secondary action. Each has a readable <code>-text</code> partner. Neither ever fills a panel.</span></div>
       <div class="def-row"><span class="t">States</span><span class="d"><span class="swatch" style="background:var(--ok)"></span><code>--ok</code> <span class="swatch" style="background:var(--info)"></span><code>--info</code> <span class="swatch" style="background:var(--warn)"></span><code>--warn</code>, instruments and chips only, always paired with a word and a square mark. Never the sign of a number; signs are parentheses.</span></div>
       <div class="def-row"><span class="t"><span class="k">six stops</span>Sunset</span><span class="d"><span class="swatch" style="background:var(--sun-gold)"></span><span class="swatch" style="background:var(--sun-amber)"></span><span class="swatch" style="background:var(--sun-coral)"></span><span class="swatch" style="background:var(--sun-rose)"></span><span class="swatch" style="background:var(--sun-violet)"></span><span class="swatch" style="background:var(--sun-blue)"></span> The sweep, gold to twilight blue, with readable <code>-t</code> partners per mode, and a five-step heat scale whose mapping flips with the mode so luminance order holds.</span></div>
-      <div class="def-row"><span class="t">Space, type, motion</span><span class="d">An eight-step spacing scale <code>--s1</code> to <code>--s8</code> on a 4px base. Three faces: Georgia carries the document voice, Inter carries the interface layer (dashboard headings, section labels, navigation), and IBM Plex Mono carries labels, addresses, figures, and the status bar. Motion is <code>--micro</code> for response and <code>--dur</code> for mode, honored only when the device permits it.</span></div>
+      <div class="def-row"><span class="t">Space, type, motion</span><span class="d">An eight-step spacing scale <code>--s1</code> to <code>--s8</code> on a 4px base. Two faces: Libre Baskerville carries the document voice, and IBM Plex Mono carries the interface layer, labels, addresses, figures, and the status bar. Amended by decision record: X-06 escalation card, adopted by Todd Youngblood, 2026-07-20. Motion is <code>--micro</code> for response and <code>--dur</code> for mode, honored only when the device permits it.</span></div>
     </div>
     <div class="cap">values and rationale &middot; <a href="https://techne.coop/design-system">techne.coop/design-system</a> &middot; this page renders them live</div>
   </section>
@@ -500,9 +500,9 @@ STATE    the five chips on three earth states, a word and
          blocked = the Open chip, named. signs are
          parentheses, never a hue.
 
-TYPE     three faces: georgia document voice, inter
-         interface layer, plex mono labels and figures,
-         tabular and right-aligned.
+TYPE     two faces: libre baskerville document voice,
+         plex mono interface, labels and figures,
+         tabular and right-aligned. amended per X-06.
 
 SHAPE    radius 2px controls, 0 surfaces; no gradient, no
          shadow, no blur; motion only in answer to action,

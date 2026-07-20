@@ -40,7 +40,7 @@ Generated from rdm-ledger.yaml. 40 items total.
 - **SUB-05** open · verified -- Restore test
 - **X-04** open · verified -- Document manifest and site index
 - **X-05** open · verified -- Grammar lint
-- **X-06** open · in-session -- Design token audit
+- **X-06** open · verified -- Design token audit
 - **X-08** open · AM-pending -- Probe matrix
 
 ## Anticipated
