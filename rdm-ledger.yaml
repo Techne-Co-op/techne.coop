@@ -528,7 +528,7 @@ cross_cutting:
   - address: X-03
     title: Export paths
     intent: Per-table CSV/JSON exports for the walkaway rehearsal.
-    status: anticipated
+    status: open · in-session
     cites: [VS, IM]
     ready_when: G0 attested.
     deliverable: export.* views, download path.
@@ -562,6 +562,17 @@ cross_cutting:
         serialization, recorded as a decision so the producer and X-09 agree,
         superseding whatever ad-hoc hash SUB-05 used. On that decision I add the
         export producer (scripts) and X-03 opens.
+      decision: >
+        Default adopted by Todd Youngblood 2026-07-20, directing X-02, X-03,
+        and X-09 to begin. Audience: service-role / disaster recovery only;
+        no member or steward download without an Authority Map anchor.
+        Format: per-table JSON as postgres jsonb_agg(to_jsonb(row) order by
+        id) text plus newline; per-table sha256 over file bytes; manifest
+        of sorted-key table shas whose own sha256 is THE export SHA, nothing
+        time-dependent inside. Recorded in scripts/export_cis.py, which
+        supersedes the ad-hoc SUB-05 hash. Live application of
+        0004_export_views.sql and the first live export run are the
+        steward's infrastructure steps and gate verification.
 
   - address: X-04
     title: Document manifest and site index

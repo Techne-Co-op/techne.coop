@@ -66,3 +66,11 @@ comment on view export.opportunities is 'Export projection of public.opportuniti
 
 create view export.responses with (security_invoker = on) as select * from public.responses;
 comment on view export.responses is 'Export projection of public.responses (X-03).';
+
+-- role_grants arrived as an AM v0.1 §9 addendum (0002), after the
+-- thirteen IM base tables this file first enumerated. Board
+-- appointments are governance state the walkaway must reconstruct,
+-- so the projection joins the set. Added under X-03 while this file
+-- remains a draft, before any live application.
+create view export.role_grants with (security_invoker = on) as select * from public.role_grants;
+comment on view export.role_grants is 'Export projection of public.role_grants, the appointments addendum (X-03).';
