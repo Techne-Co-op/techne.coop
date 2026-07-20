@@ -181,6 +181,32 @@ def check_done_requires_verified(packets):
                     )
 
 
+def check_decision_coherence(packets):
+    """X-07: every escalation card on an opened packet carries a recorded decision.
+
+    An escalation card is a packet's `escalation` field, in the standing-in /
+    found / the-question / a-default shape of BP v1 §2 (see SUB-03 for the
+    convention). It is resolved when a decision is recorded: a `decision` key
+    inside the escalation mapping, or a sibling `decision` field on the packet.
+    A packet that has opened (status begins 'open') must not carry an unresolved
+    escalation card: the decision is recorded before the blocked packet opens.
+    """
+    for addr, p in packets.items():
+        esc = p.get("escalation")
+        if not esc:
+            continue
+        resolved = False
+        if isinstance(esc, dict):
+            resolved = bool(str(esc.get("decision", "") or "").strip())
+        if not resolved:
+            resolved = bool(str(p.get("decision", "") or "").strip())
+        if p.get("status", "").startswith("open") and not resolved:
+            err(
+                f"{addr}: opened packet carries an unresolved escalation card; "
+                f"record its decision before it opens (BP v1 §2, X-07)"
+            )
+
+
 def generate_status_md(packets):
     """Write STATUS.md summarizing ledger state."""
     status_path = REPO_ROOT / "STATUS.md"
@@ -273,6 +299,7 @@ def main():
     check_acyclicity(packets)
     check_gating(packets)
     check_done_requires_verified(packets)
+    check_decision_coherence(packets)
 
     generate_status_md(packets)
     generate_index_json(packets)
