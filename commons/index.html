@@ -42,6 +42,7 @@ html[data-mode="dark"] {
   --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
   --line: #2A2A30; --rule: #3A3A42;
   --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --on-accent: #F7F5F0;
   --blue: #6A8AC4; --blue-text: #97B5E8;
   --ember: #C4956A; --ember-text: #D4A57A;
   --blue-dim: rgba(106,138,196,0.14); --ember-dim: rgba(196,149,106,0.14);
@@ -55,6 +56,7 @@ html[data-mode="light"] {
   --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
   --line: #D8D3C8; --rule: #9A958A;
   --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --on-accent: #1A1A1F;
   --blue: #4A6FB0; --blue-text: #39588F;
   --ember: #8A6A4A; --ember-text: #6F5436;
   --blue-dim: rgba(74,111,176,0.10); --ember-dim: rgba(138,106,74,0.10);
@@ -258,10 +260,9 @@ nav { flex: 1; }
   transition: background-color var(--micro) var(--ease), color var(--micro) var(--ease), border-color var(--micro) var(--ease);
 }
 .btn-primary {
-  background: var(--ember); color: #F7F5F0;
+  background: var(--ember); color: var(--on-accent);
   border: 1px solid var(--ember);
 }
-html[data-mode="light"] .btn-primary { color: #1A1A1F; }
 .btn-primary:hover { background: var(--ember-text); border-color: var(--ember-text); }
 .btn-secondary {
   background: transparent; color: var(--heading);

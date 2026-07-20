@@ -25,6 +25,7 @@
   --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
   --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #fff;
 }
 html[data-mode="dark"] {
   --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
@@ -146,7 +147,7 @@ textarea { min-height: 100px; }
 }
 .submit-btn {
   background: var(--ember);
-  color: #fff;
+  color: var(--on-accent);
   border: none;
   border-radius: 6px;
   font-family: var(--mono);

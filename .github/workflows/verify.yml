@@ -235,6 +235,11 @@ jobs:
           if grep -rnP "[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}]" --include='*.html' --include='*.md' . ; then
             echo "::error::emoji found; the rule is absolute (techne.coop/design-system)"; exit 1
           fi
+      - name: token audit (X-06)
+        # UI v1 · hex only in custom-property definitions; color-token
+        # drift against commons.css is a defect. Exemptions and the
+        # typeface deferral are named in the script per VS v1 §9.
+        run: python3 scripts/token_audit.py
 
   restore-test:
     # SUB-05 · VS v1 §8 · seed-state restore: apply the substrate,

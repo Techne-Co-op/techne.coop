@@ -36,6 +36,7 @@
   --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
   --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #FCFBF8;
 
   /* sunset range  --  atmospheric per section */
   --sun-gold: #EAB668; --sun-amber: #E09A52; --sun-coral: #D1755A;
@@ -318,7 +319,7 @@ footer { background: var(--inset); }
 }
 .btn svg { width: 17px; height: 17px; stroke: currentColor; }
 .btn.primary {
-  background: var(--blue); color: #FCFBF8;
+  background: var(--blue); color: var(--on-accent);
   border-color: var(--blue); font-weight: 500;
 }
 .btn.primary:hover { transform: translateY(-1px); background: color-mix(in srgb, var(--blue) 88%, white); }
