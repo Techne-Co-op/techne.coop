@@ -483,6 +483,35 @@ cross_cutting:
     ready_when: G0 attested.
     deliverable: export.* views, download path.
     acceptance: Full export completes without error. SHA recorded.
+    note: >
+      Draft authored: commons/im/0004_export_views.sql, read-only
+      security-invoker export views over the 13 IM base tables
+      (capital_accounts excluded as a derived fold), no new grants and so no
+      new visibility. Held at anticipated, not opened: an undecided escalation
+      gates completion, and X-07 forbids opening a packet whose escalation lacks
+      a decision. The download path and export producer wait on the escalation
+      below, because the SHA and format convention are uncited and the export
+      audience shapes the design.
+    escalation:
+      standing_in: X-03, the export path.
+      found: >
+        0004_export_views.sql is authored but three things block completion and
+        are not the agent's to invent. Applying the migration to the live CIS
+        project is infrastructure. A full export reads every member row. The SHA
+        SUB-05 recorded is not the hash of the JSON tables, so the export format
+        is uncited, and an uncited constraint does not bind.
+      the_question: >
+        Is the export a service-role / disaster-recovery capability only (this
+        draft's assumption, feeding the X-09 walkaway), or a steward- or
+        member-facing download that needs an Authority Map anchor and possibly
+        redaction of applicant contact details?
+      a_default: >
+        Service-role / DR only: the views as drafted, run as the service role,
+        with no member or steward download yet. Pin the export format as
+        canonical per-table JSON with a documented SHA over the sorted-key
+        serialization, recorded as a decision so the producer and X-09 agree,
+        superseding whatever ad-hoc hash SUB-05 used. On that decision I add the
+        export producer (scripts) and X-03 opens.
 
   - address: X-04
     title: Document manifest and site index
