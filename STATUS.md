@@ -6,8 +6,8 @@ Generated from rdm-ledger.yaml. 40 items total.
 | status | count |
 |--------|-------|
 | drafted | 7 |
-| anticipated | 16 |
-| open | 17 |
+| anticipated | 15 |
+| open | 18 |
 | filed | 0 |
 
 ## Drafted
@@ -38,6 +38,7 @@ Generated from rdm-ledger.yaml. 40 items total.
 - **SUB-03** open · verified -- Provision database environment
 - **SUB-04** open · verified -- Apply RLS policies
 - **SUB-05** open · verified -- Restore test
+- **X-04** open · in-session -- Document manifest and site index
 - **X-08** open · AM-pending -- Probe matrix
 
 ## Anticipated
@@ -53,7 +54,6 @@ Generated from rdm-ledger.yaml. 40 items total.
 - **X-01** Error boundary and observability
 - **X-02** Notices v1
 - **X-03** Export paths
-- **X-04** Document manifest and site index
 - **X-05** Grammar lint
 - **X-06** Design token audit
 - **X-07** Decision coherence

@@ -232,7 +232,11 @@ def generate_status_md(packets):
 
 
 def generate_index_json(packets):
-    """Write index.json enumerating HTML pages (X-04 stub -- full enumeration in X-04)."""
+    """Write index.json, the document manifest (X-04): every HTML page in the
+    repository, enumerated by walking the tree, so exhaustiveness holds by
+    construction. The committed manifest must match the tree: a stale
+    index.json is an error, not a silent regeneration, so CI catches a page
+    added without refreshing the manifest."""
     import json
     index_path = REPO_ROOT / "index.json"
 
@@ -243,8 +247,13 @@ def generate_index_json(packets):
         "ledger_items": len(packets),
         "pages": html_files,
     }
-    index_path.write_text(json.dumps(index, indent=2))
+    content = json.dumps(index, indent=2)
+
+    stale = not index_path.exists() or index_path.read_text() != content
+    index_path.write_text(content)
     print(f"wrote {index_path} ({len(html_files)} pages)")
+    if stale:
+        err("index.json was stale or missing; refreshed. Commit the regenerated manifest (X-04).")
 
 
 def main():
