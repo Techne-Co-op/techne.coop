@@ -674,11 +674,42 @@ cross_cutting:
   - address: X-08
     title: Probe matrix
     intent: RLS probe matrix testing each role against each table.
-    status: open · AM-pending
+    status: open · in-session
     cites: [AM, VS]
     ready_when: SUB-04 verified.
     deliverable: rls-audit job extended with probe matrix.
     acceptance: Every cell in the AM v0.1 §5 matrix has a passing assertion.
+    escalation:
+      standing_in: X-08, the blocker mark and the matrix conformance gaps.
+      found: >
+        The AM-pending mark predated AM v0.1: the deferral note in verify.yml
+        waited on the map citing its anchors, which SUB-04 satisfied when
+        0002_policies.sql applied and verified. Until this packet, rls-audit
+        was a named-deferred notice stub: green by absence, not by proof.
+        Building the probe matrix then found two gaps between the section 5
+        matrix and the deployed emissions. The capital_accounts view was
+        created without security_invoker, so it ran with its owner's row
+        security and folded every member's balances for any authenticated
+        reader, against the section 5 caption. And events_read named
+        directors and officers but not the steward, against the events row
+        of the matrix.
+      the_question: >
+        Is the AM-pending blocker cleared so the probe matrix replaces the
+        stub, and is 0005_matrix_conformance.sql adopted to close the two
+        gaps in favor of the document?
+      a_default: >
+        Yes to both: the document governs, so the emissions conform to the
+        matrix rather than the matrix bending to the code. 0005 sets
+        security_invoker on capital_accounts and adds an anchored
+        events_steward_read policy. Applied to CI by the probe chain;
+        applied to the live CIS by the steward on adoption, the 0003
+        pattern.
+      decision: >
+        Blocker cleared and packet opened by Todd Youngblood in session,
+        2026-07-20. The 0005 conformance draft is recorded here for
+        adoption by his review of the X-08 pull request; live application
+        to ujujwgopdwirebgcpekc is his infrastructure step and gates
+        verification.
 
   - address: X-09
     title: Walkaway rehearsal

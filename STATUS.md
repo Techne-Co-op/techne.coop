@@ -43,7 +43,7 @@ Generated from rdm-ledger.yaml. 40 items total.
 - **X-05** open · verified -- Grammar lint
 - **X-06** open · verified -- Design token audit
 - **X-07** open · verified -- Decision coherence
-- **X-08** open · AM-pending -- Probe matrix
+- **X-08** open · in-session -- Probe matrix
 
 ## Anticipated
 
