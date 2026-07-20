@@ -164,6 +164,7 @@ footer a { color: var(--faint); }
   #magic-form input[type=email] { font-size: 16px; }
 }
 </style>
+<script src="/assets/error-boundary.js"></script>
 </head>
 <body>
 <nav class="topbar">
@@ -245,7 +246,7 @@ function wireMagicLink() {
     this.disabled = true; this.textContent = 'Sending...';
     const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
     if (error) {
-      showNotice(notice, 'err', error.message);
+      showNotice(notice, 'err', Techne.report(error, 'Could not send the sign-in link. Please check the address and try again.'));
       this.disabled = false; this.textContent = 'Send sign-in link';
     } else {
       showNotice(notice, 'ok', 'Check your email for a sign-in link.');
@@ -342,6 +343,7 @@ function renderYourCard(agent, mem, token) {
       document.getElementById('your-name-display').textContent = val;
       showNotice(notice, 'ok', 'Display name updated.');
     } else {
+      Techne.record('handled', 'display_name save failed: HTTP ' + res.status);
       showNotice(notice, 'err', 'Could not save -- check your permissions.');
     }
     this.disabled = false; this.textContent = 'Save';

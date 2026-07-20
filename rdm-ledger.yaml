@@ -460,11 +460,38 @@ cross_cutting:
   - address: X-01
     title: Error boundary and observability
     intent: Errors surface to the steward without leaking to the member.
-    status: anticipated
+    status: open · in-review
     cites: [BP, VS]
     ready_when: G0 attested.
     deliverable: Error logging, steward notification path.
     acceptance: An unhandled error produces a log entry, not a stack trace to the member.
+    resolution: >
+      Delivered assets/error-boundary.js: a dependency-free global boundary
+      installed first in <head> on the four interactive surfaces (gatherings,
+      agreements, directory, join). window error and unhandledrejection events
+      produce a structured [techne:error] log entry and show the member a quiet
+      house-style fallback, never a stack trace. The eleven handled-error call
+      sites route through Techne.report(), which logs the internal detail for
+      the steward and returns a plain member message; raw error.message is no
+      longer rendered on any surface. Acceptance demonstrated by a node harness,
+      nine assertions, all passing.
+    decision: >
+      Tier B decision, delegated by Todd 2026-07-17, drafted here for adoption
+      by his review of this PR. The steward-visible persistence sink is modeled
+      as a dedicated error_log table with steward-read row security, and is not
+      folded into X-02 (Notices): errors are steward-facing operational
+      telemetry, distinct from member-facing transactional notices, and
+      conflating them mis-models both. The table is not built under X-01, for
+      two reasons. First, X-01 acceptance is already met by the console
+      observability channel: a [techne:error] entry is a log entry. Second, a
+      persistent table has no value until the Authority Map anchors steward read
+      access, since authority is not invented here, and until a steward surface
+      exists to read it, since an unread table is deferred cost against the
+      minimal-footprint rule. The sink therefore becomes its own minimal
+      follow-on packet, gated on an AM entry for error_log read access, with
+      persist() in error-boundary.js as the single seam to attach it and no
+      call-site changes. X-01 proceeds toward verified on the console-channel
+      acceptance. This decision becomes a record when the reviewer adopts it.
 
   - address: X-02
     title: Notices v1
