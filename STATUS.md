@@ -33,7 +33,7 @@ Generated from rdm-ledger.yaml. 40 items total.
 - **G0** open · attested -- Security floor
 - **S-01** open · Q3 -- Capital account view
 - **S-02** open · Q3 -- Allocation event
-- **SUB-01** open · in-session -- Repository scaffold
+- **SUB-01** open · verified -- Repository scaffold
 - **SUB-03** open · verified -- Provision database environment
 - **SUB-04** open · verified -- Apply RLS policies
 - **SUB-05** open · verified -- Restore test

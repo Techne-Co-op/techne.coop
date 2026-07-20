@@ -69,11 +69,17 @@ substrate:
   - address: SUB-01
     title: Repository scaffold
     intent: Stand the repository on the estate layout with the validator reshaped to slices.
-    status: open · in-session
+    status: open · verified
     cites: [BP]
     ready_when: SUB-01 is workable now.
     deliverable: rdm-ledger.yaml, scripts/validate.py, STATUS.md, .github/workflows/verify.yml
     acceptance: ledger-validate green. Repository tree matches estate layout.
+    resolution: >
+      All four deliverables present at canonical paths. ledger-validate green on main
+      (CI run 29765440315, all six suites passing). Repository tree matches the estate
+      layout of BP v1 as oriented at commons/build/instructions/ section 6; the one
+      addition beyond that orientation, encyclopedia/, is enumerated in index.json.
+      Verified by Todd Youngblood 2026-07-20. Unblocks SUB-02, X-04, X-05.
 
   - address: SUB-02
     title: Governing emissions at root
