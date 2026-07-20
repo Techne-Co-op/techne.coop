@@ -460,7 +460,7 @@ cross_cutting:
   - address: X-01
     title: Error boundary and observability
     intent: Errors surface to the steward without leaking to the member.
-    status: open · in-review
+    status: open · verified
     cites: [BP, VS]
     ready_when: G0 attested.
     deliverable: Error logging, steward notification path.
@@ -491,7 +491,8 @@ cross_cutting:
       follow-on packet, gated on an AM entry for error_log read access, with
       persist() in error-boundary.js as the single seam to attach it and no
       call-site changes. X-01 proceeds toward verified on the console-channel
-      acceptance. This decision becomes a record when the reviewer adopts it.
+      acceptance. Adopted by Todd Youngblood's review and merge of PR 3,
+      2026-07-20. Verified by Todd Youngblood 2026-07-20.
 
   - address: X-02
     title: Notices v1
@@ -501,6 +502,28 @@ cross_cutting:
     ready_when: B-02 verified.
     deliverable: Email rail wired to key events.
     acceptance: Admission notice delivered on membership.state transition to applied.
+    note: >
+      Held at anticipated per X-07 discipline: the readiness condition
+      (B-02 verified) is met, but the packet cannot open until the
+      dependency card below carries a decision, because an email rail is a
+      new external dependency and BP v1 reserves those to a decision record.
+    escalation:
+      standing_in: X-02, before the first line of the email rail.
+      found: >
+        No email capability exists anywhere in the stack. Every candidate is a
+        new external dependency: a sending service, its API key as a new
+        secret, and a delivery path from database events to the sender. BP v1
+        names new dependencies as stop-and-escalate.
+      the_question: >
+        Which transactional email dependency does the cooperative adopt for
+        Notices v1?
+      a_default: >
+        Proposed: Resend on its free tier, called from a Supabase edge
+        function triggered by a database webhook on the events insert for
+        membership.applied. Rationale: no server to keep alive, the key lives
+        in Supabase secrets under the reference-not-value rule, the free tier
+        covers present volume, and the seam (one edge function) keeps the
+        sender swappable if the cooperative outgrows it.
 
   - address: X-03
     title: Export paths
@@ -627,7 +650,7 @@ cross_cutting:
   - address: X-07
     title: Decision coherence
     intent: Every escalation card has a recorded decision before the blocked packet opens.
-    status: open · in-review
+    status: open · verified
     cites: [BP]
     ready_when: G0 attested.
     deliverable: Coherence check in validate.py.
@@ -642,7 +665,11 @@ cross_cutting:
       two escalation cards in the ledger (SUB-03, B-04) both carry decisions, so
       the check passes on the current ledger. Proven by a negative unit test: a
       synthetic open packet with an undecided escalation is flagged; the same
-      packet with a decision passes.
+      packet with a decision passes. By merge time the ledger carried five
+      decided cards (SUB-02, SUB-03, B-04, X-06 and the X-01 sink decision)
+      and one undecided card on a packet properly held at anticipated (X-03):
+      the check passed against live history, not just the synthetic test.
+      PR 5 merged 2026-07-20. Verified by Todd Youngblood 2026-07-20.
 
   - address: X-08
     title: Probe matrix
