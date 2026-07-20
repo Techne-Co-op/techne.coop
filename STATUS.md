@@ -34,7 +34,7 @@ Generated from rdm-ledger.yaml. 40 items total.
 - **S-01** open · Q3 -- Capital account view
 - **S-02** open · Q3 -- Allocation event
 - **SUB-01** open · verified -- Repository scaffold
-- **SUB-02** open · in-session -- Governing emissions at root
+- **SUB-02** open · verified -- Governing emissions at root
 - **SUB-03** open · verified -- Provision database environment
 - **SUB-04** open · verified -- Apply RLS policies
 - **SUB-05** open · verified -- Restore test

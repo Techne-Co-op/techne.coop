@@ -84,11 +84,18 @@ substrate:
   - address: SUB-02
     title: Governing emissions at root
     intent: Install AGENTS.md, verify.yml, and commons.css at canonical paths.
-    status: open · in-session
+    status: open · verified
     cites: [BP, VS, UI]
     ready_when: SUB-01 verified.
     deliverable: AGENTS.md (confirmed), .github/workflows/verify.yml, commons.css
     acceptance: style-lint and schema-lint green. AGENTS.md unchanged or updated to BP v1 §10.
+    resolution: >
+      All three emissions confirmed at canonical paths: AGENTS.md at root (unchanged,
+      a faithful superset of BP v1 section 10), .github/workflows/verify.yml,
+      commons.css at commons/ui/commons.css. style-lint and schema-lint green on main.
+      PR 10 merged 2026-07-20. Consumption-model card decided the same day: inlining
+      per page is the sanctioned emission; UI v1 sections 1 and 9 amended by decision
+      record; drift detection assigned to X-06. Verified by Todd Youngblood 2026-07-20.
     escalation:
       standing_in: SUB-02, emission confirmation
       found: >
@@ -109,6 +116,11 @@ substrate:
         deployability. UI v1's linking sentence is amended by decision record to name
         inlining as a sanctioned emission on site pages, and drift detection between
         inline copies and commons.css becomes part of X-06, the design token audit.
+      decision: >
+        Default adopted by Todd Youngblood 2026-07-20. Inlining per page is the
+        sanctioned emission on site pages; linking commons.css remains valid where
+        already in use. UI v1 sections 1 and 9 amended by this record. Drift
+        detection between inline copies and commons.css moves to X-06.
 
   - address: SUB-03
     title: Provision database environment
