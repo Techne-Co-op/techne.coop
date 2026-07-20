@@ -206,12 +206,18 @@ jobs:
           set -e
           # Exclude governance documents that name the quarantined terms to define the quarantine itself.
           # commons/bp/ and commons/build/ explain the rule; CONTRIBUTORS.md lists it.
-          # All authored content pages are still checked.
-          if grep -rniE "patronage dividend|written notice of allocation|per-unit retain" \
+          # Legal commentary pages (counsel memo, membership agreement analysis, summary of
+          # changes) quote the retired vocabulary from prior drafts precisely to explain its
+          # retirement; they are exempted by exact path. The ratified instruments in legal/
+          # remain fully checked. Narrowing named 2026-07-20 per VS v1 §9.
+          # All other authored content pages are still checked.
+          hits=$(grep -rniE "patronage dividend|written notice of allocation|per-unit retain" \
             --include='*.html' --include='*.md' \
             --exclude-dir=bp --exclude-dir=build \
             --exclude='CONTRIBUTORS.md' \
-            . ; then
+            . | grep -vE '^(\./)?legal/(counsel-memo|membership-agreement-analysis|summary-of-changes)/index\.html:' || true)
+          if [ -n "$hits" ]; then
+            echo "$hits"
             echo "::error::retired cooperative-tax vocabulary found (BP v1 §6)"; exit 1
           fi
       - name: no em dashes in authored documents

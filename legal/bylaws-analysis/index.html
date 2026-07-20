@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+    (function() {
+      var s = localStorage.getItem('techne-mode');
+      if (s === 'light' || s === 'dark') document.documentElement.setAttribute('data-mode', s);
+      else document.documentElement.setAttribute('data-mode', 'dark');
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bylaws — Legal Analysis · Techne</title>
+  <meta name="description" content="Legal analysis of the RegenHub, LCA bylaws grounded in Colorado ULCAA, IRC § 704(b), and cooperative governance principles.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif: 'Libre Baskerville', Georgia, serif;
+      --mono:  'IBM Plex Mono', 'Courier New', monospace;
+    }
+
+    [data-mode="dark"] {
+      --bg:           #08080a;
+      --surface:      #111114;
+      --raised:       #18181c;
+      --border:       rgba(196,149,106,0.12);
+      --border-dim:   rgba(255,255,255,0.06);
+      --text:         #e0d8cc;
+      --text-warm:    #c8bca8;
+      --text-muted:   rgba(200,188,168,0.55);
+      --text-dim:     rgba(200,188,168,0.28);
+      --gold:         #c4956a;
+      --moss:         #6a8a5e;
+      --rust:         #9a5a5a;
+      --sky:          #5a7a9a;
+    }
+
+    [data-mode="light"] {
+      --bg:           #f7f5f0;
+      --surface:      #ebe7df;
+      --raised:       #ffffff;
+      --border:       rgba(196,149,106,0.20);
+      --border-dim:   rgba(0,0,0,0.08);
+      --text:         #2a2520;
+      --text-warm:    #3a3028;
+      --text-muted:   rgba(60,48,36,0.60);
+      --text-dim:     rgba(60,48,36,0.30);
+      --gold:         #8a6a3a;
+      --moss:         #4a6a3a;
+      --rust:         #8a3a3a;
+      --sky:          #3a5a7a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* ── DOC HEADER ── */
+    .doc-header {
+      border-top: 2px solid var(--gold);
+      padding-top: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .doc-header .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .doc-header h1 {
+      font-family: var(--serif);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--border-dim);
+      border-bottom: 1px solid var(--border-dim);
+      margin-bottom: 1.5rem;
+    }
+
+    .meta-item .meta-label {
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      margin-bottom: 0.2rem;
+    }
+
+    .meta-item .meta-val {
+      font-size: 0.80rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .framing-note {
+      font-size: 0.85rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 1rem 1.25rem;
+      border-left: 2px solid var(--border);
+    }
+
+    /* ── ISSUE SUMMARY TABLE ── */
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 3rem;
+      font-size: 0.80rem;
+    }
+
+    .summary-table th {
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .summary-table td {
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid var(--border-dim);
+      color: var(--text-warm);
+      vertical-align: top;
+      line-height: 1.45;
+    }
+
+    .summary-table tr:last-child td { border-bottom: none; }
+
+    .summary-table td:first-child {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--gold);
+      white-space: nowrap;
+      width: 4.5rem;
+    }
+
+    .summary-table td:nth-child(2) {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .priority-high   { color: var(--rust) !important; }
+    .priority-medium { color: var(--gold) !important; }
+    .priority-low    { color: var(--moss) !important; }
+
+    /* ── SECTION STRUCTURE ── */
+    .section {
+      margin-bottom: 4.5rem;
+      padding-bottom: 4.5rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .issue-num {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--gold);
+      background: rgba(196,149,106,0.08);
+      border: 1px solid rgba(196,149,106,0.18);
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .section h2 {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    /* sub-blocks */
+    .block {
+      margin-bottom: 2.25rem;
+    }
+
+    .block-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .block-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-dim);
+    }
+
+    .block-label.current  { color: var(--text-dim); }
+    .block-label.problem  { color: var(--rust); }
+    .block-label.statute  { color: var(--sky); }
+    .block-label.proposed { color: var(--moss); }
+    .block-label.note     { color: var(--text-dim); }
+    .block-label.question { color: var(--gold); }
+
+    /* current language */
+    .current-lang {
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      border-left: 3px solid var(--text-dim);
+      padding: 1.15rem 1.4rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.7;
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* problem text */
+    .problem-text {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--text-warm);
+    }
+
+    .problem-text p + p { margin-top: 1.1rem; }
+
+    /* statute citations */
+    .statute-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .statute-list li {
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--text-warm);
+      padding-left: 1.1rem;
+      position: relative;
+    }
+
+    .statute-list li::before {
+      content: '§';
+      position: absolute;
+      left: 0;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--sky);
+    }
+
+    .statute-cite {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--sky);
+      font-weight: 500;
+    }
+
+    /* proposed language */
+    .proposed-lang {
+      background: rgba(106,138,94,0.06);
+      border: 1px solid rgba(106,138,94,0.18);
+      border-left: 3px solid var(--moss);
+      padding: 1.25rem 1.5rem;
+      font-size: 0.83rem;
+      line-height: 1.75;
+      color: var(--text-warm);
+      border-radius: 0 3px 3px 0;
+      margin-bottom: 0.75rem;
+    }
+
+    .proposed-lang .proposed-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--moss);
+      margin-bottom: 0.5rem;
+    }
+
+    .proposed-lang strong {
+      color: var(--text);
+    }
+
+    /* note callout */
+    .note-callout {
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      padding: 1.05rem 1.35rem;
+      font-size: 0.80rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      font-style: italic;
+    }
+
+    /* question callout */
+    .question-callout {
+      background: rgba(196,149,106,0.04);
+      border: 1px solid rgba(196,149,106,0.14);
+      padding: 1.05rem 1.35rem;
+      font-size: 0.82rem;
+      color: var(--text-warm);
+      line-height: 1.7;
+    }
+
+    .question-callout .q-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 0.35rem;
+    }
+
+    /* inline code / citation */
+    code {
+      font-family: var(--mono);
+      font-size: 0.82em;
+      color: var(--sky);
+      background: rgba(90,122,154,0.08);
+      padding: 0.1em 0.35em;
+      border-radius: 2px;
+    }
+
+    /* sub-label for proposed blocks */
+    .sub-proposed {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--moss);
+      margin-top: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+
+    /* ── JEFF CARD ── */
+    .jeff-card {
+      background: rgba(106,138,94,0.06);
+      border: 1px solid rgba(106,138,94,0.22);
+      padding: 1.1rem 1.5rem;
+    }
+    .jeff-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--moss);
+      margin-bottom: 0.55rem;
+    }
+    .jeff-body {
+      font-size: 0.81rem;
+      color: var(--text-warm);
+      line-height: 1.75;
+    }
+    .jeff-body p { margin: 0; }
+    .jeff-body p + p { margin-top: 0.85rem; }
+
+
+    /* ── BOARD/MEMBER CARD ── */
+    .board-card {
+      background: rgba(90,122,154,0.05);
+      border: 1px solid rgba(90,122,154,0.18);
+      padding: 1.1rem 1.5rem;
+    }
+    .board-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--sky);
+      margin-bottom: 0.55rem;
+    }
+    .board-body {
+      font-size: 0.84rem;
+      color: var(--text-warm);
+      line-height: 1.75;
+    }
+    .board-body p { margin: 0; }
+    .board-body p + p { margin-top: 0.85rem; }
+
+    /* ── CROSS-CUTTING ── */
+    .rec-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    .rec-item {
+      display: grid;
+      grid-template-columns: 1.75rem 1fr;
+      gap: 0.75rem;
+      align-items: start;
+    }
+
+    .rec-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--gold);
+      padding-top: 0.1rem;
+    }
+
+    .rec-body {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--text-warm);
+    }
+
+    .rec-body strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    /* ── QUESTIONS TABLE ── */
+    .questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .q-item {
+      padding: 1.05rem 1.35rem;
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      border-left: 3px solid var(--gold);
+    }
+
+    .q-item .q-num {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .q-item .q-topic {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .q-item .q-body {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ── FOOTER ── */
+    .doc-footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-dim);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 1.5rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    /* ── PROSE HELPERS ── */
+    p { font-size: 0.88rem; line-height: 1.72; color: var(--text-warm); }
+    p + p { margin-top: 0.9rem; }
+
+    h3 {
+      font-family: var(--serif);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .meta-grid { grid-template-columns: 1fr 1fr; }
+      .section-header { flex-direction: column; gap: 0.4rem; }
+    }
+  
+    /* ── ADDENDUM ── */
+    .addendum-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 4rem 0 3rem;
+    }
+    .addendum-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--sky);
+      opacity: 0.25;
+    }
+    .addendum-divider-label {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--sky);
+      white-space: nowrap;
+    }
+    .addendum-banner {
+      background: rgba(90,122,154,0.05);
+      border: 1px solid rgba(90,122,154,0.20);
+      border-left: 3px solid var(--sky);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .addendum-banner .addendum-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--sky);
+      margin-bottom: 0.5rem;
+    }
+    .concur-card {
+      background: rgba(90,122,154,0.05);
+      border: 1px solid rgba(90,122,154,0.18);
+      padding: 0.9rem 1.15rem;
+      margin-bottom: 1.75rem;
+    }
+    .concur-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--sky);
+      margin-bottom: 0.45rem;
+    }
+    .concur-body {
+      font-size: 0.84rem;
+      color: var(--text-warm);
+      line-height: 1.68;
+    }
+    .concur-body p { margin: 0; }
+    .concur-body p + p { margin-top: 0.75rem; }
+    .diverge-card {
+      background: rgba(196,149,106,0.05);
+      border: 1px solid rgba(196,149,106,0.22);
+      padding: 0.9rem 1.15rem;
+      margin-bottom: 1.75rem;
+    }
+    .diverge-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 0.45rem;
+    }
+    .diverge-body {
+      font-size: 0.84rem;
+      color: var(--text-warm);
+      line-height: 1.68;
+    }
+    .diverge-body p { margin: 0; }
+    .diverge-body p + p { margin-top: 0.75rem; }
+    .affirm-card {
+      background: rgba(106,138,94,0.05);
+      border: 1px solid rgba(106,138,94,0.20);
+      padding: 0.9rem 1.15rem;
+      margin-bottom: 1.75rem;
+    }
+    .affirm-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--moss);
+      margin-bottom: 0.45rem;
+    }
+    .affirm-body {
+      font-size: 0.84rem;
+      color: var(--text-warm);
+      line-height: 1.68;
+    }
+    .affirm-body p { margin: 0; }
+    .affirm-body p + p { margin-top: 0.75rem; }
+    .issue-num.addendum { background: rgba(90,122,154,0.08); border-color: rgba(90,122,154,0.22); color: var(--sky); }
+
+  </style>
+  <script src="/intranet/comments.js" defer></script>
+</head>
+<body data-doc-path="/legal/bylaws-analysis/">
+<button onclick="(function(){var m=document.documentElement.getAttribute('data-mode')=='dark'?'light':'dark';document.documentElement.setAttribute('data-mode',m);try{localStorage.setItem('techne-mode',m);}catch(e){}})()" style="position:fixed;top:12px;right:12px;z-index:1000;background:var(--surface);border:1px solid var(--border-dim);color:var(--text-muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;border-radius:3px;letter-spacing:0.06em;" aria-label="Toggle dark/light mode">mode</button>
+
+<div class="wrap">
+
+  <div style="background:rgba(196,149,106,0.06);border:1px solid rgba(196,149,106,0.25);border-radius:4px;padding:0.7rem 1.1rem;font-family:var(--mono);font-size:0.68rem;line-height:1.6;color:var(--text-muted);margin-bottom:1.5rem;">
+    <span style="color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">Formation-era commentary</span> ·
+    Prepared May&ndash;July 2026, during drafting and ratification. Published for member education: the reasoning behind the governing documents.
+    The ratified instruments are the source of truth: <a href="/legal/bylaws/" style="color:var(--gold);text-decoration:none;">Bylaws v.2.1</a> · <a href="/legal/membership-agreement/" style="color:var(--gold);text-decoration:none;">Membership Agreement v.2.3</a>.
+  </div>
+
+
+  <!-- VERSION NAV -->
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.65rem 1rem;margin-bottom:1.5rem;background:var(--surface);border:1px solid var(--border-dim);flex-wrap:wrap;">
+    <span style="font-family:var(--mono);font-size:0.62rem;color:var(--text-muted);">Analysis of changes from <strong style="color:var(--sky);">Bylaws v.1</strong> → <strong style="color:var(--gold);">Bylaws v.2</strong></span>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+      <a href="https://techne.institute/legal/bylaws-v1/" style="font-family:var(--mono);font-size:0.62rem;text-decoration:none;color:var(--sky);border:1px solid rgba(90,122,154,0.35);background:rgba(90,122,154,0.06);padding:0.25rem 0.65rem;border-radius:2px;">Bylaws v.1 (original) ↗</a>
+      <a href="/legal/bylaws/" style="font-family:var(--mono);font-size:0.62rem;text-decoration:none;color:var(--gold);border:1px solid rgba(196,149,106,0.35);background:rgba(196,149,106,0.06);padding:0.25rem 0.65rem;border-radius:2px;">Bylaws v.2 (revised) ↗</a>
+      <a href="https://techne.institute/legal/bylaws-analysis/changes/" style="font-family:var(--mono);font-size:0.62rem;text-decoration:none;color:var(--text-muted);border:1px solid var(--border-dim);padding:0.25rem 0.65rem;border-radius:2px;">Proposed changes index ↗</a>
+    </div>
+  </div>
+
+  <!-- DOCUMENT HEADER -->
+  <header class="doc-header">
+    <div class="eyebrow">Legal Working Document · RegenHub, LCA · May 11, 2026</div>
+    <h1>Bylaws of RegenHub, LCA<br>Legal Analysis</h1>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <div class="meta-label">Document reviewed</div>
+        <div class="meta-val">Bylaws of RegenHub, LCA · [March XX], 2026 draft · Jeff Pote / Pote Law Firm</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Entity type</div>
+        <div class="meta-val">Colorado Public Benefit Limited Cooperative Association · Filed Feb 6, 2026 · Subchapter K tax treatment</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-val">Working draft for board review and outside counsel. Not legal advice.</div>
+      </div>
+    </div>
+
+    <div class="framing-note">
+      Analysis grounded in the Colorado Uniform Limited Cooperative Association Act (<code>C.R.S. Title 7, Article 58</code>), <code>IRC § 704(b)</code> and <code>Treas. Reg. § 1.704-1(b)</code>, and cooperative governance principles. Tax treatment confirmed as Subchapter K (partnership). Proposed language is a starting point for Jeff's redraft — not final legal advice.
+    </div>
+  </header>
+
+  <!-- ISSUE SUMMARY -->
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Issue</th>
+        <th>Priority</th>
+        <th>Blocking board authorization?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Net Profit Allocation — equal share contradicts ULCAA and undermines IRC 704(b)</td>
+        <td class="priority-high">High</td>
+        <td>Yes — blocking</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Suspension — no prior notice before stripping owner-member rights</td>
+        <td class="priority-high">High</td>
+        <td>Depends on bylaws dispute resolution</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Quorum — "in person" requirement conflicts with hybrid membership and electronic meetings</td>
+        <td class="priority-high">High</td>
+        <td>Advisable</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Schedule A — share price and dues are unfilled placeholders</td>
+        <td class="priority-high">High</td>
+        <td>Yes — blocking (bylaws cannot be effective)</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Compensation — guaranteed payments not carved out from employee compensation prohibition</td>
+        <td class="priority-medium">Medium</td>
+        <td>Yes if members will be compensated</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Redemption window — five-year outer limit conflicts with Membership Agreement v.2 (90 days)</td>
+        <td class="priority-medium">Medium</td>
+        <td>Yes — needs reconciliation</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Confidentiality — no standard exceptions; sweeps too broad for a cooperative of practice</td>
+        <td class="priority-medium">Medium</td>
+        <td>Advisable</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>Conflict hierarchy — implies ULCAA yields to bylaws; PBCA citation questionable</td>
+        <td class="priority-medium">Medium</td>
+        <td>Advisable</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- ── ISSUE 1 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 01</span>
+      <h2>Net Profit Allocation — Equal vs. Proportional to Patronage</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 changes equal allocation to proportional-to-patronage because C.R.S. § 7-58-1004 makes proportionality the statutory default and the cooperative principle of members' economic participation requires that members who contribute more receive more. Equal allocation combined with proportional-to-capital-accounts loss allocation creates an IRC § 704(b) asymmetry that may fail the substantial economic effect test under Treas. Reg. § 1.704-1(b)(2).
+      <p>The Patronage Plan link ensures the allocation methodology is adopted through a member-consent process rather than unilateral board revision. Both should use the same proportionality basis — patronage for profits, capital account balance for losses is the permissible combination under the regulations, but only if the same member who has a larger capital account also contributed more patronage. If patronage and capital account balance diverge, the allocation methodology should state explicitly which controls for which type of income/loss.</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">The original bylaws split profits equally among all members regardless of how much work each person contributed. This change ties profit distribution to actual contribution — the way cooperatives are designed to work.
+      <p>If you bill 20 hours of client work through the co-op and another member bills 2 hours, you receive a larger share of the profits. Equal splits reward lower contributors disproportionately and penalize higher contributors. The specific way contributions are measured will be set in a Patronage Plan that the board adopts and members vote on — it can't be changed without majority member approval.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current language — § 5.3.2</div>
+      <div class="current-lang">
+        "Net Profits shall be allocated equally among the Patron Members at the end of each tax year... the Board shall have the authority to develop, review, and revise the methodology by which to calculate the Cooperative's, and each Member's respective allocable share of, Net Profits and Net Losses."
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label current">Current language — § 5.3.3</div>
+      <div class="current-lang">
+        "Net Losses will be shared by the Patron Members in proportion to their respective Capital Accounts."
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem — two layers</div>
+      <div class="problem-text">
+        <p><strong>Layer 1 — ULCAA default allocation (<code>C.R.S. § 7-58-1004</code>).</strong> The statute provides that net margins shall be allocated to patron members "in proportion to the members' patronage of the association during the period." "Allocated equally" means each member receives the same dollar amount regardless of their actual contribution to the cooperative's revenue-generating activity. Equal allocation is not the same as proportional-to-patronage allocation. For a cooperative of practitioners where some members bill twenty hours of client work per month and others bill two, equal allocation rewards the lower contributor disproportionately and penalizes the higher contributor. This directly contradicts the cooperative principle of members' economic participation and the statute's default.</p>
+        <p><strong>Layer 2 — IRC § 704(b) substantial economic effect.</strong> For Subchapter K, allocations must either (a) have substantial economic effect per Treas. Reg. § 1.704-1(b)(2), or (b) be consistent with the members' interests in the partnership per § 1.704-1(b)(3). The asymmetry between equal profit allocation and loss allocation proportional to capital accounts creates a capital account maintenance problem: if two members have different capital account balances (because one contributed more or received larger prior allocations), equal profit allocation means the member with the smaller account receives a disproportionately large share relative to their economic stake. This may fail the substantial economic effect test because it doesn't track actual economic arrangement.</p>
+        <p>Additionally, unconstrained Board discretion to "develop, review, and revise the methodology" without member consent violates <code>C.R.S. § 7-58-1004</code>'s proportionality baseline and undermines the Patronage Plan the Membership Agreement requires the Board to adopt.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed replacement — § 5.3.2</div>
+      <div class="proposed-lang">
+        "Net Profits shall be allocated among the Patron Members in proportion to their patronage of the Cooperative during the applicable fiscal year, as measured by the Patronage Plan adopted pursuant to the Membership Agreement. Before allocation of Net Profits, the Board may set aside reasonable reserves as provided in Section 5.4.1. Notwithstanding the foregoing, where the Cooperative has not yet adopted a Patronage Plan or where all Patron Members have contributed equal and identical patronage during the applicable period, Net Profits may be allocated equally. The Board may amend the patronage measurement methodology only through the Patronage Plan amendment process requiring majority patron member approval."
+      </div>
+
+      <div class="sub-proposed">Add note to § 5.3.3</div>
+      <div class="proposed-lang">
+        "Net Losses will be allocated among the Patron Members in proportion to their respective positive Capital Account balances immediately prior to the allocation; provided that such allocation is consistent with the qualified income offset in Section 5.3.4."
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 changes equal allocation to proportional-to-patronage because C.R.S. § 7-58-1004 makes proportionality the statutory default and the cooperative principle of members' economic participation requires that members who contribute more receive more. Equal allocation combined with proportional-to-capital-accounts loss allocation creates an IRC § 704(b) asymmetry that may fail the substantial economic effect test under Treas. Reg. § 1.704-1(b)(2).
+      <p>The Patronage Plan link ensures the allocation methodology is adopted through a member-consent process rather than unilateral board revision. Both should use the same proportionality basis — patronage for profits, capital account balance for losses is the permissible combination under the regulations, but only if the same member who has a larger capital account also contributed more patronage. If patronage and capital account balance diverge, the allocation methodology should state explicitly which controls for which type of income/loss.</p></div>
+    </div>
+  </div>
+
+
+  <!-- ── ISSUE 2 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 02</span>
+      <h2>Suspension — Immediate Deprivation Without Notice</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds written notice and a response period before suspension (except criminal/fraud) because suspension strips an owner-member of all participation rights for up to 180 days — a more sudden deprivation than termination, which already requires 14-day notice. The grounds "violated any resolution" and "frustrated the Cooperative's purpose or efforts" are broad enough to encompass legitimate member dissent; without a response opportunity, these grounds create a chilling effect on governance participation.
+      <p>The exception for ground (b) (criminal/fraud conduct) preserves the board's emergency power. The 30-day post-suspension hearing and 10-business-day written determination requirements ensure the suspension remains a temporary measure subject to procedural review, not a de facto expulsion.</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">Currently the board can suspend a member immediately — cutting off access to all co-op services and governance participation — with no prior notice and no chance to respond. This changes that.
+      <p>Except for criminal conduct, you get 5 business days' written notice and can submit a response before any suspension takes effect. If you are suspended, you're entitled to a hearing within 30 days. As an owner-member with equity in the co-op, you deserve at minimum the chance to tell your side before your membership rights are cut off.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current language — § 1.10.1</div>
+      <div class="current-lang">
+        "In the event that the Board, in its sole discretion, shall find by a simple majority vote that a Patron Member has (a) violated these Bylaws or any resolution, rule or policy of the Board, (b) committed any criminal act or other unlawful conduct involving fraud or dishonesty, or (c) otherwise been disruptive to the orderly operation of the Cooperative or frustrated the Cooperative's purpose or efforts, the Board may suspend, effective immediately, such Member for a period of time not to exceed one hundred and eighty (180) days..."
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label current">Compare — termination (§ 1.10.2)</div>
+      <div class="current-lang">
+        Requires 14-day written notice + hearing before termination.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>Patron members are owner-members of the Cooperative, not at-will participants. Suspension strips a member of all participation rights — access to cooperative services, voting, governance involvement — for up to 180 days, effective immediately, with no notice and no opportunity to respond. This is a more sudden deprivation than termination (which at least requires 14-day notice and a hearing).</p>
+        <p>For categories (a) "violated any resolution, rule or policy" and (c) "disruptive to orderly operation or frustrated the Cooperative's purpose or efforts" — these are broad, subjective standards. A cooperative of practitioners will regularly have members who disagree with board decisions. Immediate suspension for "frustrating the Cooperative's purpose or efforts" creates a chilling effect on legitimate member dissent.</p>
+        <p><code>C.R.S. § 7-58-1101</code> preserves the member's right to dissociate; <code>C.R.S. § 7-58-1101(2)</code> allows the operating agreement (including bylaws) to specify when dissociation is wrongful, but the statute does not authorize unlimited summary deprivation of member rights. Good cooperative governance practice requires at minimum: written notice of the specific conduct alleged, and some opportunity to respond before the deprivation takes effect (except for emergency circumstances such as actual criminal conduct).</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed addition — after "the Board may suspend... such Member"</div>
+      <div class="proposed-lang">
+        "[...] provided that, except in cases of ground (b) (criminal act or unlawful conduct involving fraud or dishonesty), the Board shall first provide the affected Member with written notice specifying the conduct at issue and a <strong>five (5) business day</strong> period to submit a written response to the Board before any suspension takes effect. In cases of ground (b), immediate suspension without prior notice is permitted. Any Member suspended under this Section 1.10.1 shall be entitled to a hearing before the Board within <strong>thirty (30) days</strong> of the suspension's effective date at which the Member may present evidence and respond to the basis for suspension. The Board shall, within <strong>ten (10) business days</strong> of such hearing, issue a written determination either lifting, modifying, or confirming the suspension."
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds written notice and a response period before suspension (except criminal/fraud) because suspension strips an owner-member of all participation rights for up to 180 days — a more sudden deprivation than termination, which already requires 14-day notice. The grounds "violated any resolution" and "frustrated the Cooperative's purpose or efforts" are broad enough to encompass legitimate member dissent; without a response opportunity, these grounds create a chilling effect on governance participation.
+      <p>The exception for ground (b) (criminal/fraud conduct) preserves the board's emergency power. The 30-day post-suspension hearing and 10-business-day written determination requirements ensure the suspension remains a temporary measure subject to procedural review, not a de facto expulsion.</p></div>
+    </div>
+  </div>
+
+
+  <!-- ── ISSUE 3 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 03</span>
+      <h2>Quorum — "Present and in Person" Conflicts with Hybrid Membership</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds "or participating by electronic or telecommunications means permitted under Section 2.1" because the original "present and in person" language, read plainly, excludes electronic attendees from quorum — directly contradicting § 2.1's explicit authorization of hybrid and electronic meetings. This is a technical correction, not a substantive change to quorum threshold.
+      <p>Jeff should confirm that the companion voting provisions (§ 2.6, § 2.8) consistently treat electronic participation as valid, since a quorum fix that is not matched by voting-provision fixes would create a new inconsistency.</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">The bylaws say a meeting requires "a simple majority present and in person" to conduct official business. But the same bylaws also say meetings can be held by video call or phone. Under a strict reading, people attending by Zoom don't count toward quorum — meaning a meeting with 9 people on video and 1 in person technically couldn't conduct business.
+      <p>This is a straightforward fix: people attending electronically count toward quorum, the same as those in the room. It aligns the quorum rule with the meeting format the bylaws already permit.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current language — § 2.7.1</div>
+      <div class="current-lang">
+        "a quorum for the transaction of business at any meeting of the Members shall be a simple majority of the Patron Members, present and in person"
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label current">Compare — § 2.1</div>
+      <div class="current-lang">
+        "All meetings of Members of the Cooperative may take place in person, by telephone or video conference, or by any other electronic or telecommunications means..."
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>The quorum provision requires members to be "present and in person." Under a plain reading, members attending by video or telephone conference would not count toward quorum, because they are not "in person." This means a meeting of 10 members with 6 attending electronically and 3 attending in person would not have a quorum — even though 9 of 10 members are effectively present.</p>
+        <p>The Cooperative's governing documents explicitly contemplate hybrid and fully electronic meetings (§ 2.1). The quorum provision should match. The phrase "present and in person" appears to be standard boilerplate for an in-person entity — it was not updated for an LCA that expressly permits electronic attendance.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed replacement — § 2.7.1</div>
+      <div class="proposed-lang">
+        "Except for transactions of business specifically requiring a different quorum by law, a quorum for the transaction of business at any meeting of the Members shall be a simple majority of the Patron Members entitled to vote, <strong>present in person or by electronic or telecommunications means permitted under Section 2.1</strong>."
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds "or participating by electronic or telecommunications means permitted under Section 2.1" because the original "present and in person" language, read plainly, excludes electronic attendees from quorum — directly contradicting § 2.1's explicit authorization of hybrid and electronic meetings. This is a technical correction, not a substantive change to quorum threshold.
+      <p>Jeff should confirm that the companion voting provisions (§ 2.6, § 2.8) consistently treat electronic participation as valid, since a quorum fix that is not matched by voting-provision fixes would create a new inconsistency.</p></div>
+    </div>
+  </div>
+
+
+  <!-- ── ISSUE 4 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 04</span>
+      <h2>Schedule A — Unfilled Placeholders</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 flags Schedule A placeholders as completion items because bylaws with blank financial terms cannot be effective. The $100 Patron Share price, initial annual dues, effective date, initial board composition, and secretary signature must all be confirmed and filled before the bylaws are presented for board authorization.
+      <p>The $100 share price must match the Membership Agreement; if they differ, the governing document for redemption mechanics must be identified. Any founding member dues waiver should be documented separately rather than left to implication in Schedule A.</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">Schedule A — the part of the bylaws that sets share price and annual dues — has blank placeholders. The bylaws can't take legal effect with blank financial terms. This flags what needs to be filled in before the board votes to adopt them: the share price (expected $100), any annual dues, the effective date, initial board member names, and the secretary's signature.
+      <p>These are administrative items for the board to confirm. The share price must match the Membership Agreement. Any founding member dues waiver should be documented separately.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current language — Schedule A</div>
+      <div class="current-lang">
+        Share Price: $[…]<br>
+        Membership Dues (yearly): $[…]
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>The bylaws cannot be effective with material financial terms left blank. The Membership Agreement v.2 references $100 per share of Patron Stock. Schedule A must be completed before the bylaws are authorized.</p>
+        <p>The Board retains discretion to revise these amounts, so the specific values in Schedule A will be the initial values subject to future Board adjustment.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Additional completion items</div>
+      <div class="problem-text">
+        <p>Three other blanks must be filled before execution:</p>
+        <p>- Effective date in title block and Certificate: "[MARCH XX], 2026"<br>
+        - Initial Board composition (§ 3.2.2): "[…]"<br>
+        - Secretary signature on Certificate: "[…], Secretary"</p>
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 flags Schedule A placeholders as completion items because bylaws with blank financial terms cannot be effective. The $100 Patron Share price, initial annual dues, effective date, initial board composition, and secretary signature must all be confirmed and filled before the bylaws are presented for board authorization.
+      <p>The $100 share price must match the Membership Agreement; if they differ, the governing document for redemption mechanics must be identified. Any founding member dues waiver should be documented separately rather than left to implication in Schedule A.</p></div>
+    </div>
+
+    <div class="question-callout">
+      <div class="q-label">Confirm before execution</div>
+      (a) $100 per Patron Share matches the Membership Agreement; (b) the Cooperative has determined whether to charge annual dues at this time; and (c) the Schedule A reflects any initial dues waiver for founding members.
+    </div>
+  </div>
+
+
+  <!-- ── ISSUE 5 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 05</span>
+      <h2>Compensation — Guaranteed Payments Not Carved Out</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds the IRC § 707(c) guaranteed payments carve-out because the original prohibition on "salary or other compensation as an employee" is correct as to employment — W-2 wages cannot be paid to partners under Treas. Reg. § 31.3121(d)-1(b) and Rev. Rul. 69-184 — but overbroad as to mechanism. A broad reading would prohibit guaranteed payments, which are the legally correct substitute for member compensation under Subchapter K.
+      <p>Guaranteed payments are deductible by the entity, ordinary income to the member, and reported on Schedule K-1 — the standard compensation mechanism for working partners. Without this carve-out, the bylaws arguably prohibit compensating working members at all while the partnership election is in effect. Before the first fiscal year, the board should adopt a resolution clarifying the form and process for member compensation under § 707(c).</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">The bylaws correctly say members can't receive W-2 employee paychecks while the co-op is taxed as a partnership — that's an IRS rule. But the original language was broad enough that it could be read to mean members can't be compensated at all for their work.
+      <p>This change clarifies: the co-op can pay members for services through a "guaranteed payment" — the tax-law-approved way to compensate working partners. You'd receive it as ordinary income and it shows up on your Schedule K-1 each year. Without this clarification, the bylaws could be read to prohibit paying members for any services while the partnership tax election is in effect.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current language — § 4.8</div>
+      <div class="current-lang">
+        "at any time while the Cooperative is taxed as a partnership, no Director or officer of the Cooperative who is also a Member may receive any salary or other compensation as an employee of the Cooperative in consideration for their performance of services on behalf of the Cooperative."
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>This provision correctly recognizes that member-partners cannot be W-2 employees while the entity is taxed as a partnership. Under Treas. Reg. § 31.3121(d)-1(b) and IRS Rev. Rul. 69-184, partners cannot be employees of their own partnership. However, <code>IRC § 707(c)</code> provides the correct mechanism for compensating members for services: guaranteed payments. Guaranteed payments are deductible by the Cooperative (as business expenses), included in the member's ordinary income, and reported on Schedule K-1.</p>
+        <p>The current provision says "no salary or other compensation as an employee." This is accurate as to employment compensation, but if read broadly, it could be interpreted to prohibit guaranteed payments — which are not employee compensation but are the correct and legally required substitute. For a cooperative of practitioners whose members may be performing services for the Cooperative, this ambiguity creates real operational risk: members may believe they cannot be compensated at all while the partnership election is in effect.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label statute">Statutory and regulatory basis</div>
+      <ul class="statute-list">
+        <li><span class="statute-cite">IRC § 707(c):</span> Guaranteed payments for services or use of capital are treated as made to a person who is not a member of the partnership — deductible by the entity, ordinary income to the recipient.</li>
+        <li><span class="statute-cite">IRC § 707(a):</span> Transactions between the partnership and a member acting outside their capacity as a member are treated as arm's-length transactions with a non-member.</li>
+        <li><span class="statute-cite">Treas. Reg. § 31.3121(d)-1(b); Rev. Rul. 69-184:</span> Partners are not employees of their own partnership — W-2 wages cannot be paid to a member while taxed as a partnership.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed replacement — § 4.8, first sentence</div>
+      <div class="proposed-lang">
+        "At any time while the Cooperative is taxed as a partnership, no Director or officer of the Cooperative who is also a Member may receive any salary or other compensation <strong>in their capacity as an employee</strong> of the Cooperative. Notwithstanding the foregoing, Members may receive <strong>guaranteed payments for services or use of capital within the meaning of IRC § 707(c)</strong>, as authorized by the Board, which shall be treated as ordinary income to the recipient and reported on Schedule K-1. Nothing in this provision prohibits a Member from receiving compensation for services rendered to the Cooperative in a capacity other than as a Member, provided such arrangement is treated as a transaction between the Cooperative and a person acting outside their capacity as a Member under <code>IRC § 707(a)</code>, and disclosed to and approved by the Board."
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 adds the IRC § 707(c) guaranteed payments carve-out because the original prohibition on "salary or other compensation as an employee" is correct as to employment — W-2 wages cannot be paid to partners under Treas. Reg. § 31.3121(d)-1(b) and Rev. Rul. 69-184 — but overbroad as to mechanism. A broad reading would prohibit guaranteed payments, which are the legally correct substitute for member compensation under Subchapter K.
+      <p>Guaranteed payments are deductible by the entity, ordinary income to the member, and reported on Schedule K-1 — the standard compensation mechanism for working partners. Without this carve-out, the bylaws arguably prohibit compensating working members at all while the partnership election is in effect. Before the first fiscal year, the board should adopt a resolution clarifying the form and process for member compensation under § 707(c).</p></div>
+    </div>
+  </div>
+
+
+  <!-- ── ISSUE 6 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 06</span>
+      <h2>Redemption Window — Five Years to Three Years</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 reduces the outer redemption limit from five years to three years because the five-year provision is calibrated for agricultural cooperatives with large illiquid retained patronage — not a $100 initial share. More critically, five years directly conflicts with the Membership Agreement v2's 90-day redemption provision; without reconciliation, a departing member cannot determine which timeline governs.
+      <p>Three years preserves Board flexibility as an outer backstop while reducing the mismatch with the entity's actual capital profile and the solvency protection under C.R.S. § 7-58-1007. The bylaws and Membership Agreement must be explicit about which document controls redemption mechanics — Jeff should identify the controlling document before either is authorized.</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">The bylaws currently give the board up to 5 years to return your $100 share after you leave. Five years is a long time to wait for $100 — it's a provision written for farm cooperatives with tens of thousands in retained profits, not a $100 membership share.
+      <p>This change reduces the outer limit to 3 years. The target is still to pay within 90 days (as stated in the Membership Agreement), but 3 years is the backstop if circumstances delay it. The two documents — bylaws and Membership Agreement — need to agree on the timeline.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current language — § 1.9.3</div>
+      <div class="current-lang">
+        "the Board shall redeem the Member's equity within five (5) years of withdrawal, in cash, by issuing a promissory note, or some combination thereof."
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label current">Current language — § 1.11.1</div>
+      <div class="current-lang">
+        "Within one-hundred and twenty (120) days after the effective date of a Patron Member's withdrawal or termination, the Cooperative shall consider distributing to the Patron Member its equity interest... Notwithstanding the foregoing, the Board shall have the sole discretion to delay... provided that the Board shall redeem the Member's equity within five (5) years of withdrawal or termination."
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label current">Membership Agreement v.2 proposes</div>
+      <div class="current-lang">
+        90-day redemption at par ($100), subject to C.R.S. § 7-58-1007 solvency limitations.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>The bylaws provide a five-year outer limit with full Board discretion on timing. The Membership Agreement v.2 proposes a 90-day obligation at par value. These provisions directly conflict. A member reading the Membership Agreement would expect redemption within 90 days; the bylaws give the Board up to five years.</p>
+        <p>For a $100 share, a five-year redemption delay is disproportionate to the Cooperative's likely exposure. The five-year outer limit is appropriate for organizations with large, illiquid capital accounts (e.g., agricultural cooperatives with hundreds of thousands in retained patronage). For an LCA with a $100 initial membership share, 120 days or 90 days is more appropriate.</p>
+        <p>The two documents should be reconciled. Recommended approach: retain the 120-day "shall consider distributing" language from § 1.11.1 as the target, but set a <strong>three-year</strong> (rather than five-year) outer limit, subject to <code>C.R.S. § 7-58-1007</code>. The Membership Agreement's 90-day language can reference the bylaws for the controlling mechanics.</p>
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 reduces the outer redemption limit from five years to three years because the five-year provision is calibrated for agricultural cooperatives with large illiquid retained patronage — not a $100 initial share. More critically, five years directly conflicts with the Membership Agreement v2's 90-day redemption provision; without reconciliation, a departing member cannot determine which timeline governs.
+      <p>Three years preserves Board flexibility as an outer backstop while reducing the mismatch with the entity's actual capital profile and the solvency protection under C.R.S. § 7-58-1007. The bylaws and Membership Agreement must be explicit about which document controls redemption mechanics — Jeff should identify the controlling document before either is authorized.</p></div>
+    </div>
+
+    <div class="question-callout">
+      <div class="q-label">Questions for Jeff</div>
+      (a) What is the intended redemption timeline for the $100 Patron Share? (b) Should the Membership Agreement or the bylaws be the controlling document for redemption mechanics? (c) Is the five-year outer limit intended as a safety valve for solvency situations, or as an actual operational timeline?
+    </div>
+  </div>
+
+
+  <!-- ── ISSUE 7 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 07</span>
+      <h2>Confidentiality — No Standard Exceptions</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 replaces the confidentiality provision with a scoped definition plus four standard exceptions because the original swept all Cooperative information into indefinite strict confidence with no carve-outs. For a Public Benefit LCA that voluntarily publishes an annual benefit report, sweeping confidentiality over "all information pertaining to… operations, activities or transactions" creates direct tension with the transparency obligations the Cooperative has undertaken.
+      <p>The replacement is standard commercial confidentiality language — it protects genuine trade secrets and member information while allowing members to describe their cooperative involvement publicly, consult legal counsel, and comply with legal obligations. The "reasonable person" scope standard replaces the undefined "any and all information received by or through the Cooperative."</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">The original confidentiality section says you can never share "any and all information received by or through the Cooperative" with anyone. Taken literally, that would prohibit you from telling a colleague you're a member of Techne, or discussing co-op matters with your accountant during tax season.
+      <p>This change is standard: it protects genuinely private information — trade secrets, client details, member financial information — while allowing you to describe your membership publicly, talk to your lawyer or accountant, and share information that's already publicly available. It also adds a clear path for situations where you're legally required to disclose (a subpoena, for example).</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current language — § 18.2</div>
+      <div class="current-lang">
+        "Members and former Members, shall at all times maintain in strict confidence and promise not disclose to any person or entity not otherwise entitled to receive such information any and all information received by or through the Cooperative, pertaining to the records of the Cooperative, its Members, and the operations, activities or transactions of the same."
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>The confidentiality obligation has no carve-outs. For a cooperative of practitioners operating in public professional communities, the following omissions create operational and legal risk:</p>
+        <p>(a) No public domain exception — information that becomes publicly known through no fault of the member is still covered by the obligation.<br>
+        (b) No prior knowledge exception — information the member knew before joining the Cooperative is still covered.<br>
+        (c) No independent development exception.<br>
+        (d) No required disclosure exception — if a member receives a subpoena or is required by law to disclose.<br>
+        (e) No general membership description exception — members cannot describe their cooperative membership or involvement in public professional contexts without risking breach.<br>
+        (f) No legal counsel exception — members presumably can consult attorneys, but the current language requires their counsel to maintain confidence "to the same degree and extent" as the member, which is an unusual expansion of the restriction.</p>
+        <p>For a Public Benefit LCA that publishes an annual benefit report (Article XV), sweeping confidentiality over "all information received by or through the Cooperative pertaining to... operations, activities or transactions" creates tension with the transparency obligations the Cooperative has voluntarily undertaken.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed replacement — § 18.2</div>
+      <div class="proposed-lang">
+        "Members and former Members shall maintain in confidence non-public information received from or through the Cooperative that is designated as confidential or that a reasonable person would understand to be confidential given the nature of the information and circumstances of disclosure ('Confidential Information'). The foregoing obligation does not apply to information that: (a) is or becomes generally available to the public other than as a result of disclosure by the Member in breach of this Section; (b) was known to the Member prior to receiving it from the Cooperative, as evidenced by records in existence before receipt; (c) is independently developed by the Member without reference to Confidential Information; or (d) is required to be disclosed by law, regulation, or court order, provided the Member provides the Cooperative <strong>prompt written notice</strong> before disclosure (where legally permitted) and cooperates with the Cooperative's efforts to seek a protective order. Members may disclose the existence of their membership and the general nature of the Cooperative's activities in professional contexts. Members may share Confidential Information with attorneys, accountants, and advisors bound by professional confidentiality obligations."
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 replaces the confidentiality provision with a scoped definition plus four standard exceptions because the original swept all Cooperative information into indefinite strict confidence with no carve-outs. For a Public Benefit LCA that voluntarily publishes an annual benefit report, sweeping confidentiality over "all information pertaining to… operations, activities or transactions" creates direct tension with the transparency obligations the Cooperative has undertaken.
+      <p>The replacement is standard commercial confidentiality language — it protects genuine trade secrets and member information while allowing members to describe their cooperative involvement publicly, consult legal counsel, and comply with legal obligations. The "reasonable person" scope standard replaces the undefined "any and all information received by or through the Cooperative."</p></div>
+    </div>
+  </div>
+
+
+  <!-- ── ISSUE 8 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Issue 08</span>
+      <h2>Conflict Resolution Hierarchy — ULCAA Cannot Yield to Bylaws</h2>
+    </div>
+
+<div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 reorders the conflict hierarchy to place mandatory non-waivable ULCAA provisions first because C.R.S. § 7-58-110 specifies ULCAA provisions that bylaws cannot override — including the member's right to dissociate (§ 7-58-1101(1)). Placing bylaws above the ULCAA in the hierarchy incorrectly implies that bylaw provisions can override non-waivable statutory rights.
+      <p>The PBCA reference is replaced with C.R.S. § 7-58-104 because the PBCA governs public benefit corporations; RegenHub's public benefit LCA status is governed by § 7-58-104 within the ULCAA itself, not the corporate act. Jeff should confirm whether the PBCA reference was intentional (if so, the rationale should be stated explicitly) or a template artifact from a public benefit corporation form.</p></div>
+    </div>
+
+    <div class="board-card">
+      <div class="board-label">For the Board &amp; Members</div>
+      <div class="board-body">The bylaws currently say: if the bylaws conflict with Colorado law, the bylaws win. For certain provisions, that's legally backwards. Colorado law sets minimum protections for members that bylaws cannot override — including your right to leave the co-op.
+      <p>This change puts mandatory state law above the bylaws in the conflict hierarchy. It also corrects a citation error: the bylaws referred to the Colorado Public Benefit Corporation Act, which governs corporations. Techne is a cooperative, not a corporation. The correct law is the LCA (Limited Cooperative Association) section of Colorado statute.</p></div>
+    </div>
+
+
+    <div class="block">
+      <div class="block-label current">Current language — Preamble</div>
+      <div class="current-lang">
+        "In the event of any conflict... such conflict shall be resolved first in accordance with the Articles of Organization, then these bylaws... then the ULCAA, and finally the PBCA"
+        <br><br>
+        Also: "the Articles of Organization, the ULCAA, and the PBCA, each as amended, and any provisions of any successor act, are incorporated by reference as if fully set forth herein."
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem — two points</div>
+      <div class="problem-text">
+        <p><strong>First — non-waivable ULCAA provisions.</strong> The priority hierarchy places the ULCAA below the Articles and Bylaws. Under Colorado law, certain provisions of the ULCAA are non-waivable even by Articles or Bylaws — see <code>C.R.S. § 7-58-110</code> (specifying which ULCAA provisions can and cannot be varied). For example, the member's right to dissociate (<code>C.R.S. § 7-58-1101(1)</code>) cannot be eliminated by the bylaws. The current hierarchy implies that Articles and Bylaws always prevail over the ULCAA, which would be incorrect for mandatory statutory provisions.</p>
+        <p><strong>Second — PBCA citation appears inapplicable.</strong> The PBCA (C.R.S. Title 7, Article 101, Part 5) is the Colorado Public Benefit Corporation Act, which governs corporations. RegenHub is an LCA, not a corporation. The public benefit provisions applicable to a Colorado Public Benefit LCA are found in <code>C.R.S. § 7-58-104</code> (public benefit LCA provisions within the ULCAA itself), not in the Public Benefit Corporation Act. The PBCA citation appears to be boilerplate from a public benefit corporation template and may be inapplicable. If Jeff intended to incorporate public benefit corporation principles by analogy, that intent should be stated explicitly; if the citation is simply incorrect, it should be replaced with <code>C.R.S. § 7-58-104</code> and related ULCAA public benefit provisions.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label statute">Statutory basis</div>
+      <ul class="statute-list">
+        <li><span class="statute-cite">C.R.S. § 7-58-110:</span> Specifies which ULCAA provisions may and may not be varied by the operating agreement or articles. Non-waivable provisions include member dissociation rights and certain fiduciary duties.</li>
+        <li><span class="statute-cite">C.R.S. § 7-58-104:</span> Contains the public benefit provisions applicable to a Limited Cooperative Association organized for public benefit — the operative statute for RegenHub's PB status, not the PBCA.</li>
+        <li><span class="statute-cite">C.R.S. § 7-58-1101(1):</span> Member's right to dissociate is a non-waivable statutory right the bylaws cannot eliminate.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed replacement — conflict hierarchy sentence</div>
+      <div class="proposed-lang">
+        "In the event of any conflict, it is the intention of the Cooperative that such conflict shall be resolved first in accordance with any <strong>mandatory, non-waivable provisions of the ULCAA</strong>, then in accordance with the Articles of Organization, then these Bylaws, and then any other applicable provisions of the ULCAA, unless otherwise expressly specified by these Bylaws."
+      </div>
+    </div>
+
+    <div class="jeff-card">
+      <div class="jeff-label">For Jeff — Counsel Brief</div>
+      <div class="jeff-body">v2 reorders the conflict hierarchy to place mandatory non-waivable ULCAA provisions first because C.R.S. § 7-58-110 specifies ULCAA provisions that bylaws cannot override — including the member's right to dissociate (§ 7-58-1101(1)). Placing bylaws above the ULCAA in the hierarchy incorrectly implies that bylaw provisions can override non-waivable statutory rights.
+      <p>The PBCA reference is replaced with C.R.S. § 7-58-104 because the PBCA governs public benefit corporations; RegenHub's public benefit LCA status is governed by § 7-58-104 within the ULCAA itself, not the corporate act. Jeff should confirm whether the PBCA reference was intentional (if so, the rationale should be stated explicitly) or a template artifact from a public benefit corporation form.</p></div>
+    </div>
+  </div>
+
+
+  <!-- ── CROSS-CUTTING ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Rec</span>
+      <h2>Cross-Cutting Recommendations</h2>
+    </div>
+
+    <div class="rec-list">
+      <div class="rec-item">
+        <div class="rec-num">01</div>
+        <div class="rec-body">
+          <strong>Bylaws + Membership Agreement reconciliation</strong>
+          The two documents need to be reviewed as a system before either is authorized. Key conflicts: redemption window (90 days vs. 5 years), IP scope (bylaw confidentiality may conflict with Membership Agreement IP carve-outs), and patronage allocation methodology.
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">02</div>
+        <div class="rec-body">
+          <strong>Patronage Plan cross-reference</strong>
+          The bylaws should explicitly require the Board to adopt a Patronage Plan (as the Membership Agreement requires) and reference it as the operative document for profit allocation methodology.
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">03</div>
+        <div class="rec-body">
+          <strong>Schedule A completion</strong>
+          Before the bylaws are effective, confirm: Patron Share price ($100), initial annual dues (if any), and whether any founding member dues waiver will be documented separately.
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">04</div>
+        <div class="rec-body">
+          <strong>Electronic meeting conformity</strong>
+          Beyond quorum, confirm that all voting provisions (§ 2.6, § 2.8) consistently treat electronic participation as valid participation.
+        </div>
+      </div>
+      <div class="rec-item">
+        <div class="rec-num">05</div>
+        <div class="rec-body">
+          <strong>Guaranteed payments resolution</strong>
+          Before the first fiscal year, the Board should adopt a resolution clarifying the form and process for member compensation under IRC § 707(c), consistent with the Subchapter K election.
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── QUESTIONS FOR JEFF ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num">Q&amp;A</span>
+      <h2>Questions for Jeff Pote</h2>
+    </div>
+
+    <div class="questions-list">
+      <div class="q-item">
+        <div class="q-num">Question 01</div>
+        <div class="q-topic">Net Profit methodology</div>
+        <div class="q-body">Should profit allocation be proportional to patronage (ULCAA default and cooperative principle) or equal per member? If equal, what is the rationale and how will it satisfy IRC 704(b)?</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Question 02</div>
+        <div class="q-topic">Suspension notice</div>
+        <div class="q-body">Was immediate suspension without notice intentional? If so, for which categories? Category (b) (fraud/criminal) is defensible; categories (a) and (c) (rules violations, disruption) would benefit from even a short notice period.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Question 03</div>
+        <div class="q-topic">Quorum</div>
+        <div class="q-body">Should "present and in person" be updated to include electronic attendance, consistent with § 2.1?</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Question 04</div>
+        <div class="q-topic">Redemption window</div>
+        <div class="q-body">Which controls: the Membership Agreement's 90-day target or the bylaws' 5-year outer limit? Or does the bylaws' 120-day "shall consider" + 5-year outer limit supersede the Membership Agreement?</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Question 05</div>
+        <div class="q-topic">PBCA citation</div>
+        <div class="q-body">Is the Public Benefit Corporation Act citation intentional or a template artifact? Should it be replaced with C.R.S. § 7-58-104?</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Question 06</div>
+        <div class="q-topic">Guaranteed payments</div>
+        <div class="q-body">Is the intent to prohibit all member compensation while taxed as a partnership, or to prohibit only employment-style compensation while permitting IRC § 707(c) guaranteed payments?</div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- ── ADDENDUM ── -->
+
+  <div class="addendum-divider">
+    <div class="addendum-divider-line"></div>
+    <span class="addendum-divider-label">Addendum &mdash; May 2026</span>
+    <div class="addendum-divider-line"></div>
+  </div>
+
+  <div class="addendum-banner">
+    <div class="addendum-label">Additional Research Read</div>
+    <p>The following findings are drawn from an independent Colorado legal research read of both v.2 documents, oriented to the ratification window. The read reviewed Bylaws v.2 and Membership Agreement v.2 together against Colorado ULCAA, IRC Subchapter K, and cooperative governance standards. Where findings extend existing issues above, cross-references are noted. Where they diverge from the analysis above, the divergence is made explicit. Research posture, not legal advice.</p>
+  </div>
+
+
+  <!-- ── A01 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">Extends Issue 01</span>
+      <h2>Profit Allocation Default is Permissive Where It Must Be Determinate</h2>
+    </div>
+
+    <div class="concur-card">
+      <div class="concur-label">Concurs &amp; Adds Specificity</div>
+      <div class="concur-body">
+        <p>The existing analysis flags equal allocation as contrary to the ULCAA default and IRC &sect; 704(b). This read adds a specific mechanism problem: &sect; 5.3.2 uses <em>may</em> be allocated equally as a fallback for the period before a Patronage Plan exists. For an allocation to carry <em>substantial economic effect</em> under IRC &sect; 704(b), the method must be fixed in advance, not left optional. A permissive default leaves the opening fiscal period without a determinate allocation rule.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Specific problem &mdash; the "may" fallback</div>
+      <div class="problem-text">
+        <p>MA &sect; 2.4 defers the Patronage Plan until ninety days after the first patron member is admitted. For the opening fiscal period there will likely be no Plan, and the fallback in &sect; 5.3.2 reads that profit <em>may</em> be allocated equally. For the alternative test for economic effect, the allocation method must be specified before any income or loss is allocated. A "may" leaves a gap between when members are admitted and when the Plan is adopted.</p>
+        <p>The fix is one word: replace "may be allocated equally" with "shall be allocated equally per capita among patron members in good standing until the Board ratifies a Patronage Plan." This closes the opening-period gap and removes the daylight between the patronage rule and its fallback.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Path</div>
+      <div class="proposed-lang">
+        Replace <em>"Net Profits <strong>may</strong> be allocated equally"</em> in the pre-Plan fallback with a binding default: <em>"Until a Patronage Plan is adopted, Net Profits <strong>shall</strong> be allocated equally per capita among patron members in good standing at the close of the fiscal year."</em> This makes the first-period allocation determinate for IRC &sect; 704(b) purposes.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── A02 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">Extends Issue 05</span>
+      <h2>Section 4.8 Contradicts Itself — Second Paragraph Undercuts the First</h2>
+    </div>
+
+    <div class="concur-card">
+      <div class="concur-label">Adds New Dimension to Issue 05</div>
+      <div class="concur-body">
+        <p>The existing analysis flags &sect; 4.8 for needing a &sect; 707(c) guaranteed-payments carve-out. This read identifies a second problem within the same section: the two paragraphs directly contradict each other, meaning the fix is not just an addition but a conforming revision.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Internal contradiction</div>
+      <div class="problem-text">
+        <p>The first paragraph correctly bars a member from drawing a W-2 salary while the entity is a partnership &mdash; the long-settled rule of <code>Rev. Rul. 69-184</code> &mdash; and routes pay through guaranteed payments under <code>IRC &sect; 707(c)</code>. The second paragraph then says <em>no officer is prevented from receiving a salary by reason of being a member</em>. This re-opens precisely the exception the first paragraph just foreclosed. As currently drafted, the two paragraphs cannot both be followed.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Path</div>
+      <div class="proposed-lang">
+        Strike or conform the second paragraph so the &sect; 707(c) treatment stands without qualification. If the intent of the second paragraph was to preserve a carve-out for officers acting in a non-member capacity (e.g., under a &sect; 707(a) arm's-length arrangement), that intent should be stated explicitly rather than as a general salary permission.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── A03 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">New &mdash; A03</span>
+      <h2>Liquidation Waterfall Has Two Endings</h2>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>&sect; 5.1.5 correctly says liquidating distributions follow positive capital-account balances, consistent with what <code>IRC &sect; 704(b)</code> requires for the alternate test for economic effect. Article XIV &sect; 14.3 then sends any residual equally to current and three-year former members.</p>
+        <p>If capital accounts have already absorbed the final gain or loss allocation &mdash; as they should under &sect; 5.1.5 &mdash; there should be nothing left to distribute equally. A separate equal-distribution tier that does not track capital accounts can break substantial economic effect because it produces an outcome not consistent with the members' actual economic arrangement.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label statute">Statutory basis</div>
+      <ul class="statute-list">
+        <li><span class="statute-cite">IRC &sect; 704(b); Treas. Reg. &sect; 1.704-1(b)(2)(ii)(b)(2):</span> Liquidating distributions must be made in accordance with positive capital account balances for the alternate test for economic effect to apply.</li>
+        <li><span class="statute-cite">C.R.S. &sect; 7-58-104:</span> Public benefit asset assignment on dissolution &mdash; a potentially applicable path for residual assets that avoids the capital-account consistency problem.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Path</div>
+      <div class="proposed-lang">
+        Reconcile Article XIV with &sect; 5.1.5 by removing the equal-distribution tier, or recharacterize the &sect; 14.3 residual explicitly as a <em>public-benefit asset assignment</em> rather than a member distribution &mdash; a path Article XIV itself already contemplates for illiquid assets. If the equal residual distribution is intentional, the document should explain how it interacts with &sect; 5.1.5 without breaking the capital-account-based liquidation rule.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── A04 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">New &mdash; A04</span>
+      <h2>Community Participant Class Is Difficult to Place in the Statute</h2>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>ULCAA recognizes two member classes: <em>patron members</em> (who patronize the cooperative) and <em>investor members</em> (who provide capital). A Community Participant described as "a member with access to programming" who neither patronizes as a patron member nor invests as an investor member does not fit cleanly into either statutory category.</p>
+        <p>&sect; 1.1(c) leaves governance rights for this class to Board discretion, which creates ambiguity across voting rights, capital account treatment, and Schedule A (where Community Participant share price and dues are placeholders alongside the other classes).</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label statute">Statutory basis</div>
+      <ul class="statute-list">
+        <li><span class="statute-cite">C.R.S. &sect; 7-58-103(14), (15):</span> Patron member and investor member definitions &mdash; the two statutory categories available to a ULCAA entity.</li>
+        <li><span class="statute-cite">C.R.S. &sect; 7-58-401:</span> Governance rights of patron vs. investor members &mdash; Board discretion to define governance rights works within, not around, the statutory framework.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Path</div>
+      <div class="proposed-lang">
+        Make a deliberate choice: is the Community Participant a sub-type of patron member (with reduced patronage activity), a form of investor member, or a non-member participant in cooperative programming? Once the classification is settled, align &sect;&sect; 1.1, 1.4, and Schedule A to that choice. If the class is intended to be non-member, the voting and capital-account provisions that currently apply to members should not attach to it.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── A05 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">New &mdash; A05</span>
+      <h2>Court-Access Waiver Is Broader Than a Jury Waiver</h2>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>Waiving the right to a jury trial is routine and the Membership Agreement's own &sect; 9.9 jury waiver is clean. Bylaws &sect; 11.5 goes further and waives <em>all rights to seek remedies in any court</em>. This is a qualitatively different waiver &mdash; it forecloses judicial access entirely, not just the jury.</p>
+        <p>Paired with a Board hearing in which the Board may itself be a party to the dispute (disputes between members and the Board over governance decisions), the breadth of &sect; 11.5 invites a fairness challenge to enforceability. A member who cannot get a neutral adjudicator when the cooperative is the adverse party has no meaningful dispute resolution path.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Path</div>
+      <div class="proposed-lang">
+        Consider narrowing &sect; 11.5 to a jury waiver (consistent with MA &sect; 9.9) plus mandatory arbitration before a neutral arbitrator, and add an explicit neutral adjudication path for cases where the Board itself is the adverse party. Wholesale court-access waivers in membership agreements have been subject to challenge in other cooperative and club contexts; narrowing to arbitration + jury waiver is both more standard and more likely to be enforced.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── A06 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">New &mdash; A06</span>
+      <h2>Article XII Sets a Threshold for Amending the Articles of Organization</h2>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>Bylaws can govern their own amendment. Article XII, however, also sets a voting threshold for amending the Articles of Organization. Article amendments are a state-law matter: they follow the ULCAA's statutory procedure and require a filing with the Colorado Secretary of State. A bylaw-set threshold for article amendments could be misread as the controlling rule, potentially creating confusion about whether a bylaw amendment is also needed whenever the Articles are amended.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label statute">Statutory basis</div>
+      <ul class="statute-list">
+        <li><span class="statute-cite">C.R.S. &sect; 7-58-201 et seq.:</span> Article amendment procedure under the ULCAA &mdash; governs the form and filing requirements for amending a limited cooperative association's articles of organization.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Path</div>
+      <div class="proposed-lang">
+        Add a clarifying clause to Article XII stating that article amendments proceed under the ULCAA's statutory procedure (including any required state filing), and that the threshold stated in Article XII governs <em>bylaw</em> amendments only. If the Board intends the Article XII threshold to apply to Article amendments as an internal governance matter (above the statutory floor), that intent should be stated explicitly with a note that it does not substitute for the statutory procedure.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── A07 ── -->
+  <div class="section">
+    <div class="section-header">
+      <span class="issue-num addendum">Affirmed</span>
+      <h2>Capital-Account Machinery and the Partnership Tax Spine Are Well-Drafted</h2>
+    </div>
+
+    <div class="affirm-card">
+      <div class="affirm-label">Solid as Drafted</div>
+      <div class="affirm-body">
+        <p>The research read affirms the following provisions as well-constructed and not requiring revision: the capital-account rules in &sect; 5.1, the qualified income offset in &sect; 5.3.4, and the no-deficit-restoration posture in &sect; 5.6. Together these form the standard <em>alternate test for economic effect</em> used by a partnership that does not impose a deficit restoration obligation &mdash; an appropriate posture for an early-stage cooperative.</p>
+        <p>The guaranteed-payment handling under &sect; 707(c) is correct in principle (the internal contradiction in the second paragraph of &sect; 4.8, addressed above, is a drafting problem, not a structural error). The consent-to-tax provisions in &sect;&sect; 1.10 and 6.1 are clear and consistent with the Subchapter K election.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PROPOSED CHANGES INDEX LINK -->
+  <div style="margin-bottom: 2.5rem; padding: 1.25rem 1.5rem; background: rgba(196,149,106,0.04); border: 1px solid rgba(196,149,106,0.15); border-radius: 4px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <div style="font-family: var(--mono); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 0.3rem;">Proposed Changes Index</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted);">All 15 proposed changes serialized with stable IDs for reference in board discussion and amendment motions.</div>
+    </div>
+    <a href="https://techne.institute/legal/bylaws-analysis/changes/" style="font-family: var(--mono); font-size: 0.68rem; color: var(--gold); text-decoration: none; border: 1px solid rgba(196,149,106,0.30); padding: 0.5rem 1rem; border-radius: 3px; white-space: nowrap; flex-shrink: 0;">View Changes Index →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="doc-footer">
+    Analysis prepared by Nou — collective intelligence agent, Techne Studio / RegenHub, LCA.<br>
+    Statutory citations: Colorado Revised Statutes, Title 7, Article 58 (Uniform Limited Cooperative Association Act); C.R.S. § 7-58-104 (Public Benefit LCA); C.R.S. § 7-58-110 (non-waivable provisions).<br>
+    Federal tax citations: IRC §§ 704(b), 707(a), 707(c); Treasury Regulation § 1.704-1(b)(2); Rev. Rul. 69-184.<br>
+    <strong>Not legal advice — for review by outside counsel before board action.</strong>
+  </footer>
+
+</div>
+
+<footer style="border-top:1px solid var(--border-dim);margin-top:4rem;padding:1.5rem 0 3rem;font-family:var(--mono);font-size:11px;color:var(--text-muted);">
+  <div style="max-width:780px;margin:0 auto;padding:0 1.5rem;display:flex;flex-wrap:wrap;gap:8px 24px;">
+    <span style="color:var(--gold);">Techne · RegenHub, LCA</span>
+    <span>1515 Walnut Street · Boulder, Colorado</span>
+    <span>Colorado Limited Cooperative Association</span>
+    <span>SOS No. 20261163853</span>
+    <span><a href="/legal/" style="color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border-dim);">&larr; Legal documents</a></span>
+  </div>
+</footer>
+</body>
+</html>
