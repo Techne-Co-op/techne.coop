@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+    (function() {
+      var s = localStorage.getItem('techne-mode');
+      if (s === 'light' || s === 'dark') document.documentElement.setAttribute('data-mode', s);
+      else document.documentElement.setAttribute('data-mode', 'dark');
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership Agreement — Proposed Changes Index · Techne</title>
+  <meta name="description" content="Serialized index of all proposed changes to the RegenHub, LCA Membership Agreement, drawn from counsel analysis and research addenda.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif: 'Libre Baskerville', Georgia, serif;
+      --mono:  'IBM Plex Mono', 'Courier New', monospace;
+    }
+
+    [data-mode="dark"] {
+      --bg:           #08080a;
+      --surface:      #111114;
+      --raised:       #18181c;
+      --border:       rgba(196,149,106,0.12);
+      --border-dim:   rgba(255,255,255,0.06);
+      --text:         #e0d8cc;
+      --text-warm:    #c8bca8;
+      --text-muted:   rgba(200,188,168,0.55);
+      --text-dim:     rgba(200,188,168,0.28);
+      --gold:         #c4956a;
+      --moss:         #6a8a5e;
+      --rust:         #9a5a5a;
+      --sky:          #5a7a9a;
+    }
+
+    [data-mode="light"] {
+      --bg:           #f7f5f0;
+      --surface:      #ebe7df;
+      --raised:       #ffffff;
+      --border:       rgba(196,149,106,0.20);
+      --border-dim:   rgba(0,0,0,0.08);
+      --text:         #2a2520;
+      --text-warm:    #3a3028;
+      --text-muted:   rgba(60,48,36,0.60);
+      --text-dim:     rgba(60,48,36,0.30);
+      --gold:         #8a6a3a;
+      --moss:         #4a6a3a;
+      --rust:         #8a3a3a;
+      --sky:          #3a5a7a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── DOC HEADER ── */
+    .doc-header {
+      border-top: 2px solid var(--gold);
+      padding-top: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .doc-header .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .doc-header .eyebrow a {
+      color: var(--gold);
+      text-decoration: none;
+      opacity: 0.7;
+    }
+    .doc-header .eyebrow a:hover { opacity: 1; }
+
+    .doc-header h1 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .doc-header .framing {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      font-style: italic;
+      max-width: 640px;
+    }
+
+    /* ── INDEX TABLE ── */
+    .index-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 3.5rem;
+      font-size: 0.80rem;
+    }
+
+    .index-table th {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .index-table td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border-dim);
+      color: var(--text-warm);
+      vertical-align: top;
+      line-height: 1.4;
+    }
+
+    .index-table tr:last-child td { border-bottom: none; }
+
+    .index-table td.id-cell {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      white-space: nowrap;
+      width: 5.5rem;
+    }
+
+    .index-table td.id-cell a {
+      text-decoration: none;
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+      border: 1px solid;
+      display: inline-block;
+    }
+
+    .index-table td.title-cell {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .index-table td.section-cell {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--sky);
+      white-space: nowrap;
+    }
+
+    /* badges */
+    .badge {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.15rem 0.45rem;
+      border-radius: 2px;
+      border: 1px solid;
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    .badge-blocking { color: var(--rust);  border-color: rgba(154,90,90,0.35);  background: rgba(154,90,90,0.06); }
+    .badge-high     { color: var(--rust);  border-color: rgba(154,90,90,0.25);  background: rgba(154,90,90,0.04); }
+    .badge-advisable{ color: var(--gold);  border-color: rgba(196,149,106,0.30); background: rgba(196,149,106,0.05); }
+    .badge-extends  { color: var(--sky);   border-color: rgba(90,122,154,0.30);  background: rgba(90,122,154,0.05); }
+    .badge-affirmed { color: var(--moss);  border-color: rgba(106,138,94,0.30);  background: rgba(106,138,94,0.05); }
+    .badge-new      { color: var(--gold);  border-color: rgba(196,149,106,0.30); background: rgba(196,149,106,0.05); }
+    .badge-diverges { color: var(--moss);  border-color: rgba(106,138,94,0.30);  background: rgba(106,138,94,0.05); }
+    .badge-low      { color: var(--text-dim); border-color: var(--border-dim); background: transparent; }
+
+    .id-main  { color: var(--gold); border-color: rgba(196,149,106,0.30); background: rgba(196,149,106,0.05); }
+    .id-add   { color: var(--sky);  border-color: rgba(90,122,154,0.30);  background: rgba(90,122,154,0.05); }
+
+    /* ── CHANGE CARDS ── */
+    .change {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border-dim);
+      scroll-margin-top: 2rem;
+    }
+
+    .change:last-of-type { border-bottom: none; }
+
+    .change-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .change-id {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+      border: 1px solid;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .change-id.main { color: var(--gold); border-color: rgba(196,149,106,0.35); background: rgba(196,149,106,0.07); }
+    .change-id.add  { color: var(--sky);  border-color: rgba(90,122,154,0.35);  background: rgba(90,122,154,0.07); }
+
+    .change h2 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .change-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .change-section {
+      font-family: var(--mono);
+      font-size: 0.70rem;
+      color: var(--sky);
+    }
+
+    /* blocks */
+    .block { margin-bottom: 1.5rem; }
+
+    .block-label {
+      font-family: var(--mono);
+      font-size: 0.57rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-dim);
+    }
+
+    .block-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-dim);
+    }
+
+    .block-label.problem  { color: var(--rust); }
+    .block-label.proposed { color: var(--moss); }
+    .block-label.note     { color: var(--sky); }
+    .block-label.affirmed { color: var(--moss); }
+
+    .problem-text {
+      font-size: 0.87rem;
+      line-height: 1.65;
+      color: var(--text-warm);
+    }
+
+    .problem-text p + p { margin-top: 0.75rem; }
+
+    .proposed-lang {
+      background: rgba(106,138,94,0.06);
+      border: 1px solid rgba(106,138,94,0.18);
+      border-left: 3px solid var(--moss);
+      padding: 1rem 1.25rem;
+      font-size: 0.83rem;
+      line-height: 1.65;
+      color: var(--text-warm);
+      border-radius: 0 3px 3px 0;
+      margin-bottom: 0.75rem;
+    }
+
+    .proposed-lang .proposed-label {
+      font-family: var(--mono);
+      font-size: 0.57rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--moss);
+      margin-bottom: 0.5rem;
+    }
+
+    .affirmed-block {
+      background: rgba(106,138,94,0.05);
+      border: 1px solid rgba(106,138,94,0.15);
+      border-left: 3px solid var(--moss);
+      padding: 0.9rem 1.1rem;
+      font-size: 0.84rem;
+      line-height: 1.6;
+      color: var(--text-warm);
+      border-radius: 0 3px 3px 0;
+    }
+
+    .note-block {
+      background: rgba(90,122,154,0.05);
+      border: 1px solid rgba(90,122,154,0.15);
+      border-left: 3px solid var(--sky);
+      padding: 0.9rem 1.1rem;
+      font-size: 0.83rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      border-radius: 0 3px 3px 0;
+      font-style: italic;
+    }
+
+    /* ── GROUP DIVIDERS ── */
+    .group-divider {
+      margin: 2.5rem 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .group-divider span {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--sky);
+      white-space: nowrap;
+    }
+
+    .group-divider::before,
+    .group-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(90,122,154,0.20);
+    }
+
+    /* ── CROSS-REFERENCE BOX ── */
+    .cross-ref {
+      background: rgba(196,149,106,0.04);
+      border: 1px solid rgba(196,149,106,0.15);
+      border-radius: 4px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 3rem;
+      font-size: 0.84rem;
+    }
+
+    .cross-ref-label {
+      font-family: var(--mono);
+      font-size: 0.57rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .cross-ref ul {
+      padding-left: 1.1rem;
+      line-height: 1.9;
+      color: var(--text-warm);
+    }
+
+    .cross-ref a { color: var(--gold); text-decoration: none; }
+    .cross-ref a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-dim);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--text-dim);
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .page-footer a { color: var(--gold); text-decoration: none; }
+    .page-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .wrap { padding: 2rem 1.25rem 4rem; }
+      .change-header { flex-direction: column; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+<button onclick="(function(){var m=document.documentElement.getAttribute('data-mode')=='dark'?'light':'dark';document.documentElement.setAttribute('data-mode',m);try{localStorage.setItem('techne-mode',m);}catch(e){}})()" style="position:fixed;top:12px;right:12px;z-index:1000;background:var(--surface);border:1px solid var(--border-dim);color:var(--text-muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;border-radius:3px;letter-spacing:0.06em;" aria-label="Toggle dark/light mode">mode</button>
+<div class="wrap">
+
+  <div style="background:rgba(196,149,106,0.06);border:1px solid rgba(196,149,106,0.25);border-radius:4px;padding:0.7rem 1.1rem;font-family:var(--mono);font-size:0.68rem;line-height:1.6;color:var(--text-muted);margin-bottom:1.5rem;">
+    <span style="color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">Formation-era commentary</span> ·
+    Prepared May&ndash;July 2026, during drafting and ratification. Published for member education: the reasoning behind the governing documents.
+    The ratified instruments are the source of truth: <a href="/legal/bylaws/" style="color:var(--gold);text-decoration:none;">Bylaws v.2.1</a> · <a href="/legal/membership-agreement/" style="color:var(--gold);text-decoration:none;">Membership Agreement v.2.3</a>.
+  </div>
+
+
+  <!-- VERSION NAV -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0.65rem 1rem;margin-bottom:1.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(196,149,106,0.12);border-radius:6px;font-size:0.82rem;flex-wrap:wrap;gap:0.5rem;">
+    <span style="color:rgba(200,188,168,0.55);">Every proposed change from <strong style="color:#5a7a9a;">Membership Agreement v.1</strong> (original attorney draft) to <strong style="color:#c4956a;">Membership Agreement v.2</strong> (revised draft)</span>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+      <a href="https://techne.institute/legal/membership-agreement-v1/" style="color:#5a7a9a;text-decoration:none;padding:0.2rem 0.6rem;border:1px solid rgba(90,122,154,0.35);border-radius:4px;">MA v.1 (original) ↗</a>
+      <a href="/legal/membership-agreement/" style="color:#c4956a;text-decoration:none;padding:0.2rem 0.6rem;border:1px solid rgba(196,149,106,0.35);border-radius:4px;">MA v.2 (revised) ↗</a>
+      <a href="/legal/membership-agreement-analysis/" style="color:rgba(200,188,168,0.55);text-decoration:none;padding:0.2rem 0.6rem;border:1px solid rgba(255,255,255,0.08);border-radius:4px;">Legal analysis ↗</a>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="eyebrow">
+      <a href="/legal/membership-agreement-analysis/">← Membership Agreement Analysis</a>
+      &nbsp;·&nbsp; RegenHub, LCA &nbsp;·&nbsp; Proposed Changes Index
+    </div>
+    <h1>Membership Agreement — Proposed Changes Index</h1>
+    <p class="framing">Serialized reference list of every proposed change from <strong>Membership Agreement v.1</strong> (original attorney draft) to <strong>Membership Agreement v.2</strong> (revised draft), drawn from initial counsel analysis (Issues 01–06) and the May 2026 independent research addendum (Items A01–A04). Each item carries a stable identifier for use in discussion, amendment motions, and version tracking.</p>
+  </div>
+
+  <!-- MASTER INDEX TABLE -->
+  <table class="index-table" aria-label="Proposed changes index">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Section</th>
+        <th>Nature</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="4" style="padding: 0.75rem 0.75rem 0.35rem; font-family: var(--mono); font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-dim); border-bottom: 1px solid var(--border-dim);">Counsel Analysis — Issues 01–06</td></tr>
+      <tr>
+        <td class="id-cell"><a href="#ma-01" class="id-main">MA-01</a></td>
+        <td class="title-cell">IP Assignment — Scope Misaligned with Cooperative Model</td>
+        <td class="section-cell">§ 3.3</td>
+        <td><span class="badge badge-blocking">Blocking</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#ma-02" class="id-main">MA-02</a></td>
+        <td class="title-cell">Voluntary Withdrawal and Membership Interest Redemption Missing</td>
+        <td class="section-cell">§ 5.6 (new)</td>
+        <td><span class="badge badge-blocking">Blocking</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#ma-03" class="id-main">MA-03</a></td>
+        <td class="title-cell">Patronage Accounting and Federal Tax Alignment</td>
+        <td class="section-cell">§§ 2.3–2.4, 3.3</td>
+        <td><span class="badge badge-blocking">Blocking</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#ma-04" class="id-main">MA-04</a></td>
+        <td class="title-cell">Recital — Foundational Framing Mischaracterizes Entity</td>
+        <td class="section-cell">Preamble / Recital</td>
+        <td><span class="badge badge-advisable">Advisable</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#ma-05" class="id-main">MA-05</a></td>
+        <td class="title-cell">Termination — No Cure Period or Procedural Protection</td>
+        <td class="section-cell">§ 5</td>
+        <td><span class="badge badge-advisable">Advisable</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#ma-06" class="id-main">MA-06</a></td>
+        <td class="title-cell">Membership Class Architecture — Scope, Dues Notice</td>
+        <td class="section-cell">§§ 1–1.1, 1.5</td>
+        <td><span class="badge badge-low">Clarifying</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#ma-07" class="id-main">MA-07</a></td>
+        <td class="title-cell">Status of Parties — Positive Owner-Member Characterization</td>
+        <td class="section-cell">§ 9.4</td>
+        <td><span class="badge badge-low">Clarifying</span></td>
+      </tr>
+      <tr><td colspan="4" style="padding: 0.75rem 0.75rem 0.35rem; font-family: var(--mono); font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sky); border-bottom: 1px solid var(--border-dim); border-top: 1px solid var(--border-dim);">Research Addendum — Items A01–A04</td></tr>
+      <tr>
+        <td class="id-cell"><a href="#ma-a01" class="id-add">MA-A01</a></td>
+        <td class="title-cell">Schedule A Is Empty and Share Price Lives in Two Places</td>
+        <td class="section-cell">§ 1.4, Schedule A</td>
+        <td><span class="badge badge-extends">Extends BL-04</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#ma-a02" class="id-add">MA-A02</a></td>
+        <td class="title-cell">Agreement Speaks Subchapter T Inside a Subchapter K Entity</td>
+        <td class="section-cell">§§ 2.3, 2.4, 3.3</td>
+        <td><span class="badge badge-blocking">Blocking</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#ma-a03" class="id-add">MA-A03</a></td>
+        <td class="title-cell">Withdrawal Returns Unclear Amount on Inconsistent Clock</td>
+        <td class="section-cell">§ 5.4 · Bylaws §§ 1.7.3–1.7.4, 1.9</td>
+        <td><span class="badge badge-extends">Extends MA-02</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#ma-a04" class="id-add">MA-A04</a></td>
+        <td class="title-cell">IP Section Largely Resolved in v.2 — Two Residuals Remain</td>
+        <td class="section-cell">§§ 3.4.1–3.4.4</td>
+        <td><span class="badge badge-diverges">Diverges</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ════════════════════════════════════════════
+       CROSS-DOCUMENT CONFLICTS
+  ════════════════════════════════════════════ -->
+  <div class="cross-ref">
+    <div class="cross-ref-label">Cross-document conflicts with Bylaws</div>
+    <ul>
+      <li><strong>Redemption window:</strong> Bylaws §§ 1.9.3, 1.11.1 allow up to five years; MA § 5.6 proposes 90 days. See <a href="#ma-02">MA-02</a> and <a href="/legal/bylaws-analysis/changes/#bl-06">BL-06</a>.</li>
+      <li><strong>Share price single source of truth:</strong> Bylaws Schedule A is a placeholder; MA § 1.4 hard-codes $100. See <a href="#ma-a01">MA-A01</a> and <a href="/legal/bylaws-analysis/changes/#bl-04">BL-04</a>.</li>
+      <li><strong>Capital-account withdrawal amount:</strong> Bylaws § 1.7.4 (book value), MA § 5.4 ($100 par + separate credits), Bylaws §§ 1.7.3, 1.9 (Board discretion). See <a href="#ma-a03">MA-A03</a> and <a href="/legal/bylaws-analysis/changes/#bl-06">BL-06</a>.</li>
+      <li><strong>Tax vocabulary mismatch:</strong> MA uses Subchapter T vocabulary in a Subchapter K entity. See <a href="#ma-a02">MA-A02</a> and <a href="/legal/bylaws-analysis/changes/#bl-01">BL-01</a>.</li>
+    </ul>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       MAIN ANALYSIS ITEMS
+  ════════════════════════════════════════════ -->
+
+  <div class="group-divider"><span>Counsel Analysis · Issues 01–06</span></div>
+
+  <!-- MA-01 -->
+  <div class="change" id="ma-01">
+    <div class="change-header">
+      <span class="change-id main">MA-01</span>
+      <h2>IP Assignment — Scope Misaligned with Cooperative Model</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 3.3 · § 3.3.3</span>
+      <span class="badge badge-blocking">Blocking</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>"Scope of their service" is undefined and overbroad — it could capture a member's independent professional practice, prior work, and open-source contributions that have no connection to Cooperative-commissioned deliverables. This assignment scope is not required by C.R.S. § 7-58-602 and is inconsistent with the Cooperative-of-practice model where members are practitioners, not employees.</p>
+        <p>§ 3.3.3's portfolio license requires prior written permission "on each occasion" before a member may display their own work — more restrictive than most employment agreements and contrary to the member's interest in marketing their practice.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Define "Cooperative-Commissioned Work"</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Add definition before § 3.3:</div>
+        <strong>"Cooperative-Commissioned Work"</strong> means Intellectual Property developed by Applicant pursuant to a written task assignment, statement of work, or engagement letter executed by an authorized officer of the Cooperative, expressly identifying the deliverable as a work-made-for-hire for the Cooperative, and for which Applicant has received or is entitled to receive compensation from the Cooperative beyond the standard member share and any patronage allocation.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Replace § 3.3 Works-Made-for-Hire Scope</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Replace § 3.3 assignment scope:</div>
+        The Cooperative shall have title to, ownership of, and all proprietary rights in and to any Intellectual Property constituting <strong>Cooperative-Commissioned Work</strong>. All such work shall be considered "works made for hire" as defined by 17 U.S.C. §§ 101 and 201(b). To the extent any Cooperative-Commissioned Work is not deemed a work made for hire, Applicant hereby assigns all right, title, and interest therein to the Cooperative. <strong>Intellectual Property developed by Applicant outside the scope of Cooperative-Commissioned Work — including Applicant's independent professional practice, open-source contributions, and prior work — remains Applicant's property and is not affected by this Agreement.</strong>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Replace § 3.3.3 Portfolio License</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Replace § 3.3.3 with notice-and-objection model:</div>
+        The Cooperative grants Applicant a perpetual, royalty-free, non-exclusive license to display Cooperative-Commissioned Work in Applicant's professional portfolio and in the marketing of Applicant's services. Before any such display, Applicant shall provide the Cooperative written notice identifying the specific work and proposed use. The Cooperative may, within <strong>ten (10) business days</strong> of such notice, provide written objection based solely on a specific client confidentiality obligation binding on the Cooperative. Absent a timely objection, Applicant may proceed.
+      </div>
+    </div>
+
+    <div class="note-block">See also MA-A04 (addendum): IP provisions are materially improved in v.2. Residual items: (1) confirm assignment (not work-made-for-hire label) is the operative mechanism for non-qualifying works; (2) confirm venture IP developed through the Cooperative's commercial activities is explicitly excluded from § 3.3 unless subject to a separate written agreement.</div>
+  </div>
+
+  <!-- MA-02 -->
+  <div class="change" id="ma-02">
+    <div class="change-header">
+      <span class="change-id main">MA-02</span>
+      <h2>Voluntary Withdrawal and Membership Interest Redemption Missing</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 5.6 (new section)</span>
+      <span class="badge badge-blocking">Blocking</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>The Agreement addresses termination by the Cooperative but is silent on voluntary resignation. C.R.S. § 7-58-1101(1) gives members an unconditional right to dissociate from the Cooperative at any time. The Agreement must implement that right. § 9.1 prohibits transfer without consent but provides no exit mechanism — a member wishing to leave has no documented path and no clarity on what happens to their equity.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Add New Section 5.6: Voluntary Withdrawal</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">New § 5.6:</div>
+        Applicant may voluntarily withdraw from membership at any time by providing written notice to the Cooperative. Withdrawal is effective upon the date the Cooperative receives such notice, unless Applicant specifies a later effective date. Upon the effective withdrawal date: (a) Applicant's right to access Cooperative services, participate in governance, and receive future profit allocations shall terminate; and (b) the Cooperative shall redeem Applicant's Class A stock at its original purchase price (<strong>$100.00 per share</strong>) within <strong>ninety (90) days</strong> of the effective date, subject to (i) the limitations on distributions under C.R.S. § 7-58-1007, (ii) any outstanding financial obligations of Applicant to the Cooperative as of the withdrawal date, and (iii) Board authorization as required by C.R.S. § 7-58-1006. Any patronage credits formally noticed and allocated to Applicant's capital account but not yet distributed shall be redeemed in accordance with the Cooperative's then-current patronage redemption schedule. Applicant's obligations under Sections 3.3, 4, 6, 7, and 9 survive withdrawal.
+      </div>
+    </div>
+
+    <div class="note-block">Open question for the board: should redemption return par value ($100) or the member's positive capital-account balance? Under Subchapter K, the member has paid income tax on retained allocations — returning only par value may create a tax phantom. See MA-A03 for the full capital-account problem.</div>
+  </div>
+
+  <!-- MA-03 -->
+  <div class="change" id="ma-03">
+    <div class="change-header">
+      <span class="change-id main">MA-03</span>
+      <h2>Patronage Accounting and Federal Tax Alignment</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§§ 2.3–2.4 · § 3.3</span>
+      <span class="badge badge-blocking">Blocking</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>§ 2.3 gives the Board full discretion to set and change the profit-share formula. This level of discretion undermines (1) IRC § 704(b)'s substantial economic effect safe harbor, which requires documented capital-account machinery that moves deterministically with allocations, and (2) C.R.S. § 7-58-1004's proportional-to-patronage default. A Board that can change the formula at will cannot demonstrate the stable allocation mechanism § 704(b) requires.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Add § 2.4: Patronage Plan</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">New § 2.4:</div>
+        The Board shall adopt a written Patronage Plan within <strong>ninety (90) days</strong> of admitting the first patron member. The Patronage Plan shall specify: (a) the method for calculating each patron member's patronage for each fiscal year; (b) the basis for allocating net margins among patron members in proportion to their patronage, consistent with C.R.S. § 7-58-1004; (c) the form and timing of patronage dividends, including the minimum percentage to be paid in cash; (d) the procedures for issuing written notices of allocation to each patron member; and (e) the procedures for maintaining and adjusting patron capital accounts. The Board may amend the Patronage Plan, provided that any amendment reducing the cash component of patronage dividends or changing the patronage basis shall require approval by a majority of patron members at a duly noticed meeting.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Add IRC § 704(b) Consent to § 3.3</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Add to § 3.3:</div>
+        Applicant further acknowledges that: (a) the Cooperative intends to maintain capital accounts for patron members in accordance with Treasury Regulation § 1.704-1(b)(2)(iv); (b) the Cooperative will provide Applicant with annual written notices of allocation reflecting Applicant's distributive share of net income or loss for each fiscal year; and (c) such allocations are intended to have substantial economic effect within the meaning of <strong>IRC § 704(b)</strong>.
+      </div>
+    </div>
+
+    <div class="note-block">See also MA-A02 (addendum): the agreement uses Subchapter T vocabulary ("patronage dividends," "net margins," "year received") inside a Subchapter K entity. These are blocking issues that need vocabulary conformance before execution.</note>
+  </div>
+
+  <!-- MA-04 -->
+  <div class="change" id="ma-04">
+    <div class="change-header">
+      <span class="change-id main">MA-04</span>
+      <h2>Recital — Foundational Framing Mischaracterizes the Entity</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">Preamble / Recital</span>
+      <span class="badge badge-advisable">Advisable</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>The current recital describes RegenHub as "a coworking space and community venue in Boulder, Colorado, providing affordable workspace and event infrastructure." This is a facilities description that omits the entity's Public Benefit LCA status, its scenius purpose, its cooperative-of-practice character, and the hybrid (physical + distributed) nature of its membership base. Recital language affects interpretation of ambiguous provisions throughout the Agreement.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Replace Recital</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Replace current recital with:</div>
+        RegenHub, LCA ("Cooperative") is a Colorado Public Benefit Limited Cooperative Association organized to cultivate scenius — the collective intelligence that arises from communities of practice — through right relationship between tools and the people who use them. The Cooperative serves patron members who are practitioners, builders, and thinkers operating across Boulder, Colorado and aligned virtual and regional communities. The Cooperative may operate physical gathering space, digital infrastructure, programs, and services in furtherance of this public benefit purpose.
+      </div>
+    </div>
+  </div>
+
+  <!-- MA-05 -->
+  <div class="change" id="ma-05">
+    <div class="change-header">
+      <span class="change-id main">MA-05</span>
+      <h2>Termination — No Cure Period or Procedural Protection</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 5</span>
+      <span class="badge badge-advisable">Advisable</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>§ 5 authorizes termination on grounds including "conduct detrimental to operations or reputation," "good faith belief" of inaccurate reporting, and conduct "inhibiting other members." Only non-payment includes a 30-day cure period. Patron members are owner-members with equity — termination without notice and opportunity to respond is procedurally thin even if legally within the Board's authority, and may conflict with Bylaws § 1.10.1's notice requirements for suspension.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Tighten Termination Grounds (d) and (e)</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Replace § 5.1(d):</div>
+        <em>From:</em> "RegenHub, in its reasonable business judgment, determines that Applicant's conduct is detrimental to the operations and/or reputation of RegenHub"<br><br>
+        <em>To:</em> "the Cooperative, in its reasonable business judgment <strong>based on specific, articulable facts</strong>, determines that Applicant's conduct is <strong>materially</strong> detrimental to the operations and/or reputation of the Cooperative"<br><br>
+        <div class="proposed-label" style="margin-top:1rem;">Replace § 5.1(e):</div>
+        <em>From:</em> "RegenHub determines, based on a good faith belief, that Applicant has inaccurately reported information"<br><br>
+        <em>To:</em> "the Cooperative determines, based on a good faith belief <strong>supported by specific facts</strong>, that Applicant has inaccurately reported information <strong>material to Applicant's membership or patronage</strong>"<br><br>
+        <em>Why:</em> The v1 standards for (d) and (e) were vague enough to be applied pretextually. Adding "specific, articulable facts" to (d) and "supported by specific facts / material to membership or patronage" to (e) reduces the risk of arbitrary termination and makes the Board's determination subject to meaningful review. Minor errors or conduct that is not materially harmful cannot be a termination ground.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Add Notice and Cure Provision After § 5 Grounds</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Add after termination grounds list:</div>
+        <strong>Notice and Cure.</strong> Before exercising any termination right under this Section 5 (other than under Section 5(b) [non-payment] or Section 5(c) [false statement]), the Cooperative shall provide Applicant with: (a) written notice specifying the ground(s) for the proposed termination and identifying the conduct or omission at issue; and (b) a <strong>thirty (30)-day</strong> period to cure, where the breach is reasonably capable of cure. Termination shall be carried out in accordance with the dispute resolution procedures in the Bylaws. Prior to any final termination determination, Applicant shall have the right to submit a written response to the Board or its designated committee.
+      </div>
+    </div>
+  </div>
+
+  <!-- MA-06 -->
+  <div class="change" id="ma-06">
+    <div class="change-header">
+      <span class="change-id main">MA-06</span>
+      <h2>Membership Class Architecture — No Explicit Scope Statement</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§§ 1–1.1</span>
+      <span class="badge badge-low">Clarifying</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>The Agreement does not identify itself as the Class A Patron Member agreement. With the Techne co-op agreement anticipated and additional membership classes possible, scope clarity is needed so members and future agreements know which class each document governs.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Add Scope Statement to § 1</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Add opening sentence to § 1:</div>
+        This Agreement governs <strong>Class A patron membership</strong> in RegenHub, LCA. It does not govern investor membership or any other membership class established by the Board after the date of this Agreement.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Add Class Architecture Note to § 1.1</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Add after stock price mechanics in § 1.1:</div>
+        The Board may establish additional membership classes with different financial rights, governance rights, and stock prices. Membership in any such additional class shall be governed by a separate membership agreement or addendum specific to that class.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Add Dues Increase Notice Requirement to § 1.5</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Add to § 1.5 (Membership Dues):</div>
+        The Board may, in its discretion, establish membership dues payable by patron members. The Board may change the amount, frequency, or structure of membership dues; <strong>provided that any increase in dues shall take effect no sooner than thirty (30) days after written notice to all affected patron members.</strong><br><br>
+        <em>Why:</em> v1 gave the Board unconstrained discretion to change dues without any notice period. A sudden dues increase could effectively force members out by making membership unaffordable. The 30-day advance notice requirement is a baseline fairness protection and is consistent with the Board's duty of good faith to members under the ULCAA. Decreases and structural changes (e.g., from annual to monthly billing) are not subject to the notice requirement — only increases.
+      </div>
+    </div>
+  </div>
+
+  <!-- MA-07 -->
+  <div class="change" id="ma-07">
+    <div class="change-header">
+      <span class="change-id main">MA-07</span>
+      <h2>Status of Parties — Positive Owner-Member Characterization</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 9.4</span>
+      <span class="badge badge-low">Clarifying</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>Section 9.4 in v1 defines the parties' relationship exclusively through negative disclaimers — Applicant is not an employee, not an independent contractor, not a partner. While accurate, the provision says nothing about what Applicant actually <em>is</em>. This creates an interpretive gap: if a dispute arises and a court or third party looks to the agreement to characterize the relationship, they find only a list of what it is not.</p>
+        <p>In the cooperative context, this omission is particularly consequential. LCA members are owner-members — they hold equity interests and governance rights, not merely service access. Courts interpreting ambiguous relationship language look for the most analogous established category. Without a positive characterization, the agreement implicitly invites classification as something other than what was intended.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Add Positive Characterization to § 9.4</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Add opening sentence to § 9.4 before the existing disclaimers:</div>
+        <em>From (v1):</em> "9.4 Status of Parties. Applicant is not an employee, agent, independent contractor, or partner of the Cooperative."<br><br>
+        <em>To (v2):</em> "9.4 Status of Parties. <strong>Applicant is an owner-member of the Cooperative with the rights and obligations set forth in this Agreement and the Governing Documents.</strong> Applicant is not an employee, agent, independent contractor, or partner of the Cooperative."<br><br>
+        <em>Why:</em> The term "owner-member" is legally significant under ULCAA. It signals equity ownership (membership stock under § 1.1) and democratic participation (voting rights under Bylaws Art. V), distinguishing the relationship from all of the categories the disclaimers negate. A court reading § 9.4 now has a positive anchor — "owner-member" — before reaching the list of what the relationship is not.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label note">Note</div>
+      <div class="problem-text">
+        <p>This change is already reflected in the published v2 document. The proposed language above is the as-drafted text. No further revision is required unless the Board wishes to add a cross-reference to Bylaws Art. V (Member Rights) or the ULCAA's member equity provisions.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       ADDENDUM ITEMS
+  ════════════════════════════════════════════ -->
+
+  <div class="group-divider"><span>Research Addendum · Items A01–A04 · May 2026</span></div>
+
+  <!-- MA-A01 -->
+  <div class="change" id="ma-a01">
+    <div class="change-header">
+      <span class="change-id add">MA-A01</span>
+      <h2>Schedule A Is Empty and Share Price Lives in Two Places</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 1.4 · Bylaws Schedule A</span>
+      <span class="badge badge-extends">Extends BL-04</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>MA § 1.4 hard-codes the share price at $100.00. Bylaws Schedule A is currently a placeholder. If Schedule A is ever populated with a different figure, or if the share price changes, both documents must be amended in parallel — creating a coordination burden and a drift risk. The single-source-of-truth principle requires one authoritative location.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed Path</div>
+      <div class="proposed-lang">
+        <ol style="padding-left: 1.25rem; margin-top: 0.5rem; line-height: 1.8;">
+          <li>Populate Bylaws Schedule A with definitive per-class share prices before execution.</li>
+          <li>Revise MA § 1.4 to read: "The share price per Class A share is the amount set forth in Schedule A to the Bylaws, as amended from time to time by the Board." Remove the hard-coded $100.00 reference.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- MA-A02 -->
+  <div class="change" id="ma-a02">
+    <div class="change-header">
+      <span class="change-id add">MA-A02</span>
+      <h2>Agreement Speaks Subchapter T Inside a Subchapter K Entity</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§§ 2.3, 2.4, 3.3</span>
+      <span class="badge badge-blocking">Blocking</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>The Cooperative has elected partnership tax treatment (Subchapter K). Under Subchapter K, a member includes their distributive share of income or loss in their taxable income for the year in which the Cooperative's taxable year ends — not the year they receive a distribution. The Agreement uses Subchapter T vocabulary: "net margins," "patronage dividends," "written notices of allocation," and "in year received." These are concepts from cooperative tax law (IRC §§ 1381–1388), which applies to cooperatives taxed as corporations, not partnerships. The vocabulary mismatch will confuse members about when their tax obligation arises.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed Vocabulary Conformance</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Replace throughout §§ 2.3, 2.4, 3.3:</div>
+        <ul style="padding-left: 1.25rem; margin-top: 0.5rem; line-height: 1.9;">
+          <li>"Net margins" → <strong>"net income"</strong> or "taxable income"</li>
+          <li>"Patronage dividends" → <strong>"distributive share"</strong></li>
+          <li>"Written notices of allocation" → <strong>"capital account allocation"</strong> or "Schedule K-1"</li>
+          <li>"In year received" → <strong>"in taxable year of Cooperative in which allocated, as reported on Schedule K-1"</strong></li>
+          <li>State-law patronage hook (C.R.S. § 7-58-1004 proportional distribution) may remain as a cooperative-purpose provision governing the calculation basis, distinct from the federal tax vocabulary.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- MA-A03 -->
+  <div class="change" id="ma-a03">
+    <div class="change-header">
+      <span class="change-id add">MA-A03</span>
+      <h2>Withdrawal Returns Unclear Amount on Inconsistent Clock</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 5.4 · Bylaws §§ 1.7.3–1.7.4, 1.9</span>
+      <span class="badge badge-extends">Extends MA-02</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>Three provisions give three different answers to "what does a withdrawing member receive?"</p>
+        <p>Bylaws § 1.7.4 settles the capital account at book value. MA § 5.4 redeems the share at $100 par plus separate patronage credits under a schedule that does not exist. Bylaws §§ 1.7.3 and 1.9 give the Board up to 12 months to process redemption.</p>
+        <p>The deeper problem under Subchapter K: a member pays income tax each year on their allocated share of Cooperative income, whether or not distributed. If withdrawal returns only $100 par value and not the accumulated capital-account balance (which contains retained allocations the member has already taxed), the member has paid tax on value they never received — a tax phantom. MA § 5.4's separate patronage-credit schedule is the right instinct but does not equal the capital account as drafted.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Single Withdrawal Rule</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Recommended resolution:</div>
+        Adopt a single rule across both documents: a withdrawing member is paid their <strong>positive capital-account balance</strong> (which already contains the $100 original contribution plus all retained allocations) on a single stated timeline, subject to C.R.S. § 7-58-1007 distribution limits. Remove or reconcile the separate par-value and patronage-credit redemption provisions. Identify which document controls timing — recommend the Bylaws as governing, with the MA cross-referencing.
+      </div>
+    </div>
+
+    <div class="note-block">This item should be resolved together with BL-06 (Bylaws redemption window). The timeline and the amount must come from the same document to avoid future conflict.</div>
+  </div>
+
+  <!-- MA-A04 -->
+  <div class="change" id="ma-a04">
+    <div class="change-header">
+      <span class="change-id add">MA-A04</span>
+      <h2>IP Section Largely Resolved in v.2 — Two Residuals Remain</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§§ 3.4.1–3.4.4</span>
+      <span class="badge badge-diverges">Diverges from MA-01</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label affirmed">Affirmed</div>
+      <div class="affirmed-block">
+        The independent research read finds that the IP provisions in v.2 (§§ 3.4.1–3.4.4) materially improve on v.1. The member-overreach concern raised in MA-01 is largely resolved. The portfolio license mechanism is more workable. This item diverges from MA-01's blocking assessment: the v.2 IP section is not a blocking issue on its own.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Two Residuals Require Attention</div>
+      <div class="problem-text">
+        <p><strong>Residual 1 — Assignment mechanism:</strong> Confirm that the operative IP transfer mechanism is assignment (not the work-made-for-hire label) for deliverables that do not meet the statutory definition of works made for hire under 17 U.S.C. § 101. If the label fails, assignment is the fallback; both should be expressed in the agreement to avoid the gap.</p>
+        <p><strong>Residual 2 — Venture IP:</strong> Confirm that IP developed through the Cooperative's commercial or investment activities (venture IP, portfolio company IP) is explicitly excluded from § 3.4's member assignment unless subject to a separate written agreement covering that specific engagement. As drafted, § 3.4 is ambiguous about whether venture IP developed by a member who is also an advisor or director of a portfolio company is captured.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <span>RegenHub, LCA · Boulder, Colorado · 2026</span>
+    <a href="/legal/membership-agreement-analysis/">← Full MA Analysis</a>
+    <a href="/legal/bylaws-analysis/changes/">Bylaws Changes Index →</a>
+    <a href="/legal/">Legal Index</a>
+  </div>
+
+</div>
+
+<footer style="border-top:1px solid var(--border-dim);margin-top:4rem;padding:1.5rem 0 3rem;font-family:var(--mono);font-size:11px;color:var(--text-muted);">
+  <div style="max-width:780px;margin:0 auto;padding:0 1.5rem;display:flex;flex-wrap:wrap;gap:8px 24px;">
+    <span style="color:var(--gold);">Techne · RegenHub, LCA</span>
+    <span>1515 Walnut Street · Boulder, Colorado</span>
+    <span>Colorado Limited Cooperative Association</span>
+    <span>SOS No. 20261163853</span>
+    <span><a href="/legal/" style="color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border-dim);">&larr; Legal documents</a></span>
+  </div>
+</footer>
+</body>
+</html>
