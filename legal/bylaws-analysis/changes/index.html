@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+    (function() {
+      var s = localStorage.getItem('techne-mode');
+      if (s === 'light' || s === 'dark') document.documentElement.setAttribute('data-mode', s);
+      else document.documentElement.setAttribute('data-mode', 'dark');
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bylaws — Proposed Changes Index · Techne</title>
+  <meta name="description" content="Serialized index of all proposed changes to the RegenHub, LCA Bylaws, drawn from counsel analysis and research addenda.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif: 'Libre Baskerville', Georgia, serif;
+      --mono:  'IBM Plex Mono', 'Courier New', monospace;
+    }
+
+    [data-mode="dark"] {
+      --bg:           #08080a;
+      --surface:      #111114;
+      --raised:       #18181c;
+      --border:       rgba(196,149,106,0.12);
+      --border-dim:   rgba(255,255,255,0.06);
+      --text:         #e0d8cc;
+      --text-warm:    #c8bca8;
+      --text-muted:   rgba(200,188,168,0.55);
+      --text-dim:     rgba(200,188,168,0.28);
+      --gold:         #c4956a;
+      --moss:         #6a8a5e;
+      --rust:         #9a5a5a;
+      --sky:          #5a7a9a;
+    }
+
+    [data-mode="light"] {
+      --bg:           #f7f5f0;
+      --surface:      #ebe7df;
+      --raised:       #ffffff;
+      --border:       rgba(196,149,106,0.20);
+      --border-dim:   rgba(0,0,0,0.08);
+      --text:         #2a2520;
+      --text-warm:    #3a3028;
+      --text-muted:   rgba(60,48,36,0.60);
+      --text-dim:     rgba(60,48,36,0.30);
+      --gold:         #8a6a3a;
+      --moss:         #4a6a3a;
+      --rust:         #8a3a3a;
+      --sky:          #3a5a7a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── DOC HEADER ── */
+    .doc-header {
+      border-top: 2px solid var(--gold);
+      padding-top: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .doc-header .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .doc-header .eyebrow a {
+      color: var(--gold);
+      text-decoration: none;
+      opacity: 0.7;
+    }
+    .doc-header .eyebrow a:hover { opacity: 1; }
+
+    .doc-header h1 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .doc-header .framing {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      font-style: italic;
+      max-width: 640px;
+    }
+
+    /* ── INDEX TABLE ── */
+    .index-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 3.5rem;
+      font-size: 0.80rem;
+    }
+
+    .index-table th {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .index-table td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid var(--border-dim);
+      color: var(--text-warm);
+      vertical-align: top;
+      line-height: 1.4;
+    }
+
+    .index-table tr:last-child td { border-bottom: none; }
+
+    .index-table td.id-cell {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      white-space: nowrap;
+      width: 5rem;
+    }
+
+    .index-table td.id-cell a {
+      text-decoration: none;
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+      border: 1px solid;
+      display: inline-block;
+    }
+
+    .index-table td.title-cell {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .index-table td.section-cell {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--sky);
+      white-space: nowrap;
+    }
+
+    .index-table td.nature-cell {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    /* priority / nature badges */
+    .badge {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.15rem 0.45rem;
+      border-radius: 2px;
+      border: 1px solid;
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    .badge-blocking { color: var(--rust);  border-color: rgba(154,90,90,0.35);  background: rgba(154,90,90,0.06); }
+    .badge-high     { color: var(--rust);  border-color: rgba(154,90,90,0.25);  background: rgba(154,90,90,0.04); }
+    .badge-advisable{ color: var(--gold);  border-color: rgba(196,149,106,0.30); background: rgba(196,149,106,0.05); }
+    .badge-extends  { color: var(--sky);   border-color: rgba(90,122,154,0.30);  background: rgba(90,122,154,0.05); }
+    .badge-affirmed { color: var(--moss);  border-color: rgba(106,138,94,0.30);  background: rgba(106,138,94,0.05); }
+    .badge-new      { color: var(--gold);  border-color: rgba(196,149,106,0.30); background: rgba(196,149,106,0.05); }
+
+    .id-main  { color: var(--gold); border-color: rgba(196,149,106,0.30); background: rgba(196,149,106,0.05); }
+    .id-add   { color: var(--sky);  border-color: rgba(90,122,154,0.30);  background: rgba(90,122,154,0.05); }
+
+    /* ── SECTION GROUPS ── */
+    .group-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-dim);
+      padding: 0.4rem 0;
+      margin-bottom: 0;
+      margin-top: 0.5rem;
+    }
+
+    /* ── CHANGE CARDS ── */
+    .change {
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border-dim);
+      scroll-margin-top: 2rem;
+    }
+
+    .change:last-of-type { border-bottom: none; }
+
+    .change-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .change-id {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+      border: 1px solid;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .change-id.main { color: var(--gold); border-color: rgba(196,149,106,0.35); background: rgba(196,149,106,0.07); }
+    .change-id.add  { color: var(--sky);  border-color: rgba(90,122,154,0.35);  background: rgba(90,122,154,0.07); }
+
+    .change h2 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .change-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .change-section {
+      font-family: var(--mono);
+      font-size: 0.70rem;
+      color: var(--sky);
+    }
+
+    /* blocks */
+    .block { margin-bottom: 1.5rem; }
+
+    .block-label {
+      font-family: var(--mono);
+      font-size: 0.57rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-dim);
+    }
+
+    .block-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-dim);
+    }
+
+    .block-label.problem  { color: var(--rust); }
+    .block-label.proposed { color: var(--moss); }
+    .block-label.note     { color: var(--sky); }
+    .block-label.affirmed { color: var(--moss); }
+
+    .problem-text {
+      font-size: 0.87rem;
+      line-height: 1.65;
+      color: var(--text-warm);
+    }
+
+    .problem-text p + p { margin-top: 0.75rem; }
+
+    .proposed-lang {
+      background: rgba(106,138,94,0.06);
+      border: 1px solid rgba(106,138,94,0.18);
+      border-left: 3px solid var(--moss);
+      padding: 1rem 1.25rem;
+      font-size: 0.83rem;
+      line-height: 1.65;
+      color: var(--text-warm);
+      border-radius: 0 3px 3px 0;
+      margin-bottom: 0.75rem;
+    }
+
+    .proposed-lang .proposed-label {
+      font-family: var(--mono);
+      font-size: 0.57rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--moss);
+      margin-bottom: 0.5rem;
+    }
+
+    .affirmed-block {
+      background: rgba(106,138,94,0.05);
+      border: 1px solid rgba(106,138,94,0.15);
+      border-left: 3px solid var(--moss);
+      padding: 0.9rem 1.1rem;
+      font-size: 0.84rem;
+      line-height: 1.6;
+      color: var(--text-warm);
+      border-radius: 0 3px 3px 0;
+    }
+
+    .note-block {
+      background: rgba(90,122,154,0.05);
+      border: 1px solid rgba(90,122,154,0.15);
+      border-left: 3px solid var(--sky);
+      padding: 0.9rem 1.1rem;
+      font-size: 0.83rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      border-radius: 0 3px 3px 0;
+      font-style: italic;
+    }
+
+    /* ── GROUP DIVIDERS ── */
+    .group-divider {
+      margin: 2.5rem 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .group-divider span {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--sky);
+      white-space: nowrap;
+    }
+
+    .group-divider::before,
+    .group-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(90,122,154,0.20);
+    }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-dim);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--text-dim);
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .page-footer a { color: var(--gold); text-decoration: none; }
+    .page-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .wrap { padding: 2rem 1.25rem 4rem; }
+      .change-header { flex-direction: column; gap: 0.5rem; }
+      .meta-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<button onclick="(function(){var m=document.documentElement.getAttribute('data-mode')=='dark'?'light':'dark';document.documentElement.setAttribute('data-mode',m);try{localStorage.setItem('techne-mode',m);}catch(e){}})()" style="position:fixed;top:12px;right:12px;z-index:1000;background:var(--surface);border:1px solid var(--border-dim);color:var(--text-muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;border-radius:3px;letter-spacing:0.06em;" aria-label="Toggle dark/light mode">mode</button>
+<div class="wrap">
+
+  <div style="background:rgba(196,149,106,0.06);border:1px solid rgba(196,149,106,0.25);border-radius:4px;padding:0.7rem 1.1rem;font-family:var(--mono);font-size:0.68rem;line-height:1.6;color:var(--text-muted);margin-bottom:1.5rem;">
+    <span style="color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">Formation-era commentary</span> ·
+    Prepared May&ndash;July 2026, during drafting and ratification. Published for member education: the reasoning behind the governing documents.
+    The ratified instruments are the source of truth: <a href="/legal/bylaws/" style="color:var(--gold);text-decoration:none;">Bylaws v.2.1</a> · <a href="/legal/membership-agreement/" style="color:var(--gold);text-decoration:none;">Membership Agreement v.2.3</a>.
+  </div>
+
+
+  <!-- VERSION NAV -->
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.65rem 1rem;margin-bottom:1.25rem;background:var(--surface);border:1px solid var(--border-dim);flex-wrap:wrap;">
+    <span style="font-family:var(--mono);font-size:0.62rem;color:var(--text-muted);">Changes from <strong style="color:var(--sky);">Bylaws v.1</strong> → <strong style="color:var(--gold);">Bylaws v.2</strong></span>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+      <a href="https://techne.institute/legal/bylaws-v1/" style="font-family:var(--mono);font-size:0.62rem;text-decoration:none;color:var(--sky);border:1px solid rgba(90,122,154,0.35);background:rgba(90,122,154,0.06);padding:0.25rem 0.65rem;border-radius:2px;">v.1 original ↗</a>
+      <a href="/legal/bylaws/" style="font-family:var(--mono);font-size:0.62rem;text-decoration:none;color:var(--gold);border:1px solid rgba(196,149,106,0.35);background:rgba(196,149,106,0.06);padding:0.25rem 0.65rem;border-radius:2px;">v.2 revised ↗</a>
+      <a href="/legal/bylaws-analysis/" style="font-family:var(--mono);font-size:0.62rem;text-decoration:none;color:var(--text-muted);border:1px solid var(--border-dim);padding:0.25rem 0.65rem;border-radius:2px;">Legal analysis ↗</a>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="eyebrow">
+      <a href="/legal/bylaws-analysis/">← Bylaws Legal Analysis</a>
+      &nbsp;·&nbsp; RegenHub, LCA &nbsp;·&nbsp; Proposed Changes Index
+    </div>
+    <h1>Bylaws — Proposed Changes Index</h1>
+    <p class="framing">Serialized reference list of every proposed change from <strong>Bylaws v.1</strong> (original attorney draft) to <strong>Bylaws v.2</strong> (revised draft), drawn from initial counsel analysis (Issues 01–08) and the May 2026 independent research addendum (Items A01–A07). Each item carries a stable identifier for use in discussion, amendment motions, and version tracking.</p>
+  </div>
+
+  <!-- MASTER INDEX TABLE -->
+  <table class="index-table" aria-label="Proposed changes index">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Section</th>
+        <th>Nature</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Main analysis -->
+      <tr><td colspan="4" style="padding: 0.75rem 0.75rem 0.35rem; font-family: var(--mono); font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-dim); border-bottom: 1px solid var(--border-dim);">Counsel Analysis — Issues 01–08</td></tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-01" class="id-main">BL-01</a></td>
+        <td class="title-cell">Net Profit Allocation — Equal vs. Proportional</td>
+        <td class="section-cell">§§ 5.3.2–5.3.3</td>
+        <td><span class="badge badge-blocking">Blocking</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-02" class="id-main">BL-02</a></td>
+        <td class="title-cell">Suspension — Immediate Deprivation Without Notice</td>
+        <td class="section-cell">§ 1.10.1</td>
+        <td><span class="badge badge-high">High priority</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-03" class="id-main">BL-03</a></td>
+        <td class="title-cell">Quorum — "Present and in Person" Conflicts with Hybrid</td>
+        <td class="section-cell">§ 2.7.1</td>
+        <td><span class="badge badge-blocking">Blocking</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-04" class="id-main">BL-04</a></td>
+        <td class="title-cell">Schedule A — Unfilled Placeholders</td>
+        <td class="section-cell">Schedule A</td>
+        <td><span class="badge badge-blocking">Blocking</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-05" class="id-main">BL-05</a></td>
+        <td class="title-cell">Compensation — Guaranteed Payments Not Carved Out</td>
+        <td class="section-cell">§ 4.8</td>
+        <td><span class="badge badge-advisable">Advisable</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-06" class="id-main">BL-06</a></td>
+        <td class="title-cell">Redemption Window — Five Years to Three Years</td>
+        <td class="section-cell">§§ 1.9.3, 1.11.1</td>
+        <td><span class="badge badge-advisable">Advisable</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-07" class="id-main">BL-07</a></td>
+        <td class="title-cell">Confidentiality — No Standard Exceptions</td>
+        <td class="section-cell">§ 18.2</td>
+        <td><span class="badge badge-advisable">Advisable</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-08" class="id-main">BL-08</a></td>
+        <td class="title-cell">Conflict Hierarchy — ULCAA Cannot Yield to Bylaws</td>
+        <td class="section-cell">Preamble</td>
+        <td><span class="badge badge-advisable">Advisable</span></td>
+      </tr>
+      <!-- Addendum -->
+      <tr><td colspan="4" style="padding: 0.75rem 0.75rem 0.35rem; font-family: var(--mono); font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--sky); border-bottom: 1px solid var(--border-dim); border-top: 1px solid var(--border-dim);">Research Addendum — Items A01–A07</td></tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-a01" class="id-add">BL-A01</a></td>
+        <td class="title-cell">Allocation Default Must Be Determinate (Extends BL-01)</td>
+        <td class="section-cell">§ 5.3.2</td>
+        <td><span class="badge badge-extends">Extends</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-a02" class="id-add">BL-A02</a></td>
+        <td class="title-cell">§ 4.8 Second Paragraph Contradicts First (Extends BL-05)</td>
+        <td class="section-cell">§ 4.8</td>
+        <td><span class="badge badge-extends">Extends</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-a03" class="id-add">BL-A03</a></td>
+        <td class="title-cell">Liquidation Waterfall Has Two Endings</td>
+        <td class="section-cell">§ 5.1.5, Art. XIV § 14.3</td>
+        <td><span class="badge badge-new">New</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-a04" class="id-add">BL-A04</a></td>
+        <td class="title-cell">Community Participant Class Difficult to Place in Statute</td>
+        <td class="section-cell">§ 1.1(c)</td>
+        <td><span class="badge badge-new">New</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-a05" class="id-add">BL-A05</a></td>
+        <td class="title-cell">Court-Access Waiver Is Broader Than a Jury Waiver</td>
+        <td class="section-cell">§ 11.5</td>
+        <td><span class="badge badge-new">New</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-a06" class="id-add">BL-A06</a></td>
+        <td class="title-cell">Article XII Threshold Scope Unclear</td>
+        <td class="section-cell">Art. XII</td>
+        <td><span class="badge badge-new">New</span></td>
+      </tr>
+      <tr>
+        <td class="id-cell"><a href="#bl-a07" class="id-add">BL-A07</a></td>
+        <td class="title-cell">Capital-Account Machinery Affirmed as Solid</td>
+        <td class="section-cell">§§ 5.1, 5.3.4, 5.6, 4.8, 1.10, 6.1</td>
+        <td><span class="badge badge-affirmed">Affirmed</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ════════════════════════════════════════════
+       MAIN ANALYSIS ITEMS
+  ════════════════════════════════════════════ -->
+
+  <div class="group-divider"><span>Counsel Analysis · Issues 01–08</span></div>
+
+  <!-- BL-01 -->
+  <div class="change" id="bl-01">
+    <div class="change-header">
+      <span class="change-id main">BL-01</span>
+      <h2>Net Profit Allocation — Equal vs. Proportional</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§§ 5.3.2–5.3.3</span>
+      <span class="badge badge-blocking">Blocking</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>§ 5.3.2 permits equal allocation of net profits as an alternative to proportional-to-patronage allocation, but C.R.S. § 7-58-1004 defaults to proportional distribution and equal allocation requires documented justification. More critically, under IRC § 704(b), the allocation method must produce "substantial economic effect" — a test that depends on capital accounts moving in tandem with allocations on a deterministic basis, not a discretionary one. Board discretion to choose between equal and proportional without member consent undermines both the statutory default and the partnership tax spine.</p>
+        <p>§ 5.3.3 correctly allocates losses in proportion to positive capital account balances (IRC § 704(b) alternate test), but the asymmetry with § 5.3.2 creates structural tension.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — § 5.3.2</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Replace § 5.3.2 with:</div>
+        Net Profits shall be allocated among the Patron Members in proportion to their patronage of the Cooperative during the applicable fiscal year, as measured by the Patronage Plan adopted pursuant to the Membership Agreement. Before allocation of Net Profits, the Board may set aside reasonable reserves as provided in Section 5.4.1. Notwithstanding the foregoing, where the Cooperative has not yet adopted a Patronage Plan or where all Patron Members have contributed equal and identical patronage during the applicable period, Net Profits <em>shall</em> be allocated equally. The Board may amend the patronage measurement methodology only through the Patronage Plan amendment process requiring majority patron member approval.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — § 5.3.3</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Replace § 5.3.3 with:</div>
+        Net Losses will be allocated among the Patron Members in proportion to their respective positive Capital Account balances immediately prior to the allocation; provided that such allocation is consistent with the qualified income offset in Section 5.3.4.
+      </div>
+    </div>
+
+    <div class="note-block">See also BL-A01 (addendum): the fallback "may be allocated equally" is permissive where § 704(b) requires a determinate default. Proposed replacement uses "shall."</div>
+  </div>
+
+  <!-- BL-02 -->
+  <div class="change" id="bl-02">
+    <div class="change-header">
+      <span class="change-id main">BL-02</span>
+      <h2>Suspension — Immediate Deprivation Without Notice</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 1.10.1</span>
+      <span class="badge badge-high">High priority</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>§ 1.10.1 allows the Board to suspend a patron member "effective immediately" on grounds (a) bylaw/policy violation, (b) criminal conduct, or (c) disruption to operations — without any prior notice or opportunity to respond for grounds (a) and (c), which are broad and subjective. Owner-members have equity and governance rights; deprivation without process is procedurally thin even if not legally void.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed Addition — After "the Board may suspend… such Member"</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Insert after suspension authority:</div>
+        …provided that, except in cases of ground (b) (criminal act or unlawful conduct involving fraud or dishonesty), the Board shall first provide the affected Member with written notice specifying the conduct at issue and a <strong>five (5) business day</strong> period to submit a written response to the Board before any suspension takes effect. In cases of ground (b), immediate suspension without prior notice is permitted. Any Member suspended under this Section 1.10.1 shall be entitled to a hearing before the Board within <strong>thirty (30) days</strong> of the suspension's effective date at which the Member may present evidence and respond to the basis for suspension. The Board shall, within <strong>ten (10) business days</strong> of such hearing, issue a written determination either lifting, modifying, or confirming the suspension.
+      </div>
+    </div>
+  </div>
+
+  <!-- BL-03 -->
+  <div class="change" id="bl-03">
+    <div class="change-header">
+      <span class="change-id main">BL-03</span>
+      <h2>Quorum — "Present and in Person" Conflicts with Hybrid Meetings</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 2.7.1</span>
+      <span class="badge badge-blocking">Blocking</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>§ 2.7.1 requires quorum to be "present and in person," but § 2.1 expressly permits meetings by electronic or telecommunications means. The plain reading of § 2.7.1 would exclude electronic attendees from quorum, making any hybrid or remote meeting unable to achieve quorum regardless of attendance — an operational and legal inconsistency for a distributed cooperative.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Replace § 2.7.1</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Replace quorum clause with:</div>
+        Except for transactions of business specifically requiring a different quorum by law, a quorum for the transaction of business at any meeting of the Members shall be a simple majority of the Patron Members entitled to vote, <strong>present in person or by electronic or telecommunications means permitted under Section 2.1</strong>.
+      </div>
+    </div>
+  </div>
+
+  <!-- BL-04 -->
+  <div class="change" id="bl-04">
+    <div class="change-header">
+      <span class="change-id main">BL-04</span>
+      <h2>Schedule A — Unfilled Placeholders</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">Schedule A</span>
+      <span class="badge badge-blocking">Blocking</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>Schedule A currently contains unfilled placeholders for Share Price ($[…]) and Membership Dues (yearly: $[…]). The Bylaws cannot be effective with blank financial terms. Additional gaps: effective date in the title block, initial Board composition under § 3.2.2, and Secretary signature on the Certificate.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Required Actions</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Before execution:</div>
+        <ul style="padding-left: 1.25rem; margin-top: 0.5rem; line-height: 1.8;">
+          <li>Set Share Price to <strong>$100.00 per Class A Patron Member share</strong> (must match MA § 1.4)</li>
+          <li>Set Annual Dues amount (or establish founding-member waiver policy separately)</li>
+          <li>Fill effective date in title block</li>
+          <li>Complete initial Board composition list under § 3.2.2</li>
+          <li>Obtain Secretary signature on Certificate</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note-block">See also MA-A01 (addendum): Share price should live in Schedule A as the single source of truth; MA § 1.4 should reference it rather than restate it.</div>
+  </div>
+
+  <!-- BL-05 -->
+  <div class="change" id="bl-05">
+    <div class="change-header">
+      <span class="change-id main">BL-05</span>
+      <h2>Compensation — Guaranteed Payments Not Carved Out</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 4.8</span>
+      <span class="badge badge-advisable">Advisable</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>§ 4.8 bars Director-members from receiving "any salary or other compensation as an employee." Overbroad as written: it could prohibit guaranteed payments for services under IRC § 707(c), which are the correct compensation mechanism for member-partners, not employment wages. The second paragraph of § 4.8 re-opens the exception in a way that contradicts the first paragraph, creating ambiguity about which path applies.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Replace § 4.8 First Sentence</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Replace first sentence:</div>
+        At any time while the Cooperative is taxed as a partnership, no Director or officer of the Cooperative who is also a Member may receive any salary or other compensation <strong>in their capacity as an employee</strong> of the Cooperative. Notwithstanding the foregoing, Members may receive <strong>guaranteed payments for services or use of capital within the meaning of IRC § 707(c)</strong>, as authorized by the Board, which shall be treated as ordinary income to the recipient and reported on Schedule K-1. Nothing in this provision prohibits a Member from receiving compensation for services rendered to the Cooperative in a capacity other than as a Member, provided such arrangement is treated as a transaction between the Cooperative and a person acting outside their capacity as a Member under <strong>IRC § 707(a)</strong>, and disclosed to and approved by the Board.
+      </div>
+    </div>
+
+    <div class="note-block">See also BL-A02 (addendum): the second paragraph as drafted contradicts the first; one of the two should be struck or conformed.</div>
+  </div>
+
+  <!-- BL-06 -->
+  <div class="change" id="bl-06">
+    <div class="change-header">
+      <span class="change-id main">BL-06</span>
+      <h2>Redemption Window — Five Years Disproportionate for $100 Share</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§§ 1.9.3, 1.11.1</span>
+      <span class="badge badge-advisable">Advisable</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>§§ 1.9.3 and 1.11.1 give the Board up to five years to redeem a withdrawing member's equity. Five-year windows are calibrated for agricultural cooperatives holding significant retained patronage. For a $100 share plus capital-account balance, five years is disproportionate and creates a mismatch with the Membership Agreement's 90-day redemption language. C.R.S. § 7-58-1101(1) gives members an unconditional right to dissociate; indefinite delay of redemption may conflict with that right.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed Path</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Recommended amendment:</div>
+        Reduce the outer limit in §§ 1.9.3 and 1.11.1 from five (5) years to <strong>three (3) years</strong>. Reconcile with MA § 5.6 (withdrawal section) so both documents reference the same timeline. Identify which document controls timing — recommend Bylaws as governing document with MA cross-referencing.
+      </div>
+    </div>
+
+    <div class="note-block">See also MA-A03 (addendum): withdrawal returns an unclear amount on an inconsistent clock — Bylaws § 1.7.4 (book value), MA § 5.4 ($100 par + separate patronage credits), and Bylaws §§ 1.7.3, 1.9 (Board discretion up to 3 years) all give different answers. Single rule recommended: positive capital-account balance on a stated timeline.</div>
+  </div>
+
+  <!-- BL-07 -->
+  <div class="change" id="bl-07">
+    <div class="change-header">
+      <span class="change-id main">BL-07</span>
+      <h2>Confidentiality — No Standard Exceptions</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 18.2</span>
+      <span class="badge badge-advisable">Advisable</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>§ 18.2 imposes broad confidentiality with no standard exceptions: no public-domain carve-out, no prior-knowledge exception, no independent-development exception, no required-disclosure exception (subpoenas, regulatory requests), no exception for describing one's own membership in professional contexts, and no carve-out for legal counsel. This is more restrictive than most employment NDAs and may conflict with the Cooperative's public benefit transparency obligations under C.R.S. § 7-58-104.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Replace § 18.2</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Replace § 18.2 with:</div>
+        Members and former Members shall maintain in confidence non-public information received from or through the Cooperative that is designated as confidential or that a reasonable person would understand to be confidential given the nature of the information and circumstances of disclosure ("Confidential Information"). The foregoing obligation does not apply to information that: (a) is or becomes generally available to the public other than as a result of disclosure by the Member in breach of this Section; (b) was known to the Member prior to receiving it from the Cooperative, as evidenced by records in existence before receipt; (c) is independently developed by the Member without reference to Confidential Information; or (d) is required to be disclosed by law, regulation, or court order, provided the Member provides the Cooperative <strong>prompt written notice</strong> before disclosure (where legally permitted) and cooperates with the Cooperative's efforts to seek a protective order. Members may disclose the existence of their membership and the general nature of the Cooperative's activities in professional contexts. Members may share Confidential Information with attorneys, accountants, and advisors bound by professional confidentiality obligations.
+      </div>
+    </div>
+  </div>
+
+  <!-- BL-08 -->
+  <div class="change" id="bl-08">
+    <div class="change-header">
+      <span class="change-id main">BL-08</span>
+      <h2>Conflict Resolution Hierarchy — ULCAA Cannot Yield to Bylaws</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">Preamble</span>
+      <span class="badge badge-advisable">Advisable</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>The Preamble's conflict hierarchy places Bylaws above the ULCAA, which implies that Bylaws can override non-waivable ULCAA provisions. C.R.S. § 7-58-110 makes certain ULCAA provisions mandatory — they cannot be varied by agreement. Additionally, the Preamble cites the PBCA (Public Benefit Corporation Act), which governs benefit corporations organized under Title 7, Article 101, not limited cooperative associations organized under Title 7, Article 58.</p>
+        <p>Note: the Articles of Organization themselves cite both ULCAA and PBCA in the formation preamble, while establishing ULCAA as the governing statute above PBCA. The proposed changes align the Bylaws' hierarchy with the hierarchy the Articles already establish, and ground the public benefit obligation in ULCAA § 7-58-104 — the LCA-specific public benefit provision — rather than in PBCA.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Amend Preamble Conflict Clause</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Replace conflict hierarchy sentence:</div>
+        In the event of any conflict, it is the intention of the Cooperative that such conflict shall be resolved first in accordance with any <strong>mandatory, non-waivable provisions of the ULCAA</strong>, then in accordance with the Articles of Organization, then these Bylaws, and then any other applicable provisions of the ULCAA, unless otherwise expressly specified by these Bylaws.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed — Correct Statutory Citation in First WHEREAS Clause</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Replace PBCA reference in first WHEREAS:</div>
+        <em>From:</em> "…filed pursuant to the Colorado Uniform Limited Cooperative Association Act, C.R.S. Title 7, Article 58 (the "ULCAA") and the <strong>Public Benefit Corporation Act of Colorado, C.R.S. Title 7, Article 101, Part 5 ("PBCA")</strong>"<br><br>
+        <em>To:</em> "…filed pursuant to the Colorado Uniform Limited Cooperative Association Act, C.R.S. Title 7, Article 58 (the "ULCAA") and the <strong>public benefit provisions of the ULCAA, including C.R.S. § 7-58-104</strong>"<br><br>
+        <em>Why:</em> The PBCA governs benefit corporations organized under C.R.S. Title 7, Article 101, Part 5. RegenHub is an LCA organized under Title 7, Article 58. The Articles of Organization already establish ULCAA as the governing statute above PBCA in the formation hierarchy. The Bylaws' public benefit authority should cite the LCA-specific provision — ULCAA § 7-58-104 — to conform to the Articles and ground the obligation in the statute that actually governs the Cooperative.
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       ADDENDUM ITEMS
+  ════════════════════════════════════════════ -->
+
+  <div class="group-divider"><span>Research Addendum · Items A01–A07 · May 2026</span></div>
+
+  <!-- BL-A01 -->
+  <div class="change" id="bl-a01">
+    <div class="change-header">
+      <span class="change-id add">BL-A01</span>
+      <h2>Allocation Default Must Be Determinate — Extends BL-01</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 5.3.2</span>
+      <span class="badge badge-extends">Extends BL-01</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>The fallback "may be allocated equally" in § 5.3.2 is permissive — it leaves the allocation undefined in the period before a Patronage Plan is adopted. IRC § 704(b) requires that the allocation default be determinate (not discretionary) for capital accounts to move in lock-step with allocations. A permissive fallback fails the substantial economic effect test.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed Change</div>
+      <div class="proposed-lang">
+        Replace "may be allocated equally" with <strong>"shall be allocated equally"</strong> as a binding default during any period before a Patronage Plan is in effect or where all patronage is demonstrably identical.
+      </div>
+    </div>
+  </div>
+
+  <!-- BL-A02 -->
+  <div class="change" id="bl-a02">
+    <div class="change-header">
+      <span class="change-id add">BL-A02</span>
+      <h2>§ 4.8 Second Paragraph Contradicts First — Extends BL-05</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 4.8</span>
+      <span class="badge badge-extends">Extends BL-05</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>§ 4.8's first paragraph correctly routes member compensation to § 707(c) guaranteed payments. The second paragraph reopens compensation through a separate exception that, as drafted, is broader than the first paragraph allows. The two paragraphs are in conflict: a reader following the second paragraph could conclude that W-2 compensation is available in contexts the first paragraph forecloses.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed Path</div>
+      <div class="proposed-lang">
+        Strike or conform the second paragraph of § 4.8 so that the § 707(c) guaranteed payment mechanism is the sole path for member compensation, and the § 707(a) carve-out for services rendered outside the member capacity is clearly limited to non-Director members acting in a purely contractor capacity with Board approval and disclosure.
+      </div>
+    </div>
+  </div>
+
+  <!-- BL-A03 -->
+  <div class="change" id="bl-a03">
+    <div class="change-header">
+      <span class="change-id add">BL-A03</span>
+      <h2>Liquidation Waterfall Has Two Endings</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 5.1.5 · Art. XIV § 14.3</span>
+      <span class="badge badge-new">New</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>§ 5.1.5 correctly allocates liquidating distributions according to positive capital account balances — the IRC § 704(b) alternate test requires this. Art. XIV § 14.3 then provides a second distribution tier: residual assets distributed equally to current members and members who left within the prior three years. This breaks the IRC § 704(b) substantial economic effect chain. Capital accounts that moved with allocations throughout the entity's life must govern the final distribution; adding an equal-distribution tier after capital accounts are zeroed creates a tax phantom — members have paid tax on allocation but receive a distribution computed on a different basis.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed Path</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Two options:</div>
+        <ul style="padding-left: 1.25rem; margin-top: 0.5rem; line-height: 1.8;">
+          <li><strong>Option A:</strong> Remove the equal-distribution tier in § 14.3; liquidating distributions follow capital accounts throughout.</li>
+          <li><strong>Option B:</strong> Recharacterize § 14.3 residual as a public-benefit asset assignment under C.R.S. § 7-58-104 — residual to a charitable or cooperative purpose, not to members. This preserves the public benefit purpose without disturbing IRC § 704(b).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BL-A04 -->
+  <div class="change" id="bl-a04">
+    <div class="change-header">
+      <span class="change-id add">BL-A04</span>
+      <h2>Community Participant Class Difficult to Place in Statute</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 1.1(c)</span>
+      <span class="badge badge-new">New</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>§ 1.1(c) defines "Community Participants" as members with access to programming, but the ULCAA recognizes only two statutory member categories: patron members and investor members. Community Participants as described fit neither cleanly. If treated as patron members, they must have patronage allocated to them; if treated as investor members, their governance rights are different. § 1.1(c) leaves governance rights to Board discretion, which is insufficiently defined for a membership class.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed Path</div>
+      <div class="proposed-lang">
+        Deliberate choice required before execution: (a) Are Community Participants a patron member sub-type with minimal patronage allocation? (b) Are they investor members with limited governance rights? (c) Are they non-member program participants governed by a separate access agreement rather than the Bylaws? Align §§ 1.1, 1.4, and Schedule A accordingly.
+      </div>
+    </div>
+  </div>
+
+  <!-- BL-A05 -->
+  <div class="change" id="bl-a05">
+    <div class="change-header">
+      <span class="change-id add">BL-A05</span>
+      <h2>Court-Access Waiver Is Broader Than a Jury Waiver</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§ 11.5</span>
+      <span class="badge badge-new">New</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>§ 11.5 waives all rights to seek remedies in court, not merely the right to a jury trial. This is a broader waiver than a standard jury waiver and removes access to Article III or state court adjudication entirely. When the Board itself is the adverse party, the member has no neutral adjudicator — the dispute resolution process runs entirely within the entity. This is distinguishable from commercial arbitration clauses because the arbitrator here is not a neutral third party.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed Path</div>
+      <div class="proposed-lang">
+        <div class="proposed-label">Narrow § 11.5 to:</div>
+        Jury waiver only (consistent with MA § 9.9), plus <strong>mandatory arbitration before a neutral, independent arbitrator</strong> (JAMS or AAA rules) for disputes that cannot be resolved internally. Add an explicit path for disputes in which the Board is itself the adverse party — these must go to external arbitration, not Board-administered process.
+      </div>
+    </div>
+  </div>
+
+  <!-- BL-A06 -->
+  <div class="change" id="bl-a06">
+    <div class="change-header">
+      <span class="change-id add">BL-A06</span>
+      <h2>Article XII Threshold Scope Unclear</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">Art. XII</span>
+      <span class="badge badge-new">New</span>
+    </div>
+
+    <div class="block">
+      <div class="block-label problem">Problem</div>
+      <div class="problem-text">
+        <p>Article XII sets voting thresholds for amendments to the Articles of Organization. Amendments to the Articles of Organization are a state-law filing matter governed by ULCAA procedures — the Bylaws cannot change the statutory procedure. As drafted, Article XII creates confusion about whether a bylaw amendment is also needed in parallel to the statutory filing, and whether the thresholds are additive to or substitutive of ULCAA requirements.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-label proposed">Proposed Clarification</div>
+      <div class="proposed-lang">
+        Clarify that Article XII thresholds govern <strong>Bylaw amendments only</strong>. Amendments to the Articles of Organization follow the ULCAA statutory procedure (C.R.S. § 7-58-201 et seq.) and do not require a separate bylaw amendment unless the Bylaws themselves are also being changed.
+      </div>
+    </div>
+  </div>
+
+  <!-- BL-A07 -->
+  <div class="change" id="bl-a07">
+    <div class="change-header">
+      <span class="change-id add">BL-A07</span>
+      <h2>Capital-Account Machinery and Partnership Tax Spine Affirmed</h2>
+    </div>
+    <div class="change-meta">
+      <span class="change-section">§§ 5.1, 5.3.4, 5.6, 4.8, 1.10, 6.1</span>
+      <span class="badge badge-affirmed">Affirmed</span>
+    </div>
+
+    <div class="affirmed-block">
+      The following provisions are affirmed as solid as drafted and require no substantive change:
+      <ul style="padding-left: 1.25rem; margin-top: 0.75rem; line-height: 1.9;">
+        <li><strong>§ 5.1</strong> — Capital account rules: opening balances, contribution crediting, distribution debiting, allocation crediting/debiting. Forms proper alternate test for economic effect under Treas. Reg. § 1.704-1(b)(2)(iv).</li>
+        <li><strong>§ 5.3.4</strong> — Qualified income offset: correctly prevents capital accounts from going below negative without a restoration obligation.</li>
+        <li><strong>§ 5.6</strong> — No deficit restoration: properly paired with the qualified income offset; members are not personally liable for negative capital accounts.</li>
+        <li><strong>§ 4.8</strong> — Guaranteed payment structure: correctly routes member compensation to IRC § 707(c). Drafting issue in second paragraph addressed in BL-A02; the underlying structure is sound.</li>
+        <li><strong>§§ 1.10, 6.1</strong> — Subchapter K consent provisions: members consent to partnership tax treatment. Well-drafted and adequate for IRC § 704(b) compliance.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <span>RegenHub, LCA · Boulder, Colorado · 2026</span>
+    <a href="/legal/bylaws-analysis/">← Full Bylaws Analysis</a>
+    <a href="/legal/membership-agreement-analysis/changes/">MA Changes Index →</a>
+    <a href="/legal/">Legal Index</a>
+  </div>
+
+</div>
+
+<footer style="border-top:1px solid var(--border-dim);margin-top:4rem;padding:1.5rem 0 3rem;font-family:var(--mono);font-size:11px;color:var(--text-muted);">
+  <div style="max-width:780px;margin:0 auto;padding:0 1.5rem;display:flex;flex-wrap:wrap;gap:8px 24px;">
+    <span style="color:var(--gold);">Techne · RegenHub, LCA</span>
+    <span>1515 Walnut Street · Boulder, Colorado</span>
+    <span>Colorado Limited Cooperative Association</span>
+    <span>SOS No. 20261163853</span>
+    <span><a href="/legal/" style="color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border-dim);">&larr; Legal documents</a></span>
+  </div>
+</footer>
+</body>
+</html>
