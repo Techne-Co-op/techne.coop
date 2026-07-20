@@ -487,20 +487,32 @@ cross_cutting:
   - address: X-04
     title: Document manifest and site index
     intent: index.json enumerating every page for exhaustiveness validation.
-    status: open · in-session
+    status: open · verified
     cites: [BP]
     ready_when: SUB-01 verified.
     deliverable: index.json at repo root.
     acceptance: Every HTML file in the repository appears in index.json.
+    resolution: >
+      index.json enumerates every HTML page by walking the tree, so exhaustiveness
+      holds by construction; validate.py now errors when the committed manifest is
+      stale, so ledger-validate in CI catches a page added without refreshing it.
+      30 pages enumerated, matching the tree. PR 11 merged 2026-07-20.
+      Verified by Todd Youngblood 2026-07-20.
 
   - address: X-05
     title: Grammar lint
     intent: CI check for vocabulary quarantine, no em dashes, no emoji.
-    status: open · in-session
+    status: open · verified
     cites: [BP, VS]
     ready_when: SUB-01 verified.
     deliverable: style-lint job in verify.yml.
     acceptance: style-lint green on main.
+    resolution: >
+      style-lint in verify.yml enforces all three rules: Subchapter K vocabulary
+      quarantine, no em dashes, no emoji, with every exemption named per VS v1
+      section 9. Green on main since PR 4. No code change was needed; the packet
+      opened and closed on confirmation. PR 12 merged 2026-07-20.
+      Verified by Todd Youngblood 2026-07-20.
 
   - address: X-06
     title: Design token audit
