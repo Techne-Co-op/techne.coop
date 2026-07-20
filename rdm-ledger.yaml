@@ -84,11 +84,31 @@ substrate:
   - address: SUB-02
     title: Governing emissions at root
     intent: Install AGENTS.md, verify.yml, and commons.css at canonical paths.
-    status: anticipated
+    status: open · in-session
     cites: [BP, VS, UI]
     ready_when: SUB-01 verified.
     deliverable: AGENTS.md (confirmed), .github/workflows/verify.yml, commons.css
     acceptance: style-lint and schema-lint green. AGENTS.md unchanged or updated to BP v1 §10.
+    escalation:
+      standing_in: SUB-02, emission confirmation
+      found: >
+        The three emissions exist at canonical paths: AGENTS.md at root (a faithful
+        superset of BP v1 section 10, adding REPO facts and pointers), verify.yml at
+        .github/workflows/, commons.css at commons/ui/commons.css per UI v1. But two
+        cited artifacts disagree on how site pages consume the token layer. AGENTS.md
+        (REPO block) and the instructions page say tokens are inline per page, no
+        compiled CSS. UI v1 sections 1 and 7 say site pages link commons.css and
+        inline nothing, and call drift between copies a defect. Current practice is
+        mixed: six pages link commons.css, the rest inline the layer.
+      the_question: >
+        Which consumption model governs site pages going forward: inline tokens per
+        page, or a linked commons.css?
+      a_default: >
+        Proposed: inline per page remains the operative practice. It matches every
+        verified slice page, the no-build-step philosophy, and self-contained
+        deployability. UI v1's linking sentence is amended by decision record to name
+        inlining as a sanctioned emission on site pages, and drift detection between
+        inline copies and commons.css becomes part of X-06, the design token audit.
 
   - address: SUB-03
     title: Provision database environment
