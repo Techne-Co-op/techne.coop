@@ -517,11 +517,37 @@ cross_cutting:
   - address: X-06
     title: Design token audit
     intent: Verify no hard-coded color values in authored pages.
-    status: anticipated
+    status: open · in-session
     cites: [UI, VS]
     ready_when: SUB-02 verified.
     deliverable: Token audit step in CI.
     acceptance: No hard-coded hex values in page CSS.
+    escalation:
+      standing_in: X-06, drift detection between inline token copies and commons.css
+      found: >
+        The documented chain agrees with itself and disagrees with the deployed
+        practice. The design-system reference (the live constitution), UI v1, and
+        commons.css all declare the document voice as Georgia with Inter carrying
+        the interface layer, three faces. AGENTS.md, the build instructions page,
+        and every deployed build and commons page declare Libre Baskerville with
+        IBM Plex Mono, two faces, and no page loads or uses Inter. Color tokens
+        agree everywhere outside the exempted formation-era record; the fork is
+        typefaces only. Public typography is a public design claim, so neither
+        side was enforced: the audit ships with color-token drift live and
+        typeface tokens excluded by name until this card is decided.
+      the_question: >
+        Which type inventory governs site pages: the deployed two-face practice
+        (Libre Baskerville and IBM Plex Mono), amending the design-system
+        reference, UI v1, and commons.css to match, or the documented three-face
+        inventory (Georgia, Inter, IBM Plex Mono), repointing the pages?
+      a_default: >
+        Proposed: adopt the deployed practice. Libre Baskerville and IBM Plex
+        Mono are what every verified page already renders, so adoption changes
+        nothing a member sees; the amendment is three token declarations and two
+        prose passages, recorded by decision. Choosing Georgia and Inter instead
+        would visually change every deployed page. On adoption, the typeface
+        exclusion in scripts/token_audit.py is removed and font-stack drift
+        becomes a defect like any other.
 
   - address: X-07
     title: Decision coherence

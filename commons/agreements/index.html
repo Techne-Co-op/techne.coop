@@ -26,6 +26,7 @@
   --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
   --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #fff;
 }
 html[data-mode="dark"] {
   --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
@@ -76,7 +77,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 #auth-gate { text-align: center; padding: var(--s7) 0; display: none; }
 #auth-gate p { color: var(--muted); margin-bottom: var(--s5); }
 .btn { font-family: var(--mono); font-size: 0.85rem; padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer; }
-.btn-primary { background: var(--ember); color: #fff; }
+.btn-primary { background: var(--ember); color: var(--on-accent); }
 .btn-primary:hover { opacity: 0.88; }
 .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
 
@@ -173,7 +174,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
   border-radius: 5px;
   border: none;
   background: var(--ember);
-  color: #fff;
+  color: var(--on-accent);
   cursor: pointer;
 }
 .sign-confirm-btn:hover { opacity: 0.88; }
