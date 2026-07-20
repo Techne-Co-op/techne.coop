@@ -188,12 +188,26 @@ jobs:
           SQL
 
   rls-audit:
-    # VS v1 §2 · honest partial: deny-by-default proven in db-verify
-    # above; the roles-by-tables probe matrix returns when AM v0.1
-    # cites its anchors. Named deferred, not faked green.
+    # X-08 · VS v1 §2 · the AM v0.1 §5 probe matrix, live: every role
+    # against every launch table on a fresh substrate with the policy
+    # chain applied (0001 → 0002 → 0003 → 0005). auth.uid() is shimmed
+    # to a transaction-local GUC; every probe cites its matrix cell or
+    # anchor; every write probe rolls back. Replaces the deferred stub.
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_PASSWORD: postgres }
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PGURL: postgresql://postgres:postgres@localhost:5432/postgres
     steps:
-      - run: echo "::notice::rls-audit matrix deferred pending AM v0.1 (VS v1 §2); deny-by-default proven in db-verify"
+      - uses: actions/checkout@v4
+      - name: probe the matrix
+        run: python3 scripts/rls_probe.py
 
   style-lint:
     # VS v1 §2 · the house rules as CI: vocabulary quarantine,
