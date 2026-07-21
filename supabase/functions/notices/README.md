@@ -9,14 +9,14 @@ activates when its secrets are present. The email sink waits on
 techne.coop domain verification (DNS is managed outside the
 steward's reach); the Telegram sink does not wait with it.
 
-## 1. Telegram (steward notice — live first)
+## 1. Telegram (steward notice: live first)
 
 - Create the bot with @BotFather; record the HTTP API token.
 - The steward opens the bot and presses Start (a bot cannot message
   anyone who has not messaged it first).
 - Read the chat id from `getUpdates` on the Bot API.
 
-## 2. Resend (applicant acknowledgment — when DNS lands)
+## 2. Resend (applicant acknowledgment: when DNS lands)
 
 - Create the Resend account (free tier covers present volume).
 - Verify the sending domain (techne.coop) in Resend: two DNS records,
