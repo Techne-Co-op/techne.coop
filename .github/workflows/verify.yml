@@ -403,8 +403,21 @@ jobs:
           print(f"restore-test: row counts verified, fold verified, baseline SHA on record")
           print(f"PASS: SUB-05 restore test complete")
           PYEOF
+      - name: export machinery (X-03)
+        # Apply the export views and prove the producer: a full export
+        # completes without error and the pinned format is deterministic
+        # (two runs over the same data, byte-identical manifests).
+        run: |
+          set -e
+          psql "$PGURL" -v ON_ERROR_STOP=1 -f commons/im/0004_export_views.sql
+          python3 scripts/export_cis.py /tmp/export-a
+          python3 scripts/export_cis.py /tmp/export-b
+          diff -r /tmp/export-a /tmp/export-b
+          echo "export deterministic; manifest sha:"
+          sha256sum /tmp/export-a/manifest.json
 
-# deferred by design (VS v1 §8, §9): the walkaway harness enters on a
-# schedule once per-table exports land; with-their-slices assertions
-# (vote arithmetic, patron-majority floor, allocation sums, paired
-# covering distribution) enter with their schema.
+# the walkaway rehearsal (X-09) runs the full cycle -- export, fresh
+# infrastructure, import, re-export, SHA equality -- in walkaway.yml on
+# a schedule. with-their-slices assertions (vote arithmetic,
+# patron-majority floor, allocation sums, paired covering distribution)
+# enter with their schema (VS v1 §8, §9).
