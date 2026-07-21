@@ -14,11 +14,12 @@ commits each beat: the newcomer who signs in beat three is the same
 row that appeared in beat one, because a journey is a sequence, not a
 matrix.
 
-One beat is named-deferred, not faked: onboarding through
-apply_for_membership() waits for the function's source to land in the
-repository (the X-09 restore-completeness card). Its stand-in is a
-seeded applied membership, and the beat activates the day the
-migration exists.
+The onboarding beat runs through the real front door the moment
+0007_apply_for_membership.sql exists in the migration chain (it was
+captured from the live CIS under the X-09 restore-completeness card);
+if the file is ever absent the beat defers by name rather than fake a
+pass. The seeded applied membership stands in for the later beats
+either way, so the journey never depends on the door.
 
 Personas run through the same auth.uid() shim as the probe matrix.
 Usage: PGURL=postgres://... python3 scripts/gate_rehearsal.py
@@ -41,6 +42,10 @@ SES      = "00000000-0000-4000-a000-000000000202"
 BOOTSTRAP = """
 create role anon nologin;
 create role authenticated nologin;
+-- mirror the platform default the live CIS carries: anon holds usage
+-- on the schema (pg_namespace.nspacl, read 2026-07-21); table grants
+-- still exclude anon, so anon reads nothing (0002 closing note).
+grant usage on schema public to anon;
 create schema auth;
 create function auth.uid() returns uuid
 language sql stable as
@@ -53,6 +58,9 @@ MIGRATIONS = [
     "commons/authority-map/0003_sign_agreement.sql",
     "commons/authority-map/0005_matrix_conformance.sql",
 ]
+FRONT_DOOR = "commons/authority-map/0007_apply_for_membership.sql"
+if (REPO_ROOT / FRONT_DOOR).exists():
+    MIGRATIONS.append(FRONT_DOOR)
 
 SEED = f"""
 insert into agents (id, kind, display_name) values
@@ -103,10 +111,28 @@ def main():
             print(f"{label} failed:\n{err}", file=sys.stderr)
             sys.exit(1)
 
-    # -- beat 0 · named deferral -------------------------------------
-    print("DEFERRED beat 0: 'complete onboarding without a meeting' waits on "
-          "apply_for_membership() landing in the repository (X-09 card); "
-          "its stand-in is the seeded applied membership")
+    # -- beat 0 · the front door ---------------------------------------
+    if (REPO_ROOT / FRONT_DOOR).exists():
+        rc, lines, err = psql(
+            "begin;\nset local role anon;\n"
+            "select apply_for_membership('Rehearsal Applicant', "
+            "'applicant@rehearsal.test', 'came in through the front door');\ncommit;")
+        beat(0, "a member can complete onboarding without a meeting",
+             rc == 0 and lines and "received" in lines[-1], f"anon applied, rc={rc}")
+        rc, lines, _ = psql(
+            "select count(*) from memberships m join agents a on a.id = m.agent_id "
+            "where a.display_name = 'Rehearsal Applicant' and m.state = 'applied'")
+        beat(0.1, "the application, membership, and event land atomically (1.2, 1.3.1(d))",
+             rc == 0 and lines and lines[-1] == "1", f"applied memberships: {lines[-1] if lines else '?'}")
+        rc, lines, _ = psql(
+            "select count(*) from events where kind = 'membership.applied' "
+            "and payload ->> 'email' = 'applicant@rehearsal.test'")
+        beat(0.2, "the event carries the address the notices rail reads (X-02 seam)",
+             rc == 0 and lines and lines[-1] == "1", f"applied events with email: {lines[-1] if lines else '?'}")
+    else:
+        print("DEFERRED beat 0: 'complete onboarding without a meeting' waits on "
+              "apply_for_membership() landing in the repository (X-09 card); "
+              "its stand-in is the seeded applied membership")
 
     # -- beat 1 · the steward admits (lifecycle by the assigned hand) --
     rc, lines, _ = as_persona(STEWARD,
