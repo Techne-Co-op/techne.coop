@@ -340,9 +340,9 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
   </div>
   <div class="mast-stats">
     <span class="stat-chip drafted"><span class="n">7</span>&thinsp;drafted</span>
-    <span class="stat-chip anticipated"><span class="n">9</span>&thinsp;anticipated</span>
-    <span class="stat-chip open"><span class="n">5</span>&thinsp;open</span>
-    <span class="stat-chip verified"><span class="n">19</span>&thinsp;verified</span>
+    <span class="stat-chip anticipated"><span class="n">8</span>&thinsp;anticipated</span>
+    <span class="stat-chip open"><span class="n">3</span>&thinsp;open</span>
+    <span class="stat-chip verified"><span class="n">22</span>&thinsp;verified</span>
   </div>
 </div>
 
@@ -631,7 +631,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="slice-header">
         <div class="slice-addr">X-train &middot; Cross-cutting &middot; gate G-R</div>
         <div class="slice-name">Cross-cutting work</div>
-        <div class="slice-cap">Work that serves every slice or none in particular: observability, notices, exports, manifests, lint, audit, coherence, probes, and the walkaway. Five verified; three in session awaiting the steward's live steps; the rehearsal harness runs weekly in CI.</div>
+        <div class="slice-cap">Work that serves every slice or none in particular: observability, notices, exports, manifests, lint, audit, coherence, probes, and the walkaway. Eight verified; one in session awaiting the live join-form delivery; the rehearsal harness runs weekly in CI.</div>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-01</span>
@@ -641,15 +641,15 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-02</span>
-        <span class="pkt-intent">Notices v1: transactional email on the admission path. Rail authored end to end: notices edge function, pg_net trigger migration, deployment runbook. Resend, one seam.</span>
+        <span class="pkt-intent">Notices v1: transactional notices on the admission path, two sinks behind one seam each. The steward intake notice rides Telegram, deployed and proven; the applicant email acknowledgment keeps the Resend seam and waits on the zone manager's DNS records. A missing sink is named as a gap, never dropped.</span>
         <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
-        <span class="pkt-ready">steward wiring gates verification: Resend, deploy, 0006, live join test</span>
+        <span class="pkt-ready">rail deployed and wired 2026-07-21; the live join-form delivery is the acceptance</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-03</span>
-        <span class="pkt-intent">Export paths for the walkaway: fourteen export views, the producer, and the pinned SHA convention (per-table JSON ordered by id; a data-derived manifest whose sha256 is the export SHA).</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
-        <span class="pkt-ready">live application of 0004 and the first live export gate verification</span>
+        <span class="pkt-intent">Export paths for the walkaway: fourteen export views, the producer, and the pinned SHA convention (per-table JSON ordered by id; a data-derived manifest whose sha256 is the export SHA). 0004 live; first live export recorded as event export.taken, manifest sha 109c584b.</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-21</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-04</span>
@@ -677,15 +677,15 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-08</span>
-        <span class="pkt-intent">The RLS probe matrix, live in CI: every role against every table per AM v0.1 &sect;5, each probe citing its cell. Found two conformance gaps, closed by 0005 in the document&rsquo;s favor (the capital view now folds as the asker; the steward reads the log).</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
-        <span class="pkt-ready">live application of 0005 gates verification</span>
+        <span class="pkt-intent">The RLS probe matrix, live in CI: every role against every table per AM v0.1 &sect;5, each probe citing its cell. Found two conformance gaps, closed by 0005 in the document&rsquo;s favor; 0005 confirmed live, so the database conforms to the matrix the probes cite.</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-21</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-09</span>
-        <span class="pkt-intent">Walkaway rehearsal: export, stand fresh infrastructure, import, re-export, require SHA equality and an exactly reconstructed fold. Harness rehearses weekly in CI; the live run with its recorded event is the steward&rsquo;s act.</span>
-        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
-        <span class="pkt-ready">opens on X-03 verified</span>
+        <span class="pkt-intent">Walkaway rehearsal: export, stand fresh infrastructure, import, re-export, require SHA equality and an exactly reconstructed fold. The live run happened: restored onto a scratch project, re-exported byte-identical, fold reconstructed, events export.taken and walkaway.rehearsed recorded. The harness keeps rehearsing weekly in CI.</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-21</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">G-R</span>
@@ -703,9 +703,9 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="signal-label">Open conditions</div>
 
       <div class="condition-card">
-        <div class="cc-addr">steward &middot; live steps</div>
-        <div class="cc-q">Apply 0005 (the capital-view fix) and 0004 to the live CIS; run the first live export and record its SHA; export the apply_for_membership source; wire the notices rail; run the live walkaway with its recorded event.</div>
-        <div class="cc-unblocks">Unblocks &rarr; X-02, X-03, X-08, X-09 verification &rarr; G-R</div>
+        <div class="cc-addr">X-02 &middot; live join test</div>
+        <div class="cc-q">The rail is deployed and the steward sink proven. One live join-form submission delivering the intake notice is the acceptance; it is the last verification between here and G-R.</div>
+        <div class="cc-unblocks">Unblocks &rarr; X-02 verification &rarr; G-R</div>
       </div>
 
       <div class="condition-card">
@@ -729,7 +729,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
 
     <div class="signal-sec">
       <div class="signal-label">Build state</div>
-      <p class="signal-note">The substrate is verified through G0. Belong and Gather are verified end to end and hold for the August 14 attestations. The cross-cutting train is delivered: five packets verified, three in session awaiting live infrastructure, and the walkaway harness rehearsing weekly in CI. Every remaining condition is named and held by a known hand; no packet waits on agent work.</p>
+      <p class="signal-note">The substrate is verified through G0. Belong and Gather are verified end to end and hold for the August 14 attestations. The cross-cutting train is nearly closed: eight of nine packets verified, the live walkaway rehearsed with its events recorded, and only the X-02 join-form delivery stands between the train and G-R. Every remaining condition is named and held by a known hand; no packet waits on agent work.</p>
     </div>
 
     <div class="signal-sec">
@@ -752,21 +752,11 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="loop-q-label">What is workable now?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">Nothing waits on agent work. Nineteen packets are verified, the harnesses run in CI, and every remaining front is held by a named hand: the steward's live infrastructure steps, the August 14 attestations, and the Q3 board decision. The three packets in session below complete on the steward's steps, not on new code.</p>
+      <p class="loop-answer">Nothing waits on agent work. Twenty-two packets are verified, the live infrastructure steps all landed on July 21, and every remaining front is held by a named hand: one live join-form delivery, the August 14 attestations, and the Q3 board decision. The one packet in session below completes on that delivery, not on new code.</p>
       <ul class="loop-items">
         <li class="loop-item">
-          <span class="loop-item-addr">X-08</span>
-          <span class="loop-item-text">Probe matrix delivered and green in CI. Apply 0005_matrix_conformance.sql to the live CIS: two statements, one of them the capital-view security fix.</span>
-          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
-        </li>
-        <li class="loop-item">
-          <span class="loop-item-addr">X-03</span>
-          <span class="loop-item-text">Producer and pinned SHA convention delivered. Apply 0004 (fourteen views) to the live CIS, run one live export, record the manifest SHA.</span>
-          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
-        </li>
-        <li class="loop-item">
           <span class="loop-item-addr">X-02</span>
-          <span class="loop-item-text">Notices rail authored end to end. Resend account and domain, function deploy with secrets, 0006 applied, one live join-form delivery.</span>
+          <span class="loop-item-text">Rail deployed, Telegram sink proven, 0006 live. One live join-form submission delivering the steward's intake notice is the acceptance.</span>
           <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
         </li>
       </ul>
@@ -779,7 +769,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="loop-q-label">Which open condition unblocks the most?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">The steward's live steps unblock four verifications and put G-R in reach, so they rank first. Q3 (counting rules) unblocks the entire Share train and is no longer infrastructure-gated: the substrate that records the decision is live and verified. The card below stands until the Board takes it up.</p>
+      <p class="loop-answer">The X-02 join-form delivery unblocks the last cross-cutting verification and puts G-R in reach, so it ranks first and costs minutes. Q3 (counting rules) unblocks the entire Share train and is no longer infrastructure-gated: the substrate that records the decision is live and verified. The card below stands until the Board takes it up.</p>
       <div class="loop-escalation">
         <div class="loop-esc-label">escalation card &middot; Q3 &middot; counting rules</div>
         <div class="loop-esc-rows">
@@ -798,17 +788,17 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="loop-q-label">What has stalled quietly?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">Two quiet items, neither on the critical path to August 14, both one act from clear. The apply_for_membership function exists only in the live database: one query exports its source and closes the X-09 restore-completeness card. And the bylaws mark discrepancy stands where AM v0.1 &sect;1a filed it: the instrument says v2.1 Ratified, the legal index says v2 Drafted, and G-R cannot attest until they agree.</p>
+      <p class="loop-answer">Two quiet items, neither on the critical path to August 14. The bylaws mark discrepancy stands where AM v0.1 &sect;1a filed it: the instrument says v2.1 Ratified, the legal index says v2 Drafted, and G-R cannot attest until they agree. And the applicant email sink of X-02 waits on two DNS records held by the zone manager; the steward notice does not wait with it, but the applicant acknowledgment stays dormant until they land.</p>
       <ul class="loop-items">
-        <li class="loop-item">
-          <span class="loop-item-addr">X-09</span>
-          <span class="loop-item-text">Restore completeness: select pg_get_functiondef(oid) from pg_proc where proname = 'apply_for_membership'; hand back the text, it lands as the next numbered migration.</span>
-          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>card &middot; steward</span></span>
-        </li>
         <li class="loop-item">
           <span class="loop-item-addr">G-R</span>
           <span class="loop-item-text">The ratification flip: align the legal index and the instrument on one mark, then every anchor re-verifies through the gate.</span>
           <span class="loop-item-status"><span class="chip open"><span class="dot"></span>status discrepancy</span></span>
+        </li>
+        <li class="loop-item">
+          <span class="loop-item-addr">X-02</span>
+          <span class="loop-item-text">Email sink: two Resend verification records in the techne.coop zone, placed by whoever manages it. The rail activates the sink the moment its secrets complete.</span>
+          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>card &middot; zone manager</span></span>
         </li>
       </ul>
     </div>
@@ -833,14 +823,15 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
 <span class="ok">    token_audit.py</span>                        hex discipline and token drift (X-06)
 <span class="ok">    rls_probe.py</span>                          the AM §5 probe matrix (X-08)
 <span class="ok">    export_cis.py · import_cis.py</span>         the walkaway pair (X-03, X-09)
+<span class="ok">    gate_rehearsal.py</span>                     the journey end to end, beat by beat (G-B, G-G)
 <span class="ok">  .github/workflows/</span>
 <span class="ok">    verify.yml</span>                            six suites per VS v1
 <span class="ok">    walkaway.yml</span>                          weekly rehearsal (X-09)
 <span class="ok">  commons/im/</span>                             0001_substrate.sql · 0004_export_views.sql
-<span class="ok">  commons/authority-map/</span>                  0002 · 0003 · 0005
+<span class="ok">  commons/authority-map/</span>                  0002 · 0003 · 0005 · 0007
 <span class="ok">  supabase/</span>
 <span class="ok">    migrations/</span>                           0006_notices_rail.sql (X-02)
-<span class="ok">    functions/notices/</span>                    the email rail (X-02)</pre>
+<span class="ok">    functions/notices/</span>                    the notices rail, two sinks (X-02)</pre>
   </div>
 
   <div class="tree-sec">
@@ -889,19 +880,25 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
           <td class="addr-cell">X-03</td>
           <td class="name-cell">0004_export_views.sql</td>
           <td class="desc-cell">Fourteen export projections for the walkaway, role_grants included, security_invoker throughout.</td>
-          <td><span class="chip open"><span class="dot"></span>awaiting live apply</span></td>
+          <td><span class="chip verified"><span class="dot"></span>applied 2026-07-21</span></td>
         </tr>
         <tr>
           <td class="addr-cell">X-08</td>
           <td class="name-cell">0005_matrix_conformance.sql</td>
           <td class="desc-cell">The capital view folds as the asker (security fix); the steward reads the event log per the &sect;5 matrix.</td>
-          <td><span class="chip open"><span class="dot"></span>awaiting live apply</span></td>
+          <td><span class="chip verified"><span class="dot"></span>applied 2026-07-21</span></td>
         </tr>
         <tr>
           <td class="addr-cell">X-02</td>
           <td class="name-cell">0006_notices_rail.sql</td>
           <td class="desc-cell">pg_net trigger forwarding admission events to the notices function. Carries no secret.</td>
-          <td><span class="chip open"><span class="dot"></span>awaiting live apply</span></td>
+          <td><span class="chip verified"><span class="dot"></span>applied 2026-07-21</span></td>
+        </tr>
+        <tr>
+          <td class="addr-cell">X-09</td>
+          <td class="name-cell">0007_apply_for_membership.sql</td>
+          <td class="desc-cell">The front door, captured verbatim from the live database with its grants, closing the restore-completeness card.</td>
+          <td><span class="chip verified"><span class="dot"></span>captured from live 2026-07-21</span></td>
         </tr>
       </tbody>
     </table>
