@@ -730,4 +730,34 @@ cross_cutting:
     ready_when: X-03 verified. G-R approaching.
     deliverable: Restore run, SHA comparison, recorded event.
     acceptance: Restore diff is empty. Event recorded per VS v1 §6.
+    note: >
+      Harness drafted early at the steward's direction 2026-07-20:
+      walkaway.yml runs the full cycle on a weekly schedule, by hand, and
+      on changes to the machinery (export, stand fresh, import, re-export,
+      SHA equality, fold reconstruction), with scripts/import_cis.py as
+      the restore half. Held at anticipated: the packet opens when X-03
+      verifies, and the live rehearsal against the CIS with its recorded
+      event is the steward's act.
+    escalation:
+      standing_in: X-09, restore completeness.
+      found: >
+        The rehearsal's principle is reconstruction from the public
+        repository alone, and one live object fails it:
+        apply_for_membership(), the SECURITY DEFINER function B-02 built,
+        exists only in the live CIS and was never captured as a migration
+        file. sign_agreement() was captured (0003); this one was not. A
+        walkaway-restored database would carry the tables and the fold but
+        not the front door.
+      the_question: >
+        How does apply_for_membership() enter the repository: exported
+        from the live database, or reconstructed and diffed?
+      a_default: >
+        Exported: the steward runs
+        select pg_get_functiondef(oid) from pg_proc
+        where proname = 'apply_for_membership';
+        in the CIS SQL editor and hands back the text, which lands as the
+        next numbered migration with its citation header. Faithful by
+        construction, one query of effort. Reconstruction from the B-02
+        resolution is the fallback if the live source is ever lost, which
+        is exactly the condition this card exists to prevent.
 

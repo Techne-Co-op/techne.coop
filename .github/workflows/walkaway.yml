@@ -1,0 +1,132 @@
+# ============================================================
+# walkaway.yml · emission of VS v1 §8 · X-09
+# The walkaway rehearsal: export from one substrate, stand fresh
+# infrastructure, import, re-export, and require SHA equality.
+# Proves the cooperative can reconstruct its record from the
+# export path alone. Runs weekly, by hand, and on changes to the
+# machinery it exercises. The live rehearsal against the CIS and
+# its recorded event (VS v1 §6) remain the steward's act.
+# ============================================================
+
+name: walkaway
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/walkaway.yml'
+      - 'scripts/export_cis.py'
+      - 'scripts/import_cis.py'
+      - 'commons/im/*.sql'
+      - 'commons/authority-map/*.sql'
+
+jobs:
+  rehearse:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_PASSWORD: postgres }
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PGHOST: localhost
+      PGUSER: postgres
+      PGPASSWORD: postgres
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: stand the source substrate
+        run: |
+          set -e
+          createdb cis_source
+          PGURL="postgresql://postgres:postgres@localhost:5432/cis_source"
+          psql "$PGURL" -v ON_ERROR_STOP=1 -f commons/im/0001_substrate.sql
+          psql "$PGURL" -v ON_ERROR_STOP=1 <<'SQL'
+          alter table agents add column auth_user_id uuid unique;
+          create type appointment as enum ('director','secretary','treasurer','steward');
+          create table role_grants (
+            id         uuid primary key default gen_random_uuid(),
+            agent_id   uuid not null references agents(id),
+            role       appointment not null,
+            granted_at timestamptz not null default now(),
+            revoked_at timestamptz,
+            event_id   uuid references events(id)
+          );
+          comment on table role_grants is 'AM v0.1 addendum: Board appointments. Rehearsal schema.';
+          SQL
+          psql "$PGURL" -v ON_ERROR_STOP=1 -f commons/im/0004_export_views.sql
+
+      - name: seed the source (baseline cast plus capital events)
+        run: |
+          set -e
+          PGURL="postgresql://postgres:postgres@localhost:5432/cis_source"
+          psql "$PGURL" -v ON_ERROR_STOP=1 <<'SQL'
+          insert into agents (id, kind, display_name) values
+            ('00000000-0000-4000-9000-000000000001', 'person',      'Rehearsal Member'),
+            ('00000000-0000-4000-9000-000000000002', 'person',      'Rehearsal Steward'),
+            ('00000000-0000-4000-9000-000000000003', 'cooperative', 'RegenHub LCA');
+          insert into memberships (agent_id, state) values
+            ('00000000-0000-4000-9000-000000000001', 'active');
+          insert into agreements (id, code, title, version, effective_date) values
+            ('00000000-0000-4000-9000-000000000101', 'BYLAWS', 'Rehearsal Bylaws', 'v2', '2026-07-01');
+          insert into role_grants (agent_id, role) values
+            ('00000000-0000-4000-9000-000000000002', 'steward');
+          insert into events (occurred_at, actor_agent_id, kind, agent_id, book_delta, tax_delta) values
+            (now(), '00000000-0000-4000-9000-000000000002', 'capital.contribution',
+             '00000000-0000-4000-9000-000000000001', 500.00, 500.00),
+            (now(), '00000000-0000-4000-9000-000000000002', 'capital.contribution',
+             '00000000-0000-4000-9000-000000000001', 250.00, 250.00);
+          SQL
+
+      - name: export from the source
+        run: |
+          PGURL="postgresql://postgres:postgres@localhost:5432/cis_source" \
+            python3 scripts/export_cis.py /tmp/walkaway-a
+
+      - name: stand fresh infrastructure and import
+        run: |
+          set -e
+          createdb cis_target
+          PGURL="postgresql://postgres:postgres@localhost:5432/cis_target"
+          psql "$PGURL" -v ON_ERROR_STOP=1 -f commons/im/0001_substrate.sql
+          psql "$PGURL" -v ON_ERROR_STOP=1 <<'SQL'
+          alter table agents add column auth_user_id uuid unique;
+          create type appointment as enum ('director','secretary','treasurer','steward');
+          create table role_grants (
+            id         uuid primary key default gen_random_uuid(),
+            agent_id   uuid not null references agents(id),
+            role       appointment not null,
+            granted_at timestamptz not null default now(),
+            revoked_at timestamptz,
+            event_id   uuid references events(id)
+          );
+          comment on table role_grants is 'AM v0.1 addendum: Board appointments. Rehearsal schema.';
+          SQL
+          psql "$PGURL" -v ON_ERROR_STOP=1 -f commons/im/0004_export_views.sql
+          PGURL="$PGURL" python3 scripts/import_cis.py /tmp/walkaway-a
+
+      - name: re-export and require SHA equality
+        run: |
+          set -e
+          PGURL="postgresql://postgres:postgres@localhost:5432/cis_target" \
+            python3 scripts/export_cis.py /tmp/walkaway-b
+          diff -r /tmp/walkaway-a /tmp/walkaway-b
+          echo "restore diff is empty; the record survived the walk"
+          sha256sum /tmp/walkaway-a/manifest.json
+
+      - name: verify the fold matches
+        run: |
+          set -e
+          A=$(psql "postgresql://postgres:postgres@localhost:5432/cis_source" -t -A \
+              -c "select coalesce(sum(book_balance),0) || '/' || coalesce(sum(tax_balance),0) from capital_accounts")
+          B=$(psql "postgresql://postgres:postgres@localhost:5432/cis_target" -t -A \
+              -c "select coalesce(sum(book_balance),0) || '/' || coalesce(sum(tax_balance),0) from capital_accounts")
+          echo "source fold: $A · target fold: $B"
+          test "$A" = "$B"
+          test "$A" = "750.00/750.00"
+          echo "fold reconstructed exactly"
