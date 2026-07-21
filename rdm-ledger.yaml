@@ -509,7 +509,7 @@ cross_cutting:
 
   - address: X-02
     title: Notices v1
-    intent: Transactional email for admission, signature, and registration events.
+    intent: Transactional notices for admission, signature, and registration events.
     status: open · in-session
     cites: [BP, IM]
     ready_when: B-02 verified.
@@ -518,7 +518,18 @@ cross_cutting:
     note: >
       The dependency card below carried its decision 2026-07-20 and the
       packet opened the same day; the rail is authored and awaits the
-      steward's deployment steps.
+      steward's deployment steps. Amended by Todd Youngblood 2026-07-21:
+      the techne.coop DNS zone is managed outside the steward's reach, so
+      Resend domain verification cannot proceed on the steward's schedule.
+      The rail splits into two sinks, each behind its own seam and each
+      active only when its secrets exist: the steward intake notice rides
+      Telegram (@nou_guild_bot, TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID),
+      live now; the applicant email acknowledgment keeps the Resend seam
+      and activates when the zone manager places the verification records.
+      An unconfigured sink is named as a gap in the steward notice, never
+      silently dropped. Acceptance is unchanged and channel-neutral:
+      admission notice delivered on the membership.state transition to
+      applied.
     escalation:
       standing_in: X-02, before the first line of the email rail.
       found: >

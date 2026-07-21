@@ -1,15 +1,25 @@
 // notices · X-02 · Notices v1
-// Transactional email for the admission path: when a
+// Transactional notices for the admission path: when a
 // membership.applied event lands, the applicant receives an
 // acknowledgment and the steward an intake notice.
 //
-// Rail (X-02 decision, 2026-07-20): Resend free tier, one seam. To
-// change senders, change send() and nothing else. Secrets live in
-// Supabase function secrets (reference, not value):
-//   RESEND_API_KEY   the sender credential
-//   NOTICES_FROM     e.g. "Techne <notices@techne.coop>" (domain
-//                    verified in Resend first)
-//   STEWARD_EMAIL    intake notices per Bylaws §1.3.3
+// Rails (X-02 amendment, 2026-07-21): two sinks, one seam each.
+// The steward intake notice rides Telegram; the applicant
+// acknowledgment rides Resend email. Each sink activates only when
+// its secrets are present, so the rail degrades by naming gaps
+// rather than failing: an unconfigured email sink becomes a line in
+// the steward notice, not a silent drop. Rationale: the techne.coop
+// sending domain is DNS-managed outside the steward's reach, so the
+// email sink awaits domain verification; the steward notice must not
+// wait with it. Secrets live in Supabase function secrets
+// (reference, not value):
+//   TELEGRAM_BOT_TOKEN  steward-notice credential (@nou_guild_bot)
+//   TELEGRAM_CHAT_ID    where intake notices land
+//   RESEND_API_KEY      applicant-acknowledgment credential
+//   NOTICES_FROM        e.g. "Techne <notices@techne.coop>" (domain
+//                       verified in Resend first)
+//   STEWARD_EMAIL       email fallback for the intake notice when
+//                       Telegram is unconfigured (Bylaws §1.3.3)
 //
 // The applicant address is read from the event payload (email), then
 // from the application row it references. If neither carries one, the
@@ -17,11 +27,16 @@
 
 import { createClient } from "npm:@supabase/supabase-js@2";
 
+const TELEGRAM_BOT_TOKEN = Deno.env.get("TELEGRAM_BOT_TOKEN") ?? "";
+const TELEGRAM_CHAT_ID = Deno.env.get("TELEGRAM_CHAT_ID") ?? "";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") ?? "";
 const NOTICES_FROM = Deno.env.get("NOTICES_FROM") ?? "";
 const STEWARD_EMAIL = Deno.env.get("STEWARD_EMAIL") ?? "";
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
 const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+
+const emailConfigured = Boolean(RESEND_API_KEY && NOTICES_FROM);
+const telegramConfigured = Boolean(TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID);
 
 async function send(to: string, subject: string, text: string) {
   const r = await fetch("https://api.resend.com/emails", {
@@ -34,6 +49,20 @@ async function send(to: string, subject: string, text: string) {
   });
   if (!r.ok) {
     throw new Error(`resend ${r.status}: ${await r.text()}`);
+  }
+}
+
+async function sendTelegram(text: string) {
+  const r = await fetch(
+    `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text }),
+    },
+  );
+  if (!r.ok) {
+    throw new Error(`telegram ${r.status}: ${await r.text()}`);
   }
 }
 
@@ -71,7 +100,7 @@ Deno.serve(async (req) => {
 
     const results: Record<string, string> = {};
 
-    if (email) {
+    if (email && emailConfigured) {
       await send(
         email,
         "Your application to RegenHub was received",
@@ -87,23 +116,34 @@ Deno.serve(async (req) => {
         ].join("\n"),
       );
       results.applicant = email;
+    } else if (email) {
+      results.applicant =
+        "address on file; email sink not configured -- steward notified of the gap";
     } else {
       results.applicant = "no address found; steward notified of the gap";
     }
 
-    if (STEWARD_EMAIL) {
+    const stewardText = [
+      `New membership application: ${displayName}`,
+      "",
+      `event: ${event.id}`,
+      `agent: ${event.agent_id ?? "unknown"}`,
+      `applicant address: ${email ?? "NOT FOUND -- check the application record"}`,
+      `applicant acknowledged: ${
+        results.applicant === email ? "yes, by email" : "NO -- " + results.applicant
+      }`,
+      "",
+      "Intake per Bylaws 1.3.3; admission is the Board's decision.",
+    ].join("\n");
+
+    if (telegramConfigured) {
+      await sendTelegram(stewardText);
+      results.steward = "telegram";
+    } else if (STEWARD_EMAIL && emailConfigured) {
       await send(
         STEWARD_EMAIL,
         `New membership application: ${displayName}`,
-        [
-          `${displayName} applied for membership.`,
-          "",
-          `event: ${event.id}`,
-          `agent: ${event.agent_id ?? "unknown"}`,
-          `applicant address: ${email ?? "NOT FOUND -- check the application record"}`,
-          "",
-          "Intake per Bylaws 1.3.3; admission is the Board's decision.",
-        ].join("\n"),
+        stewardText,
       );
       results.steward = STEWARD_EMAIL;
     }
