@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The Gate Book: demonstration scripts, attestation texts, and recording procedure for every gate of the CIS build. A gate is a human act; this page is its score.">
+<title>The Gate Book &middot; RDM v1 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/build/gates/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/build/gates/">
+<meta property="og:title" content="The Gate Book · RDM v1 · Techne">
+<meta property="og:description" content="Demonstration scripts and attestation procedure for the gates of the CIS build. A gate is a human act; this page is its score.">
+<meta property="og:site_name" content="Techne">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --ok-dim:rgba(106,154,106,0.13);
+  --warn:#C46A6A; --warn-dim:rgba(196,106,106,0.13);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --ok-dim:rgba(74,122,74,0.10);
+  --warn:#A84F4C; --warn-dim:rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition-duration:0ms !important; } }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--serif); font-size:16px; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+code { font-family:var(--mono); font-size:0.84em; color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
+em { font-style:italic; color:var(--heading); }
+
+.topbar {
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; gap:var(--s5);
+  padding:0 var(--s5); height:52px;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.brand { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+.brand-mark { font-family:var(--mono); font-size:0.78rem; font-weight:500; letter-spacing:0.06em; color:var(--heading); transition:color var(--micro) var(--ease); }
+.brand:hover .brand-mark { color:var(--ember-text); }
+.top-nav { flex:1; display:flex; gap:var(--s4); list-style:none; }
+.top-nav a { font-family:var(--mono); font-size:0.72rem; letter-spacing:0.04em; color:var(--muted); text-decoration:none; transition:color var(--micro) var(--ease); }
+.top-nav a:hover { color:var(--heading); }
+.top-nav a[aria-current="page"] { color:var(--ember-text); }
+.mode-toggle {
+  margin-left:auto; display:flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:0.7rem; color:var(--muted);
+  background:none; border:1px solid var(--line); border-radius:2px;
+  padding:5px 9px; cursor:pointer;
+  transition:color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.mode-toggle:hover { color:var(--heading); border-color:var(--rule); }
+.mode-toggle svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+.mast {
+  padding:var(--s7) var(--s5) var(--s6);
+  border-bottom:1px solid var(--rule);
+  max-width:860px; margin:0 auto;
+}
+.mast-eyebrow { font-family:var(--mono); font-size:0.65rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s3); }
+.mast h1 { font-family:var(--serif); font-size:clamp(1.8rem,3.5vw,2.4rem); font-weight:700; color:var(--heading); line-height:1.12; letter-spacing:-0.01em; margin-bottom:var(--s4); }
+.mast-dek { font-size:1.05rem; line-height:1.65; color:var(--text); max-width:62ch; }
+.mast-meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font-family:var(--mono); font-size:0.68rem; color:var(--muted); }
+
+.doc-wrap { max-width:860px; margin:0 auto; padding:0 var(--s5) var(--s8); }
+.sec { padding:var(--s7) 0 0; }
+.sec .addr { font-family:var(--mono); font-size:0.65rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s2); }
+.sec h2 { font-family:var(--serif); font-size:1.45rem; font-weight:700; color:var(--heading); letter-spacing:-0.01em; margin-bottom:var(--s4); padding-left:14px; border-left:3px solid var(--ember); }
+.sec p { margin-bottom:var(--s4); max-width:68ch; }
+.sec p:last-child { margin-bottom:0; }
+.lead { font-size:1.05rem; line-height:1.7; }
+
+.chip {
+  display:inline-flex; align-items:center; gap:5px;
+  font-family:var(--mono); font-size:0.6rem; font-weight:500; letter-spacing:0.05em;
+  padding:3px 7px; border-radius:2px; border:1px solid var(--line);
+  background:var(--surface); white-space:nowrap; vertical-align:middle; color:var(--muted);
+}
+.chip .dot { width:5px; height:5px; border-radius:1px; flex-shrink:0; }
+.chip.ok { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
+.chip.ok .dot { background:var(--ok); }
+.chip.open { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
+.chip.open .dot { background:transparent; border:1px solid var(--warn); }
+.chip.anticipated { color:var(--faint); border-color:var(--line); }
+.chip.anticipated .dot { background:transparent; border:1px solid var(--faint); }
+
+.gate-head { display:flex; align-items:baseline; gap:var(--s3); flex-wrap:wrap; }
+.condition {
+  margin:var(--s4) 0; background:var(--surface);
+  border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s3) var(--s4);
+  font-size:0.88rem; line-height:1.65;
+}
+.condition .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); display:block; margin-bottom:var(--s1); }
+
+.script { margin:var(--s4) 0; counter-reset:beat; }
+.beat { display:grid; grid-template-columns:34px 110px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--line); align-items:baseline; }
+.beat:last-child { border-bottom:0; }
+.beat-n { font-family:var(--mono); font-size:0.68rem; font-weight:600; color:var(--ember-text); text-align:right; padding-top:3px; }
+.beat-who { font-family:var(--mono); font-size:0.68rem; color:var(--muted); padding-top:3px; }
+.beat-body { font-size:0.88rem; line-height:1.65; color:var(--text); }
+.beat-body .sentence { display:block; font-style:italic; color:var(--heading); margin-bottom:var(--s1); }
+.beat-body .observe { display:block; font-family:var(--mono); font-size:0.72rem; color:var(--muted); margin-top:var(--s1); }
+
+.attest {
+  margin:var(--s4) 0; background:var(--inset);
+  border:1px solid var(--line); border-left:2px solid var(--ok); padding:var(--s4);
+}
+.attest .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ok); margin-bottom:var(--s3); }
+.attest p { font-size:0.92rem; font-style:italic; color:var(--heading); margin-bottom:var(--s3); }
+pre.rec {
+  background:var(--inset); border:1px solid var(--line);
+  padding:var(--s4); overflow-x:auto;
+  font-family:var(--mono); font-size:0.74rem; line-height:1.8; color:var(--text);
+  margin:var(--s3) 0 0;
+}
+
+.memo {
+  margin:var(--s7) 0 0; padding:var(--s4) 0;
+  border-top:1px solid var(--rule); border-bottom:4px double var(--heading);
+}
+.memo .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); margin-bottom:var(--s2); }
+.memo p { margin:0; font-size:0.94rem; max-width:66ch; }
+
+footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s4) var(--s5) var(--s8); font-family:var(--mono); font-size:0.65rem; color:var(--faint); display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); max-width:860px; margin-left:auto; margin-right:auto; }
+
+@media (max-width:700px) {
+  .beat { grid-template-columns:28px 1fr; }
+  .beat-who { grid-column:2; padding-top:0; }
+  .beat-body { grid-column:2; }
+  .mast h1 { font-size:1.7rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">Techne</span>
+    </a>
+    <ul class="top-nav">
+      <li><a href="/commons/">Commons</a></li>
+      <li><a href="/commons/build/">Build</a></li>
+      <li><a href="/commons/build/instructions/">Instructions</a></li>
+      <li><a href="/commons/build/gates/" aria-current="page">Gates</a></li>
+    </ul>
+    <button class="mode-toggle" id="modeToggle" aria-label="Toggle color mode">
+      <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+      <span id="modeLabel">Light</span>
+    </button>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="mast-eyebrow">the gate book &middot; RDM v1 &middot; VS v1 &sect;6</div>
+  <h1>The Gate Book</h1>
+  <p class="mast-dek">A gate is a human act: people demonstrate the capability live, say the words, and record the event. Nothing here executes; this page is the score. Each gate carries its condition, its demonstration script drawn sentence by sentence from PRD v0.3 &sect;4, the attestation to speak, and the procedure that writes it into the record.</p>
+  <div class="mast-meta">
+    <span>cites &middot; RDM v1 &middot; PRD v0.3 &sect;4 &middot; VS v1 &sect;6 &middot; AM v0.1</span>
+    <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
+  </div>
+</div>
+
+<div class="doc-wrap">
+
+  <section class="sec" id="g0">
+    <div class="addr">precedent</div>
+    <h2 class="gate-head">G0 &middot; The security floor <span class="chip ok"><span class="dot"></span>attested 2026-07-11</span></h2>
+    <p class="lead">The pattern every later gate follows, already walked once. The substrate restored onto fresh infrastructure, all six suites green, and one sentence recorded by the person who holds the outcome: <em>&ldquo;G0 attested. Security floor established.&rdquo;</em> The attestation lives as event <code>8c5d2d37</code> and as a resolution in the ledger. That is the whole shape: demonstrate, speak, record.</p>
+  </section>
+
+  <section class="sec" id="g-b">
+    <div class="addr">august 14 &middot; first act</div>
+    <h2 class="gate-head">G-B &middot; The Belong gate <span class="chip anticipated"><span class="dot"></span>anticipated</span></h2>
+    <div class="condition"><span class="k">condition</span>B-02, B-04, B-05 verified (they are, 2026-07-12). An organizer and a non-organizer member demonstrate every Belong sentence live, together, at the August 14 gathering. Two parties, because belonging is not self-certified.</div>
+    <p>The cast: one <em>organizer</em> (any steward or director) and one <em>newcomer</em>, a person who is not an organizer and has never touched the system. The newcomer drives; the organizer witnesses and countersigns. Each beat begins with the sentence being proven, spoken aloud.</p>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">01</div><div class="beat-who">newcomer</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can complete onboarding without a meeting.&rdquo;</span>
+          On their own device, the newcomer opens <a href="/commons/join/">techne.coop/commons/join</a> and submits the application with their real name and address. Nobody helps.
+          <span class="observe">observe: the received panel; a membership.applied event lands in the record; the steward notice arrives if the X-02 rail is wired</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">02</div><div class="beat-who">newcomer</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can read every agreement that binds them, with version and standing marked.&rdquo;</span>
+          After sign-in by magic link, the newcomer opens <a href="/commons/agreements/">the agreements shelf</a> and reads the bylaws entry aloud: title, version, effective date, and their own unsigned chip.
+          <span class="observe">observe: version and standing marked; nothing shown that does not bind them</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">03</div><div class="beat-who">newcomer</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can sign the membership agreement and see the signature recorded.&rdquo;</span>
+          The newcomer signs on the shelf and reads the confirmation panel aloud: their name, the instrument, the version, the binding statement.
+          <span class="observe">observe: the signature row and its signature.signed event, atomic per 0003</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">04</div><div class="beat-who">newcomer</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can appear in the member directory with a profile they control.&rdquo;</span>
+          The newcomer finds themselves in <a href="/commons/directory/">the directory</a>, edits their display name, refreshes, and shows the change held.
+          <span class="observe">observe: self-edit works; no other row is editable</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">05</div><div class="beat-who">organizer</div>
+        <div class="beat-body">
+          <span class="sentence">Countersign.</span>
+          The organizer confirms each sentence was demonstrated by someone with no standing to fake it, and both speak the attestation.
+        </div>
+      </div>
+    </div>
+    <div class="attest">
+      <div class="k">the attestation &middot; two voices</div>
+      <p>&ldquo;G-B attested. Every Belong sentence was demonstrated live by a member who is not an organizer, and witnessed. Belonging is legible in the record.&rdquo;</p>
+      <span class="chip anticipated"><span class="dot"></span>recording procedure &middot; &sect;final</span>
+    </div>
+  </section>
+
+  <section class="sec" id="g-g">
+    <div class="addr">august 14 &middot; second act</div>
+    <h2 class="gate-head">G-G &middot; The Gather gate <span class="chip anticipated"><span class="dot"></span>anticipated</span></h2>
+    <div class="condition"><span class="k">condition</span>G-03 verified (it is, 2026-07-12). Two-party attestation at the August 14 gathering: every Gather sentence demonstrated live. The gathering itself is the fixture: it already exists in the calendar as the seeded record.</div>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">01</div><div class="beat-who">member</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can see upcoming events and sessions.&rdquo;</span>
+          A member opens <a href="/commons/gatherings/">the calendar</a> and reads the August 14 gathering aloud: title, host, session time in their own timezone.
+          <span class="observe">observe: the room is standing inside the record it is reading</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">02</div><div class="beat-who">member</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can register, and cancel, without asking anyone.&rdquo;</span>
+          The member registers for the session, cancels, and registers again. Nobody is asked; the state cycle is preserved for audit, not deleted.
+          <span class="observe">observe: null to registered to cancelled to registered; rows kept per the append-only principle</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">03</div><div class="beat-who">host</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can host an event under a named agreement or policy.&rdquo;</span>
+          The host shows the gathering record naming them as host under the cooperative's instrument, and creates the next gathering live.
+          <span class="observe">observe: host_agent_id is a person; the gathering hangs off a named agreement</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">04</div><div class="beat-who">host</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can have attendance counted where the record counts it.&rdquo;</span>
+          The host opens the attendance panel and records who is in the room, right then, with the room watching.
+          <span class="observe">observe: recorded_by is the host; append-only, no unrecording; presence serves quorum per 2.7</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">05</div><div class="beat-who">both</div>
+        <div class="beat-body">
+          <span class="sentence">Countersign.</span>
+          Host and member speak the attestation together.
+        </div>
+      </div>
+    </div>
+    <div class="attest">
+      <div class="k">the attestation &middot; two voices</div>
+      <p>&ldquo;G-G attested. Every Gather sentence was demonstrated live, in the room it describes, and the room's own presence is in the record. The calendar is part of the record.&rdquo;</p>
+      <span class="chip anticipated"><span class="dot"></span>recording procedure &middot; &sect;final</span>
+    </div>
+  </section>
+
+  <section class="sec" id="g-r">
+    <div class="addr">cross-cutting</div>
+    <h2 class="gate-head">G-R &middot; The cross-cutting gate <span class="chip anticipated"><span class="dot"></span>anticipated</span></h2>
+    <div class="condition"><span class="k">condition</span>X-01 through X-09 verified. Five are; X-02, X-03, X-08 complete on the steward's live steps; X-09 opens when X-03 verifies. Then the anchor re-verification pass, and one discrepancy that must die first: the bylaws instrument reads v2.1 Ratified while the legal index reads v2 Drafted (AM v0.1 &sect;1a). The gate cannot attest while the record disagrees with itself about its own governing text.</div>
+    <p>The procedure, one sitting: walk every bylaw anchor in <code>0002_policies.sql</code>, <code>0005_matrix_conformance.sql</code>, and the schema comments against the governing text as published at <a href="/legal/">techne.coop/legal</a>, confirming each section still says what the policy cites it for. The probe matrix already proves the policies behave as written; this pass proves they cite what still stands. Align the legal index and the instrument on one mark. Then attest.</p>
+    <div class="attest">
+      <div class="k">the attestation &middot; steward</div>
+      <p>&ldquo;G-R attested. Every cross-cutting packet is verified, every anchor re-verified against the governing text, and the record agrees with itself about what governs it.&rdquo;</p>
+      <span class="chip anticipated"><span class="dot"></span>recording procedure &middot; &sect;final</span>
+    </div>
+  </section>
+
+  <section class="sec" id="g-f">
+    <div class="addr">after G-B</div>
+    <h2 class="gate-head">G-F &middot; The Find gate <span class="chip anticipated"><span class="dot"></span>anticipated</span></h2>
+    <div class="condition"><span class="k">condition</span>F-01 through F-03 verified; G-B attested. The Find train opens when Belong closes, since every entry hangs off an agent record.</div>
+    <p>The sentences to demonstrate, when the train is built: browse open invitations by kind, play, practice, and work; post an offer or a need and close it when it resolves; see what an invitation led to, when the parties choose to record it. The script fills in when F-01 opens; the shape is the same: demonstrate, speak, record.</p>
+  </section>
+
+  <section class="sec" id="g-s">
+    <div class="addr">after Q3</div>
+    <h2 class="gate-head">G-S &middot; The Share gate <span class="chip anticipated"><span class="dot"></span>anticipated</span></h2>
+    <div class="condition"><span class="k">condition</span>S-01 and S-02 verified; the Q3 counting rules and Schedule A on record. This gate carries one demonstration no other gate has: the fold shown on the member's account equals the fold computed by hand, on paper, in front of the member it belongs to.</div>
+    <p>The sentences, when the train opens: see contribution history itemized; see the capital account as a fold over that history; follow any figure to the events and the policy that produced it. The hand computation is the heart: a member's balance recomputed from their own events with the written rules, matching the screen to the cent.</p>
+  </section>
+
+  <section class="sec" id="final">
+    <div class="addr">&sect;final</div>
+    <h2>Recording an attestation</h2>
+    <p class="lead">One procedure for every gate, the G0 pattern. The attesting human records the event; the ledger flips by commit; the roadmap follows the ledger.</p>
+    <pre class="rec">-- 1 · the event, inserted by the attesting agent (an overseer act)
+insert into events (occurred_at, actor_agent_id, kind, payload)
+values (
+  now(),
+  '&lt;attesting agent id&gt;',
+  'gate.attested',
+  jsonb_build_object(
+    'gate', '&lt;G-B | G-G | G-F | G-S | G-R&gt;',
+    'attestation', '&lt;the words as spoken&gt;',
+    'witnesses', jsonb_build_array('&lt;agent id&gt;', '&lt;agent id&gt;')
+  )
+);
+
+-- 2 · the ledger: status flips to attested with a resolution naming
+--     the attesting agent, the date, and the event id. By commit.
+
+-- 3 · the roadmap syncs to the ledger, and the next train opens.</pre>
+    <div class="memo">
+      <div class="k">why gates are people</div>
+      <p>Every suite in CI proves the machine agrees with itself. A gate proves the cooperative agrees with the machine. That second agreement cannot be automated, because it is the moment responsibility changes hands, and responsibility never transfers to an instrument.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <span>The Gate Book &middot; RDM v1 &middot; VS v1 &sect;6</span>
+  <span>RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
+  <span><a href="/commons/build/">Living Roadmap</a></span>
+  <span><a href="/commons/build/instructions/">Instructions</a></span>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn  = document.getElementById('modeToggle');
+  var icon = document.getElementById('modeIcon');
+  var lbl  = document.getElementById('modeLabel');
+
+  var sunPaths = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  var moonPaths = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+
+  function apply(m) {
+    root.setAttribute('data-mode', m);
+    icon.innerHTML = m === 'dark' ? sunPaths : moonPaths;
+    lbl.textContent = m === 'dark' ? 'Light' : 'Dark';
+  }
+
+  var stored = null;
+  try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+  var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  apply(m);
+
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try { localStorage.setItem('techne-mode', next); } catch(e) {}
+  });
+})();
+</script>
+</body>
+</html>
