@@ -255,6 +255,28 @@ jobs:
         # typeface deferral are named in the script per VS v1 §9.
         run: python3 scripts/token_audit.py
 
+  gate-rehearsal:
+    # G-B, G-G · the mechanical half of the Gate Book: every Belong
+    # and Gather sentence of PRD v0.3 §4 as a committed, sequential
+    # assertion against the full policy chain. The with-their-slices
+    # suite arriving with its slices. One beat named-deferred until
+    # apply_for_membership() lands in the repository (X-09 card).
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_PASSWORD: postgres }
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PGURL: postgresql://postgres:postgres@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - name: rehearse the gates
+        run: python3 scripts/gate_rehearsal.py
+
   restore-test:
     # SUB-05 · VS v1 §8 · seed-state restore: apply the substrate,
     # load the baseline export, verify row counts and fold match.
