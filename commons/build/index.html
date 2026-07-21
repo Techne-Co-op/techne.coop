@@ -340,9 +340,9 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
   </div>
   <div class="mast-stats">
     <span class="stat-chip drafted"><span class="n">7</span>&thinsp;drafted</span>
-    <span class="stat-chip anticipated"><span class="n">12</span>&thinsp;anticipated</span>
-    <span class="stat-chip open"><span class="n">11</span>&thinsp;open</span>
-    <span class="stat-chip verified"><span class="n">11</span>&thinsp;verified</span>
+    <span class="stat-chip anticipated"><span class="n">9</span>&thinsp;anticipated</span>
+    <span class="stat-chip open"><span class="n">5</span>&thinsp;open</span>
+    <span class="stat-chip verified"><span class="n">19</span>&thinsp;verified</span>
   </div>
 </div>
 
@@ -453,14 +453,14 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="packet-row">
         <span class="pkt-addr">SUB-01</span>
         <span class="pkt-intent">Stand the repository on the estate layout with the validator reshaped to slices. Emits repo tree, validator, generated index.json and STATUS.md.</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
-        <span class="pkt-ready">in progress &middot; PR merged 2026-07-11</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-20 &middot; tree matches the estate layout &middot; validator green</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">SUB-02</span>
         <span class="pkt-intent">Install the governing emissions at root: AGENTS.md from BP v1 &sect;10, verify.yml, commons.css. Acceptance: style-lint and schema-lint green.</span>
-        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
-        <span class="pkt-ready">SUB-01 verified</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-20 &middot; consumption model decided: inline per page sanctioned</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">SUB-03</span>
@@ -629,69 +629,69 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
     <!-- CROSS-CUTTING -->
     <div class="slice-group" id="xct">
       <div class="slice-header">
-        <div class="slice-addr">X-train &middot; Cross-cutting</div>
+        <div class="slice-addr">X-train &middot; Cross-cutting &middot; gate G-R</div>
         <div class="slice-name">Cross-cutting work</div>
-        <div class="slice-cap">Work that serves every slice or none in particular, drawn directly from the chips the series has accumulated. Nothing here invents; each row cites the artifact that owes it.</div>
+        <div class="slice-cap">Work that serves every slice or none in particular: observability, notices, exports, manifests, lint, audit, coherence, probes, and the walkaway. Five verified; three in session awaiting the steward's live steps; the rehearsal harness runs weekly in CI.</div>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-01</span>
-        <span class="pkt-intent">Estate reconciliation: AGENTS.md, GOVERNANCE.md, CONVENTIONS.md, C10, VERIFICATION.md, C3, C11: merged rule by rule, each adopted by amendment or retired by name.</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; reconciliation</span></span>
-        <span class="pkt-ready">SUB-01 verified</span>
+        <span class="pkt-intent">Error boundary and observability: errors surface to the steward without leaking to the member. Boundary script on the four interactive surfaces; sink decision recorded (error_log as its own follow-on packet).</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-20</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-02</span>
-        <span class="pkt-intent">C6 reconciliation: every remaining core table confirmed or retired against the schema card per IM v0.1 &sect;1.</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; reconciliation</span></span>
-        <span class="pkt-ready">SUB-01 verified</span>
+        <span class="pkt-intent">Notices v1: transactional email on the admission path. Rail authored end to end: notices edge function, pg_net trigger migration, deployment runbook. Resend, one seam.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">steward wiring gates verification: Resend, deploy, 0006, live join test</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-03</span>
-        <span class="pkt-intent">IM v0.2: adopt the AM addenda (identity binding, role grants), ratify the naming resolutions, carry the Law IX ground note. Supersedes IM v0.1 explicitly.</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; Todd</span></span>
-        <span class="pkt-ready">Todd nods on addenda and names</span>
+        <span class="pkt-intent">Export paths for the walkaway: fourteen export views, the producer, and the pinned SHA convention (per-table JSON ordered by id; a data-derived manifest whose sha256 is the export SHA).</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">live application of 0004 and the first live export gate verification</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-04</span>
-        <span class="pkt-intent">Anchor correction: estate documents citing the moved vote anchors updated to &sect;1.4, &sect;1.11, &sect;1.12.2, &sect;2.6, per AM v0.1 &sect;8.</span>
-        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
-        <span class="pkt-ready">X-01 underway</span>
+        <span class="pkt-intent">Document manifest and site index: index.json enumerates every page by walking the tree; a stale committed manifest is a CI error, self-healing on the next run.</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-20</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-05</span>
-        <span class="pkt-intent">Re-splice: PRD, BP, IM, SER, and the landing page draft re-emitted on the aligned layer so Ratified reads green and techne-mode holds everywhere.</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; Todd</span></span>
-        <span class="pkt-ready">Todd's word</span>
+        <span class="pkt-intent">Grammar lint in CI: the Subchapter K vocabulary quarantine, no em dashes, no emoji, every exemption named per VS v1 &sect;9.</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-20</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-06</span>
-        <span class="pkt-intent">NC v2, the Nou Charter: runtime scopes over the AM read model, keeping C8 harness as wire-level half. Deferred by sequencing, condition unchanged.</span>
-        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
-        <span class="pkt-ready">AM read scopes drafted; deferred</span>
+        <span class="pkt-intent">Design token audit in CI: hex only inside custom-property definitions; token drift against commons.css a defect. Typeface fork found and decided: the deployed two-face practice governs.</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-20</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-07</span>
-        <span class="pkt-intent">OR v0.1, Operations Runbook: opens when SUB-03 stands an environment, absorbs the audit's four prerequisites. Acceptance: a stranger can run the restore alone.</span>
-        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
-        <span class="pkt-ready">SUB-03 stands an environment</span>
+        <span class="pkt-intent">Decision coherence in the validator: a packet whose status has opened must not carry an unresolved escalation card. Proven against live ledger history.</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-20</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-08</span>
-        <span class="pkt-intent">Per-table exports and the scheduled walkaway run per VS v1 &sect;8. Acceptance: fresh-infrastructure reconstruction within the bounded window.</span>
-        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
-        <span class="pkt-ready">G0 attested</span>
+        <span class="pkt-intent">The RLS probe matrix, live in CI: every role against every table per AM v0.1 &sect;5, each probe citing its cell. Found two conformance gaps, closed by 0005 in the document&rsquo;s favor (the capital view now folds as the asker; the steward reads the log).</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">live application of 0005 gates verification</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-09</span>
-        <span class="pkt-intent">LP v0.2, the public door: ready when Q1 naming and Q7 one-door questions resolve. The v0.1 draft holds until then.</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; Q1, Q7</span></span>
-        <span class="pkt-ready">Q1 and Q7 recorded</span>
+        <span class="pkt-intent">Walkaway rehearsal: export, stand fresh infrastructure, import, re-export, require SHA equality and an exactly reconstructed fold. Harness rehearses weekly in CI; the live run with its recorded event is the steward&rsquo;s act.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">opens on X-03 verified</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">G-R</span>
-        <span class="pkt-intent">The ratification flip: every anchor re-verified against the governing text. Marks may flip to Ratified only through here. Acceptance: anchor re-verification complete.</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; status discrepancy</span></span>
-        <span class="pkt-ready">instrument and legal index agree</span>
+        <span class="pkt-intent">Cross-cutting gate: every packet X-01 through X-09 verified, every anchor re-verified against the governing text. The bylaws-mark discrepancy (instrument v2.1 Ratified, legal index v2 Drafted) must resolve before attestation.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">X-01 through X-09 verified</span>
       </div>
     </div>
 
@@ -703,51 +703,39 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="signal-label">Open conditions</div>
 
       <div class="condition-card">
-        <div class="cc-addr">ready now</div>
-        <div class="cc-q">SUB-01 has no upstream dependency. It can start today.</div>
-        <div class="cc-unblocks">Unblocks &rarr; entire ledger</div>
+        <div class="cc-addr">steward &middot; live steps</div>
+        <div class="cc-q">Apply 0005 (the capital-view fix) and 0004 to the live CIS; run the first live export and record its SHA; export the apply_for_membership source; wire the notices rail; run the live walkaway with its recorded event.</div>
+        <div class="cc-unblocks">Unblocks &rarr; X-02, X-03, X-08, X-09 verification &rarr; G-R</div>
+      </div>
+
+      <div class="condition-card">
+        <div class="cc-addr">August 14 &middot; gathering</div>
+        <div class="cc-q">Belong and Gather are verified end to end and wait only on live two-party demonstration at the gathering.</div>
+        <div class="cc-unblocks">Unblocks &rarr; G-B, G-G; G-B opens the Find train</div>
       </div>
 
       <div class="condition-card">
         <div class="cc-addr">Q3 &middot; counting rules</div>
-        <div class="cc-q">Board resolution: what counts as a contribution, at what FMV rate, which event types? Schedule A must be adopted.</div>
+        <div class="cc-q">Board resolution: what counts as a contribution, at what FMV rate, which event types? Schedule A must be adopted. No infrastructure gates this decision any longer.</div>
         <div class="cc-unblocks">Unblocks &rarr; entire Share train (S-01, S-02, G-S)</div>
       </div>
 
       <div class="condition-card">
-        <div class="cc-addr">Todd nod</div>
-        <div class="cc-q">X-03: AM addenda and naming resolutions. X-05: re-splice series onto the aligned layer.</div>
-        <div class="cc-unblocks">Unblocks &rarr; X-03, X-05</div>
-      </div>
-
-      <div class="condition-card">
-        <div class="cc-addr">Q1 &middot; naming</div>
-        <div class="cc-q">What is the public label for the Find one another slice? Q7: the one-door question.</div>
-        <div class="cc-unblocks">Unblocks &rarr; G-F (label), X-09 (with Q7)</div>
-      </div>
-
-      <div class="condition-card">
-        <div class="cc-addr">reconciliation</div>
-        <div class="cc-q">Estate rules: each one adopted into BP v1 by amendment or retired by name. No estate rule left unaccounted.</div>
-        <div class="cc-unblocks">Unblocks &rarr; X-01, X-02 (and X-04 downstream)</div>
-      </div>
-
-      <div class="condition-card">
         <div class="cc-addr">status discrepancy</div>
-        <div class="cc-q">The instrument and the legal index do not yet agree on status. G-R cannot attest until they do.</div>
+        <div class="cc-q">The bylaws instrument reads v2.1 Ratified; the legal index reads v2 Drafted. G-R re-verifies every anchor and cannot attest until they agree (AM v0.1 &sect;1a).</div>
         <div class="cc-unblocks">Unblocks &rarr; G-R (ratification flip)</div>
       </div>
     </div>
 
     <div class="signal-sec">
       <div class="signal-label">Build state</div>
-      <p class="signal-note">The series is drafted. Nothing else has started. The critical path is short: SUB-01 through G0 is the only serial stretch, then Belong and Gather run in parallel. SUB-01 is ready now: it has no dependency and no open condition. That is the first packet.</p>
+      <p class="signal-note">The substrate is verified through G0. Belong and Gather are verified end to end and hold for the August 14 attestations. The cross-cutting train is delivered: five packets verified, three in session awaiting live infrastructure, and the walkaway harness rehearsing weekly in CI. Every remaining condition is named and held by a known hand; no packet waits on agent work.</p>
     </div>
 
     <div class="signal-sec">
       <div class="signal-label">Protocol</div>
       <p class="signal-note">BP v1 &middot; Drafted. One packet per branch. Commits carry authorship trailer. Schema, permissions, money, membership: stop and ask. This instrument reads the ledger; it does not write to it.</p>
-      <div class="signal-ts">RDM v1 &middot; Ledger updated 2026-07-10 &middot; Nou</div>
+      <div class="signal-ts">RDM v1 &middot; Ledger updated 2026-07-21 &middot; Nou</div>
     </div>
   </aside>
 
@@ -764,12 +752,22 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="loop-q-label">What is workable now?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">One packet has no upstream dependency: SUB-01. Everything else: the substrate train, both parallel slice trains, the entire cross-cutting train, waits on SUB-01 to verify. The ledger has a single front.</p>
+      <p class="loop-answer">Nothing waits on agent work. Nineteen packets are verified, the harnesses run in CI, and every remaining front is held by a named hand: the steward's live infrastructure steps, the August 14 attestations, and the Q3 board decision. The three packets in session below complete on the steward's steps, not on new code.</p>
       <ul class="loop-items">
         <li class="loop-item">
-          <span class="loop-item-addr">SUB-01</span>
-          <span class="loop-item-text">Stand the repository on the estate layout with the validator reshaped to slices. Deliverable: repo tree, validator, generated index.json and STATUS.md. Acceptance: ledger-validate green on a seeded ledger.</span>
-          <span class="loop-item-status"><span class="chip anticipated"><span class="dot"></span>ready now</span></span>
+          <span class="loop-item-addr">X-08</span>
+          <span class="loop-item-text">Probe matrix delivered and green in CI. Apply 0005_matrix_conformance.sql to the live CIS: two statements, one of them the capital-view security fix.</span>
+          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        </li>
+        <li class="loop-item">
+          <span class="loop-item-addr">X-03</span>
+          <span class="loop-item-text">Producer and pinned SHA convention delivered. Apply 0004 (fourteen views) to the live CIS, run one live export, record the manifest SHA.</span>
+          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        </li>
+        <li class="loop-item">
+          <span class="loop-item-addr">X-02</span>
+          <span class="loop-item-text">Notices rail authored end to end. Resend account and domain, function deploy with secrets, 0006 applied, one live join-form delivery.</span>
+          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
         </li>
       </ul>
     </div>
@@ -781,7 +779,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="loop-q-label">Which open condition unblocks the most?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">Among the human-held conditions, Q3 (counting rules) unblocks the entire Share train. But counting rules are a board decision that cannot arrive before the ledger has infrastructure to record them into. The sequencing is: SUB-01 first, then the conditions rank by what they unblock. The panel below names the one decision that is purely human and not infrastructure-gated.</p>
+      <p class="loop-answer">The steward's live steps unblock four verifications and put G-R in reach, so they rank first. Q3 (counting rules) unblocks the entire Share train and is no longer infrastructure-gated: the substrate that records the decision is live and verified. The card below stands until the Board takes it up.</p>
       <div class="loop-escalation">
         <div class="loop-esc-label">escalation card &middot; Q3 &middot; counting rules</div>
         <div class="loop-esc-rows">
@@ -800,17 +798,17 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="loop-q-label">What has stalled quietly?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">Two cross-cutting packets wait on Todd's word alone. No infrastructure, no other packet, no board decision stands between them and the work beginning. They are open because they need a human signal, and that signal has not arrived. They are not on the critical path to August 14, but their conditions are the lightest to clear.</p>
+      <p class="loop-answer">Two quiet items, neither on the critical path to August 14, both one act from clear. The apply_for_membership function exists only in the live database: one query exports its source and closes the X-09 restore-completeness card. And the bylaws mark discrepancy stands where AM v0.1 &sect;1a filed it: the instrument says v2.1 Ratified, the legal index says v2 Drafted, and G-R cannot attest until they agree.</p>
       <ul class="loop-items">
         <li class="loop-item">
-          <span class="loop-item-addr">X-03</span>
-          <span class="loop-item-text">IM v0.2: adopt the AM addenda and the naming resolutions. Ready when Todd nods on the addenda and names. The nod is the entire condition. Agent work follows immediately.</span>
-          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open · Todd</span></span>
+          <span class="loop-item-addr">X-09</span>
+          <span class="loop-item-text">Restore completeness: select pg_get_functiondef(oid) from pg_proc where proname = 'apply_for_membership'; hand back the text, it lands as the next numbered migration.</span>
+          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>card &middot; steward</span></span>
         </li>
         <li class="loop-item">
-          <span class="loop-item-addr">X-05</span>
-          <span class="loop-item-text">Re-splice the series artifacts onto the aligned design layer. Ready on Todd's word. PRD, BP, IM, SER, LP re-emitted so Ratified reads green and techne-mode holds everywhere.</span>
-          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open · Todd</span></span>
+          <span class="loop-item-addr">G-R</span>
+          <span class="loop-item-text">The ratification flip: align the legal index and the instrument on one mark, then every anchor re-verifies through the gate.</span>
+          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>status discrepancy</span></span>
         </li>
       </ul>
     </div>
@@ -824,81 +822,86 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
 <div class="tree-wrap">
 
   <div class="tree-sec">
-    <div class="tree-sec-label">Repository layout &middot; after SUB-01 (anticipated)</div>
-    <pre class="tree"><span class="ant">commons/</span>                                  Techne-Co-op / commons (GitHub Pages)
-<span class="ant">  AGENTS.md</span>                               operating contract from BP v1 §10
-<span class="ant">  GOVERNANCE.md</span>                           governance rules (estate, pending reconciliation)
-<span class="ant">  verify.yml</span>                              verification harness from VS v1
-<span class="ant">  commons.css</span>                             design token layer from UI v1
-<span class="ant">  index.json</span>                              generated packet index (ledger-validate reads this)
-<span class="ant">  STATUS.md</span>                               generated status table
-<span class="ant">  packets/</span>                                per-packet files (splits from rdm-ledger.yaml at SUB-01)
-<span class="ant">    sub-01.yaml  sub-02.yaml  ...</span>
-<span class="ant">    b-01.yaml    b-02.yaml    ...</span>
-<span class="ant">    g-01.yaml    ...</span>
-<span class="ant">    f-01.yaml    ...</span>
-<span class="ant">    s-01.yaml    ...</span>
-<span class="ant">    x-01.yaml    ...</span>
-<span class="ant">  supabase/</span>                               database migrations
-<span class="ant">    0001_substrate.sql</span>                    from IM v0.1 §9
-<span class="ant">    0002_policies.sql</span>                     from AM v0.1 §9</pre>
+    <div class="tree-sec-label">Repository layout &middot; as stood (SUB-01 verified 2026-07-20)</div>
+    <pre class="tree">techne.coop/                              Techne-Co-op / techne.coop (GitHub Pages)
+<span class="ok">  AGENTS.md</span>                               operating contract from BP v1 §10
+<span class="ok">  CONTRIBUTORS.md</span>                         contribution paths and vocabulary
+<span class="ok">  rdm-ledger.yaml</span>                         the packet ledger; this instrument reads it
+<span class="ok">  STATUS.md · index.json</span>                  generated by the validator, freshness enforced (X-04)
+<span class="ok">  scripts/</span>
+<span class="ok">    validate.py</span>                           schema, acyclicity, gating, coherence, manifest
+<span class="ok">    token_audit.py</span>                        hex discipline and token drift (X-06)
+<span class="ok">    rls_probe.py</span>                          the AM §5 probe matrix (X-08)
+<span class="ok">    export_cis.py · import_cis.py</span>         the walkaway pair (X-03, X-09)
+<span class="ok">  .github/workflows/</span>
+<span class="ok">    verify.yml</span>                            six suites per VS v1
+<span class="ok">    walkaway.yml</span>                          weekly rehearsal (X-09)
+<span class="ok">  commons/im/</span>                             0001_substrate.sql · 0004_export_views.sql
+<span class="ok">  commons/authority-map/</span>                  0002 · 0003 · 0005
+<span class="ok">  supabase/</span>
+<span class="ok">    migrations/</span>                           0006_notices_rail.sql (X-02)
+<span class="ok">    functions/notices/</span>                    the email rail (X-02)</pre>
   </div>
 
   <div class="tree-sec">
-    <div class="tree-sec-label">Repository &middot; Techne-Co-op / techne.coop</div>
+    <div class="tree-sec-label">Pages &middot; Techne-Co-op / techne.coop</div>
     <pre class="tree">techne.coop/
-<span class="ok">&#9632;</span> <span class="ok">index.html</span>                   ecosystem-cut homepage
-<span class="ok">&#9632;</span> <span class="ok">favicon.svg</span>                  cooperative grid mark
-  commons/
-<span class="ok">  &#9632;</span> <span class="ok">index.html</span>                 The Commonplace Book landing
-    build/
-<span class="ok">    &#9632;</span> <span class="ok">index.html</span>               Living roadmap (this page) &middot; RDM v1
-  design-system/
-<span class="ok">  &#9632;</span> <span class="ok">index.html</span>                 Palette &amp; component reference (UI v1 aligned)
-  legal/
-<span class="ok">  &#9632;</span> <span class="ok">index.html</span>                 Articles, bylaws, membership agreement
-  intranet/
-<span class="ok">  &#9632;</span> <span class="ok">index.html</span>                 Auth gate + session shell
-<span class="ant">  &#9633;</span> <span class="ant">belong/index.html</span>          Agreements browse + member profile &larr; B-01, B-03
-<span class="ant">  &#9633;</span> <span class="ant">gather/index.html</span>          Events list + registration &larr; G-01, G-02</pre>
+<span class="ok">&#9632;</span> <span class="ok">index.html</span>                   homepage
+<span class="ok">&#9632;</span> <span class="ok">commons/</span>                     The Commonplace Book landing
+<span class="ok">&#9632;</span> <span class="ok">commons/series/ &hellip;</span>          the Common Record Series artifacts
+<span class="ok">&#9632;</span> <span class="ok">commons/build/</span>               Living roadmap (this page) + agent instructions
+<span class="ok">&#9632;</span> <span class="ok">commons/join/</span>                application intake &larr; B-02
+<span class="ok">&#9632;</span> <span class="ok">commons/agreements/</span>          shelf + inline signing &larr; B-03, B-04
+<span class="ok">&#9632;</span> <span class="ok">commons/directory/</span>           member directory &larr; B-05
+<span class="ok">&#9632;</span> <span class="ok">commons/gatherings/</span>          calendar, registration, attendance &larr; G-01, G-02, G-03
+<span class="ok">&#9632;</span> <span class="ok">design-system/</span>               palette &amp; component reference (the constitution)
+<span class="ok">&#9632;</span> <span class="ok">legal/</span>                       instruments + formation commentary (migrated 2026-07-20)
+<span class="ok">&#9632;</span> <span class="ok">encyclopedia/</span>                encyclopedia of artifacts
+<span class="ok">&#9632;</span> <span class="ok">intranet/</span>                    auth gate + session shell</pre>
   </div>
 
   <div class="tree-sec">
-    <div class="tree-sec-label">Database migrations &middot; substrate train</div>
+    <div class="tree-sec-label">Database migrations &middot; the chain</div>
     <table class="migration-table">
       <thead>
         <tr><th>address</th><th>file</th><th>introduces</th><th>status</th></tr>
       </thead>
       <tbody>
         <tr>
-          <td class="addr-cell">SUB-03 · M-01</td>
+          <td class="addr-cell">SUB-03</td>
           <td class="name-cell">0001_substrate.sql</td>
-          <td class="desc-cell">Emitted by IM v0.1 §9. Agents, agreements, resources, events, event_lines, agreement_sections, role_assignments. Eleven laws as schema comments.</td>
-          <td><span class="chip anticipated"><span class="dot"></span>anticipated</span></td>
+          <td class="desc-cell">Emitted by IM v0.1. Thirteen tables, the event log, the capital fold as a view, RLS enabled deny-by-default.</td>
+          <td><span class="chip verified"><span class="dot"></span>applied 2026-07-11</span></td>
         </tr>
         <tr>
-          <td class="addr-cell">SUB-04 · M-02</td>
+          <td class="addr-cell">SUB-04</td>
           <td class="name-cell">0002_policies.sql</td>
-          <td class="desc-cell">Emitted by AM v0.1 §9. RLS policies, cite-as-you-enforce, AM §5 matrix. rls-audit goes green.</td>
-          <td><span class="chip anticipated"><span class="dot"></span>anticipated</span></td>
+          <td class="desc-cell">Emitted by AM v0.1. Thirty policies with bylaw anchors, six helper functions, the role_grants addendum.</td>
+          <td><span class="chip verified"><span class="dot"></span>applied 2026-07-11</span></td>
         </tr>
         <tr>
-          <td class="addr-cell">B-01 · M-03</td>
-          <td class="name-cell">identity-binding.sql</td>
-          <td class="desc-cell">Auth flow binding auth_user_id to agents. Enables the visibility function to know who asks.</td>
-          <td><span class="chip anticipated"><span class="dot"></span>anticipated · G0</span></td>
+          <td class="addr-cell">B-04</td>
+          <td class="name-cell">0003_sign_agreement.sql</td>
+          <td class="desc-cell">Atomic signature capture as a definer function, per the B-04 escalation decision.</td>
+          <td><span class="chip verified"><span class="dot"></span>applied 2026-07-12</span></td>
         </tr>
         <tr>
-          <td class="addr-cell">G-01 · M-04</td>
-          <td class="name-cell">gatherings.sql</td>
-          <td class="desc-cell">Calendar of gatherings and sessions with RLS. Enables the Gather slice.</td>
-          <td><span class="chip anticipated"><span class="dot"></span>anticipated · G0</span></td>
+          <td class="addr-cell">X-03</td>
+          <td class="name-cell">0004_export_views.sql</td>
+          <td class="desc-cell">Fourteen export projections for the walkaway, role_grants included, security_invoker throughout.</td>
+          <td><span class="chip open"><span class="dot"></span>awaiting live apply</span></td>
         </tr>
         <tr>
-          <td class="addr-cell">F-01 · M-05</td>
-          <td class="name-cell">opportunities.sql</td>
-          <td class="desc-cell">Opportunity board table with RLS. Enables the Find slice.</td>
-          <td><span class="chip anticipated"><span class="dot"></span>anticipated · G-B</span></td>
+          <td class="addr-cell">X-08</td>
+          <td class="name-cell">0005_matrix_conformance.sql</td>
+          <td class="desc-cell">The capital view folds as the asker (security fix); the steward reads the event log per the &sect;5 matrix.</td>
+          <td><span class="chip open"><span class="dot"></span>awaiting live apply</span></td>
+        </tr>
+        <tr>
+          <td class="addr-cell">X-02</td>
+          <td class="name-cell">0006_notices_rail.sql</td>
+          <td class="desc-cell">pg_net trigger forwarding admission events to the notices function. Carries no secret.</td>
+          <td><span class="chip open"><span class="dot"></span>awaiting live apply</span></td>
         </tr>
       </tbody>
     </table>
