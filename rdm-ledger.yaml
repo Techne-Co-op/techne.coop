@@ -400,6 +400,38 @@ belong:
       confirmed update persisted after refresh.
       Verification event: 40a30ce1-9712-4581-a619-69aa5fd9ed4a.
 
+  - address: B-06
+    title: Member profile
+    intent: The directory profile grows beyond a name, on the steward's composition.
+    status: open · built
+    cites: [IM, AM, PRD]
+    ready_when: B-05 verified.
+    deliverable: >
+      profiles table (0009_profiles.sql, AM §9 addendum) and the directory
+      surface reading and writing it: avatar image, bio, links, location,
+      pronouns, and an email whose visibility the owner controls.
+    acceptance: >
+      A member fills their profile and sees it on their card; another member
+      sees the email only when the owner has said so; the record-derived
+      activity strip renders without any declared crafts field.
+    note: >
+      Composition decided in conversation with Todd Youngblood 2026-07-22:
+      images, bio, links, location, pronouns (optional), email
+      (visibility optional); profile updates are NOT evented, presentation
+      state by decision; crafts are not declared but inferred from
+      contributions and patronage activity in the profile view (the record
+      strip now; patronage signals when the Share train opens, Q3). The
+      email cell is column-guarded: no client select carries it, and
+      profile_email() serves it on the owner's terms to active members
+      only. Avatars live in a private storage bucket under self-write,
+      member-read policies; the storage half of 0009 guards on the storage
+      schema so CI substrates apply clean. Walkaway boundary, held openly:
+      profiles and avatar objects are not yet in the X-03 export set;
+      joining them is an X-03 amendment with its own workflow shims, and
+      until then the walkaway carries the record, not the presentation
+      state. Applied to the live CIS by the steward's adoption of the
+      B-06 pull request.
+
 gather:
 
   - address: G-01
