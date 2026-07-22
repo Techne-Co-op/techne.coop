@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The Run-Through: a steward's guide to testing the built Common Information System end to end before launch. What the machine already proves, what only a person can, and how to record what you attest.">
+<title>The Run-Through &middot; RDM v1 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/build/run-through/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/build/run-through/">
+<meta property="og:title" content="The Run-Through · RDM v1 · Techne">
+<meta property="og:description" content="A steward's guide to testing the built CIS end to end before launch.">
+<meta property="og:site_name" content="Techne">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --ok-dim:rgba(106,154,106,0.13);
+  --warn:#C46A6A; --warn-dim:rgba(196,106,106,0.13);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --ok-dim:rgba(74,122,74,0.10);
+  --warn:#A84F4C; --warn-dim:rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition-duration:0ms !important; } }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--serif); font-size:16px; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+code { font-family:var(--mono); font-size:0.84em; color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
+em { font-style:italic; color:var(--heading); }
+
+.topbar {
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; gap:var(--s5);
+  padding:0 var(--s5); height:52px;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.brand { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+.brand-mark { font-family:var(--mono); font-size:0.78rem; font-weight:500; letter-spacing:0.06em; color:var(--heading); transition:color var(--micro) var(--ease); }
+.brand:hover .brand-mark { color:var(--ember-text); }
+.top-nav { flex:1; display:flex; gap:var(--s4); list-style:none; }
+.top-nav a { font-family:var(--mono); font-size:0.72rem; letter-spacing:0.04em; color:var(--muted); text-decoration:none; transition:color var(--micro) var(--ease); }
+.top-nav a:hover { color:var(--heading); }
+.top-nav a[aria-current="page"] { color:var(--ember-text); }
+.mode-toggle {
+  margin-left:auto; display:flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:0.7rem; color:var(--muted);
+  background:none; border:1px solid var(--line); border-radius:2px;
+  padding:5px 9px; cursor:pointer;
+  transition:color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.mode-toggle:hover { color:var(--heading); border-color:var(--rule); }
+.mode-toggle svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+.mast {
+  padding:var(--s7) var(--s5) var(--s6);
+  border-bottom:1px solid var(--rule);
+  max-width:860px; margin:0 auto;
+}
+.mast-eyebrow { font-family:var(--mono); font-size:0.65rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s3); }
+.mast h1 { font-family:var(--serif); font-size:clamp(1.8rem,3.5vw,2.4rem); font-weight:700; color:var(--heading); line-height:1.12; letter-spacing:-0.01em; margin-bottom:var(--s4); }
+.mast-dek { font-size:1.05rem; line-height:1.65; color:var(--text); max-width:62ch; }
+.mast-meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font-family:var(--mono); font-size:0.68rem; color:var(--muted); }
+
+.doc-wrap { max-width:860px; margin:0 auto; padding:0 var(--s5) var(--s8); }
+.sec { padding:var(--s7) 0 0; }
+.sec .addr { font-family:var(--mono); font-size:0.65rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s2); }
+.sec h2 { font-family:var(--serif); font-size:1.45rem; font-weight:700; color:var(--heading); letter-spacing:-0.01em; margin-bottom:var(--s4); padding-left:14px; border-left:3px solid var(--ember); }
+.sec p { margin-bottom:var(--s4); max-width:68ch; }
+.sec p:last-child { margin-bottom:0; }
+.lead { font-size:1.05rem; line-height:1.7; }
+
+.chip {
+  display:inline-flex; align-items:center; gap:5px;
+  font-family:var(--mono); font-size:0.6rem; font-weight:500; letter-spacing:0.05em;
+  padding:3px 7px; border-radius:2px; border:1px solid var(--line);
+  background:var(--surface); white-space:nowrap; vertical-align:middle; color:var(--muted);
+}
+.chip .dot { width:5px; height:5px; border-radius:1px; flex-shrink:0; }
+.chip.ok { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
+.chip.ok .dot { background:var(--ok); }
+.chip.open { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
+.chip.open .dot { background:transparent; border:1px solid var(--warn); }
+.chip.anticipated { color:var(--faint); border-color:var(--line); }
+.chip.anticipated .dot { background:transparent; border:1px solid var(--faint); }
+
+.gate-head { display:flex; align-items:baseline; gap:var(--s3); flex-wrap:wrap; }
+.condition {
+  margin:var(--s4) 0; background:var(--surface);
+  border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s3) var(--s4);
+  font-size:0.88rem; line-height:1.65;
+}
+.condition .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); display:block; margin-bottom:var(--s1); }
+
+.script { margin:var(--s4) 0; counter-reset:beat; }
+.beat { display:grid; grid-template-columns:34px 110px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--line); align-items:baseline; }
+.beat:last-child { border-bottom:0; }
+.beat-n { font-family:var(--mono); font-size:0.68rem; font-weight:600; color:var(--ember-text); text-align:right; padding-top:3px; }
+.beat-who { font-family:var(--mono); font-size:0.68rem; color:var(--muted); padding-top:3px; }
+.beat-body { font-size:0.88rem; line-height:1.65; color:var(--text); }
+.beat-body .sentence { display:block; font-style:italic; color:var(--heading); margin-bottom:var(--s1); }
+.beat-body .observe { display:block; font-family:var(--mono); font-size:0.72rem; color:var(--muted); margin-top:var(--s1); }
+
+.attest {
+  margin:var(--s4) 0; background:var(--inset);
+  border:1px solid var(--line); border-left:2px solid var(--ok); padding:var(--s4);
+}
+.attest .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ok); margin-bottom:var(--s3); }
+.attest p { font-size:0.92rem; font-style:italic; color:var(--heading); margin-bottom:var(--s3); }
+pre.rec {
+  background:var(--inset); border:1px solid var(--line);
+  padding:var(--s4); overflow-x:auto;
+  font-family:var(--mono); font-size:0.74rem; line-height:1.8; color:var(--text);
+  margin:var(--s3) 0 0;
+}
+
+.memo {
+  margin:var(--s7) 0 0; padding:var(--s4) 0;
+  border-top:1px solid var(--rule); border-bottom:4px double var(--heading);
+}
+.memo .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); margin-bottom:var(--s2); }
+.memo p { margin:0; font-size:0.94rem; max-width:66ch; }
+
+footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s4) var(--s5) var(--s8); font-family:var(--mono); font-size:0.65rem; color:var(--faint); display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); max-width:860px; margin-left:auto; margin-right:auto; }
+
+@media (max-width:700px) {
+  .beat { grid-template-columns:28px 1fr; }
+  .beat-who { grid-column:2; padding-top:0; }
+  .beat-body { grid-column:2; }
+  .mast h1 { font-size:1.7rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">Techne</span>
+    </a>
+    <ul class="top-nav">
+      <li><a href="/commons/">Commons</a></li>
+      <li><a href="/commons/build/">Build</a></li>
+      <li><a href="/commons/build/instructions/">Instructions</a></li>
+      <li><a href="/commons/build/gates/">Gates</a></li>
+      <li><a href="/commons/build/run-through/" aria-current="page">Run-through</a></li>
+    </ul>
+    <button class="mode-toggle" id="modeToggle" aria-label="Toggle color mode">
+      <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+      <span id="modeLabel">Light</span>
+    </button>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="mast-eyebrow">the run-through &middot; RDM v1 &middot; steward's systems test</div>
+  <h1>The Run-Through</h1>
+  <p class="mast-dek">A guide to testing the built system end to end, by hand, before launch. The machine has already agreed with itself; this is where the steward finds out whether the system tells the truth to a person. Walked in order, the run-through drives every outstanding acceptance and sets up all three gate attestations. Budget roughly an hour for the walk itself.</p>
+  <div class="mast-meta">
+    <span>cites &middot; RDM v1 &middot; PRD v0.3 &sect;4 &middot; the Gate Book &middot; the notices runbook</span>
+    <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
+  </div>
+</div>
+
+<div class="doc-wrap">
+
+  <section class="sec" id="machine">
+    <div class="addr">&sect;1</div>
+    <h2>What the machine already proves</h2>
+    <p class="lead">Seven suites run on every change, and an eighth rehearses weekly. Before you touch anything, know what is already held, so your attention goes where only a person can look.</p>
+    <div class="condition"><span class="k">ledger-validate</span>The roadmap is coherent: schema, dependency acyclicity, gating consistency, manifest freshness. A packet cannot claim a status it has not earned.</div>
+    <div class="condition"><span class="k">schema-lint &middot; db-verify</span>The migration chain applies clean from zero and the emitted schema matches the Information Model: thirteen tables, the event log append-only, the fold a view.</div>
+    <div class="condition"><span class="k">rls-audit</span>The probe matrix: every role against every table per AM v0.1 &sect;5, each probe citing its cell. Who can see what is proven cell by cell, not assumed.</div>
+    <div class="condition"><span class="k">gate-rehearsal</span>Every Belong, Gather, and Find sentence as a committed sequential journey: apply, admit, read, sign, register, attend, post, respond, resolve, with every refusal asserted. Thirteen beats, four personas.</div>
+    <div class="condition"><span class="k">restore-test &middot; style-lint</span>Backup restores and folds match; the prose keeps house style.</div>
+    <div class="condition"><span class="k">walkaway (weekly)</span>Export, stand fresh infrastructure, import, re-export, byte-identical, fold reconstructed. Already run live on 2026-07-21: events <code>export.taken</code> and <code>walkaway.rehearsed</code> are in your record.</div>
+    <p>What none of this can prove: that the deployed pages against the live database behave the way the CI substrate does; that a real magic link arrives and signs in; that the Telegram notice lands in your hand; and that the whole thing reads honestly to the person using it. That is the run-through.</p>
+  </section>
+
+  <section class="sec" id="bench">
+    <div class="addr">&sect;2</div>
+    <h2>The bench</h2>
+    <p class="lead">Two identities, four windows. Set these up before beat one.</p>
+    <div class="condition"><span class="k">the steward</span>Your normal browser, signed in as yourself. Your agent row is bound and holds the steward grant.</div>
+    <div class="condition"><span class="k">the newcomer</span>A private or second browser, signed out of everything, plus an email address you control that has never touched the system. The newcomer should feel like a stranger, because the system will treat them as one.</div>
+    <div class="condition"><span class="k">the desk</span>The <a href="https://supabase.com/dashboard/project/ujujwgopdwirebgcpekc/sql/new">SQL editor</a> for the three steward acts and for reading the record, and your Telegram (the @nou_guild_bot chat) for the intake notice.</div>
+    <div class="condition"><span class="k">the countersigner</span>For the G-B and G-G attestations only: one member who is not an organizer, on their own device, at whatever moment suits you both. Every other beat is yours alone.</div>
+    <div class="memo">
+      <div class="k">on the marks this leaves</div>
+      <p>The record is append-only, so the run-through becomes the record's first story: an application, a signature, a small gathering, an opportunity posted and resolved. Run the newcomer as a real identity of yours, plainly named, and the story stays honest. If you want a pristine record at launch instead, say so: the walkaway machinery can stand a fresh database and carry over only what you choose. Nothing here forces that decision today.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="door">
+    <div class="addr">&sect;3 &middot; X-02, B-02</div>
+    <h2>First act &middot; the front door</h2>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">01</div><div class="beat-who">newcomer</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can complete onboarding without a meeting.&rdquo;</span>
+          In the stranger's browser, open <a href="/commons/join/">/commons/join/</a> and submit the application: the newcomer's name, the fresh email, a line of intent. Nobody helps.
+          <span class="observe">observe: the received panel, no error, no dead end</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">02</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;Admission notice delivered on the membership.state transition to applied.&rdquo;</span>
+          Pick up your phone. The intake notice should already be in your Telegram: the applicant's name, the event id, the address, and the named gap where the email acknowledgment will one day ride.
+          <span class="observe">this delivery is the X-02 acceptance; say so and the packet verifies</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="desk">
+    <div class="addr">&sect;4 &middot; the steward's desk</div>
+    <h2>Second act &middot; bind and admit</h2>
+    <p class="lead">Two acts belong to the assigned hand and nobody else: binding the sign-in to the agent, and admission itself. Both are one statement in the SQL editor. First, have the newcomer request a magic link on any member page (for example <a href="/commons/agreements/">the agreements shelf</a>) and click it, so their auth user exists.</p>
+    <pre class="rec">-- who applied, and who just signed in
+select a.id as agent_id, a.display_name, m.state
+  from agents a join memberships m on m.agent_id = a.id
+ where m.state = 'applied';
+
+select id as auth_uid, email from auth.users
+ order by created_at desc limit 3;
+
+-- bind: the sign-in becomes the agent (B-01)
+update agents
+   set auth_user_id = '&lt;auth_uid&gt;'
+ where id = '&lt;agent_id&gt;';
+
+-- admit: the Board's assigned hand flips the state (Bylaws 1.3)
+update memberships
+   set state = 'active'
+ where agent_id = '&lt;agent_id&gt;';</pre>
+    <p>Have the newcomer reload. The system now knows who asks.</p>
+  </section>
+
+  <section class="sec" id="belong">
+    <div class="addr">&sect;5 &middot; G-B</div>
+    <h2>Third act &middot; Belong</h2>
+    <p class="lead">The newcomer drives every beat; you watch. The full script with attestation text is in <a href="/commons/build/gates/#g-b">the Gate Book</a>. In short:</p>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">03</div><div class="beat-who">newcomer</div>
+        <div class="beat-body">
+          Read the shelf at <a href="/commons/agreements/">/commons/agreements/</a>: every agreement that binds them, version and standing marked, their own chip unsigned.
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">04</div><div class="beat-who">newcomer</div>
+        <div class="beat-body">
+          Sign the membership agreement. Read the confirmation aloud. Then sign again and watch the system refuse the duplicate.
+          <span class="observe">observe: the signature panel; the second attempt refused, not doubled</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">05</div><div class="beat-who">newcomer</div>
+        <div class="beat-body">
+          Open <a href="/commons/directory/">the directory</a>, appear in it, and edit their own profile. Confirm no edit path exists into anyone else's.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="gather">
+    <div class="addr">&sect;6 &middot; G-G</div>
+    <h2>Fourth act &middot; Gather</h2>
+    <p class="lead">Seed one small real gathering as its host, then let the newcomer walk the cycle. Creation is a host act at the desk for now; the calendar, registration, and attendance all live on the page.</p>
+    <pre class="rec">-- the host stands a gathering under a named agreement (2.1)
+insert into gatherings (title, host_agent_id, agreement_id)
+values ('Run-through gathering',
+        '&lt;your agent_id&gt;',
+        (select id from agreements order by effective_date desc limit 1))
+returning id;
+
+insert into sessions (gathering_id, starts_at, ends_at)
+values ('&lt;gathering_id&gt;',
+        now() + interval '1 day',
+        now() + interval '1 day' + interval '90 minutes');</pre>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">06</div><div class="beat-who">newcomer</div>
+        <div class="beat-body">
+          Open <a href="/commons/gatherings/">the calendar</a>, see the gathering and its host, then register, cancel, and register again.
+          <span class="observe">observe: the full cycle preserved, never deleted</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">07</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          As host, open the attendance panel and record the newcomer present. If you are curious, try to have the newcomer record their own attendance; the system refuses.
+          <span class="observe">observe: recorder captured; presence counted where the record counts it</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="find">
+    <div class="addr">&sect;7 &middot; G-F</div>
+    <h2>Fifth act &middot; Find one another</h2>
+    <p class="lead">The newest surface, at <a href="/commons/opportunities/">/commons/opportunities/</a>. Three acts verify the train.</p>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">08</div><div class="beat-who">newcomer</div>
+        <div class="beat-body">
+          Post an opportunity: kind, title, a line of detail. Walk the kind filter and find it on the board.
+          <span class="observe">F-01 acceptance</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">09</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          Respond to it from your own account. Both of you see the response; the machine has already proven a third member would not (the rehearsal's bystander persona).
+          <span class="observe">F-02 acceptance</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">10</div><div class="beat-who">newcomer</div>
+        <div class="beat-body">
+          Resolve the opportunity with an outcome note. The board shows it closed to everyone; the outcome lands as an event for the parties.
+          <span class="observe">F-03 acceptance</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="record">
+    <div class="addr">&sect;8</div>
+    <h2>Read the record back</h2>
+    <p class="lead">The system's claim is that state is a fold over events. So fold it, by eye, at the desk:</p>
+    <pre class="rec">select e.occurred_at, e.kind,
+       coalesce(a.display_name, '(system)') as actor,
+       e.payload
+  from events e
+  left join agents a on a.id = e.actor_agent_id
+ order by e.occurred_at;</pre>
+    <p>The morning's story should read in order: an application received, a signature signed, an opportunity resolved, and behind them the July record: the exports, the walkaway, G0. If any act you just performed is missing here, that absence is a defect worth more than any passing suite.</p>
+  </section>
+
+  <section class="sec" id="refusals">
+    <div class="addr">&sect;9</div>
+    <h2>What the system must refuse</h2>
+    <p class="lead">A record is defined as much by what it will not do. Each of these is CI-asserted; spot-check whichever you like by hand.</p>
+    <div class="condition"><span class="k">signed out</span>Every member page shows the auth gate and nothing else. The anon role reads no table.</div>
+    <div class="condition"><span class="k">double signature</span>Signing the same agreement twice is refused, not duplicated.</div>
+    <div class="condition"><span class="k">another's profile</span>No member edits any profile but their own.</div>
+    <div class="condition"><span class="k">self-reported presence</span>Attendance is recorded by host or steward only.</div>
+    <div class="condition"><span class="k">another's posting</span>Only the author closes an opportunity; a response is invisible to a member who is party to neither side.</div>
+    <div class="condition"><span class="k">the log itself</span>Events cannot be updated or deleted, by anyone. Corrections compensate.</div>
+  </section>
+
+  <section class="sec" id="attest">
+    <div class="addr">&sect;10</div>
+    <h2>Attest and flip</h2>
+    <p class="lead">When the walk satisfies you, three gates are ready to attest: G-B and G-G with your countersigner, G-F on the same evidence. The words and the recording procedure are in <a href="/commons/build/gates/#final">the Gate Book</a>: speak the sentence, insert the <code>gate.attested</code> event, and hand me the word; the ledger flips by commit and the roadmap follows.</p>
+    <p>Left standing after the walk, each named and held: the <strong>Q3 counting rules</strong> before the Share train exists at all; the <strong>bylaws mark</strong> (instrument v2.1 Ratified against legal index v2 Drafted) before G-R can attest; the <strong>Q1 public name</strong> for the opportunity surface, yours whenever you want it; and the <strong>email sink</strong>, dormant until the zone manager places two DNS records.</p>
+    <pre class="rec">the run sheet
+[ ] join form submitted from the stranger's browser
+[ ] intake notice in Telegram            -&gt; X-02 verified
+[ ] newcomer bound and admitted at the desk
+[ ] agreements read, signed, double-sign refused
+[ ] directory: self-edit only
+[ ] gathering seeded; register / cancel / return
+[ ] attendance recorded by host; self-report refused
+[ ] opportunity posted                   -&gt; F-01 verified
+[ ] response seen by both parties        -&gt; F-02 verified
+[ ] resolved with outcome, closed to all -&gt; F-03 verified
+[ ] events log reads the story in order
+[ ] G-B spoken and recorded (with countersigner)
+[ ] G-G spoken and recorded (with countersigner)
+[ ] G-F spoken and recorded</pre>
+  </section>
+
+</div>
+
+<footer>
+  <span>The Run-Through &middot; RDM v1</span>
+  <span>RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
+  <span><a href="/commons/build/">Living Roadmap</a></span>
+  <span><a href="/commons/build/gates/">The Gate Book</a></span>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn  = document.getElementById('modeToggle');
+  var icon = document.getElementById('modeIcon');
+  var lbl  = document.getElementById('modeLabel');
+
+  var sunPaths = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  var moonPaths = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+
+  function apply(m) {
+    root.setAttribute('data-mode', m);
+    icon.innerHTML = m === 'dark' ? sunPaths : moonPaths;
+    lbl.textContent = m === 'dark' ? 'Light' : 'Dark';
+  }
+
+  var stored = null;
+  try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+  var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  apply(m);
+
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try { localStorage.setItem('techne-mode', next); } catch(e) {}
+  });
+})();
+</script>
+</body>
+</html>
