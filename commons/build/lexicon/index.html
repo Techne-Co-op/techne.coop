@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The Lexicon: the working vocabulary of the Common Information System, defined in plain language. Companion to the Run-Through.">
+<title>The Lexicon &middot; RDM v1 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/build/lexicon/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/build/lexicon/">
+<meta property="og:title" content="The Lexicon · RDM v1 · Techne">
+<meta property="og:description" content="The working vocabulary of the CIS, defined in plain language. Companion to the Run-Through.">
+<meta property="og:site_name" content="Techne">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --ok-dim:rgba(106,154,106,0.13);
+  --warn:#C46A6A; --warn-dim:rgba(196,106,106,0.13);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --ok-dim:rgba(74,122,74,0.10);
+  --warn:#A84F4C; --warn-dim:rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition-duration:0ms !important; } }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--serif); font-size:16px; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+code { font-family:var(--mono); font-size:0.84em; color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
+em { font-style:italic; color:var(--heading); }
+
+.topbar {
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; gap:var(--s5);
+  padding:0 var(--s5); height:52px;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.brand { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+.brand-mark { font-family:var(--mono); font-size:0.78rem; font-weight:500; letter-spacing:0.06em; color:var(--heading); transition:color var(--micro) var(--ease); }
+.brand:hover .brand-mark { color:var(--ember-text); }
+.top-nav { flex:1; display:flex; gap:var(--s4); list-style:none; }
+.top-nav a { font-family:var(--mono); font-size:0.72rem; letter-spacing:0.04em; color:var(--muted); text-decoration:none; transition:color var(--micro) var(--ease); }
+.top-nav a:hover { color:var(--heading); }
+.top-nav a[aria-current="page"] { color:var(--ember-text); }
+.mode-toggle {
+  margin-left:auto; display:flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:0.7rem; color:var(--muted);
+  background:none; border:1px solid var(--line); border-radius:2px;
+  padding:5px 9px; cursor:pointer;
+  transition:color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.mode-toggle:hover { color:var(--heading); border-color:var(--rule); }
+.mode-toggle svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+.mast {
+  padding:var(--s7) var(--s5) var(--s6);
+  border-bottom:1px solid var(--rule);
+  max-width:860px; margin:0 auto;
+}
+.mast-eyebrow { font-family:var(--mono); font-size:0.65rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s3); }
+.mast h1 { font-family:var(--serif); font-size:clamp(1.8rem,3.5vw,2.4rem); font-weight:700; color:var(--heading); line-height:1.12; letter-spacing:-0.01em; margin-bottom:var(--s4); }
+.mast-dek { font-size:1.05rem; line-height:1.65; color:var(--text); max-width:62ch; }
+.mast-meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font-family:var(--mono); font-size:0.68rem; color:var(--muted); }
+
+.doc-wrap { max-width:860px; margin:0 auto; padding:0 var(--s5) var(--s8); }
+.sec { padding:var(--s7) 0 0; }
+.sec .addr { font-family:var(--mono); font-size:0.65rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s2); }
+.sec h2 { font-family:var(--serif); font-size:1.45rem; font-weight:700; color:var(--heading); letter-spacing:-0.01em; margin-bottom:var(--s4); padding-left:14px; border-left:3px solid var(--ember); }
+.sec p { margin-bottom:var(--s4); max-width:68ch; }
+.sec p:last-child { margin-bottom:0; }
+.lead { font-size:1.05rem; line-height:1.7; }
+
+.chip {
+  display:inline-flex; align-items:center; gap:5px;
+  font-family:var(--mono); font-size:0.6rem; font-weight:500; letter-spacing:0.05em;
+  padding:3px 7px; border-radius:2px; border:1px solid var(--line);
+  background:var(--surface); white-space:nowrap; vertical-align:middle; color:var(--muted);
+}
+.chip .dot { width:5px; height:5px; border-radius:1px; flex-shrink:0; }
+.chip.ok { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
+.chip.ok .dot { background:var(--ok); }
+.chip.open { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
+.chip.open .dot { background:transparent; border:1px solid var(--warn); }
+.chip.anticipated { color:var(--faint); border-color:var(--line); }
+.chip.anticipated .dot { background:transparent; border:1px solid var(--faint); }
+
+.gate-head { display:flex; align-items:baseline; gap:var(--s3); flex-wrap:wrap; }
+.condition {
+  margin:var(--s4) 0; background:var(--surface);
+  border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s3) var(--s4);
+  font-size:0.88rem; line-height:1.65;
+}
+.condition .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); display:block; margin-bottom:var(--s1); }
+
+.script { margin:var(--s4) 0; counter-reset:beat; }
+.beat { display:grid; grid-template-columns:34px 110px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--line); align-items:baseline; }
+.beat:last-child { border-bottom:0; }
+.beat-n { font-family:var(--mono); font-size:0.68rem; font-weight:600; color:var(--ember-text); text-align:right; padding-top:3px; }
+.beat-who { font-family:var(--mono); font-size:0.68rem; color:var(--muted); padding-top:3px; }
+.beat-body { font-size:0.88rem; line-height:1.65; color:var(--text); }
+.beat-body .sentence { display:block; font-style:italic; color:var(--heading); margin-bottom:var(--s1); }
+.beat-body .observe { display:block; font-family:var(--mono); font-size:0.72rem; color:var(--muted); margin-top:var(--s1); }
+
+.attest {
+  margin:var(--s4) 0; background:var(--inset);
+  border:1px solid var(--line); border-left:2px solid var(--ok); padding:var(--s4);
+}
+.attest .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ok); margin-bottom:var(--s3); }
+.attest p { font-size:0.92rem; font-style:italic; color:var(--heading); margin-bottom:var(--s3); }
+pre.rec {
+  background:var(--inset); border:1px solid var(--line);
+  padding:var(--s4); overflow-x:auto;
+  font-family:var(--mono); font-size:0.74rem; line-height:1.8; color:var(--text);
+  margin:var(--s3) 0 0;
+}
+
+.memo {
+  margin:var(--s7) 0 0; padding:var(--s4) 0;
+  border-top:1px solid var(--rule); border-bottom:4px double var(--heading);
+}
+.memo .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); margin-bottom:var(--s2); }
+.memo p { margin:0; font-size:0.94rem; max-width:66ch; }
+
+footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s4) var(--s5) var(--s8); font-family:var(--mono); font-size:0.65rem; color:var(--faint); display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); max-width:860px; margin-left:auto; margin-right:auto; }
+
+@media (max-width:700px) {
+  .beat { grid-template-columns:28px 1fr; }
+  .beat-who { grid-column:2; padding-top:0; }
+  .beat-body { grid-column:2; }
+  .mast h1 { font-size:1.7rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">Techne</span>
+    </a>
+    <ul class="top-nav">
+      <li><a href="/commons/">Commons</a></li>
+      <li><a href="/commons/build/">Build</a></li>
+      <li><a href="/commons/build/instructions/">Instructions</a></li>
+      <li><a href="/commons/build/gates/">Gates</a></li>
+      <li><a href="/commons/build/run-through/">Run-through</a></li>
+      <li><a href="/commons/build/lexicon/" aria-current="page">Lexicon</a></li>
+    </ul>
+    <button class="mode-toggle" id="modeToggle" aria-label="Toggle color mode">
+      <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+      <span id="modeLabel">Light</span>
+    </button>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="mast-eyebrow">the lexicon &middot; RDM v1 &middot; companion to the run-through</div>
+  <h1>The Lexicon</h1>
+  <p class="mast-dek">The working vocabulary of the Common Information System, defined in plain language. Every term here is used somewhere in the build with a precise meaning; this page is where the meanings live in one place. Read it alongside <a href="/commons/build/run-through/">the Run-Through</a>, or whenever a word on any surface carries more weight than it seems to.</p>
+  <div class="mast-meta">
+    <span>cites &middot; RDM v1 &middot; PRD v0.3 &middot; IM v0.1 &middot; AM v0.1 &middot; BP v1</span>
+    <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
+  </div>
+</div>
+
+<div class="doc-wrap">
+
+  <section class="sec" id="record">
+    <div class="addr">&sect;1</div>
+    <h2>The record</h2>
+    <p class="lead">The system's first claim: what is true is what happened, and everything else is a reading of it.</p>
+    <div class="condition"><span class="k">event</span>The unit of record. One thing that happened, written once, never edited: an application received, a signature signed, an opportunity resolved, a gate attested. Every event carries when it occurred, who acted, whom it concerns, and a payload. The events table is the single source of truth.</div>
+    <div class="condition"><span class="k">append-only</span>The event log admits new rows and refuses everything else. A database trigger raises an error on any update or delete, for anyone. History is not editable, by design and by machinery.</div>
+    <div class="condition"><span class="k">correction</span>How a wrong event is handled, since it cannot be erased: a new event is written that compensates for the old one and points back at it. The mistake and its correction both remain in the record. Nothing is ever quietly fixed.</div>
+    <div class="condition"><span class="k">fold</span>A reading computed over events. State at any moment is the fold of everything that happened up to it: state(t) = fold(events). A fold is recomputed, never stored as an editable number, so any figure can be traced to the events that produced it.</div>
+    <div class="condition"><span class="k">projection</span>What a fold produces for a particular reader or purpose. A member's capital account has two projections, book and tax, both folded from the same events.</div>
+    <div class="condition"><span class="k">capital account</span>Each member's share of the cooperative's results, as a fold over capital events. It is a database view, not a table: there is no stored balance to edit. Currently a stub awaiting the Q3 counting rules.</div>
+    <div class="condition"><span class="k">stock ledger</span>The record of membership shares, one share of common voting stock per member on admission. Distinct from the roadmap ledger below; when someone says ledger, ask which.</div>
+    <div class="condition"><span class="k">provenance</span>A mark every event carries: real or illustrative. A demonstration or seeded example is marked illustrative at creation and can never be mistaken for a member's actual history. A demonstration that leaks into the real record unmarked is a defect.</div>
+  </section>
+
+  <section class="sec" id="people">
+    <div class="addr">&sect;2</div>
+    <h2>People and roles</h2>
+    <p class="lead">Authority in this system is event-based and time-bound: nobody simply is an authority; they hold a recorded grant.</p>
+    <div class="condition"><span class="k">agent</span>The identity spine: one row per participant, human or not, across every relationship state. An applicant, a member, the cooperative itself, and the runtime instrument are all agents. Being an agent grants nothing by itself.</div>
+    <div class="condition"><span class="k">member</span>An agent with an active membership: admitted per the Bylaws, one share, one vote. Most of what the surfaces show is scoped to members.</div>
+    <div class="condition"><span class="k">applicant</span>A person whose application has been received and whose membership stands at applied. They can be read about by those the record admits, but they hold no member visibility until admission.</div>
+    <div class="condition"><span class="k">binding</span>The link between a sign-in and an agent row. When a person authenticates, the system resolves who is asking through this link; until a steward binds them, an authenticated stranger is nobody in particular and sees what nobody sees.</div>
+    <div class="condition"><span class="k">steward</span>The operational hand: manages intake, may record lifecycle transitions, attendance, and read the log the matrix assigns. In the Bylaws the role rides the membership liaison of &sect;1.13 plus a delegating Board resolution; authority is held as a recorded role grant, not a title.</div>
+    <div class="condition"><span class="k">organizer</span>A build-protocol word, not a database role: the humans who decide, sign, and govern. Agents draft and surface; organizers adopt. Responsibility never transfers to an instrument.</div>
+    <div class="condition"><span class="k">overseer</span>Shorthand in the policy layer for the roles with broad read: director, secretary, treasurer, steward. Each is a row in role_grants with a granted date and, when it ends, a revoked date.</div>
+    <div class="condition"><span class="k">host</span>The member who stands a gathering. The host manages their gathering's sessions and records attendance for them; the steward may act as host.</div>
+    <div class="condition"><span class="k">author and responder</span>The two parties of an opportunity. The author posts and closes it; a responder answers it. A response is visible to exactly these parties and the overseers, nobody else.</div>
+    <div class="condition"><span class="k">countersigner</span>The second human of a gate attestation: a non-organizer member who demonstrates or witnesses alongside the organizer, because belonging is not self-certified.</div>
+    <div class="condition"><span class="k">instrument</span>A non-human agent with capabilities but no authority: the runtime (Nou) and the session-scoped build agents. Instruments hold no role, no grant, no vote. Nothing an instrument writes becomes record or policy until an organizer adopts it by visible act.</div>
+  </section>
+
+  <section class="sec" id="work">
+    <div class="addr">&sect;3</div>
+    <h2>The work of building</h2>
+    <p class="lead">The build itself keeps a record, with the same honesty rules as the system it builds.</p>
+    <div class="condition"><span class="k">packet</span>The unit of work: a validated entry in the roadmap ledger, small enough for one session to advance and complete enough for a stranger to pick up. A packet carries an address, an intent, citations, a readiness condition, a deliverable, an acceptance, and its honest status.</div>
+    <div class="condition"><span class="k">address</span>A packet's citable code: SUB-01, B-03, X-02, G-F. Used in branches, commits, escalation cards, and conversation. When this page says X-02, it means one exact thing.</div>
+    <div class="condition"><span class="k">train</span>A dependency-ordered sequence of packets sharing a gate: Substrate, Belong, Gather, Find, Share, Cross-cutting. Trains advance in parallel once the substrate under them is verified. There are no dates; the only schedule is each packet's readiness condition.</div>
+    <div class="condition"><span class="k">slice</span>The product-side word for the same territory: a member capability described in sentences ("a member can register without asking anyone"). PRD v0.3 &sect;4 defines four launch slices; the trains build them.</div>
+    <div class="condition"><span class="k">roadmap ledger</span>rdm-ledger.yaml: the validated YAML file holding every packet and its status. The living roadmap page reads it; the validator enforces it; status changes land by commit. The ledger is truth; prose that disagrees with it is wrong.</div>
+    <div class="condition"><span class="k">status marks</span>drafted (the document exists and governs) &middot; anticipated (defined, upstream must clear) &middot; open &middot; (blocker) (workable or blocked, the mark names by what) &middot; verified (acceptance demonstrated, marked in the steward's name) &middot; attested (a gate's human act recorded). Nothing wears a status it has not earned.</div>
+    <div class="condition"><span class="k">verified</span>A packet's acceptance was demonstrated and an organizer marked it so, with evidence cited. Verification is a human adoption, usually the merge of the pull request that records it.</div>
+    <div class="condition"><span class="k">gate</span>A human act closing a train: people demonstrate the capability live, speak the attestation, and record it as a gate.attested event. CI proves the machine agrees with itself; a gate proves the cooperative agrees with the machine. Scripts live in the Gate Book.</div>
+    <div class="condition"><span class="k">escalation card</span>The one shape for stopping: standing in (where), found (what, with citations), the question (the smallest one that unblocks), a default (a proposed answer a busy organizer can approve with a word). Agents escalate anything touching money, membership, governance semantics, new dependencies, or public names.</div>
+    <div class="condition"><span class="k">decision record</span>An organizer's answer, written into the ledger where the card stands. Decisions are visible acts in the history, citable like any other record.</div>
+    <div class="condition"><span class="k">named condition</span>An open blocker with a name instead of a date: Q1 (the public label for the opportunity surface), Q3 (the counting rules), the steward's run-through. Work waits on conditions, never on the calendar.</div>
+    <div class="condition"><span class="k">provenance trailer</span>The authorship mark on agent commits: Authored-by: build-agent / &lt;address&gt;. The build's own history says who drafted what, so adoption stays a human act.</div>
+  </section>
+
+  <section class="sec" id="documents">
+    <div class="addr">&sect;4</div>
+    <h2>The governing documents</h2>
+    <p class="lead">Seven drafted artifacts govern the build; two ratified instruments govern the cooperative. When documents disagree, lower yields to higher, and the disagreement is filed either way.</p>
+    <div class="condition"><span class="k">the series</span>SER (the overview) &middot; PRD (what to build, in member sentences) &middot; BP (how agents and organizers work) &middot; UI (tokens and patterns) &middot; IM (the information model and its laws) &middot; VS (verification: suites and gates) &middot; AM (who may do what, anchored in the Bylaws). Each emits something the repository carries: a schema, a stylesheet, a workflow, an operating contract.</div>
+    <div class="condition"><span class="k">bylaws &middot; membership agreement</span>The ratified instruments: Bylaws v2.1 and Membership Agreement v2.3, both Ratified July 2026, published under /legal/ with commentary. The Authority Map anchors every policy in them.</div>
+    <div class="condition"><span class="k">anchor</span>The bylaws citation a policy carries in its comment: the section that authorizes what the policy does. A policy without an anchor does not merge. G-R re-verifies every anchor against the governing text before it attests.</div>
+    <div class="condition"><span class="k">precedence</span>The order when texts disagree: law and bylaws &rarr; board policy &rarr; PRD &rarr; IM and AM &rarr; BP and VS &rarr; packet briefs &rarr; code. The emissions conform to the documents, not the documents to the code; 0005 exists because the deployed database once disagreed with the matrix and lost.</div>
+    <div class="condition"><span class="k">adoption</span>The visible human act that turns a draft into a record: a merge, a decision written into the ledger, an attestation spoken and recorded. The system runs on adoption the way the database runs on events.</div>
+  </section>
+
+  <section class="sec" id="machinery">
+    <div class="addr">&sect;5</div>
+    <h2>The machinery</h2>
+    <p class="lead">What actually runs, and the names it answers to.</p>
+    <div class="condition"><span class="k">CIS</span>The Common Information System: the whole of it. One database, its policies, the pages over it, and the record they keep together. Also called the Commonplace Book on the member-facing side.</div>
+    <div class="condition"><span class="k">substrate</span>The foundation the trains stand on: the thirteen tables, the event log, and the fold, emitted by the Information Model as migration 0001 and verified through gate G0.</div>
+    <div class="condition"><span class="k">migration chain</span>The numbered SQL files that stand the database from zero: 0001 substrate &middot; 0002 policies &middot; 0003 sign_agreement &middot; 0004 export views &middot; 0005 matrix conformance &middot; 0006 notices rail &middot; 0007 the front door. Timestamped, ordered, applied once each; the repository can reconstruct the database because the chain is complete.</div>
+    <div class="condition"><span class="k">policy &middot; RLS</span>Row-level security: the database itself decides, row by row, what each asker may see or write. Visibility is never client-side courtesy; a page that showed you someone else's rows could not, because the rows never leave the database. Deny by default; every allowance is a named policy with an anchor.</div>
+    <div class="condition"><span class="k">definer function</span>A database function that runs with its own authority to make several writes one act: sign_agreement() lands the signature and its event atomically; apply_for_membership() is the front door, landing application, membership, and event in one motion for a stranger who holds no permissions at all.</div>
+    <div class="condition"><span class="k">magic link</span>Sign-in by email: no passwords anywhere in the system. The link authenticates a person; binding then tells the system which agent they are.</div>
+    <div class="condition"><span class="k">notices rail</span>The path from an event to a human: a database trigger forwards admission events to a small function that delivers notices. Two sinks, each behind its own seam: the steward's intake notice rides Telegram, live; the applicant's email acknowledgment waits on DNS. A missing sink is named as a gap in the steward notice, never silently dropped.</div>
+    <div class="condition"><span class="k">seam</span>A deliberate single point of replacement. The notice sender lives behind one seam, so swapping providers changes one function and nothing else. Seams are how the system stays small without staying stuck.</div>
+    <div class="condition"><span class="k">export &middot; export SHA</span>The walkaway's food: every table serialized to canonical JSON, each file hashed, and a manifest of those hashes whose own sha256 is THE export SHA. Two exports with the same SHA are byte-identical; nothing time-dependent lives inside.</div>
+    <div class="condition"><span class="k">walkaway</span>The proof that the cooperative could leave: export the record, stand fresh infrastructure from the public repository alone, import, re-export, and require SHA equality with the fold exactly reconstructed. Rehearsed weekly in CI; run live on 2026-07-21 with its events recorded. If the platform vanished tomorrow, the record would not.</div>
+    <div class="condition"><span class="k">the suites</span>The seven CI checks on every change: ledger-validate, schema-lint, db-verify, rls-audit, gate-rehearsal, restore-test, style-lint. Green suites are the floor, not the ceiling: they prove the machine agrees with itself.</div>
+    <div class="condition"><span class="k">probe matrix</span>The rls-audit's heart: every role tried against every table, each probe citing the Authority Map cell it proves. Found two real gaps once; the documents won.</div>
+    <div class="condition"><span class="k">gate rehearsal</span>The mechanical half of the Gate Book: every member-capability sentence run as a committed, sequential journey in CI, with four personas and every refusal asserted, so the human ceremony never discovers a defect.</div>
+  </section>
+
+  <section class="sec" id="surfaces">
+    <div class="addr">&sect;6</div>
+    <h2>The surfaces</h2>
+    <p class="lead">Five doors over one record. Each page is self-contained, tokens inline, no build step.</p>
+    <div class="condition"><span class="k">the join form</span>/commons/join/ &middot; the front door. A stranger applies without an account, a meeting, or help; the record opens with their application and the steward is notified.</div>
+    <div class="condition"><span class="k">the agreements shelf</span>/commons/agreements/ &middot; every agreement that binds you, version and standing marked, with inline signing. You cannot be bound by something you cannot read.</div>
+    <div class="condition"><span class="k">the directory</span>/commons/directory/ &middot; members, each with a profile they alone control.</div>
+    <div class="condition"><span class="k">the calendar</span>/commons/gatherings/ &middot; gatherings and their sessions: register, cancel, return; hosts record attendance where the record counts it.</div>
+    <div class="condition"><span class="k">the board</span>/commons/opportunities/ &middot; open invitations to play, practice, and work. Working label Opportunities; the public name awaits the Q1 decision.</div>
+    <div class="condition"><span class="k">play &middot; practice &middot; work</span>The three kinds of opportunity, from lightest to weightiest: something for its own sake, something to get better at together, something with stakes and obligations. The kind is the author's claim about what they are inviting.</div>
+    <div class="condition"><span class="k">open &middot; resolved &middot; withdrawn</span>An opportunity's lifecycle. Open invites responses; resolved means it led somewhere and the author closed it, ideally saying what it led to; withdrawn means the author took it back. Either closing lands as an event.</div>
+    <div class="condition"><span class="k">gathering &middot; session</span>A gathering is the thing (a meetup, a workshop, a meeting) with a host and a governing agreement; sessions are its occurrences in time. Registration and attendance attach to sessions.</div>
+  </section>
+
+  <div class="memo" style="margin-top:var(--s7)">
+    <div class="k">one sentence, if you keep only one</div>
+    <p>Everything is an event, every number is a fold, every permission has an anchor, every status is earned, and nothing becomes real until a person adopts it.</p>
+  </div>
+
+</div>
+
+<footer>
+  <span>The Lexicon &middot; RDM v1</span>
+  <span>RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
+  <span><a href="/commons/build/run-through/">The Run-Through</a></span>
+  <span><a href="/commons/build/gates/">The Gate Book</a></span>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn  = document.getElementById('modeToggle');
+  var icon = document.getElementById('modeIcon');
+  var lbl  = document.getElementById('modeLabel');
+
+  var sunPaths = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  var moonPaths = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+
+  function apply(m) {
+    root.setAttribute('data-mode', m);
+    icon.innerHTML = m === 'dark' ? sunPaths : moonPaths;
+    lbl.textContent = m === 'dark' ? 'Light' : 'Dark';
+  }
+
+  var stored = null;
+  try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+  var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  apply(m);
+
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try { localStorage.setItem('techne-mode', next); } catch(e) {}
+  });
+})();
+</script>
+</body>
+</html>
