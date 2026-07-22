@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The Fifteen-Minute Walk: a guide to the live commons for RegenHub organizers and founding members. Sign in, sign the agreement, appear in the directory, register for a gathering, post to the board. Education and information, the fifth cooperative principle.">
+<title>The Fifteen-Minute Walk &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/build/run-through/organizers/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/build/run-through/organizers/">
+<meta property="og:title" content="The Fifteen-Minute Walk · Techne">
+<meta property="og:description" content="The live commons, walked in fifteen minutes. For organizers and founding members of RegenHub, LCA.">
+<meta property="og:site_name" content="Techne">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --ok-dim:rgba(106,154,106,0.13);
+  --warn:#C46A6A; --warn-dim:rgba(196,106,106,0.13);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --ok-dim:rgba(74,122,74,0.10);
+  --warn:#A84F4C; --warn-dim:rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition-duration:0ms !important; } }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--serif); font-size:16px; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+code { font-family:var(--mono); font-size:0.84em; color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
+em { font-style:italic; color:var(--heading); }
+
+.topbar {
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; gap:var(--s5);
+  padding:0 var(--s5); height:52px;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.brand { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
+.brand-mark { font-family:var(--mono); font-size:0.78rem; font-weight:500; letter-spacing:0.06em; color:var(--heading); transition:color var(--micro) var(--ease); }
+.brand:hover .brand-mark { color:var(--ember-text); }
+.top-nav { flex:1; display:flex; gap:var(--s4); list-style:none; }
+.top-nav a { font-family:var(--mono); font-size:0.72rem; letter-spacing:0.04em; color:var(--muted); text-decoration:none; transition:color var(--micro) var(--ease); }
+.top-nav a:hover { color:var(--heading); }
+.top-nav a[aria-current="page"] { color:var(--ember-text); }
+.mode-toggle {
+  margin-left:auto; display:flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:0.7rem; color:var(--muted);
+  background:none; border:1px solid var(--line); border-radius:2px;
+  padding:5px 9px; cursor:pointer;
+  transition:color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.mode-toggle:hover { color:var(--heading); border-color:var(--rule); }
+.mode-toggle svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+.mast {
+  padding:var(--s7) var(--s5) var(--s6);
+  border-bottom:1px solid var(--rule);
+  max-width:860px; margin:0 auto;
+}
+.mast-eyebrow { font-family:var(--mono); font-size:0.65rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s3); }
+.mast h1 { font-family:var(--serif); font-size:clamp(1.8rem,3.5vw,2.4rem); font-weight:700; color:var(--heading); line-height:1.12; letter-spacing:-0.01em; margin-bottom:var(--s4); }
+.mast-dek { font-size:1.05rem; line-height:1.65; color:var(--text); max-width:62ch; }
+.mast-meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font-family:var(--mono); font-size:0.68rem; color:var(--muted); }
+
+.doc-wrap { max-width:860px; margin:0 auto; padding:0 var(--s5) var(--s8); }
+.sec { padding:var(--s7) 0 0; }
+.sec .addr { font-family:var(--mono); font-size:0.65rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s2); }
+.sec h2 { font-family:var(--serif); font-size:1.45rem; font-weight:700; color:var(--heading); letter-spacing:-0.01em; margin-bottom:var(--s4); padding-left:14px; border-left:3px solid var(--ember); }
+.sec p { margin-bottom:var(--s4); max-width:68ch; }
+.sec p:last-child { margin-bottom:0; }
+.lead { font-size:1.05rem; line-height:1.7; }
+
+.principle {
+  margin:var(--s4) 0; background:var(--surface);
+  border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s3) var(--s4);
+  font-size:0.88rem; line-height:1.65;
+}
+.principle .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); display:block; margin-bottom:var(--s1); }
+
+/* the map: one record, five doors */
+.map { margin:var(--s5) 0; }
+.map-record {
+  max-width:420px; margin:0 auto;
+  background:var(--inset); border:1px solid var(--rule);
+  padding:var(--s3) var(--s4); text-align:center;
+}
+.map-record .t { font-family:var(--mono); font-size:0.72rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--heading); }
+.map-record .d { font-family:var(--mono); font-size:0.65rem; color:var(--muted); margin-top:2px; }
+.map-stem { width:1px; height:var(--s5); background:var(--rule); margin:0 auto; }
+.map-doors { display:grid; grid-template-columns:repeat(5,1fr); gap:var(--s2); }
+.map-door {
+  background:var(--surface); border:1px solid var(--line); border-top:2px solid var(--ember);
+  padding:var(--s2) var(--s2); text-align:center;
+  font-family:var(--mono); font-size:0.62rem; letter-spacing:0.04em; color:var(--text);
+  line-height:1.5;
+}
+.map-door .w { display:block; color:var(--ember-text); font-weight:500; }
+@media (max-width:700px) { .map-doors { grid-template-columns:repeat(2,1fr); } .map-doors .map-door:last-child { grid-column:1 / -1; } }
+
+/* walk steps: door cards with minute chips */
+.walk { margin:var(--s4) 0; counter-reset:step; }
+.step {
+  display:block; text-decoration:none; color:inherit;
+  background:var(--surface); border:1px solid var(--line);
+  padding:var(--s4) var(--s4); margin-bottom:var(--s3);
+  transition:border-color var(--micro) var(--ease), background-color var(--micro) var(--ease);
+}
+.step:hover { border-color:var(--rule); background:var(--raised); }
+.step-head { display:flex; align-items:baseline; gap:var(--s3); flex-wrap:wrap; margin-bottom:var(--s2); }
+.step-n { font-family:var(--mono); font-size:0.68rem; font-weight:600; color:var(--ember-text); }
+.step-t { font-family:var(--serif); font-size:1.02rem; font-weight:700; color:var(--heading); }
+.step-min { margin-left:auto; font-family:var(--mono); font-size:0.62rem; color:var(--muted); border:1px solid var(--line); padding:2px 7px; border-radius:2px; white-space:nowrap; }
+.step-body { font-size:0.9rem; line-height:1.65; color:var(--text); max-width:66ch; }
+.step-go {
+  display:inline-block; margin-top:var(--s3);
+  font-family:var(--mono); font-size:0.7rem; font-weight:500; letter-spacing:0.04em;
+  color:var(--ember-text); text-decoration:none;
+  border:1px solid var(--ember); border-radius:2px; padding:7px 14px;
+  transition:background-color var(--micro) var(--ease), color var(--micro) var(--ease);
+}
+.step-go:hover { background:var(--ember); color:var(--bg); text-decoration:none; }
+.step .observe { display:block; font-family:var(--mono); font-size:0.7rem; color:var(--muted); margin-top:var(--s2); }
+
+.notice {
+  margin:var(--s4) 0; background:var(--inset);
+  border:1px solid var(--line); border-left:2px solid var(--ok); padding:var(--s4);
+}
+.notice .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ok); margin-bottom:var(--s2); display:block; }
+.notice p { font-size:0.9rem; margin-bottom:var(--s3); }
+.notice p:last-child { margin-bottom:0; }
+
+pre.rec {
+  background:var(--inset); border:1px solid var(--line);
+  padding:var(--s4); overflow-x:auto;
+  font-family:var(--mono); font-size:0.74rem; line-height:1.8; color:var(--text);
+  margin:var(--s3) 0 0;
+}
+
+footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s4) var(--s5) var(--s8); font-family:var(--mono); font-size:0.65rem; color:var(--faint); display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); max-width:860px; margin-left:auto; margin-right:auto; }
+
+@media (max-width:700px) {
+  .mast h1 { font-size:1.7rem; }
+  .step-min { margin-left:0; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">Techne</span>
+    </a>
+    <ul class="top-nav">
+      <li><a href="/commons/">Commons</a></li>
+      <li><a href="/commons/build/">Build</a></li>
+      <li><a href="/commons/build/run-through/">Run-through</a></li>
+      <li><a href="/commons/build/run-through/organizers/" aria-current="page">The Walk</a></li>
+      <li><a href="/commons/build/lexicon/">Lexicon</a></li>
+    </ul>
+    <button class="mode-toggle" id="modeToggle" aria-label="Toggle color mode">
+      <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
+      <span id="modeLabel">Light</span>
+    </button>
+  </div>
+</header>
+
+<div class="mast">
+  <div class="mast-eyebrow">the walk &middot; for organizers and founding members</div>
+  <h1>The Fifteen-Minute Walk</h1>
+  <p class="mast-dek">The cooperative's commons is live: a shared record and five doors into it, built and tested through July. This page walks you through all five in about fifteen minutes, at your own pace, in plain language. The <a href="/commons/build/run-through/">steward's run-through</a> is the long form; this is the walk that respects your afternoon.</p>
+  <div class="mast-meta">
+    <span>fifteen minutes &middot; your own schedule &middot; nothing to install</span>
+    <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
+  </div>
+</div>
+
+<div class="doc-wrap">
+
+  <section class="sec" id="why">
+    <div class="addr">&sect;1</div>
+    <h2>Why walk it</h2>
+    <p class="lead">Because it is yours. Everything you are about to touch is the cooperative's own information system: who belongs, what binds us, when we gather, what we are looking for. Not a vendor's product; a commons we hold together.</p>
+    <div class="principle"><span class="k">the fifth cooperative principle &middot; education, training, and information</span>Cooperatives provide education and information for their members so they can contribute effectively to the development of their cooperative. This page is that principle, practiced: fifteen minutes of seeing the thing you co-own, so your voice in it is an informed one.</div>
+  </section>
+
+  <section class="sec" id="map">
+    <div class="addr">&sect;2</div>
+    <h2>The shape of it</h2>
+    <p class="lead">One record, five doors. Every act on any page is written to a single append-only log, and every page is a reading of that log. Nothing is ever silently edited or deleted; corrections are made by adding to the record, the way a ledger corrects.</p>
+    <div class="map">
+      <div class="map-record">
+        <div class="t">The record</div>
+        <div class="d">one append-only event log &middot; the cooperative's memory</div>
+      </div>
+      <div class="map-stem"></div>
+      <div class="map-doors">
+        <div class="map-door"><span class="w">agreements</span>what binds us</div>
+        <div class="map-door"><span class="w">directory</span>who we are</div>
+        <div class="map-door"><span class="w">gatherings</span>when we meet</div>
+        <div class="map-door"><span class="w">opportunities</span>what we seek</div>
+        <div class="map-door"><span class="w">join</span>the front door</div>
+      </div>
+    </div>
+    <p>You see only what is yours to see: the visibility of every row is decided in the database itself, and a test suite proves it on every change. Unfamiliar words along the way are defined in <a href="/commons/build/lexicon/">the Lexicon</a>.</p>
+  </section>
+
+  <section class="sec" id="walk">
+    <div class="addr">&sect;3</div>
+    <h2>The walk</h2>
+    <p class="lead">Six stops. Each one is a real act in the real record, so walk it as yourself. If a page does not recognize you yet, that is a one-message fix: tell Todd and your row is bound at the desk.</p>
+    <div class="walk">
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">01</span><span class="step-t">Sign in at the portal</span><span class="step-min">~2 min</span></div>
+        <div class="step-body">Enter your email; a sign-in link arrives; click it. No password, nothing to install. The portal then greets you by name, shows your membership standing, and holds a door to everything below.</div>
+        <a class="step-go" href="/intranet/">open the portal &rarr;</a>
+        <span class="observe">notice: the identity strip resolves you; the doors stand open</span>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">02</span><span class="step-t">Read the shelf, sign your agreement</span><span class="step-min">~4 min</span></div>
+        <div class="step-body">The agreements shelf lists every governing document that binds you, with version and standing marked: the Bylaws v2.1 and the Membership Agreement v2.3, both ratified July 2026. If your chip stands unsigned, read and sign; your signature lands in the record with the version you signed.</div>
+        <a class="step-go" href="/commons/agreements/">open the shelf &rarr;</a>
+        <span class="observe">notice: signing twice is refused, not doubled; the record does not stutter</span>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">03</span><span class="step-t">Appear in the directory</span><span class="step-min">~3 min</span></div>
+        <div class="step-body">Find yourself among the people and entities of the cooperative, and edit your own profile: name as you want it shown, a line about your work. Yours alone to edit; everyone else's profile is theirs.</div>
+        <a class="step-go" href="/commons/directory/">open the directory &rarr;</a>
+        <span class="observe">notice: no edit path exists into anyone's profile but your own</span>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">04</span><span class="step-t">See the calendar, register once</span><span class="step-min">~2 min</span></div>
+        <div class="step-body">The gatherings calendar shows what is coming and who hosts it, family meetings included. Register for one. If your plans change, cancel and return; the record keeps the whole story rather than erasing it.</div>
+        <a class="step-go" href="/commons/gatherings/">open the calendar &rarr;</a>
+        <span class="observe">notice: presence is counted where the record counts it, by the host</span>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">05</span><span class="step-t">Post to the board, or answer it</span><span class="step-min">~3 min</span></div>
+        <div class="step-body">The opportunities board is where members find one another: invitations to play, practice, and work. Post one real thing you are looking for, or respond to something standing. Responses are visible to the two parties, not the room.</div>
+        <a class="step-go" href="/commons/opportunities/">open the board &rarr;</a>
+        <span class="observe">notice: only the author closes an opportunity; outcomes land as events</span>
+      </div>
+
+      <div class="step">
+        <div class="step-head"><span class="step-n">06</span><span class="step-t">Know the front door</span><span class="step-min">~1 min</span></div>
+        <div class="step-body">The join form is how a newcomer applies: name, email, a line of intent, no meeting needed. You do not need to fill it; know where it is, because this is the one door meant to be shared outward.</div>
+        <a class="step-go" href="/commons/join/">see the join form &rarr;</a>
+        <span class="observe">notice: an application becomes an event, and the steward is notified within the minute</span>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="sec" id="proves">
+    <div class="addr">&sect;4</div>
+    <h2>What your fifteen minutes prove</h2>
+    <p class="lead">The machine tests itself on every change: seven suites, and a weekly rehearsal that rebuilds the whole system from its own export. What only you can prove is that the commons tells the truth to a person, in plain reading, at human speed. That is what your walk adds, and no suite can add it for you.</p>
+    <div class="notice"><span class="k">if something reads wrong</span>
+      <p>That is not a bother; that is the walk working. A confusing sentence, a surprising refusal, a page that does not recognize you: each is worth one message to Todd, or a note at the next family meeting. The build corrects by commit, and the correction becomes part of the record like everything else.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <span>The Fifteen-Minute Walk</span>
+  <span>RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
+  <span><a href="/commons/build/run-through/">The steward's run-through</a></span>
+  <span><a href="/commons/build/">Living Roadmap</a></span>
+  <span><a href="/commons/build/lexicon/">The Lexicon</a></span>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn  = document.getElementById('modeToggle');
+  var icon = document.getElementById('modeIcon');
+  var lbl  = document.getElementById('modeLabel');
+
+  var sunPaths = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+  var moonPaths = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+
+  function apply(m) {
+    root.setAttribute('data-mode', m);
+    icon.innerHTML = m === 'dark' ? sunPaths : moonPaths;
+    lbl.textContent = m === 'dark' ? 'Light' : 'Dark';
+  }
+
+  var stored = null;
+  try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+  var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  apply(m);
+
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try { localStorage.setItem('techne-mode', next); } catch(e) {}
+  });
+})();
+</script>
+</body>
+</html>
