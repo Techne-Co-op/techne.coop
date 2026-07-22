@@ -59,6 +59,7 @@ MIGRATIONS = [
     "commons/authority-map/0002_policies.sql",
     "commons/authority-map/0003_sign_agreement.sql",
     "commons/authority-map/0005_matrix_conformance.sql",
+    "commons/authority-map/0008_admissions.sql",
 ]
 FRONT_DOOR = "commons/authority-map/0007_apply_for_membership.sql"
 if (REPO_ROOT / FRONT_DOOR).exists():
@@ -138,11 +139,19 @@ def main():
               "apply_for_membership() landing in the repository (X-09 card); "
               "its stand-in is the seeded applied membership")
 
-    # -- beat 1 · the steward admits (lifecycle by the assigned hand) --
+    # -- beat 1 · the steward admits, one act: flip and event (0008) ----
+    rc, lines, err = as_persona(HOST,
+        f"select admit_member('{NEWCOMER}')")
+    beat(1, "admission is refused to hands the Board has not assigned (1.3, 3.1)",
+         rc != 0 and "assigned hand" in err, "non-steward admit refused")
     rc, lines, _ = as_persona(STEWARD,
-        f"update memberships set state = 'active' where agent_id = '{NEWCOMER}' returning 1")
-    beat(1, "admission is the act of the Board's assigned hand (1.3, 1.7)",
-         rc == 0 and len(lines) == 2, f"steward flipped applied to active, rc={rc}")
+        f"select admit_member('{NEWCOMER}')")
+    beat(1.1, "admission is the act of the Board's assigned hand (1.3, 1.7)",
+         rc == 0 and lines and "admitted" in lines[-1], f"steward admitted rc={rc}")
+    rc, lines, _ = psql(
+        f"select count(*) from events where kind = 'membership.admitted' and agent_id = '{NEWCOMER}'")
+    beat(1.2, "the admission and its event land together (0008, the 0003 pattern)",
+         rc == 0 and lines[-1] == "1", f"admitted events: {lines[-1] if lines else '?'}")
 
     # -- beat 2 · read every agreement that binds them -----------------
     rc, lines, _ = as_persona(NEWCOMER,
