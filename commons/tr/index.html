@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>Treasury &middot; Proposed Module PRD &middot; Techne</title>
+<meta name="description" content="A proposed complementary CIS module for treasury: the movement layer over Stripe, Mercury, and Xero, the multi-signature discipline, reconciliation as a fold, and the joint with Program Patronage.">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#C4A96A; --amber:#C4956A; --coral:#C47A6A; --rose:#B46A8A; --twilight:#6A8AC4;
+    --serif:Georgia,'Times New Roman',serif; --sans:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+  }
+  [data-mode="dark"]{
+    --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+    --line:#2A2A30; --rule:#3A3A42;
+    --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+    --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+    --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  }
+  [data-mode="light"]{
+    --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+    --line:#D8D3C8; --rule:#9A958A;
+    --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+    --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+    --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84A4A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg); color:var(--text); font:400 15px/1.7 var(--serif)}
+  .wrap{max-width:880px; margin:0 auto; padding:0 22px 60px}
+  a{color:var(--blue-text); text-decoration:none}
+  a:hover{text-decoration:underline}
+  em{color:var(--heading)}
+  sup{font:500 10px/1 var(--mono); color:var(--blue-text)}
+  :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+  .mono{font-family:var(--mono)}
+  .topbar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+  .topbar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+  .topbar .bc a{color:var(--ember-text)}
+  .mode-btn{font:400 11.5px var(--mono); color:var(--muted); background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:4px 10px; cursor:pointer}
+  .mode-btn:hover{background:var(--raised); color:var(--heading)}
+  .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
+  .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+  .mast .dek{font:400 16.5px/1.65 var(--serif); max-width:64ch}
+  .statusline{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 6px}
+  .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+  .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+  .chip.ok{color:var(--ok); border-color:var(--ok)} .chip.ok::before{background:var(--ok)}
+  .chip.info{color:var(--info); border-color:var(--info)} .chip.info::before{background:var(--info)}
+  .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:var(--warn)}
+  .chip.neutral::before{background:transparent; border:1px solid var(--muted)}
+  .citesline{font:400 11.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin:18px 0 38px}
+  .citesline b{color:var(--ember-text); font-weight:500}
+  .sec{margin:0 0 40px}
+  .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+  .sec-num{font:500 11px var(--mono); border-left:3px solid var(--rule); padding:2px 0 2px 9px; color:var(--muted); flex:none}
+  .sec-head[data-tint="gold"] .sec-num{border-color:var(--gold); color:var(--gold)}
+  .sec-head[data-tint="amber"] .sec-num{border-color:var(--amber); color:var(--amber)}
+  .sec-head[data-tint="coral"] .sec-num{border-color:var(--coral); color:var(--coral)}
+  .sec-head[data-tint="rose"] .sec-num{border-color:var(--rose); color:var(--rose)}
+  .sec-head[data-tint="twilight"] .sec-num{border-color:var(--twilight); color:var(--twilight)}
+  .sec-head h2{font:400 21px/1.3 var(--serif); color:var(--heading)}
+  .sec-head .sub{font:400 12px var(--mono); color:var(--muted); margin-left:auto; text-align:right}
+  .sec p{margin:0 0 14px; max-width:68ch}
+  .sec p:last-child{margin-bottom:0}
+  .box{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; margin:0 0 14px}
+  .box .bk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:7px}
+  .box p{font-size:13.5px; max-width:66ch}
+  .box.decide{border-left:3px solid var(--ember)}
+  .box.limit{border-left:3px solid var(--warn)}
+  table{width:100%; border-collapse:collapse; font:400 12.5px/1.6 var(--sans); margin:0 0 16px}
+  th{font:600 10.5px var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--surface)}
+  td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+  td.mono{font:400 11.5px var(--mono); color:var(--ember-text); white-space:nowrap}
+  tr:hover td{background:var(--surface)}
+  pre{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; overflow-x:auto; font:400 11.5px/1.65 var(--mono); color:var(--text); margin:0 0 16px}
+  pre .c{color:var(--faint)}
+  pre .k{color:var(--ember-text)}
+  ol.plain{margin:0 0 14px 20px; max-width:68ch}
+  ol.plain li{margin-bottom:8px}
+  .foot{border-top:1px solid var(--line); margin-top:48px; padding-top:16px}
+  .foot h3{font:500 11px var(--mono); text-transform:uppercase; letter-spacing:.06em; color:var(--ember-text); margin-bottom:10px}
+  .foot ol{margin:0 0 22px 18px; font:400 12px/1.8 var(--sans); color:var(--muted)}
+  .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint)}
+  @media (max-width:700px){
+    .mast h1{font-size:27px}
+    .sec-head{flex-wrap:wrap}
+    .sec-head .sub{margin-left:0; text-align:left; width:100%}
+    table{font-size:11.5px}
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topbar">
+  <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; Common Record Series &middot; proposed module document</span>
+  <button class="mode-btn" id="modeBtn" aria-label="Toggle light and dark mode">dark</button>
+</div>
+
+<div class="mast">
+  <div class="kicker">TR v0.1 &middot; a proposal &middot; the movement layer</div>
+  <h1>Treasury<br>A Proposed Module PRD and Specification</h1>
+  <p class="dek">A proposal, open to discussion and revision, for the complementary CIS module that closes the loop Program Patronage opens: the layer where money actually moves. It joins the rails already connected, Stripe at the front door, Mercury as custody, Xero as the book of account, to the ledger's discipline, so that every governed movement is proposed, approved, executed, and reconciled as recorded events. It includes and integrates PP v0.2 by design: patronage records meaning, treasury records movement, and the pairing of the two is what the cooperative can trust.</p>
+  <div class="statusline">
+    <span class="chip info">Proposal &middot; Drafted</span>
+    <span class="chip neutral">open to discussion &middot; nothing herein adopted</span>
+    <span class="chip warn">rails connected &middot; merge is this module's work</span>
+    <span class="chip neutral">emits &middot; anticipated &middot; 000N_treasury_verbs.sql</span>
+    <span class="chip ok">no change to the event log model</span>
+  </div>
+</div>
+
+<div class="citesline">
+  <b>cites</b> &middot; PP v0.2 &sect;5 &sect;10 &sect;11 &middot; PSPP v1 &sect;7 &middot; PRD v0.3, the treasury carve-out and Principle 07 &middot; IM v0.1 Laws I, II, III, IV, V, VIII, IX, X, XI &middot; AM v0.1 &middot; VS v1 &middot; BP v1 &middot; Bylaws v2.1 &sect;4.4 &sect;4.1 &sect;3.1 &sect;18.1 as carried by 0002 and 0005 &middot; 0006_notices_rail.sql as the deployed seam precedent &middot; the FSC record: Mercury primary, the Stripe migration, the Xero book, the $250 to $500 buy-in
+  <br><b>address</b> &middot; TR is offered, not taken; TRS and FIN are the named alternatives. PRD v0.3 leaves the public slice name open in the roadmap; two candidates are floated at &sect;13 and the naming stays open.
+</div>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;1</span><h2>Position and voice</h2><span class="sub">the loop, closed</span></div>
+  <p>This is a proposal, in the same posture as PP v0.2 and inheriting the same humility: the language of specification below serves discussion, and every should can be argued down. PRD v0.3 carved treasury execution, distributions and multi-signature authorization, out of the launch slices and left it for later under a name not yet settled.<sup>2</sup> PP v0.2 honored that carve-out by drawing a boundary: the patronage module records value and allocation as events and writes distribution <em>commitments</em> with settlement anticipated, and it never moves money.<sup>1</sup> This document proposes the module on the other side of that line.</p>
+  <p>Its scope is wider than distributions alone, because the boundary PP drew implies a whole layer. Money enters the cooperative at the front door, share purchases, dues, program payments; it rests in custody at the bank; it leaves as distributions and, one day, redemptions; and the books must close over all of it. The rails for each of these are already connected, per the Financial Systems Committee's February work now realized: Mercury as primary banking, Stripe migrated under the LCA's own name, Xero as the book of account.<sup>4</sup> None is merged with the CIS. This module is the proposed shape of that merge: not a general ledger, not a payment processor, but the governance record of every movement the cooperative's own rules care about, built from the same substrate, verbs, and disciplines as everything else, with no change to the event log model.</p>
+  <p>Law X holds here with special force, since this is the module nearest to money: the instrument drafts, computes, and surfaces; proposing, approving, and executing movements are human acts, every one. Nou holds no role, no grant, and no key, and nothing below would change that.<sup>5</sup></p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;2</span><h2>The substrate and fabric as found</h2><span class="sub">verified against the applied migrations</span></div>
+  <p>The treasury needs surprisingly little that does not already exist. The events table carries the two instants, the human actor, the book partition, the payload, the corrects reference, and the settlement axis whose values, settled, anticipated, open, were built for exactly the distinction this module lives on.<sup>3</sup> The role_grants table already knows the treasurer, grounded in Bylaws &sect;4.4, alongside the steward and the directors.<sup>4</sup> The stock_ledger already models issuance and redemption, and enforces one voting share per member as a partial unique index; the membership lifecycle already admits the transition from withdrawn or terminated to redeemed.<sup>3</sup> The agreements table stands ready to hold treasury policy as a versioned instrument, exactly as it holds patronage policy in PP &sect;7. The export views already include the events log, so every kind this module would write inherits the walkaway with no amendment.<sup>3</sup></p>
+  <p>And the seam pattern is already deployed and proven: the notices rail of 0006 shows how an external service joins the substrate honestly, a trigger that carries no secret, an edge function doing privileged work under its own credentials with the reference-not-value rule, and one seam so the provider can swap without the record changing.<sup>3</sup> The Stripe intake proposed in &sect;7 is that pattern pointed inward at money instead of outward at mail. What the substrate does not hold, this proposal declares rather than migrates: the movement kinds (&sect;5), the treasury policy instrument (&sect;6), and the verbs (&sect;7, &sect;10 by reference). The schema is untouched.</p>
+  <div class="box limit"><span class="bk">the boundary, stated early</span><p>The CIS is not becoming a general ledger. Operating expenses, vendor bills, and the full cash book belong to Xero and the bank; the CIS records <em>governed movements</em>, the ones that touch members, capital, shares, program funding bounds, or a board rule, because those are the movements the cooperative's own instruments have opinions about. Everything else it deliberately does not know.</p></div>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;3</span><h2>Vocabulary</h2><span class="sub">the movement layer's terms</span></div>
+  <p>From PP v0.2 this proposal inherits <em>Valued Event</em>, <em>Fold</em>, <em>Allocation Run</em>, and the Plan's capitalized terms unchanged. It adds: a <em>Movement</em> is money entering, resting, or leaving the cooperative's custody. A <em>Governed Movement</em> is a Movement one of the cooperative's instruments has an opinion about, and only those are recorded here. A <em>Commitment</em> is a recorded obligation to move money, PP's capital.distribution rows being the first citizens. The <em>Pairing</em> is the relationship between a Commitment and the Movement that discharges it, and, one level down, between a Movement's CIS record and its bank line and journal entry. A <em>Reconciliation Window</em> is the period over which pairings are attested. The <em>Desk</em> is the treasurer's surface where all of this is visible and workable.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;4</span><h2>Movement and meaning, the two-layer principle</h2><span class="sub">how this module includes PP</span></div>
+  <p>The deepest design choice in this proposal is a separation the fabric already implied: <em>treasury records movement; patronage records meaning; neither substitutes for the other, and the pairing of the two is the trustworthy fact.</em> A member's cash capital contribution is two events in two layers: money.received, the treasury fact that dollars arrived with a bank or processor reference, and capital.contribution under the CASH Primitive, the patronage fact that a capital account was credited under a policy version, each carrying the other's id in its payload. A share purchase is a movement plus an issuance plus a buy-in credit. A distribution is a PP commitment plus a treasury execution. The layers can disagree, and that possibility is a feature: a movement with no meaning, or a meaning with no movement, is exactly what the reconciliation fold exists to surface.</p>
+  <p>The same principle answers how commitments settle without violating Law I. PP writes capital.distribution with settlement anticipated, and that authored mark never mutates. Settlement is achieved by <em>pairing</em>: a disbursement.executed event referencing the commitment, confirmed by a reconciliation match. Surfaces derive the settled state from the pair; the commitment row remains, honestly, what it was when written. Nothing flips; something arrives beside it.</p>
+  <div class="box decide"><span class="bk">named decision &middot; offered</span><p>The pairing rule above is this proposal's resolution of a genuine tension: the settlement column is authored at write, the log is append-only, and yet commitments must visibly settle. The alternative, a correction event rewriting the commitment's settlement with prior preserved, is legal under the substrate but treats an expected arrival as if it were an error. If the pairing rule reads wrong, this is the first section to argue with.</p></div>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;5</span><h2>The event contract</h2><span class="sub">kinds, columns, payload</span></div>
+  <p>The module would write these kinds and no others. Movement kinds carry the rail reference that makes them checkable; authorization kinds carry the trail that makes them governed:</p>
+  <table>
+    <tr><th>kind</th><th>records</th><th>actor</th></tr>
+    <tr><td class="mono">money.received</td><td>an inbound Governed Movement: share purchase, dues, cash capital contribution, program payment; purpose and rail reference in payload</td><td>the intake verb, on rail confirmation; steward or treasurer for manual entries</td></tr>
+    <tr><td class="mono">disbursement.proposed</td><td>an outbound Movement proposed, with purpose, amount, payee agent, and the commitment it would discharge</td><td>treasurer or steward</td></tr>
+    <tr><td class="mono">disbursement.approved</td><td>one approval under the policy in force; the trail accumulates until the threshold is met</td><td>an authorized approver, distinct per approval</td></tr>
+    <tr><td class="mono">disbursement.executed</td><td>the movement made at the bank, with the bank's own reference; pairs to its commitment</td><td>treasurer, after execution at Mercury</td></tr>
+    <tr><td class="mono">disbursement.refused</td><td>a proposal declined, with grounds; refusal is a recorded act, not a deletion</td><td>any authorized approver</td></tr>
+    <tr><td class="mono">share.issued &middot; share.redeemed</td><td>the movement-adjacent register acts, written by the same verbs that write the stock_ledger rows they evidence</td><td>steward or treasurer, per the membership lifecycle</td></tr>
+    <tr><td class="mono">treasury.reconciled</td><td>a Reconciliation Window attested: counts matched across ledger, bank, and book, and every gap named in the payload</td><td>treasurer</td></tr>
+    <tr><td class="mono">treasury.gap_resolved</td><td>a named gap explained and closed, referencing the correction or the late pairing that closed it</td><td>treasurer</td></tr>
+  </table>
+  <p>Columns do their standing work: actor_agent_id is the human whose act this was, agent_id the member a movement concerns where one does, book the entity or host partition per Law IX, so a grant-funded program's money facts ride the host book while member capital stays entity-side, exactly as PP pinned it. The payloads:</p>
+  <pre><span class="c">-- proposed payload contract &middot; money.received</span>
+{
+  "purpose":            <span class="k">"share_purchase" | "dues" | "capital_contribution" | "program_payment"</span>,
+  "amount":             <span class="k">numeric</span>,
+  "rail":               <span class="k">"stripe" | "mercury" | "manual"</span>,
+  "rail_ref":           <span class="k">text</span>,    <span class="c">-- payment intent, transaction id; the idempotency key, verb-checked</span>
+  "meaning_event_id":   <span class="k">uuid?</span>,   <span class="c">-- the PP-layer event, once posted; the pairing, movement side</span>
+  "instrument_id":      <span class="k">uuid?</span>    <span class="c">-- the terms it priced from: membership terms, dues schedule</span>
+}
+
+<span class="c">-- proposed payload contract &middot; disbursement.executed</span>
+{
+  "proposal_event_id":  <span class="k">uuid</span>,
+  "approvals":          <span class="k">[uuid]</span>,  <span class="c">-- the approval events, distinct actors, threshold per policy</span>
+  "commitment_event_id":<span class="k">uuid?</span>,   <span class="c">-- PP's capital.distribution where one is discharged</span>
+  "bank_ref":           <span class="k">text</span>,
+  "xero_ref":           <span class="k">text?</span>    <span class="c">-- the journal, once posted; completes the three-way pairing</span>
+}</pre>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;6</span><h2>Authority and the signature discipline</h2><span class="sub">two people, always; thresholds as record</span></div>
+  <p>Authorization is configuration, and configuration is record, in exactly PP &sect;7's convention: a TREASURY-POLICY instrument, versioned and effective-dated, whose adoption payload carries the thresholds, who may propose, how many distinct approvals each band of amount requires, which purposes are pre-authorized as standing (dues refunds under a limit, say) and which always escalate to a board act. No threshold appears in code; the verbs read the version in force, and a change is an amendment event, prospective only. The floor this proposal suggests as the default: no disbursement on fewer than two distinct human acts, proposer and approver never the same person, with higher bands adding approvals and the highest requiring a recorded board resolution. The refusal verb exists so that declining is as recorded as approving.</p>
+  <div class="box limit"><span class="bk">honest limits</span><p>The CIS governs the record and the process; it does not hold the bank's keys. Someone with Mercury credentials could move money without this trail, and no ledger design prevents that. What the module does is make such a movement <em>visible</em>: it will surface in the next Reconciliation Window as a bank line with no CIS pairing, a named gap that cannot be attested away. Custody controls, dual authorization at Mercury itself, key hygiene, remain the bank-side complement, recommended to the FSC alongside this module rather than replaced by it.</p></div>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;7</span><h2>The rails, seam by seam</h2><span class="sub">Stripe in, Mercury through, Xero beside</span></div>
+  <p><em>Stripe, the front door.</em> The intake follows the deployed 0006 pattern: the webhook lands at an edge function holding its own credentials, the function calls one definer verb, and the verb writes money.received with the processor reference as its idempotency key, checked before insert so a replayed webhook writes nothing twice. Purpose and pricing come from the instrument in force, membership terms for the share purchase, the dues schedule for dues, so the front door cannot invent an amount. For a share purchase the same verb sequence issues the stock_ledger row and prompts, rather than posts, the PP-layer buy-in credit: the meaning event is a human act on the desk, in keeping with the two-layer principle and with slice 04's read-only-first posture.</p>
+  <p><em>Mercury, custody and execution.</em> Inbound bank facts arrive by transaction feed into the reconciliation input. Outbound, this proposal takes a deliberately conservative posture for v0.1: the system prepares the disbursement completely, the trail, the payee, the amount, the memo, and a person executes at the bank and returns the reference through the execution verb. Programmatic initiation through Mercury's API is named as a later option that would require its own justification and its own escalation, because the day the system can move money is a different day, and it should be chosen out loud or not at all.</p>
+  <p><em>Xero, the book beside.</em> The journal reference completes each movement's three-way pairing, and the relationship runs both directions: the treasury supplies the book with clean, referenced movement facts, and the book supplies PP's allocation step 02, the finalized P&amp;L, whose allocation.pnl_finalized payload carries the Xero close reference so the year's most consequential number cites its source like everything else.<sup>1</sup></p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;8</span><h2>Reconciliation as a fold</h2><span class="sub">the loop that binds the fabric</span></div>
+  <p>Reconciliation is the module's conscience, and it is a fold, not a chore: over a Reconciliation Window, every money-referencing CIS event must pair with a bank line, every bank line in scope must pair with a CIS event, and the journal must agree with both. The treasurer attests the window with treasury.reconciled, whose payload counts the matches and names every gap: the movement with no bank line, the bank line with no movement, the pair with no journal. A named gap is a card on the desk until treasury.gap_resolved closes it with its explanation, a late pairing, a correction event on whichever side mis-recorded, or, in the worst case, the visible evidence of a movement made outside the discipline. Gaps do not expire, cannot be attested over, and the next window will not close while unexplained ones stand. This is the mechanism that makes the &sect;6 honest-limits box tolerable: the record cannot prevent everything, but it can refuse to pretend.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;9</span><h2>Surfaces and doors</h2><span class="sub">the desk, and what members see</span></div>
+  <p><em>Browse.</em> The Desk at /intranet/treasury/, beside the Programs view in the commons portal: the proposal queue with each item's accumulated trail, the execution list awaiting bank references, the reconciliation state with its gap cards, and the instrument in force with its thresholds visible. For members, no new surface is needed for their own facts: a member's dues receipts, share purchase, and distribution events already concern them, so the standing events policy shows them on their own account and history surfaces, movement lines beside meaning lines.<sup>4</sup> The aggregate picture, how the cooperative's money stands, belongs to the open benefit report of the v2 narrative's horizon, under Principle 07, and this module supplies its treasury half when that page comes.</p>
+  <p><em>Ask</em> answers over the identical record. <em>Verify</em> inherits everything: the events export already carries every kind here, the walkaway already reconstructs, and the weekly rehearsal will simply start exercising treasury rows the day they exist.<sup>3</sup></p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;10</span><h2>The joint with Program Patronage</h2><span class="sub">integration, stated as contract</span></div>
+  <p>The two modules share one log, one configuration convention, one verb discipline, and one export duty; their joint is four specific contracts. The <em>discharge contract</em>: every PP capital.distribution commitment is discharged only by a disbursement whose trail is complete, and G-S's hand-check gains a treasury clause in &sect;12. The <em>contribution contract</em>: a CASH Primitive credit under PP requires a paired money.received, so no cash capital exists in meaning that never existed in movement. The <em>buy-in contract</em>: a share purchase runs front door to fold, movement, issuance, credit, and the labor-equivalent path from the February design runs the same last step from PP's HOURS machinery instead of from Stripe, two roads into one register. The <em>close contract</em>: step 02 of every Allocation Run cites the Xero close through this module's pairing, so the patronage year and the accounting year cannot silently diverge. Where PP is adopted and this module is not yet, nothing breaks: commitments simply remain anticipated, visibly, which is the boundary PP already drew.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;11</span><h2>Phasing as readiness conditions</h2><span class="sub">no dates, by design</span></div>
+  <table>
+    <tr><th>condition</th><th>opens</th><th>waits on</th></tr>
+    <tr><td class="mono">R1</td><td>the Desk, read-only over existing facts; manual money.received entry for the record</td><td>this proposal adopted; TREASURY-POLICY v1 adopted with thresholds</td></tr>
+    <tr><td class="mono">R2</td><td>the Stripe intake: dues, then share purchase</td><td>R1; the dues schedule and membership terms recorded as instruments; the &sect;15 visibility and Q4 items as they bear</td></tr>
+    <tr><td class="mono">R3</td><td>the reconciliation fold and its attestation cycle</td><td>R1; the Mercury feed and Xero references flowing; first window attested with zero unexplained gaps</td></tr>
+    <tr><td class="mono">R4</td><td>disbursement execution, discharging PP commitments</td><td>R3 verified; the first Allocation Run recorded under PP (S-03); board resolution where the policy band requires one</td></tr>
+    <tr><td class="mono">R5</td><td>the redemption path</td><td>the redeemability question resolved by the board and counsel; until then share.redeemed refuses, citing the open question</td></tr>
+  </table>
+  <p>The order encodes the v2 narrative's sequencing argument: intake and reconciliation make everything later trustworthy, and execution, the only phase that moves money, arrives last, into a fabric already proven to reconcile.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;12</span><h2>Verification</h2><span class="sub">acceptances and the gate</span></div>
+  <ol class="plain">
+    <li>A replayed intake webhook writes exactly one money.received; the idempotency probe asserts it.</li>
+    <li>A disbursement short of its threshold, or with proposer and approver the same person, refuses, and the refusal cites the policy version and the rule.</li>
+    <li>A PP commitment shows as settled only when its executed disbursement and reconciliation match both exist; unpair either and the surface honestly reverts.</li>
+    <li>An injected synthetic gap, a bank line with no movement, surfaces as a named card, blocks the window's attestation, and clears only through treasury.gap_resolved.</li>
+    <li>Every figure on the Desk and on a member's movement lines resolves to its events, its instrument, and its rail reference; the Law IV walk finds no unexplained boundary.</li>
+    <li>The share register conserves: issuance and redemption events match the stock_ledger exactly, and one voting share per member holds under load.</li>
+    <li>The walkaway continues byte-identical with treasury kinds present, demonstrated by the weekly harness without being asked.</li>
+  </ol>
+  <p>The gate sentence proposed for G-T, in the house grammar: <em>a movement shown settled equals a movement traced by hand, proposal to approvals to bank line to journal, and the window attests with nothing unexplained.</em></p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;13</span><h2>The packet splice, proposed</h2><span class="sub">a T train for the roadmap</span></div>
+  <p>PRD v0.3 left treasury's packets to sequence in the roadmap after the launch slices, under a slice name to be settled there. This proposal offers the train and floats two public-name candidates without settling either, <em>Hold in trust</em> and <em>See it move</em>; the address stays TR internally and the naming stays open.</p>
+  <pre><span class="c"># proposed splice &middot; the treasury train &middot; adoption is the merge, and the merge is Todd's</span>
+<span class="k">- address: T-01</span>
+  title: The Desk and the policy instrument
+  intent: /intranet/treasury/ read-only over existing facts; TREASURY-POLICY v1 in force per TR &sect;6.
+  status: anticipated
+  cites: [TR, PP, AM, IM]
+  ready_when: TR adopted. TREASURY-POLICY adopted.
+  acceptance: The thresholds in force are visible on the Desk, cited to their instrument.
+
+<span class="k">- address: T-02</span>
+  title: The intake rail
+  intent: Stripe to money.received by the 0006 seam pattern, dues then share purchase, per TR &sect;7.
+  status: anticipated
+  cites: [TR, PP, AM]
+  ready_when: T-01 verified. Dues schedule and membership terms recorded as instruments.
+  acceptance: A replayed webhook writes once; a purchase prices only from the instrument in force.
+
+<span class="k">- address: T-03</span>
+  title: The reconciliation fold
+  intent: Three-way pairing across ledger, bank, and book; windows attest; gaps card, per TR &sect;8.
+  status: anticipated
+  cites: [TR, IM, VS]
+  ready_when: T-02 verified. Mercury feed and Xero references flowing.
+  acceptance: First window attested; an injected gap blocks attestation until resolved.
+
+<span class="k">- address: T-04</span>
+  title: Disbursement execution
+  intent: PP commitments discharged, proposal to approvals to bank reference, per TR &sect;5 and &sect;10.
+  status: anticipated
+  cites: [TR, PP, AM]
+  ready_when: T-03 verified. S-03 recorded under PP.
+  acceptance: A commitment settles by pairing and the hand-trace matches.
+
+<span class="k">- address: T-05</span>
+  title: The redemption path
+  intent: share.redeemed and its payout, per the membership lifecycle already in the substrate.
+  status: open &middot; redeemability
+  cites: [TR, PP, AM]
+  ready_when: The redeemability question resolved by board and counsel.
+  acceptance: A redemption runs register to bank with the full trail, or refuses citing the open question.
+
+<span class="k">- address: G-T</span>
+  title: Treasury gate
+  ready_when: T-04 verified.
+  gate: Human attestation recorded.
+  acceptance: A movement shown settled equals a movement traced by hand; the window attests with nothing unexplained.</pre>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;14</span><h2>Open items, gathered for discussion</h2><span class="sub">routed, not decided</span></div>
+  <table>
+    <tr><th>item</th><th>bears on</th><th>routed to</th></tr>
+    <tr><td>TREASURY-POLICY thresholds: bands, approver sets, standing purposes, the board-resolution line</td><td>&sect;6; R1</td><td>the board, via the FSC</td></tr>
+    <tr><td>share redeemability, redeemable versus the trust-commitment alternative from the February record</td><td>&sect;11 R5; T-05</td><td>board and entity counsel</td></tr>
+    <tr><td>membership terms and dues schedule as instruments: the buy-in figure within the $250 to $500 design, dues by tier</td><td>&sect;7 intake pricing; R2</td><td>the board; Q4 adjacent</td></tr>
+    <tr><td>Mercury bank-side custody controls as the complement to the record-side discipline</td><td>the &sect;6 honest-limits box</td><td>the FSC, alongside adoption</td></tr>
+    <tr><td>programmatic execution through the Mercury API, deliberately deferred</td><td>&sect;7; a later proposal with its own justification</td><td>Todd and the FSC, out loud or not at all</td></tr>
+    <tr><td>tax character of intake purposes, dues versus capital versus program payment</td><td>&sect;5 purposes; the book mapping</td><td>CPA</td></tr>
+    <tr><td>grant-bounded flows on the host book, UBIT and funder conditions per the Plan's checkpoint</td><td>Law IX partition; program payments</td><td>tax counsel, per grant</td></tr>
+    <tr><td>the member-visibility cells this module shares with PP &sect;8, one AM v0.2 addendum or definer functions at launch</td><td>&sect;9; the Desk's counterpart reads</td><td>Todd, then the AM's next version</td></tr>
+  </table>
+  <p>Nothing here is legal or tax advice; it is research shaped for the people who give that advice, in the standing division of labor.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;15</span><h2>What this proposes, and what it does not decide</h2><span class="sub">status honesty</span></div>
+  <p>This document proposes a shape and nothing more. It does not adopt a threshold, fix the buy-in figure, or answer redeemability. It does not connect a webhook, hold a key, or move a dollar; the day the system could initiate a payment is explicitly deferred to a proposal that does not yet exist. It does not merge its own splice, and it does not adopt itself. It is the second half of a pair: Program Patronage says what money means here, and this module says how money moves here, and both remain proposals until the people they serve, the board, the FSC, counsel, the members, and Todd, have had the argument each section was drawn plainly enough to invite.</p>
+</section>
+
+<div class="foot">
+  <h3>Sources</h3>
+  <ol>
+    <li>PP v0.2, Program Patronage, A Proposed Module PRD: the treasury boundary at &sect;11, the commitment kinds at &sect;5, the configuration convention at &sect;7, the two-layer joint this module completes.</li>
+    <li>CIS PRD v0.3: treasury execution, distributions and multi-signature authorization, sequenced beyond the launch slices under a name left to the roadmap; Principle 07; the ten principles throughout.</li>
+    <li>The applied emissions: 0001_substrate.sql, the settlement axis, stock_ledger with issuance and redemption, the membership lifecycle's redeemed transition; 0004_export_views.sql, export.events among the fourteen; 0006_notices_rail.sql, the deployed external-seam pattern, no secret in the trigger, reference not value.</li>
+    <li>0002_policies.sql and 0005: the treasurer in role_grants under Bylaws &sect;4.4, events read under &sect;18.1 and &sect;6.2.1, the member insert scope, the instrument holding no role and no grant; the Financial Systems Committee record of February: Mercury primary with two authorized users, the Stripe migration under the LCA, the Xero book, six paying members, and the $250 to $500 buy-in fulfillable through labor equivalent.</li>
+    <li>IM v0.1, the eleven laws; Laws I, II, III, IV, VIII, IX, X, and XI are load-bearing above, Law X most of all.</li>
+  </ol>
+  <p class="tail">TR v0.1 &middot; Treasury &middot; A Proposed Module PRD and Specification &middot; Drafted, open to discussion, nothing herein adopted &middot; complementary to PP v0.2 &middot; emits, anticipated, 000N_treasury_verbs.sql and the &sect;13 splice &middot; Nou drafts; Todd decides; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-07-22</p>
+</div>
+
+</div>
+<script>
+  var btn=document.getElementById('modeBtn');
+  function label(){btn.textContent=document.documentElement.getAttribute('data-mode')}
+  label();
+  btn.addEventListener('click',function(){
+    var m=document.documentElement.getAttribute('data-mode')==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-mode',m);
+    try{localStorage.setItem('techne-mode',m)}catch(e){}
+    label();
+  });
+</script>
+</body>
+</html>

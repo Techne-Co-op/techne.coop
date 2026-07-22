@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>Program Patronage &middot; Proposed Module PRD &middot; Techne</title>
+<meta name="description" content="A proposed module enabling the Program Stack: Programs as organizing bodies for Opportunities, the Programs view in the intranet, the event contract, verbs, fold, and allocation sequence.">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#C4A96A; --amber:#C4956A; --coral:#C47A6A; --rose:#B46A8A; --twilight:#6A8AC4;
+    --serif:Georgia,'Times New Roman',serif; --sans:'Inter',system-ui,sans-serif; --mono:'IBM Plex Mono',monospace;
+  }
+  [data-mode="dark"]{
+    --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+    --line:#2A2A30; --rule:#3A3A42;
+    --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+    --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+    --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  }
+  [data-mode="light"]{
+    --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+    --line:#D8D3C8; --rule:#9A958A;
+    --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+    --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+    --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84A4A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg); color:var(--text); font:400 15px/1.7 var(--serif)}
+  .wrap{max-width:880px; margin:0 auto; padding:0 22px 60px}
+  a{color:var(--blue-text); text-decoration:none}
+  a:hover{text-decoration:underline}
+  em{color:var(--heading)}
+  sup{font:500 10px/1 var(--mono); color:var(--blue-text)}
+  :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+  .mono{font-family:var(--mono)}
+
+  .topbar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+  .topbar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+  .topbar .bc a{color:var(--ember-text)}
+  .mode-btn{font:400 11.5px var(--mono); color:var(--muted); background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:4px 10px; cursor:pointer}
+  .mode-btn:hover{background:var(--raised); color:var(--heading)}
+
+  .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
+  .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+  .mast .dek{font:400 16.5px/1.65 var(--serif); max-width:64ch}
+  .statusline{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:16px 0 6px}
+  .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+  .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+  .chip.ok{color:var(--ok); border-color:var(--ok)} .chip.ok::before{background:var(--ok)}
+  .chip.info{color:var(--info); border-color:var(--info)} .chip.info::before{background:var(--info)}
+  .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:var(--warn)}
+  .chip.neutral::before{background:transparent; border:1px solid var(--muted)}
+  .citesline{font:400 11.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin:18px 0 38px}
+  .citesline b{color:var(--ember-text); font-weight:500}
+
+  .sec{margin:0 0 40px}
+  .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+  .sec-num{font:500 11px var(--mono); border-left:3px solid var(--rule); padding:2px 0 2px 9px; color:var(--muted); flex:none}
+  .sec-head[data-tint="gold"] .sec-num{border-color:var(--gold); color:var(--gold)}
+  .sec-head[data-tint="amber"] .sec-num{border-color:var(--amber); color:var(--amber)}
+  .sec-head[data-tint="coral"] .sec-num{border-color:var(--coral); color:var(--coral)}
+  .sec-head[data-tint="rose"] .sec-num{border-color:var(--rose); color:var(--rose)}
+  .sec-head[data-tint="twilight"] .sec-num{border-color:var(--twilight); color:var(--twilight)}
+  .sec-head h2{font:400 21px/1.3 var(--serif); color:var(--heading)}
+  .sec-head .sub{font:400 12px var(--mono); color:var(--muted); margin-left:auto; text-align:right}
+  .sec p{margin:0 0 14px; max-width:68ch}
+  .sec p:last-child{margin-bottom:0}
+
+  .box{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; margin:0 0 14px; max-width:100%}
+  .box .bk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:7px}
+  .box p{font-size:13.5px; max-width:66ch}
+  .box.decide{border-left:3px solid var(--ember)}
+
+  table{width:100%; border-collapse:collapse; font:400 12.5px/1.6 var(--sans); margin:0 0 16px}
+  th{font:600 10.5px var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--surface)}
+  td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+  td.mono, .addr{font:400 11.5px var(--mono); color:var(--ember-text); white-space:nowrap}
+  tr:hover td{background:var(--surface)}
+
+  pre{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; overflow-x:auto; font:400 11.5px/1.65 var(--mono); color:var(--text); margin:0 0 16px}
+  pre .c{color:var(--faint)}
+  pre .k{color:var(--ember-text)}
+
+  ol.plain{margin:0 0 14px 20px; max-width:68ch}
+  ol.plain li{margin-bottom:8px}
+
+  .foot{border-top:1px solid var(--line); margin-top:48px; padding-top:16px}
+  .foot h3{font:500 11px var(--mono); text-transform:uppercase; letter-spacing:.06em; color:var(--ember-text); margin-bottom:10px}
+  .foot ol{margin:0 0 22px 18px; font:400 12px/1.8 var(--sans); color:var(--muted)}
+  .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint)}
+
+  @media (max-width:700px){
+    .mast h1{font-size:27px}
+    .sec-head{flex-wrap:wrap}
+    .sec-head .sub{margin-left:0; text-align:left; width:100%}
+    table{font-size:11.5px}
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topbar">
+  <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; Common Record Series &middot; proposed module document</span>
+  <button class="mode-btn" id="modeBtn" aria-label="Toggle light and dark mode">dark</button>
+</div>
+
+<div class="mast">
+  <div class="kicker">PP v0.2 &middot; a proposal &middot; enabling the Program Stack</div>
+  <h1>Program Patronage<br>A Proposed Module PRD and Specification</h1>
+  <p class="dek">A proposal, open to discussion and revision, for the module that would enable the <em>Program Stack Patronage Plan</em> inside the Common Information System as built. It describes how Programs organize the Opportunities surfaced in the commons, how participants would explore both through a Programs view in the intranet, how a Contribution would become a record, and how the year would close. Nothing here is adopted, and nothing here is the board's word; it is a shape drawn concretely enough to be argued with.</p>
+  <div class="statusline">
+    <span class="chip info">Proposal &middot; Drafted</span>
+    <span class="chip neutral">open to discussion &middot; nothing herein adopted</span>
+    <span class="chip warn">Share packets blocked &middot; Q3</span>
+    <span class="chip neutral">emits &middot; anticipated &middot; 000N_patronage_verbs.sql</span>
+    <span class="chip ok">no change to the event log model</span>
+  </div>
+</div>
+
+<div class="citesline">
+  <b>cites</b> &middot; PSPP v1 &middot; PRD v0.3 &sect;2 &sect;4 &sect;11 &middot; IM v0.1 Laws I&ndash;XI &middot; AM v0.1 &sect;5 &sect;7 &sect;9 &middot; VS v1 &middot; BP v1 &middot; Bylaws v2.1 &sect;18.1 &sect;6.2.1 &sect;2.9 &sect;4.1 &sect;4.4 &sect;3.1 &sect;1.13 and Art. XVI as carried by 0002 and 0005 &middot; Schedule A, adopted 2026-06-24
+  <br><b>v0.2</b> &middot; reframed as a proposal; adds &sect;4 Programs and Opportunities and &sect;8 the Programs view, on Todd's direction, 2026-07-22
+  <br><b>address</b> &middot; PP is offered, not taken; SHR and PAT are the named alternatives. The address adopts when Todd says so.
+</div>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;1</span><h2>Position and voice</h2><span class="sub">what this document is, and is not</span></div>
+  <p>This is a proposal, and it should read like one. The <em>Program Stack Patronage Plan</em> is itself a draft before the board, traveling with reviewer checkpoints for counsel, the CPA, and the directors; nothing it proposes is settled.<sup>1</sup> This document sits one layer down and inherits that posture entirely: it sketches the module that would enable the program stack if and when the Plan adopts, in the substrate terms of the CIS as actually built. Where it uses the language of specification, kinds, payloads, verbs, that precision is in service of discussion, not in place of it. Every should below is offered; any of them can be argued down.</p>
+  <p>Three instruments meet here and none replaces another. The Plan is board policy in the making: the six Primitives, the archetypes, the Labor Schedule, the Default Policy, the year-end sequence. <em>CIS PRD v0.3</em> is the system specification: it names See your share as Slice 04, read-only at first, blocked by the counting rules, and holds the ten principles that bind every module.<sup>2</sup> This proposal is the joint between them, and, in v0.2, it also reaches sideways: Programs, internal to the LCA, are organizing bodies for the Opportunities surfaced in the commons, so the module touches the Find slice as much as the Share slice, and &sect;4 and &sect;8 describe that bridge.</p>
+  <p>One boundary is proposed before anything else. PRD v0.3 places <em>treasury execution</em>, distributions and multi-signature authorization, outside the launch slices, sequenced later under a name not yet settled.<sup>2</sup> This module would therefore record value and allocation as events and never move money; where the Plan's year-end sequence reaches cash, the module writes the commitment record and stops. And like everything in the series, the document observes Law X: the instrument drafts, surfaces, and proposes; deciding, signing, and governing sit with people. Nou holds no role and no grant in the deployed policy set, and nothing below would change that.<sup>5</sup></p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;2</span><h2>The substrate as found</h2><span class="sub">verified against 0001, 0002, 0005</span></div>
+  <p>The Plan's Section 9 claims that nothing in it requires modification to the underlying event log model. Read against the applied migrations, the claim holds.<sup>3</sup> The events table already carries every field Section 9 asks for, most as named columns rather than payload conventions:</p>
+  <table>
+    <tr><th>the Plan asks for</th><th>the substrate holds</th><th>ground</th></tr>
+    <tr><td>the member (Agent)</td><td class="mono">events.agent_id</td><td>whom the event concerns</td></tr>
+    <tr><td>who recorded it</td><td class="mono">events.actor_agent_id</td><td>human actor where bylaws assign the act to a person</td></tr>
+    <tr><td>the Program tag</td><td class="mono">payload &middot; agents.kind = 'program'</td><td>Programs are agents already; contract in &sect;5</td></tr>
+    <tr><td>the Primitive type</td><td class="mono">payload</td><td>contract in &sect;5</td></tr>
+    <tr><td>the computed valuation</td><td class="mono">book_delta &middot; tax_delta</td><td>both deltas even when equal, Law VII</td></tr>
+    <tr><td>valuation basis</td><td class="mono">valuation_method</td><td>FMV at contribution; revaluation only by explicit event</td></tr>
+    <tr><td>the verifying Coordinator</td><td class="mono">valuation_approver_agent_id</td><td>approval is a column, not a convention</td></tr>
+    <tr><td>documentation reference</td><td class="mono">payload</td><td>contract in &sect;5</td></tr>
+    <tr><td>timestamp</td><td class="mono">occurred_at &middot; recorded_at</td><td>two instants, contemporaneity checkable</td></tr>
+    <tr><td>book and tax projections</td><td class="mono">capital_accounts view</td><td>a fold, not a table; runs as the asker since 0005</td></tr>
+  </table>
+  <p>Four further findings shape the proposal. The agreements table is built for versioned instruments whose computations bind to <em>the version in force</em>, and its own comment anticipates a code named POLICY-PATRONAGE, so policy configuration has a first-class home.<sup>3</sup> The write policy on events admits members only to signature, registration, opportunity, and gathering kinds; every capital write is, by standing authority, a definer function or an overseer act, which is the write discipline this proposal adopts rather than invents.<sup>4</sup> The appointment enum in role_grants is closed at director, secretary, treasurer, steward; there is no Coordinator office, and &sect;6 argues none should be added. And the opportunities table carries an author, a kind, a lifecycle, and no Program reference at all, which &sect;4 treats not as a gap but as the shape Law II expects: an affiliation is a relationship, and every relationship is an event.<sup>3</sup></p>
+  <p>What the substrate does not yet hold, this proposal declares rather than migrates: the affiliation and payload contracts (&sect;4, &sect;5), the configuration convention (&sect;7), and the write verbs (&sect;10). The schema is untouched.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;3</span><h2>Vocabulary</h2><span class="sub">inherited, then extended</span></div>
+  <p>The Plan's defined terms carry into this proposal unchanged and capitalized as there: <em>Program</em>, <em>Contribution</em>, <em>Primitive</em>, <em>Capital Account Credit</em>, <em>Coordinator</em>, <em>Patron Class</em>.<sup>1</sup> The six Primitives are HOURS, REVENUE, CASH, OUTPUT, PRESENCE, PROPERTY, a closed set under board authority. To these, v0.2 adds the relationship Todd named as the module's internal ground: a Program is an <em>organizing body</em> for Opportunities surfaced in the commons. An <em>Affiliation</em> is the recorded relationship between one Opportunity and one Program; it is optional, since not every Opportunity has a Program behind it. A <em>Posting Path</em> is a verb sequence that ends in a capital event; a <em>Valued Event</em> is a row in events whose kind begins capital. and whose deltas are set; the <em>Fold</em> is the capital_accounts view; an <em>Allocation Run</em> is the recorded execution of the Plan's year-end sequence.</p>
+  <p>Vocabulary discipline holds throughout: this is Subchapter K machinery, so balances are <em>704(b) capital accounts</em>, year-end results are <em>distributive shares</em>, and the retired Subchapter T terms do not appear. <em>Patronage</em> survives as it survives in the Plan's own name, a correctly scoped internal term for the contribution-counting layer, never a tax characterization.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;4</span><h2>Programs and Opportunities</h2><span class="sub">the bridge between Find and Share</span></div>
+  <p>The opportunity board is where engagement begins: play, practice, and work, posted by members, responded to between responder and author, resolved as events. Programs give some of that activity an organizing body: a purpose, a Coordinator, a ratified way of recognizing what the work is worth. The proposal treats the relationship exactly as Todd framed it. Not every Opportunity has a related Program, and nothing forces one; an unaffiliated Opportunity is pure Find, and it stays that way. But an Opportunity can be affiliated with a Program, and once it is, engagement through it becomes eligible for patronage and other recognition under that Program's policy in force.</p>
+  <p>Because the opportunities table carries no Program column, and because Law II says every relationship is an event, the Affiliation is proposed as a recorded event rather than a schema change: kind opportunity.affiliated, concerning the Program agent, carrying the opportunity in its payload, written by the Coordinator or the author through the Program's own path. The board's view of an Opportunity's Program is then a read-time fold, exactly as every other derived fact in the system is. If read-time folding ever proves heavy in practice, the alternative is a nullable program reference on the opportunities table, which is a schema change and therefore an escalation; that road is named here so choosing it later is a decision, not a drift.</p>
+  <p>Eligibility flows from the Affiliation, not from the board itself. When an affiliated work or practice Opportunity resolves, its resolution can seed a patronage claim, HOURS or OUTPUT most naturally, referencing both the resolution and the policy version in force, and the claim walks the same verification path as any other (&sect;10). <em>Other recognition</em> is deliberately left open: the Plan's PRESENCE Primitive covers recorded participation, and any non-capital acknowledgment the cooperative wants beyond that is a future policy question this proposal names without inventing.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;5</span><h2>The event contract</h2><span class="sub">kinds, columns, payload</span></div>
+  <p>The module would write these kinds and no others, each named noun-first in the house grammar, each allocation-sequence kind tied to the Plan step it records:</p>
+  <table>
+    <tr><th>kind</th><th>records</th><th>actor</th><th>plan step</th></tr>
+    <tr><td class="mono">opportunity.affiliated</td><td>an Opportunity joined to a Program, per &sect;4; optional, revocable by a compensating event</td><td>Coordinator or author, by verb</td><td>&middot;</td></tr>
+    <tr><td class="mono">capital.contribution</td><td>a valued Contribution under one Program and one Primitive</td><td>overseer verb; member claim path per &sect;10</td><td>feeds 01</td></tr>
+    <tr><td class="mono">capital.revaluation</td><td>explicit revaluation of a prior contribution; never a mutation</td><td>overseer</td><td>&middot;</td></tr>
+    <tr><td class="mono">patronage.claim</td><td>a member's self-reported contribution awaiting verification; carries no deltas</td><td>the member, by verb</td><td>&middot;</td></tr>
+    <tr><td class="mono">agreement.adopted</td><td>a policy instrument taking force, parameters in payload</td><td>secretary or steward, on board act</td><td>&middot;</td></tr>
+    <tr><td class="mono">allocation.run_opened</td><td>the fold's cut instant for the fiscal year</td><td>treasurer or steward</td><td>01</td></tr>
+    <tr><td class="mono">allocation.pnl_finalized</td><td>net profit or loss for the year, reconciled</td><td>treasurer</td><td>02</td></tr>
+    <tr><td class="mono">capital.allocation</td><td>one member's distributive share, by capital ratio; both deltas</td><td>treasurer or steward, by verb</td><td>03</td></tr>
+    <tr><td class="mono">allocation.patron_check</td><td>the 51% Patron Class benefit floor, attested</td><td>a director, for the board</td><td>04</td></tr>
+    <tr><td class="mono">allocation.qio_applied</td><td>a loss redirection under the qualified income offset, when triggered</td><td>treasurer</td><td>05</td></tr>
+    <tr><td class="mono">capital.distribution</td><td>the tax-covering distribution commitment, linked to its allocation per Law VIII</td><td>treasurer</td><td>06 &middot; record only</td></tr>
+    <tr><td class="mono">allocation.k1_issued</td><td>K-1 issuance for the run, member manifest in payload</td><td>treasurer</td><td>07 &middot; record only</td></tr>
+  </table>
+  <p>For capital.contribution the columns do their standing work: agent_id is the member, actor_agent_id the human recorder, valuation_approver_agent_id the Coordinator of record, occurred_at the contribution instant and recorded_at the posting instant, so the Plan's fourteen-day contemporaneity rule for HOURS is checkable from the row itself. Deltas follow Law VII, book and tax both, equal by default. The payload carries what the columns do not:</p>
+  <pre><span class="c">-- proposed payload contract &middot; capital.contribution</span>
+{
+  "program_agent_id":    <span class="k">uuid</span>,   <span class="c">-- agents.kind = 'program'; Default Policy posts to the cooperative agent</span>
+  "primitive":           <span class="k">"HOURS" | "REVENUE" | "CASH" | "OUTPUT" | "PRESENCE" | "PROPERTY"</span>,
+  "quantity":            <span class="k">numeric</span>, <span class="c">-- hours, revenue usd, units, occurrences, fmv usd</span>
+  "rate_basis":          <span class="k">text</span>,    <span class="c">-- schedule_a tier code, revenue_pct, output unit code, presence_credit, documented_fmv</span>
+  "policy_agreement_id": <span class="k">uuid</span>,    <span class="c">-- the version in force that valued it</span>
+  "documentation_ref":   <span class="k">uri</span>,
+  "claim_event_id":      <span class="k">uuid?</span>,   <span class="c">-- present when promoted from a member claim</span>
+  "opportunity_id":      <span class="k">uuid?</span>    <span class="c">-- present when the contribution flows from an affiliated Opportunity's resolution</span>
+}</pre>
+  <p>Two pins would complete the contract. Every capital event posts on the <em>entity</em> book: a member's capital account is a relation to the cooperative, not to a hosted program arc, so Law IX's host book carries the program's operational happenings, and the Contribution credit those happenings earn lands entity-side referencing them. And the three status axes behave as everywhere else: provenance real unless a surface is explicitly simulated, settlement settled for posted contributions and anticipated for commitments awaiting the treasury module, temporal state never stored.</p>
+  <div class="box decide"><span class="bk">named departure &middot; offered</span><p>The entity-book pin is a proposal, not something the Plan or the IM states outright. The alternative, capital events split across books with the fold filtering to entity, adds a filter the current view does not have. If the pin is wrong, say so and &sect;5 revises before any verb lands.</p></div>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;6</span><h2>The Coordinator, without a new office</h2><span class="sub">roles and segregation</span></div>
+  <p>The Plan makes the Coordinator load-bearing: a member designated by the board to administer a Program's policy and verify its Contributions, who never approves their own.<sup>1</sup> The tempting implementation is a fifth value in the appointment enum. This proposal argues against it, and the argument is open: offices in role_grants are bylaws offices, per the Authority Map's own comment, and the Coordinator is not one. A Coordinator is a creature of a Program policy, board-designated when that policy adopts, scoped to that Program, ending when it sunsets.</p>
+  <p>So the designation would live where the Plan puts it: in the Program's policy instrument. Each Program policy is an agreements row, code POLICY-PATRONAGE-&lt;program&gt;, versioned and effective-dated, and its agreement.adopted event carries the machine-readable parameters, the coordinator among them (&sect;7). The posting verbs enforce the segregation the Plan requires: the approver on a capital.contribution must equal the coordinator named by the version in force for that Program, and must differ from the member being credited. Cross-verification for a Coordinator's own contributions falls to the Financial Systems Committee's officers, which the deployed policy set already recognizes. Members read their own records at any time; that right is already the events read policy, capital included, under Bylaws &sect;18.1 and &sect;6.2.1.<sup>4</sup></p>
+  <p>One visibility cell is genuinely missing, and &sect;8 adds a second like it: the Coordinator's monthly view of their Program's activity, which the current read policy does not grant. Two honest routes exist, an additive read policy scoped by the program reference, which is Authority Map territory and belongs in an AM v0.2 addendum with its anchors stated, or definer functions that return the summaries without widening row access. This proposal suggests the second for launch, because it ships without touching the policy set, and names the first as the durable form. Both routes are gathered in &sect;15 for one decision.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;7</span><h2>Configuration as record</h2><span class="sub">rates are data, never code</span></div>
+  <p>No rate, weight, or unit value would appear in any view, verb, or check. Every number the Plan proposes, the Labor Schedule tiers, the REVENUE percentage, the OUTPUT unit values, the PRESENCE credit, enters the system as an adopted instrument and is read from the record at valuation time, so a rate change is an amendment event and history stays computable under the version that governed it. Cite as you enforce, Law IV, applied to money.</p>
+  <table>
+    <tr><th>instrument</th><th>agreements code</th><th>carries in its adoption payload</th><th>standing</th></tr>
+    <tr><td>Schedule A</td><td class="mono">SCHEDULE-A</td><td>the four labor tiers and their rates</td><td>adopted 2026-06-24; row and event to be entered at &sect;12 R1</td></tr>
+    <tr><td>Counting Rules</td><td class="mono">COUNTING-RULES</td><td>admissible event kinds, FMV confirmations, REVENUE percentage, OUTPUT and PRESENCE values, first accounting year</td><td>Open &middot; Q3, before the board</td></tr>
+    <tr><td>Default Policy</td><td class="mono">POLICY-PATRONAGE-DEFAULT</td><td>HOURS only at Schedule A rates; scope of unattributed activity</td><td>adopts with the Plan</td></tr>
+    <tr><td>each Program policy</td><td class="mono">POLICY-PATRONAGE-&lt;program&gt;</td><td>purpose, coordinator_agent_id, active Primitives, weights summing to 100, output units and values, funding bounds, lifecycle, review</td><td>per Program, by board resolution</td></tr>
+  </table>
+  <p>The agreements table carries no payload column, deliberately; parameters travel in the adopting event's payload, the instrument row holds identity, version, and effective date, and the prior column preserves what a governed record changed from. Amendments are prospective only, as the Plan requires: a new version, a new adoption event, and the fold untouched behind it.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;8</span><h2>The Programs view</h2><span class="sub">a principal view of the commons portal</span></div>
+  <p>This is the surface v0.1 was missing, and it is key to the PRD. Programs are internal to the LCA, so their view belongs inside the commons portal at techne.coop/intranet, behind the auth gate, in two forms: a principal page of its own at <span class="addr">/intranet/programs/</span>, and a primary window on the intranet Overview beside the member's other principal windows, so exploring Programs is a first thing a signed-in participant sees, not a thing they hunt for. The page and the window read the same record; the window is the door, the page is the room.</p>
+  <p>What a participant finds there is the cooperative's organized life, arranged for engagement:</p>
+  <table>
+    <tr><th>element</th><th>shows</th><th>reads from</th></tr>
+    <tr><td>the roster</td><td>every Program as a card: name, purpose, Coordinator, archetype, and its policy standing, in force, in formation under the Default Policy, or sunset</td><td>agents.kind = 'program'; the POLICY-PATRONAGE instruments and their adoption parameters</td></tr>
+    <tr><td>open Opportunities, by Program</td><td>each Program's affiliated open Opportunities from the board, with the standing respond path beside each</td><td>opportunities; the &sect;4 affiliation fold</td></tr>
+    <tr><td>the unaffiliated shelf</td><td>open Opportunities with no Program behind them, so pure Find stays visible and nothing implies a Program is required to engage</td><td>opportunities without affiliation</td></tr>
+    <tr><td>how recognition works here</td><td>the Program's active Primitives and weights, and, once Q3 records, what engagement is worth under the version in force</td><td>the adoption payload; plain rendering, no stored copy</td></tr>
+    <tr><td>the engage paths</td><td>respond to an Opportunity; register for the Program's gatherings where it hosts any; reach the Coordinator</td><td>the standing Find and Gather surfaces, linked, not duplicated</td></tr>
+    <tr><td>the Overview window</td><td>a primary card: Programs by count and standing, a spotlight, open affiliated Opportunities, one door to the page</td><td>the same reads, summarized</td></tr>
+  </table>
+  <p>The visibility ground is mostly already laid: members read the full agent roster under Bylaws &sect;2.9, every Opportunity under the Find policies, and every instrument row under Art. XVI and &sect;1.2.9.<sup>4</sup> Two cells are missing, and they are the same shape as &sect;6's: affiliation events and adoption parameters live in the events table, which members read only where an event concerns them. Principle 07 is the anchor that closes both, democratic by default, any member sees what governs them, board policies accessible without friction.<sup>2</sup> The durable form is an AM v0.2 addendum granting member read on the opportunity and agreement namespaces; the launch form is the same definer-function route as &sect;6. One decision covers all three cells, gathered in &sect;15.</p>
+  <div class="box decide"><span class="bk">placement &middot; adopted from Todd's direction, seam named</span><p>The sibling surfaces to date, join, agreements, directory, gatherings, opportunities, live under /commons/ with the intranet as the auth shell. This view is placed inside /intranet/ deliberately, on the direction that Programs are internal organizing bodies. If the cooperative later prefers one address family for all member surfaces, moving the page is mechanical; the placement records a frame, not a constraint.</p></div>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;9</span><h2>The fold, traceability, and the three doors</h2><span class="sub">Law IV and Law VII, on a screen</span></div>
+  <p>The capital_accounts view stays exactly what it is: one row per member, a book fold and a tax fold over capital events, running as the asker so it shows only what the events policy already shows.<sup>3</sup> This proposal adds no stored balance anywhere and no second truth. The member surface at /commons/account/ would render three things from the same record: the balance pair, the itemized history, which is the member's own capital events in order, and, on every line, the citation trail: the event id, the Program, the Primitive, the quantity and basis, and the policy instrument and version that valued it, with a line that flowed from an affiliated Opportunity linking back to it. The slice sentence in PRD v0.3 is the acceptance test written as prose: follow any figure to the events and the policy that produced it, and never hit an unexplained boundary.<sup>2</sup></p>
+  <p>The three doors hold without addition. <em>Browse</em> is the Programs view of &sect;8, /commons/account/, and the Coordinator desk when the claim pen opens. <em>Ask</em> is the natural-language door over the identical record. <em>Verify</em> is the event log and the fourteen export views already deployed, which carry every kind this module would write without amendment; the rehearsed walkaway has already proven the fold reconstructs byte-identically, so the module inherits X-03 and X-09 and adds nothing to them. The public navigation already names the account slice <em>Account</em>; the Programs view takes its place in the intranet rather than the public nav, and whether it ever earns a nav position is a later, smaller question.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;10</span><h2>Write paths</h2><span class="sub">verbs, and who holds the pen</span></div>
+  <p>All capital writes would ride security definer verbs, the pattern the signature flow set when B-04 escalated and 0003 landed: one atomic function per act, the human actor validated against role_grants, refusal messages that cite the rule refused. The member insert policy on events is not widened for capital kinds; the verbs are the only doors.<sup>4</sup> The affiliation verb is the one exception in spirit, since opportunity.* kinds are already member-actionable; it still lands as a verb so the Coordinator-or-author rule is enforced somewhere the interface cannot forget it.</p>
+  <p>Slice 04 is read-only at first, and the proposal phases the pen to match. In the first phase the overseer posts: post_contribution takes the member, the Program, the Primitive, the quantity, and the documentation reference, reads the version in force, computes the deltas, sets the approver, and writes one capital.contribution. In the second phase, opening per Program as its policy adopts, the member's own pen is a claim: submit_claim writes a patronage.claim, deltaless, optionally citing the affiliated Opportunity it flows from, and the Coordinator's promote_claim verifies it into a capital.contribution that references the claim, so self-report and verification are two events by two people and the fold counts only the second. Corrections are compensating events through the standing corrects reference; nothing is ever edited.</p>
+  <p>The allocation run is a verb sequence in the order the Plan fixes: open_run cuts the fold; record_pnl enters the reconciled figure; post_allocations computes each member's share by capital ratio at the cut and writes the capital.allocation rows, both deltas; record_patron_check attests the 51% floor under a director's hand; apply_qio redirects any deficit-creating loss; record_distribution and record_k1_issuance close the record. Determinism is a requirement, not a hope: given the cut instant and the P&amp;L figure, the allocation rows are a pure function of the log, which is what makes the gate's hand-check possible.</p>
+  <div class="box decide"><span class="bk">escalation &middot; standing</span><p>Everything in this section is money, and money is a stop-and-ask category under the Build Protocol. The verbs would land as one migration, 000N_patronage_verbs.sql, only after this proposal is discussed and adopted, and only on Todd's word, with the migration number taken from the chain as it stands that day.</p></div>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;11</span><h2>The year-end sequence and the treasury boundary</h2><span class="sub">Plan &sect;7, mechanized</span></div>
+  <p>The Plan's seven steps map one-to-one onto the &sect;5 kinds and the &sect;10 verbs, each a recorded event tied to the provision that authorizes it, none authored as a date. Steps 01 through 05 complete entirely inside this module. Steps 06 and 07 are where a missing sentence belongs, and here is the proposed wording: <em>steps 06 and 07 record in this module as linked commitment events per Law VIII, and the movement of cash they describe executes only through the treasury module that PRD v0.3 sequences after the launch slices, so no allocation run in this module moves money, and no distribution timing can precede the qualified income offset check that step 05 records.</em> Until the treasury module exists, capital.distribution rows carry settlement anticipated, the honest mark for a commitment the engine holds and the bank has not yet seen. The sentence is offered to the Plan's own Section 9 as the light amendment already flagged; it changes no step, only names the seam between recording and execution.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;12</span><h2>Phasing as readiness conditions</h2><span class="sub">no dates, by design</span></div>
+  <p>The Plan's implementation section phased by calendar, Default Policy in the first quarter and Program policies in the second. The roadmap grammar retired calendar phasing in favor of readiness conditions, and this proposal restates the same intent in that grammar. Notably, the Programs view does not wait for Q3: exploring Programs and their Opportunities is a Find capability, and it can open with Programs shown honestly as in formation before a single rate exists.</p>
+  <table>
+    <tr><th>condition</th><th>opens</th><th>waits on</th></tr>
+    <tr><td class="mono">R0</td><td>the Programs view, page and Overview window, with affiliation live</td><td>this proposal adopted; the Find train verified; the &sect;15 visibility decision taken</td></tr>
+    <tr><td class="mono">R1</td><td>Default Policy posting, overseer pen; the fold and /commons/account/ go live</td><td>Q3 counting rules recorded; Schedule A entered as instrument and event; the &sect;10 verbs applied</td></tr>
+    <tr><td class="mono">R2</td><td>a Program's Primitives and its member claim pen</td><td>that Program's policy adopted with its Coordinator named; per Program, not global</td></tr>
+    <tr><td class="mono">R3</td><td>the PROPERTY posting path</td><td>the 704(c) methodology election recorded on CPA confirmation; until then PROPERTY refuses</td></tr>
+    <tr><td class="mono">R4</td><td>the first Allocation Run</td><td>fiscal close with P&amp;L finalized; Q4 class semantics recorded, since the patron-majority check computes against Patron Class membership</td></tr>
+  </table>
+  <p>R2 repeats per Program indefinitely; that is the polymorphism the Plan promises, a closed Primitive set under an open Program set, and nothing in this module needs to change when the next Program adopts.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;13</span><h2>Verification</h2><span class="sub">acceptances and the gate</span></div>
+  <p>Each acceptance below is a sentence a person demonstrates or a probe the suites assert, in the Verification Spec's grammar:</p>
+  <ol class="plain">
+    <li>A signed-in member opens the Programs view and finds every Program with its standing honestly marked, its affiliated open Opportunities beside it, and the unaffiliated shelf intact.</li>
+    <li>An Affiliation resolves to its event: from the board or the Programs view, the link between an Opportunity and its Program traces to the opportunity.affiliated row that made it.</li>
+    <li>A posted contribution appears in the member's fold and itemized history in the same read, with its event id, Program, Primitive, and policy version visible on the line, and its Opportunity linked where one seeded it.</li>
+    <li>Every figure on /commons/account/ resolves to its events and its instrument; the Law IV probe walks one balance to its inputs and finds no unexplained boundary.</li>
+    <li>A verb refuses a Coordinator approving their own contribution, and the refusal cites the Plan's segregation rule; the probe matrix gains this cell.</li>
+    <li>Given a cut instant and a P&amp;L figure, the allocation rows recomputed by hand equal the posted rows in both projections; the standing G-S sentence, unchanged: the fold shown equals the fold computed by hand.</li>
+    <li>The member allocation deltas for a run sum to the finalized net figure, a Law III conservation check the suites assert on every run.</li>
+    <li>The rehearsed walkaway continues to reconstruct the fold byte-identically with the new kinds present, which the weekly harness will demonstrate without being asked.</li>
+  </ol>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;14</span><h2>The packet splice, proposed</h2><span class="sub">the S train, and one packet for Find</span></div>
+  <p>The roadmap ledger and the build dashboard currently describe different packets under S-01 and S-02: the ledger holds a capital account view and an allocation event, the dashboard holds contribution posting paths and a fold surface. Read against this proposal, the divergence resolves as an under-decomposition rather than a contradiction; the union is the train. And the Programs view, being a Find capability unblocked by Q3, is offered as a Find packet rather than a Share one, with the placement itself open: if it reads better inside the Share train as its opening packet, the entries renumber and nothing else changes.</p>
+  <pre><span class="c"># proposed splice &middot; one Find packet, three Share packets, the gate unchanged</span>
+<span class="c"># adoption is the merge, and the merge is Todd's</span>
+<span class="k">- address: F-04</span>
+  title: The Programs view
+  intent: Programs as organizing bodies for Opportunities; the principal page at /intranet/programs/ and the Overview primary window, per PP &sect;8.
+  status: open &middot; PP adoption
+  cites: [PP, PRD, AM, IM]
+  ready_when: PP adopted. F-01 through F-03 verified. The &sect;15 visibility decision recorded.
+  deliverable: /intranet/programs/; the Overview window; the affiliation verb.
+  acceptance: Explore every Program and its open Opportunities; trace one Affiliation to its event.
+
+<span class="k">- address: S-01</span>
+  title: Contribution posting paths
+  intent: The &sect;10 verbs land; a valued Contribution posts with both deltas per Law VII.
+  status: open &middot; Q3
+  cites: [PP, IM, AM, PRD]
+  ready_when: G0 attested. Q3 counting rules recorded. PP adopted.
+  deliverable: 000N_patronage_verbs.sql; Schedule A and Counting Rules entered as instruments.
+  acceptance: A contribution posted by verb appears in the poster's fold, citing its policy version.
+
+<span class="k">- address: S-02</span>
+  title: The fold surface
+  intent: /commons/account/ shows the balance and the itemized history with traceable inputs per Law IV.
+  status: open &middot; Q3
+  cites: [PP, IM, AM, PRD]
+  ready_when: S-01 verified.
+  deliverable: /commons/account/ over capital_accounts and the member's own capital events.
+  acceptance: Follow any figure to the events and the policy that produced it.
+
+<span class="k">- address: S-03</span>
+  title: The allocation run
+  intent: The Plan &sect;7 sequence executes as recorded events, steps 01 through 05, with 06 and 07 as commitment records per PP &sect;11.
+  status: anticipated
+  cites: [PP, IM, AM, PRD]
+  ready_when: S-02 verified. Fiscal close. Q4 class semantics recorded.
+  deliverable: The run's event trail; the patron-majority attestation under a director's hand.
+  acceptance: Hand-computed allocation equals posted allocation, both projections.
+
+<span class="k">- address: G-S</span>   <span class="c"># unchanged in sentence; ready_when follows the splice</span>
+  ready_when: S-03 verified.</pre>
+  <p>The first accounting year can reach G-S before a full year elapses by demonstrating S-03 on an illustrative run, provenance marked, if the gate ceremony prefers not to wait for a fiscal close; that choice belongs to the Gate Book, not to this proposal.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;15</span><h2>Open items, gathered for discussion</h2><span class="sub">routed, not decided</span></div>
+  <p>The Plan travels to the board with three reviewer sets, entity counsel, tax counsel or the partnership CPA, and the board itself, and those checkpoints carry forward here by reference and unaltered.<sup>1</sup> This proposal adds the mechanism-side items that surfaced in drafting, each routed to its person:</p>
+  <table>
+    <tr><th>item</th><th>bears on</th><th>routed to</th></tr>
+    <tr><td>the visibility decision: one AM v0.2 addendum granting member read on the opportunity and agreement event namespaces plus the Coordinator's program summary, anchored in Principle 07, Art. XVI, and &sect;18.2 sensibility; or definer functions at launch with the addendum later</td><td>&sect;6 and &sect;8; gates R0</td><td>Todd, then the AM's next version</td></tr>
+    <tr><td>Programs view placement, /intranet/ per direction, with the /commons/ address family seam named</td><td>&sect;8</td><td>adopted unless revisited</td></tr>
+    <tr><td>F-04 versus an S-train opening packet for the Programs view</td><td>&sect;14</td><td>Todd, at the splice</td></tr>
+    <tr><td>QIO structure without a DRO, per Bylaws &sect;5.3.4 and &sect;5.6</td><td>the wording step 05 attests</td><td>CPA, pending confirmation</td></tr>
+    <tr><td>704(c) methodology for PROPERTY; book-up trigger policy; parallel book and tax maintenance</td><td>when tax_delta may diverge from book_delta; R3</td><td>tax counsel and CPA</td></tr>
+    <tr><td>Q4 class structure, patron and investor design</td><td>who holds accounts; the step 04 floor computation</td><td>board and counsel</td></tr>
+    <tr><td>the Board delegation resolution seating the steward, marked Anticipated in the deployed policy comments</td><td>every steward act &sect;5 assigns</td><td>the board; confirm adopted or schedule</td></tr>
+    <tr><td>the entity-book pin, the affiliation-as-event route, and the claim-then-promote pen</td><td>specification shape, &sect;4 &sect;5 &sect;10</td><td>Todd, accept or revise</td></tr>
+  </table>
+  <p>Nothing here is legal or tax advice; it is research shaped for the people who give that advice, in the standing division of labor.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;16</span><h2>What this proposes, and what it does not decide</h2><span class="sub">status honesty</span></div>
+  <p>This document proposes a shape and nothing more. It does not set a rate, a weight, or a unit value; those are the Plan's proposed defaults awaiting their reviewers. It does not write the Q3 resolution or presume its content beyond the fields &sect;7 reserves for it. It does not designate a Program, name a Coordinator, or seat a steward. It does not build the treasury module or move any money. It does not merge its own splice, and it does not adopt itself. It is not board-mandated and it is not closed: it is a proposal drawn concretely enough that the board, counsel, the Financial Systems Committee, and the members have something specific to question, amend, or refuse, which is the only way a shape like this should ever harden into a system.</p>
+</section>
+
+<div class="foot">
+  <h3>Sources</h3>
+  <ol>
+    <li>The Program Stack Patronage Plan, Patronage Policy v1, Draft before the board: definitions, the six Primitives, archetypes, Labor Schedule, Default Policy, the &sect;7 sequence, governance, and the reviewer checkpoints.</li>
+    <li>CIS PRD v0.3: the ten principles, Principle 07 among them; Slice 04, See your share, read-only at first, blocked by Q3; &sect;11 open questions Q3 and Q4; treasury execution sequenced beyond the launch slices.</li>
+    <li>0001_substrate.sql as applied 2026-07-11: the events columns, the capital_accounts view and its stub comment, agents.kind, the opportunities and responses tables, the agreements comment anticipating POLICY-PATRONAGE; 0005_matrix_conformance.sql: the view runs as the asker.</li>
+    <li>0002_policies.sql as applied 2026-07-11: events read under Bylaws &sect;18.1 and &sect;6.2.1; the member insert scope; agents read under &sect;2.9; agreements read under Art. XVI and &sect;1.2.9; the Find policies under &sect;18.2; role_grants and the closed appointment enum; the steward delegation marked Anticipated under &sect;1.13 and &sect;4.1.</li>
+    <li>IM v0.1, the eleven laws, carried one-line each with full statements in The System Before Its Name &sect;2; Laws I, II, III, IV, V, VII, VIII, IX, X, XI are load-bearing above.</li>
+  </ol>
+  <p class="tail">PP v0.2 &middot; Program Patronage &middot; A Proposed Module PRD and Specification &middot; Drafted, open to discussion, nothing herein adopted &middot; cites the series &middot; emits, anticipated, 000N_patronage_verbs.sql and the &sect;14 splice &middot; Nou drafts; Todd decides; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-07-22</p>
+</div>
+
+</div>
+<script>
+  var btn=document.getElementById('modeBtn');
+  function label(){btn.textContent=document.documentElement.getAttribute('data-mode')}
+  label();
+  btn.addEventListener('click',function(){
+    var m=document.documentElement.getAttribute('data-mode')==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-mode',m);
+    try{localStorage.setItem('techne-mode',m)}catch(e){}
+    label();
+  });
+</script>
+</body>
+</html>

@@ -60,7 +60,7 @@ LEDGER_PATH = REPO_ROOT / "rdm-ledger.yaml"
 
 VALID_STATUSES = {"drafted", "anticipated", "filed"}
 REQUIRED_FIELDS = {"address", "title", "intent", "status", "deliverable", "acceptance"}
-GATE_ADDRESSES = {"G0", "G-B", "G-G", "G-F", "G-S", "G-R"}
+GATE_ADDRESSES = {"G0", "G-B", "G-G", "G-F", "G-S", "G-T", "G-R"}
 
 errors = []
 warnings = []
