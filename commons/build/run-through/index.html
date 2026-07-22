@@ -258,7 +258,9 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
   <section class="sec" id="desk">
     <div class="addr">&sect;4 &middot; the steward's desk</div>
     <h2>Second act &middot; bind and admit</h2>
-    <p class="lead">Two acts belong to the assigned hand and nobody else: binding the sign-in to the agent, and admission itself. The application event already carries the applicant's address, so the address keys both: type it once and the desk does the rest. First, have the newcomer request a magic link on any member page (for example <a href="/commons/agreements/">the agreements shelf</a>) and click it, so their auth user exists.</p>
+    <p class="lead">Two acts belong to the assigned hand and nobody else, and both now happen without the SQL editor. Binding happens by itself: when the newcomer clicks their first magic link, the sign-in with the applied address becomes its agent (0008). Admission is one tap: open <a href="/commons/directory/">the directory</a> as yourself and the Admissions panel stands at the top, pending applications listed with name and address. Admit records the state transition and its membership.admitted event as one act.</p>
+    <p>Have the newcomer request a magic link on any member page (for example <a href="/commons/agreements/">the agreements shelf</a>) and click it; then tap Admit on their row. Order does not matter: admit first if you like, the binding still completes on their first sign-in.</p>
+    <p>The manual desk remains available if a case ever falls outside the panel (an address typo, an ambiguous match the auto-bind refused):</p>
     <pre class="rec">do $$
 declare
   v_email text := 'the newcomer address';  -- the only thing you type
@@ -284,7 +286,7 @@ end $$;
 -- see the result
 select a.display_name, a.auth_user_id is not null as bound, m.state
   from agents a join memberships m on m.agent_id = a.id;</pre>
-    <p>Have the newcomer reload. The system now knows who asks. If bound reads false, the newcomer has not clicked their magic link yet; run the block again once they have.</p>
+    <p>Either way, have the newcomer reload. The system now knows who asks.</p>
   </section>
 
   <section class="sec" id="belong">
