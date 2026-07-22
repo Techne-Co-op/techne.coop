@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The Programs view for RegenHub, LCA: Programs as organizing bodies for the Opportunities surfaced in the commons.">
+<title>Programs &middot; Techne</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem('techne-mode');
+      if (!m) m = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-mode', m);
+    } catch(e) {}
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #fff;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
+  --info: #6A8AC4; --info-dim: rgba(106,138,196,0.12);
+  --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
+  --info: #4A6FB0; --info-dim: rgba(74,111,176,0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text); font-family: var(--serif);
+  font-size: 16px; line-height: 1.65; min-height: 100vh; display: flex; flex-direction: column;
+}
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--s5); height: 48px; border-bottom: 1px solid var(--line);
+  background: var(--surface); position: sticky; top: 0; z-index: 10;
+}
+.topbar-brand { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); text-decoration: none; }
+.topbar-brand strong { color: var(--heading); font-weight: 500; }
+.topbar-nav { display: flex; gap: var(--s4); align-items: center; }
+.topbar-nav a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; }
+.topbar-nav a:hover { color: var(--heading); }
+.mode-btn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 4px; padding: 3px 8px; cursor: pointer; }
+.mode-btn:hover { color: var(--heading); }
+
+main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
+.section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
+.lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; }
+
+#auth-gate { display: none; }
+#auth-gate p { color: var(--muted); margin-bottom: var(--s5); }
+.btn { font-family: var(--mono); font-size: 0.85rem; padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer; }
+.btn-primary { background: var(--ember); color: var(--on-accent); }
+.btn-primary:hover { opacity: 0.88; }
+.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+#magic-form { max-width: 400px; margin: 0 auto; }
+#magic-form input[type=email] {
+  width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--heading); font-family: var(--serif); font-size: 1rem; padding: 10px var(--s4);
+  outline: none; margin-bottom: var(--s4);
+}
+#magic-form input:focus { border-color: var(--ember); }
+
+#loading { text-align: center; padding: var(--s7) 0; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; }
+#content { display: none; }
+
+.notice { padding: var(--s4); border-radius: 6px; margin: var(--s4) 0; font-size: 0.88rem; display: none; }
+.notice.ok  { background: var(--ok-dim); color: var(--ok); border: 1px solid var(--ok); }
+.notice.err { background: var(--warn-dim); color: var(--warn); border: 1px solid var(--warn); }
+
+/* program cards */
+.prog-card {
+  border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  margin-bottom: var(--s5); overflow: hidden;
+}
+.prog-header { padding: var(--s4) var(--s5); display: flex; align-items: flex-start; gap: var(--s4); }
+.prog-name { flex: 1; font-size: 1.05rem; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+.prog-meta { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+.prog-meta span { color: var(--ember-text); }
+.prog-purpose { padding: 0 var(--s5) var(--s4); font-size: 0.92rem; color: var(--text); }
+.standing-chip {
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+  white-space: nowrap; flex-shrink: 0; border: 1px solid var(--line);
+}
+.standing-chip.force { background: var(--ok-dim); color: var(--ok); border-color: var(--ok); }
+.standing-chip.formation { background: var(--info-dim); color: var(--info); border-color: var(--info); }
+.recognition {
+  margin: 0 var(--s5) var(--s4); padding: var(--s3) var(--s4);
+  background: var(--inset); border-radius: 6px; font-size: 0.85rem; color: var(--muted);
+}
+.recognition .k { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); display: block; margin-bottom: 2px; }
+.prog-opps { border-top: 1px solid var(--line); padding: var(--s4) var(--s5); background: var(--inset); }
+.prog-opps-label {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint); margin-bottom: var(--s3);
+}
+.opp-row { padding: var(--s3) 0; border-bottom: 1px solid var(--line); display: flex; gap: var(--s3); align-items: baseline; }
+.opp-row:last-child { border-bottom: none; }
+.opp-row-title { flex: 1; font-size: 0.92rem; color: var(--heading); }
+.opp-row-meta { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
+.opp-row-meta a { color: var(--ember-text); text-decoration: none; }
+.opp-row-meta a:hover { text-decoration: underline; }
+.trace { font-family: var(--mono); font-size: 0.62rem; color: var(--faint); }
+.kind-chip {
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+  border: 1px solid var(--rule); color: var(--muted); white-space: nowrap; flex-shrink: 0;
+}
+
+/* affiliation act */
+.affiliate-sec { border-top: 1px solid var(--line); padding: var(--s4) var(--s5); }
+.affiliate-form { display: flex; gap: var(--s3); align-items: center; flex-wrap: wrap; }
+.affiliate-form select {
+  background: var(--inset); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--heading); font-family: var(--serif); font-size: 0.9rem; padding: 8px var(--s3);
+  outline: none; flex: 1; min-width: 200px;
+}
+.affiliate-btn {
+  font-family: var(--mono); font-size: 0.72rem; padding: 8px 14px; border-radius: 4px;
+  border: 1px solid var(--ember); background: transparent; color: var(--ember-text);
+  cursor: pointer; white-space: nowrap;
+}
+.affiliate-btn:hover { background: var(--ember); color: var(--on-accent); }
+.affiliate-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.status-msg { font-family: var(--mono); font-size: 0.72rem; color: var(--ok); }
+.status-msg.err { color: var(--warn); }
+
+.section-head {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--faint); margin: var(--s6) 0 var(--s4);
+  padding-bottom: var(--s2); border-bottom: 1px solid var(--line);
+}
+.empty-state { text-align: center; padding: var(--s6) 0; color: var(--muted); }
+.empty-state p { font-family: var(--mono); font-size: 0.85rem; }
+
+footer {
+  border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
+  font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center;
+}
+footer a { color: var(--faint); }
+
+@media (max-width: 640px) {
+  .topbar { padding: 0 var(--s4); }
+  .topbar-nav a { display: none; }
+  main { padding: var(--s5) var(--s4); }
+  h1 { font-size: 1.35rem; }
+  .prog-header { padding: var(--s3) var(--s4); flex-wrap: wrap; gap: var(--s2); }
+  .prog-purpose { padding: 0 var(--s4) var(--s3); }
+  .prog-opps, .affiliate-sec { padding: var(--s3) var(--s4); }
+  .affiliate-btn { min-height: 44px; padding: 10px 16px; }
+  .btn-primary { width: 100%; min-height: 44px; }
+  #magic-form input[type=email] { font-size: 16px; }
+}
+</style>
+<script src="/assets/error-boundary.js"></script>
+</head>
+<body>
+<nav class="topbar">
+  <a class="topbar-brand" href="/"><strong>Techne</strong> &middot; intranet</a>
+  <div class="topbar-nav">
+    <a href="/intranet/">overview</a>
+    <a href="/commons/opportunities/">opportunities</a>
+    <a href="/commons/gatherings/">gatherings</a>
+    <a href="/commons/directory/">directory</a>
+    <button class="mode-btn" id="mode-btn">light / dark</button>
+  </div>
+</nav>
+
+<main>
+  <div id="loading">Loading&hellip;</div>
+
+  <div id="auth-gate">
+    <h1>Programs</h1>
+    <div class="section-rule"></div>
+    <p>Sign in to explore the cooperative's Programs.</p>
+    <div id="magic-form">
+      <div class="notice" id="magic-notice"></div>
+      <input type="email" id="magic-email" placeholder="your@email.com" autocomplete="email">
+      <button class="btn btn-primary" id="magic-btn">Send sign-in link</button>
+    </div>
+  </div>
+
+  <div id="content">
+    <h1>Programs</h1>
+    <div class="section-rule"></div>
+    <p class="lead">The cooperative's organized life, arranged for engagement. A Program is an organizing body for the Opportunities surfaced in the commons: a purpose, a Coordinator, and a ratified way of recognizing what the work is worth. Not every Opportunity has one, and nothing requires it.</p>
+
+    <div class="notice" id="page-notice"></div>
+
+    <div class="section-head">The roster</div>
+    <div id="roster"></div>
+
+    <div class="section-head">Open opportunities without a Program</div>
+    <p class="lead" style="margin-bottom:var(--s4)">Pure Find. These stand on the board on their own terms; a Program is never required to engage.</p>
+    <div id="unaffiliated"></div>
+  </div>
+</main>
+
+<footer>
+  <span>CIS: ujujwgopdwirebgcpekc &middot; F-04 &middot; programs, affiliations as events, recognition from the version in force</span>
+  &nbsp;&middot;&nbsp;
+  <a href="/legal">legal</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
+let sb, currentAgentId;
+let roster = [], affiliations = [], opportunities = [];
+
+document.getElementById('mode-btn').addEventListener('click', function () {
+  var cur = document.documentElement.getAttribute('data-mode');
+  var next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-mode', next);
+  try { localStorage.setItem('techne-mode', next); } catch(e) {}
+});
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Rendering ─────────────────────────────────────────────────────────────────
+
+function recognitionHtml(p) {
+  if (p.standing !== 'in force') {
+    return `<div class="recognition"><span class="k">How recognition works here</span>In formation under the Default Policy. No rates exist yet; they arrive as adopted instruments when the counting rules record (Q3), and will be shown from the version in force.</div>`;
+  }
+  const prims = Array.isArray(p.active_primitives) ? p.active_primitives.join(' · ') : '';
+  let weights = '';
+  if (p.weights && typeof p.weights === 'object') {
+    weights = Object.entries(p.weights).map(([k,v]) => `${escHtml(k)} ${escHtml(String(v))}%`).join(' · ');
+  }
+  return `<div class="recognition"><span class="k">How recognition works here &middot; ${escHtml(p.policy_code || '')} ${escHtml(p.policy_version || '')}</span>${prims ? 'Active Primitives: ' + escHtml(prims) + '.' : ''} ${weights ? 'Weights: ' + weights + '.' : ''} Read from the version in force; nothing stored twice.</div>`;
+}
+
+function oppRowHtml(o, aff) {
+  const trace = aff ? ` <span class="trace" title="the opportunity.affiliated event that made this relationship">event ${escHtml(aff.event_id.slice(0,8))}</span>` : '';
+  return `<div class="opp-row">
+    <span class="kind-chip">${escHtml(o.kind)}</span>
+    <span class="opp-row-title">${escHtml(o.title)}</span>
+    <span class="opp-row-meta"><a href="/commons/opportunities/">respond on the board &rarr;</a>${trace}</span>
+  </div>`;
+}
+
+function affiliateControlHtml(o) {
+  // shown per open unaffiliated opportunity when the viewer may act on it
+  const mine = currentAgentId && o.author_agent_id === currentAgentId;
+  if (!mine || roster.length === 0) return '';
+  const opts = roster.map(p => `<option value="${p.program_agent_id}">${escHtml(p.display_name)}</option>`).join('');
+  return `<div class="affiliate-form" data-opp="${o.id}">
+    <select aria-label="Choose a Program">${opts}</select>
+    <button class="affiliate-btn">Affiliate with this Program</button>
+    <span class="status-msg"></span>
+  </div>`;
+}
+
+function render() {
+  const rosterEl = document.getElementById('roster');
+  const affByOpp = {};
+  affiliations.forEach(a => { affByOpp[a.opportunity_id] = a; });
+  const openOpps = opportunities.filter(o => o.state === 'open');
+
+  if (roster.length === 0) {
+    rosterEl.innerHTML = `<div class="empty-state"><p>No Programs stand yet. The first arrives when the board designates one; its Opportunities will gather here.</p></div>`;
+  } else {
+    rosterEl.innerHTML = roster.map(p => {
+      const chipCls = p.standing === 'in force' ? 'force' : 'formation';
+      const coord = p.coordinator_name
+        ? `coordinator &middot; <span>${escHtml(p.coordinator_name)}</span>`
+        : `coordinator &middot; <span>to be designated with the policy</span>`;
+      const progOpps = openOpps.filter(o => affByOpp[o.id] && affByOpp[o.id].program_agent_id === p.program_agent_id);
+      const oppsHtml = progOpps.length
+        ? progOpps.map(o => oppRowHtml(o, affByOpp[o.id])).join('')
+        : `<div class="opp-row"><span class="opp-row-title" style="color:var(--muted);font-size:0.88rem">No open Opportunities affiliated yet.</span></div>`;
+      return `<div class="prog-card">
+        <div class="prog-header">
+          <div>
+            <div class="prog-name">${escHtml(p.display_name)}</div>
+            <div class="prog-meta">${coord}</div>
+          </div>
+          <span class="standing-chip ${chipCls}">${escHtml(p.standing)}</span>
+        </div>
+        ${p.purpose ? `<div class="prog-purpose">${escHtml(p.purpose)}</div>` : ''}
+        ${recognitionHtml(p)}
+        <div class="prog-opps">
+          <div class="prog-opps-label">Open opportunities, this Program</div>
+          ${oppsHtml}
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  const unaffEl = document.getElementById('unaffiliated');
+  const unaff = openOpps.filter(o => !affByOpp[o.id]);
+  if (unaff.length === 0) {
+    unaffEl.innerHTML = `<div class="empty-state"><p>Every open Opportunity currently stands with a Program, or the board is empty.</p></div>`;
+  } else {
+    unaffEl.innerHTML = unaff.map(o => `<div class="prog-card">
+      <div class="prog-header">
+        <span class="kind-chip">${escHtml(o.kind)}</span>
+        <div style="flex:1">
+          <div class="prog-name" style="font-size:0.98rem">${escHtml(o.title)}</div>
+          <div class="prog-meta">by <span>${escHtml(o.agents ? o.agents.display_name : '')}</span> &middot; <a href="/commons/opportunities/" style="color:var(--ember-text)">respond on the board &rarr;</a></div>
+        </div>
+      </div>
+      ${affiliateControlHtml(o) ? `<div class="affiliate-sec">${affiliateControlHtml(o)}</div>` : ''}
+    </div>`).join('');
+    wireAffiliateControls();
+  }
+}
+
+// ── The affiliation act (the one verb this page holds) ────────────────────────
+
+function wireAffiliateControls() {
+  document.querySelectorAll('.affiliate-form').forEach(form => {
+    const btn = form.querySelector('.affiliate-btn');
+    btn.addEventListener('click', async () => {
+      const status = form.querySelector('.status-msg');
+      const program = form.querySelector('select').value;
+      const opp = form.dataset.opp;
+      btn.disabled = true; status.textContent = ''; status.className = 'status-msg';
+      const { error } = await sb.rpc('affiliate_opportunity', {
+        p_opportunity: opp, p_program: program
+      });
+      if (error) {
+        status.textContent = Techne.report(error, 'Could not affiliate. Only the author or the Program Coordinator may.');
+        status.className = 'status-msg err'; btn.disabled = false; return;
+      }
+      status.textContent = 'Affiliated. The relationship is an event in the record.';
+      await loadData(); render();
+    });
+  });
+}
+
+// ── Data loading ──────────────────────────────────────────────────────────────
+
+async function loadData() {
+  const [r1, r2, r3] = await Promise.all([
+    sb.rpc('programs_roster'),
+    sb.rpc('program_affiliations'),
+    sb.from('opportunities').select('*, agents(display_name)').order('opened_at', { ascending: false })
+  ]);
+  const pageNotice = document.getElementById('page-notice');
+  if (r1.error || r2.error || r3.error) {
+    const e = r1.error || r2.error || r3.error;
+    pageNotice.textContent = Techne.report(e, 'Could not load the Programs view right now. Please reload the page.');
+    pageNotice.className = 'notice err'; pageNotice.style.display = 'block';
+  }
+  roster = r1.data || [];
+  affiliations = r2.data || [];
+  opportunities = r3.data || [];
+}
+
+async function loadAll(session) {
+  document.getElementById('content').style.display = 'block';
+  const { data: agents } = await sb.from('agents').select('id,auth_user_id');
+  const self = agents && agents.find(a => a.auth_user_id === session.user.id);
+  currentAgentId = self ? self.id : null;
+  await loadData();
+  render();
+}
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+
+function wireMagicLink() {
+  const emailInput = document.getElementById('magic-email');
+  const btn = document.getElementById('magic-btn');
+  const notice = document.getElementById('magic-notice');
+
+  function showNotice(cls, msg) {
+    notice.className = 'notice ' + cls; notice.textContent = msg; notice.style.display = 'block';
+  }
+
+  btn.addEventListener('click', async function () {
+    const email = emailInput.value.trim();
+    if (!email) { showNotice('err', 'Enter your email address.'); return; }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
+    if (error) { showNotice('err', Techne.report(error, 'Could not send the sign-in link. Please check the address and try again.')); btn.disabled = false; btn.textContent = 'Send sign-in link'; }
+    else { showNotice('ok', 'Check your email for a sign-in link.'); btn.textContent = 'Link sent'; }
+  });
+  emailInput.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
+}
+
+(async function init() {
+  sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
+  const { data: { session } } = await sb.auth.getSession();
+  document.getElementById('loading').style.display = 'none';
+
+  if (!session) {
+    document.getElementById('auth-gate').style.display = 'block';
+    wireMagicLink();
+    return;
+  }
+
+  await loadAll(session);
+
+  sb.auth.onAuthStateChange(async (event, s) => {
+    if (event === 'SIGNED_IN' && s) {
+      document.getElementById('auth-gate').style.display = 'none';
+      await loadAll(s);
+    }
+    if (event === 'SIGNED_OUT') {
+      document.getElementById('content').style.display = 'none';
+      document.getElementById('auth-gate').style.display = 'block';
+    }
+  });
+})();
+</script>
+</body>
+</html>

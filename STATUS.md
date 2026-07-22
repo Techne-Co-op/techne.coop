@@ -33,7 +33,7 @@ Generated from rdm-ledger.yaml. 51 items total.
 - **F-01** open · in-session -- Opportunity board
 - **F-02** open · in-session -- Response flow
 - **F-03** open · in-session -- Resolution
-- **F-04** open · PATRONAGE adoption -- The Programs view
+- **F-04** open · in-session -- The Programs view
 - **G-01** open · verified -- Calendar
 - **G-02** open · verified -- Registration and cancellation
 - **G-03** open · verified -- Attendance recording

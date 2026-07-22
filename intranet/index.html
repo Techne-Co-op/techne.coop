@@ -460,6 +460,7 @@ footer {
     <a href="/commons/gatherings/">Gatherings</a>
     <div class="nav-section">Find one another</div>
     <a href="/commons/opportunities/">Opportunities</a>
+    <a href="/intranet/programs/">Programs</a>
     <div class="nav-section" id="steward-nav-label" style="display:none">Steward</div>
     <a href="/commons/directory/" id="steward-nav-link" style="display:none">Admissions</a>
     <div class="nav-section">The record</div>
@@ -514,6 +515,12 @@ footer {
           <div class="card-value" style="font-size:1rem">The opportunities</div>
           <div class="card-desc">Open invitations to play, practice, and work. Post, respond, and close it when it resolves.</div>
           <div class="card-go">open the board →</div>
+        </a>
+        <a class="dash-card door-card" href="/intranet/programs/">
+          <div class="card-label">Find one another · programs</div>
+          <div class="card-value" style="font-size:1rem">The programs</div>
+          <div class="card-desc" id="programs-desc">Organizing bodies for the Opportunities on the board: purpose, Coordinator, and how work is recognized, each read from the version in force.</div>
+          <div class="card-go">open the programs →</div>
         </a>
         <a class="dash-card door-card" href="/commons/join/">
           <div class="card-label">Belong · the front door</div>
@@ -640,6 +647,23 @@ async function loadPortal(user) {
       const state = Array.isArray(mems) && mems.length ? mems[0].state : 'no membership';
       const roles = Array.isArray(grants) ? grants.map(g => g.role) : [];
       roleEl.textContent = self.display_name + ' · ' + state + (roles.length ? ' · ' + roles.join(' · ') : '');
+
+      // the Programs window: the same reads the page makes, summarized (F-04)
+      try {
+        const progRes = await fetch(`${SUPABASE_URL}/rest/v1/rpc/programs_roster`, {
+          method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' }, body: '{}'
+        });
+        const progs = await progRes.json();
+        if (Array.isArray(progs)) {
+          const inForce = progs.filter(p => p.standing === 'in force').length;
+          const desc = document.getElementById('programs-desc');
+          if (progs.length === 0) {
+            desc.textContent = 'No Programs stand yet; the first arrives when the board designates one. The view is open and honest about it.';
+          } else {
+            desc.textContent = progs.length + ' program' + (progs.length === 1 ? '' : 's') + ' · ' + inForce + ' in force, ' + (progs.length - inForce) + ' in formation. Purpose, Coordinator, and recognition read from the version in force.';
+          }
+        }
+      } catch (e) { /* the door still stands; the summary is a courtesy */ }
 
       // the steward's desk
       if (roles.includes('steward') || roles.includes('director')) {
