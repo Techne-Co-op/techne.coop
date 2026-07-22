@@ -108,7 +108,7 @@
 </div>
 
 <div class="mast">
-  <div class="kicker">TR v0.1 &middot; a proposal &middot; the movement layer</div>
+  <div class="kicker">TR v0.1.1 &middot; a proposal &middot; the movement layer</div>
   <h1>Treasury<br>A Proposed Module PRD and Specification</h1>
   <p class="dek">A proposal, open to discussion and revision, for the complementary CIS module that closes the loop Program Patronage opens: the layer where money actually moves. It joins the rails already connected, Stripe at the front door, Mercury as custody, Xero as the book of account, to the ledger's discipline, so that every governed movement is proposed, approved, executed, and reconciled as recorded events. It includes and integrates PP v0.2 by design: patronage records meaning, treasury records movement, and the pairing of the two is what the cooperative can trust.</p>
   <div class="statusline">
@@ -215,7 +215,9 @@
 <!-- ================================================== -->
 <section class="sec">
   <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;9</span><h2>Surfaces and doors</h2><span class="sub">the desk, and what members see</span></div>
-  <p><em>Browse.</em> The Desk at /intranet/treasury/, beside the Programs view in the commons portal: the proposal queue with each item's accumulated trail, the execution list awaiting bank references, the reconciliation state with its gap cards, and the instrument in force with its thresholds visible. For members, no new surface is needed for their own facts: a member's dues receipts, share purchase, and distribution events already concern them, so the standing events policy shows them on their own account and history surfaces, movement lines beside meaning lines.<sup>4</sup> The aggregate picture, how the cooperative's money stands, belongs to the open benefit report of the v2 narrative's horizon, under Principle 07, and this module supplies its treasury half when that page comes.</p>
+  <p><em>Browse.</em> The Desk at /intranet/treasury/, beside the Programs view in the commons portal: the proposal queue with each item's accumulated trail, the execution list awaiting bank references, the reconciliation state with its gap cards, and the instrument in force with its thresholds visible. For members, no new surface is needed for their own facts: a member's dues receipts, share purchase, and distribution events already concern them, so the standing events policy shows them on their own account and history surfaces, movement lines beside meaning lines.<sup>4</sup> The aggregate picture, how the cooperative's money stands, belongs to the open benefit report of the v2 narrative's horizon, under Principle 07, and this module supplies its treasury half now, as the balance view below, ahead of that page.</p>
+  <p><em>Balance.</em> Beside the desk sits a balance view, the rail-reported picture: what each custodian says the cooperative holds right now, read live and read only. Stripe reports its available and pending balance, the funds captured and awaiting payout; Mercury reports the operating balance of each account it holds; Xero reports the book's cash position, the figure the accounting record carries.<sup>6</sup> Each number arrives by the same seam discipline the intake uses, an edge function holding that rail's read-only credential and returning the figure with the timestamp of its read, reference not value, so a stale read says it is stale rather than pretending to be current. A balance is neither a movement nor a meaning, so nothing here is written to the log: it is an outside observation held beside the record, not a fact inside it, and the two-layer principle stays intact.</p>
+  <p>The point of showing it is honesty, not accounting. The record keeps its own number, the sum the events reconcile to, and the balance view sets the rail's number beside the record's for each rail, with the delta between them and, once the fold runs, a link to the gap card any unexplained difference opens. Agreement is the ordinary case and shows plainly; a standing delta is the reconciliation conscience made visible on the surface where anyone with the door can see it. This is the treasury half of the aggregate picture the open benefit report will carry under Principle 07, brought forward as soon as the reads exist rather than held for that page: the balance view needs no write rail, so the Stripe and Mercury reads and the Xero position can stand at R1 beside the read-only desk, and the delta column activates at R3 when the fold begins to attest. Which cut is shown to whom, the member-visible aggregate and agreement indicator that open books invite against the per-rail figures and deltas the desk audience holds, is a visibility question routed below, not decided here.</p>
   <p><em>Ask</em> answers over the identical record. <em>Verify</em> inherits everything: the events export already carries every kind here, the walkaway already reconstructs, and the weekly rehearsal will simply start exercising treasury rows the day they exist.<sup>3</sup></p>
 </section>
 
@@ -250,6 +252,8 @@
     <li>Every figure on the Desk and on a member's movement lines resolves to its events, its instrument, and its rail reference; the Law IV walk finds no unexplained boundary.</li>
     <li>The share register conserves: issuance and redemption events match the stock_ledger exactly, and one voting share per member holds under load.</li>
     <li>The walkaway continues byte-identical with treasury kinds present, demonstrated by the weekly harness without being asked.</li>
+    <li>Each balance on the view carries the source and the timestamp of its read; a read past its freshness threshold renders as stale, not as current, and the probe asserts it.</li>
+    <li>The balance view's aggregate equals the sum of its per-rail reads with no hidden derivation, and each per-rail delta equals the rail-reported figure minus the reconciled record.</li>
   </ol>
   <p>The gate sentence proposed for G-T, in the house grammar: <em>a movement shown settled equals a movement traced by hand, proposal to approvals to bank line to journal, and the window attests with nothing unexplained.</em></p>
 </section>
@@ -299,6 +303,14 @@
   ready_when: The redeemability question resolved by board and counsel.
   acceptance: A redemption runs register to bank with the full trail, or refuses citing the open question.
 
+<span class="k">- address: T-06</span>
+  title: The balance view
+  intent: /intranet/treasury/ shows each rail's reported holding, Stripe, Mercury, Xero, read only with its source and read time; the delta to the reconciled record beside it, per TR &sect;9.
+  status: anticipated
+  cites: [TR, IM, VS]
+  ready_when: T-01 verified. Read-only credentials provisioned for the three rails.
+  acceptance: Each rail's balance shows with its source and read time; the member-visible aggregate equals the sum of the reads; after T-03 the delta to the last attested window shows and links its gaps.
+
 <span class="k">- address: G-T</span>
   title: Treasury gate
   ready_when: T-04 verified.
@@ -319,6 +331,9 @@
     <tr><td>tax character of intake purposes, dues versus capital versus program payment</td><td>&sect;5 purposes; the book mapping</td><td>CPA</td></tr>
     <tr><td>grant-bounded flows on the host book, UBIT and funder conditions per the Plan's checkpoint</td><td>Law IX partition; program payments</td><td>tax counsel, per grant</td></tr>
     <tr><td>the member-visibility cells this module shares with PP &sect;8, one AM v0.2 addendum or definer functions at launch</td><td>&sect;9; the Desk's counterpart reads</td><td>Todd, then the AM's next version</td></tr>
+    <tr><td>read-only credentials for the Stripe, Mercury, and Xero balance reads: provisioning and custody under the reference-not-value rule</td><td>&sect;9 balance view; R1</td><td>Todd, infrastructure</td></tr>
+    <tr><td>the open-books cut: the member-visible aggregate and agreement indicator against the per-rail figures and deltas held to the desk audience, and whether the aggregate reaches the public benefit report</td><td>&sect;9 balance view; Principle 07</td><td>the board, via the FSC</td></tr>
+    <tr><td>the Xero position shown, the cash line alone or a fuller balance-sheet summary</td><td>&sect;9 balance view</td><td>the treasurer and the CPA</td></tr>
   </table>
   <p>Nothing here is legal or tax advice; it is research shaped for the people who give that advice, in the standing division of labor.</p>
 </section>
@@ -337,8 +352,9 @@
     <li>The applied emissions: 0001_substrate.sql, the settlement axis, stock_ledger with issuance and redemption, the membership lifecycle's redeemed transition; 0004_export_views.sql, export.events among the fourteen; 0006_notices_rail.sql, the deployed external-seam pattern, no secret in the trigger, reference not value.</li>
     <li>0002_policies.sql and 0005: the treasurer in role_grants under Bylaws &sect;4.4, events read under &sect;18.1 and &sect;6.2.1, the member insert scope, the instrument holding no role and no grant; the Financial Systems Committee record of February: Mercury primary with two authorized users, the Stripe migration under the LCA, the Xero book, six paying members, and the $250 to $500 buy-in fulfillable through labor equivalent.</li>
     <li>IM v0.1, the eleven laws; Laws I, II, III, IV, VIII, IX, X, and XI are load-bearing above, Law X most of all.</li>
+    <li>The rail reads at capability level: Stripe's Balance, available and pending; Mercury's account balances; Xero's cash position from the accounting record. Each read only, each joined by the 0006 seam pattern, no credential in the browser.</li>
   </ol>
-  <p class="tail">TR v0.1 &middot; Treasury &middot; A Proposed Module PRD and Specification &middot; Drafted, open to discussion, nothing herein adopted &middot; complementary to PP v0.2 &middot; emits, anticipated, 000N_treasury_verbs.sql and the &sect;13 splice &middot; Nou drafts; Todd decides; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-07-22</p>
+  <p class="tail">TR v0.1.1 &middot; Treasury &middot; A Proposed Module PRD and Specification &middot; Drafted, open to discussion, nothing herein adopted &middot; complementary to PP v0.2 &middot; emits, anticipated, 000N_treasury_verbs.sql and the &sect;13 splice &middot; balance view added at &sect;9, T-06 spliced 2026-07-22 &middot; Nou drafts; Todd decides; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-07-22</p>
 </div>
 
 </div>

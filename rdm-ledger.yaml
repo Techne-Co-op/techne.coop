@@ -723,6 +723,15 @@ treasury:
     deliverable: The redemption verb and payout trail over the stock_ledger lifecycle.
     acceptance: A redemption runs register to bank with the full trail, or refuses citing the open question.
 
+  - address: T-06
+    title: The balance view
+    intent: /intranet/treasury/ shows each rail's reported holding, Stripe, Mercury, Xero, read only with source and read time; the delta to the reconciled record beside it, per TREASURY §9.
+    status: anticipated
+    cites: [TREASURY, IM, VS]
+    ready_when: T-01 verified. Read-only credentials provisioned for the three rails.
+    deliverable: /intranet/treasury/ balance view; three read-only rail seams; the per-rail reported balance with source and read time; the delta column, active once T-03 attests.
+    acceptance: Each rail's balance shows with its source and read time; the member-visible aggregate equals the sum of the reads; after T-03 the delta to the last attested window shows and links its gaps.
+
 cross_cutting:
 
   - address: X-01
