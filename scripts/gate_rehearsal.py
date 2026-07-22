@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Gate rehearsal (G-B, G-G) -- the mechanical half of the Gate Book.
+"""Gate rehearsal (G-B, G-G, G-F) -- the mechanical half of the Gate Book.
 
-Runs every Belong and Gather sentence of PRD v0.3 section 4 as a
-committed, sequential assertion against a fresh substrate with the
-full policy chain applied: the same journey the August 14 gates
-demonstrate with people, exercised here by machine so the ceremony
-never discovers a defect. This is the with-their-slices suite
-arriving with its slices (VS v1 closing note).
+Runs every Belong, Gather, and Find sentence of PRD v0.3 section 4 as
+a committed, sequential assertion against a fresh substrate with the
+full policy chain applied: the same journey the gates demonstrate
+with people, exercised here by machine so the ceremony never
+discovers a defect. This is the with-their-slices suite arriving with
+its slices (VS v1 closing note).
 
 Unlike the probe matrix (scripts/rls_probe.py), which proves each
 authority cell in isolation and rolls everything back, the rehearsal
@@ -32,12 +32,14 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PGURL = os.environ.get("PGURL", "postgresql://postgres:postgres@localhost:5432/postgres")
 
-STEWARD  = "00000000-0000-4000-a000-000000000001"
-NEWCOMER = "00000000-0000-4000-a000-000000000002"
-HOST     = "00000000-0000-4000-a000-000000000003"   # the second party; hosts Gather
+STEWARD   = "00000000-0000-4000-a000-000000000001"
+NEWCOMER  = "00000000-0000-4000-a000-000000000002"
+HOST      = "00000000-0000-4000-a000-000000000003"   # the second party; hosts Gather, responds in Find
+BYSTANDER = "00000000-0000-4000-a000-000000000004"   # a plain member, party to nothing; proves 18.2 scoping
 AGR      = "00000000-0000-4000-a000-000000000101"
 GAT      = "00000000-0000-4000-a000-000000000201"
 SES      = "00000000-0000-4000-a000-000000000202"
+OPP      = "00000000-0000-4000-a000-000000000301"
 
 BOOTSTRAP = """
 create role anon nologin;
@@ -64,14 +66,16 @@ if (REPO_ROOT / FRONT_DOOR).exists():
 
 SEED = f"""
 insert into agents (id, kind, display_name) values
-  ('{STEWARD}',  'person', 'Rehearsal Steward'),
-  ('{NEWCOMER}', 'person', 'Rehearsal Newcomer'),
-  ('{HOST}',     'person', 'Rehearsal Host');
+  ('{STEWARD}',   'person', 'Rehearsal Steward'),
+  ('{NEWCOMER}',  'person', 'Rehearsal Newcomer'),
+  ('{HOST}',      'person', 'Rehearsal Host'),
+  ('{BYSTANDER}', 'person', 'Rehearsal Bystander');
 update agents set auth_user_id = id;
 insert into role_grants (agent_id, role) values ('{STEWARD}', 'steward');
 insert into memberships (agent_id, state) values
-  ('{NEWCOMER}', 'applied'),
-  ('{HOST}',     'active');
+  ('{NEWCOMER}',  'applied'),
+  ('{HOST}',      'active'),
+  ('{BYSTANDER}', 'active');
 insert into agreements (id, code, title, version, effective_date) values
   ('{AGR}', 'BYLAWS', 'Rehearsal Bylaws', 'v2.1', '2026-07-01');
 """
@@ -215,13 +219,66 @@ def main():
     beat(8.1, "presence is recorded by host or steward, never self-reported (2.7)",
          rc != 0, "self-report refused")
 
-    # -- beat 9 · the record coheres ------------------------------------
+    # -- beat 9 · post an offer or a need (F-01) ----------------------
+    rc, lines, _ = as_persona(NEWCOMER,
+        f"insert into opportunities (id, author_agent_id, kind, title, body) "
+        f"values ('{OPP}', '{NEWCOMER}', 'work', 'Rehearsal Opportunity', "
+        f"'posted in the rehearsal') returning 1")
+    beat(9, "a member can post an offer or a need",
+         rc == 0 and len(lines) == 2, f"posted rc={rc}")
+    rc, lines, _ = as_persona(HOST,
+        "select count(*) from opportunities where kind = 'work' and state = 'open'")
+    beat(9.1, "a member can browse open invitations by kind (18.1)",
+         rc == 0 and lines[-1] == "1", f"open work postings visible: {lines[-1] if lines else '?'}")
+
+    # -- beat 10 · respond, scoped between responder and author (F-02) -
+    rc, lines, _ = as_persona(HOST,
+        f"insert into responses (opportunity_id, agent_id, note) "
+        f"values ('{OPP}', '{HOST}', 'answering the rehearsal call') returning 1")
+    beat(10, "a member can answer an open opportunity",
+         rc == 0 and len(lines) == 2, f"responded rc={rc}")
+    rc, lines, _ = as_persona(NEWCOMER,
+        f"select count(*) from responses where opportunity_id = '{OPP}'")
+    beat(10.1, "the author sees the response",
+         rc == 0 and lines[-1] == "1", f"author sees: {lines[-1] if lines else '?'}")
+    rc, lines, _ = as_persona(BYSTANDER,
+        f"select count(*) from responses where opportunity_id = '{OPP}'")
+    beat(10.2, "a member who is party to neither side sees nothing (18.2)",
+         rc == 0 and lines[-1] == "0", f"bystander sees: {lines[-1] if lines else '?'}")
+
+    # -- beat 11 · resolution as an event, never a table (F-03) --------
+    rc, lines, _ = as_persona(HOST,
+        f"update opportunities set state = 'resolved', resolved_at = now() "
+        f"where id = '{OPP}' returning 1")
+    beat(11, "only the author closes their posting",
+         len(lines) < 2, "non-author close matched no rows")
+    rc, lines, _ = as_persona(NEWCOMER,
+        f"update opportunities set state = 'resolved', resolved_at = now() "
+        f"where id = '{OPP}' returning 1")
+    beat(11.1, "a member can close an invitation when it resolves",
+         rc == 0 and len(lines) == 2, f"resolved rc={rc}")
+    rc, lines, _ = as_persona(NEWCOMER,
+        f"insert into events (occurred_at, actor_agent_id, agent_id, kind, payload) "
+        f"values (now(), '{NEWCOMER}', '{NEWCOMER}', 'opportunity.resolved', "
+        f"jsonb_build_object('opportunity_id', '{OPP}', 'note', 'it led somewhere')) returning 1")
+    beat(11.2, "the outcome lands as an event, never a table (Law I)",
+         rc == 0 and len(lines) == 2, f"resolution event rc={rc}")
+    rc, lines, _ = as_persona(BYSTANDER,
+        "select count(*) from events where kind = 'opportunity.resolved'")
+    beat(11.3, "the outcome is the parties' to read (18.2; events_read)",
+         rc == 0 and lines[-1] == "0", f"bystander reads: {lines[-1] if lines else '?'}")
+    rc, lines, _ = as_persona(HOST,
+        f"select count(*) from opportunities where id = '{OPP}' and state = 'resolved'")
+    beat(11.4, "the board shows the closed state to every member, from the row itself",
+         rc == 0 and lines[-1] == "1", f"resolved visible: {lines[-1] if lines else '?'}")
+
+    # -- beat 12 · the record coheres, the whole journey in the log ----
     rc, lines, _ = as_persona(STEWARD,
         "select count(*) from events where kind = 'signature.signed'")
-    beat(9, "the steward reads the whole journey in the log (4.1; 0005)",
+    beat(12, "the steward reads the whole journey in the log (4.1; 0005)",
          rc == 0 and lines[-1] == "1", f"signature events: {lines[-1] if lines else '?'}")
     rc, lines, _ = psql("select count(*) from signatures where event_id is null")
-    beat(9.1, "no signature stands without its recording event",
+    beat(12.1, "no signature stands without its recording event",
          rc == 0 and lines[-1] == "0", f"unlinked: {lines[-1] if lines else '?'}")
 
     print(f"gate-rehearsal: {'FAILED on beats ' + str(failures) if failures else 'every sentence holds'}")

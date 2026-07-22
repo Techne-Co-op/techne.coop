@@ -290,6 +290,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       <li><a href="/commons/build/">Build</a></li>
       <li><a href="/commons/build/instructions/" aria-current="page">Instructions</a></li>
       <li><a href="/commons/build/gates/">Gates</a></li>
+      <li><a href="/commons/build/run-through/">Run-through</a></li>
     </ul>
     <button class="mode-toggle" id="modeToggle" aria-label="Toggle color mode">
       <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
@@ -444,7 +445,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <h2>The ledger and the trains</h2>
     <p class="lead">The roadmap is a validated YAML ledger at <code>rdm-ledger.yaml</code>, read by the living roadmap at <a href="/commons/build/">/commons/build/</a>. Work is organized into trains: dependency-ordered sequences of packets that advance in parallel once their substrate is verified. There are no dates. The only scheduling constraint is the readiness condition on each packet.</p>
 
-    <p>The current ledger has 40 items: 7 series documents and 33 work packets across 6 trains. Late-July 2026 state: 7 drafted, 8 anticipated, 3 open in session or on a board condition, 22 verified (G0 attested among them).</p>
+    <p>The current ledger has 40 items: 7 series documents and 33 work packets across 6 trains. Late-July 2026 state: 7 drafted, 5 anticipated, 6 open in session or on a board condition, 22 verified (G0 attested among them).</p>
 
     <table class="train-table">
       <thead>
@@ -484,7 +485,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
           <td class="addr-cell">Find</td>
           <td>F-01 through F-03</td>
           <td>G-F</td>
-          <td>G-B attested</td>
+          <td>opened by the steward&rsquo;s direction, 2026-07-22</td>
         </tr>
         <tr>
           <td class="addr-cell">Share</td>
@@ -501,7 +502,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       </tbody>
     </table>
 
-    <p>Gates are <em>gate.attested</em> events, not automatic merges. Each gate requires human attestation before the next train opens. G-B and G-G require the August 14, 2026 gathering as a readiness condition, appearing as a condition, not a date.</p>
+    <p>Gates are <em>gate.attested</em> events, not automatic merges. Each gate requires human attestation before the next train opens. G-B and G-G attest on the steward’s personal run-through (amended 2026-07-22: the August 14 gathering is no longer a readiness condition for anything).</p>
 
     <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Open conditions at session start</h3>
     <p>Before claiming a packet, check the signal loop at <a href="/commons/build/">/commons/build/</a> for named open conditions. An open packet bears its blocker in the status field: <span class="chip open"><span class="dot"></span>open &middot; Q3</span> means the packet waits on the Q3 counting-rules decision. Do not claim an open packet; file an escalation if you believe the condition is resolvable.</p>
@@ -642,7 +643,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <div class="anatomy">
       <div class="an-row"><span class="f">AGENTS.md</span><span class="v">Machine-facing distillation of BP v1. Read this first, every session. Governess: BP v1.</span></div>
       <div class="an-row"><span class="f">CONTRIBUTORS.md</span><span class="v">Human and agent contribution paths, vocabulary, escalation card shape, and status marks.</span></div>
-      <div class="an-row"><span class="f">index.html</span><span class="v">Landing page. Techne cooperative home, opening August 14, 2026.</span></div>
+      <div class="an-row"><span class="f">index.html</span><span class="v">Landing page. Techne cooperative home, opening at launch after the steward’s review.</span></div>
       <div class="an-row"><span class="f">commons/</span><span class="v">The Commonplace Book. The cooperative's shared record. Member-facing landing at <code>commons/index.html</code>.</span></div>
       <div class="an-row"><span class="f">commons/series/</span><span class="v">The Common Record Series (SER v0.2). Eleven artifacts, the register, dependency order.</span></div>
       <div class="an-row"><span class="f">commons/build/</span><span class="v">Living Roadmap (RDM v1). Packet ledger, signal loop, repository tree. The instrument you are reading from.</span></div>

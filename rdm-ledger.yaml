@@ -208,7 +208,7 @@ gates:
     status: anticipated
     ready_when: >
       B-02, B-04, B-05 verified. B-04 escalation resolved — sign_agreement()
-      SECURITY DEFINER applied 2026-07-12. August 14, 2026 gathering.
+      SECURITY DEFINER applied 2026-07-12. The steward's run-through.
     gate: Organizer and non-organizer member demonstrate every Belong sentence live.
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
     acceptance: G-B status updated to attested. B-02, B-04, B-05 all verified.
@@ -219,23 +219,32 @@ gates:
       Mechanical rehearsal green in CI (gate-rehearsal suite,
       scripts/gate_rehearsal.py): every Belong sentence asserted against
       the full policy chain, with the onboarding beat named-deferred
-      until apply_for_membership lands in the repository.
+      until apply_for_membership lands in the repository. Amended by Todd
+      Youngblood 2026-07-22: the August 14 gathering is no longer a
+      readiness condition for anything; the steward runs the full
+      demonstration personally as test and review before launch. The
+      two-party shape of the attestation itself is unchanged: a
+      non-organizer member countersigns at the steward's convenience.
 
   - address: G-G
     title: Gather gate
     intent: Gather demonstrated end to end with two-party attestation.
     status: anticipated
-    ready_when: G-03 verified. August 14, 2026 gathering.
+    ready_when: G-03 verified. The steward's run-through.
     gate: Two-party attestation. Every Gather sentence demonstrated live.
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
     acceptance: G-G status updated to attested. G-03 verified.
     note: >
       Demonstration script published in the Gate Book at
-      commons/build/gates/: the August 14 gathering is its own fixture; the
-      room demonstrates the calendar it is standing inside.
-      Mechanical rehearsal green in CI (gate-rehearsal suite): host
-      creates the gathering under the named agreement, member registers,
-      cancels, returns, host records attendance, self-report refused.
+      commons/build/gates/. Mechanical rehearsal green in CI
+      (gate-rehearsal suite): host creates the gathering under the named
+      agreement, member registers, cancels, returns, host records
+      attendance, self-report refused. Amended by Todd Youngblood
+      2026-07-22: the August 14 gathering is no longer a readiness
+      condition; any real gathering serves as the fixture, and the
+      steward runs the demonstration personally as test and review
+      before launch, with the two-party attestation recorded at his
+      convenience.
 
   - address: G-F
     title: Find gate
@@ -431,29 +440,60 @@ find:
   - address: F-01
     title: Opportunity board
     intent: "The opportunity board: plays, practices, and work."
-    status: anticipated
+    status: open · in-session
     cites: [IM, AM, PRD]
-    ready_when: G-B attested.
+    ready_when: >
+      G-B attested. Amended by Todd Youngblood 2026-07-22: the Find train
+      opens ahead of the G-B attestation by the steward's direction; the
+      G-B condition transfers to the G-F gate, which still requires it.
     deliverable: /commons/opportunities/ page.
     acceptance: Post an opportunity and see it on the board.
+    note: >
+      Delivered 2026-07-22 at /commons/opportunities/: the board over the
+      opportunities table, kind filter (play, practice, work), posting
+      form writing author_agent_id under opportunities_author_write, the
+      house auth gate and error boundary. No schema change: the substrate
+      carried opportunities and responses from 0001 and the policies from
+      0002. The page ships under the working label Opportunities; the
+      public name stays with the steward per the Q1 naming card on G-F.
+      The steward's live post is the acceptance.
 
   - address: F-02
     title: Response flow
     intent: Respond to an opportunity; author sees the response.
-    status: anticipated
+    status: open · in-session
     cites: [IM, AM, PRD]
     ready_when: F-01 verified.
     deliverable: Response capture, scoped visibility.
     acceptance: Respond and see the response; author sees it too.
+    note: >
+      Delivered 2026-07-22 on the same surface: response capture under
+      responses_self_insert, visibility exactly as AM section 18.2 scopes
+      it (responder sees their own, the author sees all on their posting,
+      overseers see the whole), rendered from the rows the policy
+      returns with no client-side filtering doing the policy's job. The
+      live respond-and-see act is the acceptance.
 
   - address: F-03
     title: Resolution
     intent: Resolve an opportunity; state transition recorded as event.
-    status: anticipated
+    status: open · in-session
     cites: [IM, AM, PRD]
     ready_when: F-02 verified.
     deliverable: Resolution flow and event record.
     acceptance: Resolve an opportunity and see it closed.
+    note: >
+      Delivered 2026-07-22 on the same surface: the author closes their
+      posting to resolved or withdrawn with an optional outcome note; the
+      row transitions and the outcome lands as an opportunity.resolved or
+      opportunity.withdrawn event under events_scoped_insert, payload
+      carrying the opportunity id, title, and note. Outcomes render for
+      the parties the events policy admits; the board shows the closed
+      state to every member from the row itself. The two writes are
+      sequential, not atomic: a failed event write is surfaced to the
+      author naming the steward correction path, and an atomic definer
+      function stands as a follow-on decision if the parties want one.
+      The live resolve act is the acceptance.
 
 share:
 

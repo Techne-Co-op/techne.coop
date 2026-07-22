@@ -183,6 +183,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       <li><a href="/commons/build/">Build</a></li>
       <li><a href="/commons/build/instructions/">Instructions</a></li>
       <li><a href="/commons/build/gates/" aria-current="page">Gates</a></li>
+      <li><a href="/commons/build/run-through/">Run-through</a></li>
     </ul>
     <button class="mode-toggle" id="modeToggle" aria-label="Toggle color mode">
       <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
@@ -210,9 +211,9 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
   </section>
 
   <section class="sec" id="g-b">
-    <div class="addr">august 14 &middot; first act</div>
+    <div class="addr">the run-through &middot; first act</div>
     <h2 class="gate-head">G-B &middot; The Belong gate <span class="chip anticipated"><span class="dot"></span>anticipated</span></h2>
-    <div class="condition"><span class="k">condition</span>B-02, B-04, B-05 verified (they are, 2026-07-12). An organizer and a non-organizer member demonstrate every Belong sentence live, together, at the August 14 gathering. Two parties, because belonging is not self-certified.</div>
+    <div class="condition"><span class="k">condition</span>B-02, B-04, B-05 verified (they are, 2026-07-12). An organizer and a non-organizer member demonstrate every Belong sentence live, together, in the steward’s run-through (amended 2026-07-22: no longer tied to the August 14 gathering). Two parties, because belonging is not self-certified.</div>
     <p>The cast: one <em>organizer</em> (any steward or director) and one <em>newcomer</em>, a person who is not an organizer and has never touched the system. The newcomer drives; the organizer witnesses and countersigns. Each beat begins with the sentence being proven, spoken aloud.</p>
     <div class="script">
       <div class="beat">
@@ -263,15 +264,15 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
   </section>
 
   <section class="sec" id="g-g">
-    <div class="addr">august 14 &middot; second act</div>
+    <div class="addr">the run-through &middot; second act</div>
     <h2 class="gate-head">G-G &middot; The Gather gate <span class="chip anticipated"><span class="dot"></span>anticipated</span></h2>
-    <div class="condition"><span class="k">condition</span>G-03 verified (it is, 2026-07-12). Two-party attestation at the August 14 gathering: every Gather sentence demonstrated live. The gathering itself is the fixture: it already exists in the calendar as the seeded record.</div>
+    <div class="condition"><span class="k">condition</span>G-03 verified (it is, 2026-07-12). Two-party attestation in the steward’s run-through (amended 2026-07-22: any real gathering serves as the fixture; it already exists in the calendar as a seeded record).</div>
     <div class="script">
       <div class="beat">
         <div class="beat-n">01</div><div class="beat-who">member</div>
         <div class="beat-body">
           <span class="sentence">&ldquo;A member can see upcoming events and sessions.&rdquo;</span>
-          A member opens <a href="/commons/gatherings/">the calendar</a> and reads the August 14 gathering aloud: title, host, session time in their own timezone.
+          A member opens <a href="/commons/gatherings/">the calendar</a> and reads the fixture gathering aloud: title, host, session time in their own timezone.
           <span class="observe">observe: the room is standing inside the record it is reading</span>
         </div>
       </div>
@@ -329,8 +330,50 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
   <section class="sec" id="g-f">
     <div class="addr">after G-B</div>
     <h2 class="gate-head">G-F &middot; The Find gate <span class="chip anticipated"><span class="dot"></span>anticipated</span></h2>
-    <div class="condition"><span class="k">condition</span>F-01 through F-03 verified; G-B attested. The Find train opens when Belong closes, since every entry hangs off an agent record.</div>
-    <p>The sentences to demonstrate, when the train is built: browse open invitations by kind, play, practice, and work; post an offer or a need and close it when it resolves; see what an invitation led to, when the parties choose to record it. The script fills in when F-01 opens; the shape is the same: demonstrate, speak, record.</p>
+    <div class="condition"><span class="k">condition</span>F-01 through F-03 verified; G-B attested. The train opened ahead of G-B by the steward’s direction (2026-07-22); the gate itself still requires G-B, since every entry hangs off an agent record.</div>
+    <p>The train is built at <a href="/commons/opportunities/">/commons/opportunities/</a>. The script, same shape as the others: demonstrate, speak, record.</p>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">01</div><div class="beat-who">member</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can browse open invitations by kind: play, practice, work.&rdquo;</span>
+          A member opens <a href="/commons/opportunities/">the board</a>, walks the kind filter, and reads one open invitation aloud: title, author, kind.
+          <span class="observe">observe: only open postings in the open section; the filter narrows without hiding the closed record</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">02</div><div class="beat-who">member</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can post an offer or a need.&rdquo;</span>
+          The member posts an opportunity of their own: kind, title, a line of detail. It appears on the board under their name.
+          <span class="observe">observe: the row lands under opportunities_author_write; F-01 acceptance</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">03</div><div class="beat-who">second member</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can answer an open opportunity, visible to its author.&rdquo;</span>
+          A second member responds. The responder sees their own response; the author sees it too; a third member sees neither.
+          <span class="observe">observe: visibility scoped by responses_scoped_read per AM &sect;18.2; F-02 acceptance</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">04</div><div class="beat-who">author</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member can close an invitation when it resolves, and the parties can see what it led to.&rdquo;</span>
+          The author resolves the posting with an outcome note. The board shows it closed to everyone; the outcome lands as an opportunity.resolved event readable by the parties.
+          <span class="observe">observe: the state transition on the row and the event in the log; F-03 acceptance</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">05</div><div class="beat-who">attestor</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;G-F attested. Open to resolved, landing as an event.&rdquo;</span>
+          The attestor speaks the sentence and the gate.attested event is recorded per the G0 pattern.
+          <span class="observe">observe: the recording procedure at &sect;final; the public label per the Q1 naming decision</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="sec" id="g-s">
