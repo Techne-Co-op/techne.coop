@@ -392,6 +392,18 @@ footer {
   background: var(--surface);
 }
 
+.door-card { display:block; text-decoration:none; transition: border-color var(--micro) var(--ease); }
+.door-card:hover { border-color: var(--ember); }
+.door-card .card-go { font-family: var(--mono); font-size: 0.7rem; color: var(--ember-text); margin-top: var(--s3); }
+.door-card.inert:hover { border-color: var(--line); }
+.chip-state {
+  font-family: var(--mono); font-size: 0.62rem; padding: 2px 7px; border: 1px solid var(--line);
+  color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase;
+}
+.chip-state.ok { border-color: var(--ok); color: var(--ok); }
+.chip-state.warn { border-color: var(--warn); color: var(--warn); }
+.steward-card { border-left: 3px solid var(--ember); }
+
 @media (max-width: 640px) {
   .auth-card { padding: var(--s5); }
   .intranet-shell { flex-direction: column; }
@@ -401,6 +413,7 @@ footer {
   .intranet-main { padding: var(--s4); }
 }
 </style>
+<script src="/assets/error-boundary.js"></script>
 </head>
 <body>
 
@@ -417,7 +430,7 @@ footer {
   <div class="auth-card">
     <span class="auth-label">Techne · RegenHub, LCA</span>
     <h1 class="auth-heading">Member intranet</h1>
-    <p class="auth-body">For cooperative members. Enter your email address  --  we'll send a sign-in link. No password to manage.</p>
+    <p class="auth-body">For cooperative members. Enter your email address and we will send a sign-in link. No password to manage.</p>
 
     <div id="login-form">
       <div class="field">
@@ -439,23 +452,25 @@ footer {
 <!-- ====== INTRANET SHELL (shown when authenticated) ====== -->
 <div class="intranet-shell" id="intranet-shell">
   <nav class="intranet-nav">
-    <a href="#" id="nav-dashboard" class="active">Overview</a>
+    <a href="/intranet/" class="active">Overview</a>
     <div class="nav-section">Belong</div>
-    <a href="#" id="nav-agents">Directory</a>
-    <a href="#" id="nav-agreements">Agreements</a>
+    <a href="/commons/agreements/">Agreements</a>
+    <a href="/commons/directory/">Directory</a>
     <div class="nav-section">Gather</div>
-    <a href="#" id="nav-gather">Events</a>
+    <a href="/commons/gatherings/">Gatherings</a>
     <div class="nav-section">Find one another</div>
-    <a href="#" id="nav-find">Opportunities</a>
-    <div class="nav-section">See your share</div>
-    <a href="#" id="nav-share">Your account</a>
+    <a href="/commons/opportunities/">Opportunities</a>
+    <div class="nav-section" id="steward-nav-label" style="display:none">Steward</div>
+    <a href="/commons/directory/" id="steward-nav-link" style="display:none">Admissions</a>
+    <div class="nav-section">The record</div>
+    <a href="/commons/">The Commonplace Book</a>
+    <a href="/commons/build/">Living roadmap</a>
     <div class="nav-section" style="margin-top:var(--s6)"></div>
     <a href="../" style="color:var(--faint)">← techne.coop</a>
   </nav>
 
   <main class="intranet-main">
 
-    <!-- OVERVIEW -->
     <div id="section-dashboard">
       <div class="page-label">Techne · RegenHub, LCA</div>
       <h1 class="page-title">Member intranet</h1>
@@ -463,7 +478,7 @@ footer {
       <div class="member-strip">
         <div>
           <div class="member-email" id="member-email"> -- </div>
-          <div class="member-role" id="member-role">checking role…</div>
+          <div class="member-role" id="member-role">resolving identity…</div>
         </div>
         <button class="signout-btn" id="signout-btn">Sign out</button>
       </div>
@@ -471,89 +486,78 @@ footer {
       <div class="notice" id="identity-notice" style="display:none"></div>
 
       <div class="notice">
-        <strong>CIS PRD v0.3 · Four launch slices.</strong> Belong and Gather are anticipated for ratification day, August 14, 2026. Find one another follows. See your share is open  --  blocked on adoption of patronage counting rules. Data comes directly from the CIS (ujujwgopdwirebgcpekc).
+        <strong>One record, five doors.</strong> Everything here reads and writes the Common Information System directly (ujujwgopdwirebgcpekc): an append-only event log, balances as folds, visibility decided row by row in the database. Words carrying weight are defined in <a href="/commons/build/lexicon/" style="color:var(--blue-text)">the Lexicon</a>.
       </div>
 
+      <div class="section-head">The doors</div>
+      <div class="dash-grid">
+        <a class="dash-card door-card" href="/commons/agreements/">
+          <div class="card-label">Belong · agreements</div>
+          <div class="card-value" style="font-size:1rem">The shelf</div>
+          <div class="card-desc">Every agreement that binds you, version and standing marked, with inline signing.</div>
+          <div class="card-go">open the shelf →</div>
+        </a>
+        <a class="dash-card door-card" href="/commons/directory/">
+          <div class="card-label">Belong · directory</div>
+          <div class="card-value" style="font-size:1rem">The members</div>
+          <div class="card-desc">The people and entities of the cooperative, each with a profile they alone control (§1.13, §2.9).</div>
+          <div class="card-go">open the directory →</div>
+        </a>
+        <a class="dash-card door-card" href="/commons/gatherings/">
+          <div class="card-label">Gather · calendar</div>
+          <div class="card-value" style="font-size:1rem">The gatherings</div>
+          <div class="card-desc">What is happening and who hosts it. Register, cancel, return; presence counted where the record counts it.</div>
+          <div class="card-go">open the calendar →</div>
+        </a>
+        <a class="dash-card door-card" href="/commons/opportunities/">
+          <div class="card-label">Find one another · board</div>
+          <div class="card-value" style="font-size:1rem">The opportunities</div>
+          <div class="card-desc">Open invitations to play, practice, and work. Post, respond, and close it when it resolves.</div>
+          <div class="card-go">open the board →</div>
+        </a>
+        <a class="dash-card door-card" href="/commons/join/">
+          <div class="card-label">Belong · the front door</div>
+          <div class="card-value" style="font-size:1rem">The join form</div>
+          <div class="card-desc">Where a newcomer applies, no meeting needed. Share this one outward.</div>
+          <div class="card-go">open the form →</div>
+        </a>
+        <div class="dash-card planned">
+          <div class="card-label">See your share · account</div>
+          <div class="card-value" style="font-size:1rem">Your account</div>
+          <div class="card-desc">Contribution history and the capital account as a fold. Opens when the Board adopts the Q3 counting rules; nothing illustrative shown before then. June statement: <a href="https://techne.institute/intranet/treasury/statements/2026-06.html" style="color:var(--blue-text)">techne.institute ↗</a></div>
+        </div>
+      </div>
+
+      <div id="steward-section" style="display:none">
+        <div class="section-head">The steward's desk</div>
+        <div class="dash-grid">
+          <a class="dash-card door-card steward-card" href="/commons/directory/">
+            <div class="card-label">Admissions · the assigned hand</div>
+            <div class="card-value" id="stat-pending"> -- </div>
+            <div class="card-desc">Pending applications. The panel at the top of the directory records admission as one act: the state transition and its event together (§1.3, 0008).</div>
+            <div class="card-go">open admissions →</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="section-head">The record, live</div>
       <div class="dash-grid">
         <div class="dash-card">
-          <div class="card-label">Members in CIS</div>
+          <div class="card-label">Agents</div>
           <div class="card-value" id="stat-agents"> -- </div>
-          <div class="card-desc">Natural persons, legal entities, and AI agents registered in the cooperative's information system.</div>
+          <div class="card-desc">Identity rows in the CIS: people, entities, and instruments, across every relationship state.</div>
         </div>
         <div class="dash-card">
           <div class="card-label">Events recorded</div>
           <div class="card-value" id="stat-sections"> -- </div>
-          <div class="card-desc">Append-only event log. The audit trail of cooperative acts. Sourced from live CIS.</div>
+          <div class="card-desc">The append-only log. Everything above is a reading of it.</div>
         </div>
         <div class="dash-card">
           <div class="card-label">Agreements</div>
           <div class="card-value" id="stat-agreements"> -- </div>
-          <div class="card-desc">Governing documents in the CIS agreements repository.</div>
-        </div>
-        <div class="dash-card planned">
-          <div class="card-label">Gather · Events</div>
-          <div class="card-value"> -- </div>
-          <div class="card-desc">Anticipated · Aug 14. Sessions, registrations, and attendance.</div>
-        </div>
-        <div class="dash-card planned">
-          <div class="card-label">Find one another</div>
-          <div class="card-value"> -- </div>
-          <div class="card-desc">Anticipated · after Belong. Offers, invitations, opportunities.</div>
-        </div>
-        <div class="dash-card planned">
-          <div class="card-label">See your share</div>
-          <div class="card-value"> -- </div>
-          <div class="card-desc">Open · blocked. Contribution history and capital account  --  requires counting rules adoption.</div>
+          <div class="card-desc">Governing documents on the shelf, Bylaws v2.1 and Membership Agreement v2.3 ratified July 2026.</div>
         </div>
       </div>
-    </div>
-
-    <!-- BELONG · DIRECTORY -->
-    <div id="section-agents" style="display:none">
-      <div class="slice-chip anticipated">Belong · Slice 01 · Anticipated Aug 14</div>
-      <div class="page-label">CIS · Directory</div>
-      <h1 class="page-title">Members</h1>
-      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s5)">Directory of agents in the cooperative information system. Visibility governed by §1.7.</p>
-      <div id="members-list">Loading…</div>
-    </div>
-
-    <!-- BELONG · AGREEMENTS -->
-    <div id="section-agreements" style="display:none">
-      <div class="slice-chip anticipated">Belong · Slice 01 · Anticipated Aug 14</div>
-      <div class="page-label">CIS · Agreements</div>
-      <h1 class="page-title">Agreements</h1>
-      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s5)">Bylaws, membership agreements, and other governing documents that bind cooperative members. Bylaws v2 is currently drafted  --  ratification vote August 14.</p>
-      <div id="agreements-list">Loading…</div>
-    </div>
-
-    <!-- GATHER · EVENTS -->
-    <div id="section-gather" style="display:none">
-      <div class="slice-chip anticipated">Gather · Slice 02 · Anticipated Aug 14</div>
-      <div class="page-label">CIS · Events</div>
-      <h1 class="page-title">Events</h1>
-      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s4)">Sessions, registrations, and attendance. What is happening, who is hosting, who came, and what came of it.</p>
-      <div class="notice"><strong>Anticipated · August 14, 2026.</strong> When IM settles event entities, a member will be able to see upcoming events, register and cancel without asking, and have attendance counted where the record counts it.</div>
-    </div>
-
-    <!-- FIND ONE ANOTHER · OPPORTUNITIES -->
-    <div id="section-find" style="display:none">
-      <div class="slice-chip anticipated">Find one another · Slice 03 · Anticipated after Belong</div>
-      <div class="page-label">CIS · Opportunities</div>
-      <h1 class="page-title">Find one another</h1>
-      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s4)">A bulletin of offers and invitations to play, practice, and work. Entries are governed records with author, lifecycle, and outcome.</p>
-      <div class="notice"><strong>Anticipated · after Belong lands.</strong> A member will be able to browse invitations by kind (play, practice, work), post an offer or need, and close it when resolved. Every entry hangs off an agent record.</div>
-    </div>
-
-    <!-- SEE YOUR SHARE -->
-    <div id="section-share" style="display:none">
-      <div class="slice-chip open">See your share · Slice 04 · Open  --  blocked</div>
-      <div class="page-label">CIS · Capital account</div>
-      <h1 class="page-title">Your account</h1>
-      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:var(--s4)">Contribution history, capital account, and patronage allocation. Each member will see what they put in and the share of results that follows.</p>
-      <div class="notice"><strong>Open  --  blocked on counting rules.</strong> Patronage counting rules and Schedule A rates must be adopted as board policy before member accounts can be computed. Until then, contribution history is not displayed here.</div>
-      <p style="color:var(--muted);font-size:0.85rem;margin-top:var(--s4)">
-        June 2026 financial statement: <a href="https://techne.institute/intranet/treasury/statements/2026-06.html" style="color:var(--blue-text)">techne.institute ↗</a>
-      </p>
     </div>
 
   </main>
@@ -561,7 +565,7 @@ footer {
 
 <footer>
   <span>Techne intranet · RegenHub, LCA · Boulder, Colorado</span>
-  <span>CIS: ujujwgopdwirebgcpekc · PRD v0.3 · B-01</span>
+  <span>CIS: ujujwgopdwirebgcpekc · the signed-in door to the Commonplace Book</span>
 </footer>
 
 <!-- Supabase JS client -->
@@ -574,26 +578,14 @@ let sb;
 try {
   sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
 } catch(e) {
-  console.error('Supabase init failed  --  CDN may not have loaded:', e);
+  console.error('Supabase init failed -- CDN may not have loaded:', e);
 }
 
-// ---- Auth state ----
 async function init() {
-  // Handle magic link token in URL
-  const { data: { session }, error } = await sb.auth.getSession();
-  if (session) {
-    showIntranet(session.user);
-  } else {
-    showGate();
-  }
-
-  // Listen for auth state changes (magic link redirect)
-  sb.auth.onAuthStateChange((event, session) => {
-    if (session) {
-      showIntranet(session.user);
-    } else {
-      showGate();
-    }
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) { showIntranet(session.user); } else { showGate(); }
+  sb.auth.onAuthStateChange((event, s) => {
+    if (s) { showIntranet(s.user); } else { showGate(); }
   });
 }
 
@@ -608,44 +600,70 @@ async function showIntranet(user) {
   document.getElementById('intranet-shell').classList.add('visible');
   document.getElementById('member-email').textContent = user.email || user.id.slice(0,8);
   document.getElementById('topbar-status').textContent = user.email || '';
-
-  // B-01: check identity binding -- app_agent_id() must return non-null
-  await checkIdentityBinding(user);
-
-  // Load CIS data
-  loadDashboardData(user);
+  await loadPortal(user);
 }
 
-async function checkIdentityBinding(user) {
-  // Query agents table for a row whose auth_user_id matches this session's auth.uid().
-  // This is exactly what app_agent_id() does server-side.
+async function loadPortal(user) {
   const { data: { session } } = await sb.auth.getSession();
-  const token = session?.access_token;
+  const token = session ? session.access_token : ANON_KEY;
+  const headers = { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + token };
   const notice = document.getElementById('identity-notice');
+  const roleEl = document.getElementById('member-role');
+
+  async function count(path) {
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+      headers: { ...headers, 'Prefer': 'count=exact', 'Range': '0-0' }
+    });
+    const range = r.headers.get('content-range');
+    return range ? parseInt((range.match(/\/(\d+)/) || [])[1] || 0) : 0;
+  }
 
   try {
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/agents?auth_user_id=eq.${user.id}&select=id,display_name,kind`, {
-      headers: {
-        'apikey': ANON_KEY,
-        'Authorization': `Bearer ${token}`,
-      }
-    });
-    const rows = await r.json();
-    if (Array.isArray(rows) && rows.length > 0) {
-      const agent = rows[0];
-      // Bound -- app_agent_id() returns agent.id
-      document.getElementById('member-role').textContent = agent.display_name + ' · ' + agent.kind;
-      notice.style.display = 'none';
-    } else {
-      // Unbound -- auth.uid() has no matching agents row
+    // B-01: who asks. app_agent_id() does exactly this server-side.
+    const agentRes = await fetch(`${SUPABASE_URL}/rest/v1/agents?auth_user_id=eq.${user.id}&select=id,display_name,kind`, { headers });
+    const agents = await agentRes.json();
+    const self = Array.isArray(agents) && agents.length ? agents[0] : null;
+
+    if (!self) {
       notice.style.display = '';
-      notice.innerHTML = '<strong>Identity not yet bound.</strong> Your sign-in is valid but not yet linked to a cooperative agent record. Auth UID: <code style="font-family:var(--mono);font-size:0.8em;user-select:all">' + user.id + '</code> -- contact a steward to complete the binding (B-01).';
-      document.getElementById('member-role').textContent = 'unbound -- no agent record';
+      notice.innerHTML = '<strong>Sign-in not yet bound to an agent.</strong> If you applied with this address, the binding completes by itself on your first sign-in after admission; try reloading. Otherwise, apply at <a href="/commons/join/" style="color:var(--blue-text)">the join form</a> or ask a steward.';
+      roleEl.textContent = 'unbound';
+    } else {
+      notice.style.display = 'none';
+      // membership + roles
+      const [memRes, grantRes] = await Promise.all([
+        fetch(`${SUPABASE_URL}/rest/v1/memberships?agent_id=eq.${self.id}&select=state`, { headers }),
+        fetch(`${SUPABASE_URL}/rest/v1/role_grants?agent_id=eq.${self.id}&revoked_at=is.null&select=role`, { headers })
+      ]);
+      const mems = await memRes.json();
+      const grants = await grantRes.json();
+      const state = Array.isArray(mems) && mems.length ? mems[0].state : 'no membership';
+      const roles = Array.isArray(grants) ? grants.map(g => g.role) : [];
+      roleEl.textContent = self.display_name + ' · ' + state + (roles.length ? ' · ' + roles.join(' · ') : '');
+
+      // the steward's desk
+      if (roles.includes('steward') || roles.includes('director')) {
+        document.getElementById('steward-section').style.display = '';
+        document.getElementById('steward-nav-label').style.display = '';
+        document.getElementById('steward-nav-link').style.display = '';
+        const pending = await count('memberships?state=eq.applied&select=agent_id');
+        document.getElementById('stat-pending').textContent = pending;
+      }
     }
+
+    // the record, live
+    const [agentCount, agreementCount, eventCount] = await Promise.all([
+      count('agents?select=id'),
+      count('agreements?select=id'),
+      count('events?select=id'),
+    ]);
+    document.getElementById('stat-agents').textContent = agentCount || ' -- ';
+    document.getElementById('stat-sections').textContent = eventCount || ' -- ';
+    document.getElementById('stat-agreements').textContent = agreementCount || ' -- ';
   } catch(e) {
-    console.warn('Identity binding check failed:', e);
+    Techne.record('handled', 'portal load: ' + (e && e.message ? e.message : e));
     notice.style.display = '';
-    notice.textContent = 'Could not check identity binding. See console.';
+    notice.textContent = 'Could not load the portal data. Reload, or tell a steward.';
   }
 }
 
@@ -653,21 +671,14 @@ async function sendMagicLink() {
   const email = document.getElementById('email-input').value.trim();
   const btn = document.getElementById('login-btn');
   const status = document.getElementById('auth-status');
-
   if (!email) { status.textContent = 'Enter an email address.'; status.className = 'auth-status err'; return; }
-
   btn.disabled = true;
   status.textContent = 'Sending…';
   status.className = 'auth-status info';
-
   const redirectTo = window.location.href.split('?')[0].split('#')[0];
-  const { error } = await sb.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: redirectTo }
-  });
-
+  const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: redirectTo } });
   if (error) {
-    status.textContent = error.message;
+    status.textContent = Techne.report(error, 'Could not send the sign-in link. Check the address and try again.');
     status.className = 'auth-status err';
     btn.disabled = false;
   } else {
@@ -681,123 +692,6 @@ async function signOut() {
   showGate();
 }
 
-// ---- CIS data ----
-async function loadDashboardData(user) {
-  // Get the user's session token for auth'd requests
-  const { data: { session } } = await sb.auth.getSession();
-  const token = session?.access_token || ANON_KEY;
-
-  async function fetchWithAuth(path) {
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
-      headers: {
-        'apikey': ANON_KEY,
-        'Authorization': `Bearer ${token}`,
-        'Prefer': 'count=exact',
-        'Range': '0-0'
-      }
-    });
-    const range = r.headers.get('content-range');
-    return range ? parseInt((range.match(/\/(\d+)/) || [])[1] || 0) : 0;
-  }
-
-  async function fetchData(path) {
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
-      headers: {
-        'apikey': ANON_KEY,
-        'Authorization': `Bearer ${token}`,
-      }
-    });
-    return r.json();
-  }
-
-  try {
-    // Stat chips -- agents, agreements (agreement_sections not in v1 schema)
-    const [agentCount, agreementCount, eventCount] = await Promise.all([
-      fetchWithAuth('agents?select=id'),
-      fetchWithAuth('agreements?select=id'),
-      fetchWithAuth('events?select=id'),
-    ]);
-    document.getElementById('stat-agents').textContent = agentCount || ' -- ';
-    document.getElementById('stat-sections').textContent = eventCount || ' -- ';
-    document.getElementById('stat-agreements').textContent = agreementCount || ' -- ';
-
-    // Role grants (role_grants table per AM v0.1; role_assignments is not in v1 schema)
-    const roleData = await fetchData('role_grants?select=role,agent_id&revoked_at=is.null&limit=50');
-    if (Array.isArray(roleData) && roleData.length > 0) {
-      // Only visible to the agent whose roles they are (RLS enforces)
-      document.getElementById('member-role').textContent = roleData.map(r => r.role).join(' · ');
-    }
-    // If member-role still shows "checking role..." that means no role_grants visible -- normal for unbound
-
-  } catch(e) {
-    console.warn('CIS load error:', e);
-  }
-}
-
-// Section navigation
-const sections = ['dashboard', 'agents', 'agreements', 'gather', 'find', 'share'];
-
-function showSection(id, linkEl) {
-  sections.forEach(s => {
-    const el = document.getElementById('section-' + s);
-    if (el) el.style.display = s === id ? '' : 'none';
-  });
-  document.querySelectorAll('.intranet-nav a').forEach(a => a.classList.remove('active'));
-  if (linkEl) linkEl.classList.add('active');
-
-  // Lazy-load section data
-  if (id === 'agreements') loadAgreements();
-  if (id === 'agents') loadAgents();
-  // gather, find, share: no live data yet  --  stubs render from HTML
-}
-
-async function loadAgreements() {
-  const { data: { session } } = await sb.auth.getSession();
-  const token = session?.access_token || ANON_KEY;
-  const r = await fetch(`${SUPABASE_URL}/rest/v1/agreements?select=*&order=effective_at.desc`, {
-    headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${token}` }
-  });
-  const data = await r.json();
-  const el = document.getElementById('agreements-list');
-  if (!Array.isArray(data) || data.length === 0) {
-    el.innerHTML = '<p style="color:var(--muted);font-family:var(--mono);font-size:0.82rem">No agreements visible at your access level.</p>';
-    return;
-  }
-  el.innerHTML = data.map(a => `
-    <div style="background:var(--surface);border:1px solid var(--line);padding:var(--s4) var(--s5);margin-bottom:var(--s3)">
-      <div style="font-family:var(--mono);font-size:0.7rem;color:var(--ember);margin-bottom:var(--s1)">${a.kind} · ${a.version || 'v1'}</div>
-      <div style="color:var(--heading);font-size:0.95rem;margin-bottom:var(--s2)">${a.title}</div>
-      <div style="font-family:var(--mono);font-size:0.68rem;color:var(--muted)">
-        Effective: ${a.effective_at ? a.effective_at.slice(0,10) : ' -- '}
-        · Status: ${a.metadata?.status || ' -- '}
-        ${a.document_uri ? ` · <a href="${a.document_uri}" style="color:var(--blue-text)" target="_blank">Document ↗</a>` : ''}
-      </div>
-    </div>
-  `).join('');
-}
-
-async function loadAgents() {
-  const { data: { session } } = await sb.auth.getSession();
-  const token = session?.access_token || ANON_KEY;
-  const r = await fetch(`${SUPABASE_URL}/rest/v1/agents?select=id,kind,display_name,email,created_at&order=created_at.asc`, {
-    headers: { 'apikey': ANON_KEY, 'Authorization': `Bearer ${token}` }
-  });
-  const data = await r.json();
-  const el = document.getElementById('members-list');
-  if (!Array.isArray(data) || data.length === 0) {
-    el.innerHTML = '<p style="color:var(--muted);font-family:var(--mono);font-size:0.82rem">No agents visible at your access level. §1.7  --  members\' inspection rights govern directory visibility.</p>';
-    return;
-  }
-  el.innerHTML = data.map(a => `
-    <div class="agent-row">
-      <span class="agent-kind">${a.kind}</span>
-      <span class="agent-name">${a.display_name}${a.email ? ` <span style="color:var(--muted);font-size:0.8em">${a.email}</span>` : ''}</span>
-      <span style="font-family:var(--mono);font-size:0.65rem;color:var(--faint)">${a.created_at ? a.created_at.slice(0,10) : ''}</span>
-    </div>
-  `).join('');
-}
-
-// Theme
 function toggleMode() {
   const html = document.documentElement;
   const next = html.dataset.mode === 'dark' ? 'light' : 'dark';
@@ -805,42 +699,20 @@ function toggleMode() {
   try { localStorage.setItem('techne-mode', next); } catch(e) {}
 }
 
-// ---- Event binding ----
-// Bind all interactive elements via JS (never rely on inline onclick attributes)
 document.addEventListener('DOMContentLoaded', function() {
   var loginBtn = document.getElementById('login-btn');
   if (loginBtn) loginBtn.addEventListener('click', sendMagicLink);
-
   var signoutBtn = document.getElementById('signout-btn');
   if (signoutBtn) signoutBtn.addEventListener('click', signOut);
-
   var modeBtn = document.getElementById('mode-btn');
   if (modeBtn) modeBtn.addEventListener('click', toggleMode);
-
   var resendLink = document.getElementById('resend-link');
   if (resendLink) resendLink.addEventListener('click', function() {
     document.getElementById('login-form').style.display = '';
     document.getElementById('link-sent').style.display = 'none';
   });
-
-  var navMap = [
-    ['nav-dashboard', 'dashboard'],
-    ['nav-agents', 'agents'],
-    ['nav-agreements', 'agreements'],
-    ['nav-gather', 'gather'],
-    ['nav-find', 'find'],
-    ['nav-share', 'share']
-  ];
-  navMap.forEach(function(pair) {
-    var el = document.getElementById(pair[0]);
-    if (el) el.addEventListener('click', function(e) {
-      e.preventDefault();
-      showSection(pair[1], el);
-    });
-  });
 });
 
-// Boot
 init();
 </script>
 </body>
