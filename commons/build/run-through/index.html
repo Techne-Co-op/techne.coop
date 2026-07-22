@@ -224,7 +224,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <p class="lead">Two identities, four windows. Set these up before beat one.</p>
     <div class="condition"><span class="k">the steward</span>Your normal browser, signed in as yourself. Your agent row is bound and holds the steward grant.</div>
     <div class="condition"><span class="k">the newcomer</span>A private or second browser, signed out of everything, plus an email address you control that has never touched the system. The newcomer should feel like a stranger, because the system will treat them as one.</div>
-    <div class="condition"><span class="k">the desk</span>The <a href="https://supabase.com/dashboard/project/ujujwgopdwirebgcpekc/sql/new">SQL editor</a> for the three steward acts and for reading the record, and your Telegram (the @nou_guild_bot chat) for the intake notice.</div>
+    <div class="condition"><span class="k">the desk</span>The <a href="https://supabase.com/dashboard/project/ujujwgopdwirebgcpekc/sql/new">SQL editor</a> for seeding the gathering and reading the record, your Telegram (the @nou_guild_bot chat) for the intake notice, and <a href="/intranet/">the portal</a>, the signed-in door whose steward's desk counts what waits for your hand.</div>
     <div class="condition"><span class="k">the countersigner</span>For the G-B and G-G attestations only: one member who is not an organizer, on their own device, at whatever moment suits you both. Every other beat is yours alone.</div>
     <div class="memo">
       <div class="k">on the marks this leaves</div>
@@ -258,7 +258,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
   <section class="sec" id="desk">
     <div class="addr">&sect;4 &middot; the steward's desk</div>
     <h2>Second act &middot; bind and admit</h2>
-    <p class="lead">Two acts belong to the assigned hand and nobody else, and both now happen without the SQL editor. Binding happens by itself: when the newcomer clicks their first magic link, the sign-in with the applied address becomes its agent (0008). Admission is one tap: open <a href="/commons/directory/">the directory</a> as yourself and the Admissions panel stands at the top, pending applications listed with name and address. Admit records the state transition and its membership.admitted event as one act.</p>
+    <p class="lead">Two acts belong to the assigned hand and nobody else, and both now happen without the SQL editor. Binding happens by itself: when the newcomer clicks their first magic link, the sign-in with the applied address becomes its agent (0008). Admission is one tap: open <a href="/commons/directory/">the directory</a> as yourself and the Admissions panel stands at the top, pending applications listed with name and address. Admit records the state transition and its membership.admitted event as one act. <a href="/intranet/">The portal</a> carries the same panel's pulse: its steward's desk shows a live count of pending applications, visible to the grant alone.</p>
     <p>Have the newcomer request a magic link on any member page (for example <a href="/commons/agreements/">the agreements shelf</a>) and click it; then tap Admit on their row. Order does not matter: admit first if you like, the binding still completes on their first sign-in.</p>
     <p>The manual desk remains available if a case ever falls outside the panel (an address typo, an ambiguous match the auto-bind refused):</p>
     <pre class="rec">do $$
@@ -286,7 +286,7 @@ end $$;
 -- see the result
 select a.display_name, a.auth_user_id is not null as bound, m.state
   from agents a join memberships m on m.agent_id = a.id;</pre>
-    <p>Either way, have the newcomer reload. The system now knows who asks.</p>
+    <p>Either way, have the newcomer reload, then have them open <a href="/intranet/">the portal</a>: the identity strip resolves their name, membership state, and roles; the five doors stand open; no steward's desk appears. The system now knows who asks, and shows each person only their own standing.</p>
   </section>
 
   <section class="sec" id="belong">
@@ -407,11 +407,12 @@ values ('&lt;gathering_id&gt;',
     <div class="addr">&sect;10</div>
     <h2>Attest and flip</h2>
     <p class="lead">When the walk satisfies you, three gates are ready to attest: G-B and G-G with your countersigner, G-F on the same evidence. The words and the recording procedure are in <a href="/commons/build/gates/#final">the Gate Book</a>: speak the sentence, insert the <code>gate.attested</code> event, and hand me the word; the ledger flips by commit and the roadmap follows.</p>
-    <p>Left standing after the walk, each named and held: the <strong>Q3 counting rules</strong> before the Share train exists at all; the <strong>bylaws mark</strong> (instrument v2.1 Ratified against legal index v2 Drafted) before G-R can attest; the <strong>Q1 public name</strong> for the opportunity surface, yours whenever you want it; and the <strong>email sink</strong>, dormant until the zone manager places two DNS records.</p>
+    <p>Left standing after the walk, each named and held: the <strong>Q3 counting rules</strong> before the Share train exists at all; the <strong>anchor pass</strong> for G-R, re-verifying 0002, 0005, and the schema comments against the governing text (the bylaws mark itself resolved 2026-07-22, the index aligned to the ratified instruments); the <strong>Q1 public name</strong> for the opportunity surface, yours whenever you want it; and the <strong>email sink</strong>, dormant until the zone manager places two DNS records.</p>
     <pre class="rec">the run sheet
 [ ] join form submitted from the stranger's browser
 [ ] intake notice in Telegram            -&gt; X-02 verified
-[ ] newcomer bound and admitted at the desk
+[ ] newcomer bound on first sign-in; admitted from the panel
+[ ] portal resolves the newcomer; no steward's desk shown
 [ ] agreements read, signed, double-sign refused
 [ ] directory: self-edit only
 [ ] gathering seeded; register / cancel / return
