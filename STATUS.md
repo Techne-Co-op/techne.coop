@@ -6,8 +6,8 @@ Generated from rdm-ledger.yaml. 51 items total.
 | status | count |
 |--------|-------|
 | drafted | 9 |
-| anticipated | 11 |
-| open | 31 |
+| anticipated | 10 |
+| open | 32 |
 | filed | 0 |
 
 ## Drafted
@@ -45,6 +45,7 @@ Generated from rdm-ledger.yaml. 51 items total.
 - **SUB-03** open · verified -- Provision database environment
 - **SUB-04** open · verified -- Apply RLS policies
 - **SUB-05** open · verified -- Restore test
+- **T-01** open · TREASURY-POLICY -- The Desk and the policy instrument
 - **T-05** open · redeemability -- The redemption path
 - **X-01** open · verified -- Error boundary and observability
 - **X-02** open · in-session -- Notices v1
@@ -65,7 +66,6 @@ Generated from rdm-ledger.yaml. 51 items total.
 - **G-S** Share gate
 - **G-T** Treasury gate
 - **S-03** The allocation run
-- **T-01** The Desk and the policy instrument
 - **T-02** The intake rail
 - **T-03** The reconciliation fold
 - **T-04** Disbursement execution
