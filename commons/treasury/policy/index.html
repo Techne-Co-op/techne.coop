@@ -103,7 +103,7 @@
 </div>
 
 <div class="mast">
- <div class="kicker">TREASURY-POLICY v1 &middot; draft instrument &middot; staged</div>
+ <div class="kicker">TREASURY-POLICY v1.1 &middot; draft instrument &middot; staged</div>
  <h1>The Treasury Policy<br>A Draft Instrument for Adoption</h1>
  <p class="dek">The signature discipline of TREASURY &sect;6, drawn into an adoptable instrument: who may propose a movement of the cooperative's money, how many distinct human acts each band of amount requires, which purposes stand pre-authorized, and which always rise to a board act. Every number below is the drafter's cut, staged for the Financial Systems Committee and the board; nothing here binds until adopted, and adoption is an agreements row and its recorded event, not this page.</p>
  <div class="statusline">
@@ -114,6 +114,7 @@
 
 <div class="citesline">
  <b>cites</b> &middot; TREASURY v0.1 &sect;5 &sect;6 &sect;14 &middot; PATRONAGE &sect;7 (configuration as record) &middot; Bylaws v2.1 &sect;4.4 (the treasurer) &sect;3.1 &sect;4.1 (board authority) &middot; IM v0.1 Law IV (cite as you enforce) Law X (people decide)
+ <br><b>v1.1</b> &middot; revised 2026-07-22 on the steward's direction: the principal Programs named, RegenHub.xyz and techne.coop, and the program joint drawn through the policy; informed by PATRONAGE v0.2, TREASURY v0.1, and the Program Stack Patronage Plan
  <br><b>form</b> &middot; on adoption: agreements row, code TREASURY-POLICY, version 1, effective-dated; parameters travel in the agreement.adopted event payload; amendments are prospective only, a new version and a new adoption event
 </div>
 
@@ -151,7 +152,13 @@
 </section>
 
 <section class="sec">
- <div class="sec-head"><span class="sec-num">&sect;5</span><h2>The adoption payload</h2></div>
+ <div class="sec-head"><span class="sec-num">&sect;5</span><h2>The principal Programs</h2></div>
+ <p>The cooperative's activity organizes under Programs, the organizing bodies of PATRONAGE &sect;4, and two stand as principal. <em>RegenHub.xyz</em> is the workspace operations Program: the cooperatively run workspace at 1515 Walnut, its coworking rhythms, day passes, and event operations, the activity the Articles name first. <em>techne.coop</em> is the craft guild Program: the network of self-organizing communities of practice, its courses, gatherings, and network services. Other Programs follow by the same acts; these two are named so the FSC sizes the bands and the standing purposes with the real flows in view.</p>
+ <p>Three provisions draw the program joint through this policy. First, a money.received whose purpose is a program payment carries the Program agent in its payload, and its book partition follows Law IX: member capital facts ride the entity book, grant-bounded program flows ride the host book, exactly as PATRONAGE pinned it. Second, funding bounds are not this instrument's to set: each Program's POLICY-PATRONAGE instrument carries its own bounds (PATRONAGE &sect;7), and a disbursement drawing on a Program's bound adds that Program's Coordinator of record to its approver trail, a proposed provision the FSC may strike. Third, naming designates nothing: a Program stands when its agent enters by recorded act and binds when its policy adopts by board act; this section names intent, not standing.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;6</span><h2>The adoption payload</h2></div>
  <p>On adoption, the agreement.adopted event carries the machine-readable parameters, so the verbs read the version in force and no threshold ever appears in code (PATRONAGE &sect;7, Law IV):</p>
  <pre><span class="c">-- proposed adoption payload &middot; TREASURY-POLICY v1</span>
 {
@@ -165,18 +172,23 @@
  { "code": <span class="k">"band-4"</span>, "max_usd": <span class="k">null</span>, "board_resolution": <span class="k">true</span> }
  ],
  "standing_purposes": [<span class="k">"dues_refund"</span>, <span class="k">"documented_reimbursement"</span>, <span class="k">"allocation_distribution"</span>],
+ "program_payment": { "requires_program_agent_id": <span class="k">true</span>, "book_per_law_ix": <span class="k">true</span> },
+ "principal_programs": [<span class="k">"RegenHub.xyz"</span>, <span class="k">"techne.coop"</span>], <span class="c">-- names intent; standing arrives by recorded acts</span>
  "execution": <span class="k">"manual_at_bank"</span> <span class="c">-- programmatic initiation deferred; its own proposal, out loud or not at all</span>
 }</pre>
  <div class="box"><span class="bk">honest limit &middot; carried from TREASURY &sect;6</span><p>This instrument governs the record and the process; it does not hold the bank's keys. Mercury-side custody controls, dual authorization at the bank, key hygiene, are the complement the FSC adopts alongside it, not a thing this page can supply.</p></div>
 </section>
 
 <section class="sec">
- <div class="sec-head"><span class="sec-num">&sect;6</span><h2>Decisions, staged</h2></div>
+ <div class="sec-head"><span class="sec-num">&sect;7</span><h2>Decisions, staged</h2></div>
  <div class="dec">
  <div class="head"><div>decision</div><div>owner</div><div>status</div></div>
  <div class="row"><div class="q">Adopt TREASURY-POLICY v1: the agreements row entered, the adoption event recorded with the &sect;5 payload, T-01 completes</div><div class="o">the board, via the FSC</div><div class="s">staged</div></div>
  <div class="row"><div class="q">Band values and approver sets: the &sect;3 amounts are the drafter's cut</div><div class="o">the FSC</div><div class="s">open</div></div>
  <div class="row"><div class="q">The standing purposes list of &sect;4</div><div class="o">the FSC</div><div class="s">open</div></div>
+ <div class="row"><div class="q">Designate the two principal Program agents, RegenHub.xyz and techne.coop, by recorded act; the run-through's sixth act performs it</div><div class="o">Todd &middot; steward</div><div class="s">staged</div></div>
+ <div class="row"><div class="q">Each principal Program's POLICY-PATRONAGE instrument, Coordinator and funding bounds included, per the Plan and PATRONAGE &sect;7</div><div class="o">the board, with the Plan</div><div class="s">open</div></div>
+ <div class="row"><div class="q">The Coordinator-in-the-trail provision for program-bound disbursements (&sect;5), keep or strike</div><div class="o">the FSC</div><div class="s">open</div></div>
  <div class="row"><div class="q">Mercury bank-side custody controls, the complement to this record-side discipline</div><div class="o">the FSC, alongside adoption</div><div class="s">open</div></div>
  </div>
 </section>
