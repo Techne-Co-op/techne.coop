@@ -120,6 +120,7 @@ MIGRATIONS = [
     "commons/authority-map/0003_sign_agreement.sql",
     "commons/authority-map/0005_matrix_conformance.sql",
     "commons/authority-map/0009_profiles.sql",
+    "commons/authority-map/0010_programs_view.sql",
 ]
 
 
