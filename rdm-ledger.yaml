@@ -536,7 +536,15 @@ cross_cutting:
       An unconfigured sink is named as a gap in the steward notice, never
       silently dropped. Acceptance is unchanged and channel-neutral:
       admission notice delivered on the membership.state transition to
-      applied.
+      applied. Deployment executed 2026-07-21: the steward pressed Start
+      and the chat id was read from getUpdates per the runbook; the
+      notices function deployed to the live project with the Telegram
+      secrets set; 0006 was applied to the live CIS the same day
+      (pg_net installed, events_notices_rail trigger present); and the
+      steward sink was proven by a marked wiring-check delivery. The
+      email sink stays dormant until the zone manager places the Resend
+      verification records. The live join-form delivery remains the
+      acceptance and is the one step left.
     escalation:
       standing_in: X-02, before the first line of the email rail.
       found: >
@@ -566,11 +574,23 @@ cross_cutting:
   - address: X-03
     title: Export paths
     intent: Per-table CSV/JSON exports for the walkaway rehearsal.
-    status: open · in-session
+    status: open · verified
     cites: [VS, IM]
     ready_when: G0 attested.
     deliverable: export.* views, download path.
     acceptance: Full export completes without error. SHA recorded.
+    resolution: >
+      0004_export_views.sql found already applied to the live CIS by the
+      steward, confirmed 2026-07-21: fourteen export views present. The
+      first live export ran the same day per the pinned convention in
+      scripts/export_cis.py, manifest sha 109c584b9087e064, recorded as
+      event export.taken 1e54ebb9 in the live CIS. A second export later
+      that day (manifest c57c6168) differs only by the two events the
+      rehearsal itself recorded; both are valid snapshots of their
+      moments. The export archive holds member contact details and stays
+      outside the public repository, service-role / disaster-recovery
+      only per the decision below. Verified by Todd Youngblood
+      2026-07-21.
     note: >
       Draft authored: commons/im/0004_export_views.sql, read-only
       security-invoker export views over the 13 IM base tables
@@ -723,11 +743,19 @@ cross_cutting:
   - address: X-08
     title: Probe matrix
     intent: RLS probe matrix testing each role against each table.
-    status: open · in-session
+    status: open · verified
     cites: [AM, VS]
     ready_when: SUB-04 verified.
     deliverable: rls-audit job extended with probe matrix.
     acceptance: Every cell in the AM v0.1 §5 matrix has a passing assertion.
+    resolution: >
+      0005_matrix_conformance.sql found already applied to the live CIS
+      by the steward, confirmed 2026-07-21: capital_accounts runs
+      security_invoker and folds as the asker, and events_steward_read
+      stands with its anchor. The probe matrix runs green in CI with
+      every section 5 cell asserted, and the live database now conforms
+      to the same matrix the probes cite. Verified by Todd Youngblood
+      2026-07-21.
     escalation:
       standing_in: X-08, the blocker mark and the matrix conformance gaps.
       found: >
@@ -763,11 +791,22 @@ cross_cutting:
   - address: X-09
     title: Walkaway rehearsal
     intent: Full backup, restore on fresh infrastructure, fold verification.
-    status: anticipated
+    status: open · verified
     cites: [VS]
     ready_when: X-03 verified. G-R approaching.
     deliverable: Restore run, SHA comparison, recorded event.
     acceptance: Restore diff is empty. Event recorded per VS v1 §6.
+    resolution: >
+      The live rehearsal ran 2026-07-21 under the steward-issued
+      management token: live export (manifest sha 109c584b9087e064)
+      restored onto a fresh scratch project stood through the Management
+      API, re-exported byte-identical, fold reconstructed exactly,
+      scratch dissolved. Events export.taken 1e54ebb9 and
+      walkaway.rehearsed da4620eb recorded in the live CIS per VS v1
+      section 6. With 0007 landed the repository reconstructs the front
+      door, so the restore-completeness card below is closed and the
+      walkaway harness continues its weekly CI rehearsal. Verified by
+      Todd Youngblood 2026-07-21.
     note: >
       Harness drafted early at the steward's direction 2026-07-20:
       walkaway.yml runs the full cycle on a weekly schedule, by hand, and

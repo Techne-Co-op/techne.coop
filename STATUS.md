@@ -6,8 +6,8 @@ Generated from rdm-ledger.yaml. 40 items total.
 | status | count |
 |--------|-------|
 | drafted | 7 |
-| anticipated | 9 |
-| open | 24 |
+| anticipated | 8 |
+| open | 25 |
 | filed | 0 |
 
 ## Drafted
@@ -40,12 +40,13 @@ Generated from rdm-ledger.yaml. 40 items total.
 - **SUB-05** open · verified -- Restore test
 - **X-01** open · verified -- Error boundary and observability
 - **X-02** open · in-session -- Notices v1
-- **X-03** open · in-session -- Export paths
+- **X-03** open · verified -- Export paths
 - **X-04** open · verified -- Document manifest and site index
 - **X-05** open · verified -- Grammar lint
 - **X-06** open · verified -- Design token audit
 - **X-07** open · verified -- Decision coherence
-- **X-08** open · in-session -- Probe matrix
+- **X-08** open · verified -- Probe matrix
+- **X-09** open · verified -- Walkaway rehearsal
 
 ## Anticipated
 
@@ -57,7 +58,6 @@ Generated from rdm-ledger.yaml. 40 items total.
 - **G-G** Gather gate
 - **G-R** Cross-cutting gate
 - **G-S** Share gate
-- **X-09** Walkaway rehearsal
 
 ---
 
