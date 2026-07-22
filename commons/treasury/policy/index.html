@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>TREASURY-POLICY v1 &middot; Draft &middot; Techne</title>
+<meta name="description" content="Draft treasury policy instrument for RegenHub, LCA: the signature discipline, bands, approver sets, and standing purposes. Staged to the FSC and the board; nothing herein adopted.">
+<meta name="robots" content="noindex,nofollow">
+<script>
+ (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+ var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+ document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+ :root{
+ --serif:'Libre Baskerville',Georgia,serif; --sans:Inter,'Helvetica Neue',Arial,sans-serif; --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+ }
+ [data-mode="dark"]{
+ --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+ --line:#2A2A30; --rule:#3A3A42;
+ --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+ --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+ --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+ }
+ [data-mode="light"]{
+ --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+ --line:#D8D3C8; --rule:#9A958A;
+ --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+ --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+ --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+ }
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{background:var(--bg); color:var(--text); font:400 15px/1.7 var(--serif)}
+ .wrap{max-width:880px; margin:0 auto; padding:0 22px 60px}
+ a{color:var(--blue-text); text-decoration:none}
+ a:hover{text-decoration:underline}
+ em{color:var(--heading)}
+ .mono{font-family:var(--mono)}
+ :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+ .topbar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+ .topbar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+ .topbar .bc a{color:var(--ember-text)}
+ .mode-btn{font:400 11.5px var(--mono); color:var(--muted); background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:4px 10px; cursor:pointer}
+ .mode-btn:hover{background:var(--raised); color:var(--heading)}
+
+ .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
+ .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+ .mast .dek{font:400 16.5px/1.65 var(--serif); max-width:64ch}
+ .statusline{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 6px}
+ .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+ .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+ .chip.info{color:var(--info); border-color:var(--info)} .chip.info::before{background:var(--info)}
+ .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:var(--warn)}
+ .citesline{font:400 11.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin:18px 0 38px}
+ .citesline b{color:var(--ember-text); font-weight:500}
+
+ .sec{margin:0 0 40px}
+ .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+ .sec-num{font:500 11px var(--mono); border-left:3px solid var(--ember); padding:2px 0 2px 9px; color:var(--ember); flex:none}
+ .sec-head h2{font:400 21px/1.3 var(--serif); color:var(--heading)}
+ .sec p{margin:0 0 14px; max-width:68ch}
+ .sec p:last-child{margin-bottom:0}
+
+ table{width:100%; border-collapse:collapse; font:400 12.5px/1.6 var(--sans); margin:0 0 16px}
+ th{font:600 10.5px var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--surface)}
+ td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+ td.mono{font:400 11.5px var(--mono); color:var(--ember-text); white-space:nowrap}
+ tr:hover td{background:var(--surface)}
+
+ pre{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; overflow-x:auto; font:400 11.5px/1.65 var(--mono); color:var(--text); margin:0 0 16px}
+ pre .c{color:var(--faint)}
+ pre .k{color:var(--ember-text)}
+
+ .box{background:var(--inset); border:1px solid var(--line); border-left:3px solid var(--warn); border-radius:3px; padding:13px 15px; margin:0 0 14px}
+ .box .bk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:7px}
+ .box p{font-size:13.5px; max-width:66ch}
+
+ .dec{margin:16px 0; border-top:1px solid var(--rule); max-width:78ch}
+ .dec .head{display:grid; grid-template-columns:1fr 200px 120px; gap:14px; padding:8px 0; border-bottom:1px solid var(--rule); font:500 10px var(--mono); color:var(--faint); text-transform:uppercase; letter-spacing:.1em}
+ .dec .row{display:grid; grid-template-columns:1fr 200px 120px; gap:14px; padding:11px 0; border-bottom:1px solid var(--line)}
+ .dec .row .q{font:400 13px/1.65 var(--serif)}
+ .dec .row .o{font:400 11px/1.8 var(--mono); color:var(--blue-text)}
+ .dec .row .s{font:500 10px/1.9 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.06em}
+ @media (max-width:680px){ .dec .row, .dec .head{grid-template-columns:1fr; gap:2px} }
+
+ .foot{border-top:1px solid var(--line); margin-top:48px; padding-top:16px}
+ .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint)}
+ @media (max-width:700px){ .mast h1{font-size:27px} table{font-size:11.5px} }
+ @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topbar">
+ <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; <a href="/commons/treasury/">Treasury module</a> &middot; draft instrument</span>
+ <button class="mode-btn" id="modeBtn" aria-label="Toggle light and dark mode">dark</button>
+</div>
+
+<div class="mast">
+ <div class="kicker">TREASURY-POLICY v1 &middot; draft instrument &middot; staged</div>
+ <h1>The Treasury Policy<br>A Draft Instrument for Adoption</h1>
+ <p class="dek">The signature discipline of TREASURY &sect;6, drawn into an adoptable instrument: who may propose a movement of the cooperative's money, how many distinct human acts each band of amount requires, which purposes stand pre-authorized, and which always rise to a board act. Every number below is the drafter's cut, staged for the Financial Systems Committee and the board; nothing here binds until adopted, and adoption is an agreements row and its recorded event, not this page.</p>
+ <div class="statusline">
+ <span class="chip info">Draft &middot; staged to the FSC and the board</span>
+ <span class="chip warn">nothing herein adopted &middot; T-01 completes on adoption</span>
+ </div>
+</div>
+
+<div class="citesline">
+ <b>cites</b> &middot; TREASURY v0.1 &sect;5 &sect;6 &sect;14 &middot; PATRONAGE &sect;7 (configuration as record) &middot; Bylaws v2.1 &sect;4.4 (the treasurer) &sect;3.1 &sect;4.1 (board authority) &middot; IM v0.1 Law IV (cite as you enforce) Law X (people decide)
+ <br><b>form</b> &middot; on adoption: agreements row, code TREASURY-POLICY, version 1, effective-dated; parameters travel in the agreement.adopted event payload; amendments are prospective only, a new version and a new adoption event
+</div>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;1</span><h2>The floor</h2></div>
+ <p>No disbursement of the cooperative's funds on fewer than <em>two distinct human acts</em>: one proposal and at least one approval, and the proposer and any approver are never the same person. Declining is as recorded as approving; a refusal names its grounds. The system prepares completely and a person executes at the bank; no instrument, agent, or automation holds a key or initiates a movement (TREASURY &sect;7, Law X).</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;2</span><h2>Who may act</h2></div>
+ <table>
+ <tr><th>act</th><th>who</th><th>ground</th></tr>
+ <tr><td>propose a disbursement</td><td>the treasurer or the steward</td><td>Bylaws &sect;4.4; the steward's seat per the standing delegation</td></tr>
+ <tr><td>approve a disbursement</td><td>a director or an officer, never the proposer</td><td>&sect;3.1, &sect;4.1; segregation per TREASURY &sect;6</td></tr>
+ <tr><td>execute at the bank</td><td>the treasurer, or a director the board names</td><td>&sect;4.4; custody controls remain bank-side</td></tr>
+ <tr><td>attest a reconciliation window</td><td>the treasurer</td><td>TREASURY &sect;8</td></tr>
+ </table>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;3</span><h2>The bands</h2></div>
+ <p>Amounts are per movement, in US dollars. The drafter's cut, open to the FSC's revision:</p>
+ <table>
+ <tr><th>band</th><th>amount</th><th>requires</th></tr>
+ <tr><td class="mono">band 1 &middot; standing</td><td>up to $250, a standing purpose (&sect;4)</td><td>proposer + one approver</td></tr>
+ <tr><td class="mono">band 2</td><td>up to $2,500</td><td>proposer + one approver</td></tr>
+ <tr><td class="mono">band 3</td><td>up to $10,000</td><td>proposer + two distinct approvers</td></tr>
+ <tr><td class="mono">band 4</td><td>above $10,000, or any purpose outside &sect;4 at any amount the FSC flags</td><td>a recorded board resolution, then treasurer execution</td></tr>
+ </table>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;4</span><h2>Standing purposes</h2></div>
+ <p>Pre-authorized purposes, inside band 1 limits: a dues refund; a documented expense reimbursement against a receipt; a tax-covering distribution recorded under an adopted Allocation Run (PATRONAGE &sect;11), which discharges a commitment already governed by its own sequence. Everything not on this list escalates to its band by amount, and anything novel in kind escalates to the board regardless of amount.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;5</span><h2>The adoption payload</h2></div>
+ <p>On adoption, the agreement.adopted event carries the machine-readable parameters, so the verbs read the version in force and no threshold ever appears in code (PATRONAGE &sect;7, Law IV):</p>
+ <pre><span class="c">-- proposed adoption payload &middot; TREASURY-POLICY v1</span>
+{
+ "floor": { "min_distinct_actors": <span class="k">2</span>, "proposer_may_approve": <span class="k">false</span> },
+ "proposers": [<span class="k">"treasurer"</span>, <span class="k">"steward"</span>],
+ "approvers": [<span class="k">"director"</span>, <span class="k">"secretary"</span>, <span class="k">"treasurer"</span>],
+ "bands": [
+ { "code": <span class="k">"band-1"</span>, "max_usd": <span class="k">250</span>, "approvals": <span class="k">1</span>, "standing_only": <span class="k">true</span> },
+ { "code": <span class="k">"band-2"</span>, "max_usd": <span class="k">2500</span>, "approvals": <span class="k">1</span> },
+ { "code": <span class="k">"band-3"</span>, "max_usd": <span class="k">10000</span>, "approvals": <span class="k">2</span> },
+ { "code": <span class="k">"band-4"</span>, "max_usd": <span class="k">null</span>, "board_resolution": <span class="k">true</span> }
+ ],
+ "standing_purposes": [<span class="k">"dues_refund"</span>, <span class="k">"documented_reimbursement"</span>, <span class="k">"allocation_distribution"</span>],
+ "execution": <span class="k">"manual_at_bank"</span> <span class="c">-- programmatic initiation deferred; its own proposal, out loud or not at all</span>
+}</pre>
+ <div class="box"><span class="bk">honest limit &middot; carried from TREASURY &sect;6</span><p>This instrument governs the record and the process; it does not hold the bank's keys. Mercury-side custody controls, dual authorization at the bank, key hygiene, are the complement the FSC adopts alongside it, not a thing this page can supply.</p></div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;6</span><h2>Decisions, staged</h2></div>
+ <div class="dec">
+ <div class="head"><div>decision</div><div>owner</div><div>status</div></div>
+ <div class="row"><div class="q">Adopt TREASURY-POLICY v1: the agreements row entered, the adoption event recorded with the &sect;5 payload, T-01 completes</div><div class="o">the board, via the FSC</div><div class="s">staged</div></div>
+ <div class="row"><div class="q">Band values and approver sets: the &sect;3 amounts are the drafter's cut</div><div class="o">the FSC</div><div class="s">open</div></div>
+ <div class="row"><div class="q">The standing purposes list of &sect;4</div><div class="o">the FSC</div><div class="s">open</div></div>
+ <div class="row"><div class="q">Mercury bank-side custody controls, the complement to this record-side discipline</div><div class="o">the FSC, alongside adoption</div><div class="s">open</div></div>
+ </div>
+</section>
+
+<div class="foot">
+ <p class="tail">TREASURY-POLICY v1 &middot; draft instrument &middot; staged to the FSC and the board &middot; nothing herein adopted &middot; drafted with machine assistance &middot; Nou drafts; the FSC shapes; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-07-22</p>
+</div>
+
+</div>
+<script>
+ var btn=document.getElementById('modeBtn');
+ function label(){btn.textContent=document.documentElement.getAttribute('data-mode')}
+ label();
+ btn.addEventListener('click',function(){
+ var m=document.documentElement.getAttribute('data-mode')==='dark'?'light':'dark';
+ document.documentElement.setAttribute('data-mode',m);
+ try{localStorage.setItem('techne-mode',m)}catch(e){}
+ label();
+ });
+</script>
+</body>
+</html>
