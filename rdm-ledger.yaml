@@ -64,7 +64,7 @@ series:
     deliverable: commons/authority-map/index.html, commons/authority-map/0002_policies.sql
     acceptance: 0002_policies.sql present. rls-audit green after SUB-04.
 
-  - address: PP
+  - address: PATRONAGE
     title: Program Patronage · Module PRD and Specification
     intent: >
       Programs as organizing bodies for Opportunities; the event contract for
@@ -78,15 +78,15 @@ series:
       Published at techne.coop/commons/patronage/. The §14 splice entered in this
       ledger; adoption is the merge, and the merge is Todd's.
 
-  - address: TR
+  - address: TREASURY
     title: Treasury · Module PRD and Specification
     intent: >
       The movement layer over Stripe, Mercury, and Xero; governed movements as
       events; the two-person signature discipline as record; reconciliation as
-      a fold; the four joint contracts with PP. Emits, anticipated,
+      a fold; the four joint contracts with PATRONAGE. Emits, anticipated,
       000N_treasury_verbs.sql. Proposal posture per its own §1.
     status: drafted
-    cites: [SER, PRD, BP, IM, VS, AM, PP]
+    cites: [SER, PRD, BP, IM, VS, AM, PATRONAGE]
     deliverable: commons/treasury/index.html
     acceptance: >
       Published at techne.coop/commons/treasury/. The §13 splice entered in this
@@ -292,7 +292,7 @@ gates:
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
     acceptance: G-S status updated to attested. S-01 through S-03 verified. Q3 counting rules on record. The fold shown equals the fold computed by hand.
     note: >
-      Re-anchored 2026-07-22 per the PP §14 splice: the S train re-decomposed
+      Re-anchored 2026-07-22 per the PATRONAGE §14 splice: the S train re-decomposed
       to three packets, and the gate follows the last of them. The gate
       sentence is unchanged. The first accounting year may reach G-S on an
       illustrative run, provenance marked, if the Gate Book prefers not to
@@ -300,7 +300,7 @@ gates:
 
   - address: G-T
     title: Treasury gate
-    intent: Governed movement demonstrated end to end, per TR §12.
+    intent: Governed movement demonstrated end to end, per TREASURY §12.
     status: anticipated
     ready_when: T-04 verified.
     gate: Human attestation recorded.
@@ -596,10 +596,10 @@ find:
     title: The Programs view
     intent: >
       Programs as organizing bodies for Opportunities; the principal page at
-      /intranet/programs/ and the Overview primary window, per PP §8.
-    status: open · PP adoption
-    cites: [PP, PRD, AM, IM]
-    ready_when: PP adopted. F-01 through F-03 verified. The PP §15 visibility decision recorded.
+      /intranet/programs/ and the Overview primary window, per PATRONAGE §8.
+    status: open · PATRONAGE adoption
+    cites: [PATRONAGE, PRD, AM, IM]
+    ready_when: PATRONAGE adopted. F-01 through F-03 verified. The PATRONAGE §15 visibility decision recorded.
     deliverable: /intranet/programs/; the Overview window; the affiliation verb.
     acceptance: Explore every Program and its open Opportunities; trace one Affiliation to its event.
 
@@ -607,14 +607,14 @@ share:
 
   - address: S-01
     title: Contribution posting paths
-    intent: The PP §10 verbs land; a valued Contribution posts with both deltas per Law VII.
+    intent: The PATRONAGE §10 verbs land; a valued Contribution posts with both deltas per Law VII.
     status: open · Q3
-    cites: [PP, IM, AM, PRD]
-    ready_when: G0 attested. Q3 counting rules recorded. PP adopted.
+    cites: [PATRONAGE, IM, AM, PRD]
+    ready_when: G0 attested. Q3 counting rules recorded. PATRONAGE adopted.
     deliverable: 000N_patronage_verbs.sql; Schedule A and Counting Rules entered as instruments.
     acceptance: A contribution posted by verb appears in the poster's fold, citing its policy version.
     note: >
-      Spliced 2026-07-22 per PP §14: the prior S-01, Capital account view, and
+      Spliced 2026-07-22 per PATRONAGE §14: the prior S-01, Capital account view, and
       S-02, Allocation event, read against the dashboard's contribution
       posting paths and fold surface, resolved as an under-decomposition; the
       union is the three-packet train below. Superseded descriptions kept in
@@ -624,16 +624,16 @@ share:
     title: The fold surface
     intent: /commons/account/ shows the balance and the itemized history with traceable inputs per Law IV.
     status: open · Q3
-    cites: [PP, IM, AM, PRD]
+    cites: [PATRONAGE, IM, AM, PRD]
     ready_when: S-01 verified.
     deliverable: /commons/account/ over capital_accounts and the member's own capital events.
     acceptance: Follow any figure to the events and the policy that produced it.
 
   - address: S-03
     title: The allocation run
-    intent: The Plan §7 sequence executes as recorded events, steps 01 through 05, with 06 and 07 as commitment records per PP §11.
+    intent: The Plan §7 sequence executes as recorded events, steps 01 through 05, with 06 and 07 as commitment records per PATRONAGE §11.
     status: anticipated
-    cites: [PP, IM, AM, PRD]
+    cites: [PATRONAGE, IM, AM, PRD]
     ready_when: S-02 verified. Fiscal close. Q4 class semantics recorded.
     deliverable: The run's event trail; the patron-majority attestation under a director's hand.
     acceptance: Hand-computed allocation equals posted allocation, both projections.
@@ -642,45 +642,45 @@ treasury:
 
   - address: T-01
     title: The Desk and the policy instrument
-    intent: /intranet/treasury/ read-only over existing facts; TREASURY-POLICY v1 in force per TR §6.
+    intent: /intranet/treasury/ read-only over existing facts; TREASURY-POLICY v1 in force per TREASURY §6.
     status: anticipated
-    cites: [TR, PP, AM, IM]
-    ready_when: TR adopted. TREASURY-POLICY adopted.
+    cites: [TREASURY, PATRONAGE, AM, IM]
+    ready_when: TREASURY adopted. TREASURY-POLICY adopted.
     deliverable: /intranet/treasury/; the TREASURY-POLICY v1 instrument row and its adoption event.
     acceptance: The thresholds in force are visible on the Desk, cited to their instrument.
 
   - address: T-02
     title: The intake rail
-    intent: Stripe to money.received by the 0006 seam pattern, dues then share purchase, per TR §7.
+    intent: Stripe to money.received by the 0006 seam pattern, dues then share purchase, per TREASURY §7.
     status: anticipated
-    cites: [TR, PP, AM]
+    cites: [TREASURY, PATRONAGE, AM]
     ready_when: T-01 verified. Dues schedule and membership terms recorded as instruments.
     deliverable: The intake edge function and verb per the 0006 seam; money.received live with idempotent rail references.
     acceptance: A replayed webhook writes once; a purchase prices only from the instrument in force.
 
   - address: T-03
     title: The reconciliation fold
-    intent: Three-way pairing across ledger, bank, and book; windows attest; gaps card, per TR §8.
+    intent: Three-way pairing across ledger, bank, and book; windows attest; gaps card, per TREASURY §8.
     status: anticipated
-    cites: [TR, IM, VS]
+    cites: [TREASURY, IM, VS]
     ready_when: T-02 verified. Mercury feed and Xero references flowing.
     deliverable: The reconciliation fold; treasury.reconciled and treasury.gap_resolved verbs; gap cards on the Desk.
     acceptance: First window attested; an injected gap blocks attestation until resolved.
 
   - address: T-04
     title: Disbursement execution
-    intent: PP commitments discharged, proposal to approvals to bank reference, per TR §5 and §10.
+    intent: PATRONAGE commitments discharged, proposal to approvals to bank reference, per TREASURY §5 and §10.
     status: anticipated
-    cites: [TR, PP, AM]
-    ready_when: T-03 verified. S-03 recorded under PP.
-    deliverable: 000N_treasury_verbs.sql disbursement sequence; pairing to PP commitment events.
+    cites: [TREASURY, PATRONAGE, AM]
+    ready_when: T-03 verified. S-03 recorded under PATRONAGE.
+    deliverable: 000N_treasury_verbs.sql disbursement sequence; pairing to PATRONAGE commitment events.
     acceptance: A commitment settles by pairing and the hand-trace matches.
 
   - address: T-05
     title: The redemption path
     intent: share.redeemed and its payout, per the membership lifecycle already in the substrate.
     status: open · redeemability
-    cites: [TR, PP, AM]
+    cites: [TREASURY, PATRONAGE, AM]
     ready_when: The redeemability question resolved by board and counsel.
     deliverable: The redemption verb and payout trail over the stock_ledger lifecycle.
     acceptance: A redemption runs register to bank with the full trail, or refuses citing the open question.

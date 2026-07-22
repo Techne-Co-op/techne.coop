@@ -15,10 +15,10 @@ Generated from rdm-ledger.yaml. 51 items total.
 - **AM** Authority Map -- Authority map anchored in Bylaws v2.1. Emits 0002_policies.sql.
 - **BP** Build Protocol -- One operating contract, packet ledger grammar, decide/escalate, provenance. Emit
 - **IM** Information Model -- Information model and the eleven laws. Emits 0001_substrate.sql.
-- **PP** Program Patronage · Module PRD and Specification -- Programs as organizing bodies for Opportunities; the event contract for contribu
+- **PATRONAGE** Program Patronage · Module PRD and Specification -- Programs as organizing bodies for Opportunities; the event contract for contribu
 - **PRD** Product Requirements v0.3 -- Deprecation record, four slices, three doors, ten principles.
 - **SER** Series Overview -- The covering document of the refactor, including itself.
-- **TR** Treasury · Module PRD and Specification -- The movement layer over Stripe, Mercury, and Xero; governed movements as events;
+- **TREASURY** Treasury · Module PRD and Specification -- The movement layer over Stripe, Mercury, and Xero; governed movements as events;
 - **UI** Tokens and Patterns -- Design tokens and patterns aligned to techne.coop/design-system. Emits commons.c
 - **VS** Verification Spec -- Five suites and six gates. Emits verify.yml.
 
@@ -33,7 +33,7 @@ Generated from rdm-ledger.yaml. 51 items total.
 - **F-01** open · in-session -- Opportunity board
 - **F-02** open · in-session -- Response flow
 - **F-03** open · in-session -- Resolution
-- **F-04** open · PP adoption -- The Programs view
+- **F-04** open · PATRONAGE adoption -- The Programs view
 - **G-01** open · verified -- Calendar
 - **G-02** open · verified -- Registration and cancellation
 - **G-03** open · verified -- Attendance recording
