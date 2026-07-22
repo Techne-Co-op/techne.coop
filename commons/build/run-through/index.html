@@ -257,25 +257,33 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
   <section class="sec" id="desk">
     <div class="addr">&sect;4 &middot; the steward's desk</div>
     <h2>Second act &middot; bind and admit</h2>
-    <p class="lead">Two acts belong to the assigned hand and nobody else: binding the sign-in to the agent, and admission itself. Both are one statement in the SQL editor. First, have the newcomer request a magic link on any member page (for example <a href="/commons/agreements/">the agreements shelf</a>) and click it, so their auth user exists.</p>
-    <pre class="rec">-- who applied, and who just signed in
-select a.id as agent_id, a.display_name, m.state
-  from agents a join memberships m on m.agent_id = a.id
- where m.state = 'applied';
+    <p class="lead">Two acts belong to the assigned hand and nobody else: binding the sign-in to the agent, and admission itself. The application event already carries the applicant's address, so the address keys both: type it once and the desk does the rest. First, have the newcomer request a magic link on any member page (for example <a href="/commons/agreements/">the agreements shelf</a>) and click it, so their auth user exists.</p>
+    <pre class="rec">do $$
+declare
+  v_email text := 'the newcomer address';  -- the only thing you type
+  v_agent uuid;
+begin
+  -- the application event carries the address (X-02 seam)
+  select e.agent_id into v_agent
+    from events e
+   where e.kind = 'membership.applied'
+     and e.payload-&gt;&gt;'email' = v_email
+   order by e.recorded_at desc limit 1;
 
-select id as auth_uid, email from auth.users
- order by created_at desc limit 3;
+  -- bind: the sign-in with that address becomes the agent (B-01)
+  update agents a set auth_user_id = u.id
+    from auth.users u
+   where a.id = v_agent and u.email = v_email
+     and a.auth_user_id is null;
 
--- bind: the sign-in becomes the agent (B-01)
-update agents
-   set auth_user_id = '&lt;auth_uid&gt;'
- where id = '&lt;agent_id&gt;';
+  -- admit: the recorded act of the Board's assigned hand (1.3)
+  update memberships set state = 'active' where agent_id = v_agent;
+end $$;
 
--- admit: the Board's assigned hand flips the state (Bylaws 1.3)
-update memberships
-   set state = 'active'
- where agent_id = '&lt;agent_id&gt;';</pre>
-    <p>Have the newcomer reload. The system now knows who asks.</p>
+-- see the result
+select a.display_name, a.auth_user_id is not null as bound, m.state
+  from agents a join memberships m on m.agent_id = a.id;</pre>
+    <p>Have the newcomer reload. The system now knows who asks. If bound reads false, the newcomer has not clicked their magic link yet; run the block again once they have.</p>
   </section>
 
   <section class="sec" id="belong">
