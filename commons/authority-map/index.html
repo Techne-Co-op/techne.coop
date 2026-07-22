@@ -275,7 +275,7 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
   <section class="sec" id="s5">
     <div class="addr">&sect;5</div>
     <h2>The matrix</h2>
-    <p class="lead">The C7 shape, re-derived: the thirteen launch tables against the map's roles, expectations sourced from this document and checked by the rls-audit suite. R is read, W is write, and every cell is scoped by the policies of &sect;6; self means the row concerns the agent asking.</p>
+    <p class="lead">The C7 shape, re-derived: the thirteen launch tables, and the profiles addendum of &sect;9, against the map's roles, expectations sourced from this document and checked by the rls-audit suite. R is read, W is write, and every cell is scoped by the policies of &sect;6; self means the row concerns the agent asking.</p>
     <div class="stage">
       <table class="dt">
         <thead>
@@ -303,10 +303,11 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
           <tr><td class="s">attendance</td><td>&ndash;</td><td>&ndash;</td><td>self &middot; host W</td><td>R</td><td>R</td><td>R &middot; W</td></tr>
           <tr><td class="s">opportunities</td><td>&ndash;</td><td>&ndash;</td><td>R &middot; author W</td><td>R</td><td>R</td><td>R</td></tr>
           <tr><td class="s">responses</td><td>&ndash;</td><td>&ndash;</td><td>scoped R &middot; self W</td><td>R</td><td>R</td><td>R</td></tr>
+          <tr><td class="s">profiles</td><td>&ndash;</td><td>self</td><td>R &middot; self W</td><td>R</td><td>R</td><td>R</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="cap">public reads nothing in the database: the public surface is the website, per Art. XV and the legal page, not an anonymous database role &middot; responses are visible to the responder and the opportunity's author &middot; the capital view folds only what the events policy already shows the asker</p>
+    <p class="cap">public reads nothing in the database: the public surface is the website, per Art. XV and the legal page, not an anonymous database role &middot; responses are visible to the responder and the opportunity's author &middot; the capital view folds only what the events policy already shows the asker &middot; the profiles row (addendum, 2026-07-22, B-06) carries one guarded cell: email rides no client select and is served by <code>profile_email()</code> on the owner's visibility choice, to active members only</p>
   </section>
 
   <section class="sec" id="s6">
@@ -323,6 +324,7 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
       <div class="an-row"><span class="f">gather paths</span><span class="v">Members see the calendar and register or cancel for themselves; hosts and the steward record attendance, which serves quorum and the record of presence. &sect;2.1, &sect;2.7; PRD v0.3 &sect;4.</span></div>
       <div class="an-row"><span class="f">find paths</span><span class="v">Members read open opportunities and write their own; responses are between responder and author until an outcome event says otherwise. PRD v0.3 &sect;4; &sect;18.2 for anything designated confidential.</span></div>
       <div class="an-row"><span class="f">capital views</span><span class="v">A member's fold is theirs; the Board and Treasurer read all, because allocation and custody are theirs to perform. &sect;5.1, &sect;5.3, &sect;4.4.</span></div>
+      <div class="an-row"><span class="f">profile card</span><span class="v">Members read one another's self-description; each agent writes only their own, and the email cell moves solely through the visibility function on the owner's word. Presentation state, not record: edits are not evented, by decision (B-06). &sect;2.9, &sect;1.13, &sect;18.1.</span></div>
     </div>
   </section>
 
@@ -347,6 +349,7 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
     <h2>The emission, and two additions carried openly</h2>
     <p class="lead">The migration <a href="/commons/authority-map/0002_policies.sql"><code>0002_policies.sql</code></a> distills this map: the helper functions, every policy with its anchor within reach of the schema-lint, and the grants that make deny-by-default become the matrix of &sect;5. Applying it flips the rls-audit suite live.</p>
     <p>Two schema additions ride in the emission because the map cannot function without them, and both are flagged as IM addenda rather than slipped in: an identity binding on agents (<code>auth_user_id</code>), since the visibility function must know who is asking, and a <code>role_grants</code> table for appointments (director, officer, steward), since classes live on memberships but offices do not. Both are Tier B changes under BP v1 &sect;6, recorded here for adoption into IM v0.2. <span class="chip open"><span class="dot"></span>Open &middot; IM v0.2 addenda, Todd's nod</span></p>
+    <p>A third addendum joins them by the steward's direction of 2026-07-22 (B-06): a <code>profiles</code> table, the self-description satellite of agents, emitted by <a href="/commons/authority-map/0009_profiles.sql"><code>0009_profiles.sql</code></a> with its matrix row in &sect;5 and its policy family in &sect;6. Two of its choices are carried openly: profile edits are presentation state and are not evented, and the profile view declares no crafts, inferring practice from the record instead (and, when the Share train opens, from contributions and patronage activity). Its avatars ride a private storage shelf under the same self-write, member-read cells. Tier B, recorded for adoption into IM v0.2.</p>
     <p>Deferred with their instruments: Investor-rider specifics, the Community Participant governance hook, the Hub Membership Agreement's Class Two and Three terms, and every post-launch table family. Amendments to this map are Tier B at the policy level and Tier C at the document level, prospective, with supersession explicit.</p>
     <div class="memo">
       <div class="k">the working agreement of this map</div>

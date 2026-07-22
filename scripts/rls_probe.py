@@ -108,6 +108,10 @@ insert into events (occurred_at, actor_agent_id, kind, agent_id, book_delta, tax
   (now(), '{STE}', 'capital.contribution', '{MEM2}', 250.00, 250.00);
 insert into events (occurred_at, actor_agent_id, kind, agent_id) values
   (now(), '{STE}', 'membership.applied', '{APP}');
+
+insert into profiles (agent_id, bio, email, email_visible) values
+  ('{MEM1}', 'Probe bio one.', 'one@probe.local', true),
+  ('{MEM2}', 'Probe bio two.', 'two@probe.local', false);
 """
 
 MIGRATIONS = [
@@ -115,6 +119,7 @@ MIGRATIONS = [
     "commons/authority-map/0002_policies.sql",
     "commons/authority-map/0003_sign_agreement.sql",
     "commons/authority-map/0005_matrix_conformance.sql",
+    "commons/authority-map/0009_profiles.sql",
 ]
 
 
@@ -150,7 +155,8 @@ def probe(pid, role, uid, sql, expect, cite):
 # ---- anon: reads nothing anywhere (section 5 caption; Art. XV) ----
 for t in ["agents", "agreements", "memberships", "stock_ledger", "signatures",
           "applications", "events", "gatherings", "sessions", "registrations",
-          "attendance", "opportunities", "responses", "capital_accounts"]:
+          "attendance", "opportunities", "responses", "capital_accounts",
+          "profiles"]:
     probe(f"anon-{t}", "anon", None, f"select count(*) from {t}",
           ("deny",), "s5 caption: public reads nothing; Art. XV")
 
@@ -446,6 +452,35 @@ probe("rolegrants-steward-write-deny", "authenticated", STE,
 probe("rolegrants-member-write-deny", "authenticated", MEM1,
       f"insert into role_grants (agent_id, role) values ('{MEM1}', 'director') returning 1",
       ("write_deny",), "3.8: grants are written by directors")
+
+# ---- profiles (B-06 addendum): - | self | R, self W | R | R | R ----
+probe("profiles-member-read", "authenticated", MEM3,
+      "select count(*) from profiles", ("count", 2),
+      "s5 profiles/member: R; 2.9 directory as member right")
+probe("profiles-applicant-self-only", "authenticated", APP,
+      "select count(*) from profiles", ("count", 0),
+      "s5 profiles/applicant: self only; 18.1")
+probe("profiles-self-insert", "authenticated", MEM3,
+      f"insert into profiles (agent_id, bio) values ('{MEM3}', 'Probe bio three.') returning 1",
+      ("write_ok",), "s5 profiles/member: self W; B-06")
+probe("profiles-cross-update", "authenticated", MEM3,
+      f"update profiles set bio = 'x' where agent_id = '{MEM1}' returning 1",
+      ("write_deny",), "s5 profiles/member: self W only; B-06")
+probe("profiles-email-column-guarded", "authenticated", MEM3,
+      "select email from profiles", ("deny",),
+      "B-06: the guarded cell rides no client select")
+probe("profiles-email-visible", "authenticated", MEM3,
+      f"select count(*) from (select profile_email('{MEM1}') e) s where e is not null",
+      ("count", 1), "B-06: email_visible serves an active member")
+probe("profiles-email-hidden", "authenticated", MEM3,
+      f"select count(*) from (select profile_email('{MEM2}') e) s where e is not null",
+      ("count", 0), "B-06: hidden email serves no one but the owner")
+probe("profiles-email-owner", "authenticated", MEM2,
+      f"select count(*) from (select profile_email('{MEM2}') e) s where e is not null",
+      ("count", 1), "B-06: the owner always reads their own")
+probe("profiles-email-applicant-denied", "authenticated", APP,
+      f"select count(*) from (select profile_email('{MEM1}') e) s where e is not null",
+      ("count", 0), "B-06: visibility is a member grant, not an applicant one")
 
 
 def main():

@@ -125,6 +125,59 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .state-chip.applied { border-color: var(--ember); color: var(--ember-text); }
 .state-chip.suspended { border-color: var(--warn); color: var(--warn); background: var(--warn-dim); }
 
+/* expanded profiles (0009) */
+.dir-card { border-bottom: 1px solid var(--line); }
+.dir-card:last-child { border-bottom: none; }
+.dir-card .dir-entry { border-bottom: none; }
+.dir-entry[role="button"] { cursor: pointer; }
+.dir-entry[role="button"]:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; border-radius: 4px; }
+.dir-mark { flex-shrink: 0; display: flex; }
+.dir-avatar { width: 36px; height: 36px; border-radius: 2px; border: 1px solid var(--line); object-fit: cover; display: block; }
+.dir-sub { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); margin-top: 1px; }
+.dir-detail { display: none; padding: 0 0 var(--s4) 52px; }
+.dir-detail.open { display: block; }
+.dir-detail-loading { font-family: var(--mono); font-size: 0.7rem; color: var(--faint); }
+.dir-bio { font-size: 0.9rem; color: var(--text); margin-bottom: var(--s3); white-space: pre-wrap; }
+.dir-links { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s3); }
+.dir-links a { font-family: var(--mono); font-size: 0.72rem; color: var(--ember-text); text-decoration: none; border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px; }
+.dir-links a:hover { border-color: var(--ember); }
+.dir-email { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); margin-bottom: var(--s3); overflow-wrap: anywhere; }
+.rec-label { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: var(--s1); }
+.rec-strip { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.rec-chip { font-family: var(--mono); font-size: 0.68rem; padding: 2px 7px; border-radius: 4px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.rec-quiet { font-family: var(--mono); font-size: 0.7rem; color: var(--faint); font-style: italic; }
+
+/* profile editor (0009) */
+.pf-grid { margin-top: var(--s4); display: flex; flex-direction: column; gap: var(--s4); border-top: 1px solid var(--line); padding-top: var(--s4); }
+.pf-label { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: var(--s1); display: block; }
+.pf-field input[type=text], .pf-field input[type=email], .pf-field input[type=url], .pf-field textarea {
+  width: 100%; background: var(--inset); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--heading); font-family: var(--serif); font-size: 0.95rem; padding: 8px var(--s3); outline: none;
+}
+.pf-field input:focus, .pf-field textarea:focus { border-color: var(--ember); }
+.pf-field textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
+.pf-count { font-family: var(--mono); font-size: 0.66rem; color: var(--faint); text-align: right; margin-top: 2px; }
+.pf-two { display: flex; gap: var(--s3); }
+.pf-two .pf-field { flex: 1; }
+.pf-link-row { display: flex; gap: var(--s2); align-items: center; margin-bottom: var(--s2); }
+.pf-link-row input { flex: 1; min-width: 0; background: var(--inset); border: 1px solid var(--line); border-radius: 6px; color: var(--heading); font-family: var(--serif); font-size: 0.88rem; padding: 6px var(--s3); outline: none; }
+.pf-link-row input:focus { border-color: var(--ember); }
+.pf-rm { font-family: var(--mono); font-size: 0.85rem; line-height: 1; padding: 6px 10px; border-radius: 4px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; flex-shrink: 0; }
+.pf-rm:hover { border-color: var(--warn); color: var(--warn); }
+.pf-add { font-family: var(--mono); font-size: 0.72rem; padding: 5px 12px; border-radius: 4px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
+.pf-add:hover { border-color: var(--ember); color: var(--ember-text); }
+.pf-add:disabled { opacity: 0.45; cursor: not-allowed; }
+.pf-check { display: flex; align-items: center; gap: var(--s2); font-family: var(--mono); font-size: 0.75rem; color: var(--muted); margin-top: var(--s2); cursor: pointer; }
+.pf-check input { accent-color: var(--ember); }
+.pf-avatar-row { display: flex; align-items: center; gap: var(--s3); }
+.pf-avatar-preview { width: 48px; height: 48px; border-radius: 2px; border: 1px solid var(--line); object-fit: cover; background: var(--raised); flex-shrink: 0; }
+.pf-avatar-fallback { width: 48px; height: 48px; border-radius: 2px; border: 1px solid var(--line); background: var(--raised); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); flex-shrink: 0; }
+.pf-file { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); min-width: 0; }
+.pf-save-row { display: flex; justify-content: flex-end; }
+.pf-save-row button { font-family: var(--mono); font-size: 0.78rem; padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; background: var(--ember); color: var(--on-accent); }
+.pf-save-row button:hover { opacity: 0.88; }
+.pf-save-row button:disabled { opacity: 0.45; cursor: not-allowed; }
+
 /* magic link form */
 #magic-form { max-width: 400px; margin: 0 auto; }
 #magic-form input[type=email] {
@@ -201,6 +254,12 @@ footer a { color: var(--faint); }
   /* Directory entries: chip stays inline but smaller */
   .dir-entry { gap: var(--s3); }
   .state-chip { font-size: 0.63rem; padding: 2px 5px; }
+
+  /* Profiles */
+  .dir-detail { padding-left: 0; }
+  .pf-two { flex-direction: column; }
+  .pf-field input { font-size: 16px; }
+  .pf-save-row button, .pf-add { min-height: 44px; }
 
 /* Auth gate */
   .btn-primary { width: 100%; min-height: 44px; }
@@ -306,13 +365,15 @@ async function loadDirectory(session) {
   const token = session.access_token;
   const headers = { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + token };
 
-  // get agents + memberships
-  const [agentsRes, membershipsRes] = await Promise.all([
+  // get agents + memberships + profiles (0009)
+  const [agentsRes, membershipsRes, profilesRes] = await Promise.all([
     fetch(`${SUPABASE_URL}/rest/v1/agents?select=id,kind,display_name,auth_user_id&order=display_name.asc`, { headers }),
-    fetch(`${SUPABASE_URL}/rest/v1/memberships?select=agent_id,state,member_class`, { headers })
+    fetch(`${SUPABASE_URL}/rest/v1/memberships?select=agent_id,state,member_class`, { headers }),
+    fetch(`${SUPABASE_URL}/rest/v1/profiles?select=agent_id,bio,links,location,pronouns,email_visible,avatar_path,updated_at`, { headers })
   ]);
   const agents = await agentsRes.json();
   const memberships = await membershipsRes.json();
+  const profiles = profilesRes.ok ? await profilesRes.json() : [];
 
   if (!Array.isArray(agents)) {
     document.getElementById('dir-list').innerHTML = '<p style="color:var(--muted)">Could not load directory.</p>';
@@ -323,13 +384,18 @@ async function loadDirectory(session) {
   if (Array.isArray(memberships)) {
     memberships.forEach(m => { memMap[m.agent_id] = m; });
   }
+  const profMap = {};
+  if (Array.isArray(profiles)) {
+    profiles.forEach(p => { profMap[p.agent_id] = p; });
+  }
 
   // find self
   const self = agents.find(a => a.auth_user_id === session.user.id);
 
   // render your card
   if (self) {
-    renderYourCard(self, memMap[self.id], token);
+    const selfEmail = await fetchProfileEmail(self.id, token);
+    renderYourCard(self, memMap[self.id], token, profMap[self.id] || null, selfEmail);
     loadAdmissions(self, agents, headers, token);
   }
 
@@ -340,21 +406,142 @@ async function loadDirectory(session) {
   const list = document.getElementById('dir-list');
   visible.forEach(agent => {
     const mem = memMap[agent.id];
+    const prof = profMap[agent.id];
     const initials = (agent.display_name || '?').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
     const stateChip = mem ? `<span class="state-chip ${mem.state}">${mem.state}</span>` : '';
     const isSelf = agent.auth_user_id === session.user.id;
-    const div = document.createElement('div');
-    div.className = 'dir-entry';
-    div.innerHTML = `
-      <div class="dir-initials">${esc(initials)}</div>
-      <div class="dir-info">
-        <div class="dir-name">${esc(agent.display_name)}${isSelf ? ' <span style="font-family:var(--mono);font-size:0.68rem;color:var(--ember-text)">(you)</span>' : ''}</div>
-        <div class="dir-kind">${esc(agent.kind)}${mem && mem.member_class ? ' &middot; ' + esc(mem.member_class) : ''}</div>
+    const subBits = [];
+    if (prof && prof.location) subBits.push(esc(prof.location));
+    if (prof && prof.pronouns) subBits.push(esc(prof.pronouns));
+    const subLine = subBits.length ? `<div class="dir-sub">${subBits.join(' &middot; ')}</div>` : '';
+    const card = document.createElement('div');
+    card.className = 'dir-card';
+    card.innerHTML = `
+      <div class="dir-entry" role="button" tabindex="0" aria-expanded="false" aria-controls="detail-${esc(agent.id)}">
+        <div class="dir-mark"><div class="dir-initials">${esc(initials)}</div></div>
+        <div class="dir-info">
+          <div class="dir-name">${esc(agent.display_name)}${isSelf ? ' <span style="font-family:var(--mono);font-size:0.68rem;color:var(--ember-text)">(you)</span>' : ''}</div>
+          <div class="dir-kind">${esc(agent.kind)}${mem && mem.member_class ? ' &middot; ' + esc(mem.member_class) : ''}</div>
+          ${subLine}
+        </div>
+        ${stateChip}
       </div>
-      ${stateChip}
+      <div class="dir-detail" id="detail-${esc(agent.id)}"></div>
     `;
-    list.appendChild(div);
+    list.appendChild(card);
+
+    const entry = card.querySelector('.dir-entry');
+    const detail = card.querySelector('.dir-detail');
+    const toggle = () => toggleDetail(entry, detail, agent, prof || null, headers, token);
+    entry.addEventListener('click', toggle);
+    entry.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+
+    if (prof && prof.avatar_path) {
+      getAvatarURL(prof.avatar_path, prof.updated_at, token).then(url => {
+        if (!url) return;
+        const img = document.createElement('img');
+        img.className = 'dir-avatar';
+        img.alt = '';
+        img.src = url;
+        card.querySelector('.dir-mark').replaceChildren(img);
+      });
+    }
   });
+}
+
+// ── expanded profiles (0009) ──
+
+const avatarCache = new Map();
+async function getAvatarURL(path, ver, token) {
+  const key = path + '@' + (ver || '');
+  if (avatarCache.has(key)) return avatarCache.get(key);
+  try {
+    const res = await fetch(`${SUPABASE_URL}/storage/v1/object/authenticated/avatars/${encodeURI(path)}?v=${encodeURIComponent(ver || '')}`, {
+      headers: { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + token }
+    });
+    if (!res.ok) return null;
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    avatarCache.set(key, url);
+    return url;
+  } catch (e) { return null; }
+}
+
+async function fetchProfileEmail(agentId, token) {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/profile_email`, {
+      method: 'POST',
+      headers: { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ p_agent_id: agentId })
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return (typeof data === 'string' && data) ? data : null;
+  } catch (e) { return null; }
+}
+
+// count via HEAD + Prefer: count=exact; the total rides the Content-Range header
+async function countRows(pathQuery, headers) {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${pathQuery}`, {
+      method: 'HEAD',
+      headers: Object.assign({}, headers, { 'Prefer': 'count=exact' })
+    });
+    if (!res.ok) return 0;
+    const cr = res.headers.get('content-range');
+    if (!cr) return 0;
+    const total = cr.split('/')[1];
+    if (!total || total === '*') return 0;
+    return parseInt(total, 10) || 0;
+  } catch (e) { return 0; }
+}
+
+function safeLinkAnchors(links) {
+  if (!Array.isArray(links)) return '';
+  return links.slice(0, 6).map(l => {
+    if (!l || typeof l.url !== 'string') return '';
+    let u;
+    try { u = new URL(l.url); } catch (e) { return ''; }
+    if (u.protocol !== 'http:' && u.protocol !== 'https:') return '';
+    const label = l.label ? String(l.label) : u.hostname;
+    return `<a href="${esc(u.href)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`;
+  }).filter(Boolean).join('');
+}
+
+async function toggleDetail(entry, detail, agent, prof, headers, token) {
+  const open = detail.classList.toggle('open');
+  entry.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (!open || detail.dataset.loaded) return;
+  detail.dataset.loaded = '1';
+  detail.innerHTML = '<div class="dir-detail-loading">reading the record...</div>';
+
+  const parts = [];
+  if (prof && prof.bio) parts.push(`<div class="dir-bio">${esc(prof.bio)}</div>`);
+  const anchors = prof ? safeLinkAnchors(prof.links) : '';
+  if (anchors) parts.push(`<div class="dir-links">${anchors}</div>`);
+
+  const [email, hosted, attended, posted, signed] = await Promise.all([
+    fetchProfileEmail(agent.id, token),
+    countRows(`gatherings?host_agent_id=eq.${agent.id}&select=host_agent_id`, headers),
+    countRows(`attendance?agent_id=eq.${agent.id}&present=is.true&select=agent_id`, headers),
+    countRows(`opportunities?author_agent_id=eq.${agent.id}&select=author_agent_id`, headers),
+    countRows(`signatures?agent_id=eq.${agent.id}&select=agent_id`, headers)
+  ]);
+  if (email) parts.push(`<div class="dir-email">${esc(email)}</div>`);
+
+  const chips = [];
+  if (hosted) chips.push('hosted ' + hosted);
+  if (attended) chips.push('attended ' + attended);
+  if (posted) chips.push('posted ' + posted);
+  if (signed) chips.push('signed ' + signed);
+  const strip = chips.length
+    ? `<div class="rec-strip">${chips.map(c => `<span class="rec-chip">${esc(c)}</span>`).join('')}</div>`
+    : '<div class="rec-quiet">quiet so far</div>';
+  parts.push(`<div class="rec-label">from the record</div>${strip}`);
+
+  detail.innerHTML = parts.join('');
 }
 
 // Admissions (0008): visible to the assigned hand only; RLS backs the gate.
@@ -425,8 +612,10 @@ async function loadAdmissions(self, agents, headers, token) {
   });
 }
 
-function renderYourCard(agent, mem, token) {
+function renderYourCard(agent, mem, token, prof, selfEmail) {
   const section = document.getElementById('your-section');
+  const initials = (agent.display_name || '?').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+  const bioVal = prof && prof.bio ? prof.bio : '';
   section.innerHTML = `
     <div class="your-card">
       <div class="your-label">Your profile</div>
@@ -437,8 +626,48 @@ function renderYourCard(agent, mem, token) {
         <button id="save-name-btn">Save</button>
       </div>
       <div class="edit-hint">§1.13: each member keeps their own record current.</div>
+      <div class="pf-grid" id="pf-grid">
+        <div class="pf-field">
+          <label class="pf-label" for="pf-bio">Bio</label>
+          <textarea id="pf-bio" maxlength="1200" placeholder="A few lines about you">${esc(bioVal)}</textarea>
+          <div class="pf-count" id="pf-bio-count"></div>
+        </div>
+        <div class="pf-two">
+          <div class="pf-field">
+            <label class="pf-label" for="pf-location">Location</label>
+            <input type="text" id="pf-location" maxlength="120" value="${esc(prof && prof.location ? prof.location : '')}" autocomplete="off">
+          </div>
+          <div class="pf-field">
+            <label class="pf-label" for="pf-pronouns">Pronouns</label>
+            <input type="text" id="pf-pronouns" maxlength="40" value="${esc(prof && prof.pronouns ? prof.pronouns : '')}" autocomplete="off">
+          </div>
+        </div>
+        <div class="pf-field">
+          <span class="pf-label">Links (up to 6, http(s) only)</span>
+          <div id="pf-links"></div>
+          <button type="button" class="pf-add" id="pf-add-link">+ add link</button>
+        </div>
+        <div class="pf-field">
+          <label class="pf-label" for="pf-email">Email</label>
+          <input type="email" id="pf-email" maxlength="254" value="${esc(selfEmail || '')}" autocomplete="email">
+          <label class="pf-check"><input type="checkbox" id="pf-email-visible"${prof && prof.email_visible ? ' checked' : ''}> show my email to members</label>
+        </div>
+        <div class="pf-field">
+          <span class="pf-label">Avatar</span>
+          <div class="pf-avatar-row">
+            <img class="pf-avatar-preview" id="pf-avatar-img" alt="" style="display:none">
+            <span class="pf-avatar-fallback" id="pf-avatar-fallback">${esc(initials)}</span>
+            <input type="file" id="pf-avatar-file" class="pf-file" accept="image/jpeg,image/png,image/webp">
+          </div>
+          <div class="edit-hint">JPEG, PNG, or WebP, up to 1 MB.</div>
+        </div>
+        <div class="pf-save-row"><button id="save-profile-btn">Save profile</button></div>
+      </div>
     </div>
   `;
+
+  wireProfileEditor(agent, token, prof);
+
   document.getElementById('save-name-btn').addEventListener('click', async function () {
     const val = document.getElementById('name-input').value.trim();
     const notice = document.getElementById('save-notice');
@@ -462,6 +691,158 @@ function renderYourCard(agent, mem, token) {
       showNotice(notice, 'err', 'Could not save -- check your permissions.');
     }
     this.disabled = false; this.textContent = 'Save';
+  });
+}
+
+const AVATAR_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const AVATAR_MAX_BYTES = 1048576;
+
+function addLinkRow(container, label, url) {
+  if (container.querySelectorAll('.pf-link-row').length >= 6) return;
+  const row = document.createElement('div');
+  row.className = 'pf-link-row';
+  row.innerHTML = `
+    <input type="text" class="pf-link-label" placeholder="label" maxlength="60" autocomplete="off">
+    <input type="url" class="pf-link-url" placeholder="https://" maxlength="500" autocomplete="off">
+    <button type="button" class="pf-rm" aria-label="remove link">&times;</button>`;
+  row.querySelector('.pf-link-label').value = label || '';
+  row.querySelector('.pf-link-url').value = url || '';
+  row.querySelector('.pf-rm').addEventListener('click', () => {
+    row.remove();
+    const addBtn = document.getElementById('pf-add-link');
+    if (addBtn) addBtn.disabled = false;
+  });
+  container.appendChild(row);
+}
+
+function wireProfileEditor(agent, token, prof) {
+  let pendingAvatarFile = null;
+  let currentAvatarPath = prof && prof.avatar_path ? prof.avatar_path : null;
+
+  // bio counter
+  const bioEl = document.getElementById('pf-bio');
+  const bioCount = document.getElementById('pf-bio-count');
+  const updateCount = () => { bioCount.textContent = bioEl.value.length + ' / 1200'; };
+  bioEl.addEventListener('input', updateCount);
+  updateCount();
+
+  // links
+  const linksBox = document.getElementById('pf-links');
+  const addBtn = document.getElementById('pf-add-link');
+  const existingLinks = (prof && Array.isArray(prof.links)) ? prof.links.slice(0, 6) : [];
+  existingLinks.forEach(l => addLinkRow(linksBox, l && l.label, l && l.url));
+  addBtn.addEventListener('click', () => {
+    addLinkRow(linksBox, '', '');
+    if (linksBox.querySelectorAll('.pf-link-row').length >= 6) addBtn.disabled = true;
+  });
+  if (existingLinks.length >= 6) addBtn.disabled = true;
+
+  // avatar preview: current image, then live preview of a chosen file
+  const imgEl = document.getElementById('pf-avatar-img');
+  const fallbackEl = document.getElementById('pf-avatar-fallback');
+  const showPreview = (url) => {
+    imgEl.src = url;
+    imgEl.style.display = 'block';
+    fallbackEl.style.display = 'none';
+  };
+  if (currentAvatarPath) {
+    getAvatarURL(currentAvatarPath, prof.updated_at, token).then(url => { if (url) showPreview(url); });
+  }
+  const fileEl = document.getElementById('pf-avatar-file');
+  fileEl.addEventListener('change', () => {
+    const notice = document.getElementById('save-notice');
+    const f = fileEl.files && fileEl.files[0];
+    if (!f) { pendingAvatarFile = null; return; }
+    if (AVATAR_TYPES.indexOf(f.type) === -1) {
+      showNotice(notice, 'err', 'That file type will not do: please choose a JPEG, PNG, or WebP image.');
+      fileEl.value = ''; pendingAvatarFile = null; return;
+    }
+    if (f.size > AVATAR_MAX_BYTES) {
+      showNotice(notice, 'err', 'That image is over 1 MB: please choose a smaller file.');
+      fileEl.value = ''; pendingAvatarFile = null; return;
+    }
+    pendingAvatarFile = f;
+    showPreview(URL.createObjectURL(f));
+  });
+
+  // save
+  document.getElementById('save-profile-btn').addEventListener('click', async function () {
+    const notice = document.getElementById('save-notice');
+    const btn = this;
+    btn.disabled = true; btn.textContent = 'Saving...';
+    try {
+      const bio = bioEl.value.trim();
+      const location = document.getElementById('pf-location').value.trim();
+      const pronouns = document.getElementById('pf-pronouns').value.trim();
+
+      const links = [];
+      let badLink = null;
+      linksBox.querySelectorAll('.pf-link-row').forEach(row => {
+        const label = row.querySelector('.pf-link-label').value.trim();
+        const url = row.querySelector('.pf-link-url').value.trim();
+        if (!url && !label) return;
+        let u = null;
+        try { u = new URL(url); } catch (e) {}
+        if (!u || (u.protocol !== 'http:' && u.protocol !== 'https:')) { badLink = url || '(no address)'; return; }
+        if (links.length < 6) links.push({ label: label || u.hostname, url: u.href });
+      });
+      if (badLink) {
+        showNotice(notice, 'err', 'Each link needs a full http(s) address. Fix or remove: ' + badLink);
+        btn.disabled = false; btn.textContent = 'Save profile';
+        return;
+      }
+
+      if (pendingAvatarFile) {
+        const up = await fetch(`${SUPABASE_URL}/storage/v1/object/avatars/${agent.id}/avatar`, {
+          method: 'POST',
+          headers: {
+            'apikey': ANON_KEY,
+            'Authorization': 'Bearer ' + token,
+            'x-upsert': 'true',
+            'Content-Type': pendingAvatarFile.type
+          },
+          body: pendingAvatarFile
+        });
+        if (!up.ok) throw new Error('avatar upload: HTTP ' + up.status);
+        currentAvatarPath = agent.id + '/avatar';
+      }
+
+      const upsert = await fetch(`${SUPABASE_URL}/rest/v1/profiles?on_conflict=agent_id`, {
+        method: 'POST',
+        headers: {
+          'apikey': ANON_KEY,
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json',
+          'Prefer': 'resolution=merge-duplicates,return=minimal'
+        },
+        body: JSON.stringify({
+          agent_id: agent.id,
+          bio: bio || null,
+          links: links,
+          location: location || null,
+          pronouns: pronouns || null,
+          avatar_path: currentAvatarPath
+        })
+      });
+      if (!upsert.ok) throw new Error('profile upsert: HTTP ' + upsert.status);
+
+      const emailVal = document.getElementById('pf-email').value.trim();
+      const emailVisible = document.getElementById('pf-email-visible').checked;
+      const rpc = await fetch(`${SUPABASE_URL}/rest/v1/rpc/set_profile_email`, {
+        method: 'POST',
+        headers: { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ p_email: emailVal || null, p_visible: emailVisible })
+      });
+      if (!rpc.ok) throw new Error('set_profile_email: HTTP ' + rpc.status);
+
+      pendingAvatarFile = null;
+      fileEl.value = '';
+      showNotice(notice, 'ok', 'Profile saved.');
+    } catch (e) {
+      Techne.record('handled', 'profile save failed: ' + (e && e.message ? e.message : e));
+      showNotice(notice, 'err', 'Could not save your profile -- the record refused part of it. Try again.');
+    }
+    btn.disabled = false; btn.textContent = 'Save profile';
   });
 }
 
