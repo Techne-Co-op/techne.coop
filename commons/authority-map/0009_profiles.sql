@@ -73,7 +73,12 @@ create policy profiles_self_update on profiles
 
 -- the guarded cell: grants are column-level only, because a
 -- table-level SELECT would override any column revoke; email and
--- its switch move solely through the definer functions below
+-- its switch move solely through the definer functions below.
+-- Supabase default privileges grant ALL on new tables to anon and
+-- authenticated at creation; strip that first or the column
+-- discipline below is decoration (found on the live apply,
+-- 2026-07-22; plain-postgres CI carries no such defaults)
+revoke all on table profiles from anon, authenticated;
 grant select (agent_id, bio, links, location, pronouns, email_visible, avatar_path, updated_at)
   on profiles to authenticated;
 grant insert (agent_id, bio, links, location, pronouns, avatar_path)
@@ -96,7 +101,7 @@ as $$
           or (p.email_visible and app_is_member()))
 $$;
 comment on function public.profile_email(uuid) is 'B-06: the guarded cell served on the owner''s terms: self always; an active member only when email_visible.';
-revoke all on function public.profile_email(uuid) from public;
+revoke all on function public.profile_email(uuid) from public, anon;
 grant execute on function public.profile_email(uuid) to authenticated;
 
 create or replace function public.set_profile_email(p_email text, p_visible boolean)
@@ -117,7 +122,7 @@ begin
         email_visible = excluded.email_visible;
 end $$;
 comment on function public.set_profile_email(text, boolean) is 'B-06: the one write path for the guarded cell; the owner sets address and visibility together.';
-revoke all on function public.set_profile_email(text, boolean) from public;
+revoke all on function public.set_profile_email(text, boolean) from public, anon;
 grant execute on function public.set_profile_email(text, boolean) to authenticated;
 
 -- ---------- avatars: a private shelf, owner-hung, member-seen ----------
