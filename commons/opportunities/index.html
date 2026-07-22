@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Opportunity board for RegenHub, LCA: open invitations to play, practice, and work.">
+<title>Opportunities &middot; Techne</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem('techne-mode');
+      if (!m) m = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-mode', m);
+    } catch(e) {}
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #fff;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
+  --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text); font-family: var(--serif);
+  font-size: 16px; line-height: 1.65; min-height: 100vh; display: flex; flex-direction: column;
+}
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--s5); height: 48px; border-bottom: 1px solid var(--line);
+  background: var(--surface); position: sticky; top: 0; z-index: 10;
+}
+.topbar-brand { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); text-decoration: none; }
+.topbar-brand strong { color: var(--heading); font-weight: 500; }
+.topbar-nav { display: flex; gap: var(--s4); align-items: center; }
+.topbar-nav a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; }
+.topbar-nav a:hover { color: var(--heading); }
+.mode-btn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 4px; padding: 3px 8px; cursor: pointer; }
+.mode-btn:hover { color: var(--heading); }
+
+main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
+.section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
+.lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; }
+
+/* auth gate */
+#auth-gate { display: none; }
+#auth-gate p { color: var(--muted); margin-bottom: var(--s5); }
+.btn { font-family: var(--mono); font-size: 0.85rem; padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer; }
+.btn-primary { background: var(--ember); color: var(--on-accent); }
+.btn-primary:hover { opacity: 0.88; }
+.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+#magic-form { max-width: 400px; margin: 0 auto; }
+#magic-form input[type=email] {
+  width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--heading); font-family: var(--serif); font-size: 1rem; padding: 10px var(--s4);
+  outline: none; margin-bottom: var(--s4);
+}
+#magic-form input:focus { border-color: var(--ember); }
+
+#loading { text-align: center; padding: var(--s7) 0; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; }
+#content { display: none; }
+
+.notice { padding: var(--s4); border-radius: 6px; margin: var(--s4) 0; font-size: 0.88rem; display: none; }
+.notice.ok  { background: var(--ok-dim); color: var(--ok); border: 1px solid var(--ok); }
+.notice.err { background: var(--warn-dim); color: var(--warn); border: 1px solid var(--warn); }
+
+/* post form (F-01) */
+.post-panel {
+  border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  margin-bottom: var(--s6); overflow: hidden;
+}
+.post-toggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  padding: var(--s4) var(--s5); background: none; border: none; cursor: pointer;
+  font-family: var(--mono); font-size: 0.8rem; color: var(--ember-text);
+}
+.post-toggle:hover { color: var(--heading); }
+.post-body { display: none; padding: 0 var(--s5) var(--s5); }
+.post-body.open { display: block; }
+.field-label {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint); margin: var(--s4) 0 var(--s2);
+}
+.kind-select { display: flex; gap: var(--s2); flex-wrap: wrap; }
+.kind-opt {
+  font-family: var(--mono); font-size: 0.75rem; padding: 5px 14px; border-radius: 4px;
+  border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer;
+  transition: color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.kind-opt:hover { color: var(--heading); border-color: var(--rule); }
+.kind-opt.sel { border-color: var(--ember); color: var(--ember-text); }
+.post-body input[type=text], .post-body textarea, .respond-input, .resolve-note {
+  width: 100%; background: var(--inset); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--heading); font-family: var(--serif); font-size: 0.95rem; padding: 9px var(--s4);
+  outline: none;
+}
+.post-body input:focus, .post-body textarea:focus, .respond-input:focus, .resolve-note:focus { border-color: var(--ember); }
+.post-body textarea { min-height: 90px; resize: vertical; }
+.post-actions { margin-top: var(--s4); display: flex; align-items: center; gap: var(--s4); }
+.status-msg { font-family: var(--mono); font-size: 0.72rem; color: var(--ok); }
+.status-msg.err { color: var(--warn); }
+
+/* filter chips */
+.filter-bar { display: flex; gap: var(--s2); margin-bottom: var(--s5); flex-wrap: wrap; }
+.filter-chip {
+  font-family: var(--mono); font-size: 0.72rem; padding: 4px 12px; border-radius: 4px;
+  border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer;
+}
+.filter-chip:hover { color: var(--heading); border-color: var(--rule); }
+.filter-chip.sel { border-color: var(--ember); color: var(--ember-text); }
+
+/* opportunity cards */
+.opp-card {
+  border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  margin-bottom: var(--s5); overflow: hidden;
+}
+.opp-header { padding: var(--s4) var(--s5); display: flex; align-items: flex-start; gap: var(--s4); }
+.opp-title { flex: 1; font-size: 1.05rem; font-weight: 700; color: var(--heading); margin-bottom: 4px; }
+.opp-meta { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+.opp-meta span { color: var(--ember-text); }
+.opp-body { padding: 0 var(--s5) var(--s4); font-size: 0.92rem; color: var(--text); white-space: pre-wrap; }
+.kind-chip {
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+  border: 1px solid var(--rule); color: var(--muted); white-space: nowrap; flex-shrink: 0;
+}
+.state-chip-open {
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+  background: var(--ok-dim); color: var(--ok); border: 1px solid var(--ok); white-space: nowrap; flex-shrink: 0;
+}
+.state-chip-closed {
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+  background: var(--raised); color: var(--faint); border: 1px solid var(--line); white-space: nowrap; flex-shrink: 0;
+}
+.outcome-row {
+  margin: 0 var(--s5) var(--s4); padding: var(--s3) var(--s4);
+  background: var(--inset); border-radius: 6px;
+  font-size: 0.85rem; color: var(--muted);
+}
+.outcome-row .k { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); display: block; margin-bottom: 2px; }
+
+/* responses (F-02) */
+.responses-sec { border-top: 1px solid var(--line); padding: var(--s4) var(--s5); background: var(--inset); }
+.responses-label {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint); margin-bottom: var(--s3);
+}
+.response-row { padding: var(--s3) 0; border-bottom: 1px solid var(--line); }
+.response-row:last-child { border-bottom: none; }
+.response-who { font-family: var(--mono); font-size: 0.7rem; color: var(--ember-text); margin-bottom: 2px; }
+.response-note { font-size: 0.88rem; color: var(--text); white-space: pre-wrap; }
+.respond-form { display: flex; gap: var(--s3); margin-top: var(--s3); align-items: flex-start; }
+.respond-input { flex: 1; min-height: 40px; resize: vertical; font-size: 0.9rem; }
+.respond-btn, .resolve-btn, .withdraw-btn {
+  font-family: var(--mono); font-size: 0.72rem; padding: 8px 14px; border-radius: 4px;
+  border: 1px solid var(--ember); background: transparent; color: var(--ember-text);
+  cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  transition: background var(--micro) var(--ease), color var(--micro) var(--ease);
+}
+.respond-btn:hover, .resolve-btn:hover { background: var(--ember); color: var(--on-accent); }
+.respond-btn:disabled, .resolve-btn:disabled, .withdraw-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.withdraw-btn { border-color: var(--line); color: var(--muted); }
+.withdraw-btn:hover { border-color: var(--rule); color: var(--heading); }
+
+/* resolution (F-03) */
+.resolve-sec { border-top: 1px solid var(--line); padding: var(--s4) var(--s5); }
+.resolve-label {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint); margin-bottom: var(--s3);
+}
+.resolve-form { display: flex; gap: var(--s3); align-items: flex-start; flex-wrap: wrap; }
+.resolve-note { flex: 1; min-width: 200px; min-height: 40px; resize: vertical; font-size: 0.9rem; }
+
+.section-head {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--faint); margin: var(--s6) 0 var(--s4);
+  padding-bottom: var(--s2); border-bottom: 1px solid var(--line);
+}
+.empty-state { text-align: center; padding: var(--s6) 0; color: var(--muted); }
+.empty-state p { font-family: var(--mono); font-size: 0.85rem; }
+
+footer {
+  border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
+  font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center;
+}
+footer a { color: var(--faint); }
+
+@media (max-width: 640px) {
+  .topbar { padding: 0 var(--s4); }
+  .topbar-nav a { display: none; }
+  main { padding: var(--s5) var(--s4); }
+  h1 { font-size: 1.35rem; }
+  .opp-header { padding: var(--s3) var(--s4); flex-wrap: wrap; gap: var(--s2); }
+  .opp-body { padding: 0 var(--s4) var(--s3); }
+  .responses-sec, .resolve-sec { padding: var(--s3) var(--s4); }
+  .respond-form, .resolve-form { flex-direction: column; }
+  .respond-input, .resolve-note { width: 100%; }
+  .respond-btn, .resolve-btn, .withdraw-btn { min-height: 44px; padding: 10px 16px; }
+  .kind-opt, .filter-chip { min-height: 38px; }
+  .btn-primary { width: 100%; min-height: 44px; }
+  #magic-form input[type=email] { font-size: 16px; }
+}
+</style>
+<script src="/assets/error-boundary.js"></script>
+</head>
+<body>
+<nav class="topbar">
+  <a class="topbar-brand" href="/"><strong>Techne</strong> &middot; commons</a>
+  <div class="topbar-nav">
+    <a href="/commons/">commons</a>
+    <a href="/commons/gatherings/">gatherings</a>
+    <a href="/commons/directory/">directory</a>
+    <button class="mode-btn" id="mode-btn">light / dark</button>
+  </div>
+</nav>
+
+<main>
+  <div id="loading">Loading&hellip;</div>
+
+  <div id="auth-gate">
+    <h1>Opportunities</h1>
+    <div class="section-rule"></div>
+    <p>Sign in to view the opportunity board.</p>
+    <div id="magic-form">
+      <div class="notice" id="magic-notice"></div>
+      <input type="email" id="magic-email" placeholder="your@email.com" autocomplete="email">
+      <button class="btn btn-primary" id="magic-btn">Send sign-in link</button>
+    </div>
+  </div>
+
+  <div id="content">
+    <h1>Opportunities</h1>
+    <div class="section-rule"></div>
+    <p class="lead">Open invitations to play, practice, and work. Post an offer or a need, respond to one, and close it when it resolves. Entries are governed records with an author and a lifecycle, not a feed.</p>
+
+    <div class="post-panel">
+      <button class="post-toggle" id="post-toggle">
+        <span>Post an opportunity</span><span id="post-arrow">+</span>
+      </button>
+      <div class="post-body" id="post-body">
+        <div class="notice" id="post-notice"></div>
+        <div class="field-label">Kind</div>
+        <div class="kind-select" id="kind-select">
+          <button class="kind-opt sel" data-kind="play">play</button>
+          <button class="kind-opt" data-kind="practice">practice</button>
+          <button class="kind-opt" data-kind="work">work</button>
+        </div>
+        <div class="field-label">Title</div>
+        <input type="text" id="post-title" maxlength="140" placeholder="What are you offering or looking for?">
+        <div class="field-label">Details (optional)</div>
+        <textarea id="post-text" placeholder="Enough for a curious member to know whether to respond."></textarea>
+        <div class="post-actions">
+          <button class="btn btn-primary" id="post-btn">Post to the board</button>
+          <span class="status-msg" id="post-status"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-chip sel" data-filter="all">all</button>
+      <button class="filter-chip" data-filter="play">play</button>
+      <button class="filter-chip" data-filter="practice">practice</button>
+      <button class="filter-chip" data-filter="work">work</button>
+    </div>
+
+    <div id="open-list"></div>
+    <div id="closed-wrap" style="display:none">
+      <div class="section-head">Resolved and withdrawn</div>
+      <div id="closed-list"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span>CIS: ujujwgopdwirebgcpekc &middot; F-01, F-02, F-03 &middot; opportunities, responses, resolution events</span>
+  &nbsp;&middot;&nbsp;
+  <a href="/legal">legal</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
+let sb, currentAgentId;
+let opportunities = [];
+const responsesByOpp = {};   // opportunity_id -> [response rows visible to me]
+const outcomeByOpp = {};     // opportunity_id -> outcome note from my visible opportunity.* events
+let postKind = 'play';
+let activeFilter = 'all';
+
+document.getElementById('mode-btn').addEventListener('click', function () {
+  var cur = document.documentElement.getAttribute('data-mode');
+  var next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-mode', next);
+  try { localStorage.setItem('techne-mode', next); } catch(e) {}
+});
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+// ── Posting (F-01) ────────────────────────────────────────────────────────────
+
+function wirePostPanel() {
+  const toggle = document.getElementById('post-toggle');
+  const body = document.getElementById('post-body');
+  toggle.addEventListener('click', () => {
+    const open = body.classList.toggle('open');
+    document.getElementById('post-arrow').textContent = open ? '–' : '+';
+  });
+
+  document.querySelectorAll('.kind-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.kind-opt').forEach(b => b.classList.remove('sel'));
+      btn.classList.add('sel');
+      postKind = btn.dataset.kind;
+    });
+  });
+
+  document.getElementById('post-btn').addEventListener('click', postOpportunity);
+}
+
+async function postOpportunity() {
+  const btn = document.getElementById('post-btn');
+  const status = document.getElementById('post-status');
+  const title = document.getElementById('post-title').value.trim();
+  const bodyText = document.getElementById('post-text').value.trim();
+  status.textContent = ''; status.className = 'status-msg';
+
+  if (!title) { status.textContent = 'A title is required.'; status.className = 'status-msg err'; return; }
+  btn.disabled = true;
+
+  const { data, error } = await sb.from('opportunities').insert({
+    author_agent_id: currentAgentId, kind: postKind,
+    title: title, body: bodyText || null
+  }).select('*, agents(display_name)').single();
+
+  btn.disabled = false;
+  if (error) {
+    status.textContent = Techne.report(error, 'Could not post right now. Posting requires an active membership.');
+    status.className = 'status-msg err';
+    return;
+  }
+  document.getElementById('post-title').value = '';
+  document.getElementById('post-text').value = '';
+  status.textContent = 'Posted.';
+  opportunities.unshift(data);
+  renderBoard();
+}
+
+// ── Responses (F-02) ──────────────────────────────────────────────────────────
+
+async function submitResponse(oppId) {
+  const input = document.getElementById('respond-input-' + oppId);
+  const btn = document.getElementById('respond-btn-' + oppId);
+  const status = document.getElementById('respond-status-' + oppId);
+  const note = input.value.trim();
+  status.textContent = ''; status.className = 'status-msg';
+  if (!note) { status.textContent = 'Write a note first.'; status.className = 'status-msg err'; return; }
+  btn.disabled = true;
+
+  const { data, error } = await sb.from('responses').insert({
+    opportunity_id: oppId, agent_id: currentAgentId, note: note
+  }).select('*, agents(display_name)').single();
+
+  btn.disabled = false;
+  if (error) {
+    status.textContent = Techne.report(error, 'Could not send the response. Responding requires an active membership.');
+    status.className = 'status-msg err';
+    return;
+  }
+  if (!responsesByOpp[oppId]) responsesByOpp[oppId] = [];
+  responsesByOpp[oppId].push(data);
+  renderBoard();
+}
+
+// ── Resolution (F-03): the row transitions, the outcome lands as an event ────
+
+async function resolveOpportunity(oppId, finalState) {
+  const noteEl = document.getElementById('resolve-note-' + oppId);
+  const status = document.getElementById('resolve-status-' + oppId);
+  const note = noteEl ? noteEl.value.trim() : '';
+  const opp = opportunities.find(o => o.id === oppId);
+  if (!opp) return;
+  status.textContent = ''; status.className = 'status-msg';
+  document.querySelectorAll('#resolve-sec-' + oppId + ' button').forEach(b => b.disabled = true);
+
+  const nowIso = new Date().toISOString();
+  const { data: updated, error: uErr } = await sb.from('opportunities')
+    .update({ state: finalState, resolved_at: nowIso })
+    .eq('id', oppId).select('*, agents(display_name)').single();
+  if (uErr) {
+    status.textContent = Techne.report(uErr, 'Could not close the opportunity right now, please try again.');
+    status.className = 'status-msg err';
+    document.querySelectorAll('#resolve-sec-' + oppId + ' button').forEach(b => b.disabled = false);
+    return;
+  }
+
+  // Law I: the resolution is an event; the row's state is its projection.
+  const { error: eErr } = await sb.from('events').insert({
+    occurred_at: nowIso,
+    actor_agent_id: currentAgentId,
+    agent_id: currentAgentId,
+    kind: 'opportunity.' + finalState,
+    payload: { opportunity_id: oppId, title: opp.title, note: note || null }
+  });
+  if (eErr) {
+    status.textContent = Techne.report(eErr, 'Closed, but the resolution event did not record. Tell a steward so the record can be corrected.');
+    status.className = 'status-msg err';
+  }
+
+  const idx = opportunities.findIndex(o => o.id === oppId);
+  if (idx >= 0) opportunities[idx] = updated;
+  if (note) outcomeByOpp[oppId] = note;
+  renderBoard();
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+
+function responseSectionHtml(o) {
+  const mine = o.author_agent_id === currentAgentId;
+  const resp = responsesByOpp[o.id] || [];
+  const rows = resp.map(r => {
+    const who = r.agents ? r.agents.display_name : 'A member';
+    return `<div class="response-row">
+      <div class="response-who">${escHtml(who)} &middot; ${escHtml(formatDate(r.at))}</div>
+      <div class="response-note">${escHtml(r.note || '')}</div>
+    </div>`;
+  }).join('');
+
+  const label = mine
+    ? (resp.length ? `Responses &middot; ${resp.length}` : 'Responses')
+    : 'Your response';
+  const emptyLine = mine && !resp.length
+    ? '<div class="response-row"><div class="response-note" style="color:var(--faint);font-style:italic">None yet. Responses are visible to you as the author, and to each responder.</div></div>'
+    : '';
+
+  const form = (!mine && o.state === 'open') ? `
+    <div class="respond-form">
+      <textarea class="respond-input" id="respond-input-${o.id}" placeholder="Answer this invitation. The author will see it."></textarea>
+      <button class="respond-btn" id="respond-btn-${o.id}">Respond</button>
+    </div>
+    <span class="status-msg" id="respond-status-${o.id}"></span>` : '';
+
+  if (!rows && !form && !emptyLine) return '';
+  return `<div class="responses-sec"><div class="responses-label">${label}</div>${rows}${emptyLine}${form}</div>`;
+}
+
+function resolveSectionHtml(o) {
+  if (o.author_agent_id !== currentAgentId || o.state !== 'open') return '';
+  return `<div class="resolve-sec" id="resolve-sec-${o.id}">
+    <div class="resolve-label">Close this opportunity &middot; the outcome lands as an event</div>
+    <div class="resolve-form">
+      <textarea class="resolve-note" id="resolve-note-${o.id}" placeholder="What did it lead to? (optional, recorded with the resolution)"></textarea>
+      <button class="resolve-btn" id="resolve-btn-${o.id}">Resolve</button>
+      <button class="withdraw-btn" id="withdraw-btn-${o.id}">Withdraw</button>
+    </div>
+    <span class="status-msg" id="resolve-status-${o.id}"></span>
+  </div>`;
+}
+
+function cardHtml(o) {
+  const author = o.agents ? o.agents.display_name : 'Unknown';
+  const stateChip = o.state === 'open'
+    ? '<span class="state-chip-open">open</span>'
+    : `<span class="state-chip-closed">${escHtml(o.state)}${o.resolved_at ? ' &middot; ' + escHtml(formatDate(o.resolved_at)) : ''}</span>`;
+  const outcome = outcomeByOpp[o.id]
+    ? `<div class="outcome-row"><span class="k">What it led to</span>${escHtml(outcomeByOpp[o.id])}</div>` : '';
+  return `<div class="opp-card" id="opp-${o.id}">
+    <div class="opp-header">
+      <div style="flex:1">
+        <div class="opp-title">${escHtml(o.title)}</div>
+        <div class="opp-meta">Posted by <span>${escHtml(author)}</span> &middot; ${escHtml(formatDate(o.opened_at))}</div>
+      </div>
+      <span class="kind-chip">${escHtml(o.kind)}</span>
+      ${stateChip}
+    </div>
+    ${o.body ? `<div class="opp-body">${escHtml(o.body)}</div>` : ''}
+    ${outcome}
+    ${responseSectionHtml(o)}
+    ${resolveSectionHtml(o)}
+  </div>`;
+}
+
+function wireCard(o) {
+  const rb = document.getElementById('respond-btn-' + o.id);
+  if (rb) rb.addEventListener('click', () => submitResponse(o.id));
+  const resolveBtn = document.getElementById('resolve-btn-' + o.id);
+  if (resolveBtn) resolveBtn.addEventListener('click', () => resolveOpportunity(o.id, 'resolved'));
+  const withdrawBtn = document.getElementById('withdraw-btn-' + o.id);
+  if (withdrawBtn) withdrawBtn.addEventListener('click', () => resolveOpportunity(o.id, 'withdrawn'));
+}
+
+function renderBoard() {
+  const openList = document.getElementById('open-list');
+  const closedList = document.getElementById('closed-list');
+  const closedWrap = document.getElementById('closed-wrap');
+
+  const visible = opportunities.filter(o => activeFilter === 'all' || o.kind === activeFilter);
+  const open = visible.filter(o => o.state === 'open');
+  const closed = visible.filter(o => o.state !== 'open');
+
+  openList.innerHTML = open.length
+    ? open.map(cardHtml).join('')
+    : '<div class="empty-state"><p>No open opportunities' + (activeFilter === 'all' ? '' : ' of this kind') + '. Post the first.</p></div>';
+  closedWrap.style.display = closed.length ? 'block' : 'none';
+  closedList.innerHTML = closed.map(cardHtml).join('');
+
+  visible.forEach(wireCard);
+}
+
+function wireFilters() {
+  document.querySelectorAll('.filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('sel'));
+      btn.classList.add('sel');
+      activeFilter = btn.dataset.filter;
+      renderBoard();
+    });
+  });
+}
+
+// ── Data loading ──────────────────────────────────────────────────────────────
+
+async function loadAll(session) {
+  document.getElementById('content').style.display = 'block';
+
+  const { data: agents } = await sb.from('agents').select('id,auth_user_id');
+  const self = agents && agents.find(a => a.auth_user_id === session.user.id);
+  currentAgentId = self ? self.id : null;
+
+  const { data: opps, error: oErr } = await sb
+    .from('opportunities')
+    .select('*, agents(display_name)')
+    .order('opened_at', { ascending: false });
+  if (oErr) {
+    document.getElementById('open-list').innerHTML =
+      `<div class="notice err" style="display:block">${escHtml(Techne.report(oErr, 'Could not load the board right now. Please reload the page.'))}</div>`;
+    return;
+  }
+  opportunities = opps || [];
+
+  // Responses arrive already scoped by visibility: mine, and all on my postings.
+  const { data: resp } = await sb
+    .from('responses')
+    .select('*, agents(display_name)')
+    .order('at', { ascending: true });
+  (resp || []).forEach(r => {
+    if (!responsesByOpp[r.opportunity_id]) responsesByOpp[r.opportunity_id] = [];
+    responsesByOpp[r.opportunity_id].push(r);
+  });
+
+  // Outcomes: the resolution events visible to me (as party or overseer).
+  const { data: evts } = await sb
+    .from('events')
+    .select('kind, payload')
+    .in('kind', ['opportunity.resolved', 'opportunity.withdrawn']);
+  (evts || []).forEach(e => {
+    if (e.payload && e.payload.opportunity_id && e.payload.note) {
+      outcomeByOpp[e.payload.opportunity_id] = e.payload.note;
+    }
+  });
+
+  wirePostPanel();
+  wireFilters();
+  renderBoard();
+}
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+
+function wireMagicLink() {
+  const emailInput = document.getElementById('magic-email');
+  const btn = document.getElementById('magic-btn');
+  const notice = document.getElementById('magic-notice');
+
+  function showNotice(cls, msg) {
+    notice.className = 'notice ' + cls; notice.textContent = msg; notice.style.display = 'block';
+  }
+
+  btn.addEventListener('click', async function () {
+    const email = emailInput.value.trim();
+    if (!email) { showNotice('err', 'Enter your email address.'); return; }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
+    if (error) { showNotice('err', Techne.report(error, 'Could not send the sign-in link. Please check the address and try again.')); btn.disabled = false; btn.textContent = 'Send sign-in link'; }
+    else { showNotice('ok', 'Check your email for a sign-in link.'); btn.textContent = 'Link sent'; }
+  });
+  emailInput.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
+}
+
+(async function init() {
+  sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
+  const { data: { session } } = await sb.auth.getSession();
+  document.getElementById('loading').style.display = 'none';
+
+  if (!session) {
+    document.getElementById('auth-gate').style.display = 'block';
+    wireMagicLink();
+    return;
+  }
+
+  await loadAll(session);
+
+  sb.auth.onAuthStateChange(async (event, s) => {
+    if (event === 'SIGNED_IN' && s) {
+      document.getElementById('auth-gate').style.display = 'none';
+      await loadAll(s);
+    }
+    if (event === 'SIGNED_OUT') {
+      document.getElementById('content').style.display = 'none';
+      document.getElementById('auth-gate').style.display = 'block';
+    }
+  });
+})();
+</script>
+</body>
+</html>
