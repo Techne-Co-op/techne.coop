@@ -4,7 +4,7 @@
 # Validator: scripts/validate.py — schema, acyclicity, gating.
 # Status marks: drafted | anticipated | open · (blocker)
 # No dates. Dependency is the schedule.
-# 53 items: 9 series and module documents + 44 work packets across 7 trains.
+# 57 items: 9 series and module documents + 48 work packets across 8 trains.
 
 series:
 
@@ -910,6 +910,37 @@ treasury:
       decision: >
         Default adopted by Todd Youngblood 2026-07-24 in conversation:
         the deployed taxonomy wins; the design-system amends.
+
+  - address: U-04
+    title: The gate
+    intent: >
+      One standard auth gate for every signed-in surface, owned by the
+      shell: the card, the destination line read from the manifest, the
+      magic-link send through the GoTrue REST seam, and the sent state
+      with its resend. Signed out, the frame shows only the topbar and
+      the gate; the map is for members. A magic-link landing, tokens in
+      the address, renders as signing-in, never as signed-out. The
+      seven pages shed their hand-rolled gates, which had diverged into
+      two designs and seven copies.
+    status: open · in-session
+    cites: [UI, PRD, AM]
+    ready_when: U-03 verified.
+    deliverable: >
+      The gate in assets/shell.js; the seven pages' own gates and
+      magic-link code removed; the gate standard entered in the
+      design-system shell section; the signed-out frame reduced to
+      topbar and gate.
+    acceptance: >
+      Signed out, every signed-in surface presents the identical card
+      with its destination line and no map; the link sends from the
+      gate; signed in, the frame stands as before; style-lint and the
+      token audit green.
+    note: >
+      Built in session 2026-07-24 at the steward's direction, both
+      asks named by him: the differing gate designs and the map hidden
+      unless authorized. The auth seam is unchanged, the same OTP
+      endpoint the pages already called through their clients; no new
+      question stands, so no card. Merge is the verification act.
 
 cross_cutting:
 

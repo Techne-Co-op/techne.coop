@@ -1,13 +1,20 @@
 /* ============================================================
-   shell.js · the CIS shell · emission of U-01
+   shell.js · the CIS shell · emission of U-01, extended by U-04
    One persistent frame over every signed-in surface: topbar,
    the complete grouped map, the member chip, the mode toggle,
    and a section context strip, injected from the manifest
    below. Fulfils and supersedes the nav.js behaviour specified
    at techne.coop/design-system (CIS Primary Navigation).
 
+   U-04: the shell owns the auth gate. Signed out, the frame
+   shows only the topbar and the standard gate card; the map is
+   for members. The gate sends the magic link itself through
+   the GoTrue REST endpoint, so pages carry no gate of their
+   own. A magic-link landing (tokens in the address) renders as
+   signing-in, never as signed-out.
+
    Dependency free. No build step. The page remains a readable
-   document without it. Pages keep their own auth gates; the
+   document without it. Pages keep their own data loading; the
    shell reads the session, it never creates a second client.
    CSS stays inline per page per the SUB-02 consumption card;
    the shell carries only its own frame styles.
@@ -97,6 +104,25 @@
     '.cis-context .cis-mark{width:8px;height:8px;flex:none;align-self:center;background:var(--cis-tint,var(--ember));}',
     '.cis-context .cis-addr{color:var(--cis-tint,var(--ember));text-transform:uppercase;letter-spacing:.1em;}',
     '.cis-context .cis-meta{color:var(--faint);}',
+    '.cis-parked{display:none;}',
+    '.cis-gate{min-height:calc(100vh - 49px);display:flex;align-items:center;justify-content:center;padding:48px 24px;}',
+    '.cis-gate-card{background:var(--surface);border:1px solid var(--line);padding:48px 56px;max-width:460px;width:100%;}',
+    '.cis-gate-label{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--ember);text-transform:uppercase;margin-bottom:12px;}',
+    '.cis-gate-h{font-family:var(--serif);font-size:1.5rem;color:var(--heading);font-weight:400;margin:0 0 12px;line-height:1.3;}',
+    '.cis-gate-body{font-family:var(--serif);font-size:.9rem;color:var(--muted);margin:0 0 20px;line-height:1.6;}',
+    '.cis-gate-dest{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--cis-tint,var(--ember));text-transform:uppercase;margin-bottom:24px;}',
+    '.cis-gate-dest .cis-mark{width:8px;height:8px;flex:none;background:var(--cis-tint,var(--ember));}',
+    '.cis-gate label{display:block;font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em;margin-bottom:8px;}',
+    '.cis-gate input{width:100%;box-sizing:border-box;background:var(--inset);border:1px solid var(--line);color:var(--heading);font-family:var(--mono);font-size:16px;padding:10px 12px;outline:none;}',
+    '.cis-gate input:focus{border-color:var(--blue);}',
+    '.cis-gate input::placeholder{color:var(--faint);}',
+    '.cis-gate-btn{width:100%;box-sizing:border-box;background:color-mix(in srgb, var(--ember) 14%, transparent);border:1px solid var(--ember);color:var(--ember-text);font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;padding:11px;cursor:pointer;margin-top:12px;}',
+    '.cis-gate-btn:hover{background:color-mix(in srgb, var(--ember) 24%, transparent);}',
+    '.cis-gate-btn:disabled{opacity:.4;cursor:default;}',
+    '.cis-gate-status{margin-top:14px;font-family:var(--mono);font-size:.76rem;min-height:1.4em;color:var(--muted);}',
+    '.cis-gate-status.err{color:var(--warn);}',
+    '.cis-gate-status.ok{color:var(--ok);}',
+    '.cis-gate-again{background:none;border:none;color:var(--muted);font-family:var(--mono);font-size:.74rem;cursor:pointer;text-decoration:underline;padding:0;margin-top:14px;}',
     '@media (max-width:760px){',
     '.cis-body{flex-direction:column;}',
     '.cis-side{position:static;width:100%;height:auto;border-right:none;border-bottom:1px solid var(--line);padding:8px 0;display:flex;flex-wrap:wrap;align-items:center;}',
@@ -105,6 +131,7 @@
     '.cis-side a.active{background:none;}',
     '.cis-side .cis-home{margin-top:0;}',
     '.cis-context{padding:8px 16px;}',
+    '.cis-gate-card{padding:32px 24px;}',
     '}'
   ].join('\n');
 
@@ -122,6 +149,14 @@
       if (t.expires_at && t.expires_at * 1000 < Date.now() - 60000) return null;
       return t;
     } catch (e) { return null; }
+  }
+
+  /* a magic-link landing carries its tokens in the address; the page's
+     own client stores the session a beat after we run. Signing in, not
+     signed out. */
+  function authCallbackPending() {
+    var h = location.hash + location.search;
+    return /access_token=|refresh_token=|type=magiclink|type=signup|type=recovery|[?&#]code=/.test(h);
   }
 
   function fetchIdentity(sess, done) {
@@ -180,6 +215,12 @@
     return null;
   }
 
+  function sliceOf(item) {
+    var slice = null;
+    MAP.forEach(function (grp) { if (grp.items.indexOf(item) >= 0) slice = grp.group; });
+    return slice;
+  }
+
   function toggleMode() {
     var html = document.documentElement;
     var next = html.dataset.mode === 'dark' ? 'light' : 'dark';
@@ -187,9 +228,89 @@
     try { localStorage.setItem('techne-mode', next); } catch (e) {}
   }
 
+  /* ---------- the gate (U-04) ----------
+     The one standard: the card. Label, heading, body, the
+     destination line read from the manifest, the email field,
+     the primary action, the status line, and the sent state. */
+  function buildGate(active) {
+    var gate = el('div', 'cis-gate');
+    var card = el('div', 'cis-gate-card');
+    if (active) card.style.setProperty('--cis-tint', 'var(--cis-' + active.tint + ')');
+
+    card.appendChild(el('span', 'cis-gate-label', 'Techne · RegenHub, LCA'));
+    card.appendChild(el('h1', 'cis-gate-h', 'Member intranet'));
+    card.appendChild(el('p', 'cis-gate-body', 'For cooperative members. Enter your email address and we will send a sign-in link. No password to manage.'));
+    if (active) {
+      var dest = el('div', 'cis-gate-dest');
+      dest.appendChild(el('span', 'cis-mark'));
+      var slice = sliceOf(active);
+      dest.appendChild(el('span', null, 'continues to ' + (slice ? slice + ' · ' : '') + active.label));
+      card.appendChild(dest);
+    }
+
+    var form = el('div');
+    var lab = el('label', null, 'EMAIL ADDRESS');
+    lab.setAttribute('for', 'cis-gate-email');
+    var input = el('input');
+    input.type = 'email'; input.id = 'cis-gate-email';
+    input.placeholder = 'you@example.com';
+    input.setAttribute('autocomplete', 'email');
+    var btn = el('button', 'cis-gate-btn', 'Send sign-in link');
+    btn.type = 'button';
+    var status = el('div', 'cis-gate-status');
+    form.appendChild(lab); form.appendChild(input); form.appendChild(btn); form.appendChild(status);
+
+    var sent = el('div');
+    sent.style.display = 'none';
+    var sentLine = el('p', 'cis-gate-status ok', 'ok -- Sign-in link sent.');
+    sentLine.style.marginTop = '0';
+    sent.appendChild(sentLine);
+    sent.appendChild(el('p', 'cis-gate-body', 'Check your email and open the link to continue. You can close this tab.'));
+    var again = el('button', 'cis-gate-again', 'Send another link');
+    again.type = 'button';
+    sent.appendChild(again);
+
+    function send() {
+      var email = input.value.trim();
+      if (!email) { status.textContent = 'Enter an email address.'; status.className = 'cis-gate-status err'; return; }
+      btn.disabled = true;
+      status.textContent = 'Sending…'; status.className = 'cis-gate-status';
+      var redirect = location.origin + location.pathname;
+      fetch(SUPABASE_URL + '/auth/v1/otp?redirect_to=' + encodeURIComponent(redirect), {
+        method: 'POST',
+        headers: { apikey: ANON_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, create_user: true, gotrue_meta_security: {} })
+      }).then(function (r) {
+        if (r.ok) { form.style.display = 'none'; sent.style.display = ''; }
+        else {
+          return r.json().catch(function () { return {}; }).then(function (body) {
+            if (window.Techne && Techne.record) Techne.record('handled', 'gate otp: ' + (body.msg || body.error_description || r.status));
+            status.textContent = 'Could not send the sign-in link. Check the address and try again.';
+            status.className = 'cis-gate-status err';
+            btn.disabled = false;
+          });
+        }
+      }).catch(function () {
+        status.textContent = 'Could not reach the record. Try again in a moment.';
+        status.className = 'cis-gate-status err';
+        btn.disabled = false;
+      });
+    }
+    btn.addEventListener('click', send);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
+    again.addEventListener('click', function () { form.style.display = ''; sent.style.display = 'none'; btn.disabled = false; status.textContent = ''; });
+
+    card.appendChild(form);
+    card.appendChild(sent);
+    gate.appendChild(card);
+    return gate;
+  }
+
   function build() {
     if (document.querySelector('.cis-topbar')) return;
     var sess = session();
+    var pending = !sess && authCallbackPending();
+    var signedIn = !!sess || pending;
     var active = activeItem();
 
     /* topbar */
@@ -199,7 +320,8 @@
     var right = el('div', 'cis-topbar-right');
     var chip = el('span', 'cis-chip');
     chip.id = 'cis-member-chip';
-    chip.textContent = sess && sess.user.email ? sess.user.email : 'not signed in';
+    chip.textContent = sess && sess.user.email ? sess.user.email
+      : (pending ? 'signing in…' : 'not signed in');
     var mode = el('button', 'cis-mode', '◐');
     mode.type = 'button';
     mode.setAttribute('aria-label', 'toggle light and dark mode');
@@ -207,58 +329,67 @@
     right.appendChild(chip); right.appendChild(mode);
     topbar.appendChild(brand); topbar.appendChild(right);
 
-    /* sidebar */
-    var side = el('nav', 'cis-side');
-    side.setAttribute('aria-label', 'intranet');
-    var here = normalize(location.pathname);
-    MAP.forEach(function (grp) {
-      var wrap = grp.steward ? el('div') : side;
-      if (grp.steward) { wrap.id = 'cis-steward-nav'; wrap.style.display = 'none'; }
-      if (grp.group) wrap.appendChild(el('div', 'cis-group', grp.group));
-      grp.items.forEach(function (it) {
-        var a = el('a', null, it.label);
-        a.href = it.href;
-        if (it.outside) a.className = 'cis-out';
-        if (!it.noactive && !it.outside && normalize(it.href) === here) a.className = 'active';
-        wrap.appendChild(a);
-      });
-      if (grp.steward) side.appendChild(wrap);
-    });
-    var home = el('a', 'cis-out cis-home', '← techne.coop');
-    home.href = '/';
-    side.appendChild(home);
+    var main = el('div', 'cis-main');
+    var frame = el('div', 'cis-body');
+    var body = document.body;
 
-    /* context strip */
-    var context = null;
-    if (active) {
-      context = el('div', 'cis-context');
-      context.style.setProperty('--cis-tint', 'var(--cis-' + active.tint + ')');
-      var slice = null;
-      MAP.forEach(function (grp) { if (grp.items.indexOf(active) >= 0) slice = grp.group; });
-      context.appendChild(el('span', 'cis-mark'));
-      context.appendChild(el('span', 'cis-addr', (slice ? slice + ' · ' : '') + active.label));
-      context.appendChild(el('span', 'cis-meta', active.grammar + ' grammar'));
-      if (active.reads) context.appendChild(el('span', 'cis-meta', 'reads: ' + active.reads));
+    if (signedIn) {
+      /* the members' frame: map, context strip, the page */
+      var side = el('nav', 'cis-side');
+      side.setAttribute('aria-label', 'intranet');
+      var here = normalize(location.pathname);
+      MAP.forEach(function (grp) {
+        var wrap = grp.steward ? el('div') : side;
+        if (grp.steward) { wrap.id = 'cis-steward-nav'; wrap.style.display = 'none'; }
+        if (grp.group) wrap.appendChild(el('div', 'cis-group', grp.group));
+        grp.items.forEach(function (it) {
+          var a = el('a', null, it.label);
+          a.href = it.href;
+          if (it.outside) a.className = 'cis-out';
+          if (!it.noactive && !it.outside && normalize(it.href) === here) a.className = 'active';
+          wrap.appendChild(a);
+        });
+        if (grp.steward) side.appendChild(wrap);
+      });
+      var home = el('a', 'cis-out cis-home', '← techne.coop');
+      home.href = '/';
+      side.appendChild(home);
+
+      var context = null;
+      if (active) {
+        context = el('div', 'cis-context');
+        context.style.setProperty('--cis-tint', 'var(--cis-' + active.tint + ')');
+        context.appendChild(el('span', 'cis-mark'));
+        var slice = sliceOf(active);
+        context.appendChild(el('span', 'cis-addr', (slice ? slice + ' · ' : '') + active.label));
+        context.appendChild(el('span', 'cis-meta', active.grammar + ' grammar'));
+        if (active.reads) context.appendChild(el('span', 'cis-meta', 'reads: ' + active.reads));
+      }
+
+      while (body.firstChild) main.appendChild(body.firstChild);
+      if (context) main.insertBefore(context, main.firstChild);
+      frame.appendChild(side);
+      frame.appendChild(main);
+    } else {
+      /* signed out: the topbar and the gate; the map is for members */
+      var parked = el('div', 'cis-parked');
+      while (body.firstChild) parked.appendChild(body.firstChild);
+      main.appendChild(buildGate(active));
+      main.appendChild(parked);
+      frame.appendChild(main);
     }
 
-    /* re-parent the page into the frame */
-    var main = el('div', 'cis-main');
-    var body = document.body;
-    while (body.firstChild) main.appendChild(body.firstChild);
-    if (context) main.insertBefore(context, main.firstChild);
-    var frame = el('div', 'cis-body');
-    frame.appendChild(side);
-    frame.appendChild(main);
     body.appendChild(topbar);
     body.appendChild(frame);
 
     /* identity: chip detail and the steward group */
-    window.cisUser = sess ? { userId: sess.user.id, email: sess.user.email || null } : null;
-    if (sess) {
-      fetchIdentity(sess, function (id) {
+    function resolveIdentity(s) {
+      window.cisUser = { userId: s.user.id, email: s.user.email || null };
+      chip.textContent = s.user.email || 'signed in';
+      fetchIdentity(s, function (id) {
         if (!id) return;
         window.cisUser = {
-          userId: id.uid, email: sess.user.email || null,
+          userId: id.uid, email: s.user.email || null,
           agentId: id.agentId || null, displayName: id.displayName || null,
           roles: id.roles || []
         };
@@ -267,7 +398,7 @@
           var b = document.createElement('b');
           b.textContent = id.displayName;
           chip.appendChild(b);
-          chip.appendChild(document.createTextNode(' · ' + (sess.user.email || '')));
+          chip.appendChild(document.createTextNode(' · ' + (s.user.email || '')));
         }
         if ((id.roles || []).indexOf('steward') >= 0 || (id.roles || []).indexOf('director') >= 0) {
           var sw = document.getElementById('cis-steward-nav');
@@ -275,7 +406,25 @@
         }
         document.dispatchEvent(new CustomEvent('cis:user', { detail: window.cisUser }));
       });
+    }
+
+    if (sess) {
+      resolveIdentity(sess);
+    } else if (pending) {
+      /* the page's client is exchanging the link; watch for the session */
+      var tries = 0;
+      var wait = setInterval(function () {
+        var s = session();
+        tries += 1;
+        if (s) { clearInterval(wait); resolveIdentity(s); }
+        else if (tries > 25) {
+          clearInterval(wait);
+          chip.textContent = 'not signed in';
+          document.dispatchEvent(new CustomEvent('cis:user', { detail: null }));
+        }
+      }, 400);
     } else {
+      window.cisUser = null;
       document.dispatchEvent(new CustomEvent('cis:user', { detail: null }));
     }
   }

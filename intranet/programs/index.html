@@ -60,19 +60,10 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
 .lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; }
 
-#auth-gate { display: none; }
-#auth-gate p { color: var(--muted); margin-bottom: var(--s5); }
 .btn { font-family: var(--mono); font-size: 0.85rem; padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer; }
 .btn-primary { background: var(--ember); color: var(--on-accent); }
 .btn-primary:hover { opacity: 0.88; }
 .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
-#magic-form { max-width: 400px; margin: 0 auto; }
-#magic-form input[type=email] {
-  width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
-  color: var(--heading); font-family: var(--serif); font-size: 1rem; padding: 10px var(--s4);
-  outline: none; margin-bottom: var(--s4);
-}
-#magic-form input:focus { border-color: var(--ember); }
 
 #loading { text-align: center; padding: var(--s7) 0; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; }
 #content { display: none; }
@@ -159,7 +150,6 @@ footer a { color: var(--faint); }
   .prog-opps, .affiliate-sec { padding: var(--s3) var(--s4); }
   .affiliate-btn { min-height: 44px; padding: 10px 16px; }
   .btn-primary { width: 100%; min-height: 44px; }
-  #magic-form input[type=email] { font-size: 16px; }
 }
 </style>
 <script src="/assets/error-boundary.js"></script>
@@ -170,16 +160,6 @@ footer a { color: var(--faint); }
 <main>
   <div id="loading">Loading&hellip;</div>
 
-  <div id="auth-gate">
-    <h1>Programs</h1>
-    <div class="section-rule"></div>
-    <p>Sign in to explore the cooperative's Programs.</p>
-    <div id="magic-form">
-      <div class="notice" id="magic-notice"></div>
-      <input type="email" id="magic-email" placeholder="your@email.com" autocomplete="email">
-      <button class="btn btn-primary" id="magic-btn">Send sign-in link</button>
-    </div>
-  </div>
 
   <div id="content">
     <h1>Programs</h1>
@@ -357,47 +337,24 @@ async function loadAll(session) {
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
 
-function wireMagicLink() {
-  const emailInput = document.getElementById('magic-email');
-  const btn = document.getElementById('magic-btn');
-  const notice = document.getElementById('magic-notice');
-
-  function showNotice(cls, msg) {
-    notice.className = 'notice ' + cls; notice.textContent = msg; notice.style.display = 'block';
-  }
-
-  btn.addEventListener('click', async function () {
-    const email = emailInput.value.trim();
-    if (!email) { showNotice('err', 'Enter your email address.'); return; }
-    btn.disabled = true; btn.textContent = 'Sending…';
-    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
-    if (error) { showNotice('err', Techne.report(error, 'Could not send the sign-in link. Please check the address and try again.')); btn.disabled = false; btn.textContent = 'Send sign-in link'; }
-    else { showNotice('ok', 'Check your email for a sign-in link.'); btn.textContent = 'Link sent'; }
-  });
-  emailInput.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
-}
-
 (async function init() {
   sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
   const { data: { session } } = await sb.auth.getSession();
   document.getElementById('loading').style.display = 'none';
 
   if (!session) {
-    document.getElementById('auth-gate').style.display = 'block';
-    wireMagicLink();
-    return;
+    return; /* signed out: the shell shows the gate (U-04) */
   }
 
   await loadAll(session);
 
   sb.auth.onAuthStateChange(async (event, s) => {
     if (event === 'SIGNED_IN' && s) {
-      document.getElementById('auth-gate').style.display = 'none';
       await loadAll(s);
     }
     if (event === 'SIGNED_OUT') {
       document.getElementById('content').style.display = 'none';
-      document.getElementById('auth-gate').style.display = 'block';
+      location.reload(); /* the shell renders the gate (U-04) */
     }
   });
 })();
