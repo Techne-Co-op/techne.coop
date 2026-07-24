@@ -30,7 +30,7 @@ Generated from rdm-ledger.yaml. 52 items total.
 - **B-04** open · verified -- Signature flow
 - **B-05** open · verified -- Member directory
 - **B-06** open · built -- Member profile
-- **F-01** open · in-session -- Opportunity board
+- **F-01** open · verified -- Opportunity board
 - **F-02** open · in-session -- Response flow
 - **F-03** open · in-session -- Resolution
 - **F-04** open · in-session -- The Programs view
@@ -48,7 +48,7 @@ Generated from rdm-ledger.yaml. 52 items total.
 - **T-01** open · TREASURY-POLICY -- The Desk and the policy instrument
 - **T-05** open · redeemability -- The redemption path
 - **X-01** open · verified -- Error boundary and observability
-- **X-02** open · in-session -- Notices v1
+- **X-02** open · verified -- Notices v1
 - **X-03** open · verified -- Export paths
 - **X-04** open · verified -- Document manifest and site index
 - **X-05** open · verified -- Grammar lint
