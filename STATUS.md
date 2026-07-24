@@ -6,8 +6,8 @@ Generated from rdm-ledger.yaml. 58 items total.
 | status | count |
 |--------|-------|
 | drafted | 9 |
-| anticipated | 12 |
-| open | 37 |
+| anticipated | 11 |
+| open | 38 |
 | filed | 0 |
 
 ## Drafted
@@ -35,6 +35,7 @@ Generated from rdm-ledger.yaml. 58 items total.
 - **F-02** open · in-session -- Response flow
 - **F-03** open · in-session -- Resolution
 - **F-04** open · in-session -- The Programs view
+- **F-05** open · verified -- The designation act
 - **G-01** open · verified -- Calendar
 - **G-02** open · verified -- Registration and cancellation
 - **G-03** open · verified -- Attendance recording
@@ -64,7 +65,6 @@ Generated from rdm-ledger.yaml. 58 items total.
 
 ## Anticipated
 
-- **F-05** The designation act
 - **G-B** Belong gate
 - **G-F** Find gate
 - **G-G** Gather gate
