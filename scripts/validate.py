@@ -207,6 +207,41 @@ def check_decision_coherence(packets):
             )
 
 
+def generate_ledger_state(packets):
+    """Write the roadmap dashboard's headline counts from the ledger.
+
+    The dashboard is authored prose, but its headline numbers are a claim
+    about the ledger, and a hand-kept claim drifts: it read 40 items when
+    the ledger held 59. Only the marked block is generated; everything
+    else on the page stays the author's. X-10.
+    """
+    page = REPO_ROOT / "commons/build/index.html"
+    if not page.exists():
+        return
+    drafted = sum(1 for p in packets.values() if p.get("status") == "drafted")
+    anticipated = sum(1 for p in packets.values() if p.get("status") == "anticipated")
+    open_n = sum(1 for p in packets.values() if str(p.get("status", "")).startswith("open"))
+    verified = sum(1 for p in packets.values() if "verified" in str(p.get("status", "")))
+    block = (
+        "<!-- generated:ledger-state -- written by scripts/validate.py; do not edit by hand -->\n"
+        f'    <span class="stat-chip drafted"><span class="n">{drafted}</span>&thinsp;drafted</span>\n'
+        f'    <span class="stat-chip anticipated"><span class="n">{anticipated}</span>&thinsp;anticipated</span>\n'
+        f'    <span class="stat-chip open"><span class="n">{open_n}</span>&thinsp;open</span>\n'
+        f'    <span class="stat-chip verified"><span class="n">{verified}</span>&thinsp;verified</span>\n'
+        "<!-- /generated:ledger-state -->"
+    )
+    text = page.read_text()
+    new, n = re.subn(
+        r"<!-- generated:ledger-state.*?/generated:ledger-state -->",
+        lambda _m: block, text, count=1, flags=re.S)
+    if n != 1:
+        warn("commons/build/index.html: no generated:ledger-state block; counts not refreshed")
+        return
+    if new != text:
+        page.write_text(new)
+        print(f"wrote {page}")
+
+
 def generate_status_md(packets):
     """Write STATUS.md summarizing ledger state."""
     status_path = REPO_ROOT / "STATUS.md"
@@ -302,6 +337,7 @@ def main():
     check_decision_coherence(packets)
 
     generate_status_md(packets)
+    generate_ledger_state(packets)
     generate_index_json(packets)
 
     if errors:

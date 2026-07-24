@@ -1056,7 +1056,7 @@ treasury:
       and the table lists; the body copy that named packets and internals
       says instead what a member came to read. The section keeps its name
       and its colour, which is the orientation the strip was for.
-    status: open · in-session
+    status: open · verified
     cites: [UI, PRD, BP]
     ready_when: U-04 verified.
     deliverable: >
@@ -1074,6 +1074,11 @@ treasury:
       gatherings footer. No card: the direction is the steward's and the
       rule it leaves behind, a member-facing surface speaks in the
       cooperative's language, is recorded in the design-system.
+    resolution: >
+      Merged as PR 63 and deployed 2026-07-24. Audited by script across
+      all eight signed-in and front-door surfaces: no rendered text
+      carries a project reference, a packet address, a table list, or a
+      Law citation. Verified by Todd Youngblood 2026-07-24 by merge.
 
 cross_cutting:
 
@@ -1113,6 +1118,32 @@ cross_cutting:
       call-site changes. X-01 proceeds toward verified on the console-channel
       acceptance. Adopted by Todd Youngblood's review and merge of PR 3,
       2026-07-20. Verified by Todd Youngblood 2026-07-20.
+
+  - address: X-10
+    title: Generated artifacts stay current
+    intent: >
+      The claims a generated artifact makes about the ledger are proven in
+      CI rather than kept by hand. The roadmap dashboard's headline counts
+      join STATUS.md and index.json as validator output, and a stale
+      committed copy of any of them becomes an error.
+    status: open · in-session
+    cites: [VS, BP]
+    ready_when: SUB-01 verified.
+    deliverable: >
+      generate_ledger_state() in scripts/validate.py writing the marked
+      block in commons/build/index.html; the generated-freshness job in
+      verify.yml.
+    acceptance: >
+      Editing the ledger without running the validator fails CI; the
+      dashboard's counts equal the ledger's at every commit on main.
+    note: >
+      Found 2026-07-24 while answering the steward's ask to update the
+      roadmap's state: the dashboard read 40 items where the ledger held
+      59, having been kept by hand since the splices. X-04 had named
+      manifest freshness as a CI error but nothing enforced it, so the
+      whole class is closed here rather than the one instance. The
+      dashboard's authored prose stays authored; only the headline
+      counts are generated, and the page says so on its face.
 
   - address: X-02
     title: Notices v1
