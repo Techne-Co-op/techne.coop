@@ -139,6 +139,28 @@
   style.textContent = CSS;
   (document.head || document.documentElement).appendChild(style);
 
+  /* ---------- the transition's own promises ----------
+     A cross-document view transition carries ready, finished, and
+     updateCallbackDone promises. When a transition is superseded,
+     the reader clicks the next section before the last one settled,
+     the browser skips it and those promises reject with AbortError
+     "Transition was skipped". That is the API working as specified,
+     not an application fault; left untouched it surfaces as an
+     unhandled rejection and the error boundary alarms the member
+     over an animation. Claim them here, at the source, and a skip
+     stays what it is: nothing. */
+  (function tameTransitions() {
+    function tame(vt) {
+      if (!vt) return;
+      var quiet = function () {};
+      if (vt.ready && vt.ready.catch) vt.ready.catch(quiet);
+      if (vt.finished && vt.finished.catch) vt.finished.catch(quiet);
+      if (vt.updateCallbackDone && vt.updateCallbackDone.catch) vt.updateCallbackDone.catch(quiet);
+    }
+    window.addEventListener('pagereveal', function (e) { tame(e.viewTransition); });
+    window.addEventListener('pageswap', function (e) { tame(e.viewTransition); });
+  })();
+
   /* ---------- session, read not owned ---------- */
   function session() {
     try {
