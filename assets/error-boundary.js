@@ -85,8 +85,24 @@
     });
     notifyMember();
   });
+  // Benign by specification: a view transition that the browser skips, because
+  // a second navigation superseded it, rejects its promises with AbortError
+  // "Transition was skipped". Nothing failed to load and nothing needs a
+  // steward, so this class is recorded for observability but never alarms the
+  // member. The transition's promises are claimed at their source in
+  // assets/shell.js; this is the second line, not the first.
+  // Narrowing named per VS v1 section 9: the check is not weakened for any
+  // other rejection, and an unrecognized AbortError still alarms.
+  function isSkippedTransition(r) {
+    return !!r && r.name === 'AbortError' && /Transition was skipped/i.test(String(r.message || ''));
+  }
+
   window.addEventListener('unhandledrejection', function (e) {
     var r = e.reason;
+    if (isSkippedTransition(r)) {
+      record('benign', 'view transition skipped; superseded navigation');
+      return;
+    }
     record('unhandledrejection', (r && r.message) || r, { stack: r && r.stack });
     notifyMember();
   });

@@ -972,6 +972,18 @@ treasury:
       the status names it. Verified by Todd Youngblood 2026-07-24 by
       merge.
 
+      Defect found in use the same day and fixed: navigating the map
+      quickly supersedes an in-flight cross-document view transition,
+      the browser skips it by specification, and its promises reject
+      with AbortError, "Transition was skipped". Left unclaimed the
+      rejection reached the X-01 boundary, which recorded it as a fault
+      and showed the member the did-not-load banner over an animation.
+      The transition's promises are now claimed at their source in the
+      shell, on pagereveal and pageswap, and the boundary carries a
+      named narrowing for this one benign class, recorded and never
+      alarmed, per VS v1 section 9. Confirmed by test: a skipped
+      transition raises no banner and a genuine rejection still does.
+
 cross_cutting:
 
   - address: X-01
