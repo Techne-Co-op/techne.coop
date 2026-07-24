@@ -58,8 +58,6 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
 
 /* auth gate */
-#auth-gate { text-align: center; padding: var(--s8) 0; display: none; }
-#auth-gate p { color: var(--muted); margin-bottom: var(--s5); }
 .btn { font-family: var(--mono); font-size: 0.85rem; padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer; }
 .btn-primary { background: var(--ember); color: var(--on-accent); }
 .btn-primary:hover { opacity: 0.88; }
@@ -168,12 +166,6 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .pf-save-row button:disabled { opacity: 0.45; cursor: not-allowed; }
 
 /* magic link form */
-#magic-form { max-width: 400px; margin: 0 auto; }
-#magic-form input[type=email] {
-  width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
-  color: var(--heading); font-family: var(--serif); font-size: 1rem; padding: 10px var(--s4); outline: none; margin-bottom: var(--s4);
-}
-#magic-form input:focus { border-color: var(--ember); }
 .notice { padding: var(--s4); border-radius: 6px; margin: var(--s4) 0; font-size: 0.88rem; display: none; }
 .notice.ok { background: var(--ok-dim); color: var(--ok); border: 1px solid var(--ok); }
 .notice.err { background: var(--warn-dim); color: var(--warn); border: 1px solid var(--warn); }
@@ -250,7 +242,6 @@ footer a { color: var(--faint); }
 
 /* Auth gate */
   .btn-primary { width: 100%; min-height: 44px; }
-  #magic-form input[type=email] { font-size: 16px; }
 }
 </style>
 <script src="/assets/error-boundary.js"></script>
@@ -260,16 +251,6 @@ footer a { color: var(--faint); }
 <main>
   <div id="loading">Loading...</div>
 
-  <div id="auth-gate">
-    <h1>Directory</h1>
-    <div class="section-rule"></div>
-    <p>Sign in to view the member directory.</p>
-    <div id="magic-form">
-      <div class="notice" id="magic-notice"></div>
-      <input type="email" id="magic-email" placeholder="your@email.com" autocomplete="email">
-      <button class="btn btn-primary" id="magic-btn">Send sign-in link</button>
-    </div>
-  </div>
 
   <div id="content">
     <h1>Directory</h1>
@@ -306,29 +287,10 @@ let sb;
   const { data: { session } } = await sb.auth.getSession();
   document.getElementById('loading').style.display = 'none';
   if (!session) {
-    document.getElementById('auth-gate').style.display = 'block';
-    wireMagicLink();
-    return;
+    return; /* signed out: the shell shows the gate (U-04) */
   }
   await loadDirectory(session);
 })();
-
-function wireMagicLink() {
-  document.getElementById('magic-btn').addEventListener('click', async function () {
-    const email = document.getElementById('magic-email').value.trim();
-    const notice = document.getElementById('magic-notice');
-    if (!email) { showNotice(notice, 'err', 'Enter your email address.'); return; }
-    this.disabled = true; this.textContent = 'Sending...';
-    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } });
-    if (error) {
-      showNotice(notice, 'err', Techne.report(error, 'Could not send the sign-in link. Please check the address and try again.'));
-      this.disabled = false; this.textContent = 'Send sign-in link';
-    } else {
-      showNotice(notice, 'ok', 'Check your email for a sign-in link.');
-      this.disabled = true; this.textContent = 'Sent';
-    }
-  });
-}
 
 async function loadDirectory(session) {
   document.getElementById('content').style.display = 'block';

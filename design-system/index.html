@@ -393,7 +393,30 @@
 &lt;script src=<span class="c2">"/assets/shell.js"</span> defer&gt;&lt;/script&gt;</pre>
 
     <div class="subhead">Behaviour</div>
-    <p class="note">Self-injects the frame on <code>DOMContentLoaded</code> and re-parents the page into the primary view. Reads the Supabase session from storage without creating a second auth client; pages keep their own gates. The member chip carries the signed-in address and, once the record answers, the display name. The mode toggle writes <code>localStorage('techne-mode')</code> and sets <code>data-mode</code> on the document. The active section marks from <code>window.location.pathname</code>. The steward group appears only when the reader holds the steward or director role. <code>window.cisUser</code> is exposed and the <code>cis:user</code> event fires for page scripts that need member context. Cross-document view transitions hold the topbar and map in place while the primary view changes, honoring <code>prefers-reduced-motion</code>.</p>
+    <p class="note">Self-injects the frame on <code>DOMContentLoaded</code> and re-parents the page into the primary view. Reads the Supabase session from storage without creating a second auth client; pages keep their own data loading. The member chip carries the signed-in address and, once the record answers, the display name. The mode toggle writes <code>localStorage('techne-mode')</code> and sets <code>data-mode</code> on the document. The active section marks from <code>window.location.pathname</code>. The steward group appears only when the reader holds the steward or director role. <code>window.cisUser</code> is exposed and the <code>cis:user</code> event fires for page scripts that need member context. Cross-document view transitions hold the topbar and map in place while the primary view changes, honoring <code>prefers-reduced-motion</code>.</p>
+
+    <div class="subhead">The gate</div>
+    <p class="note">One standard, owned by the shell (U-04): every signed-in surface presents the same card when the reader is signed out. The card carries the house label, the heading <em>Member intranet</em>, one sentence of instruction, a destination line read from the manifest (mark, slice, section, in the section's tint), the email field, the primary action, and a status line; after sending, the sent state with a resend affordance. The gate sends the magic link itself through the GoTrue REST seam, so no page carries a gate of its own. Signed out, the frame shows only the topbar and the gate: <em>the map is for members</em>. A magic-link landing, tokens in the address, renders as signing-in while the page's client completes the exchange, never as signed-out. Pages contribute nothing to authentication except loading their data once the session stands.</p>
+
+    <div class="navdemo mode-light">
+      <div class="nav">
+        <span class="wordmark">Techne &middot; intranet</span>
+        <div class="links"></div>
+        <div class="user"><span class="un">not signed in</span><span class="av">&#9681;</span></div>
+      </div>
+      <div style="display:flex;justify-content:center;background:var(--bg);padding:28px 16px">
+        <div style="background:var(--surface);border:1px solid var(--line);padding:28px 32px;max-width:340px;width:100%">
+          <div style="font:500 8.5px/1.6 var(--mono);letter-spacing:.1em;color:var(--ember-text);text-transform:uppercase;margin-bottom:8px">Techne &middot; RegenHub, LCA</div>
+          <div style="font:400 17px/1.3 var(--serif);color:var(--heading);margin-bottom:8px">Member intranet</div>
+          <div style="font:400 10.5px/1.6 var(--serif);color:var(--muted);margin-bottom:12px">For cooperative members. Enter your email address and we will send a sign-in link.</div>
+          <div style="display:flex;align-items:center;gap:6px;font:500 8px/1.6 var(--mono);letter-spacing:.1em;color:var(--sun-amber-t);text-transform:uppercase;margin-bottom:14px"><span style="width:7px;height:7px;background:var(--sun-amber)"></span>continues to Belong &middot; Agreements</div>
+          <div style="font:500 8px/1.6 var(--mono);color:var(--muted);letter-spacing:.06em;margin-bottom:5px">EMAIL ADDRESS</div>
+          <div style="background:var(--bg);border:1px solid var(--line);padding:7px 9px;font:400 10px/1 var(--mono);color:var(--faint)">you@example.com</div>
+          <div style="border:1px solid var(--ember);padding:8px;margin-top:9px;text-align:center;font:500 9px/1 var(--mono);letter-spacing:.06em;color:var(--ember-text)">Send sign-in link</div>
+        </div>
+      </div>
+      <div class="navcap">light &middot; the gate: signed out, the topbar and the card; no map</div>
+    </div>
   </section>
 
   <!-- COMPONENTS -->
