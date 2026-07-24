@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>Launch readiness &middot; Techne</title>
+<meta name="description" content="What stands between the Common Information System and launch on August 14, 2026: every open condition with its owner, how it is tested, and what review it wants.">
+<meta name="robots" content="noindex,nofollow">
+<script>
+ (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+ var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+ document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+ :root{
+ --serif:'Libre Baskerville',Georgia,serif; --sans:Inter,'Helvetica Neue',Arial,sans-serif; --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+ }
+ [data-mode="dark"]{
+ --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+ --line:#2A2A30; --rule:#3A3A42;
+ --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+ --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+ --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+ }
+ [data-mode="light"]{
+ --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+ --line:#D8D3C8; --rule:#9A958A;
+ --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+ --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+ --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+ }
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{background:var(--bg); color:var(--text); font:400 15px/1.7 var(--serif)}
+ .wrap{max-width:880px; margin:0 auto; padding:0 22px 60px}
+ a{color:var(--blue-text); text-decoration:none}
+ a:hover{text-decoration:underline}
+ em{color:var(--heading)}
+ .mono{font-family:var(--mono)}
+ :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+ .topbar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+ .topbar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+ .topbar .bc a{color:var(--ember-text)}
+ .mode-btn{font:400 11.5px var(--mono); color:var(--muted); background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:4px 10px; cursor:pointer}
+ .mode-btn:hover{background:var(--raised); color:var(--heading)}
+
+ .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
+ .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+ .mast .dek{font:400 16.5px/1.65 var(--serif); max-width:64ch}
+ .statusline{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 6px}
+ .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+ .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+ .chip.info{color:var(--info); border-color:var(--info)} .chip.info::before{background:var(--info)}
+ .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:var(--warn)}
+ .citesline{font:400 11.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin:18px 0 38px}
+ .citesline b{color:var(--ember-text); font-weight:500}
+
+ .sec{margin:0 0 40px}
+ .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+ .sec-num{font:500 11px var(--mono); border-left:3px solid var(--ember); padding:2px 0 2px 9px; color:var(--ember); flex:none}
+ .sec-head h2{font:400 21px/1.3 var(--serif); color:var(--heading)}
+ .sec p{margin:0 0 14px; max-width:68ch}
+ .sec p:last-child{margin-bottom:0}
+
+ table{width:100%; border-collapse:collapse; font:400 12.5px/1.6 var(--sans); margin:0 0 16px}
+ th{font:600 10.5px var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--surface)}
+ td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+ td.mono{font:400 11.5px var(--mono); color:var(--ember-text); white-space:nowrap}
+ tr:hover td{background:var(--surface)}
+
+ pre{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; overflow-x:auto; font:400 11.5px/1.65 var(--mono); color:var(--text); margin:0 0 16px}
+ pre .c{color:var(--faint)}
+ pre .k{color:var(--ember-text)}
+
+ .box{background:var(--inset); border:1px solid var(--line); border-left:3px solid var(--warn); border-radius:3px; padding:13px 15px; margin:0 0 14px}
+ .box .bk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:7px}
+ .box p{font-size:13.5px; max-width:66ch}
+
+ .dec{margin:16px 0; border-top:1px solid var(--rule); max-width:78ch}
+ .dec .head{display:grid; grid-template-columns:1fr 200px 120px; gap:14px; padding:8px 0; border-bottom:1px solid var(--rule); font:500 10px var(--mono); color:var(--faint); text-transform:uppercase; letter-spacing:.1em}
+ .dec .row{display:grid; grid-template-columns:1fr 200px 120px; gap:14px; padding:11px 0; border-bottom:1px solid var(--line)}
+ .dec .row .q{font:400 13px/1.65 var(--serif)}
+ .dec .row .o{font:400 11px/1.8 var(--mono); color:var(--blue-text)}
+ .dec .row .s{font:500 10px/1.9 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.06em}
+ @media (max-width:680px){ .dec .row, .dec .head{grid-template-columns:1fr; gap:2px} }
+
+ .foot{border-top:1px solid var(--line); margin-top:48px; padding-top:16px}
+ .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint)}
+ @media (max-width:700px){ .mast h1{font-size:27px} table{font-size:11.5px} }
+ @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topbar">
+ <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; <a href="/commons/build/">Living roadmap</a> &middot; launch readiness</span>
+ <button class="mode-btn" id="modeBtn" aria-label="Toggle light and dark mode">dark</button>
+</div>
+
+<div class="mast">
+ <div class="kicker">Launch readiness &middot; August 14, 2026</div>
+ <h1>What Launch Waits On</h1>
+ <p class="dek">The steward's run-through is complete and the signed-in surface stands. What remains is not construction: it is adoption, attestation, and two inputs only people can supply. Each row below names the condition, whose act it is, how it is tested, and the review it wants before launch.</p>
+ <div class="statusline">
+ <span class="chip info">the build is not the blocker</span>
+ <span class="chip warn">two board adoptions outstanding</span>
+ </div>
+</div>
+
+<div class="citesline">
+ <b>reads</b> &middot; the ledger is truth: every status here is the mark carried in rdm-ledger.yaml, and the roadmap's counts are written from it by the validator (X-10)
+ <br><b>kept</b> &middot; this page is authored; when a row closes, its packet's resolution is the record and this row goes with it
+</div>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;1</span><h2>With the board</h2></div>
+ <table>
+ <tr><th>condition</th><th>owner</th><th>test before launch</th><th>review it wants</th></tr>
+ <tr><td class="mono">COUNTING-RULES</td><td>the board, with tax counsel</td><td>After adoption, the instrument enters and the fold reads its parameters from the record rather than from any number in code</td><td>A named vote on the four values of &sect;4 and on formation-period recognition. The draft stands at <a href="/commons/patronage/counting-rules/">counting-rules</a>; nothing binds until adopted</td></tr>
+ <tr><td class="mono">TREASURY-POLICY</td><td>the FSC, then the board</td><td>After adoption, the Desk renders its thresholds cited to the instrument, not to code</td><td>The FSC signs off the band amounts and decides the Coordinator-in-the-trail provision, still marked keep or strike</td></tr>
+ </table>
+ <p>Each releases a train behind it: the counting rules open the Share train and the member's own account; the treasury policy completes the Desk.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;2</span><h2>With the steward</h2></div>
+ <table>
+ <tr><th>condition</th><th>test before launch</th><th>review it wants</th></tr>
+ <tr><td class="mono">LABOR-SCHEDULE</td><td>Once entered, an HOURS contribution values at the tier in force</td><td>A second reading that the four tiers as entered match what the board adopted on 2026-06-24. Nothing but a human memory can check this: the rates exist nowhere in the estate</td></tr>
+ <tr><td class="mono">G-B, G-G attestations</td><td>None. The walking was the test</td><td>The attestation text approved before it is written, each citing the beats it stands on</td></tr>
+ <tr><td class="mono">F-02</td><td>A second member answers a posting; a response is a message to an author, so no one can test it alone</td><td>Whether to record it on the gate rehearsal, which proves the flow and the visibility rule against three personas, or to wait for a real second member. See the packet's note</td></tr>
+ </table>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;3</span><h2>Elsewhere, and operational</h2></div>
+ <table>
+ <tr><th>condition</th><th>owner</th><th>what it costs if it slips</th></tr>
+ <tr><td>The notices rail's email sink</td><td>the zone holder</td><td>Nothing fatal: the steward's Telegram sink carries notices alone. Worth deciding out loud whether that is acceptable at launch rather than discovering it</td></tr>
+ <tr><td>The record's own housekeeping</td><td>the steward, with the instrument</td><td>Test residue remains in the live record from the run-through. Done last, after every attestation and acceptance, so nothing is deleted that is still wanted as evidence</td></tr>
+ <tr><td>The build account's credential</td><td>the steward</td><td>It expires two days after launch. Rotated before, it is routine; rotated during, it is an incident</td></tr>
+ </table>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;4</span><h2>What is already standing</h2></div>
+ <p>Recorded here so the list above is read for what it is, a short one. A newcomer comes in through the front door without a meeting and is admitted by a steward's act. Agreements read and sign and acknowledge, and refuse a second signature. The directory shows the cooperative and lets each member edit only their own profile. Gatherings register, cancel, register again, and count presence where the record counts it. The board of opportunities posts, answers, and closes, and the outcome lands as an event. Programs stand designated from the intranet. Every signed-in surface sits behind one frame and one gate and speaks in the cooperative's language. The record exports, restores, and reconstructs itself from the public repository.</p>
+</section>
+
+<div class="foot">
+ <p class="tail">Launch readiness &middot; the Common Record Series &middot; drafted with machine assistance &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-07-24</p>
+</div>
+
+</div>
+<script>
+ var btn=document.getElementById('modeBtn');
+ function label(){btn.textContent=document.documentElement.getAttribute('data-mode')}
+ label();
+ btn.addEventListener('click',function(){
+ var m=document.documentElement.getAttribute('data-mode')==='dark'?'light':'dark';
+ document.documentElement.setAttribute('data-mode',m);
+ try{localStorage.setItem('techne-mode',m)}catch(e){}
+ label();
+ });
+</script>
+</body>
+</html>

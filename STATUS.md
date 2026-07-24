@@ -29,12 +29,12 @@ Generated from rdm-ledger.yaml. 60 items total.
 - **B-03** open · verified -- Agreements shelf
 - **B-04** open · verified -- Signature flow
 - **B-05** open · verified -- Member directory
-- **B-06** open · built -- Member profile
-- **B-07** open · in-session -- The agreements shelf, complete and correctly typed
+- **B-06** open · verified -- Member profile
+- **B-07** open · verified -- The agreements shelf, complete and correctly typed
 - **F-01** open · verified -- Opportunity board
 - **F-02** open · in-session -- Response flow
-- **F-03** open · in-session -- Resolution
-- **F-04** open · in-session -- The Programs view
+- **F-03** open · verified -- Resolution
+- **F-04** open · verified -- The Programs view
 - **F-05** open · verified -- The designation act
 - **G-01** open · verified -- Calendar
 - **G-02** open · verified -- Registration and cancellation
@@ -52,7 +52,7 @@ Generated from rdm-ledger.yaml. 60 items total.
 - **U-01** open · verified -- The shell
 - **U-02** open · verified -- The doors adopt the frame
 - **U-03** open · verified -- The constitution amended
-- **U-04** open · live sign-in -- The gate
+- **U-04** open · verified -- The gate
 - **U-05** open · verified -- The member's register
 - **X-01** open · verified -- Error boundary and observability
 - **X-02** open · verified -- Notices v1
@@ -63,7 +63,7 @@ Generated from rdm-ledger.yaml. 60 items total.
 - **X-07** open · verified -- Decision coherence
 - **X-08** open · verified -- Probe matrix
 - **X-09** open · verified -- Walkaway rehearsal
-- **X-10** open · in-session -- Generated artifacts stay current
+- **X-10** open · verified -- Generated artifacts stay current
 
 ## Anticipated
 
