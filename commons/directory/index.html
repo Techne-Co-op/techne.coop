@@ -51,18 +51,7 @@ body {
   background: var(--bg); color: var(--text); font-family: var(--serif);
   font-size: 16px; line-height: 1.65; min-height: 100vh; display: flex; flex-direction: column;
 }
-.topbar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 var(--s5); height: 48px; border-bottom: 1px solid var(--line);
-  background: var(--surface); position: sticky; top: 0; z-index: 10;
-}
-.topbar-brand { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); text-decoration: none; }
-.topbar-brand strong { color: var(--heading); font-weight: 500; }
-.topbar-nav { display: flex; gap: var(--s4); align-items: center; }
-.topbar-nav a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; }
-.topbar-nav a:hover { color: var(--heading); }
-.mode-btn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 4px; padding: 3px 8px; cursor: pointer; }
-.mode-btn:hover { color: var(--heading); }
+/* the topbar, the map, and the mode toggle are the shell's (U-01) */
 
 main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
 h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
@@ -239,8 +228,6 @@ footer a { color: var(--faint); }
   
 @media (max-width: 640px) {
   /* Topbar */
-  .topbar { padding: 0 var(--s4); }
-  .topbar-nav a { display: none; }
 
   /* Main layout */
   main { padding: var(--s5) var(--s4); }
@@ -267,19 +254,9 @@ footer a { color: var(--faint); }
 }
 </style>
 <script src="/assets/error-boundary.js"></script>
+<script src="/assets/shell.js" defer></script>
 </head>
 <body>
-<nav class="topbar">
-  <a class="topbar-brand" href="/"><strong>Techne</strong> &middot; commons</a>
-  <div class="topbar-nav">
-    <a href="/commons/">commons</a>
-    <a href="/commons/agreements/">agreements</a>
-    <a href="/commons/opportunities/">opportunities</a>
-    <a href="/intranet/">intranet</a>
-    <button class="mode-btn" id="mode-btn">light / dark</button>
-  </div>
-</nav>
-
 <main>
   <div id="loading">Loading...</div>
 
@@ -323,13 +300,6 @@ footer a { color: var(--faint); }
 const SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
 const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
 let sb;
-
-document.getElementById('mode-btn').addEventListener('click', function () {
-  var cur = document.documentElement.getAttribute('data-mode');
-  var next = cur === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-mode', next);
-  try { localStorage.setItem('techne-mode', next); } catch(e) {}
-});
 
 (async function init() {
   sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);

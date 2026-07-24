@@ -268,43 +268,6 @@ body {
 }
 .notice strong { color: var(--blue-text); }
 
-.slice-chip {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  padding: 2px 7px;
-  border: 1px solid var(--line);
-  color: var(--muted);
-  margin-bottom: var(--s3);
-  text-transform: uppercase;
-}
-.slice-chip.anticipated { border-color: var(--blue); color: var(--blue-text); }
-.slice-chip.open        { border-color: var(--warn); color: var(--warn); }
-.slice-chip.settled     { border-color: var(--ok);   color: var(--ok); }
-
-.agent-row {
-  display: flex;
-  align-items: center;
-  gap: var(--s4);
-  padding: var(--s3) 0;
-  border-bottom: 1px solid var(--line);
-  font-size: 0.85rem;
-}
-.agent-row:last-child { border-bottom: none; }
-.agent-kind {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  padding: 2px 6px;
-  border: 1px solid var(--line);
-  color: var(--faint);
-  letter-spacing: 0.04em;
-  flex-shrink: 0;
-  min-width: 60px;
-  text-align: center;
-}
-.agent-name { color: var(--heading); flex: 1; }
-
 /* ---- footer ---- */
 footer {
   border-top: 1px solid var(--line);
@@ -323,12 +286,6 @@ footer {
 .door-card:hover { border-color: var(--ember); }
 .door-card .card-go { font-family: var(--mono); font-size: 0.7rem; color: var(--ember-text); margin-top: var(--s3); }
 .door-card.inert:hover { border-color: var(--line); }
-.chip-state {
-  font-family: var(--mono); font-size: 0.62rem; padding: 2px 7px; border: 1px solid var(--line);
-  color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase;
-}
-.chip-state.ok { border-color: var(--ok); color: var(--ok); }
-.chip-state.warn { border-color: var(--warn); color: var(--warn); }
 .steward-card { border-left: 3px solid var(--ember); }
 
 @media (max-width: 640px) {
