@@ -346,39 +346,54 @@
 
   <!-- CIS NAVIGATION -->
   <section class="sec" id="nav">
-    <h2>CIS Primary Navigation</h2>
-    <p class="lead">The sticky navigation carries the Techne wordmark, the four launch slices, and the signed-in member. The active slice is marked in <em>blue</em>, the primary accent, since it is the reader's current position and the one interactive cue in the bar. The four slices map directly to the v0.3 PRD: Belong, Gather, Find, Account. Shown in both modes.</p>
+    <h2>CIS Navigation &middot; The Shell</h2>
+    <p class="lead">Every signed-in surface stands inside one persistent frame: a sticky topbar carrying the wordmark, the member chip, and the mode toggle; a left map carrying the complete grouped taxonomy of the intranet; and a context strip naming where the reader stands. Navigation changes only the primary view; the frame holds, carried across page loads by cross-document view transitions. The frame is injected by <code>/assets/shell.js</code>, the shell, which supersedes the earlier <code>/intranet/nav.js</code> specification: that component was specified here but never built, and the shell fulfils its intent. Amended per the U-01 packet, staged 2026-07-24.</p>
 
     <div class="navdemo mode-light">
       <div class="nav">
-        <span class="wordmark">Techne</span>
-        <div class="links"><a href="#" class="active">Belong</a><a href="#">Gather</a><a href="#">Find</a><a href="#">Account</a><a href="#">Agreements</a></div>
-        <div class="user"><span class="av">TY</span><span class="un">Todd &#9662;</span></div>
+        <span class="wordmark">Techne &middot; intranet</span>
+        <div class="links"></div>
+        <div class="user"><span class="un">todd@example.com</span><span class="av">&#9681;</span></div>
       </div>
-      <div class="navcap">light &middot; CIS v0.3 slices</div>
+      <div style="display:flex;background:var(--bg)">
+        <div style="width:190px;flex-shrink:0;border-right:1px solid var(--line);background:var(--surface);padding:10px 0;font:500 11px/2 var(--mono)">
+          <div style="padding:2px 14px;color:var(--muted)">Overview</div>
+          <div style="padding:6px 14px 0;font-size:8.5px;letter-spacing:.1em;color:var(--faint);text-transform:uppercase">Belong</div>
+          <div style="padding:2px 14px;color:var(--ember-text);border-left:2px solid var(--ember)">Agreements</div>
+          <div style="padding:2px 14px;color:var(--muted)">Directory</div>
+          <div style="padding:6px 14px 0;font-size:8.5px;letter-spacing:.1em;color:var(--faint);text-transform:uppercase">Gather</div>
+          <div style="padding:2px 14px;color:var(--muted)">Gatherings</div>
+          <div style="padding:6px 14px 0;font-size:8.5px;letter-spacing:.1em;color:var(--faint);text-transform:uppercase">Find one another</div>
+          <div style="padding:2px 14px;color:var(--muted)">Opportunities</div>
+          <div style="padding:2px 14px;color:var(--muted)">Programs</div>
+          <div style="padding:6px 14px 0;font-size:8.5px;letter-spacing:.1em;color:var(--faint);text-transform:uppercase">Treasury</div>
+          <div style="padding:2px 14px;color:var(--muted)">The Desk</div>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;gap:12px;align-items:center;padding:7px 16px;border-bottom:1px solid var(--line);font:500 10px/1.6 var(--mono)">
+            <span style="width:8px;height:8px;background:var(--sun-amber)"></span>
+            <span style="color:var(--sun-amber-t);letter-spacing:.1em">BELONG &middot; AGREEMENTS</span>
+            <span style="color:var(--muted)">document grammar</span>
+            <span style="color:var(--faint)">reads: agreements, signatures</span>
+          </div>
+          <div style="padding:22px 16px;color:var(--faint);font:400 12px/1.6 var(--serif)">the primary view</div>
+        </div>
+      </div>
+      <div class="navcap">light &middot; the shell: topbar, map, context strip, primary view</div>
     </div>
 
-    <div class="navdemo mode-dark">
-      <div class="nav">
-        <span class="wordmark">Techne</span>
-        <div class="links"><a href="#" class="active">Belong</a><a href="#">Gather</a><a href="#">Find</a><a href="#">Account</a><a href="#">Agreements</a></div>
-        <div class="user"><span class="av">TY</span><span class="un">Todd &#9662;</span></div>
-      </div>
-      <div class="navcap">dark &middot; CIS v0.3 slices</div>
-    </div>
+    <div class="subhead">The taxonomy</div>
+    <p class="note"><b>Overview</b>  --  the member dashboard, the doors and the record live. <b>Belong</b>  --  Agreements, Directory. <b>Gather</b>  --  Gatherings. <b>Find one another</b>  --  Opportunities, Programs. <b>Treasury</b>  --  The Desk. <b>Steward</b>  --  Admissions, shown only to steward and director roles. <b>The record</b>  --  The Commonplace Book and the living roadmap, public surfaces the frame links but does not wrap. The deployed grouping governs, adopted over the earlier five-slice draft (Belong, Gather, Find, Account, Agreements) by decision record: U-03 escalation card, adopted by Todd Youngblood, 2026-07-24. <b>Account</b> remains a planned card on the Overview until the counting rules open it.</p>
 
-    <div class="subhead">Slice mapping</div>
-    <p class="note"><b>Belong</b>  --  member directory, profiles, onboarding, membership agreement. <b>Gather</b>  --  events at the studio, registration, attendance. <b>Find</b>  --  open offers, invitations, connections between members. <b>Account</b>  --  contribution history, capital account, balances traced to events (opens when counting rules are adopted). <b>Agreements</b>  --  browse governing documents and ratified bylaw sections.</p>
+    <div class="subhead">The manifest</div>
+    <p class="note">The shell reads a declared manifest naming, for every section: its <em>slice</em> (the group above), its <em>tint</em> (a stop on the sunset sweep: gold for Overview, amber for Belong, coral for Gather, rose for Find one another, violet for Treasury, ember for Steward, blue for The record), its <em>grammar</em> (document or instrument, the two grammars of UI v1), and its <em>reads</em> (the tables and views it consults). The context strip renders that identity at the head of every primary view, so the interface inherits what each section is rather than restating it per page.</p>
 
     <div class="subhead">Usage</div>
-    <pre class="code"><span class="c1">&lt;!-- in &lt;head&gt;, after font loading --&gt;</span>
-&lt;script src=<span class="c2">"/intranet/nav.js"</span>&gt;&lt;/script&gt;
-
-<span class="c1">&lt;!-- optional: require auth on this page --&gt;</span>
-&lt;body data-auth-required&gt;</pre>
+    <pre class="code"><span class="c1">&lt;!-- in &lt;head&gt;, after the error boundary --&gt;</span>
+&lt;script src=<span class="c2">"/assets/shell.js"</span> defer&gt;&lt;/script&gt;</pre>
 
     <div class="subhead">Behaviour</div>
-    <p class="note">Self-injects the sticky nav and the site footer on <code>DOMContentLoaded</code>. Reads the Supabase session and shows the initials avatar and display name. The member chip opens a dropdown with <em>Edit Profile</em> and <em>Sign out</em>. The mode toggle writes to <code>localStorage('techne-mode')</code> and sets <code>data-mode</code> on the document. The active slice is highlighted from <code>window.location.pathname</code>. <code>data-auth-required</code> on the body redirects unauthenticated visitors to the intranet login, and <code>window.cisUser</code> is exposed for page scripts that need member context.</p>
+    <p class="note">Self-injects the frame on <code>DOMContentLoaded</code> and re-parents the page into the primary view. Reads the Supabase session from storage without creating a second auth client; pages keep their own gates. The member chip carries the signed-in address and, once the record answers, the display name. The mode toggle writes <code>localStorage('techne-mode')</code> and sets <code>data-mode</code> on the document. The active section marks from <code>window.location.pathname</code>. The steward group appears only when the reader holds the steward or director role. <code>window.cisUser</code> is exposed and the <code>cis:user</code> event fires for page scripts that need member context. Cross-document view transitions hold the topbar and map in place while the primary view changes, honoring <code>prefers-reduced-motion</code>.</p>
   </section>
 
   <!-- COMPONENTS -->
