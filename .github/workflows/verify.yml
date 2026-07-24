@@ -34,6 +34,27 @@ jobs:
             pip install pyyaml --quiet && python3 scripts/validate.py
           fi
 
+  generated-freshness:
+    # X-10 - VS v1 section 2 - the generated artifacts are claims about the
+    # ledger, and a hand-kept claim drifts: the roadmap dashboard read 40
+    # items while the ledger held 59. The validator writes STATUS.md,
+    # index.json, and the dashboard's headline counts; this job proves the
+    # committed copies match what it writes, so a stale artifact is a CI
+    # error rather than a page that quietly lies.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: the generated artifacts are current
+        run: |
+          set -e
+          pip install pyyaml --quiet
+          python3 scripts/validate.py
+          if ! git diff --quiet; then
+            echo "::error::generated artifacts are stale; run python3 scripts/validate.py and commit"
+            git diff --stat
+            exit 1
+          fi
+
   schema-lint:
     # VS v1 §2 · static discipline on the substrate: timestamped
     # migration order, comments on every table, and (once policies

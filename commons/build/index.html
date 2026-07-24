@@ -308,6 +308,14 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
   .packet-row { grid-template-columns:70px 1fr; }
   .pkt-ready { display:none; }
 }
+
+  .state-note{max-width:var(--wrap,980px);margin:0 auto var(--s6,32px);padding:var(--s4,16px) var(--s5,24px);
+    background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--ember);border-radius:2px;}
+  .state-note .state-k{font:600 10.5px/1.6 var(--mono);color:var(--ember-text);text-transform:uppercase;
+    letter-spacing:.1em;margin-bottom:8px;}
+  .state-note p{font:400 13.5px/1.75 var(--serif,Georgia,serif);color:var(--text);margin:0 0 10px;max-width:78ch;}
+  .state-note p:last-child{margin-bottom:0;}
+  .state-note .state-caveat{font:400 11.5px/1.7 var(--mono);color:var(--muted);}
 </style>
 </head>
 <body>
@@ -341,11 +349,20 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
     <p class="mast-dek">The work plan as a ledger: every packet with an address, a readiness condition, its citations into the series, and an honest mark. No dates except the single gate the cooperative already holds, and that appears as a condition, not a deadline. Cites: RDM v1 &middot; PRD v0.3 &middot; BP v1 &middot; VS v1 &middot; AM v0.1.</p>
   </div>
   <div class="mast-stats">
-    <span class="stat-chip drafted"><span class="n">7</span>&thinsp;drafted</span>
-    <span class="stat-chip anticipated"><span class="n">5</span>&thinsp;anticipated</span>
-    <span class="stat-chip open"><span class="n">6</span>&thinsp;open</span>
-    <span class="stat-chip verified"><span class="n">22</span>&thinsp;verified</span>
+<!-- generated:ledger-state -- written by scripts/validate.py; do not edit by hand -->
+    <span class="stat-chip drafted"><span class="n">9</span>&thinsp;drafted</span>
+    <span class="stat-chip anticipated"><span class="n">11</span>&thinsp;anticipated</span>
+    <span class="stat-chip open"><span class="n">40</span>&thinsp;open</span>
+    <span class="stat-chip verified"><span class="n">28</span>&thinsp;verified</span>
+<!-- /generated:ledger-state -->
   </div>
+</div>
+
+<div class="state-note">
+  <div class="state-k">Where the build stands &middot; 2026-07-24</div>
+  <p>The steward's run-through is complete: a newcomer came in through the front door without a meeting, signed, appeared in the directory, registered and was counted present, posted and answered and resolved on the board, and both principal Programs were designated from the intranet rather than the console. The signed-in surface now stands inside one frame with one sign-in gate, and speaks in the cooperative's language rather than the build's.</p>
+  <p>What launch waits on is no longer construction. Two adoptions sit with the board, the counting rules and the treasury policy, and each releases a train behind it. The labor tiers adopted in June still need entering as an instrument. The Belong and Gather gates want their attestation now that their beats have been walked. Everything else on this page is either verified or honestly marked as anticipated.</p>
+  <p class="state-caveat">This page is authored prose over a generated spine: the headline counts above are written from the ledger by the validator and proven current in CI (X-10). The packet cards below are hand-kept and the newest work, the U train and the designation act, is recorded in the ledger before it is narrated here.</p>
 </div>
 
 <!-- TAB STRIP -->
