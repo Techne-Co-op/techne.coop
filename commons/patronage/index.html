@@ -129,7 +129,7 @@
 </div>
 
 <div class="citesline">
-  <b>cites</b> &middot; PSPP v1 &middot; PRD v0.3 &sect;2 &sect;4 &sect;11 &middot; IM v0.1 Laws I&ndash;XI &middot; AM v0.1 &sect;5 &sect;7 &sect;9 &middot; VS v1 &middot; BP v1 &middot; Bylaws v2.1 &sect;18.1 &sect;6.2.1 &sect;2.9 &sect;4.1 &sect;4.4 &sect;3.1 &sect;1.13 and Art. XVI as carried by 0002 and 0005 &middot; Schedule A, adopted 2026-06-24
+  <b>cites</b> &middot; PSPP v1 &middot; PRD v0.3 &sect;2 &sect;4 &sect;11 &middot; IM v0.1 Laws I&ndash;XI &middot; AM v0.1 &sect;5 &sect;7 &sect;9 &middot; VS v1 &middot; BP v1 &middot; Bylaws v2.1 &sect;18.1 &sect;6.2.1 &sect;2.9 &sect;4.1 &sect;4.4 &sect;3.1 &sect;1.13 and Art. XVI as carried by 0002 and 0005 &middot; the Labor Schedule (formerly cited as Schedule A), adopted 2026-06-24
   <br><b>v0.2</b> &middot; reframed as a proposal; adds &sect;4 Programs and Opportunities and &sect;8 the Programs view, on Todd's direction, 2026-07-22
   <br><b>address</b> &middot; PP is offered, not taken; SHR and PAT are the named alternatives. The address adopts when Todd says so.
 </div>
@@ -203,7 +203,7 @@
   "program_agent_id":    <span class="k">uuid</span>,   <span class="c">-- agents.kind = 'program'; Default Policy posts to the cooperative agent</span>
   "primitive":           <span class="k">"HOURS" | "REVENUE" | "CASH" | "OUTPUT" | "PRESENCE" | "PROPERTY"</span>,
   "quantity":            <span class="k">numeric</span>, <span class="c">-- hours, revenue usd, units, occurrences, fmv usd</span>
-  "rate_basis":          <span class="k">text</span>,    <span class="c">-- schedule_a tier code, revenue_pct, output unit code, presence_credit, documented_fmv</span>
+  "rate_basis":          <span class="k">text</span>,    <span class="c">-- labor_schedule tier code, revenue_pct, output unit code, presence_credit, documented_fmv</span>
   "policy_agreement_id": <span class="k">uuid</span>,    <span class="c">-- the version in force that valued it</span>
   "documentation_ref":   <span class="k">uri</span>,
   "claim_event_id":      <span class="k">uuid?</span>,   <span class="c">-- present when promoted from a member claim</span>
@@ -227,9 +227,9 @@
   <p>No rate, weight, or unit value would appear in any view, verb, or check. Every number the Plan proposes, the Labor Schedule tiers, the REVENUE percentage, the OUTPUT unit values, the PRESENCE credit, enters the system as an adopted instrument and is read from the record at valuation time, so a rate change is an amendment event and history stays computable under the version that governed it. Cite as you enforce, Law IV, applied to money.</p>
   <table>
     <tr><th>instrument</th><th>agreements code</th><th>carries in its adoption payload</th><th>standing</th></tr>
-    <tr><td>Schedule A</td><td class="mono">SCHEDULE-A</td><td>the four labor tiers and their rates</td><td>adopted 2026-06-24; row and event to be entered at &sect;12 R1</td></tr>
-    <tr><td>Counting Rules</td><td class="mono">COUNTING-RULES</td><td>admissible event kinds, FMV confirmations, REVENUE percentage, OUTPUT and PRESENCE values, first accounting year</td><td>Open &middot; Q3, before the board</td></tr>
-    <tr><td>Default Policy</td><td class="mono">POLICY-PATRONAGE-DEFAULT</td><td>HOURS only at Schedule A rates; scope of unattributed activity</td><td>adopts with the Plan</td></tr>
+    <tr><td>Labor Schedule</td><td class="mono">LABOR-SCHEDULE</td><td>the four labor tiers and their rates</td><td>adopted 2026-06-24; row and event to be entered at &sect;12 R1. Recoded from SCHEDULE-A by decision record 2026-07-24: that code stands in the record with the Bylaws schedule of stock prices and membership dues, entered the same day</td></tr>
+    <tr><td>Counting Rules</td><td class="mono">COUNTING-RULES</td><td>admissible event kinds, FMV confirmations, REVENUE percentage, OUTPUT and PRESENCE values, first accounting year</td><td>drafted; v1 staged at <a href="/commons/patronage/counting-rules/">counting-rules</a>; Q3 remains before the board and resolves on adoption</td></tr>
+    <tr><td>Default Policy</td><td class="mono">POLICY-PATRONAGE-DEFAULT</td><td>HOURS only at Labor Schedule rates; scope of unattributed activity</td><td>adopts with the Plan</td></tr>
     <tr><td>each Program policy</td><td class="mono">POLICY-PATRONAGE-&lt;program&gt;</td><td>purpose, coordinator_agent_id, active Primitives, weights summing to 100, output units and values, funding bounds, lifecycle, review</td><td>per Program, by board resolution</td></tr>
   </table>
   <p>The agreements table carries no payload column, deliberately; parameters travel in the adopting event's payload, the instrument row holds identity, version, and effective date, and the prior column preserves what a governed record changed from. Amendments are prospective only, as the Plan requires: a new version, a new adoption event, and the fold untouched behind it.</p>
@@ -282,7 +282,7 @@
   <table>
     <tr><th>condition</th><th>opens</th><th>waits on</th></tr>
     <tr><td class="mono">R0</td><td>the Programs view, page and Overview window, with affiliation live</td><td>this proposal adopted; the Find train verified; the &sect;15 visibility decision taken</td></tr>
-    <tr><td class="mono">R1</td><td>Default Policy posting, overseer pen; the fold and /commons/account/ go live</td><td>Q3 counting rules recorded; Schedule A entered as instrument and event; the &sect;10 verbs applied</td></tr>
+    <tr><td class="mono">R1</td><td>Default Policy posting, overseer pen; the fold and /commons/account/ go live</td><td>Q3 counting rules recorded; the Labor Schedule entered as instrument and event (LABOR-SCHEDULE, recoded 2026-07-24); the &sect;10 verbs applied</td></tr>
     <tr><td class="mono">R2</td><td>a Program's Primitives and its member claim pen</td><td>that Program's policy adopted with its Coordinator named; per Program, not global</td></tr>
     <tr><td class="mono">R3</td><td>the PROPERTY posting path</td><td>the 704(c) methodology election recorded on CPA confirmation; until then PROPERTY refuses</td></tr>
     <tr><td class="mono">R4</td><td>the first Allocation Run</td><td>fiscal close with P&amp;L finalized; Q4 class semantics recorded, since the patron-majority check computes against Patron Class membership</td></tr>
@@ -327,7 +327,7 @@
   status: open &middot; Q3
   cites: [PP, IM, AM, PRD]
   ready_when: G0 attested. Q3 counting rules recorded. PP adopted.
-  deliverable: 000N_patronage_verbs.sql; Schedule A and Counting Rules entered as instruments.
+  deliverable: 000N_patronage_verbs.sql; the Labor Schedule and Counting Rules entered as instruments.
   acceptance: A contribution posted by verb appears in the poster's fold, citing its policy version.
 
 <span class="k">- address: S-02</span>

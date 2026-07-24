@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>COUNTING-RULES v1 &middot; Draft &middot; Techne</title>
+<meta name="description" content="Draft counting rules instrument for RegenHub, LCA: the admissible contribution kinds, the confirming hand, the board's numbers, and the first accounting year. Staged to the board with tax counsel; nothing herein adopted.">
+<meta name="robots" content="noindex,nofollow">
+<script>
+ (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+ var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+ document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+ :root{
+ --serif:'Libre Baskerville',Georgia,serif; --sans:Inter,'Helvetica Neue',Arial,sans-serif; --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+ }
+ [data-mode="dark"]{
+ --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+ --line:#2A2A30; --rule:#3A3A42;
+ --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+ --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+ --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+ }
+ [data-mode="light"]{
+ --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+ --line:#D8D3C8; --rule:#9A958A;
+ --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+ --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+ --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+ }
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{background:var(--bg); color:var(--text); font:400 15px/1.7 var(--serif)}
+ .wrap{max-width:880px; margin:0 auto; padding:0 22px 60px}
+ a{color:var(--blue-text); text-decoration:none}
+ a:hover{text-decoration:underline}
+ em{color:var(--heading)}
+ .mono{font-family:var(--mono)}
+ :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+ .topbar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+ .topbar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+ .topbar .bc a{color:var(--ember-text)}
+ .mode-btn{font:400 11.5px var(--mono); color:var(--muted); background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:4px 10px; cursor:pointer}
+ .mode-btn:hover{background:var(--raised); color:var(--heading)}
+
+ .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
+ .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+ .mast .dek{font:400 16.5px/1.65 var(--serif); max-width:64ch}
+ .statusline{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 6px}
+ .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+ .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+ .chip.info{color:var(--info); border-color:var(--info)} .chip.info::before{background:var(--info)}
+ .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:var(--warn)}
+ .citesline{font:400 11.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin:18px 0 38px}
+ .citesline b{color:var(--ember-text); font-weight:500}
+
+ .sec{margin:0 0 40px}
+ .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+ .sec-num{font:500 11px var(--mono); border-left:3px solid var(--ember); padding:2px 0 2px 9px; color:var(--ember); flex:none}
+ .sec-head h2{font:400 21px/1.3 var(--serif); color:var(--heading)}
+ .sec p{margin:0 0 14px; max-width:68ch}
+ .sec p:last-child{margin-bottom:0}
+
+ table{width:100%; border-collapse:collapse; font:400 12.5px/1.6 var(--sans); margin:0 0 16px}
+ th{font:600 10.5px var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--surface)}
+ td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+ td.mono{font:400 11.5px var(--mono); color:var(--ember-text); white-space:nowrap}
+ tr:hover td{background:var(--surface)}
+
+ pre{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; overflow-x:auto; font:400 11.5px/1.65 var(--mono); color:var(--text); margin:0 0 16px}
+ pre .c{color:var(--faint)}
+ pre .k{color:var(--ember-text)}
+
+ .box{background:var(--inset); border:1px solid var(--line); border-left:3px solid var(--warn); border-radius:3px; padding:13px 15px; margin:0 0 14px}
+ .box .bk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:7px}
+ .box p{font-size:13.5px; max-width:66ch}
+
+ .dec{margin:16px 0; border-top:1px solid var(--rule); max-width:78ch}
+ .dec .head{display:grid; grid-template-columns:1fr 200px 120px; gap:14px; padding:8px 0; border-bottom:1px solid var(--rule); font:500 10px var(--mono); color:var(--faint); text-transform:uppercase; letter-spacing:.1em}
+ .dec .row{display:grid; grid-template-columns:1fr 200px 120px; gap:14px; padding:11px 0; border-bottom:1px solid var(--line)}
+ .dec .row .q{font:400 13px/1.65 var(--serif)}
+ .dec .row .o{font:400 11px/1.8 var(--mono); color:var(--blue-text)}
+ .dec .row .s{font:500 10px/1.9 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.06em}
+ @media (max-width:680px){ .dec .row, .dec .head{grid-template-columns:1fr; gap:2px} }
+
+ .foot{border-top:1px solid var(--line); margin-top:48px; padding-top:16px}
+ .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint)}
+ @media (max-width:700px){ .mast h1{font-size:27px} table{font-size:11.5px} }
+ @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topbar">
+ <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; <a href="/commons/patronage/">Patronage module</a> &middot; draft instrument</span>
+ <button class="mode-btn" id="modeBtn" aria-label="Toggle light and dark mode">dark</button>
+</div>
+
+<div class="mast">
+ <div class="kicker">COUNTING-RULES v1 &middot; draft instrument &middot; staged</div>
+ <h1>The Counting Rules<br>A Draft Instrument for Adoption</h1>
+ <p class="dek">The valuation discipline PATRONAGE &sect;7 reserves for the board: which kinds of engagement enter the record as Contributions, who confirms a value and how, the numbers only the board can set, and when the counting begins. Every number below is the drafter's cut, staged for the board with tax counsel; nothing here binds until adopted, and adoption is an agreements row and its recorded event, not this page.</p>
+ <div class="statusline">
+ <span class="chip info">Draft &middot; staged to the board, with tax counsel</span>
+ <span class="chip warn">nothing herein adopted &middot; Q3 resolves on adoption</span>
+ </div>
+</div>
+
+<div class="citesline">
+ <b>cites</b> &middot; PATRONAGE v0.2 &sect;7 (configuration as record) &sect;10 (posting paths) &middot; CIS PRD v0.3 Q3 (prospective board policy, with tax counsel) &middot; IM v0.1 Law IV (cite as you enforce) Law VII (both deltas) &middot; the Program Stack Patronage Plan (the six Primitives, the Labor Schedule) &middot; MA v2.3 &sect;2.3 &sect;2.4 &middot; TREASURY-POLICY v1 &sect;3 (the band its &sect;3 threshold mirrors)
+ <br><b>form</b> &middot; on adoption: agreements row, code COUNTING-RULES, version 1, effective-dated; parameters travel in the agreement.adopted event payload; amendments are prospective only, a new version and a new adoption event
+</div>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;1</span><h2>The floor</h2></div>
+ <p>Nothing counts by assertion alone. A Contribution enters the record only as an event on a posting path this instrument admits, valued under the version of these rules in force at its occurrence, carrying the policy citation, the rate basis, and both deltas (Law IV, Law VII). These rules are <em>prospective</em>: they govern from their adoption forward, per Q3's own words, and no quantity is computed under them for any act before their effective date.</p>
+ <p>Two exclusions are named so no one wonders: the $100 membership share purchase is the Membership Interest of MA &sect;1.4, and the $100 annual dues are operating revenue under Bylaws Schedule A. Neither is a Contribution; neither enters patronage under any Primitive.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;2</span><h2>Admissible kinds</h2></div>
+ <p>The six Primitives of the Plan, a closed set. Each admits a Contribution only on the condition in its row; anything not on this table is inadmissible until an amendment names it.</p>
+ <table>
+ <tr><th>primitive</th><th>counts when</th><th>valued at</th></tr>
+ <tr><td class="mono">HOURS</td><td>a resolved work or practice Opportunity, affiliated to a Program whose policy activates HOURS; claimed by the contributor, confirmed by another hand (&sect;3)</td><td>the Labor Schedule tier in force (LABOR-SCHEDULE, &sect;6)</td></tr>
+ <tr><td class="mono">REVENUE</td><td>revenue actually received by the cooperative and attributable to a member's patronage; cites the reconciled bank record until the intake rail (T-02) carries the reference</td><td>the REVENUE percentage of &sect;4</td></tr>
+ <tr><td class="mono">CASH</td><td>contributed capital beyond the membership share, recorded with its movement reference</td><td>face value</td></tr>
+ <tr><td class="mono">OUTPUT</td><td>a unit a Program's POLICY-PATRONAGE defines, code and value adopted with that policy; no ad hoc outputs</td><td>the unit value in the Program policy in force</td></tr>
+ <tr><td class="mono">PRESENCE</td><td>attendance the record counted: a registration and a presence mark at a gathering that counts presence</td><td>the presence credit of &sect;4, capped there</td></tr>
+ <tr><td class="mono">PROPERTY</td><td>in-kind property the cooperative accepts, at documented fair market value under &sect;3</td><td>documented FMV</td></tr>
+ </table>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;3</span><h2>The confirming hand</h2></div>
+ <p>A value is declared by the contributor and confirmed by a distinct hand: the Program's Coordinator of record for program-scoped work, the treasurer otherwise. No one confirms the value of their own Contribution. The valued event carries <span class="mono">valuation_method</span> and <span class="mono">valuation_approver_agent_id</span>, the columns the substrate already holds for exactly this, so the confirmation is in the row, not beside it.</p>
+ <p>PROPERTY above the &sect;4 threshold takes a recorded board resolution before it posts, the same shape as TREASURY-POLICY's upper band. A valuation, once posted, changes only by an explicit correction event that names what it corrects; never by mutation.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;4</span><h2>The board's numbers</h2></div>
+ <p>The values only the board can set, drawn here as the drafter's cut so the board has something specific to amend or refuse:</p>
+ <table>
+ <tr><th>number</th><th>drafter's cut</th><th>the tradeoff it sits on</th></tr>
+ <tr><td class="mono">REVENUE percentage</td><td>10% of member-attributed revenue</td><td>raw dollars dwarf hours; a higher cut (15 to 20) rewards revenue-bringers strongly, a lower one (5) keeps patronage labor-centric</td></tr>
+ <tr><td class="mono">PRESENCE credit</td><td>$15.00 per counted occurrence</td><td>enough that showing up compounds; small enough that presence feeds the community weight rather than competing with labor</td></tr>
+ <tr><td class="mono">PRESENCE cap</td><td>26 occurrences per accounting year</td><td>a biweekly rhythm; the cap keeps PRESENCE a floor of belonging, not a path to volume</td></tr>
+ <tr><td class="mono">PROPERTY threshold</td><td>$2,500 before a board resolution is required</td><td>mirrors TREASURY-POLICY band 2, one discipline for one magnitude of money</td></tr>
+ </table>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;5</span><h2>The first accounting year</h2></div>
+ <p>The first accounting year runs from the adoption date of these rules through December 31, 2026; accounting years follow the calendar year thereafter. This is the prospective reading Q3 requires.</p>
+ <div class="box"><span class="bk">named open &middot; the formation period</span><p>Work between formation (February 6, 2026) and adoption is real and uncounted under these rules. Whether it is recognized some other way, a board-ratified retroactive entry, or an acknowledgment outside patronage entirely, is a question for the board with tax counsel, and this instrument deliberately does not decide it.</p></div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;6</span><h2>What stays out, and the Labor Schedule</h2></div>
+ <p>The allocation weights, 40 labor, 30 revenue, 20 cash, 10 community as proposed in the Plan, are not here. Weights belong to the Plan and to each Program's POLICY-PATRONAGE; these rules only make quantities valuable. A weight change never touches valuation history.</p>
+ <p>The Labor Schedule, the four labor tiers and their rates the board adopted June 24, 2026, enters the record as its own instrument under the code <span class="mono">LABOR-SCHEDULE</span>. The code <span class="mono">SCHEDULE-A</span> stands in the record with the Bylaws schedule of stock prices and membership dues, entered July 24, 2026; PATRONAGE &sect;7's table amends to the new code by the decision record this draft carries. The tier rates themselves are not yet in the estate and enter with that instrument, from the Plan, before the first HOURS Contribution posts.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;7</span><h2>The adoption payload</h2></div>
+ <p>On adoption, the agreement.adopted event carries the machine-readable parameters, so the posting verbs read the version in force and no rate ever appears in code (PATRONAGE &sect;7, Law IV):</p>
+ <pre><span class="c">-- proposed adoption payload &middot; COUNTING-RULES v1</span>
+{
+ "prospective_from": <span class="k">"&lt;adoption date&gt;"</span>,
+ "first_accounting_year_end": <span class="k">"2026-12-31"</span>,
+ "admissible": [<span class="k">"HOURS"</span>, <span class="k">"REVENUE"</span>, <span class="k">"CASH"</span>, <span class="k">"OUTPUT"</span>, <span class="k">"PRESENCE"</span>, <span class="k">"PROPERTY"</span>],
+ "hours":    { "requires": [<span class="k">"resolved_affiliated_opportunity"</span>, <span class="k">"distinct_confirmer"</span>], "rate_basis": <span class="k">"labor_schedule_tier"</span> },
+ "revenue":  { "percentage": <span class="k">10</span>, "requires": [<span class="k">"reconciled_receipt"</span>] },
+ "cash":     { "basis": <span class="k">"face"</span>, "excludes": [<span class="k">"member_share"</span>, <span class="k">"dues"</span>] },
+ "output":   { "unit_source": <span class="k">"program_policy"</span> },
+ "presence": { "credit_usd": <span class="k">15.00</span>, "cap_per_year": <span class="k">26</span>, "requires": [<span class="k">"registration"</span>, <span class="k">"presence_mark"</span>] },
+ "property": { "basis": <span class="k">"documented_fmv"</span>, "board_resolution_above_usd": <span class="k">2500</span> },
+ "confirmation": { "distinct_hand": <span class="k">true</span>, "fields": [<span class="k">"valuation_method"</span>, <span class="k">"valuation_approver_agent_id"</span>] }
+}</pre>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;8</span><h2>Decisions, staged</h2></div>
+ <div class="dec">
+ <div class="head"><div>decision</div><div>owner</div><div>status</div></div>
+ <div class="row"><div class="q">Adopt COUNTING-RULES v1: the agreements row entered, the adoption event recorded with the &sect;7 payload, Q3 resolves</div><div class="o">the board, with tax counsel</div><div class="s">staged</div></div>
+ <div class="row"><div class="q">The four numbers of &sect;4: the REVENUE percentage, the PRESENCE credit and cap, the PROPERTY threshold</div><div class="o">the board</div><div class="s">open</div></div>
+ <div class="row"><div class="q">Formation-period recognition, retroactive entry or acknowledgment outside patronage</div><div class="o">the board, with tax counsel</div><div class="s">open</div></div>
+ <div class="row"><div class="q">LABOR-SCHEDULE enters the record with the four tier rates adopted June 24; the rates arrive from the Plan</div><div class="o">Todd &middot; steward, from the Plan</div><div class="s">open</div></div>
+ <div class="row"><div class="q">The PATRONAGE &sect;7 recode, SCHEDULE-A to LABOR-SCHEDULE for the labor tiers, this draft's decision record</div><div class="o">adopted with this PR's merge</div><div class="s">staged</div></div>
+ </div>
+</section>
+
+<div class="foot">
+ <p class="tail">COUNTING-RULES v1 &middot; draft instrument &middot; staged to the board with tax counsel &middot; nothing herein adopted &middot; drafted with machine assistance &middot; Nou drafts; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-07-24</p>
+</div>
+
+</div>
+<script>
+ var btn=document.getElementById('modeBtn');
+ function label(){btn.textContent=document.documentElement.getAttribute('data-mode')}
+ label();
+ btn.addEventListener('click',function(){
+ var m=document.documentElement.getAttribute('data-mode')==='dark'?'light':'dark';
+ document.documentElement.setAttribute('data-mode',m);
+ try{localStorage.setItem('techne-mode',m)}catch(e){}
+ label();
+ });
+</script>
+</body>
+</html>
