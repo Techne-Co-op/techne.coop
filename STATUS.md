@@ -6,8 +6,8 @@ Generated from rdm-ledger.yaml. 56 items total.
 | status | count |
 |--------|-------|
 | drafted | 9 |
-| anticipated | 14 |
-| open | 33 |
+| anticipated | 11 |
+| open | 36 |
 | filed | 0 |
 
 ## Drafted
@@ -48,6 +48,9 @@ Generated from rdm-ledger.yaml. 56 items total.
 - **SUB-05** open · verified -- Restore test
 - **T-01** open · TREASURY-POLICY -- The Desk and the policy instrument
 - **T-05** open · redeemability -- The redemption path
+- **U-01** open · verified -- The shell
+- **U-02** open · verified -- The doors adopt the frame
+- **U-03** open · verified -- The constitution amended
 - **X-01** open · verified -- Error boundary and observability
 - **X-02** open · verified -- Notices v1
 - **X-03** open · verified -- Export paths
@@ -71,9 +74,6 @@ Generated from rdm-ledger.yaml. 56 items total.
 - **T-03** The reconciliation fold
 - **T-04** Disbursement execution
 - **T-06** The balance view
-- **U-01** The shell
-- **U-02** The doors adopt the frame
-- **U-03** The constitution amended
 
 ---
 
