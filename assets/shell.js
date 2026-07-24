@@ -34,39 +34,32 @@
   var ROLE_CACHE_MS = 5 * 60 * 1000;
 
   /* ---------- the manifest ----------
-     Each section declares its slice, tint (the sunset sweep),
-     grammar (document or instrument, UI v1 the two grammars),
-     and the reads it makes against the record. The taxonomy is
-     the deployed grouping, adopted over the five-slice draft
-     per the U-03 card. */
+     Each section declares its slice and its tint, a stop on the
+     sunset sweep. The taxonomy is the deployed grouping, adopted
+     over the five-slice draft per the U-03 card. Grammar and the
+     table reads were carried here and shown in the strip until
+     U-05: true of the build, and nothing a member came to read.
+     The section keeps its name and its colour. */
   var MAP = [
     { group: null, items: [
-      { href: '/intranet/', label: 'Overview', tint: 'gold',
-        grammar: 'instrument', reads: 'agents, events, agreements' }
+      { href: '/intranet/', label: 'Overview', tint: 'gold' }
     ]},
     { group: 'Belong', items: [
-      { href: '/commons/agreements/', label: 'Agreements', tint: 'amber',
-        grammar: 'document', reads: 'agreements, signatures' },
-      { href: '/commons/directory/', label: 'Directory', tint: 'amber',
-        grammar: 'document', reads: 'agents, memberships, profiles' }
+      { href: '/commons/agreements/', label: 'Agreements', tint: 'amber' },
+      { href: '/commons/directory/', label: 'Directory', tint: 'amber' }
     ]},
     { group: 'Gather', items: [
-      { href: '/commons/gatherings/', label: 'Gatherings', tint: 'coral',
-        grammar: 'document', reads: 'gatherings, registrations, presence' }
+      { href: '/commons/gatherings/', label: 'Gatherings', tint: 'coral' }
     ]},
     { group: 'Find one another', items: [
-      { href: '/commons/opportunities/', label: 'Opportunities', tint: 'rose',
-        grammar: 'document', reads: 'opportunities, responses' },
-      { href: '/intranet/programs/', label: 'Programs', tint: 'rose',
-        grammar: 'document', reads: 'programs roster, affiliations' }
+      { href: '/commons/opportunities/', label: 'Opportunities', tint: 'rose' },
+      { href: '/intranet/programs/', label: 'Programs', tint: 'rose' }
     ]},
     { group: 'Treasury', items: [
-      { href: '/intranet/treasury/', label: 'The Desk', tint: 'violet',
-        grammar: 'instrument', reads: 'treasury events, instruments' }
+      { href: '/intranet/treasury/', label: 'The Desk', tint: 'violet' }
     ]},
     { group: 'Steward', steward: true, items: [
-      { href: '/commons/directory/', label: 'Admissions', tint: 'ember',
-        grammar: 'instrument', reads: 'memberships, applications', noactive: true }
+      { href: '/commons/directory/', label: 'Admissions', tint: 'ember', noactive: true }
     ]},
     { group: 'The record', items: [
       { href: '/commons/', label: 'The Commonplace Book', tint: 'blue', outside: true },
@@ -384,8 +377,6 @@
         context.appendChild(el('span', 'cis-mark'));
         var slice = sliceOf(active);
         context.appendChild(el('span', 'cis-addr', (slice ? slice + ' · ' : '') + active.label));
-        context.appendChild(el('span', 'cis-meta', active.grammar + ' grammar'));
-        if (active.reads) context.appendChild(el('span', 'cis-meta', 'reads: ' + active.reads));
       }
 
       while (body.firstChild) main.appendChild(body.firstChild);
