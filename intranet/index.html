@@ -67,46 +67,11 @@ body {
   min-height: 100vh;
 }
 
-/* ---- top bar ---- */
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--s5);
-  height: 48px;
-  border-bottom: 1px solid var(--line);
-  background: var(--surface);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.topbar-brand {
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  color: var(--ember);
-  letter-spacing: 0.08em;
-  text-decoration: none;
-}
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: var(--s3);
-}
-.mode-btn {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  color: var(--muted);
-  background: none;
-  border: 1px solid var(--line);
-  padding: 3px 10px;
-  cursor: pointer;
-  letter-spacing: 0.04em;
-}
-.mode-btn:hover { color: var(--ember); border-color: var(--ember); }
+/* the topbar, the map, and the mode toggle are the shell's (U-01) */
 
 /* ---- auth gate ---- */
 .auth-gate {
-  flex: 1;
+  min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -191,47 +156,9 @@ body {
 .auth-status.err { color: var(--warn); }
 .auth-status.info { color: var(--muted); }
 
-/* ---- intranet shell (shown when authed) ---- */
-.intranet-shell { display: none; flex: 1; }
-.intranet-shell.visible { display: flex; }
-
-.intranet-nav {
-  width: 200px;
-  background: var(--surface);
-  border-right: 1px solid var(--line);
-  padding: var(--s5) 0;
-  flex-shrink: 0;
-}
-.intranet-nav .nav-section {
-  padding: var(--s2) var(--s4);
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  color: var(--faint);
-  text-transform: uppercase;
-  margin-top: var(--s4);
-}
-.intranet-nav a {
-  display: block;
-  padding: 7px var(--s4);
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  color: var(--muted);
-  text-decoration: none;
-  letter-spacing: 0.03em;
-  transition: color var(--micro) var(--ease), background var(--micro) var(--ease);
-}
-.intranet-nav a:hover, .intranet-nav a.active {
-  color: var(--ember);
-  background: var(--ember-dim);
-}
-.intranet-nav a.active { border-left: 2px solid var(--ember); padding-left: calc(var(--s4) - 2px); }
-
-.intranet-main {
-  flex: 1;
-  overflow-y: auto;
-  padding: var(--s6) var(--s7);
-}
+/* ---- intranet main (shown when authed) ---- */
+.intranet-main { display: none; padding: var(--s6) var(--s7); }
+.intranet-main.visible { display: block; }
 
 .page-label {
   font-family: var(--mono);
@@ -406,24 +333,13 @@ footer {
 
 @media (max-width: 640px) {
   .auth-card { padding: var(--s5); }
-  .intranet-shell { flex-direction: column; }
-  .intranet-nav { width: 100%; border-right: none; border-bottom: 1px solid var(--line); padding: var(--s3) 0; display: flex; flex-wrap: wrap; }
-  .intranet-nav .nav-section { display: none; }
-  .intranet-nav a { padding: var(--s2) var(--s3); font-size: 0.72rem; }
   .intranet-main { padding: var(--s4); }
 }
 </style>
 <script src="/assets/error-boundary.js"></script>
+<script src="/assets/shell.js" defer></script>
 </head>
 <body>
-
-<div class="topbar">
-  <a href="https://techne.coop" class="topbar-brand">Techne · intranet</a>
-  <div class="topbar-right">
-    <span id="topbar-status" style="font-family:var(--mono);font-size:0.68rem;color:var(--faint)"></span>
-    <button class="mode-btn" id="mode-btn">◐</button>
-  </div>
-</div>
 
 <!-- ====== AUTH GATE ====== -->
 <div class="auth-gate" id="auth-gate">
@@ -449,30 +365,8 @@ footer {
   </div>
 </div>
 
-<!-- ====== INTRANET SHELL (shown when authenticated) ====== -->
-<div class="intranet-shell" id="intranet-shell">
-  <nav class="intranet-nav">
-    <a href="/intranet/" class="active">Overview</a>
-    <div class="nav-section">Belong</div>
-    <a href="/commons/agreements/">Agreements</a>
-    <a href="/commons/directory/">Directory</a>
-    <div class="nav-section">Gather</div>
-    <a href="/commons/gatherings/">Gatherings</a>
-    <div class="nav-section">Find one another</div>
-    <a href="/commons/opportunities/">Opportunities</a>
-    <a href="/intranet/programs/">Programs</a>
-    <div class="nav-section">Treasury</div>
-    <a href="/intranet/treasury/">The Desk</a>
-    <div class="nav-section" id="steward-nav-label" style="display:none">Steward</div>
-    <a href="/commons/directory/" id="steward-nav-link" style="display:none">Admissions</a>
-    <div class="nav-section">The record</div>
-    <a href="/commons/">The Commonplace Book</a>
-    <a href="/commons/build/">Living roadmap</a>
-    <div class="nav-section" style="margin-top:var(--s6)"></div>
-    <a href="../" style="color:var(--faint)">← techne.coop</a>
-  </nav>
-
-  <main class="intranet-main">
+<!-- ====== INTRANET MAIN (shown when authenticated; the frame is the shell's) ====== -->
+<main class="intranet-main" id="intranet-shell">
 
     <div id="section-dashboard">
       <div class="page-label">Techne · RegenHub, LCA</div>
@@ -575,8 +469,7 @@ footer {
       </div>
     </div>
 
-  </main>
-</div>
+</main>
 
 <footer>
   <span>Techne intranet · RegenHub, LCA · Boulder, Colorado</span>
@@ -607,14 +500,12 @@ async function init() {
 function showGate() {
   document.getElementById('auth-gate').style.display = 'flex';
   document.getElementById('intranet-shell').classList.remove('visible');
-  document.getElementById('topbar-status').textContent = '';
 }
 
 async function showIntranet(user) {
   document.getElementById('auth-gate').style.display = 'none';
   document.getElementById('intranet-shell').classList.add('visible');
   document.getElementById('member-email').textContent = user.email || user.id.slice(0,8);
-  document.getElementById('topbar-status').textContent = user.email || '';
   await loadPortal(user);
 }
 
@@ -673,11 +564,9 @@ async function loadPortal(user) {
         }
       } catch (e) { /* the door still stands; the summary is a courtesy */ }
 
-      // the steward's desk
+      // the steward's desk (the shell shows its own steward group)
       if (roles.includes('steward') || roles.includes('director')) {
         document.getElementById('steward-section').style.display = '';
-        document.getElementById('steward-nav-label').style.display = '';
-        document.getElementById('steward-nav-link').style.display = '';
         const pending = await count('memberships?state=eq.applied&select=agent_id');
         document.getElementById('stat-pending').textContent = pending;
       }
@@ -724,20 +613,11 @@ async function signOut() {
   showGate();
 }
 
-function toggleMode() {
-  const html = document.documentElement;
-  const next = html.dataset.mode === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-mode', next);
-  try { localStorage.setItem('techne-mode', next); } catch(e) {}
-}
-
 document.addEventListener('DOMContentLoaded', function() {
   var loginBtn = document.getElementById('login-btn');
   if (loginBtn) loginBtn.addEventListener('click', sendMagicLink);
   var signoutBtn = document.getElementById('signout-btn');
   if (signoutBtn) signoutBtn.addEventListener('click', signOut);
-  var modeBtn = document.getElementById('mode-btn');
-  if (modeBtn) modeBtn.addEventListener('click', toggleMode);
   var resendLink = document.getElementById('resend-link');
   if (resendLink) resendLink.addEventListener('click', function() {
     document.getElementById('login-form').style.display = '';
