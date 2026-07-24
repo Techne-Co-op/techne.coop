@@ -87,6 +87,10 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 /* content */
 #content { display: none; }
 
+.group-head { margin: var(--s6) 0 var(--s3); }
+.group-head:first-child { margin-top: 0; }
+.group-title { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ember-text); }
+.group-note { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
 .agreement-card {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -261,7 +265,8 @@ footer a { color: var(--faint); }
     <h1>Agreements</h1>
     <div class="section-rule"></div>
     <p style="color:var(--muted);margin-bottom:var(--s6);font-size:0.95rem;">
-      Every agreement that governs your membership in RegenHub, LCA &mdash; with your standing under each marked.
+      Every document that binds your membership in RegenHub, LCA, with your standing under each marked.
+      Some you <strong>sign</strong> as a contract; others, like the Bylaws, bind you by your membership and you <strong>acknowledge</strong> that you have read them.
       Cites bylaws Art. XVI and &sect;1.2.9.
     </p>
     <div id="agreements-list"></div>
@@ -322,6 +327,39 @@ function wireMagicLink() {
   });
 }
 
+// How a member relates to each kind of instrument (B-07, Option A).
+// contract -> signed; governance/policy -> acknowledged; template -> off shelf.
+const ACTS = {
+  contract: {
+    rpc: 'sign_agreement', verb: 'sign', act: 'signature',
+    done: 'signed', undone: 'not yet signed',
+    btn: 'Sign this agreement', confirm: 'Confirm signature',
+    at: 'signed_at',
+    body: (name, ag) => `By confirming, <strong>${esc(name)}</strong>, you sign
+      <strong>${esc(ag.title)}</strong> (${esc(ag.version)}, effective ${fmtDate(ag.effective_date)})
+      and agree to be bound by its terms as a member of RegenHub, LCA.`
+  },
+  governance: {
+    rpc: 'acknowledge_agreement', verb: 'acknowledge', act: 'acknowledgement',
+    done: 'acknowledged', undone: 'not yet acknowledged',
+    btn: 'Acknowledge this document', confirm: 'Confirm acknowledgement',
+    at: 'acknowledged_at',
+    body: (name, ag) => `By confirming, <strong>${esc(name)}</strong>, you acknowledge that you have read
+      <strong>${esc(ag.title)}</strong> (${esc(ag.version)}, effective ${fmtDate(ag.effective_date)}),
+      which binds you by your membership in RegenHub, LCA (Art. XVI).`
+  }
+};
+ACTS.policy = Object.assign({}, ACTS.governance);
+
+const GROUPS = [
+  { key: 'sign',        kinds: ['contract'],               head: 'Agreements you sign',
+    note: 'Contracts you enter by signature.' },
+  { key: 'acknowledge', kinds: ['governance','policy'],    head: 'Documents that bind you',
+    note: 'These bind you by your membership; acknowledge that you have read them.' },
+  { key: 'coming',      kinds: [],                          head: 'Coming into effect',
+    note: 'Held in the record, not yet in force. Nothing to do here yet.' }
+];
+
 async function loadAgreements(user) {
   document.getElementById('content').style.display = 'block';
 
@@ -329,65 +367,101 @@ async function loadAgreements(user) {
   const token = session.access_token;
   const headers = { 'apikey': ANON_KEY, 'Authorization': 'Bearer ' + token };
 
-  // fetch agreements
   const agRes = await fetch(`${SUPABASE_URL}/rest/v1/agreements?select=*&order=effective_date.desc`, { headers });
   const agreements = await agRes.json();
 
-  // fetch this user's agent id
   const agentRes = await fetch(`${SUPABASE_URL}/rest/v1/agents?auth_user_id=eq.${user.id}&select=id,display_name`, { headers });
   const agentRows = await agentRes.json();
   const agentId = agentRows.length ? agentRows[0].id : null;
   const agentName = agentRows.length ? agentRows[0].display_name : 'Member';
 
-  // fetch signatures
-  let signatures = [];
+  // standing: signatures and acknowledgements, keyed by agreement
+  const standing = {};
   if (agentId) {
-    const sigRes = await fetch(`${SUPABASE_URL}/rest/v1/signatures?agent_id=eq.${agentId}&select=id,agreement_id,signed_at`, { headers });
-    signatures = await sigRes.json();
+    const [sigRes, ackRes] = await Promise.all([
+      fetch(`${SUPABASE_URL}/rest/v1/signatures?agent_id=eq.${agentId}&select=agreement_id,signed_at`, { headers }),
+      fetch(`${SUPABASE_URL}/rest/v1/acknowledgements?agent_id=eq.${agentId}&select=agreement_id,acknowledged_at`, { headers })
+    ]);
+    (await sigRes.json()).forEach(s => { standing[s.agreement_id] = { at: s.signed_at }; });
+    // acknowledgements may 404 until the migration applies; guard the parse
+    if (ackRes.ok) (await ackRes.json()).forEach(a => { standing[a.agreement_id] = { at: a.acknowledged_at }; });
   }
-  const sigMap = {};
-  signatures.forEach(s => { sigMap[s.agreement_id] = s; });
 
   const list = document.getElementById('agreements-list');
-  if (!agreements.length) {
+  list.innerHTML = '';
+  if (!Array.isArray(agreements) || !agreements.length) {
     list.innerHTML = '<p style="color:var(--muted)">No agreements on record.</p>';
     return;
   }
 
-  agreements.forEach(ag => {
-    const sig = sigMap[ag.id];
-    const card = document.createElement('div');
-    card.className = 'agreement-card';
-    card.dataset.agreementId = ag.id;
+  // templates never appear on the personal shelf; a row with no kind (pre-migration)
+  // is treated as a contract, the prior behavior.
+  const shelf = agreements.filter(ag => (ag.kind || 'contract') !== 'template');
+  const coming = shelf.filter(ag => !ag.effective_date || ag.settlement === 'anticipated');
+  const active = shelf.filter(ag => ag.effective_date && ag.settlement !== 'anticipated');
 
-    renderCard(card, ag, sig, agentId, agentName, token);
-    list.appendChild(card);
+  GROUPS.forEach(group => {
+    const rows = group.key === 'coming'
+      ? coming
+      : active.filter(ag => group.kinds.includes(ag.kind || 'contract'));
+    if (!rows.length) return;
+
+    const head = document.createElement('div');
+    head.className = 'group-head';
+    head.innerHTML = `<div class="group-title">${esc(group.head)}</div><div class="group-note">${esc(group.note)}</div>`;
+    list.appendChild(head);
+
+    rows.forEach(ag => {
+      const card = document.createElement('div');
+      card.className = 'agreement-card';
+      card.dataset.agreementId = ag.id;
+      renderCard(card, ag, standing[ag.id], agentId, agentName, group.key);
+      list.appendChild(card);
+    });
   });
 }
 
-function renderCard(card, ag, sig, agentId, agentName, token) {
-  const chip = sig
-    ? `<span class="sig-chip signed">signed ${fmtDate(sig.signed_at)}</span>`
-    : `<span class="sig-chip unsigned">not yet signed</span>`;
+function renderCard(card, ag, held, agentId, agentName, groupKey) {
+  const kind = ag.kind || 'contract';
+  const spec = ACTS[kind];
+
+  // coming into effect: read-only, no act
+  if (groupKey === 'coming') {
+    const readLink = ag.uri
+      ? `<a class="agreement-link" href="${esc(ag.uri)}" target="_blank" rel="noopener">Read the full text &rarr;</a>`
+      : '';
+    card.innerHTML = `
+      <div class="agreement-header">
+        <div>
+          <div class="agreement-title">${esc(ag.title)}</div>
+          <div class="agreement-meta">${esc(ag.code)} &middot; ${esc(ag.version)} &middot; anticipated</div>
+        </div>
+        <span class="sig-chip unsigned">coming into effect</span>
+      </div>
+      <div>${readLink}</div>`;
+    return;
+  }
+
+  const chip = held
+    ? `<span class="sig-chip signed">${spec.done} ${fmtDate(held.at)}</span>`
+    : `<span class="sig-chip unsigned">${spec.undone}</span>`;
 
   const readLink = ag.uri
     ? `<a class="agreement-link" href="${esc(ag.uri)}" target="_blank" rel="noopener">Read the full text &rarr;</a>`
     : '';
 
-  const signBtn = (!sig && agentId)
-    ? `<button class="sign-btn" data-ag-id="${esc(ag.id)}">Sign this agreement</button>`
+  const actBtn = (!held && agentId)
+    ? `<button class="sign-btn" data-ag-id="${esc(ag.id)}">${spec.btn}</button>`
     : '';
 
-  const signPanel = (!sig && agentId) ? `
+  const panel = (!held && agentId) ? `
     <div class="sign-panel" id="panel-${esc(ag.id)}">
       <p>
-        By confirming, <strong>${esc(agentName)}</strong>, you acknowledge that you have read
-        <strong>${esc(ag.title)}</strong> (${esc(ag.version)}, effective ${fmtDate(ag.effective_date)})
-        and agree to be bound by its terms as a member of RegenHub, LCA.
+        ${spec.body(agentName, ag)}
         This action will be recorded as an event in the cooperative&rsquo;s information system.
       </p>
       <div class="sign-actions">
-        <button class="sign-confirm-btn" data-ag-id="${esc(ag.id)}" data-ag-title="${esc(ag.title)}">Confirm signature</button>
+        <button class="sign-confirm-btn" data-ag-id="${esc(ag.id)}">${spec.confirm}</button>
         <button class="sign-cancel" data-ag-id="${esc(ag.id)}">Cancel</button>
       </div>
       <div class="notice" id="sign-notice-${esc(ag.id)}"></div>
@@ -402,33 +476,30 @@ function renderCard(card, ag, sig, agentId, agentName, token) {
       <span id="chip-${esc(ag.id)}">${chip}</span>
     </div>
     <div>
-      ${readLink}${signBtn}
+      ${readLink}${actBtn}
     </div>
-    ${signPanel}
+    ${panel}
   `;
 
-  // wire sign button
   const btn = card.querySelector('.sign-btn');
   if (btn) {
     btn.addEventListener('click', function () {
-      const panel = document.getElementById('panel-' + this.dataset.agId);
-      if (panel) panel.classList.add('open');
+      const p = document.getElementById('panel-' + this.dataset.agId);
+      if (p) p.classList.add('open');
       this.style.display = 'none';
     });
   }
 
-  // wire cancel
   const cancel = card.querySelector('.sign-cancel');
   if (cancel) {
     cancel.addEventListener('click', function () {
-      const panel = document.getElementById('panel-' + this.dataset.agId);
-      if (panel) panel.classList.remove('open');
-      const signBtn = card.querySelector('.sign-btn');
-      if (signBtn) signBtn.style.display = '';
+      const p = document.getElementById('panel-' + this.dataset.agId);
+      if (p) p.classList.remove('open');
+      const b = card.querySelector('.sign-btn');
+      if (b) b.style.display = '';
     });
   }
 
-  // wire confirm
   const confirm = card.querySelector('.sign-confirm-btn');
   if (confirm) {
     confirm.addEventListener('click', async function () {
@@ -440,29 +511,26 @@ function renderCard(card, ag, sig, agentId, agentName, token) {
       if (cancelBtn) cancelBtn.disabled = true;
 
       try {
-        // Single atomic RPC: inserts signature, event, and links event_id
-        // in one SECURITY DEFINER transaction (0003_sign_agreement.sql)
-        const { data, error } = await sb.rpc('sign_agreement', {
-          p_agreement_id: agId
-        });
+        // Atomic SECURITY DEFINER RPC: inserts the row, the event, and links
+        // them (0003_sign_agreement.sql / 0011_agreements_typing.sql).
+        const { data, error } = await sb.rpc(spec.rpc, { p_agreement_id: agId });
         if (error) throw new Error(error.message);
 
-        const signedAt = data.signed_at || new Date().toISOString();
-        const eventId  = data.event_id || '';
+        const at = data[spec.at] || new Date().toISOString();
+        const eventId = data.event_id || '';
 
-        // Update UI
         const chipEl = document.getElementById('chip-' + agId);
-        if (chipEl) chipEl.innerHTML = `<span class="sig-chip signed">signed ${fmtDate(signedAt)}</span>`;
-        const panel = document.getElementById('panel-' + agId);
-        if (panel) {
-          panel.innerHTML = `<p style="color:var(--ok);font-family:var(--mono);font-size:0.8rem;">
-            Signature recorded &middot; event ${eventId.slice(0,8)}&hellip;
+        if (chipEl) chipEl.innerHTML = `<span class="sig-chip signed">${spec.done} ${fmtDate(at)}</span>`;
+        const p = document.getElementById('panel-' + agId);
+        if (p) {
+          p.innerHTML = `<p style="color:var(--ok);font-family:var(--mono);font-size:0.8rem;">
+            ${spec.act.charAt(0).toUpperCase() + spec.act.slice(1)} recorded &middot; event ${eventId.slice(0,8)}&hellip;
           </p>`;
         }
 
       } catch (err) {
         this.disabled = false;
-        this.textContent = 'Confirm signature';
+        this.textContent = spec.confirm;
         if (cancelBtn) cancelBtn.disabled = false;
         showNotice(notice, 'err', Techne.report(err, 'Something went wrong. Please try again, or email a steward.'));
       }

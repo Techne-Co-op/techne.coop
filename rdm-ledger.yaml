@@ -4,7 +4,7 @@
 # Validator: scripts/validate.py — schema, acyclicity, gating.
 # Status marks: drafted | anticipated | open · (blocker)
 # No dates. Dependency is the schedule.
-# 51 items: 9 series and module documents + 42 work packets across 7 trains.
+# 53 items: 9 series and module documents + 44 work packets across 7 trains.
 
 series:
 
@@ -477,6 +477,41 @@ belong:
       until then the walkaway carries the record, not the presentation
       state. Applied to the live CIS by the steward's adoption of the
       B-06 pull request.
+
+  - address: B-07
+    title: The agreements shelf, complete and correctly typed
+    intent: >
+      The shelf names every binding document correctly and by kind. The
+      Membership Agreement is signed; the Bylaws bind by membership and are
+      acknowledged; policies join as they take effect.
+    status: open · in-session
+    cites: [IM, AM, PRD]
+    ready_when: >
+      B-03 verified. Raised by Todd Youngblood on the run-through 2026-07-24:
+      the shelf held only the Bylaws and offered a signature on them, so the
+      Bylaws read as the member agreement. Belong sign-off paused until the
+      shelf is corrected.
+    deliverable: >
+      0011_agreements_typing.sql (agreement_kind; the acknowledgements table,
+      RLS, and acknowledge_agreement RPC; sign_agreement guarded to contracts;
+      the canonical seed from techne.coop/legal with space held for Terms of
+      Service, Privacy Policy, and Code of Conduct) and the agreements surface
+      rendering each kind with its right act.
+    acceptance: >
+      The shelf shows the Membership Agreement as signed, the Bylaws as
+      acknowledged (a signature on them refused at the definer), every legal
+      document present under its kind, templates off the personal shelf, and
+      the anticipated policies shown as coming into effect. The run-through's
+      Belong beat reads true.
+    note: >
+      Decision Option A adopted by Todd Youngblood 2026-07-24: sign contracts,
+      acknowledge governance and policy, templates off-shelf; distinct events
+      signature.signed and agreement.acknowledged. Tier B (schema, membership
+      semantics): carries this decision record. PROVISIONAL seed values (the
+      Membership Agreement and Participation versions and effective dates) await
+      the steward's confirmation before merge; the legal pages carry an adoption
+      month, not a semantic version. Migration applied to the live CIS on the
+      steward's adoption of the pull request, then Belong re-walked.
 
 gather:
 
