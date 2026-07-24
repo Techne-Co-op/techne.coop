@@ -47,10 +47,11 @@ comment on table acknowledgements is
 
 alter table acknowledgements enable row level security;
 
--- section 1.2.9, section 2.8: acknowledging is the member's own act; the row
--- is its evidence, readable by the member, the Board, and the officers.
+-- §1.2.9, §2.8: acknowledging is the member's own act; the row is its
+-- evidence (§2.8), readable by the member (§1.2.9), the Board, and the officers.
 create policy acknowledgements_self on acknowledgements
   for select using (agent_id = app_agent_id() or app_has_role('director') or app_is_officer());
+-- §1.2.9: the member records their own acknowledgement, nobody else's.
 create policy acknowledgements_self_insert on acknowledgements
   for insert with check (agent_id = app_agent_id());
 
