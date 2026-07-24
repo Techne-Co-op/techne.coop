@@ -60,6 +60,11 @@ MIGRATIONS = [
     "commons/authority-map/0003_sign_agreement.sql",
     "commons/authority-map/0005_matrix_conformance.sql",
     "commons/authority-map/0008_admissions.sql",
+    # F-04 and F-05: the Program declarations. Applied here so the chain
+    # compiles under CI; before this they were exercised only in the live
+    # project, which is no place to discover a syntax error.
+    "commons/authority-map/0010_programs_view.sql",
+    "commons/authority-map/0012_designate_program.sql",
 ]
 FRONT_DOOR = "commons/authority-map/0007_apply_for_membership.sql"
 if (REPO_ROOT / FRONT_DOOR).exists():
@@ -289,6 +294,47 @@ def main():
     rc, lines, _ = psql("select count(*) from signatures where event_id is null")
     beat(12.1, "no signature stands without its recording event",
          rc == 0 and lines[-1] == "0", f"unlinked: {lines[-1] if lines else '?'}")
+
+    # -- beat 13 · the designation act (F-05) --------------------------
+    # Beat 11 of the run-through, moved off the SQL console and behind a
+    # guarded verb. The guard is the sentence: a Program is a governing
+    # act, not a member courtesy.
+    rc, lines, _ = as_persona(NEWCOMER,
+        "select designate_program('Member Attempt', 'should not stand')")
+    beat(13, "a member cannot designate a Program (3.1, 4.1)",
+         rc != 0, f"member refused, rc={rc}")
+    rc, lines, _ = psql("select count(*) from agents where display_name = 'Member Attempt'")
+    beat(13.1, "the refusal left no Program behind",
+         rc == 0 and lines[-1] == "0", f"rows: {lines[-1] if lines else '?'}")
+
+    rc, lines, _ = as_persona(STEWARD,
+        "select designate_program('Rehearsal Program', 'what this Program is for')")
+    beat(13.2, "the steward designates a Program (3.1, 4.1)",
+         rc == 0 and lines and len(lines[-1]) == 36, f"rc={rc}")
+    first = lines[-1] if rc == 0 and lines else None
+
+    rc, lines, _ = as_persona(STEWARD,
+        "select designate_program('rehearsal program', 'a twin by another casing')")
+    beat(13.3, "designating a standing Program returns it, never a twin",
+         rc == 0 and lines and lines[-1] == first, f"same id: {rc == 0 and bool(lines) and lines[-1] == first}")
+
+    rc, lines, _ = psql(
+        "select count(*) from events e join agents a on a.id = e.agent_id "
+        "where e.kind = 'program.designated' and a.kind = 'program'")
+    beat(13.4, "the designation is in the log, concerning the Program (Law I)",
+         rc == 0 and lines[-1] == "1", f"events: {lines[-1] if lines else '?'}")
+
+    rc, lines, _ = as_persona(STEWARD,
+        "select purpose from programs_roster() where display_name = 'Rehearsal Program'")
+    beat(13.5, "a Program in formation shows the purpose its designation carried",
+         rc == 0 and lines and lines[-1] == "what this Program is for",
+         f"purpose: {lines[-1] if lines else '?'}")
+
+    rc, lines, _ = as_persona(STEWARD,
+        "select standing from programs_roster() where display_name = 'Rehearsal Program'")
+    beat(13.6, "and stands in formation until its policy adopts (PATRONAGE 7)",
+         rc == 0 and lines and lines[-1] == "in formation",
+         f"standing: {lines[-1] if lines else '?'}")
 
     print(f"gate-rehearsal: {'FAILED on beats ' + str(failures) if failures else 'every sentence holds'}")
     sys.exit(1 if failures else 0)

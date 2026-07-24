@@ -667,6 +667,54 @@ find:
 
 share:
 
+  - address: F-05
+    title: The designation act
+    intent: >
+      A Program enters the record from the intranet rather than the SQL
+      console: designate_program(), a steward or director act that writes
+      the agent row and the program.designated event together, and the
+      panel on /intranet/programs/ that offers it. The roster shows a
+      Program in formation with the purpose its designation carried.
+    status: anticipated
+    cites: [PATRONAGE, AM, IM, PRD]
+    ready_when: F-04 verified. The schema-shape card below decided.
+    deliverable: >
+      0012_designate_program.sql (the verb and the re-declared roster read);
+      the steward panel on /intranet/programs/; gate-rehearsal beats 13
+      through 13.6.
+    acceptance: >
+      A steward designates a Program from the page and sees it on the
+      roster in formation with its purpose; a member attempting the same
+      is refused and leaves nothing behind; designating a standing Program
+      returns it rather than a twin.
+    note: >
+      Built in session 2026-07-24 at the steward's direction, replacing
+      run-through beat 11's hand-typed insert. The same emission closes a
+      verification gap it found: 0010 and 0012 now apply in the gate
+      rehearsal, so the Program declarations compile under CI instead of
+      being discovered in the live project.
+    escalation:
+      standing_in: F-05, the shape of a Program at designation.
+      found: >
+        The steward asked for a basic Program schema that can be extended
+        later. Two shapes are available. PATRONAGE section 4 already makes
+        a Program an agent, and section 7 already puts its substance,
+        purpose, Coordinator, active Primitives, weights, funding bounds,
+        in the payload of its POLICY-PATRONAGE adoption event, which 0010
+        reads at call time. A dedicated programs table would hold the same
+        fields a second time.
+      the_question: >
+        Does designation write to a new programs table, or to the agent
+        row and its designation event, leaving substance to the policy
+        adoption payload already read?
+      a_default: >
+        Proposed: the agent row and the event, no new table. Identity
+        lives in agents by Law I, and a second table would be a second
+        truth to keep in step. Designation therefore carries only name and
+        purpose, which is what a Program has before any policy governs it;
+        every later field arrives in the adoption payload with no schema
+        change, which is the extension the steward asked for.
+
   - address: S-01
     title: Contribution posting paths
     intent: The PATRONAGE §10 verbs land; a valued Contribution posts with both deltas per Law VII.
