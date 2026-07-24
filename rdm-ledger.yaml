@@ -767,6 +767,126 @@ treasury:
     deliverable: /intranet/treasury/ balance view; three read-only rail seams; the per-rail reported balance with source and read time; the delta column, active once T-03 attests.
     acceptance: Each rail's balance shows with its source and read time; the member-visible aggregate equals the sum of the reads; after T-03 the delta to the last attested window shows and links its gaps.
 
+  - address: U-01
+    title: The shell
+    intent: >
+      One persistent frame over every signed-in surface. assets/shell.js
+      injects the topbar, the complete grouped map of the intranet, the
+      member chip, the mode toggle, and a section context strip, all read
+      from a declared manifest that names each section's slice, tint,
+      grammar, and reads. Cross-document view transitions make navigation
+      change only the primary view while the frame holds. Fulfils and
+      supersedes the nav.js behaviour the design-system reference
+      specified but never received.
+    status: anticipated
+    cites: [UI, PRD, BP]
+    ready_when: The shared-script emission card below decided by the steward.
+    deliverable: >
+      assets/shell.js, dependency free; adoption on /intranet/,
+      /intranet/programs/, and /intranet/treasury/; the section manifest.
+    acceptance: >
+      The three intranet pages present one identical frame; the active
+      section marks from the address; the member chip reads the session
+      without a second auth client; style-lint and the token audit green.
+    note: >
+      Build staged 2026-07-24 on branch U-01. The packet opens when the
+      steward decides the emission card and merges; held at anticipated
+      per the X-09 convention for work staged ahead of its decision.
+    escalation:
+      standing_in: U-01, the shared-script emission question.
+      found: >
+        The SUB-02 consumption card sanctioned inline CSS per page and
+        stayed silent on scripts. The design-system reference promises a
+        shared, self-injecting /intranet/nav.js that was never built;
+        instead seven signed-in pages each hand-roll a topbar, a mode
+        toggle, and a magic-link gate, and no two topbars list the same
+        siblings. Only /intranet/ carries the complete map.
+      the_question: >
+        Does one shared script count as a sanctioned emission on site
+        pages, or does the self-contained-page rule extend to scripts?
+      a_default: >
+        Sanctioned. One dependency-free file, no build step, no
+        framework; the page remains a readable document that works
+        without it. The precedent is assets/error-boundary.js, already
+        shared across the four interactive surfaces under X-01. CSS
+        stays inline per SUB-02; the shell carries only its own frame
+        styles inside itself.
+
+  - address: U-02
+    title: The doors adopt the frame
+    intent: >
+      The four commons doors, agreements, directory, gatherings, and
+      opportunities, shed their hand-rolled topbars and stand inside the
+      shell, so the whole signed-in surface reads as one instrument. The
+      Overview page re-bases on the canonical token set and chip
+      vocabulary while its bespoke copies retire.
+    status: anticipated
+    cites: [UI, PRD]
+    ready_when: U-01 verified.
+    deliverable: >
+      Shell adoption on the four door pages; the Overview re-based on the
+      design-system chip vocabulary with its unused slice-chip classes
+      removed.
+    acceptance: >
+      All seven signed-in pages present one identical frame with correct
+      active marks; no page carries a private topbar; the token audit
+      stays green.
+    note: >
+      Build staged 2026-07-24 on branch U-02, stacked on U-01.
+    escalation:
+      standing_in: U-02, the address question.
+      found: >
+        Four of the seven signed-in surfaces live under /commons/ beside
+        the public record, an address inherited from their packets rather
+        than chosen for the system. All four gate on sign-in already.
+      the_question: >
+        Do the doors keep their /commons/ addresses with the frame
+        unified over them, or move under /intranet/ with redirects?
+      a_default: >
+        Keep the addresses. Links in the wild, the ledger, and the gate
+        book all cite them; the shell makes the address irrelevant to the
+        reader, which is cheaper than making it correct. Revisit only if
+        the commons book grows public surfaces that collide.
+      decision: >
+        Default adopted by Todd Youngblood 2026-07-24 in conversation:
+        keep addresses, unify the frame.
+
+  - address: U-03
+    title: The constitution amended
+    intent: >
+      The design-system reference and UI v1 brought to match the deployed
+      shell: the CIS navigation section rewritten around shell.js and the
+      deployed taxonomy, the never-built nav.js specification superseded
+      by record, and the dead assets/tokens.css retired.
+    status: anticipated
+    cites: [UI, BP]
+    ready_when: U-02 verified.
+    deliverable: >
+      Amended design-system navigation section; an amendment record in UI
+      v1 naming the shared-script emission; assets/tokens.css removed.
+    acceptance: >
+      The design-system describes what deploys; no page references
+      tokens.css; style-lint green.
+    note: >
+      Build staged 2026-07-24 on branch U-03, stacked on U-02.
+    escalation:
+      standing_in: U-03, the taxonomy question.
+      found: >
+        The design-system navigation section names five slices, Belong,
+        Gather, Find, Account, Agreements. The deployed map groups
+        Belong, Gather, Find one another, Treasury, Steward, and The
+        record, with Agreements filed under Belong. One must govern.
+      the_question: >
+        Does the deployed grouping become the constitution, or do the
+        pages conform to the documented five slices?
+      a_default: >
+        The deployed grouping governs, matching the X-06 typeface
+        precedent of adopting deployed practice. Account remains a
+        planned card until the counting rules open it.
+      decision: >
+        Default adopted by Todd Youngblood 2026-07-24 in conversation:
+        the deployed taxonomy wins; the design-system amends.
+
 cross_cutting:
 
   - address: X-01
