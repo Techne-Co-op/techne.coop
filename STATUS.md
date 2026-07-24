@@ -51,7 +51,7 @@ Generated from rdm-ledger.yaml. 57 items total.
 - **U-01** open · verified -- The shell
 - **U-02** open · verified -- The doors adopt the frame
 - **U-03** open · verified -- The constitution amended
-- **U-04** open · in-session -- The gate
+- **U-04** open · live sign-in -- The gate
 - **X-01** open · verified -- Error boundary and observability
 - **X-02** open · verified -- Notices v1
 - **X-03** open · verified -- Export paths
