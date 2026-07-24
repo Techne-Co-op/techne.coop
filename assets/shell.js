@@ -116,15 +116,24 @@
     '.cis-gate-status.err{color:var(--warn);}',
     '.cis-gate-status.ok{color:var(--ok);}',
     '.cis-gate-again{background:none;border:none;color:var(--muted);font-family:var(--mono);font-size:.74rem;cursor:pointer;text-decoration:underline;padding:0;margin-top:14px;}',
+    '.cis-menu{display:none;font-family:var(--mono);font-size:.7rem;color:var(--muted);background:none;border:1px solid var(--line);padding:3px 10px;cursor:pointer;letter-spacing:.04em;}',
+    '.cis-menu:hover{color:var(--ember);border-color:var(--ember);}',
+    '.cis-menu[aria-expanded="true"]{color:var(--ember);border-color:var(--ember);}',
     '@media (max-width:760px){',
+    '.cis-menu{display:inline-block;}',
     '.cis-body{flex-direction:column;}',
-    '.cis-side{position:static;width:100%;height:auto;border-right:none;border-bottom:1px solid var(--line);padding:8px 0;display:flex;flex-wrap:wrap;align-items:center;}',
-    '.cis-side .cis-group{margin-top:0;padding:4px 10px;}',
-    '.cis-side a{padding:6px 10px;font-size:.72rem;border-left:none;}',
-    '.cis-side a.active{background:none;}',
-    '.cis-side .cis-home{margin-top:0;}',
+    /* the map is a drawer on a narrow screen: closed by default, so the
+       page a member came for is the first thing under the topbar */
+    '.cis-side{position:static;width:100%;height:auto;max-height:0;overflow:hidden;border-right:none;border-bottom:none;padding:0;display:block;transition:max-height var(--dur,.4s) var(--ease,ease);}',
+    '.cis-side.cis-open{max-height:80vh;overflow-y:auto;border-bottom:1px solid var(--line);padding:8px 0 14px;}',
+    '.cis-side .cis-group{margin-top:10px;padding:6px 20px 2px;}',
+    /* full-width rows with a touch-sized target, not inline chips */
+    '.cis-side a{padding:11px 20px;font-size:.82rem;border-left:3px solid transparent;}',
+    '.cis-side a.active{border-left-color:var(--ember);}',
+    '.cis-side .cis-home{margin-top:14px;}',
     '.cis-context{padding:8px 16px;}',
     '.cis-gate-card{padding:32px 24px;}',
+    '@media (prefers-reduced-motion:reduce){.cis-side{transition:none;}}',
     '}'
   ].join('\n');
 
@@ -333,6 +342,16 @@
     var brand = el('a', 'cis-brand', 'Techne · intranet');
     brand.href = '/intranet/';
     var right = el('div', 'cis-topbar-right');
+    var menuBtn = null;
+    if (signedIn) {
+      menuBtn = el('button', 'cis-menu', 'Menu');
+      menuBtn.type = 'button';
+      menuBtn.id = 'cis-menu-btn';
+      menuBtn.setAttribute('aria-expanded', 'false');
+      menuBtn.setAttribute('aria-controls', 'cis-map');
+      menuBtn.setAttribute('aria-label', 'show the intranet map');
+      right.appendChild(menuBtn);
+    }
     var chip = el('span', 'cis-chip');
     chip.id = 'cis-member-chip';
     chip.textContent = sess && sess.user.email ? sess.user.email
@@ -351,6 +370,7 @@
     if (signedIn) {
       /* the members' frame: map, context strip, the page */
       var side = el('nav', 'cis-side');
+      side.id = 'cis-map';
       side.setAttribute('aria-label', 'intranet');
       var here = normalize(location.pathname);
       MAP.forEach(function (grp) {
@@ -383,6 +403,29 @@
       if (context) main.insertBefore(context, main.firstChild);
       frame.appendChild(side);
       frame.appendChild(main);
+
+      /* the drawer. Wide screens ignore all of this: the map is simply
+         there, and the button is display:none. */
+      if (menuBtn) {
+        var setOpen = function (open) {
+          side.classList.toggle('cis-open', open);
+          menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          menuBtn.textContent = open ? 'Close' : 'Menu';
+        };
+        menuBtn.addEventListener('click', function () {
+          setOpen(!side.classList.contains('cis-open'));
+        });
+        /* following a link should not leave the drawer standing open
+           over the page it just went to */
+        side.addEventListener('click', function (e) {
+          if (e.target && e.target.tagName === 'A') setOpen(false);
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && side.classList.contains('cis-open')) {
+            setOpen(false); menuBtn.focus();
+          }
+        });
+      }
     } else {
       /* signed out: the topbar and the gate; the map is for members */
       var parked = el('div', 'cis-parked');

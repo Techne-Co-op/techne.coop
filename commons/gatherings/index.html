@@ -227,6 +227,28 @@ footer {
 footer a { color: var(--faint); }
 
 /* ── Responsive / mobile ─────────────────────────────────────────────────── */
+/* the scheduling act (G-04) */
+.field-row { margin-bottom: var(--s3); }
+.field-row label {
+  display: block; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint); margin-bottom: 4px;
+}
+.field-row label .opt { text-transform: none; letter-spacing: 0; color: var(--faint); opacity: 0.75; }
+.field-row input, .field-row textarea {
+  width: 100%; background: var(--inset); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--heading); font-family: var(--serif); font-size: 16px;
+  padding: 9px var(--s3); outline: none; resize: vertical;
+}
+.field-row input:focus, .field-row textarea:focus { border-color: var(--ember); }
+.field-row input::placeholder, .field-row textarea::placeholder { color: var(--faint); }
+.field-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
+.schedule-actions { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; margin-top: var(--s2); }
+.gathering-where {
+  font-family: var(--mono); font-size: 0.72rem; color: var(--muted); margin-top: 4px;
+}
+.gathering-desc { font-size: 0.9rem; color: var(--text); margin-top: var(--s2); }
+@media (max-width: 560px) { .field-pair { grid-template-columns: 1fr; } }
+
 @media (max-width: 640px) {
   /* Topbar: hide nav links, keep brand + mode toggle */
 
@@ -296,7 +318,44 @@ footer a { color: var(--faint); }
   <div id="content">
     <h1>Gatherings</h1>
     <div class="section-rule"></div>
-    <p class="lead">What is happening and who hosts it. Register or cancel your spot directly.</p>
+    <p class="lead">What is happening and who hosts it. Register or cancel your spot directly, or hold one of your own.</p>
+
+    <div id="schedule-panel" style="display:none">
+      <div class="section-head">Hold a gathering</div>
+      <p class="lead" style="margin-bottom:var(--s4)">Any member may hold one; you are its host, and the record says so. Only the title and the start are required.</p>
+      <div class="gathering-card">
+        <div class="gathering-body">
+          <div class="field-row">
+            <label for="g-title">Title</label>
+            <input type="text" id="g-title" maxlength="200" placeholder="What is it called?" autocomplete="off">
+          </div>
+          <div class="field-row">
+            <label for="g-desc">What it is</label>
+            <textarea id="g-desc" rows="2" maxlength="1000" placeholder="Enough for a member to know whether to come."></textarea>
+          </div>
+          <div class="field-row">
+            <label for="g-loc">Where</label>
+            <input type="text" id="g-loc" maxlength="300" placeholder="A room at 1515 Walnut, an address, or a link." autocomplete="off">
+          </div>
+          <div class="field-pair">
+            <div class="field-row">
+              <label for="g-start">Starts</label>
+              <input type="datetime-local" id="g-start">
+            </div>
+            <div class="field-row">
+              <label for="g-end">Ends <span class="opt">optional</span></label>
+              <input type="datetime-local" id="g-end">
+            </div>
+          </div>
+          <div class="schedule-actions">
+            <button class="btn btn-primary" id="schedule-btn">Hold it</button>
+            <span class="status-msg" id="schedule-status"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-head">The calendar</div>
     <div id="gatherings-list"></div>
   </div>
 </main>
@@ -494,6 +553,74 @@ async function saveAttendance(sessionId) {
 
 // ── Render ────────────────────────────────────────────────────────────────────
 
+
+// G-04: what the gathering says about itself
+function gatheringDetailHtml(g) {
+  var out = '';
+  if (g.description) out += '<div class="gathering-desc">' + escHtml(g.description) + '</div>';
+  if (g.location) out += '<div class="gathering-where">where: ' + escHtml(g.location) + '</div>';
+  return out;
+}
+
+async function scheduleGathering() {
+  const btn = document.getElementById('schedule-btn');
+  const status = document.getElementById('schedule-status');
+  const title = document.getElementById('g-title').value.trim();
+  const desc = document.getElementById('g-desc').value.trim();
+  const loc = document.getElementById('g-loc').value.trim();
+  const startRaw = document.getElementById('g-start').value;
+  const endRaw = document.getElementById('g-end').value;
+
+  status.className = 'status-msg';
+  if (!title) { status.className = 'status-msg err'; status.textContent = 'A gathering needs a title.'; return; }
+  if (!startRaw) { status.className = 'status-msg err'; status.textContent = 'A gathering needs a start.'; return; }
+  const startsAt = new Date(startRaw);
+  const endsAt = endRaw ? new Date(endRaw) : null;
+  if (endsAt && endsAt <= startsAt) {
+    status.className = 'status-msg err'; status.textContent = 'It cannot end before it starts.'; return;
+  }
+
+  btn.disabled = true;
+  status.textContent = 'Recording\u2026';
+
+  // the gathering, then its first session, then the act as an event (Law I)
+  const { data: g, error: gErr } = await sb.from('gatherings')
+    .insert({ title: title, host_agent_id: currentAgentId,
+              description: desc || null, location: loc || null })
+    .select().single();
+  if (gErr) {
+    status.className = 'status-msg err';
+    status.textContent = Techne.report(gErr, 'The record refused the act. Reload and try again.');
+    btn.disabled = false; return;
+  }
+
+  const { error: sErr } = await sb.from('sessions').insert({
+    gathering_id: g.id, starts_at: startsAt.toISOString(),
+    ends_at: endsAt ? endsAt.toISOString() : null
+  });
+  if (sErr) {
+    status.className = 'status-msg err';
+    status.textContent = Techne.report(sErr, 'The gathering stands but its time did not record. Tell a steward.');
+    btn.disabled = false; return;
+  }
+
+  await sb.from('events').insert({
+    occurred_at: new Date().toISOString(), actor_agent_id: currentAgentId,
+    kind: 'gathering.scheduled', agent_id: currentAgentId,
+    payload: { gathering_id: g.id, title: title, starts_at: startsAt.toISOString(),
+               location: loc || null }
+  });
+
+  document.getElementById('g-title').value = '';
+  document.getElementById('g-desc').value = '';
+  document.getElementById('g-loc').value = '';
+  document.getElementById('g-start').value = '';
+  document.getElementById('g-end').value = '';
+  status.textContent = 'It stands \u00b7 you are its host';
+  btn.disabled = false;
+  await loadAll(await sb.auth.getSession().then(r => r.data.session));
+}
+
 function renderGatherings(gatherings) {
   const container = document.getElementById('gatherings-list');
   if (!gatherings || gatherings.length === 0) {
@@ -576,6 +703,7 @@ function renderGatherings(gatherings) {
         </div>
         ${statusChip}
       </div>
+      ${gatheringDetailHtml(g)}
       ${sessionsHtml}`;
 
     container.appendChild(card);
@@ -596,6 +724,15 @@ function renderGatherings(gatherings) {
 }
 
 // ── Data loading ──────────────────────────────────────────────────────────────
+
+function showSchedulePanel() {
+  if (!currentAgentId) return;
+  const panel = document.getElementById('schedule-panel');
+  if (!panel) return;
+  panel.style.display = 'block';
+  const btn = document.getElementById('schedule-btn');
+  if (btn && !btn.dataset.wired) { btn.dataset.wired = '1'; btn.addEventListener('click', scheduleGathering); }
+}
 
 async function loadAll(session) {
   document.getElementById('content').style.display = 'block';
@@ -644,6 +781,7 @@ async function loadAll(session) {
   }
 
   renderGatherings(gatherings);
+  showSchedulePanel();
 }
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
