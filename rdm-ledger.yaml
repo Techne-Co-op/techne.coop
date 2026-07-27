@@ -1237,6 +1237,31 @@ cross_cutting:
       dashboard's authored prose stays authored; only the headline
       counts are generated, and the page says so on its face.
 
+  - address: X-11
+    title: The export follows the substrate
+    intent: >
+      An export projection defined as select star freezes its columns when
+      it is created, so a column added to a base table afterwards never
+      reaches the walkaway. The one drifted view is re-expanded and the
+      class is closed: the gate rehearsal now applies the export views and
+      asserts each carries its base table's columns exactly.
+    status: open · in-session
+    cites: [VS, IM]
+    ready_when: X-03 verified.
+    deliverable: >
+      0014_export_views_refresh.sql; commons/im/0004_export_views.sql added
+      to the rehearsal chain; beat 14.
+    acceptance: >
+      Adding a column to a base table without refreshing its export view
+      fails CI; the walkaway carries every column the record holds.
+    note: >
+      Found 2026-07-27 while verifying G-04's migration against the live
+      database: public.gatherings had the two new columns and
+      export.gatherings still had the old five. An export and restore would
+      have returned every gathering without its purpose or its place,
+      silently, because nothing compared the two. The walkaway rehearsal of
+      X-09 proved the machinery, not the projection's completeness.
+
   - address: X-02
     title: Notices v1
     intent: Transactional notices for admission, signature, and registration events.

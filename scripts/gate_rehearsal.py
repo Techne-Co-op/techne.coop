@@ -65,6 +65,10 @@ MIGRATIONS = [
     # project, which is no place to discover a syntax error.
     "commons/authority-map/0010_programs_view.sql",
     "commons/authority-map/0012_designate_program.sql",
+    # X-03 and X-11: the export projections, and the refresh that re-expands
+    # them. Applied here so beat 14 can compare each view to its base table.
+    "commons/im/0004_export_views.sql",
+    "commons/im/0014_export_views_refresh.sql",
 ]
 FRONT_DOOR = "commons/authority-map/0007_apply_for_membership.sql"
 if (REPO_ROOT / FRONT_DOOR).exists():
@@ -335,6 +339,27 @@ def main():
     beat(13.6, "and stands in formation until its policy adopts (PATRONAGE 7)",
          rc == 0 and lines and lines[-1] == "in formation",
          f"standing: {lines[-1] if lines else '?'}")
+
+    # -- beat 14 · the export carries the whole row (X-11) ------------
+    # A `select *` view freezes its columns at creation. When a base table
+    # grows and its projection does not, the walkaway silently returns a
+    # narrower record. Compare them rather than trust them.
+    rc, lines, _ = psql("""
+        select string_agg(t.rel || ':' || t.col, ', ' order by t.rel, t.col)
+        from (
+          select c.table_name as rel, c.column_name as col
+          from information_schema.columns c
+          where c.table_schema = 'public'
+            and exists (select 1 from information_schema.views v
+                        where v.table_schema = 'export' and v.table_name = c.table_name)
+          except
+          select e.table_name, e.column_name
+          from information_schema.columns e
+          where e.table_schema = 'export'
+        ) t""")
+    missing = lines[-1] if rc == 0 and lines else ''
+    beat(14, "every export projection carries its base table's columns (VS 8)",
+         rc == 0 and not missing.strip(), f"missing from export: {missing or 'none'}")
 
     print(f"gate-rehearsal: {'FAILED on beats ' + str(failures) if failures else 'every sentence holds'}")
     sys.exit(1 if failures else 0)
