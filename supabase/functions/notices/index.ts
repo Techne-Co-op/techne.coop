@@ -66,9 +66,82 @@ async function sendTelegram(text: string) {
   }
 }
 
+// X-12 · the member's rail, away-channel half. The in-app rail (0015 +
+// the shell bell) is the authoritative delivery: it reads the log
+// directly and works today. This routes the same events to the member's
+// email so news reaches them when they are away, and it activates only
+// when the email sink is configured (the X-02 amendment pattern); until
+// the sending domain verifies, every branch below returns quietly and
+// the in-app rail carries the whole load.
+const MEMBER_KINDS: Record<string, (p: Record<string, unknown>) => [string, string]> = {
+  "opportunity.responded": (p) => [
+    `${p.responder ?? "A member"} responded to "${p.title ?? "your opportunity"}"`,
+    "Read and reply on the opportunity board: https://techne.coop/commons/opportunities/",
+  ],
+  "registration.registered": (p) => [
+    `${p.registrant ?? "A member"} registered for "${p.title ?? "your gathering"}"`,
+    "The calendar holds the current count: https://techne.coop/commons/gatherings/",
+  ],
+  "registration.cancelled": (p) => [
+    `${p.registrant ?? "A member"} cancelled their registration for "${p.title ?? "your gathering"}"`,
+    "The calendar holds the current count: https://techne.coop/commons/gatherings/",
+  ],
+  "membership.admitted": () => [
+    "You were admitted to membership in RegenHub, LCA",
+    "Sign in and sign the membership agreement: https://techne.coop/commons/agreements/",
+  ],
+};
+
+// The concerned member's address: the bound auth user first; failing
+// that (admission precedes the first sign-in that binds), the address
+// their membership.applied event carries.
+async function memberEmail(sb: ReturnType<typeof createClient>, agentId: string): Promise<string | null> {
+  const { data: agent } = await sb.from("agents")
+    .select("auth_user_id").eq("id", agentId).single();
+  if (agent?.auth_user_id) {
+    const { data } = await sb.auth.admin.getUserById(agent.auth_user_id);
+    if (data?.user?.email) return data.user.email;
+  }
+  const { data: applied } = await sb.from("events")
+    .select("payload").eq("kind", "membership.applied")
+    .eq("agent_id", agentId).order("occurred_at", { ascending: false }).limit(1);
+  const addr = applied?.[0]?.payload?.email;
+  return typeof addr === "string" && addr.includes("@") ? addr : null;
+}
+
 Deno.serve(async (req) => {
   try {
     const { event } = await req.json();
+
+    if (event && event.kind in MEMBER_KINDS) {
+      if (!emailConfigured) {
+        return new Response(
+          JSON.stringify({ ok: true, sink: "in-app only; email sink not configured" }),
+          { headers: { "Content-Type": "application/json" } },
+        );
+      }
+      const sb = createClient(SUPABASE_URL, SERVICE_KEY);
+      const to = event.agent_id ? await memberEmail(sb, event.agent_id) : null;
+      if (!to) {
+        return new Response(
+          JSON.stringify({ ok: true, sink: "no address on record; in-app rail carries it" }),
+          { headers: { "Content-Type": "application/json" } },
+        );
+      }
+      const [subject, hint] = MEMBER_KINDS[event.kind](event.payload ?? {});
+      await send(to, subject, [
+        subject + ".",
+        "",
+        hint,
+        "",
+        "RegenHub, LCA · Boulder, Colorado",
+        "techne.coop",
+      ].join("\n"));
+      return new Response(JSON.stringify({ ok: true, sent: { member: to } }), {
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
     if (!event || event.kind !== "membership.applied") {
       return new Response(JSON.stringify({ ok: true, skipped: true }), {
         headers: { "Content-Type": "application/json" },

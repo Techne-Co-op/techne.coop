@@ -119,6 +119,19 @@
     '.cis-menu{display:none;font-family:var(--mono);font-size:.7rem;color:var(--muted);background:none;border:1px solid var(--line);padding:3px 10px;cursor:pointer;letter-spacing:.04em;}',
     '.cis-menu:hover{color:var(--ember);border-color:var(--ember);}',
     '.cis-menu[aria-expanded="true"]{color:var(--ember);border-color:var(--ember);}',
+    '.cis-bell{display:none;font-family:var(--mono);font-size:.7rem;color:var(--muted);background:none;border:1px solid var(--line);padding:3px 10px;cursor:pointer;letter-spacing:.04em;white-space:nowrap;}',
+    '.cis-bell:hover,.cis-bell[aria-expanded="true"]{color:var(--ember);border-color:var(--ember);}',
+    '.cis-bell.cis-has{color:var(--ember-text);border-color:var(--ember);background:color-mix(in srgb, var(--ember) 14%, transparent);}',
+    '.cis-notices{display:none;position:fixed;top:52px;right:12px;width:min(360px, calc(100vw - 24px));max-height:70vh;overflow-y:auto;background:var(--surface);border:1px solid var(--line);z-index:50;}',
+    '.cis-notices.cis-open{display:block;}',
+    '.cis-notices-head{padding:10px 14px;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--faint);text-transform:uppercase;border-bottom:1px solid var(--line);}',
+    '.cis-notice{display:block;padding:10px 14px;border-bottom:1px solid var(--line);text-decoration:none;border-left:2px solid transparent;}',
+    '.cis-notice:last-child{border-bottom:none;}',
+    '.cis-notice:hover{border-left-color:var(--ember);background:color-mix(in srgb, var(--ember) 6%, transparent);}',
+    '.cis-notice.cis-new{border-left-color:var(--ember);}',
+    '.cis-notice-line{font-family:var(--serif);font-size:.86rem;color:var(--heading);line-height:1.45;}',
+    '.cis-notice-when{font-family:var(--mono);font-size:.62rem;color:var(--faint);letter-spacing:.06em;margin-top:3px;}',
+    '.cis-notices-empty{padding:18px 14px;font-family:var(--serif);font-size:.86rem;color:var(--muted);}',
     '@media (max-width:760px){',
     '.cis-menu{display:inline-block;}',
     '.cis-body{flex-direction:column;}',
@@ -252,6 +265,110 @@
     try { localStorage.setItem('techne-mode', next); } catch (e) {}
   }
 
+  /* ---------- notices (X-12) ----------
+     The member's rail: events addressed to this member by someone
+     else's act, read through events_read exactly as 0002 scopes it.
+     The rail is the log itself; this panel only renders it. Unseen
+     is a device-local cutoff, honestly per-device, never state the
+     record has to carry. */
+  var NOTICE_KINDS = ['opportunity.responded', 'registration.registered',
+                      'registration.cancelled', 'membership.admitted'];
+  var SEEN_KEY = 'cis-notices-seen';
+
+  function noticeText(ev) {
+    var p = ev.payload || {};
+    if (ev.kind === 'opportunity.responded')
+      return (p.responder || 'A member') + ' responded to “' + (p.title || 'your opportunity') + '”';
+    if (ev.kind === 'registration.registered')
+      return (p.registrant || 'A member') + ' registered for “' + (p.title || 'your gathering') + '”';
+    if (ev.kind === 'registration.cancelled')
+      return (p.registrant || 'A member') + ' cancelled their registration for “' + (p.title || 'your gathering') + '”';
+    if (ev.kind === 'membership.admitted')
+      return 'You were admitted to membership';
+    return ev.kind;
+  }
+
+  function noticeHref(ev) {
+    if (ev.kind === 'opportunity.responded') return '/commons/opportunities/';
+    if (ev.kind === 'membership.admitted') return '/commons/agreements/';
+    return '/commons/gatherings/';
+  }
+
+  function noticeWhen(iso) {
+    var then = new Date(iso).getTime();
+    var mins = Math.floor((Date.now() - then) / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + 'm ago';
+    var hours = Math.floor(mins / 60);
+    if (hours < 48) return hours + 'h ago';
+    return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  function initNotices(bell, agentId, token) {
+    var url = SUPABASE_URL + '/rest/v1/events'
+      + '?agent_id=eq.' + agentId
+      + '&actor_agent_id=neq.' + agentId
+      + '&kind=in.(' + NOTICE_KINDS.map(function (k) { return '"' + k + '"'; }).join(',') + ')'
+      + '&select=id,occurred_at,kind,payload&order=occurred_at.desc&limit=12';
+    fetch(url, { headers: { apikey: ANON_KEY, Authorization: 'Bearer ' + token } })
+      .then(function (r) { return r.json(); })
+      .then(function (rows) {
+        if (!Array.isArray(rows)) return;
+        var seen = 0;
+        try { seen = parseInt(localStorage.getItem(SEEN_KEY) || '0', 10) || 0; } catch (e) {}
+        var fresh = rows.filter(function (ev) {
+          return new Date(ev.occurred_at).getTime() > seen;
+        }).length;
+
+        bell.textContent = fresh > 0 ? 'Notices · ' + fresh : 'Notices';
+        bell.classList.toggle('cis-has', fresh > 0);
+        bell.style.display = 'inline-block';
+
+        var panel = el('div', 'cis-notices');
+        panel.id = 'cis-notices';
+        panel.setAttribute('aria-label', 'notices');
+        panel.appendChild(el('div', 'cis-notices-head', 'Notices · what concerns you'));
+        if (!rows.length) {
+          panel.appendChild(el('div', 'cis-notices-empty',
+            'Nothing yet. Responses to your opportunities and registrations for your gatherings land here.'));
+        }
+        rows.forEach(function (ev) {
+          var a = el('a', 'cis-notice' +
+            (new Date(ev.occurred_at).getTime() > seen ? ' cis-new' : ''));
+          a.href = noticeHref(ev);
+          a.appendChild(el('div', 'cis-notice-line', noticeText(ev)));
+          a.appendChild(el('div', 'cis-notice-when', noticeWhen(ev.occurred_at)));
+          panel.appendChild(a);
+        });
+        document.body.appendChild(panel);
+
+        var setOpen = function (open) {
+          panel.classList.toggle('cis-open', open);
+          bell.setAttribute('aria-expanded', open ? 'true' : 'false');
+          if (open) {
+            try { localStorage.setItem(SEEN_KEY, String(Date.now())); } catch (e) {}
+            bell.textContent = 'Notices';
+            bell.classList.remove('cis-has');
+          }
+        };
+        bell.addEventListener('click', function (e) {
+          e.stopPropagation();
+          setOpen(!panel.classList.contains('cis-open'));
+        });
+        document.addEventListener('click', function (e) {
+          if (panel.classList.contains('cis-open') && !panel.contains(e.target)) setOpen(false);
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && panel.classList.contains('cis-open')) {
+            setOpen(false); bell.focus();
+          }
+        });
+      })
+      .catch(function (e) {
+        if (window.Techne && Techne.record) Techne.record('handled', 'shell notices: ' + (e && e.message ? e.message : e));
+      });
+  }
+
   /* ---------- the gate (U-04) ----------
      The one standard: the card. Label, heading, body, the
      destination line read from the manifest, the email field,
@@ -351,6 +468,15 @@
       menuBtn.setAttribute('aria-controls', 'cis-map');
       menuBtn.setAttribute('aria-label', 'show the intranet map');
       right.appendChild(menuBtn);
+    }
+    var bell = null;
+    if (signedIn) {
+      bell = el('button', 'cis-bell', 'Notices');
+      bell.type = 'button';
+      bell.setAttribute('aria-expanded', 'false');
+      bell.setAttribute('aria-controls', 'cis-notices');
+      bell.setAttribute('aria-label', 'notices addressed to you');
+      right.appendChild(bell);
     }
     var chip = el('span', 'cis-chip');
     chip.id = 'cis-member-chip';
@@ -460,6 +586,7 @@
           var sw = document.getElementById('cis-steward-nav');
           if (sw) sw.style.display = '';
         }
+        if (bell && id.agentId) initNotices(bell, id.agentId, s.access_token);
         document.dispatchEvent(new CustomEvent('cis:user', { detail: window.cisUser }));
       });
     }
