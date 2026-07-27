@@ -576,6 +576,31 @@ gather:
       Mobile-responsive layout applied 2026-07-12.
       Verified by Todd Youngblood 2026-07-12.
 
+  - address: G-04
+    title: The scheduling act
+    intent: >
+      A gathering enters the calendar from the calendar. Any member may
+      hold one and is its host; a steward may act for any. The gathering
+      gains the two things it could not say about itself, what it is and
+      where to stand, and the act lands as an event like the Find train's.
+    status: open · in-session
+    cites: [PRD, AM, IM]
+    ready_when: G-03 verified.
+    deliverable: >
+      0013_gathering_schema.sql (description and location); the scheduling
+      panel on /commons/gatherings/; the gathering.scheduled event.
+    acceptance: >
+      A member schedules a gathering with a title and a start, sees it on
+      the calendar as its host with its purpose and its place, and another
+      member can register for it.
+    note: >
+      Built in session 2026-07-24 at the steward's direction. No verb and
+      no policy change: 0002's gatherings_host_write already let a member
+      write a gathering they host and a steward act for any, so the gap
+      was a surface, not an authority. The client writes the row and the
+      event as the Find train does (F-01, F-03), which keeps the two
+      trains reading alike.
+
 find:
 
   - address: F-01
@@ -697,8 +722,6 @@ find:
         covers the three cells (PATRONAGE §6, §8, and the TREASURY Desk's
         counterpart reads when T-01 opens).
 
-share:
-
   - address: F-05
     title: The designation act
     intent: >
@@ -762,83 +785,7 @@ share:
         the agent row and its designation event, no programs table.
         Substance extends through the POLICY-PATRONAGE adoption payload.
 
-  - address: G-04
-    title: The scheduling act
-    intent: >
-      A gathering enters the calendar from the calendar. Any member may
-      hold one and is its host; a steward may act for any. The gathering
-      gains the two things it could not say about itself, what it is and
-      where to stand, and the act lands as an event like the Find train's.
-    status: open · in-session
-    cites: [PRD, AM, IM]
-    ready_when: G-03 verified.
-    deliverable: >
-      0013_gathering_schema.sql (description and location); the scheduling
-      panel on /commons/gatherings/; the gathering.scheduled event.
-    acceptance: >
-      A member schedules a gathering with a title and a start, sees it on
-      the calendar as its host with its purpose and its place, and another
-      member can register for it.
-    note: >
-      Built in session 2026-07-24 at the steward's direction. No verb and
-      no policy change: 0002's gatherings_host_write already let a member
-      write a gathering they host and a steward act for any, so the gap
-      was a surface, not an authority. The client writes the row and the
-      event as the Find train does (F-01, F-03), which keeps the two
-      trains reading alike.
-
-  - address: U-06
-    title: The frame on a narrow screen
-    intent: >
-      The map becomes a drawer under 760px, closed by default, so a
-      member on a phone meets the page they came for rather than the
-      whole map. A Menu control in the topbar opens it; a link, the
-      Escape key, or the control closes it again. Wide screens are
-      untouched.
-    status: open · in-session
-    cites: [UI, PRD]
-    ready_when: U-05 verified.
-    deliverable: >
-      The drawer, its control, and the narrow-screen rules in
-      assets/shell.js; full-width rows at a touch-sized target in place of
-      the wrapped inline list.
-    acceptance: >
-      At phone width the page begins under the topbar; the control opens
-      the map and closes it; following a link does not leave it standing
-      open over its destination.
-    note: >
-      Built in session 2026-07-24 at the steward's direction, who named
-      the fault: the map at narrow widths was a wrapped wall of ten links
-      and six group labels above every page. Measured after the change:
-      the drawer stands at zero height closed and 554px open at 390px
-      wide, carrying all eleven links, and honours prefers-reduced-motion.
-
-  - address: U-07
-    title: The parked door
-    intent: >
-      Three of the four slices stand at launch and the fourth was simply
-      absent from the map, which read as forgotten rather than waiting.
-      The Share door now exists and tells the truth in the system's own
-      vocabulary: what will stand there, sentence by sentence, and what it
-      waits on, by name. A promise that cannot yet be kept is still owed
-      its place on the map.
-    status: open · in-session
-    cites: [PRD, UI, PATRONAGE]
-    ready_when: U-06 in session; S-01 and S-02 stand blocked on Q3.
-    deliverable: >
-      /intranet/share/ carrying the three S-train sentences, the three-axis
-      line, and the block named with a path to the staged COUNTING-RULES;
-      the See your share group on the shell's map.
-    acceptance: >
-      A signed-in member finds the Share door on the map; the page names
-      S-01 and S-02, states that the absence is the Board's pending act and
-      not an administrator's withholding, and links the staged rules. The
-      page retires when S-02 opens the real surface.
-    note: >
-      Built in the launch-gap review 2026-07-27. The page carries no data
-      and fetches none; it is a status contract rendered as a door, the
-      same honesty the roadmap practices, at the address members will
-      keep.
+share:
 
   - address: S-01
     title: Contribution posting paths
@@ -846,7 +793,11 @@ share:
     status: open · Q3
     cites: [PATRONAGE, IM, AM, PRD]
     ready_when: G0 attested. Q3 counting rules recorded. PATRONAGE adopted.
-    deliverable: 000N_patronage_verbs.sql; Schedule A and Counting Rules entered as instruments.
+    deliverable: >
+      000N_patronage_verbs.sql; the Labor Schedule (LABOR-SCHEDULE) and Counting
+      Rules entered as instruments. Wording reconciled 2026-07-27 (X-13): the
+      Bylaws Schedule A is already entered; the instrument that values HOURS is
+      LABOR-SCHEDULE, per the 2026-07-24 recode.
     acceptance: A contribution posted by verb appears in the poster's fold, citing its policy version.
     note: >
       Spliced 2026-07-22 per PATRONAGE §14: the prior S-01, Capital account view, and
@@ -879,11 +830,14 @@ share:
 
   - address: S-02
     title: The fold surface
-    intent: /commons/account/ shows the balance and the itemized history with traceable inputs per Law IV.
+    intent: >
+      /intranet/share/ shows the balance and the itemized history with traceable
+      inputs per Law IV. Address reconciled 2026-07-27 (X-13) to the door U-07
+      built; PATRONAGE section 9 amended to match.
     status: open · Q3
     cites: [PATRONAGE, IM, AM, PRD]
     ready_when: S-01 verified.
-    deliverable: /commons/account/ over capital_accounts and the member's own capital events.
+    deliverable: /intranet/share/ over capital_accounts and the member's own capital events.
     acceptance: Follow any figure to the events and the policy that produced it.
 
   - address: S-03
@@ -961,6 +915,13 @@ treasury:
     ready_when: T-01 verified. Read-only credentials provisioned for the three rails.
     deliverable: /intranet/treasury/ balance view; three read-only rail seams; the per-rail reported balance with source and read time; the delta column, active once T-03 attests.
     acceptance: Each rail's balance shows with its source and read time; the member-visible aggregate equals the sum of the reads; after T-03 the delta to the last attested window shows and links its gaps.
+
+shell:
+
+  # The U train: the frame every slice shares. Refiled here 2026-07-27 (X-13);
+  # these packets had accreted into the share and treasury sections, and the
+  # section keys are part of the ledger's legibility even where the validator
+  # reads them flat.
 
   - address: U-01
     title: The shell
@@ -1194,6 +1155,59 @@ treasury:
       all eight signed-in and front-door surfaces: no rendered text
       carries a project reference, a packet address, a table list, or a
       Law citation. Verified by Todd Youngblood 2026-07-24 by merge.
+
+  - address: U-06
+    title: The frame on a narrow screen
+    intent: >
+      The map becomes a drawer under 760px, closed by default, so a
+      member on a phone meets the page they came for rather than the
+      whole map. A Menu control in the topbar opens it; a link, the
+      Escape key, or the control closes it again. Wide screens are
+      untouched.
+    status: open · in-session
+    cites: [UI, PRD]
+    ready_when: U-05 verified.
+    deliverable: >
+      The drawer, its control, and the narrow-screen rules in
+      assets/shell.js; full-width rows at a touch-sized target in place of
+      the wrapped inline list.
+    acceptance: >
+      At phone width the page begins under the topbar; the control opens
+      the map and closes it; following a link does not leave it standing
+      open over its destination.
+    note: >
+      Built in session 2026-07-24 at the steward's direction, who named
+      the fault: the map at narrow widths was a wrapped wall of ten links
+      and six group labels above every page. Measured after the change:
+      the drawer stands at zero height closed and 554px open at 390px
+      wide, carrying all eleven links, and honours prefers-reduced-motion.
+
+  - address: U-07
+    title: The parked door
+    intent: >
+      Three of the four slices stand at launch and the fourth was simply
+      absent from the map, which read as forgotten rather than waiting.
+      The Share door now exists and tells the truth in the system's own
+      vocabulary: what will stand there, sentence by sentence, and what it
+      waits on, by name. A promise that cannot yet be kept is still owed
+      its place on the map.
+    status: open · in-session
+    cites: [PRD, UI, PATRONAGE]
+    ready_when: U-06 in session; S-01 and S-02 stand blocked on Q3.
+    deliverable: >
+      /intranet/share/ carrying the three S-train sentences, the three-axis
+      line, and the block named with a path to the staged COUNTING-RULES;
+      the See your share group on the shell's map.
+    acceptance: >
+      A signed-in member finds the Share door on the map; the page names
+      S-01 and S-02, states that the absence is the Board's pending act and
+      not an administrator's withholding, and links the staged rules. The
+      page retires when S-02 opens the real surface.
+    note: >
+      Built in the launch-gap review 2026-07-27. The page carries no data
+      and fetches none; it is a status contract rendered as a door, the
+      same honesty the roadmap practices, at the address members will
+      keep.
 
 cross_cutting:
 
@@ -1655,3 +1669,39 @@ cross_cutting:
         scratch dissolved. Events export.taken 1e54ebb9 and
         walkaway.rehearsed da4620eb recorded in the live CIS.
 
+
+  - address: X-13
+    title: The documents agree
+    intent: >
+      The three published PRDs, the ledger, and the deployed map claimed
+      different truths in four places: the fold surface address, the modules'
+      proposal posture, the treasury naming, and the ledger's own section
+      grouping. Each document amends to what the record settled, with the
+      amendment dated and the superseded wording kept in history, because a
+      refactor that hides its lineage is not legible.
+    status: open · in-session
+    cites: [PRD, PATRONAGE, TREASURY]
+    ready_when: >
+      U-07 in session; the full review of the three PRDs delivered 2026-07-27.
+    deliverable: >
+      PATRONAGE v0.2.1: fold surface address follows the built door at
+      /intranet/share/; the adopted posture recorded; the address line closed.
+      TREASURY v0.1.2: the adopted posture recorded; the public name settled
+      as Treasury per the deployed map. PRD v0.3 section 4 and Q6 amended:
+      treasury naming settled, governance named as the one scoped capability
+      without a trajectory. Ledger sections refiled so lane means slice:
+      G-04 to gather, F-05 to find, the U train to its own shell section.
+      S-01 and S-02 wording reconciled.
+    acceptance: >
+      Every address, name, and adoption status the three PRDs claim matches
+      the ledger and the deployed map; the validator and the freshness job
+      stay green; each amendment carries its date and its packet address.
+    note: >
+      Raised in the steward's full-review request of 2026-07-27 and composed
+      at his direction the same day. Two items found in that review are
+      deliberately not taken here: the governance module PRD, which is its
+      own authoring act behind Q6, and the AM v0.2 addendum for the
+      definer-function visibility cells, which stays routed to the AM's next
+      version per PATRONAGE section 15. The Desk's presence in every
+      signed-in member's map, ahead of the open-books cut TREASURY section 14
+      routes to the FSC, is flagged to the steward rather than changed.
