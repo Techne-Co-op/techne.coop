@@ -1869,3 +1869,33 @@ agency:
     acceptance: >
       A Direction completes end to end with both trailers and its spend
       recorded.
+    note: >
+      Staged 2026-07-27 on branch A-04, ahead of its readiness condition
+      and held at anticipated per the X-09 convention for work staged
+      ahead of its decision. The packet opens when the grant lands
+      (A-03), not when this branch merges. Staged here: RUN.md, the
+      brief a Run is opened with, distilled from AGY §7 and §11;
+      scripts/rail_poll.py, the queue read of AGY §6, read-only by
+      design and exercised against the live rail the day the rail
+      landed. Not staged, and named so the gap is not mistaken for an
+      oversight: the isolated runner identity and its sandbox, which is
+      a Gateway configuration change on the steward's host and his to
+      approve; and every agent-actored write, which waits on the grant.
+      Until then the R0 form of AGY §12 operates, the harness preparing
+      a close that a human hand writes. The steward's own Direction of
+      2026-07-27 (d6e22f76) stands as the rehearsal subject this
+      packet's readiness condition asks for.
+
+      One finding from staging, and it bears on the packet's shape.
+      The poll was written as a scheduled job with its tool policy
+      narrowed to the shell alone, and the Gateway refused to run it:
+      the claude-cli backend cannot enforce a runtime tool allowlist,
+      and says so rather than running unrestricted. The job is
+      recorded and left disabled. This is the right refusal, and it
+      settles a question the packet had left implicit: on this
+      runtime the Run's bounds could only ever be instruction, and
+      AGY §7 requires construction. The harness therefore needs an
+      embedded runtime and a sandboxed runner identity before it may
+      run at all, which makes that step blocking rather than a later
+      refinement. It is a Gateway configuration change on the
+      steward's host, and his.
