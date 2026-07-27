@@ -762,6 +762,57 @@ share:
         the agent row and its designation event, no programs table.
         Substance extends through the POLICY-PATRONAGE adoption payload.
 
+  - address: G-04
+    title: The scheduling act
+    intent: >
+      A gathering enters the calendar from the calendar. Any member may
+      hold one and is its host; a steward may act for any. The gathering
+      gains the two things it could not say about itself, what it is and
+      where to stand, and the act lands as an event like the Find train's.
+    status: open · in-session
+    cites: [PRD, AM, IM]
+    ready_when: G-03 verified.
+    deliverable: >
+      0013_gathering_schema.sql (description and location); the scheduling
+      panel on /commons/gatherings/; the gathering.scheduled event.
+    acceptance: >
+      A member schedules a gathering with a title and a start, sees it on
+      the calendar as its host with its purpose and its place, and another
+      member can register for it.
+    note: >
+      Built in session 2026-07-24 at the steward's direction. No verb and
+      no policy change: 0002's gatherings_host_write already let a member
+      write a gathering they host and a steward act for any, so the gap
+      was a surface, not an authority. The client writes the row and the
+      event as the Find train does (F-01, F-03), which keeps the two
+      trains reading alike.
+
+  - address: U-06
+    title: The frame on a narrow screen
+    intent: >
+      The map becomes a drawer under 760px, closed by default, so a
+      member on a phone meets the page they came for rather than the
+      whole map. A Menu control in the topbar opens it; a link, the
+      Escape key, or the control closes it again. Wide screens are
+      untouched.
+    status: open · in-session
+    cites: [UI, PRD]
+    ready_when: U-05 verified.
+    deliverable: >
+      The drawer, its control, and the narrow-screen rules in
+      assets/shell.js; full-width rows at a touch-sized target in place of
+      the wrapped inline list.
+    acceptance: >
+      At phone width the page begins under the topbar; the control opens
+      the map and closes it; following a link does not leave it standing
+      open over its destination.
+    note: >
+      Built in session 2026-07-24 at the steward's direction, who named
+      the fault: the map at narrow widths was a wrapped wall of ten links
+      and six group labels above every page. Measured after the change:
+      the drawer stands at zero height closed and 554px open at 390px
+      wide, carrying all eleven links, and honours prefers-reduced-motion.
+
   - address: S-01
     title: Contribution posting paths
     intent: The PATRONAGE §10 verbs land; a valued Contribution posts with both deltas per Law VII.
