@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>A Year in Formation &middot; The Steward's Telling &middot; Techne</title>
+<meta name="description" content="One year from the first formation meetings to the launch of RegenHub, LCA: the honest beginning, the dialogue that carried it, the role that emerged, and the Common Information System built to hold it.">
+<meta name="robots" content="noindex,nofollow">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#C4A96A; --amber:#C4956A; --coral:#C47A6A; --rose:#B46A8A; --violet:#8A76B4; --twilight:#6A8AC4;
+    --serif:'Libre Baskerville',Georgia,serif; --sans:Inter,'Helvetica Neue',Arial,sans-serif; --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+  }
+  [data-mode="dark"]{
+    --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+    --line:#2A2A30; --rule:#3A3A42;
+    --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+    --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+    --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  }
+  [data-mode="light"]{
+    --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+    --line:#D8D3C8; --rule:#9A958A;
+    --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+    --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+    --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg); color:var(--text); font:400 15.5px/1.75 var(--serif)}
+  .wrap{max-width:880px; margin:0 auto; padding:0 22px 80px}
+  a{color:var(--blue-text); text-decoration:none}
+  a:hover{text-decoration:underline}
+  em{color:var(--heading)}
+  .mono{font-family:var(--mono)}
+  :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+  .topbar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:0}
+  .topbar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+  .topbar .bc a{color:var(--ember-text)}
+  .mode-btn{font:400 11.5px var(--mono); color:var(--muted); background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:4px 10px; cursor:pointer}
+  .mode-btn:hover{background:var(--raised); color:var(--heading)}
+
+  .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+  .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+  .chip.ok{color:var(--ok); border-color:var(--ok)} .chip.ok::before{background:var(--ok)}
+  .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:transparent; border:1px solid var(--warn)}
+  .chip.neutral::before{background:transparent; border:1px solid var(--muted)}
+
+  /* hero */
+  .hero{padding:72px 0 56px; border-bottom:1px solid var(--rule)}
+  .hero .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.14em; text-transform:uppercase}
+  .hero h1{font:400 42px/1.18 var(--serif); color:var(--heading); margin:14px 0 18px; max-width:18ch}
+  .hero .dek{font:400 17.5px/1.7 var(--serif); max-width:58ch; color:var(--text)}
+  .hero .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:22px}
+
+  /* reveal grammar: pages are readable with no script at all; the
+     hidden-until-revealed state exists only once JS declares itself */
+  html.anim .rv{opacity:0; transform:translateY(14px); transition:opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1)}
+  html.anim .rv.in{opacity:1; transform:none}
+  @media (prefers-reduced-motion:reduce){ html.anim .rv{opacity:1; transform:none; transition:none} }
+
+  .sec{padding:56px 0 0}
+  .sec .addr{font:500 11px var(--mono); letter-spacing:.12em; text-transform:uppercase; margin-bottom:10px}
+  .sec[data-tint="gold"] .addr{color:var(--gold)}
+  .sec[data-tint="amber"] .addr{color:var(--amber)}
+  .sec[data-tint="coral"] .addr{color:var(--coral)}
+  .sec[data-tint="rose"] .addr{color:var(--rose)}
+  .sec[data-tint="violet"] .addr{color:var(--violet)}
+  .sec[data-tint="twilight"] .addr{color:var(--twilight)}
+  .sec h2{font:400 26px/1.3 var(--serif); color:var(--heading); margin-bottom:16px; max-width:30ch}
+  .sec p{margin:0 0 15px; max-width:66ch}
+  .sec p:last-child{margin-bottom:0}
+  .pull{font:400 19px/1.6 var(--serif); color:var(--heading); border-left:3px solid var(--ember); padding:6px 0 6px 20px; margin:24px 0; max-width:56ch}
+  .pull .who{display:block; font:400 11px var(--mono); color:var(--muted); margin-top:8px; letter-spacing:.06em}
+
+  /* the ladder */
+  .ladder{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin:28px 0}
+  .rung{background:var(--surface); padding:18px 14px 14px; text-align:center}
+  .rung .n{font:500 34px/1 var(--mono); color:var(--heading); display:block}
+  .rung .l{font:400 10.5px var(--mono); color:var(--muted); letter-spacing:.08em; text-transform:uppercase; display:block; margin-top:8px}
+  .rung:nth-child(1) .n{color:var(--gold)} .rung:nth-child(2) .n{color:var(--amber)}
+  .rung:nth-child(3) .n{color:var(--coral)} .rung:nth-child(4) .n{color:var(--rose)}
+  .rung:nth-child(5) .n{color:var(--rose)} .rung:nth-child(6) .n{color:var(--violet)}
+  .rung:nth-child(7) .n{color:var(--twilight)} .rung:nth-child(8) .n{color:var(--blue-text)}
+
+  /* timeline */
+  .tl{position:relative; margin:34px 0 8px; padding-left:26px}
+  .tl::before{content:""; position:absolute; left:7px; top:6px; bottom:6px; width:2px; background:var(--rule); transform-origin:top; transform:scaleY(var(--draw,1)); transition:transform 1.4s cubic-bezier(.4,0,.2,1)}
+  .beat{position:relative; padding:0 0 30px}
+  .beat::before{content:""; position:absolute; left:-25px; top:7px; width:10px; height:10px; background:var(--bg); border:2px solid var(--tint,var(--ember)); border-radius:1px}
+  .beat .when{font:500 11px var(--mono); color:var(--tint,var(--ember-text)); letter-spacing:.1em; text-transform:uppercase}
+  .beat h3{font:400 18px/1.4 var(--serif); color:var(--heading); margin:4px 0 6px}
+  .beat p{font-size:14px; max-width:62ch; color:var(--text)}
+  .beat.await::before{border-style:dashed; border-color:var(--warn)}
+  .beat.await h3{color:var(--muted); font-style:italic}
+  .beat .chip{margin-top:6px}
+
+  /* ikigai */
+  .ikigai-row{display:grid; grid-template-columns:minmax(0,380px) 1fr; gap:34px; align-items:center; margin:26px 0}
+  .ikigai-svg{width:100%; height:auto; display:block}
+  .ikigai-svg circle{fill-opacity:.14; stroke-width:1.2; transition:opacity 1s cubic-bezier(.4,0,.2,1)}
+  html.anim .ikigai-svg circle{opacity:0}
+  html.anim .in .ikigai-svg circle{opacity:1}
+  html.anim .in .ikigai-svg circle:nth-of-type(1){transition-delay:.1s}
+  html.anim .in .ikigai-svg circle:nth-of-type(2){transition-delay:.35s}
+  html.anim .in .ikigai-svg circle:nth-of-type(3){transition-delay:.6s}
+  html.anim .in .ikigai-svg circle:nth-of-type(4){transition-delay:.85s}
+  .ikigai-svg text{font-family:var(--mono); font-size:8.5px; fill:var(--muted)}
+  .ikigai-svg .core{font-size:9.5px; fill:var(--heading)}
+  @media (prefers-reduced-motion:reduce){ html.anim .ikigai-svg circle{opacity:1; transition:none} }
+
+  /* programs, side by side */
+  .duet{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin:26px 0}
+  .voice{background:var(--surface); padding:22px 20px}
+  .voice .vk{font:500 10.5px var(--mono); letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:8px}
+  .voice:first-child .vk{color:var(--amber)}
+  .voice:last-child .vk{color:var(--twilight)}
+  .voice h3{font:400 20px/1.3 var(--serif); color:var(--heading); margin-bottom:8px}
+  .voice p{font-size:13.5px; max-width:44ch}
+
+  /* doors */
+  .doors{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin:26px 0}
+  .door{background:var(--surface); padding:18px 16px}
+  .door .dk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:6px}
+  .door h3{font:400 17px/1.3 var(--serif); color:var(--heading); margin-bottom:6px}
+  .door p{font-size:12.5px; color:var(--muted); max-width:40ch}
+  .door a{font:400 11px var(--mono)}
+
+  .foot{border-top:1px solid var(--line); margin-top:64px; padding-top:18px}
+  .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint); max-width:76ch}
+
+  @media (max-width:700px){
+    .hero h1{font-size:30px}
+    .ladder{grid-template-columns:repeat(2,1fr)}
+    .ikigai-row{grid-template-columns:1fr}
+    .duet,.doors{grid-template-columns:1fr}
+    .sec h2{font-size:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topbar">
+  <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; the launch gathering &middot; the steward's telling</span>
+  <button class="mode-btn" id="modeBtn" aria-label="Toggle light and dark mode">dark</button>
+</div>
+
+<div class="hero">
+  <div class="kicker rv">One year &middot; August 2025 to August 14, 2026</div>
+  <h1 class="rv">A Year in Formation</h1>
+  <p class="dek rv">The story of how a room full of people who shared a lease became a cooperative that shares a record. Told by the steward, at the launch gathering of RegenHub, LCA, with every date drawn from the record itself.</p>
+  <div class="meta rv">
+    <span class="chip ok">dates &middot; from the record</span>
+    <span class="chip warn">meeting log &middot; awaiting the steward's hand</span>
+    <span class="chip neutral">drafted by Nou from the steward's voice notes &middot; 2026-07-27</span>
+  </div>
+</div>
+
+<section class="sec rv" data-tint="gold">
+  <div class="addr">i &middot; the honest beginning</div>
+  <h2>We organized around the least exciting thing we had</h2>
+  <p>The formation began with a practical ask: Kevin held the lease and the insurance for the third floor of 1515 Walnut inside an LLC of his own, and he wanted a container that could hold them on its own feet. A self-sustaining entity, so the space would not depend on any one person's balance sheet.</p>
+  <p>That meant the first organizing variables were the lowest compounding ones: the lease payment and the expenses. Not the most exciting reason to form anything. But it was the true reason, and it sat inside a larger collection of reasons, the ones this telling is for. A cooperative formed around rent can honestly say what it is; a cooperative formed around a vision statement has to prove it. We chose to start from the ground and earn the vision.</p>
+</section>
+
+<section class="sec rv" data-tint="amber">
+  <div class="addr">ii &middot; the year of dialogue</div>
+  <h2>What a year of meetings actually made</h2>
+  <p>From August 2025 onward the formation moved through dialogue: conversation, reflection, and thoughtful coordination, week over week. The decisions below are the ones the record holds. The meetings that made them deserve to be named one by one, and the space for that honor is held open here until the steward enters his log.</p>
+
+  <div class="tl">
+    <div class="beat rv" style="--tint:var(--gold)">
+      <span class="when">August 2025</span>
+      <h3>The formation meetings begin</h3>
+      <p>The container question is opened: what form can hold a shared space, shared expenses, and the ambitions of the people inside it, without belonging to any one of them.</p>
+    </div>
+    <div class="beat await rv">
+      <span class="when">Fall 2025</span>
+      <h3>The autumn dialogues enter here</h3>
+      <span class="chip warn">awaiting the steward's log &middot; meetings and topics, honored by name</span>
+    </div>
+    <div class="beat rv" style="--tint:var(--amber)">
+      <span class="when">February 6, 2026</span>
+      <h3>RegenHub, LCA is filed</h3>
+      <p>A Colorado public benefit limited cooperative association, formed to cultivate scenius. The form was the finding of the fall: cooperative, member-owned, stated in public benefit terms.</p>
+    </div>
+    <div class="beat rv" style="--tint:var(--amber)">
+      <span class="when">February 2026</span>
+      <h3>The financial systems take shape</h3>
+      <p>Mercury as primary banking, Stripe migrated under the cooperative's own name, Xero as the book of account. The lease and purchase path for the third floor advances in direct dialogue with Kevin.</p>
+    </div>
+    <div class="beat rv" style="--tint:var(--coral)">
+      <span class="when">April 2026</span>
+      <h3>The formation becomes an ecosystem</h3>
+      <p>The work reframes from a package of documents to a living formation with health indicators, and the capital shape is agreed among the organizers and early backers.</p>
+    </div>
+    <div class="beat rv" style="--tint:var(--coral)">
+      <span class="when">June 24, 2026</span>
+      <h3>The board adopts the Labor Schedule</h3>
+      <p>The first rates: what an hour of member labor is recognized to be worth, by tier, adopted as policy before any system existed to compute with it. Policy first, machinery second.</p>
+    </div>
+    <div class="beat rv" style="--tint:var(--rose)">
+      <span class="when">July 2026</span>
+      <h3>The Commons is built</h3>
+      <p>In one focused month the Common Information System goes from specification to live substrate: the database and its policies on July 11, the first member surfaces verified July 12, the export and restore rehearsal proving the walkaway on July 21, the Patronage and Treasury modules July 22, the unified shell and its gate July 24, and the documents reconciled to the record July 27.</p>
+    </div>
+    <div class="beat rv" style="--tint:var(--twilight)">
+      <span class="when">August 14, 2026</span>
+      <h3>Ratification, and the launch gathering</h3>
+      <p>The members vote. The marks flip from Drafted to Ratified, the agreements bind, and the year of dialogue becomes a governed, member-owned record. This room, tonight.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec rv" data-tint="coral">
+  <div class="addr">iii &middot; the role that emerged</div>
+  <h2>Kevin asked me about my ikigai</h2>
+  <div class="ikigai-row">
+    <svg class="ikigai-svg" viewBox="0 0 380 340" role="img" aria-label="Four overlapping circles: what I love, what I am good at, what the world needs, what sustains me. The steward's role sits at the center.">
+      <circle cx="190" cy="120" r="88" fill="#C4A96A" stroke="#C4A96A"/>
+      <circle cx="132" cy="188" r="88" fill="#C47A6A" stroke="#C47A6A"/>
+      <circle cx="248" cy="188" r="88" fill="#6A8AC4" stroke="#6A8AC4"/>
+      <circle cx="190" cy="232" r="88" fill="#8A76B4" stroke="#8A76B4"/>
+      <text x="190" y="52" text-anchor="middle">what I love</text>
+      <text x="52" y="196" text-anchor="middle">what I am good at</text>
+      <text x="330" y="196" text-anchor="middle">what the world needs</text>
+      <text x="190" y="330" text-anchor="middle">what sustains me</text>
+      <text x="190" y="180" text-anchor="middle" class="core">the steward's role</text>
+    </svg>
+    <div>
+      <p>Ikigai, as I hold it: a Japanese pattern for asking what your felt purpose and experience in life are leading you toward, and how to apply your full self to that. A pattern for self-reflective, and maybe prosocial, human development.</p>
+      <p>Kevin's question did real work. It let me craft the steward's role so that it deeply intersects my own ground: an information technologist who has often found it hard to articulate what he does, why it matters, who it serves, and what it might unlock.</p>
+      <p>The answer, it turned out, was to build the thing that does the articulating. A system whose whole purpose is legibility: what is true here, who decided it, what it is worth, and where any of it came from.</p>
+    </div>
+  </div>
+  <div class="pull">The system I could never quite describe about my own work is the one I built so the cooperative would never have that problem.<span class="who">the steward, first partially compensated member of the cooperative</span></div>
+</section>
+
+<section class="sec rv" data-tint="rose">
+  <div class="addr">iv &middot; five months of building</div>
+  <h2>The Commons, counted</h2>
+  <p>What we call the Commons, formally the Common Information System, is the cooperative's standard record keeping: the book of record and the interface through which the cooperative operates itself. It was built in the open, one packet at a time, under ten principles that fit on a single page. Its shape makes a ladder:</p>
+  <div class="ladder rv">
+    <div class="rung"><span class="n" data-count="1">1</span><span class="l">year of formation</span></div>
+    <div class="rung"><span class="n" data-count="2">2</span><span class="l">principal Programs</span></div>
+    <div class="rung"><span class="n" data-count="3">3</span><span class="l">doors into one record</span></div>
+    <div class="rung"><span class="n" data-count="4">4</span><span class="l">launch slices</span></div>
+    <div class="rung"><span class="n" data-count="6">6</span><span class="l">Primitives of value</span></div>
+    <div class="rung"><span class="n" data-count="7">7</span><span class="l">gates, humanly attested</span></div>
+    <div class="rung"><span class="n" data-count="10">10</span><span class="l">principles</span></div>
+    <div class="rung"><span class="n" data-count="11">11</span><span class="l">invariant laws</span></div>
+  </div>
+  <p>Balances are computed, never stored. Every change is an event with an actor and a time. Every figure traces to the policy that produced it, and every table has an export path, so the record belongs to the cooperative and not to any vendor, including its builders. Another cooperative could take everything published and start their own; that is a design goal, not a leak.</p>
+</section>
+
+<section class="sec rv" data-tint="violet">
+  <div class="addr">v &middot; two initiatives, one composition</div>
+  <h2>An orchestra, not a soloist</h2>
+  <p>Two initiatives live at the hub now, and the record knows them as its two principal Programs.</p>
+  <div class="duet rv">
+    <div class="voice">
+      <span class="vk">Program 01</span>
+      <h3>RegenHub</h3>
+      <p>The container for the co-working space itself: the third floor, the lease, the expenses, the daily practice of a shared physical place. The ground the whole formation stands on.</p>
+    </div>
+    <div class="voice">
+      <span class="vk">Program 02</span>
+      <h3>Techne</h3>
+      <p>The same placemaking intentionality carried into virtual space. A co-op of many crafts: a return to the art, the craft, and the science of practice, and to bringing intention to the tools, systems, and technologies of practice.</p>
+    </div>
+  </div>
+  <p>The bet underneath both is composition. Fields coordinated with one another compound, the way an orchestra compounds: no instrument group sounds complete on its own, and the composition makes something greater than the parts. The Commons exists so that composition can be seen, valued, and shared honestly, which is what lets it keep happening.</p>
+</section>
+
+<section class="sec rv" data-tint="twilight">
+  <div class="addr">vi &middot; tonight's demonstration</div>
+  <h2>Do not take my word for any of this</h2>
+  <p>The system holds one authoritative record behind three doors, and all three are open tonight.</p>
+  <div class="doors rv">
+    <div class="door">
+      <span class="dk">door one &middot; browse</span>
+      <h3>Walk the surfaces</h3>
+      <p>Sign in, read the agreements that would bind you, see the directory, the gatherings, the opportunity board, and the Programs.</p>
+      <a href="/intranet/">/intranet/</a>
+    </div>
+    <div class="door">
+      <span class="dk">door two &middot; ask</span>
+      <h3>Ask in plain language</h3>
+      <p>Nou answers over the identical record, citing where it read, seeing only what you could see yourself. It drafts; people decide.</p>
+      <a href="/commons/">the commons</a>
+    </div>
+    <div class="door">
+      <span class="dk">door three &middot; verify</span>
+      <h3>Check the ledger itself</h3>
+      <p>The build roadmap, the packet ledger, the export paths, and the weekly rehearsal that proves the whole record reconstructs.</p>
+      <a href="/commons/build/">/commons/build/</a>
+    </div>
+  </div>
+  <p>A year ago we organized around a lease because it was true. Tonight we ratify something larger that stayed true the whole way: a cooperative whose record of itself is honest enough to hand to strangers, and warm enough to belong to.</p>
+</section>
+
+<div class="foot">
+  <p class="tail">A Year in Formation &middot; the steward's telling for the launch gathering of August 14, 2026 &middot; drafted by Nou from the steward's voice notes of 2026-07-27, every date from the record &middot; the fall meeting log is held open for the steward's own hand, and the one name the dictation left uncertain, the LLC that held the lease, is confirmed before this page is spoken aloud &middot; RegenHub, LCA &middot; Boulder, Colorado</p>
+</div>
+
+</div>
+<script>
+  (function(){
+    var btn=document.getElementById('modeBtn'), root=document.documentElement;
+    function label(){btn.textContent=root.getAttribute('data-mode')==='dark'?'light':'dark';}
+    btn.addEventListener('click',function(){
+      var m=root.getAttribute('data-mode')==='dark'?'light':'dark';
+      root.setAttribute('data-mode',m);
+      try{localStorage.setItem('techne-mode',m);}catch(e){}
+      label();
+    });
+    label();
+
+    var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var rv=[].slice.call(document.querySelectorAll('.rv'));
+    if(!('IntersectionObserver' in window)||reduce){
+      rv.forEach(function(el){el.classList.add('in');});
+      finishCounts();
+      return;
+    }
+    root.classList.add('anim');
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        e.target.classList.add('in');
+        [].forEach.call(e.target.querySelectorAll('[data-count]'),countUp);
+        if(e.target.hasAttribute('data-count')) countUp(e.target);
+        io.unobserve(e.target);
+      });
+    },{threshold:.18});
+    rv.forEach(function(el){io.observe(el);});
+
+    function countUp(el){
+      if(el.dataset.done) return;
+      el.dataset.done='1';
+      var to=parseInt(el.dataset.count,10), t0=null, dur=900;
+      function step(t){
+        if(!t0) t0=t;
+        var p=Math.min(1,(t-t0)/dur);
+        el.textContent=Math.round(to*(1-Math.pow(1-p,3)));
+        if(p<1) requestAnimationFrame(step); else el.textContent=to;
+      }
+      requestAnimationFrame(step);
+    }
+    function finishCounts(){
+      [].forEach.call(document.querySelectorAll('[data-count]'),function(el){
+        el.textContent=el.dataset.count;
+      });
+    }
+  })();
+</script>
+</body>
+</html>
