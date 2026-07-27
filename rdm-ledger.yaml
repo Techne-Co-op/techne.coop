@@ -1747,10 +1747,17 @@ agency:
     intent: >
       The direction namespace, the give_direction verb, and the policies;
       the AGY §11 floor asserted by probes.
-    status: anticipated
+    status: open · in-session
     cites: [AGY, IM, AM, BP]
     ready_when: AGY adopted. G0 attested. Both recorded; the packet waits only on hands.
-    deliverable: 000N_direction_rail.sql; probe matrix cells.
+    deliverable: commons/authority-map/0017_direction_rail.sql; probe matrix cells (scripts/rls_probe.py).
+    note: >
+      Taken up 2026-07-27, the day the splice entered. The packet is the
+      verb and the probes; no policy widens, since events_scoped_insert
+      already excludes the direction kinds from the member's direct pen.
+      The Estate list and the flooding bounds read from AGY-ESTATE when
+      it adopts (A-03), with the document's own opening values as
+      defaults until then.
     acceptance: >
       A member's Direction enters by verb and only by verb; refusals cite
       their rules.
