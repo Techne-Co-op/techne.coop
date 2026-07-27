@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<title>Program Patronage &middot; Proposed Module PRD &middot; Techne</title>
+<title>Program Patronage &middot; Module PRD &middot; Techne</title>
 <meta name="description" content="A proposed module enabling the Program Stack: Programs as organizing bodies for Opportunities, the Programs view in the intranet, the event contract, verbs, fold, and allocation sequence.">
 <script>
   (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
@@ -116,12 +116,12 @@
 </div>
 
 <div class="mast">
-  <div class="kicker">PP v0.2 &middot; a proposal &middot; enabling the Program Stack</div>
+  <div class="kicker">PATRONAGE v0.2.1 &middot; module specification &middot; enabling the Program Stack</div>
   <h1>Program Patronage<br>A Proposed Module PRD and Specification</h1>
-  <p class="dek">A proposal, open to discussion and revision, for the module that would enable the <em>Program Stack Patronage Plan</em> inside the Common Information System as built. It describes how Programs organize the Opportunities surfaced in the commons, how participants would explore both through a Programs view in the intranet, how a Contribution would become a record, and how the year would close. Nothing here is adopted, and nothing here is the board's word; it is a shape drawn concretely enough to be argued with.</p>
+  <p class="dek">A proposal, open to discussion and revision, for the module that would enable the <em>Program Stack Patronage Plan</em> inside the Common Information System as built. It describes how Programs organize the Opportunities surfaced in the commons, how participants would explore both through a Programs view in the intranet, how a Contribution would become a record, and how the year would close. The specification stands adopted as the module's shape by the merge of 2026-07-22; its policy content, the rates, the counting rules, the Program designations, remains the board's to adopt, and none of it is the board's word yet.</p>
   <div class="statusline">
-    <span class="chip info">Proposal &middot; Drafted</span>
-    <span class="chip neutral">open to discussion &middot; nothing herein adopted</span>
+    <span class="chip info">Specification &middot; adopted by merge 2026-07-22</span>
+    <span class="chip neutral">policy content awaits board acts &middot; rates, counting rules, designations</span>
     <span class="chip warn">Share packets blocked &middot; Q3</span>
     <span class="chip neutral">emits &middot; anticipated &middot; 000N_patronage_verbs.sql</span>
     <span class="chip ok">no change to the event log model</span>
@@ -131,7 +131,8 @@
 <div class="citesline">
   <b>cites</b> &middot; PSPP v1 &middot; PRD v0.3 &sect;2 &sect;4 &sect;11 &middot; IM v0.1 Laws I&ndash;XI &middot; AM v0.1 &sect;5 &sect;7 &sect;9 &middot; VS v1 &middot; BP v1 &middot; Bylaws v2.1 &sect;18.1 &sect;6.2.1 &sect;2.9 &sect;4.1 &sect;4.4 &sect;3.1 &sect;1.13 and Art. XVI as carried by 0002 and 0005 &middot; the Labor Schedule (formerly cited as Schedule A), adopted 2026-06-24
   <br><b>v0.2</b> &middot; reframed as a proposal; adds &sect;4 Programs and Opportunities and &sect;8 the Programs view, on Todd's direction, 2026-07-22
-  <br><b>address</b> &middot; PP is offered, not taken; SHR and PAT are the named alternatives. The address adopts when Todd says so.
+  <br><b>v0.2.1</b> &middot; reconciliation (X-13), 2026-07-27: the adopted posture recorded; the fold surface address follows the built door at /intranet/share/ (U-07); superseded wording kept in history
+  <br><b>address</b> &middot; adopted as PATRONAGE by the ledger splice merged 2026-07-22; SHR and PAT, the alternatives once floated, were not taken
 </div>
 
 <!-- ================================================== -->
@@ -256,8 +257,8 @@
 <!-- ================================================== -->
 <section class="sec">
   <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;9</span><h2>The fold, traceability, and the three doors</h2><span class="sub">Law IV and Law VII, on a screen</span></div>
-  <p>The capital_accounts view stays exactly what it is: one row per member, a book fold and a tax fold over capital events, running as the asker so it shows only what the events policy already shows.<sup>3</sup> This proposal adds no stored balance anywhere and no second truth. The member surface at /commons/account/ would render three things from the same record: the balance pair, the itemized history, which is the member's own capital events in order, and, on every line, the citation trail: the event id, the Program, the Primitive, the quantity and basis, and the policy instrument and version that valued it, with a line that flowed from an affiliated Opportunity linking back to it. The slice sentence in PRD v0.3 is the acceptance test written as prose: follow any figure to the events and the policy that produced it, and never hit an unexplained boundary.<sup>2</sup></p>
-  <p>The three doors hold without addition. <em>Browse</em> is the Programs view of &sect;8, /commons/account/, and the Coordinator desk when the claim pen opens. <em>Ask</em> is the natural-language door over the identical record. <em>Verify</em> is the event log and the fourteen export views already deployed, which carry every kind this module would write without amendment; the rehearsed walkaway has already proven the fold reconstructs byte-identically, so the module inherits X-03 and X-09 and adds nothing to them. The public navigation already names the account slice <em>Account</em>; the Programs view takes its place in the intranet rather than the public nav, and whether it ever earns a nav position is a later, smaller question.</p>
+  <p>The capital_accounts view stays exactly what it is: one row per member, a book fold and a tax fold over capital events, running as the asker so it shows only what the events policy already shows.<sup>3</sup> This proposal adds no stored balance anywhere and no second truth. The member surface at /intranet/share/ would render three things from the same record: the balance pair, the itemized history, which is the member's own capital events in order, and, on every line, the citation trail: the event id, the Program, the Primitive, the quantity and basis, and the policy instrument and version that valued it, with a line that flowed from an affiliated Opportunity linking back to it. The slice sentence in PRD v0.3 is the acceptance test written as prose: follow any figure to the events and the policy that produced it, and never hit an unexplained boundary.<sup>2</sup></p>
+  <p>The three doors hold without addition. <em>Browse</em> is the Programs view of &sect;8, /intranet/share/, and the Coordinator desk when the claim pen opens. <em>Ask</em> is the natural-language door over the identical record. <em>Verify</em> is the event log and the fourteen export views already deployed, which carry every kind this module would write without amendment; the rehearsed walkaway has already proven the fold reconstructs byte-identically, so the module inherits X-03 and X-09 and adds nothing to them. The map names the slice <em>See your share</em> and its door <em>Your share</em>, standing parked at /intranet/share/ since U-07; the Programs view takes its place in the intranet rather than the public nav, and whether it ever earns a nav position is a later, smaller question. <span class="chip neutral">amended 2026-07-27 &middot; the address follows the built door</span></p>
 </section>
 
 <!-- ================================================== -->
@@ -282,7 +283,7 @@
   <table>
     <tr><th>condition</th><th>opens</th><th>waits on</th></tr>
     <tr><td class="mono">R0</td><td>the Programs view, page and Overview window, with affiliation live</td><td>this proposal adopted; the Find train verified; the &sect;15 visibility decision taken</td></tr>
-    <tr><td class="mono">R1</td><td>Default Policy posting, overseer pen; the fold and /commons/account/ go live</td><td>Q3 counting rules recorded; the Labor Schedule entered as instrument and event (LABOR-SCHEDULE, recoded 2026-07-24); the &sect;10 verbs applied</td></tr>
+    <tr><td class="mono">R1</td><td>Default Policy posting, overseer pen; the fold and /intranet/share/ go live</td><td>Q3 counting rules recorded; the Labor Schedule entered as instrument and event (LABOR-SCHEDULE, recoded 2026-07-24); the &sect;10 verbs applied</td></tr>
     <tr><td class="mono">R2</td><td>a Program's Primitives and its member claim pen</td><td>that Program's policy adopted with its Coordinator named; per Program, not global</td></tr>
     <tr><td class="mono">R3</td><td>the PROPERTY posting path</td><td>the 704(c) methodology election recorded on CPA confirmation; until then PROPERTY refuses</td></tr>
     <tr><td class="mono">R4</td><td>the first Allocation Run</td><td>fiscal close with P&amp;L finalized; Q4 class semantics recorded, since the patron-majority check computes against Patron Class membership</td></tr>
@@ -298,7 +299,7 @@
     <li>A signed-in member opens the Programs view and finds every Program with its standing honestly marked, its affiliated open Opportunities beside it, and the unaffiliated shelf intact.</li>
     <li>An Affiliation resolves to its event: from the board or the Programs view, the link between an Opportunity and its Program traces to the opportunity.affiliated row that made it.</li>
     <li>A posted contribution appears in the member's fold and itemized history in the same read, with its event id, Program, Primitive, and policy version visible on the line, and its Opportunity linked where one seeded it.</li>
-    <li>Every figure on /commons/account/ resolves to its events and its instrument; the Law IV probe walks one balance to its inputs and finds no unexplained boundary.</li>
+    <li>Every figure on /intranet/share/ resolves to its events and its instrument; the Law IV probe walks one balance to its inputs and finds no unexplained boundary.</li>
     <li>A verb refuses a Coordinator approving their own contribution, and the refusal cites the Plan's segregation rule; the probe matrix gains this cell.</li>
     <li>Given a cut instant and a P&amp;L figure, the allocation rows recomputed by hand equal the posted rows in both projections; the standing G-S sentence, unchanged: the fold shown equals the fold computed by hand.</li>
     <li>The member allocation deltas for a run sum to the finalized net figure, a Law III conservation check the suites assert on every run.</li>
@@ -332,11 +333,11 @@
 
 <span class="k">- address: S-02</span>
   title: The fold surface
-  intent: /commons/account/ shows the balance and the itemized history with traceable inputs per Law IV.
+  intent: /intranet/share/ shows the balance and the itemized history with traceable inputs per Law IV.
   status: open &middot; Q3
   cites: [PP, IM, AM, PRD]
   ready_when: S-01 verified.
-  deliverable: /commons/account/ over capital_accounts and the member's own capital events.
+  deliverable: /intranet/share/ over capital_accounts and the member's own capital events.
   acceptance: Follow any figure to the events and the policy that produced it.
 
 <span class="k">- address: S-03</span>
@@ -386,7 +387,7 @@
     <li>0002_policies.sql as applied 2026-07-11: events read under Bylaws &sect;18.1 and &sect;6.2.1; the member insert scope; agents read under &sect;2.9; agreements read under Art. XVI and &sect;1.2.9; the Find policies under &sect;18.2; role_grants and the closed appointment enum; the steward delegation marked Anticipated under &sect;1.13 and &sect;4.1.</li>
     <li>IM v0.1, the eleven laws, carried one-line each with full statements in The System Before Its Name &sect;2; Laws I, II, III, IV, V, VII, VIII, IX, X, XI are load-bearing above.</li>
   </ol>
-  <p class="tail">PP v0.2 &middot; Program Patronage &middot; A Proposed Module PRD and Specification &middot; Drafted, open to discussion, nothing herein adopted &middot; cites the series &middot; emits, anticipated, 000N_patronage_verbs.sql and the &sect;14 splice &middot; Nou drafts; Todd decides; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-07-22</p>
+  <p class="tail">PATRONAGE v0.2.1 &middot; Program Patronage &middot; Module PRD and Specification &middot; specification adopted by merge 2026-07-22; policy content awaits its board acts &middot; cites the series &middot; emits, anticipated, 000N_patronage_verbs.sql and the &sect;14 splice as taken &middot; Nou drafts; Todd decides; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-07-22, amended 2026-07-27</p>
 </div>
 
 </div>
