@@ -69,6 +69,10 @@ MIGRATIONS = [
     # them. Applied here so beat 14 can compare each view to its base table.
     "commons/im/0004_export_views.sql",
     "commons/im/0014_export_views_refresh.sql",
+    # X-12: the member's rail. Applied so beats 7.3, 7.4, 10.3, and 10.4 can
+    # assert that responses and registration turns land in the log addressed
+    # to the member they concern, and only to them.
+    "commons/authority-map/0015_member_notices.sql",
 ]
 FRONT_DOOR = "commons/authority-map/0007_apply_for_membership.sql"
 if (REPO_ROOT / FRONT_DOOR).exists():
@@ -224,6 +228,17 @@ def main():
         f"update registrations set state = 'registered' where agent_id = '{NEWCOMER}' returning 1")
     beat(7.2, "and return; the cycle is preserved, not deleted (Law I)",
          rc == 0 and len(lines) == 2, f"re-registered rc={rc}")
+    # -- X-12 · the member's rail: the host's log hears each turn ------
+    rc, lines, _ = as_persona(HOST,
+        f"select count(*) from events where kind like 'registration.%' and agent_id = '{HOST}'")
+    beat(7.3, "the host's log hears each registration turn (X-12; 2.1, 2.4)",
+         rc == 0 and lines[-1] == "3", f"turns heard: {lines[-1] if lines else '?'}")
+    rc, lines, _ = as_persona(HOST,
+        f"insert into registrations (session_id, agent_id) values ('{SES}', '{HOST}') returning 1")
+    rc, lines, _ = as_persona(HOST,
+        f"select count(*) from events where kind like 'registration.%' and agent_id = '{HOST}'")
+    beat(7.4, "no member is noticed of their own act (X-12)",
+         rc == 0 and lines[-1] == "3", f"still: {lines[-1] if lines else '?'}")
 
     # -- beat 8 · attendance counted where the record counts it --------
     rc, lines, _ = as_persona(HOST,
@@ -263,6 +278,17 @@ def main():
         f"select count(*) from responses where opportunity_id = '{OPP}'")
     beat(10.2, "a member who is party to neither side sees nothing (18.2)",
          rc == 0 and lines[-1] == "0", f"bystander sees: {lines[-1] if lines else '?'}")
+    # -- X-12 · the member's rail: the author's log hears the response -
+    rc, lines, _ = as_persona(NEWCOMER,
+        f"select count(*) from events where kind = 'opportunity.responded' "
+        f"and agent_id = '{NEWCOMER}' and payload->>'opportunity_id' = '{OPP}' "
+        f"and payload->>'responder' is not null")
+    beat(10.3, "the author's log hears the response, renderable alone (X-12; Law I)",
+         rc == 0 and lines[-1] == "1", f"heard: {lines[-1] if lines else '?'}")
+    rc, lines, _ = as_persona(BYSTANDER,
+        "select count(*) from events where kind = 'opportunity.responded'")
+    beat(10.4, "the notice is the concerned member's to read, no one else's (18.1)",
+         rc == 0 and lines[-1] == "0", f"bystander hears: {lines[-1] if lines else '?'}")
 
     # -- beat 11 · resolution as an event, never a table (F-03) --------
     rc, lines, _ = as_persona(HOST,

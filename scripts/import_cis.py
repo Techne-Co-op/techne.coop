@@ -35,7 +35,11 @@ def main():
         if TAG in payload:
             print(f"import failed on {t}: payload collides with quote tag", file=sys.stderr)
             sys.exit(1)
-        sql = (f"insert into public.{t} "
+        # A restore replays the log, it does not relive it: replica mode
+        # keeps the X-12 notice triggers (0015) silent so no new events are
+        # minted from replayed rows and the walkaway stays byte-identical.
+        sql = ("set session_replication_role = replica;\n"
+               f"insert into public.{t} "
                f"select * from jsonb_populate_recordset(null::public.{t}, {TAG}{payload}{TAG}::jsonb);")
         r = subprocess.run(["psql", PGURL, "-v", "ON_ERROR_STOP=1", "-q", "-f", "-"],
                            input=sql, capture_output=True, text=True)
