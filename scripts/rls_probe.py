@@ -109,6 +109,9 @@ insert into events (occurred_at, actor_agent_id, kind, agent_id, book_delta, tax
 insert into events (occurred_at, actor_agent_id, kind, agent_id) values
   (now(), '{STE}', 'membership.applied', '{APP}');
 
+insert into events (occurred_at, actor_agent_id, kind, agent_id, payload) values
+  (now(), '{MEM1}', 'direction.given', '{MEM1}', '{{"brief": "Seeded probe direction.", "kind": "survey", "repositories": []}}'::jsonb);
+
 insert into profiles (agent_id, bio, email, email_visible) values
   ('{MEM1}', 'Probe bio one.', 'one@probe.local', true),
   ('{MEM2}', 'Probe bio two.', 'two@probe.local', false);
@@ -121,6 +124,7 @@ MIGRATIONS = [
     "commons/authority-map/0005_matrix_conformance.sql",
     "commons/authority-map/0009_profiles.sql",
     "commons/authority-map/0010_programs_view.sql",
+    "commons/authority-map/0017_direction_rail.sql",
 ]
 
 
@@ -482,6 +486,39 @@ probe("profiles-email-owner", "authenticated", MEM2,
 probe("profiles-email-applicant-denied", "authenticated", APP,
       f"select count(*) from (select profile_email('{MEM1}') e) s where e is not null",
       ("count", 0), "B-06: visibility is a member grant, not an applicant one")
+
+
+# ---- the direction rail (A-01) · AGY sections 5, 6, 7, 15; AM v0.1 section 7 ----
+probe("direction-member-direct-insert-deny", "authenticated", MEM2,
+      f"insert into events (occurred_at, actor_agent_id, kind, agent_id) values (now(), '{MEM2}', 'direction.given', '{MEM2}') returning id",
+      ("write_deny",), "AGY section 6: the verb is the only door; events_scoped_insert admits no direction kind")
+probe("direction-member-verb-ok", "authenticated", MEM2,
+      "select give_direction('Probe direction: survey the record.', 'survey')",
+      ("write_ok",), "AGY section 6: an active member's Direction enters by verb")
+probe("direction-applicant-deny", "authenticated", APP,
+      "select give_direction('Probe direction from an applicant.', 'survey')",
+      ("deny",), "AGY section 6: direction is a member act")
+probe("direction-kind-deny", "authenticated", MEM2,
+      "select give_direction('Probe direction of an unknown kind.', 'deploy')",
+      ("deny",), "AGY section 7: four kinds, a closed set")
+probe("direction-estate-deny", "authenticated", MEM2,
+      "select give_direction('Probe direction naming a stranger repository.', 'build', array['not-the-estate'])",
+      ("deny",), "AGY section 7: the Estate list grows by amendment, not by request")
+probe("direction-reply-cross-deny", "authenticated", MEM2,
+      f"select give_direction('Probe continuation of another member''s Direction.', 'survey', '{{}}', (select id from events where kind = 'direction.given' and agent_id = '{MEM1}' limit 1))",
+      ("deny",), "AGY section 5: reply_to names one's own Direction")
+probe("direction-live-bound-deny", "authenticated", MEM3,
+      "select count(*) from (select give_direction('Probe direction ' || i::text || '.', 'survey') from generate_series(1, 3) i) s",
+      ("deny",), "AGY section 15: two live Directions, the drafter's cut until AGY-ESTATE adopts")
+probe("direction-arc-self-read", "authenticated", MEM1,
+      f"select count(*) from events where kind = 'direction.given' and agent_id = '{MEM1}'",
+      ("count", 1), "Bylaws section 18.1: the member reads their own arc")
+probe("direction-arc-cross-none", "authenticated", MEM3,
+      f"select count(*) from events where kind = 'direction.given' and agent_id = '{MEM1}'",
+      ("count", 0), "AM v0.1 section 5: another member's Directions are not theirs to read")
+probe("direction-steward-relay-ok", "authenticated", STE,
+      f"insert into events (occurred_at, actor_agent_id, kind, agent_id, payload) values (now(), '{STE}', 'direction.accepted', '{MEM1}', jsonb_build_object('direction_id', (select id from events where kind = 'direction.given' and agent_id = '{MEM1}' limit 1))) returning id",
+      ("write_ok",), "AGY section 12 R0: the steward relays the agent-side events under the overseer branch")
 
 
 def main():
