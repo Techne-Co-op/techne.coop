@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="See your share: contribution history, the capital account as a fold, and the written rules that compute it. Parked until the counting rules adopt.">
+<title>Your share &middot; Techne</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem('techne-mode');
+      if (!m) m = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-mode', m);
+    } catch(e) {}
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #fff;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
+  --info: #6A8AC4; --info-dim: rgba(106,138,196,0.12);
+  --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
+  --info: #4A6FB0; --info-dim: rgba(74,111,176,0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text); font-family: var(--serif);
+  font-size: 16px; line-height: 1.65; min-height: 100vh; display: flex; flex-direction: column;
+}
+/* the topbar, the map, and the mode toggle are the shell's (U-01) */
+
+main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
+.section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
+.lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; }
+
+.axis-line {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  color: var(--faint); margin-bottom: var(--s5);
+}
+.axis-line span { color: var(--info); }
+
+.parked-card {
+  border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  margin-bottom: var(--s5); overflow: hidden;
+}
+.parked-header { padding: var(--s4) var(--s5); display: flex; align-items: baseline; gap: var(--s4); border-bottom: 1px solid var(--line); }
+.parked-title { flex: 1; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+.chip {
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+  border: 1px solid var(--info); color: var(--info); background: var(--info-dim); white-space: nowrap;
+}
+.parked-body { padding: var(--s4) var(--s5); font-size: 0.92rem; }
+.parked-body p { margin-bottom: var(--s4); }
+.parked-body p:last-child { margin-bottom: 0; }
+
+.sentence { padding: var(--s3) 0; border-bottom: 1px solid var(--line); display: flex; gap: var(--s3); align-items: baseline; }
+.sentence:last-child { border-bottom: none; }
+.sentence-mark { font-family: var(--mono); font-size: 0.65rem; color: var(--faint); white-space: nowrap; }
+.sentence-text { color: var(--heading); font-size: 0.92rem; }
+
+.waits { background: var(--inset); border-radius: 6px; padding: var(--s4) var(--s5); font-size: 0.88rem; margin-bottom: var(--s5); }
+.waits b { color: var(--heading); font-weight: 700; }
+.waits a { color: var(--ember-text); }
+
+footer {
+  border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
+  font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center;
+}
+footer a { color: var(--faint); }
+
+@media (max-width: 640px) {
+  main { padding: var(--s5) var(--s4); }
+  h1 { font-size: 1.35rem; }
+  .parked-header, .parked-body { padding: var(--s3) var(--s4); }
+}
+</style>
+<script src="/assets/error-boundary.js"></script>
+<script src="/assets/shell.js" defer></script>
+</head>
+<body>
+
+<main>
+  <h1>Your share</h1>
+  <div class="section-rule"></div>
+  <p class="lead">The slice through which each member sees what they have put in, whether work, patronage, or capital, and the share of results that follows, alongside the written rules that computed it.</p>
+
+  <div class="axis-line">provenance <span>real</span> &middot; settlement <span>open</span> &middot; temporal <span>ahead</span></div>
+
+  <div class="parked-card">
+    <div class="parked-header">
+      <span class="parked-title">What will stand here</span>
+      <span class="chip">parked &middot; S-01, S-02</span>
+    </div>
+    <div class="parked-body">
+      <div class="sentence">
+        <span class="sentence-mark">S-01</span>
+        <span class="sentence-text">See your contribution history, itemized.</span>
+      </div>
+      <div class="sentence">
+        <span class="sentence-mark">S-02</span>
+        <span class="sentence-text">See your capital account as a fold over that history. Balances are computed from the event log, never stored as editable numbers.</span>
+      </div>
+      <div class="sentence">
+        <span class="sentence-mark">S-02</span>
+        <span class="sentence-text">Follow any figure to the events and the policy that produced it.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="waits">
+    <b>What this door waits on, by name.</b> The Board adopting the counting rules: which contributions count, how each kind is valued, and when the first accounting year begins. The rules are drafted and staged at <a href="/commons/patronage/counting-rules/">COUNTING-RULES v1</a>; they bind on adoption, and this page opens when they do. Nothing here is withheld by an administrator; the numbers are absent because the rules that would compute them are not yet the cooperative's act.
+  </div>
+
+  <div class="parked-card">
+    <div class="parked-header">
+      <span class="parked-title">Already true underneath</span>
+    </div>
+    <div class="parked-body">
+      <p>The substrate has carried capital events, valued events, and the account fold since the eleven laws landed: one voting share per voting member, each account equal to the fold of its member's events, nothing edited, corrections as compensating entries. The walkaway rehearsal proves the fold round-trips. What is missing is not machinery; it is the adopted rules that give the machinery its numbers.</p>
+      <p>The frame of it is written at <a href="/commons/patronage/">Program Patronage</a>, and the weights stay with the Plan.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  See your share &middot; PRD v0.3 &middot; <a href="/commons/prd/">the governing specification</a>
+</footer>
+
+</body>
+</html>
