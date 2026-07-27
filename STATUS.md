@@ -6,8 +6,8 @@ Generated from rdm-ledger.yaml. 72 items total.
 | status | count |
 |--------|-------|
 | drafted | 10 |
-| anticipated | 15 |
-| open | 47 |
+| anticipated | 14 |
+| open | 48 |
 | filed | 0 |
 
 ## Drafted
@@ -26,6 +26,7 @@ Generated from rdm-ledger.yaml. 72 items total.
 ## Open
 
 - **A-01** open · in-session -- The direction rail
+- **A-02** open · in-session -- The desk
 - **B-01** open · verified -- Identity binding
 - **B-02** open · verified -- Onboarding and application intake
 - **B-03** open · verified -- Agreements shelf
@@ -75,7 +76,6 @@ Generated from rdm-ledger.yaml. 72 items total.
 
 ## Anticipated
 
-- **A-02** The desk
 - **A-03** The first grant and the instrument's pen
 - **A-04** The run harness
 - **G-A** The agency gate
