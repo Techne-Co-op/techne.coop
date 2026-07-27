@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="The Gate Book: demonstration scripts, attestation texts, and recording procedure for every gate of the CIS build. A gate is a human act; this page is its score.">
+<meta name="description" content="The Gate Book: demonstration scripts, attestation texts, and recording procedure for the gates of the CIS build. A gate is a human act; this page is its score.">
 <title>The Gate Book &middot; RDM v1 &middot; Techne</title>
 <link rel="canonical" href="https://techne.coop/commons/build/gates/">
 <meta property="og:type" content="website">
@@ -196,9 +196,9 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
 <div class="mast">
   <div class="mast-eyebrow">the gate book &middot; RDM v1 &middot; VS v1 &sect;6</div>
   <h1>The Gate Book</h1>
-  <p class="mast-dek">A gate is a human act: people demonstrate the capability live, say the words, and record the event. Nothing here executes; this page is the score. Each gate carries its condition, its demonstration script drawn sentence by sentence from PRD v0.3 &sect;4, the attestation to speak, and the procedure that writes it into the record.</p>
+  <p class="mast-dek">A gate is a human act: people demonstrate the capability live, say the words, and record the event. Nothing here executes; this page is the score. Each gate carries its condition, its demonstration script drawn sentence by sentence from PRD v0.3 &sect;4, or from the module document that governs its train, the attestation to speak, and the procedure that writes it into the record.</p>
   <div class="mast-meta">
-    <span>cites &middot; RDM v1 &middot; PRD v0.3 &sect;4 &middot; VS v1 &sect;6 &middot; AM v0.1</span>
+    <span>cites &middot; RDM v1 &middot; PRD v0.3 &sect;4 &middot; VS v1 &sect;6 &middot; AM v0.1 &middot; AGY &sect;13</span>
     <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
   </div>
 </div>
@@ -384,6 +384,59 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <p>The sentences, when the train opens: see contribution history itemized; see the capital account as a fold over that history; follow any figure to the events and the policy that produced it. The hand computation is the heart: a member's balance recomputed from their own events with the written rules, matching the screen to the cent.</p>
   </section>
 
+  <section class="sec" id="g-a">
+    <div class="addr">after A-04</div>
+    <h2 class="gate-head">G-A &middot; The agency gate <span class="chip anticipated"><span class="dot"></span>anticipated</span></h2>
+    <div class="condition"><span class="k">condition</span>A-01 through A-04 verified; the first grant recorded, since three of the five direction kinds carry the agent as actor. This gate has a cast requirement no other gate has: the person who directs the instrument must not be the steward. It is the whole point of the module, and a demonstration by the steward alone would prove nothing that was not already true.</div>
+    <p>Sentences drawn from AGY &sect;13. The script, when the train reaches it: demonstrate, speak, record.</p>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">01</div><div class="beat-who">member</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A patron member who is not the steward can give the instrument work, and the record carries who asked.&rdquo;</span>
+          A member signs in, opens <a href="/intranet/direct/">the desk</a>, and gives one Direction of the kind draft or survey.
+          <span class="observe">observe: the arc shows it given; the row carries the member as the concerned agent, not the steward</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">02</div><div class="beat-who">the instrument</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;The work comes back as artifacts, and every artifact names two hands.&rdquo;</span>
+          The Direction completes. The member opens the pull request from their own arc.
+          <span class="observe">observe: the commit carries Authored-by and Directed-by; the pull request names the Direction; the closing event carries the spend</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">03</div><div class="beat-who">member</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A Direction that crosses the floor is refused, and the refusal says which rule refused it.&rdquo;</span>
+          The member gives a Direction naming a repository off the Estate list, or one that would move money.
+          <span class="observe">observe: the desk shows the refusal in the words of the rule, citing AGY &sect;7 or &sect;11</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">04</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;The steward can stop the instrument, and the stop is in the record like everything else.&rdquo;</span>
+          With a Direction running, the steward halts it.
+          <span class="observe">observe: direction.halted with its reason; the arc shows the stop rather than a silence</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">05</div><div class="beat-who">both</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;Nothing in the arc is invisible.&rdquo;</span>
+          Member and steward read the whole arc back from the record: given, accepted, completed, refused, halted, each with its hand and its hour.
+          <span class="observe">observe: no step of the run exists only in a chat window or on the host</span>
+        </div>
+      </div>
+    </div>
+    <div class="attest">
+      <span class="k">attestation</span>
+      <p>&ldquo;G-A attested. A member other than the steward directed the instrument, received the work, and every step stands in the record under two hands.&rdquo;</p>
+    </div>
+  </section>
+
   <section class="sec" id="final">
     <div class="addr">&sect;final</div>
     <h2>Recording an attestation</h2>
@@ -395,7 +448,7 @@ values (
   '&lt;attesting agent id&gt;',
   'gate.attested',
   jsonb_build_object(
-    'gate', '&lt;G-B | G-G | G-F | G-S | G-R&gt;',
+    'gate', '&lt;G-B | G-G | G-F | G-S | G-T | G-R | G-A&gt;',
     'attestation', '&lt;the words as spoken&gt;',
     'witnesses', jsonb_build_array('&lt;agent id&gt;', '&lt;agent id&gt;')
   )
