@@ -126,6 +126,7 @@ MIGRATIONS = [
     "commons/authority-map/0009_profiles.sql",
     "commons/authority-map/0010_programs_view.sql",
     "commons/authority-map/0017_direction_rail.sql",
+    "commons/authority-map/0018_direction_desk.sql",
 ]
 
 
@@ -517,6 +518,15 @@ probe("direction-arc-self-read", "authenticated", MEM1,
 probe("direction-arc-cross-none", "authenticated", MEM3,
       f"select count(*) from events where kind = 'direction.given' and agent_id = '{MEM1}'",
       ("count", 0), "AM v0.1 section 5: another member's Directions are not theirs to read")
+probe("direction-standing-member-ok", "authenticated", MEM1,
+      "select live_bound from direction_standing()",
+      ("count", 2), "AGY section 15: the desk reads the bounds the verb enforces (A-02, definer per the PATRONAGE section 15 decision)")
+probe("direction-standing-anon-deny", "anon", None,
+      "select * from direction_standing()",
+      ("deny",), "AM v0.1 section 5: the anon column reads nothing anywhere")
+probe("direction-standing-own-counts", "authenticated", MEM1,
+      "select live_now from direction_standing()",
+      ("count", 1), "AGY section 8: the strip counts the caller's own live Directions, the seeded one")
 probe("direction-steward-relay-ok", "authenticated", STE,
       f"insert into events (occurred_at, actor_agent_id, kind, agent_id, payload) values (now(), '{STE}', 'direction.accepted', '{MEM1}', jsonb_build_object('direction_id', '{DIR1}')) returning id",
       ("write_ok",), "AGY section 12 R0: the steward relays the agent-side events under the overseer branch")

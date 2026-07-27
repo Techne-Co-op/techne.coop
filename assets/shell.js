@@ -61,6 +61,9 @@
     { group: 'Treasury', items: [
       { href: '/intranet/treasury/', label: 'The Desk', tint: 'violet' }
     ]},
+    { group: 'Common agency', items: [
+      { href: '/intranet/direct/', label: 'Direction', tint: 'blue' }
+    ]},
     { group: 'Steward', steward: true, items: [
       { href: '/commons/directory/', label: 'Admissions', tint: 'ember', noactive: true }
     ]},

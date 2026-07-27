@@ -264,6 +264,12 @@ footer {
           <div class="card-desc" id="programs-desc">Organizing bodies for the Opportunities on the board: purpose, Coordinator, and how work is recognized, each read from the version in force.</div>
           <div class="card-go">open the programs →</div>
         </a>
+        <a class="dash-card door-card" href="/intranet/direct/">
+          <div class="card-label">Common agency &middot; direction</div>
+          <div class="card-value" style="font-size:1rem">Direction</div>
+          <div class="card-desc" id="direction-desc">Set the cooperative's agent working, on the record and within the declared scope. Every Direction carries your name, and everything that comes of it is recorded beside it.</div>
+          <div class="card-go">open direction &rarr;</div>
+        </a>
         <a class="dash-card door-card" href="/commons/join/">
           <div class="card-label">Belong · the front door</div>
           <div class="card-value" style="font-size:1rem">The join form</div>
@@ -404,6 +410,24 @@ async function loadPortal(user) {
             desc.textContent = 'No Programs stand yet; the first arrives when the board designates one. The view is open and honest about it.';
           } else {
             desc.textContent = progs.length + ' program' + (progs.length === 1 ? '' : 's') + ' · ' + inForce + ' in force, ' + (progs.length - inForce) + ' in formation. Purpose, Coordinator, and recognition read from the version in force.';
+          }
+        }
+      } catch (e) { /* the door still stands; the summary is a courtesy */ }
+
+      // the Direction window: the member's own arc, summarized (A-02)
+      try {
+        const dirRes = await fetch(`${SUPABASE_URL}/rest/v1/events?kind=like.direction.*&select=id,kind,payload&order=recorded_at.desc`, { headers });
+        const evs = await dirRes.json();
+        if (Array.isArray(evs)) {
+          const given = evs.filter(e => e.kind === 'direction.given');
+          const closed = new Set(evs.filter(e => e.kind !== 'direction.given')
+            .map(e => e.payload && e.payload.direction_id).filter(Boolean));
+          const live = given.filter(g => !closed.has(g.id)).length;
+          const desc = document.getElementById('direction-desc');
+          if (given.length === 0) {
+            desc.textContent = 'Set the cooperative\u0027s agent working, on the record and within the declared scope. You have given no Directions yet; the first one stands here with everything that comes of it.';
+          } else {
+            desc.textContent = given.length + ' Direction' + (given.length === 1 ? '' : 's') + ' given \u00b7 ' + live + ' live. Every one carries your name, and its artifacts are recorded beside it.';
           }
         }
       } catch (e) { /* the door still stands; the summary is a courtesy */ }

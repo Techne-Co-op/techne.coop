@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Direction for RegenHub, LCA: a patron member gives the cooperative's agent work, on the record, within the declared scope.">
+<title>Direction &middot; Techne</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem('techne-mode');
+      if (!m) m = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-mode', m);
+    } catch(e) {}
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #fff;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
+  --info: #6A8AC4; --info-dim: rgba(106,138,196,0.12);
+  --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
+  --info: #4A6FB0; --info-dim: rgba(74,111,176,0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text); font-family: var(--serif);
+  font-size: 16px; line-height: 1.65; min-height: 100vh; display: flex; flex-direction: column;
+}
+/* the topbar, the map, and the mode toggle are the shell's (U-01) */
+
+main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
+.section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
+.lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; }
+
+#loading { text-align: center; padding: var(--s7) 0; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; }
+#content { display: none; }
+
+.notice { padding: var(--s4); border-radius: 6px; margin: var(--s4) 0; font-size: 0.88rem; display: none; }
+.notice.ok  { background: var(--ok-dim); color: var(--ok); border: 1px solid var(--ok); }
+.notice.err { background: var(--warn-dim); color: var(--warn); border: 1px solid var(--warn); }
+
+.section-head {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--faint); margin: var(--s6) 0 var(--s4);
+  padding-bottom: var(--s2); border-bottom: 1px solid var(--line);
+}
+
+.card {
+  border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  margin-bottom: var(--s5); overflow: hidden;
+}
+.card-body { padding: var(--s4) var(--s5); }
+
+/* the pen */
+.field-row { margin-bottom: var(--s4); }
+.field-row label {
+  display: block; font-family: var(--mono); font-size: 0.68rem;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin-bottom: 4px;
+}
+.field-row .hint { font-family: var(--mono); font-size: 0.66rem; color: var(--faint); margin-top: 4px; }
+.field-row textarea, .field-row select {
+  width: 100%; background: var(--inset); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--heading); font-family: var(--serif); font-size: 0.9rem;
+  padding: 8px var(--s3); outline: none;
+}
+.field-row textarea { min-height: 96px; resize: vertical; line-height: 1.6; }
+.field-row textarea:focus, .field-row select:focus { border-color: var(--ember); }
+.field-row textarea::placeholder { color: var(--faint); }
+.repo-list { display: flex; flex-wrap: wrap; gap: var(--s3); }
+.repo-list label {
+  display: inline-flex; align-items: center; gap: var(--s2); text-transform: none;
+  letter-spacing: 0; font-size: 0.75rem; color: var(--text); margin-bottom: 0;
+}
+.act-row { display: flex; gap: var(--s3); align-items: center; flex-wrap: wrap; }
+.act-btn {
+  font-family: var(--mono); font-size: 0.72rem; padding: 8px 14px; border-radius: 4px;
+  border: 1px solid var(--ember); background: transparent; color: var(--ember-text);
+  cursor: pointer; white-space: nowrap;
+}
+.act-btn:hover { background: var(--ember); color: var(--on-accent); }
+.act-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.status-msg { font-family: var(--mono); font-size: 0.72rem; color: var(--ok); }
+.status-msg.err { color: var(--warn); }
+
+/* the standing strip */
+.standing { display: flex; flex-wrap: wrap; gap: var(--s5); }
+.standing div { min-width: 120px; }
+.standing .k {
+  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint); display: block; margin-bottom: 2px;
+}
+.standing .v { font-family: var(--mono); font-size: 0.85rem; color: var(--heading); }
+
+/* the arc */
+.arc-card { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); margin-bottom: var(--s4); }
+.arc-head { padding: var(--s4) var(--s5); display: flex; align-items: flex-start; gap: var(--s3); }
+.arc-brief { flex: 1; font-size: 0.95rem; color: var(--heading); }
+.arc-meta { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); margin-top: var(--s2); }
+.state-chip {
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+  white-space: nowrap; flex-shrink: 0; border: 1px solid var(--line); color: var(--muted);
+}
+.state-chip.live { background: var(--info-dim); color: var(--info); border-color: var(--info); }
+.state-chip.done { background: var(--ok-dim); color: var(--ok); border-color: var(--ok); }
+.state-chip.stopped { background: var(--warn-dim); color: var(--warn); border-color: var(--warn); }
+.beat { border-top: 1px solid var(--line); padding: var(--s3) var(--s5); background: var(--inset); }
+.beat-k { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
+.beat-v { font-size: 0.88rem; color: var(--text); }
+.beat-v a { color: var(--ember-text); }
+.trace { font-family: var(--mono); font-size: 0.62rem; color: var(--faint); }
+.rule-cite { font-family: var(--mono); font-size: 0.72rem; color: var(--warn); }
+
+.empty-state { text-align: center; padding: var(--s6) 0; color: var(--muted); }
+.empty-state p { font-family: var(--mono); font-size: 0.85rem; }
+
+footer {
+  border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
+  font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center;
+}
+footer a { color: var(--faint); }
+
+@media (max-width: 640px) {
+  main { padding: var(--s5) var(--s4); }
+  h1 { font-size: 1.35rem; }
+  .card-body, .arc-head, .beat { padding: var(--s3) var(--s4); }
+  .act-btn { min-height: 44px; padding: 10px 16px; }
+}
+</style>
+<script src="/assets/error-boundary.js"></script>
+<script src="/assets/shell.js" defer></script>
+</head>
+<body>
+
+<main>
+  <div id="loading">Loading&hellip;</div>
+
+  <div id="content">
+    <h1>Direction</h1>
+    <div class="section-rule"></div>
+    <p class="lead">The cooperative's agent works for the whole membership, and this is where you set it working. A Direction is an act on the record: it carries your name, it names what you asked for, and everything that comes of it, the branch, the pull request, the refusal, is recorded here beside it. Deciding stays with people. Merge, adoption, and signature are never the instrument's to make.</p>
+
+    <div class="notice" id="page-notice"></div>
+
+    <div class="section-head">The instrument's standing</div>
+    <div class="card"><div class="card-body">
+      <div class="standing" id="standing">
+        <div><span class="k">Estate list</span><span class="v" id="st-repos">&ndash;</span></div>
+        <div><span class="k">Your live Directions</span><span class="v" id="st-live">&ndash;</span></div>
+        <div><span class="k">Given today</span><span class="v" id="st-today">&ndash;</span></div>
+        <div><span class="k">Bounds in force</span><span class="v" id="st-policy">&ndash;</span></div>
+      </div>
+      <p class="lead" style="margin:var(--s4) 0 0;font-size:0.85rem" id="st-note"></p>
+    </div></div>
+
+    <div class="section-head">Give a Direction</div>
+    <div class="card"><div class="card-body">
+      <div class="field-row">
+        <label for="brief">The work, in your words</label>
+        <textarea id="brief" placeholder="What you would like done, and anything the instrument should know before it starts."></textarea>
+      </div>
+      <div class="field-row">
+        <label for="kind">Kind</label>
+        <select id="kind">
+          <option value="draft">draft &middot; produce or revise documents and pages</option>
+          <option value="build">build &middot; produce code and packet work</option>
+          <option value="survey">survey &middot; read and report, writing nothing but the report</option>
+          <option value="answer">answer &middot; a recorded question and a recorded answer</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <label>Repositories</label>
+        <div class="repo-list" id="repo-list"></div>
+        <div class="hint">The Estate list grows by amendment, not by request. Name none for work on the record alone.</div>
+      </div>
+      <div class="act-row">
+        <button class="act-btn" id="give-btn">Give the Direction</button>
+        <span class="status-msg" id="give-status"></span>
+      </div>
+      <p class="lead" style="margin:var(--s4) 0 0;font-size:0.82rem">A Direction cannot move money, reach outside the estate, or merge its own work. The floor is stated in <a href="/commons/agency/" style="color:var(--ember-text)">Common Agency</a> &sect;11, and the record enforces it whatever any interface offers.</p>
+    </div></div>
+
+    <div class="section-head">Your Directions</div>
+    <div id="arc"></div>
+
+    <div class="section-head">Everyone's Directions</div>
+    <div class="card"><div class="card-body">
+      <p class="lead" style="margin:0;font-size:0.88rem">The commons shelf, every member's completed Directions visible to one another, is described in <a href="/commons/agency/" style="color:var(--ember-text)">Common Agency</a> &sect;8 and waits on one decision the module routed rather than took: whether direction arcs are common reading or private to the member who gave them (&sect;15). Until that decision records, this page shows you your own.</p>
+    </div></div>
+  </div>
+</main>
+
+<footer>
+  <span>Techne &middot; RegenHub, LCA &middot; Boulder, Colorado</span>
+  &nbsp;&middot;&nbsp;
+  <a href="/legal">legal</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
+let sb, currentAgentId;
+let standing = null, directions = [], closings = [];
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function shortId(id) { return String(id || '').slice(0, 8); }
+function when(ts) {
+  if (!ts) return '';
+  try { return new Date(ts).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }); }
+  catch (e) { return String(ts); }
+}
+
+// ── The standing strip ────────────────────────────────────────────────────────
+// Read by definer (0018) because the bounds live in an adoption event that
+// concerns the cooperative, not the member. The page cannot promise a bound
+// the verb would not enforce: both read the same instrument.
+
+function renderStanding() {
+  if (!standing) return;
+  const repos = Array.isArray(standing.repositories) ? standing.repositories : [];
+  document.getElementById('st-repos').textContent = repos.length ? repos.join(' · ') : 'none';
+  document.getElementById('st-live').textContent = standing.live_now + ' of ' + standing.live_bound;
+  document.getElementById('st-today').textContent = standing.given_today + ' of ' + standing.day_bound;
+  document.getElementById('st-policy').textContent = standing.policy_code
+    ? standing.policy_code + ' ' + (standing.policy_version || '')
+    : 'the module defaults';
+  document.getElementById('st-note').textContent = standing.policy_code
+    ? 'Read from the version in force; a change of bounds is an adopted amendment, not a change of code.'
+    : "No AGY-ESTATE instrument has adopted yet, so these are the opening values Common Agency proposed. They become the record's the moment the instrument adopts.";
+
+  const list = document.getElementById('repo-list');
+  list.innerHTML = repos.length
+    ? repos.map(r => `<label><input type="checkbox" value="${escHtml(r)}"> ${escHtml(r)}</label>`).join('')
+    : '<span class="hint">No repository stands on the Estate list yet.</span>';
+}
+
+// ── The arc ───────────────────────────────────────────────────────────────────
+// Every direction.* event concerns the directing member, so the standing
+// events_read policy shows the whole arc with no widening (AGY §5).
+
+function beatsFor(given) {
+  const mine = closings.filter(c => c.payload && c.payload.direction_id === given.id);
+  mine.sort((a, b) => new Date(a.recorded_at) - new Date(b.recorded_at));
+  return mine;
+}
+
+function stateOf(beats) {
+  if (!beats.length) return { label: 'given', cls: 'live' };
+  const last = beats[beats.length - 1].kind;
+  if (last === 'direction.completed') return { label: 'completed', cls: 'done' };
+  if (last === 'direction.refused')  return { label: 'refused', cls: 'stopped' };
+  if (last === 'direction.halted')   return { label: 'halted', cls: 'stopped' };
+  if (last === 'direction.accepted') return { label: 'running', cls: 'live' };
+  return { label: 'given', cls: 'live' };
+}
+
+function beatHtml(b) {
+  const p = b.payload || {};
+  if (b.kind === 'direction.accepted') {
+    return `<div class="beat"><span class="beat-k">Accepted</span>
+      <div class="beat-v">The instrument took the work up. <span class="trace">${escHtml(when(b.recorded_at))}${p.run_id ? ' · run ' + escHtml(shortId(p.run_id)) : ''}</span></div></div>`;
+  }
+  if (b.kind === 'direction.refused') {
+    return `<div class="beat"><span class="beat-k">Refused</span>
+      <div class="beat-v"><span class="rule-cite">${escHtml(p.rule || 'a rule of the floor')}</span>
+      ${p.reason ? '<br>' + escHtml(p.reason) : ''}
+      <div class="trace">${escHtml(when(b.recorded_at))}</div></div></div>`;
+  }
+  if (b.kind === 'direction.halted') {
+    return `<div class="beat"><span class="beat-k">Halted</span>
+      <div class="beat-v">${escHtml(p.reason || "Stopped by the steward's hand.")}
+      <div class="trace">${escHtml(when(b.recorded_at))}</div></div></div>`;
+  }
+  // completed: the artifacts, by reference
+  const links = [];
+  if (p.pull_request) links.push(`<a href="${escHtml(p.pull_request)}">the pull request</a>`);
+  if (p.branch) links.push(`branch <span class="trace">${escHtml(p.branch)}</span>`);
+  if (Array.isArray(p.commits) && p.commits.length) {
+    links.push('commits ' + p.commits.map(c => `<span class="trace">${escHtml(shortId(c))}</span>`).join(', '));
+  }
+  const spend = [];
+  if (p.tokens) spend.push(escHtml(String(p.tokens)) + ' tokens');
+  if (p.wall_seconds) spend.push(escHtml(String(p.wall_seconds)) + 's');
+  return `<div class="beat"><span class="beat-k">Completed</span>
+    <div class="beat-v">${links.length ? links.join(' &middot; ') : 'No artifact was recorded with this closing.'}
+    <div class="trace">${escHtml(when(b.recorded_at))}${spend.length ? ' · ' + spend.join(' · ') : ''}</div></div></div>`;
+}
+
+function render() {
+  const el = document.getElementById('arc');
+  if (!directions.length) {
+    el.innerHTML = `<div class="empty-state"><p>You have given no Directions yet. The first one you give stands here with everything that comes of it.</p></div>`;
+    return;
+  }
+  el.innerHTML = directions.map(d => {
+    const p = d.payload || {};
+    const beats = beatsFor(d);
+    const st = stateOf(beats);
+    const repos = Array.isArray(p.repositories) && p.repositories.length ? p.repositories.join(' · ') : 'the record alone';
+    return `<div class="arc-card">
+      <div class="arc-head">
+        <div style="flex:1">
+          <div class="arc-brief">${escHtml(p.brief)}</div>
+          <div class="arc-meta">${escHtml(p.kind || '')} &middot; ${escHtml(repos)} &middot; ${escHtml(when(d.recorded_at))} &middot; <span class="trace">event ${escHtml(shortId(d.id))}</span></div>
+        </div>
+        <span class="state-chip ${st.cls}">${st.label}</span>
+      </div>
+      ${beats.map(beatHtml).join('')}
+    </div>`;
+  }).join('');
+}
+
+// ── The pen ───────────────────────────────────────────────────────────────────
+
+async function giveDirection() {
+  const btn = document.getElementById('give-btn');
+  const status = document.getElementById('give-status');
+  const brief = document.getElementById('brief').value.trim();
+  const kind = document.getElementById('kind').value;
+  const repos = Array.from(document.querySelectorAll('#repo-list input:checked')).map(i => i.value);
+
+  status.className = 'status-msg';
+  if (!brief) { status.className = 'status-msg err'; status.textContent = 'A Direction needs a brief.'; return; }
+
+  btn.disabled = true;
+  status.textContent = 'Recording…';
+
+  const { data, error } = await sb.rpc('give_direction', {
+    p_brief: brief, p_kind: kind, p_repositories: repos
+  });
+
+  if (error) {
+    // The verb's refusals cite their rules; show what it said, not a paraphrase.
+    status.className = 'status-msg err';
+    status.textContent = Techne.report(error, 'The record refused the Direction.');
+    btn.disabled = false;
+    return;
+  }
+
+  status.textContent = 'Given · ' + shortId(data) + '…';
+  document.getElementById('brief').value = '';
+  document.querySelectorAll('#repo-list input:checked').forEach(i => { i.checked = false; });
+  btn.disabled = false;
+  await loadData();
+  renderStanding();
+  render();
+}
+
+// ── Data loading ──────────────────────────────────────────────────────────────
+
+async function loadData() {
+  const [r1, r2] = await Promise.all([
+    sb.rpc('direction_standing'),
+    sb.from('events')
+      .select('id,kind,recorded_at,payload')
+      .like('kind', 'direction.%')
+      .order('recorded_at', { ascending: false })
+  ]);
+  const notice = document.getElementById('page-notice');
+  if (r1.error || r2.error) {
+    const e = r1.error || r2.error;
+    notice.textContent = Techne.report(e, 'Could not load the desk right now. Please reload the page.');
+    notice.className = 'notice err'; notice.style.display = 'block';
+  }
+  standing = Array.isArray(r1.data) ? r1.data[0] : r1.data;
+  const rows = r2.data || [];
+  directions = rows.filter(e => e.kind === 'direction.given');
+  closings = rows.filter(e => e.kind !== 'direction.given');
+}
+
+async function loadAll(session) {
+  document.getElementById('content').style.display = 'block';
+  const { data: agents } = await sb.from('agents').select('id,auth_user_id');
+  const self = agents && agents.find(a => a.auth_user_id === session.user.id);
+  currentAgentId = self ? self.id : null;
+  await loadData();
+  renderStanding();
+  render();
+}
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+
+(async function init() {
+  sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
+  const { data: { session } } = await sb.auth.getSession();
+  document.getElementById('loading').style.display = 'none';
+
+  if (!session) {
+    return; /* signed out: the shell shows the gate (U-04) */
+  }
+
+  const btn = document.getElementById('give-btn');
+  btn.addEventListener('click', giveDirection);
+
+  await loadAll(session);
+
+  sb.auth.onAuthStateChange(async (event, s) => {
+    if (event === 'SIGNED_IN' && s) {
+      await loadAll(s);
+    }
+    if (event === 'SIGNED_OUT') {
+      document.getElementById('content').style.display = 'none';
+      location.reload(); /* the shell renders the gate (U-04) */
+    }
+  });
+})();
+</script>
+</body>
+</html>
