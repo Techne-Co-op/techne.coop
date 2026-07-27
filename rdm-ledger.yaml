@@ -4,7 +4,7 @@
 # Validator: scripts/validate.py — schema, acyclicity, gating.
 # Status marks: drafted | anticipated | open · (blocker)
 # No dates. Dependency is the schedule.
-# 57 items: 9 series and module documents + 48 work packets across 8 trains.
+# 72 items: 10 series and module documents + 62 work packets across 9 trains.
 
 series:
 
@@ -91,6 +91,21 @@ series:
     acceptance: >
       Published at techne.coop/commons/treasury/. The §13 splice entered in this
       ledger; adoption is the merge, and the merge is Todd's.
+
+  - address: AGY
+    title: Common Agency · Module PRD and Specification
+    intent: >
+      Patron members direct the cooperative's agent on the record: the
+      direction rail, the run, provenance under two hands, the desk, the
+      floor, and the first-grant decision, staged and routed. Emits,
+      anticipated, 000N_direction_rail.sql. Proposal posture per its own
+      §1; adopted by the steward's merge 2026-07-27 (PR #73).
+    status: drafted
+    cites: [SER, PRD, BP, IM, AM, PATRONAGE, U-04, X-02]
+    deliverable: commons/agency/index.html
+    acceptance: >
+      Published at techne.coop/commons/agency/. The §14 splice entered in
+      this ledger; adoption is the merge, and the merge is Todd's.
 
 substrate:
 
@@ -327,6 +342,20 @@ gates:
       (Bylaws v2.1 Ratified July 2026, Membership Agreement v2.3 Ratified
       July 2026), adopted by the steward's merge. The instruments were
       already right; the index caught up.
+
+  - address: G-A
+    title: The agency gate
+    intent: Common direction demonstrated by a member who is not the steward.
+    status: anticipated
+    cites: [AGY, VS]
+    ready_when: A-04 verified.
+    gate: The AGY §13 gate sentence, demonstrated live and recorded.
+    deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
+    acceptance: G-A status updated to attested. A-01 through A-04 all verified.
+    note: >
+      Entered 2026-07-27 with the A train on AGY adoption. The gates tree
+      page resynced the same day (PR #70) precedes this gate; its catch-up
+      is flagged to the steward, not taken here.
 
 belong:
 
@@ -1705,3 +1734,64 @@ cross_cutting:
       version per PATRONAGE section 15. The Desk's presence in every
       signed-in member's map, ahead of the open-books cut TREASURY section 14
       routes to the FSC, is flagged to the steward rather than changed.
+
+agency:
+
+  # The agency lane: common direction of the instrument. Entered 2026-07-27
+  # on AGY adoption (PR #73), per the AGY §14 splice. The splice wrote its
+  # first two packets "open · AGY adoption"; they enter as anticipated in
+  # this ledger's grammar: declared, adoption recorded, not yet taken up.
+
+  - address: A-01
+    title: The direction rail
+    intent: >
+      The direction namespace, the give_direction verb, and the policies;
+      the AGY §11 floor asserted by probes.
+    status: anticipated
+    cites: [AGY, IM, AM, BP]
+    ready_when: AGY adopted. G0 attested. Both recorded; the packet waits only on hands.
+    deliverable: 000N_direction_rail.sql; probe matrix cells.
+    acceptance: >
+      A member's Direction enters by verb and only by verb; refusals cite
+      their rules.
+
+  - address: A-02
+    title: The desk
+    intent: >
+      /intranet/direct/ and the Overview window; the pen, the arc, the
+      commons shelf per AGY §8.
+    status: anticipated
+    cites: [AGY, PRD, UI]
+    ready_when: A-01 verified.
+    deliverable: /intranet/direct/; the Overview window.
+    acceptance: >
+      Give a Direction from the desk; watch its arc; find a refusal's rule
+      on the page.
+
+  - address: A-03
+    title: The first grant and the instrument's pen
+    intent: >
+      The AM v0.2 addendum granting the agent the direction namespace; the
+      Estate list instrument; the agent-actored verbs.
+    status: anticipated
+    cites: [AGY, AM]
+    ready_when: >
+      A-01 verified. The grant decided by Todd, routed to the board if he
+      routes it.
+    deliverable: AM v0.2 addendum; the AGY-ESTATE instrument; the agent-actored verbs.
+    acceptance: >
+      The agent writes direction.accepted under its own grant; the probe
+      shows it can write nothing else.
+
+  - address: A-04
+    title: The run harness
+    intent: >
+      Poll, brief, isolated session, scope enforcement, halt, spend
+      write-back per AGY §6 §7 §10.
+    status: anticipated
+    cites: [AGY, BP]
+    ready_when: A-03 verified. Rehearsed on the steward's Directions before any member's.
+    deliverable: The harness on the host; the halt path demonstrated.
+    acceptance: >
+      A Direction completes end to end with both trailers and its spend
+      recorded.
