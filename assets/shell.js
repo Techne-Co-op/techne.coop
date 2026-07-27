@@ -55,6 +55,9 @@
       { href: '/commons/opportunities/', label: 'Opportunities', tint: 'rose' },
       { href: '/intranet/programs/', label: 'Programs', tint: 'rose' }
     ]},
+    { group: 'See your share', items: [
+      { href: '/intranet/share/', label: 'Your share', tint: 'violet' }
+    ]},
     { group: 'Treasury', items: [
       { href: '/intranet/treasury/', label: 'The Desk', tint: 'violet' }
     ]},
