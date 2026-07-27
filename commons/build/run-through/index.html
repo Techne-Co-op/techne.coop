@@ -196,7 +196,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
 <div class="mast">
   <div class="mast-eyebrow">the run-through &middot; RDM v1 &middot; steward's systems test</div>
   <h1>The Run-Through</h1>
-  <p class="mast-dek">A guide to testing the built system end to end, by hand, before launch. The machine has already agreed with itself; this is where the steward finds out whether the system tells the truth to a person. Walked in order, the run-through drives every outstanding acceptance and sets up all three gate attestations. Unfamiliar words are defined in <a href="/commons/build/lexicon/">the Lexicon</a>. Budget roughly an hour for the walk itself.</p>
+  <p class="mast-dek">A guide to testing the built system end to end, by hand, before launch. The machine has already agreed with itself; this is where the steward finds out whether the system tells the truth to a person. Walked in order, the run-through drives the outstanding acceptances and sets up the three gate attestations that are ready. G-A is not among them: its sentence asks for a member who is not the steward, so it is the one gate this walk cannot reach alone. Unfamiliar words are defined in <a href="/commons/build/lexicon/">the Lexicon</a>. Budget roughly an hour for the walk itself.</p>
   <div class="mast-meta">
     <span>cites &middot; RDM v1 &middot; PRD v0.3 &sect;4 &middot; the Gate Book &middot; the notices runbook</span>
     <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
@@ -286,7 +286,7 @@ end $$;
 -- see the result
 select a.display_name, a.auth_user_id is not null as bound, m.state
   from agents a join memberships m on m.agent_id = a.id;</pre>
-    <p>Either way, have the newcomer reload, then have them open <a href="/intranet/">the portal</a>: the identity strip resolves their name, membership state, and roles; the five doors stand open; no steward's desk appears. The system now knows who asks, and shows each person only their own standing.</p>
+    <p>Either way, have the newcomer reload, then have them open <a href="/intranet/">the portal</a>: the identity strip resolves their name, membership state, and roles; the doors of the map stand open, Direction among them; no steward's desk appears. The system now knows who asks, and shows each person only their own standing.</p>
   </section>
 
   <section class="sec" id="belong">
@@ -412,6 +412,38 @@ returning id, display_name;</pre>
     </div>
   </section>
 
+  <section class="sec" id="direct">
+    <div class="addr">the eighth act</div>
+    <h2>Direction</h2>
+    <p class="lead">The module work of 2026-07-27: a member gives the instrument work as a recorded act at <a href="/intranet/direct/">/intranet/direct/</a>. Walk it once yourself, since the harness that would take the rail on its own is A-04 and does not exist yet; at this stage the relay is your hand, which is exactly what AGY &sect;12 calls R0. What this act proves is the rail and the desk, not the run.</p>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">14</div><div class="beat-who">member</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A member gives the instrument work, and the record carries who asked.&rdquo;</span>
+          From the desk, give one Direction: a brief, the kind survey, no repository.
+          <span class="observe">observe: the standing strip counted it against your bounds before you gave it; the arc shows it given, with the event id on the line</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">15</div><div class="beat-who">member</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;A Direction that crosses the floor is refused in the words of the rule.&rdquo;</span>
+          Give a second one naming a repository that is not on the Estate list, or give a third and a fourth until the live bound trips.
+          <span class="observe">observe: the refusal names AGY &sect;7 or &sect;15 rather than failing silently; nothing enters the record but the refusal</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">16</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          <span class="sentence">&ldquo;The arc closes by a hand, and the hand is named.&rdquo;</span>
+          Relay the first Direction to the instrument, then record its accepted and completed events yourself, carrying the direction id and the artifacts.
+          <span class="observe">observe: the member's arc now reads given, accepted, completed, with the artifacts linked; this is R0 working exactly as the module describes, and the reason A-03 exists</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="sec" id="record">
     <div class="addr">&sect;9</div>
     <h2>Read the record back</h2>
@@ -422,7 +454,7 @@ returning id, display_name;</pre>
   from events e
   left join agents a on a.id = e.actor_agent_id
  order by e.occurred_at;</pre>
-    <p>The morning's story should read in order: an application received, a signature signed, an opportunity resolved, and behind them the July record: the exports, the walkaway, G0. If any act you just performed is missing here, that absence is a defect worth more than any passing suite.</p>
+    <p>The morning's story should read in order: an application received, a signature signed, an opportunity resolved, a Direction given, and behind them the July record: the exports, the walkaway, G0. If any act you just performed is missing here, that absence is a defect worth more than any passing suite.</p>
   </section>
 
   <section class="sec" id="refusals">
@@ -440,8 +472,8 @@ returning id, display_name;</pre>
   <section class="sec" id="attest">
     <div class="addr">&sect;11</div>
     <h2>Attest and flip</h2>
-    <p class="lead">When the walk satisfies you, three gates are ready to attest: G-B and G-G with your countersigner, G-F on the same evidence. The words and the recording procedure are in <a href="/commons/build/gates/#final">the Gate Book</a>: speak the sentence, insert the <code>gate.attested</code> event, and hand me the word; the ledger flips by commit and the roadmap follows.</p>
-    <p>Left standing after the walk, each named and held: the <strong>Q3 counting rules</strong> before the Share train exists at all; the <strong>TREASURY-POLICY adoption</strong> before T-01 completes and the movement layer opens; the <strong>read-only rail credentials</strong> for Stripe, Mercury, and Xero before the balance view (T-06) can stand; the <strong>anchor pass</strong> for G-R, re-verifying 0002, 0005, and the schema comments against the governing text (the bylaws mark itself resolved 2026-07-22, the index aligned to the ratified instruments); the <strong>Q1 public name</strong> for the opportunity surface, yours whenever you want it; and the <strong>email sink</strong>, dormant until the zone manager places two DNS records.</p>
+    <p class="lead">When the walk satisfies you, three gates are ready to attest: G-B and G-G with your countersigner, G-F on the same evidence. G-A waits on a second person and on the first grant, and is not part of this walk. The words and the recording procedure are in <a href="/commons/build/gates/#final">the Gate Book</a>: speak the sentence, insert the <code>gate.attested</code> event, and hand me the word; the ledger flips by commit and the roadmap follows.</p>
+    <p>Left standing after the walk, each named and held: the <strong>Q3 counting rules</strong> before the Share train exists at all; the <strong>TREASURY-POLICY adoption</strong> before T-01 completes and the movement layer opens; the <strong>read-only rail credentials</strong> for Stripe, Mercury, and Xero before the balance view (T-06) can stand; the <strong>anchor pass</strong> for G-R, re-verifying 0002, 0005, and the schema comments against the governing text (the bylaws mark itself resolved 2026-07-22, the index aligned to the ratified instruments); the <strong>Q1 public name</strong> for the opportunity surface, yours whenever you want it; the <strong>email sink</strong>, dormant until the zone manager places two DNS records; and, from the agency train, the <strong>first grant</strong> with its AM v0.2 addendum, the <strong>AGY-ESTATE instrument</strong> that would put the Estate list and the flooding bounds on the record instead of in the module's opening values, the <strong>&sect;15 visibility decision</strong> that fills the commons shelf either way, and the harness <strong>rehearsal on your own Directions</strong> before any member's.</p>
     <pre class="rec">the run sheet
 [ ] join form submitted from the stranger's browser
 [ ] intake notice in Telegram            -&gt; X-02 verified
@@ -457,6 +489,9 @@ returning id, display_name;</pre>
 [ ] principal Programs seeded (RegenHub.xyz, techne.coop) -> in formation
 [ ] opportunity affiliated; event traced -> F-04 verified
 [ ] the Desk read-only; policy staged    -> T-01 awaits adoption
+[ ] 0017 and 0018 applied to the live record
+[ ] a Direction given from /intranet/direct/ -> A-01 verified
+[ ] its arc read back; a refusal shown citing its rule -> A-02 verified
 [ ] events log reads the story in order
 [ ] G-B spoken and recorded (with countersigner)
 [ ] G-G spoken and recorded (with countersigner)

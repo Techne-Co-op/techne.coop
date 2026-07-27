@@ -446,7 +446,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <h2>The ledger and the trains</h2>
     <p class="lead">The roadmap is a validated YAML ledger at <code>rdm-ledger.yaml</code>, read by the living roadmap at <a href="/commons/build/">/commons/build/</a>. Work is organized into trains: dependency-ordered sequences of packets that advance in parallel once their substrate is verified. There are no dates. The only scheduling constraint is the readiness condition on each packet.</p>
 
-    <p>The current ledger has 52 items: 9 governing documents (the seven series artifacts plus the PATRONAGE and TREASURY module specifications, adopted and spliced 2026-07-22) and 43 work packets across 7 trains. The validated <code>STATUS.md</code> marks the late-July 2026 state: 9 drafted, 11 anticipated, 32 open, 0 filed. Of the open packets, the Substrate, Belong, Gather, and most Cross-cutting work is verified and waits only on gate attestation; the live in-session work is the Find train and Notices (X-02); the board-held work is the Share train, held on the Q3 counting rules, and the Treasury train, held on TREASURY-POLICY adoption.</p>
+    <p>The current ledger has 72 items: 10 governing documents (the seven series artifacts plus the PATRONAGE, TREASURY, and AGY module specifications, the first two spliced 2026-07-22 and AGY adopted 2026-07-27) and 62 work packets across 9 trains. The validated <code>STATUS.md</code> marks the state: 10 drafted, 14 anticipated, 48 open, 0 filed, of which 34 carry a verified mark. Of the open packets, the Substrate, Belong, Gather, Shell, and most Cross-cutting work is verified and waits only on gate attestation; the live in-session work is the Find train, Notices (X-02), and the agency rail and desk (A-01, A-02); the board-held work is the Share train, held on the Q3 counting rules, and the Treasury train, held on TREASURY-POLICY adoption. The A train is held by neither: it waits on a single decision about authority, described in AGY &sect;5.</p>
 
     <table class="train-table">
       <thead>
@@ -460,9 +460,9 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       <tbody>
         <tr>
           <td class="addr-cell">Series</td>
-          <td>SER · PRD · BP · UI · IM · VS · AM · PATRONAGE · TREASURY</td>
+          <td>SER · PRD · BP · UI · IM · VS · AM · PATRONAGE · TREASURY · AGY</td>
           <td>&mdash;</td>
-          <td>9 drafted <span class="chip drafted"><span class="dot"></span>drafted</span></td>
+          <td>10 drafted <span class="chip drafted"><span class="dot"></span>drafted</span></td>
         </tr>
         <tr>
           <td class="addr-cell">Substrate</td>
@@ -472,19 +472,19 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
         </tr>
         <tr>
           <td class="addr-cell">Belong</td>
-          <td>B-01 through B-06</td>
+          <td>B-01 through B-07</td>
           <td>G-B</td>
           <td>G0 attested</td>
         </tr>
         <tr>
           <td class="addr-cell">Gather</td>
-          <td>G-01 through G-03</td>
+          <td>G-01 through G-04</td>
           <td>G-G</td>
           <td>G0 attested</td>
         </tr>
         <tr>
           <td class="addr-cell">Find</td>
-          <td>F-01 through F-04</td>
+          <td>F-01 through F-05</td>
           <td>G-F</td>
           <td>opened by the steward&rsquo;s direction, 2026-07-22</td>
         </tr>
@@ -501,15 +501,27 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
           <td>TREASURY-POLICY adopted; read-only rail credentials <span class="chip open"><span class="dot"></span>open &middot; policy</span></td>
         </tr>
         <tr>
+          <td class="addr-cell">Shell</td>
+          <td>U-01 through U-07</td>
+          <td>&mdash;</td>
+          <td>built 2026-07-24; refiled to its own lane 2026-07-27 (X-13)</td>
+        </tr>
+        <tr>
+          <td class="addr-cell">Agency</td>
+          <td>A-01 through A-04</td>
+          <td>G-A</td>
+          <td>AGY adopted; G0 attested. A-03 waits on the first grant</td>
+        </tr>
+        <tr>
           <td class="addr-cell">Cross-cutting</td>
-          <td>X-01 through X-09</td>
+          <td>X-01 through X-13</td>
           <td>G-R</td>
           <td>Various; see ledger</td>
         </tr>
       </tbody>
     </table>
 
-    <p>Gates are <em>gate.attested</em> events, not automatic merges. Each gate requires human attestation before the next train opens. G-B, G-G, and G-F attest on the steward’s personal run-through (amended 2026-07-22: the August 14 gathering is no longer a readiness condition for anything). The <a href="/commons/build/run-through/">run-through</a> is the guide to that walk.</p>
+    <p>Gates are <em>gate.attested</em> events, not automatic merges. Each gate requires human attestation before the next train opens. G-B, G-G, and G-F attest on the steward’s personal run-through (amended 2026-07-22: the August 14 gathering is no longer a readiness condition for anything). G-A is the one gate the steward cannot attest alone: its sentence requires a member who is not the steward to direct the instrument, which is the whole claim the module makes. The <a href="/commons/build/run-through/">run-through</a> is the guide to that walk.</p>
 
     <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Open conditions at session start</h3>
     <p>Before claiming a packet, check the signal loop at <a href="/commons/build/">/commons/build/</a> for named open conditions. An open packet bears its blocker in the status field: <span class="chip open"><span class="dot"></span>open &middot; Q3</span> means the packet waits on the Q3 counting-rules decision. Do not claim an open packet; file an escalation if you believe the condition is resolvable.</p>
@@ -656,10 +668,11 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       <div class="an-row"><span class="f">commons/build/</span><span class="v">Living Roadmap (RDM v1). Packet ledger, signal loop, repository tree. The instrument you are reading from.</span></div>
       <div class="an-row"><span class="f">commons/build/instructions/</span><span class="v">This page. Agent instructions for the build.</span></div>
       <div class="an-row"><span class="f">commons/patronage/</span><span class="v">PATRONAGE module (PP v0.2, Drafted): Programs as organizing bodies, the contribution event contract. Spliced into the ledger 2026-07-22.</span></div>
+      <div class="an-row"><span class="f">commons/agency/</span><span class="v">AGY module (v0.1, Drafted): a patron member directs the instrument on the record; the rail, the run and its floor, provenance under two hands. Adopted 2026-07-27, and its splice entered the ledger the same day.</span></div>
       <div class="an-row"><span class="f">commons/treasury/</span><span class="v">TREASURY module (TR v0.1.1, Drafted): the movement layer over Stripe, Mercury, and Xero; the Desk, the policy instrument, and the balance view, governed movements as events.</span></div>
       <div class="an-row"><span class="f">design-system/</span><span class="v">Techne v4 token and pattern reference. The source for the design system section of these instructions.</span></div>
       <div class="an-row"><span class="f">legal/</span><span class="v">Formation documents: bylaws, membership agreement, participation terms, community supporter template.</span></div>
-      <div class="an-row"><span class="f">intranet/</span><span class="v">Member intranet (authenticated): the signed-in portal to the commons surfaces and the steward&rsquo;s desk.</span></div>
+      <div class="an-row"><span class="f">intranet/</span><span class="v">Member intranet (authenticated): the signed-in portal, inside one shell, to the commons surfaces, the Programs view, the treasury Desk, Direction at /intranet/direct/, and the steward&rsquo;s desk.</span></div>
       <div class="an-row"><span class="f">assets/</span><span class="v">Shared icons and fonts. No compiled CSS; tokens are inline on every page.</span></div>
     </div>
 
