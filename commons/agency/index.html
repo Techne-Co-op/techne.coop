@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>Common Agency &middot; Proposed Module PRD &middot; Techne</title>
+<meta name="description" content="A proposed module enabling patron members to direct the cooperative's agent: the direction rail, the run, provenance under two hands, and the desk in the intranet. Collective self-control of the means of production of the record.">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#C4A96A; --amber:#C4956A; --coral:#C47A6A; --rose:#B46A8A; --twilight:#6A8AC4;
+    --serif:'Libre Baskerville',Georgia,serif; --sans:Inter,'Helvetica Neue',Arial,sans-serif; --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+  }
+  [data-mode="dark"]{
+    --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+    --line:#2A2A30; --rule:#3A3A42;
+    --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+    --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+    --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  }
+  [data-mode="light"]{
+    --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+    --line:#D8D3C8; --rule:#9A958A;
+    --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+    --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+    --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg); color:var(--text); font:400 15px/1.7 var(--serif)}
+  .wrap{max-width:880px; margin:0 auto; padding:0 22px 60px}
+  a{color:var(--blue-text); text-decoration:none}
+  a:hover{text-decoration:underline}
+  em{color:var(--heading)}
+  sup{font:500 10px/1 var(--mono); color:var(--blue-text)}
+  :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+  .mono{font-family:var(--mono)}
+
+  .topbar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+  .topbar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+  .topbar .bc a{color:var(--ember-text)}
+  .mode-btn{font:400 11.5px var(--mono); color:var(--muted); background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:4px 10px; cursor:pointer}
+  .mode-btn:hover{background:var(--raised); color:var(--heading)}
+
+  .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
+  .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+  .mast .dek{font:400 16.5px/1.65 var(--serif); max-width:64ch}
+  .statusline{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:16px 0 6px}
+  .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+  .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+  .chip.ok{color:var(--ok); border-color:var(--ok)} .chip.ok::before{background:var(--ok)}
+  .chip.info{color:var(--info); border-color:var(--info)} .chip.info::before{background:var(--info)}
+  .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:var(--warn)}
+  .chip.neutral::before{background:transparent; border:1px solid var(--muted)}
+  .citesline{font:400 11.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin:18px 0 38px}
+  .citesline b{color:var(--ember-text); font-weight:500}
+
+  .sec{margin:0 0 40px}
+  .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+  .sec-num{font:500 11px var(--mono); border-left:3px solid var(--rule); padding:2px 0 2px 9px; color:var(--muted); flex:none}
+  .sec-head[data-tint="gold"] .sec-num{border-color:var(--gold); color:var(--gold)}
+  .sec-head[data-tint="amber"] .sec-num{border-color:var(--amber); color:var(--amber)}
+  .sec-head[data-tint="coral"] .sec-num{border-color:var(--coral); color:var(--coral)}
+  .sec-head[data-tint="rose"] .sec-num{border-color:var(--rose); color:var(--rose)}
+  .sec-head[data-tint="twilight"] .sec-num{border-color:var(--twilight); color:var(--twilight)}
+  .sec-head h2{font:400 21px/1.3 var(--serif); color:var(--heading)}
+  .sec-head .sub{font:400 12px var(--mono); color:var(--muted); margin-left:auto; text-align:right}
+  .sec p{margin:0 0 14px; max-width:68ch}
+  .sec p:last-child{margin-bottom:0}
+
+  .box{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; margin:0 0 14px; max-width:100%}
+  .box .bk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:7px}
+  .box p{font-size:13.5px; max-width:66ch}
+  .box.decide{border-left:3px solid var(--ember)}
+
+  table{width:100%; border-collapse:collapse; font:400 12.5px/1.6 var(--sans); margin:0 0 16px}
+  th{font:600 10.5px var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--surface)}
+  td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+  td.mono, .addr{font:400 11.5px var(--mono); color:var(--ember-text); white-space:nowrap}
+  tr:hover td{background:var(--surface)}
+
+  pre{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; overflow-x:auto; font:400 11.5px/1.65 var(--mono); color:var(--text); margin:0 0 16px}
+  pre .c{color:var(--faint)}
+  pre .k{color:var(--ember-text)}
+
+  ol.plain{margin:0 0 14px 20px; max-width:68ch}
+  ol.plain li{margin-bottom:8px}
+
+  .foot{border-top:1px solid var(--line); margin-top:48px; padding-top:16px}
+  .foot h3{font:500 11px var(--mono); text-transform:uppercase; letter-spacing:.06em; color:var(--ember-text); margin-bottom:10px}
+  .foot ol{margin:0 0 22px 18px; font:400 12px/1.8 var(--sans); color:var(--muted)}
+  .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint)}
+
+  @media (max-width:700px){
+    .mast h1{font-size:27px}
+    .sec-head{flex-wrap:wrap}
+    .sec-head .sub{margin-left:0; text-align:left; width:100%}
+    table{font-size:11.5px}
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topbar">
+  <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; Common Record Series &middot; proposed module document</span>
+  <button class="mode-btn" id="modeBtn" aria-label="Toggle light and dark mode">dark</button>
+</div>
+
+<div class="mast">
+  <div class="kicker">AGY v0.1 &middot; a proposal &middot; the member's hand on the instrument</div>
+  <h1>Common Agency<br>A Proposed Module PRD and Specification</h1>
+  <p class="dek">A proposal, open to discussion and revision, for the module that would let any patron member direct the cooperative's agent: to give it work on the record, watch the run, and receive the artifacts, with every step an event and every artifact under two hands. The steward has held this capability alone since the build began. This document describes how it becomes common, which is what <em>collective self-control of the means of production</em> means when the means of production include an instrument that writes. Nothing here is adopted, and nothing here is the board's word; it is a shape drawn concretely enough to be argued with.</p>
+  <div class="statusline">
+    <span class="chip info">Proposal &middot; Drafted</span>
+    <span class="chip neutral">open to discussion &middot; nothing herein adopted</span>
+    <span class="chip neutral">no ledger entry until adoption &middot; splice carried in &sect;14</span>
+    <span class="chip ok">R0 needs no new mechanism</span>
+    <span class="chip warn">the first grant &middot; a decision, &sect;5</span>
+  </div>
+</div>
+
+<div class="citesline">
+  <b>cites</b> &middot; SER &middot; PRD v0.3 &middot; BP v1 &middot; IM v0.1 Laws II IV X &middot; AM v0.1 &sect;5 &middot; the shell and the gate as built, U-01 through U-04 &middot; the notices rail as built, X-02 &middot; PP v0.2 &sect;1 for the Law X posture this document inherits and must extend
+  <br><b>v0.1</b> &middot; drafted on Todd's direction, 2026-07-27: a module enabling patron members to trigger the agent as a distinct working session from the host on which it lives
+  <br><b>address</b> &middot; AGY is offered, not taken; AGENCY and DIR are the named alternatives. The address adopts when Todd says so.
+</div>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;1</span><h2>Position and voice</h2><span class="sub">what this document is, and is not</span></div>
+  <p>This is a proposal, and it should read like one. It sits in the series where PATRONAGE and TREASURY sit: a module document, drafted before any packet enters the ledger, adopted only by merge, binding nothing until then. Where it uses the language of specification, kinds, payloads, verbs, scopes, that precision is in service of discussion, not in place of it. Every should below is offered; any of them can be argued down.</p>
+  <p>One law stands closer to this module than to any other, and the document meets it first. Law X says the instrument drafts, surfaces, and proposes; deciding, signing, and governing sit with people.<sup>3</sup> Nothing below changes that. What this module changes is narrower and still significant: <em>who may set the instrument in motion</em>. Today that is one person, through one private channel, by working practice rather than by any adopted rule. The proposal is to make direction a recorded, member-common act: any patron member may give the agent work, on the record, within a declared scope, and the deciding acts, merge, adoption, signature, money, remain exactly where the estate already puts them, with people.</p>
+  <p>The framing is Todd's, and the document keeps it: collective self-control of the means of production. The means of production of techne.coop are the repositories, the substrate, and an agent that works them. The first two are already held in common in the deep sense: public repositories, a record any member reads, exports that reconstruct byte-identically. The agent is the remaining private mean. This document is the plan for holding it in common too, honestly, including the parts that cannot be made common yet (&sect;2, &sect;15).</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;2</span><h2>The estate as found</h2><span class="sub">what exists, verified against practice</span></div>
+  <p>The agent, Nou, operates from a single host that Todd maintains, under a gateway that manages its sessions, tools, and channels. Its working practice is already disciplined by the Build Protocol: one packet per branch, commits carrying the <span class="mono">Authored-by: build-agent</span> trailer, escalation cards where a decision belongs to a person, and merge as the act of adoption, always a human act.<sup>1</sup> Direction reaches it today through one steward channel. Nothing about that practice is secret, but none of it is common: no member other than the steward can set the agent working, and no record distinguishes steward-directed work from work the agent took up on its own initiative.</p>
+  <p>On the record side, the parts this module needs already exist. The substrate holds an append-only events table with an agent the event concerns, a human actor where an act is assigned to a person, and a payload; the write policy admits members only to named kinds, with everything heavier riding security definer verbs.<sup>4</sup> The gate is built: a member signs in by magic link, the shell carries the session, and every intranet surface knows who is present.<sup>5</sup> The notices rail proved the dispatch pattern this module would reuse: a database trigger reaching an edge function on a recorded event.<sup>6</sup> And one fact the deployed policy set states plainly, which this module must confront rather than sidestep: <em>the agent holds no role and no grant</em>. Every mark it has ever made on the record has traveled through service credentials or a human hand.<sup>4</sup></p>
+  <p>What does not exist: any event vocabulary for direction, any surface where a member could give it, any recorded scope for what a directed run may touch, and any provenance grammar naming the member whose direction produced an artifact. Those four gaps are this module.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;3</span><h2>Vocabulary</h2><span class="sub">five terms, defined once</span></div>
+  <p>A <em>Direction</em> is a patron member's recorded request that the agent take up a piece of work. A <em>Run</em> is one isolated working session the agent opens to serve one Direction: fresh context, a brief composed from the Direction, a beginning and an end, both recorded. A <em>Scope</em> is the declared boundary of what a Run may write: named repositories and the record kinds this module defines, nothing else. The <em>Provenance pair</em> is the two hands on every artifact a Run produces: the member who directed and the instrument that executed, never merged into one. The <em>Estate list</em> is the adopted enumeration of repositories a Direction may name; adjacent repositories join the list by amendment, not by request (&sect;7).</p>
+  <p>One term is deliberately absent. This document does not use <em>trigger</em> in its own voice, though it answers to it: a trigger fires a mechanism, and what a member does here is closer to what the word Direction says, an act with an author, recorded, answerable, and refusable.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;4</span><h2>One identity, a bounded pen</h2><span class="sub">the authority question, faced first</span></div>
+  <p>The direction that produced this document asked for the agent to run as a distinct session <em>with the same identity and permissions</em>. This proposal takes the first half whole and argues the second half down, and the argument should be had in the open. Identity, yes, entirely: there is one Nou in the record, one agent row, one voice, one memory, whoever directs it. A Run opened for a member is not a second agent or a diminished copy; it is the same instrument at work, and its artifacts say so.</p>
+  <p>Permissions, no, and here is the reasoning. The agent's standing permissions on its host include things no module should make common: the host itself, its secret stores, the steward's private channels, the infrastructure of other ventures. <em>Same permissions</em>, implemented literally, would hand every patron member the steward's keys through an intermediary, which is not collective control of the means of production; it is uncontrolled possession of one member's estate by all. Collective control is the whole cooperative deciding, on the record, what the shared instrument may do, and the instrument refusing everything outside that decision.</p>
+  <p>So the proposal is: a Run's authority is the <em>intersection</em> of two bounds, each visible in the record. The module's Scope, adopted with this document, names what any Run may touch: branches in Estate-list repositories, never a protected branch, and the direction kinds of &sect;5, no other writes. The member's own standing, under the deployed policy set, bounds what the record shows their Run: a Run directed by a member reads the substrate as that member, not as the steward.<sup>4</sup> The agent lends no member an authority the member does not hold, and no member reaches through the agent to anything the Scope does not name.</p>
+  <div class="box decide"><span class="bk">named departure &middot; offered</span><p>The literal reading, full permission inheritance, is the honest alternative and someone may want to argue for it. If the cooperative adopts it, that adoption should be explicit, on the record, with the risks named in this section beside it. The drafter's position: the bounded form is the one that deserves the word collective.</p></div>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;5</span><h2>The event contract</h2><span class="sub">kinds, actors, and the first grant</span></div>
+  <p>The module would write these kinds and no others, noun-first in the house grammar:</p>
+  <table>
+    <tr><th>kind</th><th>records</th><th>actor</th></tr>
+    <tr><td class="mono">direction.given</td><td>a member's Direction: the brief, the Estate-list repositories named, the scope requested</td><td>the member, by verb</td></tr>
+    <tr><td class="mono">direction.accepted</td><td>the instrument taking the work up; the Run identifier</td><td>the agent, under its grant</td></tr>
+    <tr><td class="mono">direction.refused</td><td>a Direction declined, citing the rule that refuses it (&sect;11)</td><td>the agent, under its grant</td></tr>
+    <tr><td class="mono">direction.completed</td><td>the Run's close: artifacts by reference, branch, pull request, commits; the spend of &sect;10</td><td>the agent, under its grant</td></tr>
+    <tr><td class="mono">direction.halted</td><td>a Run stopped by the steward's hand or by a safety stop, reason recorded</td><td>steward, or the agent on its own stop</td></tr>
+  </table>
+  <p>The payload contract for <span class="mono">direction.given</span>:</p>
+  <pre><span class="c">-- proposed payload contract &middot; direction.given</span>
+{
+  "brief":        <span class="k">text</span>,     <span class="c">-- the work, in the member's words</span>
+  "repositories": <span class="k">text[]</span>,   <span class="c">-- from the Estate list; empty means record-only work</span>
+  "kind":         <span class="k">"draft" | "build" | "survey" | "answer"</span>,  <span class="c">-- the four direction kinds of &sect;7</span>
+  "reply_to":     <span class="k">uuid?</span>     <span class="c">-- a prior direction this continues</span>
+}</pre>
+  <p>Three of the five kinds carry the agent as actor, and that is the sentence this module cannot write around: the deployed policy set gives the agent no role and no grant, and the agent-actored kinds above require the record's first.<sup>4</sup> The proposal is the narrowest grant that makes the arc honest: the agent's own row in agents, and authority to write <em>the direction namespace only</em>, concerning its own Runs only, by definer verbs like every other governed write. No read widening, no reach into any other namespace, revocable by one policy change. This is Authority Map territory, an AM v0.2 addendum, and it is the single decision everything agent-actored in this document waits on.</p>
+  <div class="box decide"><span class="bk">escalation &middot; standing</span><p>The first grant to a non-human agent is a governance act, not a build act. It lands only by Todd's word and, if he routes it there, the board's. Until it lands, the R0 form of &sect;12 operates with a human hand writing the agent-side events, which is exactly how every agent mark has entered the record to date.</p></div>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;6</span><h2>The direction rail</h2><span class="sub">how a Direction travels</span></div>
+  <p>A member signs in through the standing gate; the shell knows who they are.<sup>5</sup> On the desk (&sect;8) they give a Direction, and one verb, <span class="mono">give_direction</span>, does the governed work: validates active patron membership against the record, validates the named repositories against the Estate list, applies the &sect;11 floor and the &sect;15 bounds, and writes one <span class="mono">direction.given</span>. The member insert policy on events is not widened; the verb is the only door, which is the write discipline the estate already uses everywhere it matters.<sup>4</sup></p>
+  <p>Dispatch, the Direction reaching the instrument, has two honest routes. The push route is the notices pattern: a trigger on <span class="mono">direction.given</span> reaching the gateway through an edge function, which is immediate but adds an inbound surface to the host.<sup>6</sup> The poll route adds nothing: the agent already wakes on a schedule, and a Direction is not a pager; it reads the rail on its standing rhythm and takes up what it finds. The proposal defaults to the poll, names the push as an optimization to adopt once the rail has run for a while, and treats the choice as operational rather than architectural: the record between the two routes is identical.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;7</span><h2>The run</h2><span class="sub">an isolated session, a declared scope</span></div>
+  <p>Each accepted Direction opens one Run: an isolated session on the host, fresh context, briefed from the Direction and from the estate's own instructions, the same way any packet begins. Distinct from the steward's sessions, distinct from every other Run, disposable when closed. Four direction kinds bound what a Run does, and the verb records which was asked: <em>draft</em> produces or revises documents and pages; <em>build</em> produces code and packet work; <em>survey</em> reads and reports, writing nothing but its report; <em>answer</em> is the natural-language door with a recorded question and a recorded answer. All four end the same way: artifacts on a branch, a pull request where one is due, and a <span class="mono">direction.completed</span> linking everything by reference.</p>
+  <p>The write boundary holds by construction, not by promise. A Run pushes branches to Estate-list repositories and opens pull requests; it never merges, never touches a protected branch, never writes the record outside the direction namespace, never reads a secret store, never sends anything to an address outside the estate. Merge remains adoption and adoption remains human: a member-directed packet enters main by exactly the hand every packet enters by.<sup>1</sup> The Estate list itself is configuration as record, an adopted instrument in the agreements table, proposed code <span class="mono">AGY-ESTATE</span>, opening with techne.coop alone; <em>adjacent repositories</em> join by amendment event, so the reach of common direction grows only by a recorded decision.</p>
+  <p>The steward's stop is absolute and stays. Todd can halt any Run, or the gateway entire, at any moment, and the halt is not a failure of the module but part of its design: <span class="mono">direction.halted</span> records the stop and its reason, so even the interruption is in the record.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;8</span><h2>The desk</h2><span class="sub">a principal page behind the gate</span></div>
+  <p>The member surface is one page in the commons portal, proposed at <span class="addr">/intranet/direct/</span>, behind the gate, with a primary window on the intranet Overview beside the member's other principal windows. The window is the door, the page is the room, and both read the same record:</p>
+  <table>
+    <tr><th>element</th><th>shows</th><th>reads from</th></tr>
+    <tr><td>the pen</td><td>give a Direction: the brief, the kind, the repositories, each choice showing its bound before it is made</td><td>the give_direction verb; the Estate list in force</td></tr>
+    <tr><td>the arc</td><td>each of the member's Directions as a life: given, accepted or refused with the rule cited, running, completed with its artifacts linked, halted with its reason</td><td>the direction namespace, the member's own rows</td></tr>
+    <tr><td>the commons shelf</td><td>every completed Direction across the membership, artifact links and directing member visible, because common means visible to one another</td><td>the direction namespace, per the &sect;15 visibility decision</td></tr>
+    <tr><td>the instrument's standing</td><td>whether the agent is presently taking work, and the bounds in force: Estate list version, per-member bounds, the floor</td><td>the instruments in force; the rail itself</td></tr>
+    <tr><td>the Overview window</td><td>a primary card: the member's live Directions, the last completed one, one door to the page</td><td>the same reads, summarized</td></tr>
+  </table>
+  <p>Refusal is rendered with the same care as success. A refused Direction shows the rule that refused it, in the refusal's own words, which is the estate's standing pattern: the refusal cites the rule refused.<sup>4</sup> Nothing about the desk is a chat: a Direction is a considered act on a record, and the surface should feel like the rest of the intranet, not like a message box.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;9</span><h2>Provenance under two hands</h2><span class="sub">Law IV, extended to authorship</span></div>
+  <p>Every artifact a Run produces carries the Provenance pair, and the grammar is one trailer added to the one the build already uses:</p>
+  <pre><span class="c"># the standing trailer, and the one this module adds</span>
+<span class="k">Authored-by:</span> build-agent / AGY
+<span class="k">Directed-by:</span> &lt;member agent id&gt;   <span class="c"># the member whose direction.given opened the Run</span></pre>
+  <p>The arc closes by reference in both directions: the <span class="mono">direction.completed</span> payload names the branch, the pull request, and the commits; the pull request body names the Direction's event id. From any artifact, the record answers who directed it; from any Direction, the record answers what came of it. Cite as you enforce, applied to authorship.<sup>3</sup> Work the agent takes up on the steward's word, or on its own standing duties, carries no Directed-by trailer, and that absence is itself information: the record now distinguishes directed work from stewarded work, which it has never done before.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;10</span><h2>Metering, counted not charged</h2><span class="sub">the spend is in the record</span></div>
+  <p>Every Run closes with its spend in the <span class="mono">direction.completed</span> payload: tokens consumed and wall time, as the gateway reports them. This document guarantees the number and stops there. Whether member-directed agent time should enter patronage, as a countable resource, a priced credit, or not at all, is a Plan-and-board question that belongs to the Financial Systems Committee's sequence, beside the counting rules already staged; this module's obligation is only that when that question is taken up, the record already holds the numbers to answer it with. No Direction is charged, priced, or capped by cost in this proposal; the bounds of &sect;15 are counts, not currency.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;11</span><h2>The floor</h2><span class="sub">what no Direction can do</span></div>
+  <p>Some refusals are structural, held by the Scope and the grant rather than by the agent's judgment. A Direction cannot move money or touch the treasury boundary; cannot send communications outside the estate, mail, posts, messages to third parties; cannot reach the host, its secret stores, or any infrastructure beyond the Estate list; cannot merge, adopt, sign, or amend a governing document; cannot alter the deployed policy set, the Estate list, or this module's own bounds; cannot direct the agent to act as or for another member. Each refusal cites this section by rule, on the desk and in the <span class="mono">direction.refused</span> event.</p>
+  <p>Beyond the floor, the agent keeps the judgment it already exercises under the Build Protocol: work that is lawful under the Scope but touches a stop-and-ask category, public claims, money adjacent records, another member's standing, escalates to the steward instead of running, and the escalation is the estate's standing card shape.<sup>1</sup> The probe matrix gains cells for the direction policies, so the floor is asserted by the suites, not remembered by the agent.<sup>4</sup></p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;12</span><h2>Phasing as readiness conditions</h2><span class="sub">no dates, by design</span></div>
+  <p>The first condition is deliberately mechanical: R0 is this document's grammar operating through hands that already exist, which means adoption alone makes direction common, before any new code runs. That is what makes staging before launch honest rather than hopeful.</p>
+  <table>
+    <tr><th>condition</th><th>opens</th><th>waits on</th></tr>
+    <tr><td class="mono">R0</td><td>direction on the record, steward-relayed: members give Directions by the verb; the steward relays each to the instrument by hand and writes the agent-side events by hand, as every agent mark has entered to date</td><td>this proposal adopted; the rail verb and policies applied; the desk's pen and arc live</td></tr>
+    <tr><td class="mono">R1</td><td>the instrument takes the rail itself: polls, accepts, runs, completes, refuses under its own grant</td><td>the &sect;5 grant recorded in an AM v0.2 addendum; the Estate list instrument adopted; the run harness demonstrated on the steward's own Directions first</td></tr>
+    <tr><td class="mono">R2</td><td>push dispatch, if the poll's rhythm proves too slow for practice</td><td>R1 operated without incident; the inbound surface reviewed against the security floor</td></tr>
+    <tr><td class="mono">R3</td><td>the spend enters the cooperative's accounting, however the FSC decides</td><td>the FSC's decision on the &sect;10 question; nothing in this module blocks or presumes it</td></tr>
+  </table>
+  <p>R0 by launch is a small, real thing: one migration, one page, one adopted document, and the cooperative's first common Directions can be given at the August gathering with the steward's hand still on the relay. R1 is where the first grant lands, and it should not be rushed to meet a date; dependency is the schedule.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;13</span><h2>Verification</h2><span class="sub">acceptances and the gate</span></div>
+  <ol class="plain">
+    <li>A signed-in patron member gives a Direction from the desk and finds its <span class="mono">direction.given</span> row in the record, actor and payload correct.</li>
+    <li>A member who is not the steward directs a piece of work, and the resulting pull request carries both trailers; the Direction's arc on the desk links to the pull request, and the pull request body names the Direction.</li>
+    <li>A Direction naming a repository outside the Estate list is refused, and the refusal cites &sect;7; a Direction crossing the floor is refused citing &sect;11; both refusals appear on the desk with their rules.</li>
+    <li>The steward halts a running Direction, and the record shows <span class="mono">direction.halted</span> with the reason; the desk shows the same.</li>
+    <li>A completed Run's spend appears in its payload, and the numbers reconcile with the gateway's own report.</li>
+    <li>The probe matrix asserts the direction namespace: members write only by verb, only their own Directions; the agent's grant reaches the direction namespace and nothing else; the steward's halt stands.</li>
+    <li>The walkaway continues to reconstruct byte-identically with the direction kinds present.</li>
+    <li>The gate sentence, for G-A when it comes: a member other than the steward directs the instrument, receives the work, and every step of the arc is in the record, under two hands, with nothing invisible.</li>
+  </ol>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;14</span><h2>The packet splice, proposed</h2><span class="sub">one train, one gate, entering on adoption</span></div>
+  <p>No entry below is in the ledger, and none enters by this document; the splice is carried here so that adoption can take it whole, which is the PATRONAGE precedent. Adoption is the merge, and the merge is Todd's.</p>
+  <pre><span class="c"># proposed splice &middot; the A train &middot; enters rdm-ledger.yaml on adoption</span>
+<span class="k">- address: A-01</span>
+  title: The direction rail
+  intent: The direction namespace, the give_direction verb, and the policies; the &sect;11 floor asserted by probes.
+  status: open &middot; AGY adoption
+  cites: [AGY, IM, AM, BP]
+  ready_when: AGY adopted. G0 attested.
+  deliverable: 000N_direction_rail.sql; probe matrix cells.
+  acceptance: A member's Direction enters by verb and only by verb; refusals cite their rules.
+
+<span class="k">- address: A-02</span>
+  title: The desk
+  intent: /intranet/direct/ and the Overview window; the pen, the arc, the commons shelf per AGY &sect;8.
+  status: open &middot; AGY adoption
+  cites: [AGY, PRD, UI]
+  ready_when: A-01 verified.
+  deliverable: /intranet/direct/; the Overview window.
+  acceptance: Give a Direction from the desk; watch its arc; find a refusal's rule on the page.
+
+<span class="k">- address: A-03</span>
+  title: The first grant and the instrument's pen
+  intent: The AM v0.2 addendum granting the agent the direction namespace; the Estate list instrument; agent-side verbs.
+  status: anticipated
+  cites: [AGY, AM]
+  ready_when: A-01 verified. The grant decided by Todd, routed to the board if he routes it.
+  deliverable: AM v0.2 addendum; AGY-ESTATE instrument; the agent-actored verbs.
+  acceptance: The agent writes direction.accepted under its own grant; the probe shows it can write nothing else.
+
+<span class="k">- address: A-04</span>
+  title: The run harness
+  intent: Poll, brief, isolated session, scope enforcement, halt, spend write-back per AGY &sect;6 &sect;7 &sect;10.
+  status: anticipated
+  cites: [AGY, BP]
+  ready_when: A-03 verified. Rehearsed on the steward's Directions before any member's.
+  deliverable: The harness on the host; the halt path demonstrated.
+  acceptance: A Direction completes end to end with both trailers and its spend recorded.
+
+<span class="k">- address: G-A</span>
+  title: The agency gate
+  intent: Common direction demonstrated by a member who is not the steward.
+  status: anticipated
+  cites: [AGY, VS]
+  ready_when: A-04 verified.
+  acceptance: The &sect;13 gate sentence, demonstrated live and recorded.</pre>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;15</span><h2>Open items, gathered for discussion</h2><span class="sub">routed, not decided</span></div>
+  <table>
+    <tr><th>item</th><th>bears on</th><th>routed to</th></tr>
+    <tr><td>the first grant: whether a non-human agent takes a scoped write authority in the record, and whether that is Todd's call or the board's</td><td>&sect;5; gates R1 and everything after</td><td>Todd, then the board if he routes it</td></tr>
+    <tr><td>the scope model: the &sect;4 intersection as proposed, or literal permission inheritance argued for in the open</td><td>&sect;4 &sect;7</td><td>Todd and the membership, at discussion</td></tr>
+    <tr><td>who may direct: all patron members as proposed, or a narrower opening cohort for the first season</td><td>&sect;6; the verb's membership check</td><td>Todd, drafter's cut: all patron members</td></tr>
+    <tr><td>bounds against flooding: per-member live-Direction and per-day counts; drafter's cut, two live and five a day, as policy numbers in AGY-ESTATE, amendable without code</td><td>&sect;6 &sect;11</td><td>Todd, accept or revise the numbers</td></tr>
+    <tr><td>commons-shelf visibility: every member's completed Directions visible to all members, as proposed, or member-private arcs</td><td>&sect;8; the read policy</td><td>Todd; drafter's cut is visible, common means visible</td></tr>
+    <tr><td>the host itself: the instrument runs on one member-maintained machine, a single point this module makes more load-bearing; whether the cooperative wants a stewarded-host instrument in its walkaway posture is a real question this document names and does not answer</td><td>&sect;2 &sect;7; the long arc of common means</td><td>Todd and the board, unhurried</td></tr>
+    <tr><td>the &sect;10 question: whether directed agent time enters patronage, and as what</td><td>&sect;10; R3</td><td>the Financial Systems Committee</td></tr>
+    <tr><td>the address and the desk's home: AGY offered; /intranet/direct/ offered</td><td>naming</td><td>Todd, at adoption</td></tr>
+  </table>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;16</span><h2>What this proposes, and what it does not decide</h2><span class="sub">status honesty</span></div>
+  <p>This document proposes a shape and nothing more. It does not grant the agent anything; the first grant is a decision it stages and routes. It does not add a packet to the ledger; the splice enters on adoption or not at all. It does not open the desk, apply a migration, or change the deployed policy set. It does not decide who directs, how many, or what it costs; those are the routed items of &sect;15 with drafter's cuts offered for argument. It does not alter the agent's duties to the steward or the Build Protocol's stop-and-ask categories; it adds a second lawful source of work beside the first. And it does not resolve the deepest item on its own list, the single host, because that resolution belongs to the cooperative's unhurried judgment, not to a document racing a launch date. It is a proposal drawn concretely enough that the membership has something specific to question, amend, or refuse, which is the only way an instrument like this should ever become common.</p>
+</section>
+
+<div class="foot">
+  <h3>Sources</h3>
+  <ol>
+    <li>BP v1: one packet per branch, the Authored-by trailer, escalation cards, merge as adoption, the stop-and-ask categories.</li>
+    <li>PRD v0.3: the ten principles and the three doors; the slice frame this module's desk joins.</li>
+    <li>IM v0.1: Law II, every relationship is an event; Law IV, cite as you enforce; Law X, the instrument drafts, surfaces, and proposes, and deciding sits with people.</li>
+    <li>0002_policies.sql as applied, with 0005: the member insert scope; refusals citing rules; the closed appointment enum; the agent holding no role and no grant; the probe matrix as the floor's assertion.</li>
+    <li>U-01 through U-04 as built: the shell, the session, the gate; every intranet surface knows who is present.</li>
+    <li>X-02 as built: the notices rail; a database trigger reaching an edge function on a recorded event, the push-dispatch precedent &sect;6 defers.</li>
+  </ol>
+  <p class="tail">AGY v0.1 &middot; Common Agency &middot; A Proposed Module PRD and Specification &middot; Drafted, open to discussion, nothing herein adopted &middot; cites the series &middot; emits, anticipated, 000N_direction_rail.sql and the &sect;14 splice &middot; Nou drafts; Todd decides; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-07-27</p>
+</div>
+
+</div>
+<script>
+  var btn=document.getElementById('modeBtn');
+  function label(){btn.textContent=document.documentElement.getAttribute('data-mode')}
+  label();
+  btn.addEventListener('click',function(){
+    var m=document.documentElement.getAttribute('data-mode')==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-mode',m);
+    try{localStorage.setItem('techne-mode',m)}catch(e){}
+    label();
+  });
+</script>
+</body>
+</html>
