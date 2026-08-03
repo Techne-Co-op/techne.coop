@@ -4,7 +4,7 @@
 # Validator: scripts/validate.py — schema, acyclicity, gating.
 # Status marks: drafted | anticipated | open · (blocker)
 # No dates. Dependency is the schedule.
-# 72 items: 10 series and module documents + 62 work packets across 9 trains.
+# 74 items: 10 series and module documents + 64 work packets across 9 trains.
 
 series:
 
@@ -944,6 +944,15 @@ treasury:
     ready_when: T-01 verified. Read-only credentials provisioned for the three rails.
     deliverable: /intranet/treasury/ balance view; three read-only rail seams; the per-rail reported balance with source and read time; the delta column, active once T-03 attests.
     acceptance: Each rail's balance shows with its source and read time; the member-visible aggregate equals the sum of the reads; after T-03 the delta to the last attested window shows and links its gaps.
+
+  - address: T-07
+    title: The statements view
+    intent: /intranet/treasury/ shows the cooperative's finances by month, quarter, and fiscal year, position, flow, standing, and the close ribbon, derived from the record and cut per audience, per TREASURY §9a.
+    status: anticipated
+    cites: [TREASURY, PATRONAGE, IM, AM, VS]
+    ready_when: T-01 verified. The dues schedule recorded as an instrument for the standing region; the member-cut fold functions emitted.
+    deliverable: /intranet/treasury/ statements view, the four regions and the two cuts; 000N_treasury_folds.sql, the member-cut definer folds returning aggregates only; the close ribbon bound to attested windows; the small-cohort withholding.
+    acceptance: Every figure resolves to its events, its instrument, or its read; the member cut returns no other member's name or amount under probe; outstanding equals instrument-expected minus received by hand; a month shows closed only under an attested window.
 
 shell:
 
