@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="The treasury Desk for RegenHub, LCA: the instrument in force, the proposal queue, commitments, and reconciliation state. Read-only at T-01.">
+<meta name="description" content="Treasury for RegenHub, LCA: the statements view, position, flow, standing, and the close ribbon at member scale, and the Desk, the instrument in force, proposals, commitments, and reconciliation. Read-only.">
 <title>Treasury &middot; Techne</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -98,6 +98,26 @@ table.bands { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin
 table.bands th { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--faint); text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--rule); }
 table.bands td { padding: 7px 8px; border-bottom: 1px solid var(--line); }
 
+/* the statements view (T-07, TREASURY §9a) */
+.basis-line { font-family: var(--mono); font-size: 0.68rem; color: var(--faint); margin: 0 0 var(--s5); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--s3); }
+.tile { background: var(--inset); border: 1px solid var(--line); border-radius: 6px; padding: var(--s3) var(--s4); }
+.tile .tk { font-family: var(--mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); margin-bottom: 4px; }
+.tile .tv { font-family: var(--mono); font-size: 1.15rem; color: var(--heading); }
+.tile .tv.waiting { color: var(--faint); }
+.tile .tm { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); margin-top: 4px; }
+table.flow { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+table.flow th { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--faint); text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--rule); }
+table.flow th:first-child, table.flow td:first-child { text-align: left; }
+table.flow td { padding: 7px 8px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; text-align: right; }
+table.flow tr.subtotal td { border-top: 1px solid var(--rule); color: var(--heading); }
+.ribbon { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--s3); }
+.m-chip { font-family: var(--mono); font-size: 0.65rem; padding: 3px 9px; border-radius: 4px; border: 1px solid var(--line); color: var(--muted); }
+.m-chip.closed { background: var(--ok-dim); color: var(--ok); border-color: var(--ok); }
+.m-chip.provisional { background: var(--info-dim); color: var(--info); border-color: var(--info); }
+.m-chip.future { color: var(--faint); border-style: dashed; }
+.desk-h2 { font-size: 1.25rem; font-weight: 700; color: var(--heading); margin: var(--s7) 0 var(--s3); }
+
 footer {
   border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
   font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center;
@@ -119,17 +139,42 @@ footer a { color: var(--faint); }
 <main>
   <div id="loading">Loading&hellip;</div>
 
-
-  <div id="not-desk">
-    <h1>The Desk</h1>
+  <div id="statements" style="display:none">
+    <h1>Treasury</h1>
     <div class="section-rule"></div>
-    <p class="lead">The Desk is the treasurer's surface, read by the directors and officers the bylaws seat there (&sect;3.1, &sect;4.4). Your own money facts, dues, share purchase, distributions, already appear on your own surfaces as movement lines beside meaning lines; no separate desk is needed for them.</p>
+    <p class="lead">The cooperative's finances at member scale: what we hold, how money moved, and what stands outstanding, by month, quarter, and fiscal year. No figure here is entered; each derives from the record, an instrument in force, or a rail's read, and each names its source (TREASURY &sect;9a). Your own money facts also appear on your own surfaces, movement lines beside meaning lines.</p>
+    <div class="basis-line" id="basis-line"></div>
+
+    <div class="desk-card">
+      <div class="desk-header"><span class="desk-title">Position &middot; what we hold, owe, and own</span><span class="desk-count" id="pos-mark"></span></div>
+      <div class="desk-body">
+        <div class="tiles" id="pos-tiles"></div>
+        <div class="desk-empty" id="pos-note" style="margin-top:var(--s3)"></div>
+      </div>
+    </div>
+
+    <div class="desk-card">
+      <div class="desk-header"><span class="desk-title">Flow &middot; cash, direct method</span><span class="desk-count" id="flow-mark"></span></div>
+      <div class="desk-body" id="flow-body"></div>
+    </div>
+
+    <div class="desk-card">
+      <div class="desk-header"><span class="desk-title">Standing &middot; who has paid, what is outstanding</span><span class="desk-count" id="standing-mark"></span></div>
+      <div class="desk-body" id="standing-body"></div>
+    </div>
+
+    <div class="desk-card">
+      <div class="desk-header"><span class="desk-title">The close ribbon &middot; fiscal year 2026</span><span class="desk-count" id="ribbon-mark"></span></div>
+      <div class="desk-body">
+        <div class="ribbon" id="ribbon"></div>
+        <div class="desk-empty" id="ribbon-note"></div>
+      </div>
+    </div>
   </div>
 
   <div id="content">
-    <h1>The Desk</h1>
-    <div class="section-rule"></div>
-    <p class="lead">The governance record of every movement the cooperative's rules care about: what stands proposed, what awaits execution, what the record has committed and not yet seen settle, and whether the last window reconciled. Read-only for now; the acts that move money arrive with the policy that governs them.</p>
+    <div class="desk-h2">The Desk</div>
+    <p class="lead">The treasurer's surface, read by the directors and officers the bylaws seat here (&sect;3.1, &sect;4.4): what stands proposed, what awaits execution, what the record has committed and not yet seen settle, and whether the last window reconciled. Read-only for now; the acts that move money arrive with the policy that governs them.</p>
 
     <div class="notice" id="page-notice"></div>
 
@@ -264,6 +309,148 @@ async function loadDesk() {
       `<div class="row-line"><span class="row-main">Window attested</span><span class="row-meta"><span>${fmtDate(w.recorded_at)}</span> &middot; event ${escHtml(w.id.slice(0,8))}</span></div>`).join('') +
       gaps.map(g => `<div class="row-line"><span class="row-main" style="color:var(--warn)">Gap: ${escHtml(g.kind || 'unpaired')}</span><span class="row-meta">stands until treasury.gap_resolved</span></div>`).join('');
   }
+  return evs;
+}
+
+/* ============================================================
+   The statements view (T-07, TREASURY §9a).
+   Every figure is a fold over the record, an instrument, or a read.
+   The member cut crosses the policy boundary as totals, never rows:
+   it reads the definer folds of 000N_treasury_folds.sql once emitted.
+   ============================================================ */
+const FY = 2026; /* calendar year assumed until the board records otherwise (§9a, §14) */
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function tile(k, v, m, waiting) {
+  return `<div class="tile"><div class="tk">${escHtml(k)}</div><div class="tv${waiting ? ' waiting' : ''}">${escHtml(v)}</div><div class="tm">${m}</div></div>`;
+}
+
+function monthKey(iso) { const d = new Date(iso); return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0'); }
+
+function renderFlowTable(byMonth) {
+  /* the quarter labels are FY-scoped; out-of-year months would mislabel them */
+  const keys = Object.keys(byMonth).filter(k => k.indexOf(FY + '-') === 0).sort();
+  let running = 0, qIn = 0, qOut = 0, yIn = 0, yOut = 0, rows = '';
+  keys.forEach((k, i) => {
+    const m = byMonth[k]; running += m.inflow - m.outflow;
+    qIn += m.inflow; qOut += m.outflow; yIn += m.inflow; yOut += m.outflow;
+    const mo = parseInt(k.slice(5), 10);
+    rows += `<tr><td>${MONTHS[mo - 1]} ${k.slice(0, 4)}</td><td>${fmtUsd(m.inflow)}</td><td>${fmtUsd(m.outflow)}</td><td>${fmtUsd(m.inflow - m.outflow)}</td><td>${fmtUsd(running)}</td></tr>`;
+    const endQ = mo % 3 === 0 || i === keys.length - 1;
+    if (endQ) {
+      rows += `<tr class="subtotal"><td>Q${Math.ceil(mo / 3)}</td><td>${fmtUsd(qIn)}</td><td>${fmtUsd(qOut)}</td><td>${fmtUsd(qIn - qOut)}</td><td></td></tr>`;
+      qIn = 0; qOut = 0;
+    }
+  });
+  rows += `<tr class="subtotal"><td>FY ${FY}</td><td>${fmtUsd(yIn)}</td><td>${fmtUsd(yOut)}</td><td>${fmtUsd(yIn - yOut)}</td><td>${fmtUsd(running)}</td></tr>`;
+  return `<table class="flow"><tr><th>month</th><th>in</th><th>out</th><th>net</th><th>cash</th></tr>${rows}</table>
+  <div class="row-meta" style="margin-top:var(--s3)">Inflows from money.received by purpose; outflows from disbursement.executed. Quarters and the year are sums of months (&sect;9a). Follow any figure to its events.</div>`;
+}
+
+function renderRibbon(windows) {
+  const now = new Date(); const curM = now.getUTCFullYear() === FY ? now.getUTCMonth() : (now.getUTCFullYear() > FY ? 11 : -1);
+  const covered = new Set();
+  windows.forEach(w => { const p = w.payload || {}; (p.months || []).forEach(m => covered.add(m)); });
+  document.getElementById('ribbon').innerHTML = MONTHS.map((name, i) => {
+    const key = FY + '-' + String(i + 1).padStart(2, '0');
+    const cls = covered.has(key) ? 'closed' : (i <= curM ? 'provisional' : 'future');
+    const word = covered.has(key) ? 'closed' : (i <= curM ? 'provisional' : 'future');
+    return `<span class="m-chip ${cls}">${name} &middot; ${word}</span>`;
+  }).join('');
+  document.getElementById('ribbon-mark').textContent = covered.size + ' of 12 closed';
+  document.getElementById('ribbon-note').textContent = windows.length === 0
+    ? 'No Reconciliation Window has attested; every past month stands provisional. Closed marks arrive with the fold (T-03), and a closed month will link its window.'
+    : 'A month wears closed only under an attested window; provisional figures may still move.';
+}
+
+async function loadStatements(atDesk, evs) {
+  document.getElementById('statements').style.display = 'block';
+  document.getElementById('basis-line').textContent =
+    'cash basis · derived at read · as of ' + new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC · fiscal year ' + FY + ', calendar, assumed until the board records otherwise';
+
+  const emissionNote = 'The member cut crosses the policy boundary as totals, never as rows: it waits on the definer folds of 000N_treasury_folds.sql, the T-07 emission. Until that lands, this region waits rather than guesses.';
+
+  if (!atDesk) {
+    /* the member cut: aggregate folds by rpc; honest waiting states until the emission lands */
+    const folds = {};
+    for (const fn of ['treasury_position', 'treasury_flow_by_month', 'treasury_standing_aggregate']) {
+      const { data, error } = await sb.rpc(fn);
+      folds[fn] = error ? null : data;
+    }
+    if (folds.treasury_position) {
+      const p = folds.treasury_position;
+      document.getElementById('pos-tiles').innerHTML =
+        tile('cash in custody', fmtUsd(p.cash), 'the rails’ reads &middot; ' + escHtml(p.cash_as_of || '')) +
+        tile('receivables', fmtUsd(p.receivables), 'instrument-expected minus received') +
+        tile('commitments standing', fmtUsd(p.commitments), 'unpaired distributions') +
+        tile('member capital', fmtUsd(p.member_capital), 'the PP capital-account fold');
+      document.getElementById('pos-mark').textContent = 'aggregate';
+    } else {
+      document.getElementById('pos-tiles').innerHTML =
+        tile('cash in custody', '–', 'the &sect;9 rail reads &middot; T-06', true) +
+        tile('receivables', '–', 'awaits the dues schedule', true) +
+        tile('commitments standing', '–', 'the fold emission', true) +
+        tile('member capital', '–', 'the fold emission', true);
+      document.getElementById('pos-note').textContent = emissionNote;
+      document.getElementById('pos-mark').textContent = 'waiting';
+    }
+    if (folds.treasury_flow_by_month && folds.treasury_flow_by_month.length) {
+      const byMonth = {};
+      folds.treasury_flow_by_month.forEach(r => { byMonth[r.month] = { inflow: Number(r.inflow) || 0, outflow: Number(r.outflow) || 0 }; });
+      document.getElementById('flow-body').innerHTML = renderFlowTable(byMonth);
+      document.getElementById('flow-mark').textContent = folds.treasury_flow_by_month.length + ' months';
+    } else {
+      document.getElementById('flow-body').innerHTML = `<span class="desk-empty">${emissionNote}</span>`;
+      document.getElementById('flow-mark').textContent = 'waiting';
+    }
+    if (folds.treasury_standing_aggregate) {
+      const s = folds.treasury_standing_aggregate;
+      /* the small-cohort withholding: under three outstanding, the count shows and the total does not (§9a) */
+      const total = s.outstanding_count >= 3 ? ' &middot; ' + fmtUsd(s.outstanding_total) + ' outstanding' : ' &middot; total withheld under the small-cohort rule';
+      document.getElementById('standing-body').innerHTML = `<div class="row-line"><span class="row-main">${s.current_count} current &middot; ${s.outstanding_count} outstanding${total}</span></div>`;
+      document.getElementById('standing-mark').textContent = 'aggregate';
+    } else {
+      document.getElementById('standing-body').innerHTML = `<span class="desk-empty">Standing derives from the dues schedule, expected minus received, and reaches members as counts and totals, never names. It waits on the schedule recording as an instrument (&sect;14) and on the fold emission. Your own line, once it exists, appears here in full; it was already yours to see.</span>`;
+      document.getElementById('standing-mark').textContent = 'waiting';
+    }
+    renderRibbon([]);
+    return;
+  }
+
+  /* the desk cut: fold the rows the desk already reads */
+  const money = evs.filter(e => e.kind === 'money.received');
+  const exec = evs.filter(e => e.kind === 'disbursement.executed');
+  const capital = evs.filter(e => e.kind && e.kind.indexOf('capital.') === 0);
+  const windows = evs.filter(e => e.kind === 'treasury.reconciled');
+
+  const discharged = new Set(exec.map(e => (e.payload && e.payload.commitment_event_id) || null).filter(Boolean));
+  const commitTotal = evs.filter(e => e.kind === 'capital.distribution' && e.settlement === 'anticipated' && !discharged.has(e.id))
+    .reduce((a, e) => a + Math.abs(Number(e.book_delta) || 0), 0);
+  const capitalTotal = capital.reduce((a, e) => a + (Number(e.book_delta) || 0), 0);
+
+  document.getElementById('pos-tiles').innerHTML =
+    tile('cash in custody', '–', 'the &sect;9 rail reads arrive with T-06; credentials are a &sect;14 item', true) +
+    tile('receivables', '–', 'awaits the dues schedule as an instrument (&sect;14)', true) +
+    tile('commitments standing', fmtUsd(commitTotal), 'unpaired capital.distribution rows', false) +
+    tile('member capital', capital.length ? fmtUsd(capitalTotal) : '–', capital.length ? 'the PP capital-account fold, ' + capital.length + ' events' : 'no capital events stand yet', !capital.length);
+  document.getElementById('pos-mark').textContent = 'desk cut';
+  document.getElementById('pos-note').innerHTML = 'The equation shows whole when its parts exist: assets, cash and receivables, against commitments and member capital, with the delta to Xero’s position surfaced beside it, not smoothed (&sect;9a).';
+
+  if (money.length === 0 && exec.length === 0) {
+    document.getElementById('flow-body').innerHTML = '<span class="desk-empty">No governed movement stands in the record. The first money.received arrives with the intake rail (T-02), or as a manual entry at R1; the first outflow arrives with disbursement execution (T-04). The table folds itself from the events the moment they exist.</span>';
+    document.getElementById('flow-mark').textContent = '0 movements';
+  } else {
+    const byMonth = {};
+    money.forEach(e => { const k = monthKey(e.occurred_at || e.recorded_at); (byMonth[k] = byMonth[k] || { inflow: 0, outflow: 0 }).inflow += Number(e.payload && e.payload.amount) || 0; });
+    exec.forEach(e => { const k = monthKey(e.occurred_at || e.recorded_at); (byMonth[k] = byMonth[k] || { inflow: 0, outflow: 0 }).outflow += Math.abs(Number(e.payload && e.payload.amount) || Number(e.book_delta) || 0); });
+    document.getElementById('flow-body').innerHTML = renderFlowTable(byMonth);
+    document.getElementById('flow-mark').textContent = (money.length + exec.length) + ' movements';
+  }
+
+  document.getElementById('standing-body').innerHTML = '<span class="desk-empty">The named roster, each member’s expected, received, outstanding, and age, derives from the dues schedule, and no dues schedule stands as an instrument; it is routed in &sect;14 and the roster activates when it records, the same condition R2’s intake pricing waits on. Members see this region as counts and totals only, under the small-cohort withholding (&sect;9a).</span>';
+  document.getElementById('standing-mark').textContent = 'desk cut · waiting on the instrument';
+
+  renderRibbon(windows);
 }
 
 async function loadAll(session) {
@@ -279,12 +466,15 @@ async function loadAll(session) {
     const roles = (grants || []).map(g => g.role);
     atDesk = roles.includes('director') || roles.includes('treasurer') || roles.includes('secretary') || roles.includes('steward');
   }
+  // The statements view reads for every member: the aggregate picture in the
+  // member cut, the row-derived folds in the desk cut (TREASURY §9a).
   if (!atDesk) {
-    document.getElementById('not-desk').style.display = 'block';
+    await loadStatements(false, null);
     return;
   }
   document.getElementById('content').style.display = 'block';
-  await loadDesk();
+  const evs = await loadDesk();
+  await loadStatements(true, evs || []);
 }
 
 (async function init() {
@@ -304,7 +494,7 @@ async function loadAll(session) {
     }
     if (event === 'SIGNED_OUT') {
       document.getElementById('content').style.display = 'none';
-      document.getElementById('not-desk').style.display = 'none';
+      document.getElementById('statements').style.display = 'none';
       location.reload(); /* the shell renders the gate (U-04) */
     }
   });
