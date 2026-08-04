@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+    (function() {
+      var s = null;
+      try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+      if (s === 'light' || s === 'dark') document.documentElement.setAttribute('data-mode', s);
+      else document.documentElement.setAttribute('data-mode', 'dark');
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accounting Counsel Memo &middot; Intake Draft &middot; Techne</title>
+  <meta name="description" content="Standing intake of accounting and tax counsel questions for RegenHub, LCA: entity posture, the books as found, cooperative economics, programs and grants. Indexed with materiality tags. Working draft; engagement to be named.">
+  <link rel="canonical" href="https://techne.coop/accounting/counsel-memo/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif: 'Libre Baskerville', Georgia, serif;
+      --mono:  'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    }
+
+    [data-mode="dark"] {
+      --bg:         #0F0F12;
+      --surface:    #16161B;
+      --raised:     #232329;
+      --border:     rgba(196,149,106,0.12);
+      --border-dim: rgba(255,255,255,0.06);
+      --text:       #CFCBC4;
+      --text-warm:  #c8bca8;
+      --text-muted: rgba(200,188,168,0.55);
+      --text-dim:   rgba(200,188,168,0.28);
+      --gold:       #c4956a;
+      --moss:       #6a8a5e;
+      --rust:       #9a5a5a;
+      --sky:        #5a7a9a;
+      --plum:       #9a7aba;
+    }
+
+    [data-mode="light"] {
+      --bg:         #f7f5f0;
+      --surface:    #FCFBF8;
+      --raised:     #FEFDFB;
+      --border:     rgba(196,149,106,0.20);
+      --border-dim: rgba(0,0,0,0.08);
+      --text:       #2E2C28;
+      --text-warm:  #3a3028;
+      --text-muted: rgba(60,48,36,0.60);
+      --text-dim:   rgba(60,48,36,0.30);
+      --gold:       #8a6a3a;
+      --moss:       #4a6a3a;
+      --rust:       #8a3a3a;
+      --sky:        #3a5a7a;
+      --plum:       #6a4a8a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .wrap { max-width: 780px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+
+    .status-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 2.5rem;
+      font-size: 0.82rem;
+      color: var(--text-warm);
+      line-height: 1.6;
+    }
+    .status-banner strong {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.15em 0.55em;
+      border-radius: 2px;
+      vertical-align: middle;
+      margin-left: 0.5rem;
+      font-weight: 500;
+    }
+    .badge-blocking  { background: rgba(154,90,90,0.18);  color: var(--rust); border: 1px solid rgba(154,90,90,0.3); }
+    .badge-advisable { background: rgba(196,149,106,0.12); color: var(--gold); border: 1px solid rgba(196,149,106,0.25); }
+    .badge-clarifying{ background: rgba(90,122,154,0.12);  color: var(--sky);  border: 1px solid rgba(90,122,154,0.25); }
+    .badge-resolved  { background: rgba(106,138,94,0.12);  color: var(--moss); border: 1px solid rgba(106,138,94,0.25); }
+
+    .memo-header { border-top: 2px solid var(--gold); padding-top: 2rem; margin-bottom: 2.5rem; }
+    .memo-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .memo-fields {
+      display: grid;
+      grid-template-columns: 5rem 1fr;
+      gap: 0.4rem 1rem;
+      font-size: 0.9rem;
+    }
+    .memo-field-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: var(--text-dim);
+      padding-top: 0.25rem;
+    }
+    .memo-field-val { color: var(--text-warm); }
+    .memo-subject { font-style: italic; color: var(--text); }
+    .memo-divider { border: none; border-top: 1px solid var(--border-dim); margin-top: 1.75rem; }
+
+    .prose p { margin-bottom: 1rem; font-size: 0.92rem; color: var(--text-warm); }
+    .prose { margin-bottom: 2.5rem; }
+
+    .memo-section { margin-bottom: 3rem; }
+    .memo-section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.9rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.75rem;
+    }
+    .memo-section-num {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+    }
+    .memo-section-title { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+
+    .change-item {
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      border-radius: 4px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .change-ref {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
+    }
+    .change-ref a { color: var(--text-muted); }
+    .change-heading { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; line-height: 1.5; }
+    .change-body p { font-size: 0.86rem; color: var(--text-warm); margin-bottom: 0.7rem; }
+    .change-body p:last-child { margin-bottom: 0; }
+
+    .open-q {
+      background: var(--raised);
+      border-left: 2px solid var(--sky);
+      border-radius: 2px;
+      padding: 0.65rem 0.9rem;
+      font-size: 0.84rem;
+      color: var(--text-warm);
+      margin-top: 0.75rem;
+    }
+    .open-q-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--sky);
+      margin-bottom: 0.3rem;
+    }
+
+    .summary-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem 1.5rem;
+      margin-top: 3rem;
+    }
+    .summary-section h3 {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .summary-group { margin-bottom: 1.5rem; }
+    .summary-group:last-child { margin-bottom: 0; }
+    .summary-group-label {
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      margin-bottom: 0.5rem;
+    }
+    .summary-group-label.blocking  { color: var(--rust); }
+    .summary-group-label.advisable { color: var(--gold); }
+    .summary-group-label.gap       { color: var(--sky); }
+    .summary-list {
+      list-style: none;
+      font-size: 0.83rem;
+      color: var(--text-warm);
+      line-height: 1.7;
+    }
+    .summary-list li { padding-left: 1rem; position: relative; margin-bottom: 0.2rem; }
+    .summary-list li::before { content: "\2013"; position: absolute; left: 0; color: var(--text-dim); }
+
+    code {
+      font-family: var(--mono);
+      font-size: 0.80em;
+      color: var(--text-muted);
+      background: var(--surface);
+      padding: 0.1em 0.35em;
+      border-radius: 2px;
+    }
+
+    .filter-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border-dim);
+      padding: 0.65rem 2rem;
+      margin: 0 -2rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .filter-bar-label {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      margin-right: 0.3rem;
+      flex-shrink: 0;
+    }
+    .filter-sep { flex: 1; }
+    .mat-btn {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      padding: 0.2em 0.7em;
+      border-radius: 3px;
+      border: 1px solid var(--border-dim);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.12s;
+      white-space: nowrap;
+    }
+    .mat-btn:hover { border-color: var(--border); color: var(--text-warm); }
+    .mat-btn.active[data-filter="all"]        { background: rgba(200,188,168,0.10); border-color: rgba(200,188,168,0.3); color: var(--text-warm); }
+    .mat-btn.active[data-filter="blocking"]   { background: rgba(154,90,90,0.15);   border-color: rgba(154,90,90,0.4);   color: var(--rust); }
+    .mat-btn.active[data-filter="advisable"]  { background: rgba(196,149,106,0.12); border-color: rgba(196,149,106,0.35); color: var(--gold); }
+    .mat-btn.active[data-filter="clarifying"] { background: rgba(90,122,154,0.12);  border-color: rgba(90,122,154,0.35); color: var(--sky); }
+    .filter-count {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      color: var(--text-dim);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .page-footer {
+      margin-top: 5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-dim);
+      font-family: var(--mono);
+      font-size: 0.60rem;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: var(--text-dim);
+      text-align: center;
+      line-height: 1.9;
+    }
+
+    a { color: var(--gold); }
+    a:hover { text-decoration: underline; }
+    :focus-visible { outline: 2px solid var(--sky); outline-offset: 2px; }
+  </style>
+</head>
+<body data-doc-path="/accounting/counsel-memo/">
+<button onclick="(function(){var m=document.documentElement.getAttribute('data-mode')=='dark'?'light':'dark';document.documentElement.setAttribute('data-mode',m);try{localStorage.setItem('techne-mode',m);}catch(e){}})()" style="position:fixed;top:12px;right:12px;z-index:1000;background:var(--surface);border:1px solid var(--border-dim);color:var(--text-muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;border-radius:3px;letter-spacing:0.06em;" aria-label="Toggle dark/light mode">mode</button>
+<div class="wrap">
+
+  <!-- Status banner -->
+  <div class="status-banner">
+    <strong>Working Draft &middot; Collecting &middot; August 4, 2026</strong>
+    This page is the cooperative's standing interface for its accounting and tax counsel needs: questions accumulate here as the build and the books surface them, indexed and tagged by materiality, so that when an engagement begins, counsel receives one organized brief instead of a year of scattered threads. It is the accounting sibling of the <a href="/legal/counsel-memo/">legal counsel memo</a>. Nothing here is advice, and nothing here is settled by being written down; each item names the decision it waits on and who holds it.
+    <span style="display:block;margin-top:0.6rem;padding-top:0.6rem;border-top:1px solid rgba(196,149,106,0.15);">
+      <strong style="color:var(--gold);font-family:var(--mono);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.10em;">Figures</strong>
+      This public page carries structure, not balances. Live figures stand behind the member door at <a href="/intranet/treasury/">the Treasury</a>, and counsel will receive them directly under engagement. Whether aggregate figures reach any public page is itself an open governance item, routed to the board, and this page does not preempt it.
+    </span>
+  </div>
+
+  <!-- Memo header -->
+  <div class="memo-header">
+    <div class="memo-label">Memorandum</div>
+    <div class="memo-fields">
+      <div class="memo-field-label">To</div>
+      <div class="memo-field-val">Accounting and tax counsel &middot; engagement to be named</div>
+
+      <div class="memo-field-label">From</div>
+      <div class="memo-field-val">Todd Youngblood, Ventures and Operations Steward<br>RegenHub, LCA</div>
+
+      <div class="memo-field-label">Date</div>
+      <div class="memo-field-val">August 4, 2026 &middot; revised as items accumulate</div>
+
+      <div class="memo-field-label">Re</div>
+      <div class="memo-field-val memo-subject">The cooperative's accounting and tax posture: an indexed intake of questions for counsel</div>
+    </div>
+    <hr class="memo-divider">
+  </div>
+
+  <!-- Intro -->
+  <div class="prose">
+    <p>
+      RegenHub, LCA is a Colorado limited cooperative association, filed February 6, 2026 under the
+      Colorado Uniform Limited Cooperative Association Act, operating the Techne venture studio in
+      Boulder. The book of account is Xero (financial year ending December 31); banking is at Mercury;
+      member payments arrive by Stripe; and part of the treasury is held on-chain at a Safe multisig.
+      The cooperative runs a common information system that records governed movements as events, with
+      a <a href="/commons/treasury/">Treasury module</a> defining reconciliation, statements, and the
+      discipline counsel's work will meet.
+    </p>
+    <p>
+      One piece of history frames several items below: before formation, the space operated under a
+      sponsor organization's accounting, and the LCA was formed precisely to take that accounting and
+      liability onto its own books. The seam of that shift, what carries, at what basis, from what
+      date, runs through the entity questions in Part I and the custody questions in Part II.
+    </p>
+    <p>
+      Items are tagged by materiality.
+      <span class="badge badge-blocking" style="margin-left:0">Blocking</span> must be resolved before
+      the first close or filing it touches;
+      <span class="badge badge-advisable" style="margin-left:0">Advisable</span> should be settled
+      within the fiscal year;
+      <span class="badge badge-clarifying" style="margin-left:0">Clarifying</span> is confirmatory and
+      low-risk. Items the cooperative's own record already routes are cited to their governing
+      documents, chiefly the Treasury module's <a href="/commons/treasury/">open items table</a> and
+      the <a href="/legal/counsel-memo/">legal memo's</a> tax-flagged entries.
+    </p>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar" id="filter-bar">
+    <span class="filter-bar-label">Filter</span>
+    <button class="mat-btn active" data-filter="all">All</button>
+    <button class="mat-btn" data-filter="blocking">Blocking</button>
+    <button class="mat-btn" data-filter="advisable">Advisable</button>
+    <button class="mat-btn" data-filter="clarifying">Clarifying</button>
+    <span class="filter-sep"></span>
+    <span class="filter-count" id="filter-count"></span>
+  </div>
+
+  <!-- Part I -->
+  <div class="memo-section">
+    <div class="memo-section-head" id="part-i">
+      <span class="memo-section-num">Part I</span>
+      <span class="memo-section-title">Entity and Tax Posture</span>
+    </div>
+
+    <div class="change-item" id="ac-01" data-materiality="blocking">
+      <div class="change-ref">AC-01 &middot; formation record; Bylaws v2.1; <a href="/legal/counsel-memo/">legal memo</a> tax-flagged items</div>
+      <div class="change-heading">Entity Classification and the First-Year Filing Calendar <span class="badge badge-blocking">Blocking</span></div>
+      <div class="change-body">
+        <p>The governing documents are drafted in Subchapter K vocabulary throughout: distributive share, capital account, allocation, with the legal memo flagging section 704(b) questions to tax counsel. The working assumption is partnership taxation by default classification, but no election, analysis, or filing calendar stands confirmed in the record.</p>
+        <div class="open-q"><span class="open-q-label">Asks</span>Confirm federal classification and whether any election is needed or advisable; confirm the first tax year (a short year from February 6, 2026, on a calendar-year end per the book); lay out the federal and Colorado filing calendar (partnership return, member schedules, state equivalents, and any local obligations); and state whether Subchapter T cooperative treatment was considered and set aside, so the record carries the reasoning and not just the vocabulary.</div>
+      </div>
+    </div>
+
+    <div class="change-item" id="ac-02" data-materiality="blocking">
+      <div class="change-ref">AC-02 &middot; the formation boundary, 2026-02-06; sponsor-era accounting</div>
+      <div class="change-heading">The Opening Balance Sheet and the Sponsor Boundary <span class="badge badge-blocking">Blocking</span></div>
+      <div class="change-body">
+        <p>Activity before formation ran under the sponsor organization. The LCA's books need a defensible opening: which assets and obligations carry onto the cooperative's balance sheet, at what basis, effective what date, and under what characterization (contribution, purchase, assumption, or something else that the transfer documents should then say plainly).</p>
+        <div class="open-q"><span class="open-q-label">Asks</span>Advise the opening balance sheet date and contents; the characterization and documentation of anything transferred from the sponsor; and the treatment of any pre-formation activity that touches 2026 filings.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part II -->
+  <div class="memo-section">
+    <div class="memo-section-head" id="part-ii">
+      <span class="memo-section-num">Part II</span>
+      <span class="memo-section-title">The Books as Found</span>
+    </div>
+
+    <div class="change-item" id="ac-03" data-materiality="blocking">
+      <div class="change-ref">AC-03 &middot; TR &sect;9, &sect;14 (the position shown); IM Law IX (book partition)</div>
+      <div class="change-heading">Custody Scoping: Which Accounts Are the Cooperative's <span class="badge badge-blocking">Blocking</span></div>
+      <div class="change-body">
+        <p>The Xero organisation currently carries three bank-type accounts: the cooperative's own operating account at Mercury; an account connected from the sponsor organization's banking; and the on-chain treasury at a Safe multisig. As found, the book's cash total therefore includes custody that is arguably not the LCA's, and the cooperative's live bank rail reports a materially different figure than the book.</p>
+        <p>The cooperative's information model already partitions entity and host books; counsel's scoping decision should land as configuration in both Xero and that partition, so the statements the members see cite a cash line that means one thing.</p>
+        <div class="open-q"><span class="open-q-label">Asks</span>Determine which accounts belong on the LCA's books; whether the sponsor-era account should be disconnected, archived with history, or carried under an explicit partition; and what the book's cash line should include going forward.</div>
+      </div>
+    </div>
+
+    <div class="change-item" id="ac-04" data-materiality="advisable">
+      <div class="change-ref">AC-04 &middot; the Safe multisig on the books; digital asset guidance</div>
+      <div class="change-heading">Digital Asset Holdings: Presentation, Measurement, Character <span class="badge badge-advisable">Advisable</span></div>
+      <div class="change-body">
+        <p>Part of the treasury is held on-chain, predominantly dollar-pegged stablecoins at a Safe multisig, presently represented in the book as a bank-type account. Current FASB guidance moves qualifying crypto assets to fair value; whether and how it reaches stablecoins, and whether bank-account presentation is the right shape at all, deserves a settled answer before a close relies on it.</p>
+        <div class="open-q"><span class="open-q-label">Asks</span>Advise presentation and measurement for the on-chain holdings; the tax character of on-chain movements (including any disposition events in stablecoin conversions); and any disclosure practice appropriate at this scale.</div>
+      </div>
+    </div>
+
+    <div class="change-item" id="ac-05" data-materiality="advisable">
+      <div class="change-ref">AC-05 &middot; TR &sect;8 (reconciliation as a fold), &sect;9a (closed and provisional months)</div>
+      <div class="change-heading">Feeds, Cadence, and the Close <span class="badge badge-advisable">Advisable</span></div>
+      <div class="change-body">
+        <p>Bank feeds into the book presently lag the rails. The Treasury module defines reconciliation as three-way pairing over attested windows, and the member-facing statements distinguish closed months from provisional ones by that attestation. The bookkeeping cadence and the attestation cadence should be the same cadence, or the two definitions of "closed" will drift apart.</p>
+        <div class="open-q"><span class="open-q-label">Asks</span>Recommend a monthly close process and calendar the attestation can cite; confirm the division of labor between the cooperative's record (cash-basis, event-derived) and the book (accrual authority), which the statements design already assumes.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part III -->
+  <div class="memo-section">
+    <div class="memo-section-head" id="part-iii">
+      <span class="memo-section-num">Part III</span>
+      <span class="memo-section-title">Cooperative Economics</span>
+    </div>
+
+    <div class="change-item" id="ac-06" data-materiality="blocking">
+      <div class="change-ref">AC-06 &middot; TR &sect;5 (intake purposes), &sect;14 (tax character, routed to CPA); the dues schedule instrument</div>
+      <div class="change-heading">Tax Character of Member Intake <span class="badge badge-blocking">Blocking</span></div>
+      <div class="change-body">
+        <p>Money enters the cooperative as dues, share purchases, cash capital contributions, and program payments, and the front door prices only from instruments in force. Each purpose needs its character settled: income versus contribution to capital, recognition timing, and the plain-language story a member should be told about their own payment.</p>
+        <div class="open-q"><span class="open-q-label">Asks</span>Determine the character and timing of each intake purpose. The dues schedule instrument, which activates both intake pricing and the receivables view, waits in part on this determination.</div>
+      </div>
+    </div>
+
+    <div class="change-item" id="ac-07" data-materiality="blocking">
+      <div class="change-ref">AC-07 &middot; Bylaws &sect;5 and the legal memo's 704(b) flags; the counting rules, staged; the $250 to $500 buy-in with labor equivalent</div>
+      <div class="change-heading">Capital Accounts, the Labor-Equivalent Buy-In, and Section 704(b) <span class="badge badge-blocking">Blocking</span></div>
+      <div class="change-body">
+        <p>The buy-in is fulfillable through labor equivalent; capital accounts follow Subchapter K maintenance; and the counting rules that value member contributions are staged for board adoption. Two exposures deserve a squared answer before the first labor-equivalent share issues: services contributed for a capital interest can be compensation income to the contributing member, and the allocation method must satisfy section 704(b)'s determinism requirements, a point the legal memo already flags to tax counsel from the bylaws side.</p>
+        <div class="open-q"><span class="open-q-label">Asks</span>Advise the member-side and cooperative-side treatment of the labor-equivalent buy-in; confirm capital account maintenance mechanics against the counting rules before the board adopts them; and coordinate with the bylaws-side 704(b) items so one answer covers both documents. This is the heaviest item in the memo.</div>
+      </div>
+    </div>
+
+    <div class="change-item" id="ac-08" data-materiality="advisable">
+      <div class="change-ref">AC-08 &middot; T-05, open on redeemability; Bylaws redemption provisions</div>
+      <div class="change-heading">Redemption: Accounting and Member Treatment <span class="badge badge-advisable">Advisable</span></div>
+      <div class="change-body">
+        <p>The share redemption path is held open in the build pending a board and counsel decision on redeemability itself. When that resolves, the first redemption should not be the occasion for discovering its accounting: basis recovery, any gain or loss, and the cooperative-side entries need a settled shape first.</p>
+        <div class="open-q"><span class="open-q-label">Asks</span>When redeemability resolves, provide the redemption's accounting and the member-side treatment, including the promissory-note redemption forms the bylaws permit.</div>
+      </div>
+    </div>
+
+    <div class="change-item" id="ac-09" data-materiality="advisable">
+      <div class="change-ref">AC-09 &middot; PP &sect;5, &sect;11 (commitments; the allocation run); TR &sect;4 (settlement by pairing)</div>
+      <div class="change-heading">Distributive Shares: Reporting Against the Two-Step Record <span class="badge badge-advisable">Advisable</span></div>
+      <div class="change-body">
+        <p>The record separates allocation from movement by design: a distributive share posts as an event when allocated, and cash discharges the commitment later, possibly in a different period. Member reporting must be correct against that two-step, allocation now, cash later, including in years where they land on opposite sides of December 31.</p>
+        <div class="open-q"><span class="open-q-label">Asks</span>Confirm member schedule mechanics against allocation-versus-distribution timing, and advise any estimated-tax guidance the cooperative should give members alongside their first allocations.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part IV -->
+  <div class="memo-section">
+    <div class="memo-section-head" id="part-iv">
+      <span class="memo-section-num">Part IV</span>
+      <span class="memo-section-title">Programs, Grants, and the Host Book</span>
+    </div>
+
+    <div class="change-item" id="ac-10" data-materiality="advisable">
+      <div class="change-ref">AC-10 &middot; IM Law IX (the book partition); TR &sect;14 (grant-bounded flows, routed per grant)</div>
+      <div class="change-heading">Grant-Bounded Flows and Unrelated Business Income <span class="badge badge-advisable">Advisable</span></div>
+      <div class="change-body">
+        <p>Program money can ride a host book partition distinct from member capital, and the record keeps the two apart by law of the information model. Per grant, the questions are funder conditions, any unrelated-business-income exposure where flows touch exempt counterparties, and the reporting that the partition should be configured to support from the first dollar.</p>
+        <div class="open-q"><span class="open-q-label">Asks</span>As each grant or program engagement approaches, review its conditions against the partition design. The record routes this per grant rather than in general, and this memo will accumulate the specific instances.</div>
+      </div>
+    </div>
+
+    <div class="change-item" id="ac-11" data-materiality="clarifying">
+      <div class="change-ref">AC-11 &middot; TR &sect;9a (the calendar-year assumption); the book's configured year end</div>
+      <div class="change-heading">The Fiscal Calendar, Confirmed and Recorded <span class="badge badge-clarifying">Clarifying</span></div>
+      <div class="change-body">
+        <p>The book of account carries a December 31 year end, and the statements surface assumes the calendar year until the board records otherwise. The assumption and the configuration agree; what remains is confirmation that a calendar year is right for a February-formed partnership-taxed entity, so the board can record it and the assumption can retire.</p>
+        <div class="open-q"><span class="open-q-label">Asks</span>Confirm the calendar fiscal year, or advise otherwise before the first annual close.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-section">
+    <h3>Summary of Asks</h3>
+    <div class="summary-group">
+      <div class="summary-group-label blocking">Blocking &middot; before the first close or filing they touch</div>
+      <ul class="summary-list">
+        <li>AC-01 &middot; classification, first-year calendar, and the Subchapter K versus T reasoning on the record</li>
+        <li>AC-02 &middot; the opening balance sheet and the sponsor transfer's characterization</li>
+        <li>AC-03 &middot; custody scoping: which accounts are the cooperative's, and what the cash line means</li>
+        <li>AC-06 &middot; tax character of each intake purpose, feeding the dues schedule instrument</li>
+        <li>AC-07 &middot; capital accounts, the labor-equivalent buy-in, and 704(b), coordinated with the bylaws items</li>
+      </ul>
+    </div>
+    <div class="summary-group">
+      <div class="summary-group-label advisable">Advisable &middot; within the fiscal year</div>
+      <ul class="summary-list">
+        <li>AC-04 &middot; digital asset presentation, measurement, and character</li>
+        <li>AC-05 &middot; the monthly close cadence the attestation will cite</li>
+        <li>AC-08 &middot; redemption accounting, once redeemability resolves</li>
+        <li>AC-09 &middot; member schedules against allocation-versus-distribution timing</li>
+        <li>AC-10 &middot; per-grant conditions and unrelated-business-income review</li>
+      </ul>
+    </div>
+    <div class="summary-group">
+      <div class="summary-group-label gap">Clarifying</div>
+      <ul class="summary-list">
+        <li>AC-11 &middot; the calendar fiscal year, confirmed so the board can record it</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    Accounting Counsel Memo &middot; working draft, collecting &middot; RegenHub, LCA &middot; Boulder, Colorado<br>
+    drafted by the instrument &middot; routed by the steward &middot; sent when an engagement is named &middot; nothing here is advice<br>
+    <a href="/legal/counsel-memo/">legal counsel memo</a> &middot; <a href="/commons/treasury/">treasury module</a> &middot; <a href="/commons/patronage/">patronage module</a>
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    var buttons = document.querySelectorAll('.mat-btn');
+    var items = document.querySelectorAll('.change-item');
+    var count = document.getElementById('filter-count');
+    function apply(filter) {
+      var shown = 0;
+      items.forEach(function(it) {
+        var mats = (it.getAttribute('data-materiality') || '').split(' ');
+        var show = filter === 'all' || mats.indexOf(filter) !== -1;
+        it.style.display = show ? '' : 'none';
+        if (show) shown++;
+      });
+      count.textContent = shown + ' of ' + items.length + ' items';
+      buttons.forEach(function(b) { b.classList.toggle('active', b.getAttribute('data-filter') === filter); });
+    }
+    buttons.forEach(function(b) {
+      b.addEventListener('click', function() { apply(b.getAttribute('data-filter')); });
+    });
+    apply('all');
+  })();
+</script>
+</body>
+</html>

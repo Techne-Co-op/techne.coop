@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+    (function() {
+      var s = null;
+      try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+      if (s === 'light' || s === 'dark') document.documentElement.setAttribute('data-mode', s);
+      else document.documentElement.setAttribute('data-mode', 'dark');
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accounting &middot; Techne</title>
+  <meta name="description" content="The accounting practice area of RegenHub, LCA: the counsel memo intake and its relation to the Treasury module and the books of account.">
+  <link rel="canonical" href="https://techne.coop/accounting/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif: 'Libre Baskerville', Georgia, serif;
+      --mono:  'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    }
+    [data-mode="dark"] {
+      --bg: #0F0F12; --surface: #16161B;
+      --border: rgba(196,149,106,0.12); --border-dim: rgba(255,255,255,0.06);
+      --text: #CFCBC4; --text-warm: #c8bca8; --text-muted: rgba(200,188,168,0.55); --text-dim: rgba(200,188,168,0.28);
+      --gold: #c4956a;
+    }
+    [data-mode="light"] {
+      --bg: #f7f5f0; --surface: #FCFBF8;
+      --border: rgba(196,149,106,0.20); --border-dim: rgba(0,0,0,0.08);
+      --text: #2E2C28; --text-warm: #3a3028; --text-muted: rgba(60,48,36,0.60); --text-dim: rgba(60,48,36,0.30);
+      --gold: #8a6a3a;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--serif); font-size: 15px; line-height: 1.7; }
+    .wrap { max-width: 680px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .eyebrow { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold); margin-bottom: 1rem; }
+    h1 { font-size: 1.7rem; font-weight: 700; margin-bottom: 1rem; }
+    p { color: var(--text-warm); margin-bottom: 1rem; font-size: 0.94rem; }
+    .card { display: block; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 4px; padding: 1.1rem 1.25rem; margin-top: 2rem; text-decoration: none; }
+    .card:hover { border-color: var(--gold); }
+    .card .ct { font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+    .card .cd { font-size: 0.86rem; color: var(--text-muted); }
+    a { color: var(--gold); }
+    .foot { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--border-dim); font-family: var(--mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.10em; color: var(--text-dim); line-height: 1.9; }
+  </style>
+</head>
+<body>
+<button onclick="(function(){var m=document.documentElement.getAttribute('data-mode')=='dark'?'light':'dark';document.documentElement.setAttribute('data-mode',m);try{localStorage.setItem('techne-mode',m);}catch(e){}})()" style="position:fixed;top:12px;right:12px;z-index:1000;background:var(--surface);border:1px solid var(--border-dim);color:var(--text-muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;border-radius:3px;letter-spacing:0.06em;" aria-label="Toggle dark/light mode">mode</button>
+<div class="wrap">
+  <div class="eyebrow">RegenHub, LCA &middot; Accounting</div>
+  <h1>Accounting</h1>
+  <p>The cooperative's accounting practice area: where the books of account, the treasury record, and professional counsel meet. The governing design lives in the <a href="/commons/treasury/">Treasury module</a>; the live surfaces stand behind the member door at <a href="/intranet/treasury/">the Treasury</a>.</p>
+  <a class="card" href="/accounting/counsel-memo/">
+    <span class="ct">Accounting Counsel Memo &middot; intake draft</span>
+    <span class="cd">The standing, indexed collection of accounting and tax questions awaiting an engagement: entity posture, the books as found, cooperative economics, programs and grants.</span>
+  </a>
+  <div class="foot">RegenHub, LCA &middot; Boulder, Colorado &middot; sibling practice area: <a href="/legal/">legal</a></div>
+</div>
+</body>
+</html>
