@@ -117,6 +117,20 @@ table.flow tr.subtotal td { border-top: 1px solid var(--rule); color: var(--head
 .m-chip.provisional { background: var(--info-dim); color: var(--info); border-color: var(--info); }
 .m-chip.future { color: var(--faint); border-style: dashed; }
 .desk-h2 { font-size: 1.25rem; font-weight: 700; color: var(--heading); margin: var(--s7) 0 var(--s3); }
+details.stmt { border: 1px solid var(--line); border-radius: 6px; margin-bottom: var(--s3); background: var(--inset); }
+details.stmt summary { cursor: pointer; padding: var(--s3) var(--s4); display: flex; gap: var(--s3); align-items: baseline; flex-wrap: wrap; list-style: none; }
+details.stmt summary::-webkit-details-marker { display: none; }
+details.stmt summary::before { content: "+"; font-family: var(--mono); color: var(--ember-text); width: 12px; }
+details.stmt[open] summary::before { content: "\2212"; }
+details.stmt .stmt-inner { padding: 0 var(--s4) var(--s4); }
+.stmt-month { font-weight: 700; color: var(--heading); font-size: 1rem; flex: 1; min-width: 120px; }
+.stmt-kpi { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+.stmt-kpi b { color: var(--heading); font-weight: 500; }
+.stmt-sec { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ember-text); margin: var(--s4) 0 var(--s2); }
+.stmt-sec:first-child { margin-top: 0; }
+table.flow a { color: var(--info); text-decoration: none; }
+table.flow a:hover { text-decoration: underline; }
+table.flow td.neg { color: var(--warn); }
 
 footer {
   border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
@@ -380,30 +394,91 @@ function renderStatement(row) {
   const x = p.xero || {}, s = p.stripe || {}, mc = p.mercury || {}, sf = p.safe || {};
   const pt = x.pnl_totals || {}, pos = x.position_totals || {};
   const net = pt['Net Profit'] != null ? pt['Net Profit'] : pt['Gross Profit'];
+  const pays = s.payments || [];
+  const gross = pays.reduce((a, r) => a + r.gross, 0);
+  const fees = pays.reduce((a, r) => a + r.fee, 0);
+  const netRev = pays.reduce((a, r) => a + r.net, 0);
+
+  /* A · revenue, itemized: date, gross, fee, net; never a name */
+  let secA;
+  if (pays.length) {
+    secA = `<table class="flow"><tr><th>date</th><th>kind</th><th>gross</th><th>fee</th><th>net</th></tr>` +
+      pays.map(r => `<tr><td>${escHtml(r.date)}</td><td style="text-align:left">${escHtml(r.kind)}</td><td>${fmtUsd(r.gross)}</td><td>${fmtUsd(r.fee)}</td><td>${fmtUsd(r.net)}</td></tr>`).join('') +
+      `<tr class="subtotal"><td>total</td><td></td><td>${fmtUsd(gross)}</td><td>${fmtUsd(fees)}</td><td>${fmtUsd(netRev)}</td></tr></table>
+      <div class="row-meta" style="margin-top:var(--s2)">The cooperative's own Stripe account. Payments that ran the sponsor-era processor appear in the custody lines below, not here (AC-03).</div>`;
+  } else {
+    secA = `<span class="desk-empty">No payments on the cooperative's processor this month; inflows, if any, ran the sponsor-era rails and appear in the custody lines below.</span>`;
+  }
+
+  /* C · on-chain: month transfers with explorer links */
+  const tr = p.safe_transfers || [];
+  const holdings = (sf.holdings || []).filter(h => h.asset !== 'read_failed')
+    .map(h => `${escHtml(h.chain)} ${escHtml(h.asset)} ${Number(h.amount).toLocaleString('en-US')}`).join(' &middot; ');
+  let secC = holdings ? `<div class="row-meta" style="margin-bottom:var(--s2)">holdings at read: ${holdings}</div>` : '';
+  if (tr.length) {
+    secC += `<table class="flow"><tr><th>date</th><th>chain</th><th>asset</th><th>amount</th><th>counterparty</th><th>tx</th></tr>` +
+      tr.map(t => `<tr><td>${escHtml(t.date)}</td><td>${escHtml(t.chain)}</td><td>${escHtml(t.asset)}</td><td class="${t.amount < 0 ? 'neg' : ''}">${t.amount < 0 ? '\u2212' : '+'}${Number(Math.abs(t.amount)).toLocaleString('en-US')}</td><td>${escHtml(t.counterparty)}</td><td><a href="${escHtml(t.tx)}" rel="noopener" target="_blank">\u2197</a></td></tr>`).join('') + `</table>`;
+  } else {
+    secC += `<span class="desk-empty">No recognized-asset transfers this month.</span>`;
+  }
+
+  /* D · bank register: inbound payer names genericized by design */
+  const regs = (mc.accounts || []).filter(a => (a.register || []).length);
+  const secD = regs.length ? regs.map(a =>
+    `<div class="row-meta" style="margin:var(--s2) 0">${escHtml(a.account)} &middot; in ${fmtUsd(a.inflow)} &middot; out ${fmtUsd(a.outflow)}</div>
+     <table class="flow"><tr><th>date</th><th style="text-align:left">counterparty</th><th>amount</th></tr>` +
+      a.register.map(t => `<tr><td>${escHtml(t.date)}</td><td style="text-align:left">${escHtml(t.counterparty)}</td><td class="${t.amount < 0 ? 'neg' : ''}">${fmtUsd(t.amount)}</td></tr>`).join('') + `</table>`).join('')
+    : `<span class="desk-empty">No bank-rail activity this month.</span>`;
+
+  /* the book's custody lines */
   const custody = (x.bank_summary || []).filter(c => c.account !== 'Total');
   const custodyRows = custody.map(c =>
-    `<tr><td>${escHtml(c.account)}</td><td>${fmtUsd(c.open)}</td><td>${fmtUsd(c['in'])}</td><td>${fmtUsd(c.out)}</td><td>${fmtUsd(c.close)}</td></tr>`).join('');
-  const st = s.by_type_usd || {};
-  const stripeBits = Object.keys(st).map(k => `${escHtml(k)} ${fmtUsd(st[k])}`).join(' &middot; ');
-  const mercuryBits = (mc.accounts || []).filter(a => a.transaction_count > 0).map(a =>
-    `${escHtml(a.account)}: in ${fmtUsd(a.inflow)} &middot; out ${fmtUsd(a.outflow)} (${a.transaction_count})`).join('<br>');
-  const safeBits = (sf.holdings || []).filter(h => h.asset !== 'read_failed').map(h =>
-    `${escHtml(h.chain)} ${escHtml(h.asset)} ${Number(h.amount).toLocaleString('en-US')}`).join(' &middot; ');
-  return `
-    <div class="row-line"><span class="row-main">${fmtMonth(row.month)}</span>
-      <span class="chip anticipated">provisional &middot; no window attested</span>
-      <span class="row-meta">generated <span>${fmtDate(row.generated_at)}</span></span></div>
-    <table class="flow" style="margin:var(--s2) 0 var(--s3)">
-      <tr><th>the book &middot; custody line</th><th>open</th><th>in</th><th>out</th><th>close</th></tr>
-      ${custodyRows}
-    </table>
-    <div class="row-meta" style="margin-bottom:var(--s2)">
-      Book (accrual, Xero): net ${net != null ? fmtUsd(net) : '&ndash;'} &middot; cash at close ${pos['Total Cash and Cash Equivalents'] != null ? fmtUsd(pos['Total Cash and Cash Equivalents']) : '&ndash;'} &middot; total assets ${pos['Total Assets'] != null ? fmtUsd(pos['Total Assets']) : '&ndash;'}
+    `<tr><td style="text-align:left">${escHtml(c.account)}</td><td>${fmtUsd(c.open)}</td><td>${fmtUsd(c['in'])}</td><td>${fmtUsd(c.out)}</td><td>${fmtUsd(c.close)}</td></tr>`).join('');
+
+  return `<details class="stmt">
+    <summary>
+      <span class="stmt-month">${fmtMonth(row.month)}</span>
+      <span class="stmt-kpi">revenue net <b>${fmtUsd(netRev)}</b></span>
+      <span class="stmt-kpi">book net <b>${net != null ? fmtUsd(net) : '&ndash;'}</b></span>
+      <span class="stmt-kpi">book cash <b>${pos['Total Cash and Cash Equivalents'] != null ? fmtUsd(pos['Total Cash and Cash Equivalents']) : '&ndash;'}</b></span>
+      <span class="chip anticipated">provisional</span>
+    </summary>
+    <div class="stmt-inner">
+      <div class="stmt-sec">A &middot; revenue &middot; the processor, itemized</div>${secA}
+      <div class="stmt-sec">B &middot; the book's custody lines</div>
+      <table class="flow"><tr><th style="text-align:left">account</th><th>open</th><th>in</th><th>out</th><th>close</th></tr>${custodyRows}</table>
+      <div class="stmt-sec">C &middot; on-chain &middot; the Safe</div>${secC}
+      <div class="stmt-sec">D &middot; the bank rail, register</div>${secD}
+      <div class="row-meta" style="margin-top:var(--s3)">generated ${fmtDate(row.generated_at)} &middot; provisional until a Reconciliation Window attests this month (T-03) &middot; book figures are Xero's, cited not restated</div>
     </div>
-    <div class="row-meta" style="margin-bottom:var(--s2)">Stripe (processor, ${s.transaction_count || 0} txns): ${stripeBits || 'no activity'}</div>
-    <div class="row-meta" style="margin-bottom:var(--s2)">Mercury (bank rail): ${mercuryBits || 'no activity'}</div>
-    <div class="row-meta">Safe (on-chain, at read): ${safeBits || 'no read'}</div>
-  `;
+  </details>`;
+}
+
+/* the standing region: invoice-level receivables from the latest snapshot,
+   numbers and ages, never names (section 9a; stricter than the institute
+   precedent it ports) */
+function renderStandingFromSnapshot(latest) {
+  const ar = latest && latest.payload && latest.payload.xero && latest.payload.xero.receivables;
+  if (!ar || !ar.invoices) return false;
+  const buckets = { 'current': 0, '1-30 days late': 0, '31-60': 0, '61 and over': 0 };
+  ar.invoices.forEach(i => {
+    const d = i.days_past_due;
+    if (d == null || d <= 0) buckets['current'] += i.amount_due;
+    else if (d <= 30) buckets['1-30 days late'] += i.amount_due;
+    else if (d <= 60) buckets['31-60'] += i.amount_due;
+    else buckets['61 and over'] += i.amount_due;
+  });
+  const shown = ar.invoices.slice(0, 15);
+  document.getElementById('standing-body').innerHTML =
+    `<div class="row-line"><span class="row-main">${ar.count} invoices outstanding &middot; ${fmtUsd(ar.total_due)}</span><span class="row-meta">as of <span>${fmtDate(ar.as_of)}</span> &middot; from the book's sales invoices</span></div>
+     <div class="row-meta" style="margin:var(--s2) 0">${Object.keys(buckets).filter(k => buckets[k] > 0).map(k => `${k}: ${fmtUsd(buckets[k])}`).join(' &middot; ')}</div>
+     <table class="flow"><tr><th style="text-align:left">invoice</th><th>issued</th><th>due</th><th>amount due</th><th>days late</th></tr>` +
+    shown.map(i => `<tr><td style="text-align:left">${escHtml(i.invoice || '?')}</td><td>${escHtml(i.issued)}</td><td>${escHtml(i.due)}</td><td>${fmtUsd(i.amount_due)}</td><td>${i.days_past_due > 0 ? i.days_past_due : ''}</td></tr>`).join('') +
+    `</table>` +
+    (ar.count > 15 ? `<div class="row-meta" style="margin-top:var(--s2)">and ${ar.count - 15} more in the book</div>` : '') +
+    `<div class="row-meta" style="margin-top:var(--s3)">Invoice numbers, never names, on the member cut (&sect;9a). The dues schedule instrument will make expected-minus-received computable from the record; until then this is the book's own receivable, read live.</div>`;
+  document.getElementById('standing-mark').textContent = ar.count + ' outstanding';
+  return true;
 }
 
 async function loadMonthlyStatements() {
@@ -417,6 +492,7 @@ async function loadMonthlyStatements() {
     return;
   }
   mark.textContent = data.length + ' month' + (data.length === 1 ? '' : 's') + ' · rail-derived';
+  renderStandingFromSnapshot(data[0]);
   body.innerHTML = data.map(renderStatement).join('<div style="border-top:1px solid var(--rule);margin:var(--s4) 0"></div>') +
     `<div class="row-meta" style="margin-top:var(--s4)">Every figure carries its source and read time. Custody lines are shown separately pending the scoping determination (<a href="/accounting/counsel-memo/#ac-03">AC-03</a>); the sponsor-era account is not presumed the cooperative's. A month wears closed only when a Reconciliation Window attests (T-03); until then these are the rails as read, not the record as attested.</div>`;
 }
