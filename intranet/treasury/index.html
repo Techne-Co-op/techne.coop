@@ -159,6 +159,11 @@ footer a { color: var(--faint); }
     </div>
 
     <div class="desk-card">
+      <div class="desk-header"><span class="desk-title">Monthly statements &middot; from the rails</span><span class="desk-count" id="stmt-mark"></span></div>
+      <div class="desk-body" id="stmt-body"><span class="desk-empty">Reading&hellip;</span></div>
+    </div>
+
+    <div class="desk-card">
       <div class="desk-header"><span class="desk-title">Standing &middot; who has paid, what is outstanding</span><span class="desk-count" id="standing-mark"></span></div>
       <div class="desk-body" id="standing-body"></div>
     </div>
@@ -363,6 +368,59 @@ function renderRibbon(windows) {
     : 'A month wears closed only under an attested window; provisional figures may still move.';
 }
 
+/* Monthly statements: rail-derived snapshots from the 0019 store, generated
+   by scripts/treasury_statements.py. Observations beside the record, never
+   events (TR §9); aggregates only, member-cut visible (§9a). */
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function fmtMonth(m) { return MONTH_NAMES[parseInt(m.slice(5), 10) - 1] + ' ' + m.slice(0, 4); }
+
+function renderStatement(row) {
+  const p = row.payload || {};
+  const x = p.xero || {}, s = p.stripe || {}, mc = p.mercury || {}, sf = p.safe || {};
+  const pt = x.pnl_totals || {}, pos = x.position_totals || {};
+  const net = pt['Net Profit'] != null ? pt['Net Profit'] : pt['Gross Profit'];
+  const custody = (x.bank_summary || []).filter(c => c.account !== 'Total');
+  const custodyRows = custody.map(c =>
+    `<tr><td>${escHtml(c.account)}</td><td>${fmtUsd(c.open)}</td><td>${fmtUsd(c['in'])}</td><td>${fmtUsd(c.out)}</td><td>${fmtUsd(c.close)}</td></tr>`).join('');
+  const st = s.by_type_usd || {};
+  const stripeBits = Object.keys(st).map(k => `${escHtml(k)} ${fmtUsd(st[k])}`).join(' &middot; ');
+  const mercuryBits = (mc.accounts || []).filter(a => a.transaction_count > 0).map(a =>
+    `${escHtml(a.account)}: in ${fmtUsd(a.inflow)} &middot; out ${fmtUsd(a.outflow)} (${a.transaction_count})`).join('<br>');
+  const safeBits = (sf.holdings || []).filter(h => h.asset !== 'read_failed').map(h =>
+    `${escHtml(h.chain)} ${escHtml(h.asset)} ${Number(h.amount).toLocaleString('en-US')}`).join(' &middot; ');
+  return `
+    <div class="row-line"><span class="row-main">${fmtMonth(row.month)}</span>
+      <span class="chip anticipated">provisional &middot; no window attested</span>
+      <span class="row-meta">generated <span>${fmtDate(row.generated_at)}</span></span></div>
+    <table class="flow" style="margin:var(--s2) 0 var(--s3)">
+      <tr><th>the book &middot; custody line</th><th>open</th><th>in</th><th>out</th><th>close</th></tr>
+      ${custodyRows}
+    </table>
+    <div class="row-meta" style="margin-bottom:var(--s2)">
+      Book (accrual, Xero): net ${net != null ? fmtUsd(net) : '&ndash;'} &middot; cash at close ${pos['Total Cash and Cash Equivalents'] != null ? fmtUsd(pos['Total Cash and Cash Equivalents']) : '&ndash;'} &middot; total assets ${pos['Total Assets'] != null ? fmtUsd(pos['Total Assets']) : '&ndash;'}
+    </div>
+    <div class="row-meta" style="margin-bottom:var(--s2)">Stripe (processor, ${s.transaction_count || 0} txns): ${stripeBits || 'no activity'}</div>
+    <div class="row-meta" style="margin-bottom:var(--s2)">Mercury (bank rail): ${mercuryBits || 'no activity'}</div>
+    <div class="row-meta">Safe (on-chain, at read): ${safeBits || 'no read'}</div>
+  `;
+}
+
+async function loadMonthlyStatements() {
+  const mark = document.getElementById('stmt-mark');
+  const body = document.getElementById('stmt-body');
+  const { data, error } = await sb.from('treasury_statements')
+    .select('month,payload,generated_at').order('month', { ascending: false });
+  if (error || !data || data.length === 0) {
+    body.innerHTML = '<span class="desk-empty">No statements stand in the store yet. They arrive by the runner, scripts/treasury_statements.py, read-only from the rails (0019).</span>';
+    mark.textContent = '0';
+    return;
+  }
+  mark.textContent = data.length + ' month' + (data.length === 1 ? '' : 's') + ' · rail-derived';
+  body.innerHTML = data.map(renderStatement).join('<div style="border-top:1px solid var(--rule);margin:var(--s4) 0"></div>') +
+    `<div class="row-meta" style="margin-top:var(--s4)">Every figure carries its source and read time. Custody lines are shown separately pending the scoping determination (<a href="/accounting/counsel-memo/#ac-03">AC-03</a>); the sponsor-era account is not presumed the cooperative's. A month wears closed only when a Reconciliation Window attests (T-03); until then these are the rails as read, not the record as attested.</div>`;
+}
+
 async function loadStatements(atDesk, evs) {
   document.getElementById('statements').style.display = 'block';
   document.getElementById('basis-line').textContent =
@@ -470,11 +528,13 @@ async function loadAll(session) {
   // member cut, the row-derived folds in the desk cut (TREASURY §9a).
   if (!atDesk) {
     await loadStatements(false, null);
+    await loadMonthlyStatements();
     return;
   }
   document.getElementById('content').style.display = 'block';
   const evs = await loadDesk();
   await loadStatements(true, evs || []);
+  await loadMonthlyStatements();
 }
 
 (async function init() {
