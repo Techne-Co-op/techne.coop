@@ -132,13 +132,41 @@ def read_xero(env, month):
                                 "close": float(str(c[4]).replace(",", ""))})
             except ValueError:
                 continue
+    receivables = xero_receivables(token)
     return {"read_at": now_iso(),
+            "receivables": receivables,
             "pnl_totals": totals_of(pnl),
             "pnl_lines": [r for r in pnl if r["section"] in ("Income", "Less Operating Expenses",
                                                              "Operating Expenses", "Expenses",
                                                              "Less Cost of Sales", "Cost of Sales")],
             "position_totals": totals_of(bs),
             "bank_summary": custody}
+
+
+def xero_receivables(token):
+    """Outstanding sales invoices at read time: number, dates, amount due,
+    age past due. Contact names are deliberately not stored; the payload is
+    member-readable and the section 9a member cut carries no names."""
+    q = urllib.parse.quote('Type=="ACCREC" && Status=="AUTHORISED" && AmountDue>0')
+    d = http_json(f"https://api.xero.com/api.xro/2.0/Invoices?where={q}",
+                  headers={"Authorization": f"Bearer {token}", "Accept": "application/json"})
+    today = datetime.now(timezone.utc).date()
+    out = []
+    for inv in d.get("Invoices", []):
+        due = (inv.get("DueDateString") or inv.get("DateString") or "")[:10]
+        try:
+            age = (today - datetime.fromisoformat(due).date()).days
+        except ValueError:
+            age = None
+        out.append({"invoice": inv.get("InvoiceNumber"),
+                    "issued": (inv.get("DateString") or "")[:10],
+                    "due": due,
+                    "amount_due": inv.get("AmountDue"),
+                    "days_past_due": age})
+    out.sort(key=lambda r: r.get("due") or "")
+    return {"as_of": now_iso(), "count": len(out),
+            "total_due": round(sum(r["amount_due"] or 0 for r in out), 2),
+            "invoices": out}
 
 
 # ---------- Stripe: the processor ----------
@@ -151,6 +179,7 @@ def read_stripe(env, month):
     lt = int(datetime.fromisoformat(nm + "T00:00:00+00:00").timestamp())
     headers = {"Authorization": "Bearer " + env["STRIPE_KEY"]}
     by_type, count, starting_after, has_more = {}, 0, None, True
+    payments = []
     while has_more:
         url = (f"https://api.stripe.com/v1/balance_transactions?limit=100"
                f"&created[gte]={gte}&created[lt]={lt}")
@@ -161,9 +190,19 @@ def read_stripe(env, month):
             by_type[t["type"]] = by_type.get(t["type"], 0) + t["amount"]
             count += 1
             starting_after = t["id"]
+            # itemize member payments: date, gross, fee, net; never a name
+            if t["type"] in ("charge", "payment"):
+                payments.append({
+                    "date": datetime.fromtimestamp(t["created"], tz=timezone.utc).strftime("%Y-%m-%d"),
+                    "gross": round(t["amount"] / 100, 2),
+                    "fee": round(t["fee"] / 100, 2),
+                    "net": round(t["net"] / 100, 2),
+                    "kind": (t.get("description") or "payment")[:40]})
         has_more = d.get("has_more", False)
+    payments.sort(key=lambda p: p["date"])
     return {"read_at": now_iso(), "transaction_count": count,
-            "by_type_usd": {k: round(v / 100, 2) for k, v in sorted(by_type.items())}}
+            "by_type_usd": {k: round(v / 100, 2) for k, v in sorted(by_type.items())},
+            "payments": payments}
 
 
 # ---------- Mercury: the bank rail ----------
@@ -179,11 +218,21 @@ def read_mercury(env, month):
         tx = http_json(f"https://api.mercury.com/api/v1/account/{a['id']}/transactions"
                        f"?start={first}&end={last}&limit=500",
                        headers=headers, ipv4=True).get("transactions", [])
+        register = []
+        for t in sorted(tx, key=lambda x: x.get("postedAt") or x.get("createdAt") or ""):
+            cp = (t.get("counterpartyName") or "").strip()
+            # the member cut carries no payer names: inbound counterparties
+            # other than the processor are genericized (section 9a)
+            if t["amount"] > 0 and "STRIPE" not in cp.upper():
+                cp = "inbound payment"
+            register.append({"date": (t.get("postedAt") or t.get("createdAt") or "")[:10],
+                             "amount": t["amount"], "counterparty": cp[:30]})
         out.append({"account": a.get("name"), "kind": a.get("kind"),
                     "transaction_count": len(tx),
                     "inflow": round(sum(t["amount"] for t in tx if t["amount"] > 0), 2),
                     "outflow": round(sum(-t["amount"] for t in tx if t["amount"] < 0), 2),
-                    "balance_at_read": a.get("availableBalance")})
+                    "balance_at_read": a.get("availableBalance"),
+                    "register": register})
     return {"read_at": now_iso(), "accounts": out}
 
 
@@ -212,6 +261,38 @@ def read_safe():
             "note": "current holdings at read time; month-end on-chain history awaits T-03"}
 
 
+def safe_transfers(month):
+    """The month's on-chain transfers, recognized assets only, with tx hashes
+    so every row links its chain's explorer (the institute precedent)."""
+    rows = []
+    for chain, host, explorer in [
+            ("mainnet", "safe-transaction-mainnet.safe.global", "https://etherscan.io/tx/"),
+            ("optimism", "safe-transaction-optimism.safe.global", "https://optimistic.etherscan.io/tx/")]:
+        try:
+            d = http_json(f"https://{host}/api/v1/safes/{SAFE_ADDRESS}/transfers/?limit=100",
+                          headers={"Accept": "application/json"})
+            for t in d.get("results", []):
+                when = (t.get("executionDate") or "")[:10]
+                if not when.startswith(month):
+                    continue
+                tok = t.get("tokenInfo") or {}
+                sym = tok.get("symbol") or ("ETH" if t.get("type") == "ETHER_TRANSFER" else "?")
+                if sym not in ("USDC", "DAI", "ETH"):
+                    continue
+                dec = tok.get("decimals", 18)
+                amt = round(int(t.get("value") or 0) / 10 ** dec, 2)
+                outbound = (t.get("from") or "").lower() == SAFE_ADDRESS.lower()
+                other = (t.get("to") if outbound else t.get("from")) or ""
+                rows.append({"date": when, "chain": chain, "asset": sym,
+                             "amount": -amt if outbound else amt,
+                             "counterparty": other[:8] + "\u2026" + other[-4:] if len(other) > 14 else other,
+                             "tx": explorer + (t.get("transactionHash") or "")})
+        except Exception:
+            continue
+    rows.sort(key=lambda r: r["date"])
+    return rows
+
+
 # ---------- assemble and store ----------
 
 def build_statement(rails, month):
@@ -227,6 +308,7 @@ def build_statement(rails, month):
         "stripe": read_stripe(rails, month),
         "mercury": read_mercury(rails, month),
         "safe": read_safe(),
+        "safe_transfers": safe_transfers(month),
     }
 
 
