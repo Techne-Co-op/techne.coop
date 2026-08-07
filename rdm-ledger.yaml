@@ -4,7 +4,7 @@
 # Validator: scripts/validate.py — schema, acyclicity, gating.
 # Status marks: drafted | anticipated | open · (blocker)
 # No dates. Dependency is the schedule.
-# 78 items: 10 series and module documents + 68 work packets across 9 trains.
+# 79 items: 10 series and module documents + 69 work packets across 9 trains.
 
 series:
 
@@ -1368,6 +1368,32 @@ shell:
       one visual grammar; the shell marks the active section for
       assistive readers; style-lint and the token audit green.
     note: Staged on branch U-11; merge is the act of adoption.
+
+  - address: U-12
+    title: Two faces, no third
+    intent: >
+      The X-06 decision of 2026-07-20 adopted two typefaces, Libre
+      Baskerville and IBM Plex Mono, yet commons.css still carried
+      Inter as an interface layer and the design-system reference
+      still loaded and specified it, a constitution disagreeing with
+      itself. This packet completes the adoption: the sans token and
+      its classes retired from commons.css, the dashboard-heading and
+      section-label roles restated in the two faces, and the
+      design-system page re-emitted without the third face.
+    status: anticipated
+    cites: [UI, BP]
+    ready_when: U-08 adopted; X-06 stands.
+    deliverable: >
+      commons.css without the sans token, dash-h and seclabel restated;
+      the design-system page loading and specifying two faces only,
+      its typography specimens corrected.
+    acceptance: >
+      No page the system governs loads Inter; commons.css defines two
+      face tokens; the typography section's specimens name only the
+      two faces; the token audit's font-stack check green. Formation-era
+      commons documents carrying inline copies are named, not silently
+      rewritten, and stand until each page's re-emission.
+    note: Staged on branch U-12; merge is the act of adoption.
 
 cross_cutting:
 

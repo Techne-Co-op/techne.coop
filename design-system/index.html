@@ -17,11 +17,10 @@
 <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;700;800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
     --serif:"Libre Baskerville",Georgia,serif; /* X-06 decision 2026-07-20 */
-    --sans:"Inter",system-ui,-apple-system,sans-serif;
     --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
     --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
     --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
@@ -66,7 +65,7 @@
   *{box-sizing:border-box;}
   html{color-scheme:dark light;}
   body{margin:0;background:var(--bg);color:var(--text);
-    font:400 15px/1.65 var(--sans);
+    font:400 15px/1.7 var(--serif);
     transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);}
   .wrap{max-width:1060px;margin:0 auto;padding:0 var(--s5);}
   .mono{font-family:var(--mono);}
@@ -89,7 +88,7 @@
   .mast{position:relative;border-bottom:1px solid var(--rule);padding:var(--s8) 0 var(--s6);margin-bottom:var(--s6);}
   .mast .kick{font:500 11px/1.6 var(--mono);color:var(--ember-text);text-transform:uppercase;letter-spacing:.12em;}
   .mast h1{font:400 34px/1.12 var(--serif);color:var(--heading);margin:var(--s4) 0 var(--s3);letter-spacing:-.01em;}
-  .mast p{font:400 15px/1.65 var(--sans);color:var(--text);margin:0;max-width:70ch;}
+  .mast p{font:400 15px/1.7 var(--serif);color:var(--text);margin:0;max-width:70ch;}
   .band{display:flex;gap:0;height:8px;margin:var(--s5) 0 0;border:1px solid var(--line);}
   .band span{flex:1;}
   .band-cap{font:400 10px/1.5 var(--mono);color:var(--faint);margin-top:6px;display:flex;justify-content:space-between;}
@@ -100,9 +99,9 @@
     padding-left:14px;border-left:3px solid var(--ember);}
   .sec > p{margin:0 0 var(--s4);max-width:72ch;color:var(--text);}
   .lead{font-size:16px;color:var(--text);}
-  .subhead{font:700 11px/1.5 var(--sans);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
+  .subhead{font:600 11px/1.5 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
     margin:var(--s6) 0 var(--s3);padding-bottom:6px;border-bottom:1px solid var(--line);}
-  .note{font:400 13px/1.7 var(--sans);color:var(--muted);max-width:72ch;margin:var(--s3) 0 0;}
+  .note{font:400 13px/1.7 var(--serif);color:var(--muted);max-width:72ch;margin:var(--s3) 0 0;}
   .note b{color:var(--heading);font-weight:600;}
 
   /* swatch lists */
@@ -113,7 +112,7 @@
   .swrow .sw{width:26px;height:26px;border:1px solid var(--line);border-radius:2px;}
   .swrow .tk{font:500 12px/1.4 var(--mono);color:var(--heading);}
   .swrow .hex{font:400 11px/1.4 var(--mono);color:var(--muted);text-transform:uppercase;}
-  .swrow .rl{font:400 12px/1.5 var(--sans);color:var(--muted);}
+  .swrow .rl{font:400 12px/1.5 var(--serif);color:var(--muted);}
   .swrow .tk .role{display:inline-block;margin-left:7px;font:600 9px/1 var(--mono);text-transform:uppercase;
     letter-spacing:.06em;padding:2px 5px;border-radius:2px;vertical-align:middle;}
   .role.pri{color:var(--blue-text);border:1px solid var(--blue);}
@@ -158,13 +157,13 @@
     border-bottom:1px solid var(--line);}
   .nav .wordmark{font:500 12px/1 var(--mono);color:var(--ember-text);letter-spacing:.06em;flex-shrink:0;}
   .nav .links{display:flex;gap:var(--s4);align-items:center;flex:1;}
-  .nav .links a{font:500 12px/1 var(--sans);color:var(--muted);text-decoration:none;}
+  .nav .links a{font:500 12px/1 var(--mono);color:var(--muted);text-decoration:none;}
   .nav .links a.active{color:var(--blue-text);position:relative;}
   .nav .links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-18px;height:2px;background:var(--blue);}
   .nav .user{display:flex;align-items:center;gap:var(--s2);}
   .nav .av{width:26px;height:26px;border-radius:2px;background:var(--raised);border:1px solid var(--line);
     display:grid;place-items:center;font:600 10px/1 var(--mono);color:var(--heading);}
-  .nav .un{font:500 12px/1 var(--sans);color:var(--text);}
+  .nav .un{font:500 12px/1 var(--mono);color:var(--text);}
   .navcap{font:400 10px/1 var(--mono);color:var(--faint);padding:8px var(--s4);text-transform:lowercase;}
 
   /* metric tiles */
@@ -179,16 +178,16 @@
   .dochead{border:1px solid var(--line);border-radius:2px;padding:var(--s5);background:var(--surface);margin:var(--s3) 0;}
   .dochead .ey{font:500 11px/1.6 var(--mono);color:var(--ember-text);text-transform:uppercase;letter-spacing:.1em;}
   .dochead h4{font:400 26px/1.15 var(--serif);color:var(--heading);margin:var(--s2) 0 var(--s2);}
-  .dochead p{font:400 14px/1.6 var(--sans);color:var(--muted);margin:0;max-width:64ch;}
+  .dochead p{font:400 14px/1.6 var(--serif);color:var(--muted);margin:0;max-width:64ch;}
 
   /* type specimens */
   .spec{border-top:1px solid var(--line);padding:var(--s4) 0;}
   .spec:first-of-type{border-top:0;}
   .spec .ex-disp{font:400 34px/1.1 var(--serif);color:var(--heading);}
-  .spec .ex-dash{font:800 27px/1.1 var(--sans);color:var(--heading);letter-spacing:-.01em;}
-  .spec .ex-body{font:400 15px/1.6 var(--sans);color:var(--muted);max-width:60ch;}
+  .spec .ex-dash{font:700 27px/1.15 var(--serif);color:var(--heading);letter-spacing:-.01em;}
+  .spec .ex-body{font:400 15px/1.7 var(--serif);color:var(--muted);max-width:60ch;}
   .spec .ex-mono{font:400 13px/1.6 var(--mono);color:var(--ember-text);}
-  .spec .ex-label{font:700 11px/1.5 var(--sans);color:var(--faint);text-transform:uppercase;letter-spacing:.14em;}
+  .spec .ex-label{font:600 11px/1.5 var(--mono);color:var(--faint);text-transform:uppercase;letter-spacing:.14em;}
   .spec .meta{font:400 11px/1.5 var(--mono);color:var(--muted);margin-top:8px;}
 
   /* token table */
@@ -200,7 +199,7 @@
   table.dt td .sw{display:inline-block;width:14px;height:14px;border:1px solid var(--line);border-radius:2px;
     vertical-align:middle;margin-right:8px;}
   table.dt td.tok{color:var(--heading);}
-  table.dt td.use{font-family:var(--sans);color:var(--muted);}
+  table.dt td.use{font-family:var(--serif);color:var(--muted);}
 
   /* icon grid */
   .icons{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--s2);margin:var(--s4) 0;}
@@ -217,11 +216,11 @@
   .standard{border:1px solid var(--line);border-radius:2px;overflow:hidden;margin:var(--s4) 0;}
   .strow{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
   .strow:last-child{border-bottom:0;}
-  .strow.head div{font:700 10px/1.5 var(--sans);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
+  .strow.head div{font:600 10px/1.5 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
     padding:9px 12px;background:var(--raised);}
-  .strow .avoid{padding:11px 12px;font:400 12.5px/1.6 var(--sans);color:var(--text);border-right:1px solid var(--line);
+  .strow .avoid{padding:11px 12px;font:400 12.5px/1.6 var(--serif);color:var(--text);border-right:1px solid var(--line);
     background:var(--surface);}
-  .strow .use{padding:11px 12px;font:400 12.5px/1.6 var(--sans);color:var(--text);background:var(--surface);}
+  .strow .use{padding:11px 12px;font:400 12.5px/1.6 var(--serif);color:var(--text);background:var(--surface);}
   .strow .avoid b{color:var(--warn);}
   .strow .use b{color:var(--ok);}
 
@@ -530,13 +529,13 @@
   <!-- TYPOGRAPHY -->
   <section class="sec" id="type">
     <h2>Typography</h2>
-    <p class="lead">Libre Baskerville carries the document voice and IBM Plex Mono carries the interface layer, labels, hashes, and the status bar: two faces, amended by decision record (X-06 escalation card, adopted by Todd Youngblood, 2026-07-20). The Inter specimens below and this page's own interface styling predate the amendment and stand until the page's re-emission.</p>
+    <p class="lead">Libre Baskerville carries the document voice and IBM Plex Mono carries the interface layer, labels, hashes, and the status bar: two faces, amended by decision record (X-06 escalation card, adopted by Todd Youngblood, 2026-07-20). Re-emitted per U-12: Inter is retired from this page, from commons.css, and from the specimens below; the third face loads nowhere the system governs. Formation-era commons documents that inlined it stand until each page's own re-emission.</p>
 
     <div class="spec"><div class="ex-disp">Display Heading</div><div class="meta">Georgia &middot; 2.2rem &middot; 400 &middot; --heading &mdash; page titles, document headings</div></div>
-    <div class="spec"><div class="ex-dash">Dashboard Heading</div><div class="meta">Inter &middot; 1.75rem &middot; 800 &middot; --heading &mdash; HUD panel titles</div></div>
-    <div class="spec"><div class="ex-body">Body text in secondary tone, used for descriptions, subtitles, and supporting copy throughout the cooperative portal.</div><div class="meta">Inter &middot; 0.95rem &middot; 400 &middot; --muted</div></div>
+    <div class="spec"><div class="ex-dash">Dashboard Heading</div><div class="meta">Libre Baskerville &middot; 1.75rem &middot; 700 &middot; --heading &mdash; panel titles, restated in the document face (U-12)</div></div>
+    <div class="spec"><div class="ex-body">Body text in secondary tone, used for descriptions, subtitles, and supporting copy throughout the cooperative portal.</div><div class="meta">Libre Baskerville &middot; 0.95rem &middot; 400 &middot; --muted</div></div>
     <div class="spec"><div class="ex-mono">REA &middot; Current Account Balances &middot; 0x1a2b3c&hellip;</div><div class="meta">IBM Plex Mono &middot; 0.82rem &middot; --ember-text &mdash; labels, hashes, data, status bar</div></div>
-    <div class="spec"><div class="ex-label">Section Label</div><div class="meta">Inter &middot; 0.68rem &middot; 700 &middot; uppercase &middot; --faint &mdash; section dividers</div></div>
+    <div class="spec"><div class="ex-label">Section Label</div><div class="meta">IBM Plex Mono &middot; 0.68rem &middot; 600 &middot; uppercase &middot; --faint &mdash; section dividers</div></div>
   </section>
 
   <!-- TOKEN TABLE -->
