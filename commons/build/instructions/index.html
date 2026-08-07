@@ -25,6 +25,7 @@
     document.documentElement.setAttribute('data-mode', m);
   })();
 </script>
+<script src="/assets/topbar.js" defer></script>
 <style>
 /* ============================================================
    TOKENS  --  techne v4
@@ -83,31 +84,8 @@ em { font-style:italic; color:var(--heading); }
 /* ============================================================
    TOPBAR
    ============================================================ */
-.topbar {
-  position:sticky; top:0; z-index:50;
-  display:flex; align-items:center; gap:var(--s5);
-  padding:0 var(--s5); height:52px;
-  background:color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line);
-}
-.brand { display:flex; align-items:center; gap:10px; text-decoration:none; flex-shrink:0; }
-.brand-mark { font-family:var(--mono); font-size:0.78rem; font-weight:500; letter-spacing:0.06em; color:var(--heading); transition:color var(--micro) var(--ease); }
-.brand:hover .brand-mark { color:var(--ember-text); }
-.top-nav { flex:1; display:flex; gap:var(--s4); list-style:none; }
-.top-nav a { font-family:var(--mono); font-size:0.72rem; letter-spacing:0.04em; color:var(--muted); text-decoration:none; transition:color var(--micro) var(--ease); }
-.top-nav a:hover { color:var(--heading); }
-.top-nav a[aria-current="page"] { color:var(--ember-text); }
-.mode-toggle {
-  margin-left:auto; display:flex; align-items:center; gap:6px;
-  font-family:var(--mono); font-size:0.7rem; color:var(--muted);
-  background:none; border:1px solid var(--line); border-radius:2px;
-  padding:5px 9px; cursor:pointer;
-  transition:color var(--micro) var(--ease), border-color var(--micro) var(--ease);
-}
-.mode-toggle:hover { color:var(--heading); border-color:var(--rule); }
-.mode-toggle svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
-
+/* the primary navigation is the shared public topbar,
+   injected by /assets/topbar.js per U-13 */
 /* ============================================================
    MASTHEAD
    ============================================================ */
@@ -278,27 +256,6 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
 </style>
 </head>
 <body>
-
-<!-- TOPBAR -->
-<header>
-  <div class="topbar">
-    <a class="brand" href="/">
-      <span class="brand-mark">Techne</span>
-    </a>
-    <ul class="top-nav">
-      <li><a href="/commons/">Commons</a></li>
-      <li><a href="/commons/build/">Build</a></li>
-      <li><a href="/commons/build/instructions/" aria-current="page">Instructions</a></li>
-      <li><a href="/commons/build/gates/">Gates</a></li>
-      <li><a href="/commons/build/run-through/">Run-through</a></li>
-      <li><a href="/commons/build/lexicon/">Lexicon</a></li>
-    </ul>
-    <button class="mode-toggle" id="modeToggle" aria-label="Toggle color mode">
-      <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
-      <span id="modeLabel">Light</span>
-    </button>
-  </div>
-</header>
 
 <!-- MASTHEAD -->
 <div class="mast">
@@ -743,33 +700,5 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
   <span><a href="/design-system/">Design System</a></span>
 </footer>
 
-<script>
-(function () {
-  var root = document.documentElement;
-  var btn  = document.getElementById('modeToggle');
-  var icon = document.getElementById('modeIcon');
-  var lbl  = document.getElementById('modeLabel');
-
-  var sunPaths = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
-  var moonPaths = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
-
-  function apply(m) {
-    root.setAttribute('data-mode', m);
-    icon.innerHTML = m === 'dark' ? sunPaths : moonPaths;
-    lbl.textContent = m === 'dark' ? 'Light' : 'Dark';
-  }
-
-  var stored = null;
-  try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
-  var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-  apply(m);
-
-  btn.addEventListener('click', function () {
-    var next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
-    apply(next);
-    try { localStorage.setItem('techne-mode', next); } catch(e) {}
-  });
-})();
-</script>
 </body>
 </html>

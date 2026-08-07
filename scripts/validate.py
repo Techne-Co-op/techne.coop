@@ -317,6 +317,28 @@ def generate_index_json(packets):
         err("index.json was stale or missing; refreshed. Commit the regenerated manifest (X-04).")
 
 
+def check_one_navigation(packets):
+    """One primary navigation per page (U-13): every HTML page loads exactly
+    one of the two shared frames, /assets/shell.js (signed-in) or
+    /assets/topbar.js (public), and no page carries an inline topbar of its
+    own. Drift between hand-rolled topbars is what this check retires."""
+    import re as _re
+    shell_re = _re.compile(r'<script[^>]+src="/assets/shell\.js"')
+    topbar_re = _re.compile(r'<script[^>]+src="/assets/topbar\.js"')
+    inline_re = _re.compile(r'class="topbar"|class="nav-links"|class="top-nav"')
+    for p in sorted(REPO_ROOT.rglob("*.html")):
+        rel = str(p.relative_to(REPO_ROOT))
+        text = p.read_text(encoding="utf-8", errors="replace")
+        has_shell = bool(shell_re.search(text))
+        has_topbar = bool(topbar_re.search(text))
+        if has_shell and has_topbar:
+            err(f"{rel}: loads both shell.js and topbar.js; a page carries one frame (U-13)")
+        elif not has_shell and not has_topbar:
+            err(f"{rel}: loads neither shell.js nor topbar.js; every page carries one primary navigation (U-13)")
+        if inline_re.search(text):
+            err(f"{rel}: carries an inline topbar (class topbar/nav-links/top-nav); the shared frame supersedes it (U-13)")
+
+
 def main():
     ledger = load_ledger()
     if ledger is None:
@@ -335,6 +357,7 @@ def main():
     check_gating(packets)
     check_done_requires_verified(packets)
     check_decision_coherence(packets)
+    check_one_navigation(packets)
 
     generate_status_md(packets)
     generate_ledger_state(packets)

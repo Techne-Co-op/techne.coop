@@ -1421,6 +1421,33 @@ shell:
       the first four adoptions. No governed page loads Inter; the
       font-stack check green on the merge.
 
+  - address: U-13
+    title: One primary navigation for the public face
+    intent: >
+      The public pages each carried a hand-rolled topbar, and no two
+      agreed: contents, height, and type size drifted page to page,
+      while a third of the pages carried no primary navigation at all.
+      The shell settled this question for the signed-in surface in
+      U-01; this packet settles it for the public face. One topbar,
+      one manifest, one geometry, injected by /assets/topbar.js, its
+      frame mirroring the shell topbar so the two faces of the site
+      read as one element at the crossing.
+    status: open · delivered
+    cites: [U-01, UI]
+    ready_when: U-01 adopted; the design-system reference stands.
+    deliverable: >
+      /assets/topbar.js, the shared public topbar; the design-system
+      reference amended with its specification; every public page
+      re-emitted to load it, inline topbars and floating mode toggles
+      retired; the validator extended so every page names exactly one
+      frame, shell or topbar, and no inline topbar returns.
+    acceptance: >
+      Every HTML page loads exactly one of shell.js or topbar.js; no
+      page carries class topbar, nav-links, or top-nav markup; the
+      bar renders at 48px with the design-system tokens in both modes
+      on every public page; the validator check green in CI.
+    note: Staged on branch U-13; merge is the act of adoption.
+
 cross_cutting:
 
   - address: X-01

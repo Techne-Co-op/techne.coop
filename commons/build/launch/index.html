@@ -12,6 +12,7 @@
  var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
  document.documentElement.setAttribute('data-mode',m)})();
 </script>
+<script src="/assets/topbar.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -42,11 +43,9 @@
  .mono{font-family:var(--mono)}
  :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
 
- .topbar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
- .topbar .bc{font:400 11.5px var(--mono); color:var(--muted)}
- .topbar .bc a{color:var(--ember-text)}
- .mode-btn{font:400 11.5px var(--mono); color:var(--muted); background:var(--surface); border:1px solid var(--line); border-radius:2px; padding:4px 10px; cursor:pointer}
- .mode-btn:hover{background:var(--raised); color:var(--heading)}
+ .crumb-bar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+ .crumb-bar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+ .crumb-bar .bc a{color:var(--ember-text)}
 
  .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
  .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
@@ -97,9 +96,8 @@
 <body>
 <div class="wrap">
 
-<div class="topbar">
+<div class="crumb-bar">
  <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; <a href="/commons/build/">Living roadmap</a> &middot; launch readiness</span>
- <button class="mode-btn" id="modeBtn" aria-label="Toggle light and dark mode">dark</button>
 </div>
 
 <div class="mast">
@@ -161,16 +159,5 @@
 </div>
 
 </div>
-<script>
- var btn=document.getElementById('modeBtn');
- function label(){btn.textContent=document.documentElement.getAttribute('data-mode')}
- label();
- btn.addEventListener('click',function(){
- var m=document.documentElement.getAttribute('data-mode')==='dark'?'light':'dark';
- document.documentElement.setAttribute('data-mode',m);
- try{localStorage.setItem('techne-mode',m)}catch(e){}
- label();
- });
-</script>
 </body>
 </html>

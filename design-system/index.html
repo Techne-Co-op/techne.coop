@@ -76,13 +76,8 @@
   a:hover{text-decoration-thickness:2px;}
   :focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
 
-  /* mode toggle */
-  .modebar{position:absolute;top:var(--s5);right:var(--s5);}
-  .toggle{font:500 11px/1 var(--mono);color:var(--heading);background:var(--surface);border:1px solid var(--rule);
-    border-radius:2px;padding:0 12px;height:32px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;
-    transition:background-color var(--micro) var(--ease),border-color var(--micro) var(--ease);}
-  .toggle:hover{background:var(--raised);border-color:var(--blue);}
-  .toggle svg{width:15px;height:15px;stroke:var(--blue-text);}
+  /* the mode toggle lives in the shared public topbar,
+     injected by /assets/topbar.js per U-13 */
 
   /* masthead */
   .mast{position:relative;border-bottom:1px solid var(--rule);padding:var(--s8) 0 var(--s6);margin-bottom:var(--s6);}
@@ -242,16 +237,18 @@
     *{transition:none!important;}
   }
 </style>
+<script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
 </head>
 <body>
 <div class="wrap">
-
-  <div class="modebar">
-    <button class="toggle" id="modeBtn" type="button" aria-label="Switch color mode">
-      <svg id="modeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></svg>
-      <span id="modeWord">light</span>
-    </button>
-  </div>
 
   <header class="mast">
     <div class="kick">Techne &middot; Design System</div>
@@ -341,6 +338,19 @@
       <div class="s"><div class="c" style="background:var(--sun-amber)"></div><div class="n">amber</div></div>
       <div class="s"><div class="c" style="background:var(--sun-gold)"></div><div class="n">gold</div></div>
     </div>
+  </section>
+
+  <!-- SITE NAVIGATION -->
+  <section class="sec" id="topbar">
+    <h2>Site Navigation &middot; The Topbar</h2>
+    <p class="lead">Every public surface carries one primary navigation: a sticky 48px topbar holding the wordmark, the public map (Participation, The commons, Legal, Intranet), and the mode toggle. The bar is injected by <code>/assets/topbar.js</code> from a single manifest, so its contents and size cannot drift page to page; the per-page inline topbars it supersedes are retired. Its geometry mirrors the shell topbar below, so crossing between the public face and a signed-in surface the frame reads as one element. Added per the U-13 packet, 2026-08-07.</p>
+
+    <div class="subhead">Usage</div>
+    <pre class="code"><span class="c1">&lt;!-- in &lt;head&gt;, after the mode boot --&gt;</span>
+&lt;script src=<span class="c2">"/assets/topbar.js"</span> defer&gt;&lt;/script&gt;</pre>
+
+    <div class="subhead">Behaviour</div>
+    <p class="note">Self-contained: the bar carries its own <code>--tc-*</code> tokens resolved from <code>data-mode</code> with the values on this page, so it renders identically over any page token vocabulary, old or new. The section holding the reader marks with <code>aria-current</code>. The bar hides in print and holds across page loads by cross-document view transitions, honoring <code>prefers-reduced-motion</code>. The mode toggle writes <code>localStorage('techne-mode')</code> and sets <code>data-mode</code> on the document, falling back to the device scheme on first visit. A public page loads <code>topbar.js</code>; a signed-in surface loads <code>shell.js</code>; no page loads both, and no page carries an inline topbar of its own. The validator enforces the rule: every page names exactly one of the two.</p>
   </section>
 
   <!-- CIS NAVIGATION -->
@@ -655,32 +665,5 @@
 
 </div>
 
-<script>
-(function(){
-  var root=document.documentElement;
-  var btn=document.getElementById('modeBtn');
-  var word=document.getElementById('modeWord');
-  var icon=document.getElementById('modeIcon');
-  var SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
-  var MOON='<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/>';
-  function paint(m){
-    // the control names the mode it switches TO
-    var target = m==='dark' ? 'light' : 'dark';
-    word.textContent=target;
-    icon.innerHTML = target==='light' ? SUN : MOON;
-  }
-  var stored=null;
-  try{stored=localStorage.getItem('techne-mode');}catch(e){}
-  var m=stored||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
-  root.setAttribute('data-mode',m);
-  paint(m);
-  btn.addEventListener('click',function(){
-    var next=root.getAttribute('data-mode')==='dark'?'light':'dark';
-    root.setAttribute('data-mode',next);
-    paint(next);
-    try{localStorage.setItem('techne-mode',next);}catch(e){}
-  });
-})();
-</script>
 </body>
 </html>
