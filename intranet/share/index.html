@@ -49,6 +49,7 @@ html[data-mode="light"] {
   color-scheme: light;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 body {
   background: var(--bg); color: var(--text); font-family: var(--serif);
   font-size: 16px; line-height: 1.65; min-height: 100vh; display: flex; flex-direction: column;
@@ -67,13 +68,13 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .axis-line span { color: var(--info); }
 
 .parked-card {
-  border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 2px; background: var(--surface);
   margin-bottom: var(--s5); overflow: hidden;
 }
 .parked-header { padding: var(--s4) var(--s5); display: flex; align-items: baseline; gap: var(--s4); border-bottom: 1px solid var(--line); }
-.parked-title { flex: 1; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+.parked-title { margin: 0; font-weight: 400; flex: 1; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
 .chip {
-  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 2px;
   border: 1px solid var(--info); color: var(--info); background: var(--info-dim); white-space: nowrap;
 }
 .parked-body { padding: var(--s4) var(--s5); font-size: 0.92rem; }
@@ -85,7 +86,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .sentence-mark { font-family: var(--mono); font-size: 0.65rem; color: var(--faint); white-space: nowrap; }
 .sentence-text { color: var(--heading); font-size: 0.92rem; }
 
-.waits { background: var(--inset); border-radius: 6px; padding: var(--s4) var(--s5); font-size: 0.88rem; margin-bottom: var(--s5); }
+.waits { background: var(--inset); border-radius: 2px; padding: var(--s4) var(--s5); font-size: 0.88rem; margin-bottom: var(--s5); }
 .waits b { color: var(--heading); font-weight: 700; }
 .waits a { color: var(--ember-text); }
 
@@ -115,20 +116,17 @@ footer a { color: var(--faint); }
 
   <div class="parked-card">
     <div class="parked-header">
-      <span class="parked-title">What will stand here</span>
-      <span class="chip">parked &middot; S-01, S-02</span>
+      <h2 class="parked-title">What will stand here</h2>
+      <span class="chip">parked &middot; waits on the counting rules</span>
     </div>
     <div class="parked-body">
       <div class="sentence">
-        <span class="sentence-mark">S-01</span>
         <span class="sentence-text">See your contribution history, itemized.</span>
       </div>
       <div class="sentence">
-        <span class="sentence-mark">S-02</span>
         <span class="sentence-text">See your capital account as a fold over that history. Balances are computed from the event log, never stored as editable numbers.</span>
       </div>
       <div class="sentence">
-        <span class="sentence-mark">S-02</span>
         <span class="sentence-text">Follow any figure to the events and the policy that produced it.</span>
       </div>
     </div>
@@ -140,7 +138,7 @@ footer a { color: var(--faint); }
 
   <div class="parked-card">
     <div class="parked-header">
-      <span class="parked-title">Already true underneath</span>
+      <h2 class="parked-title">Already true underneath</h2>
     </div>
     <div class="parked-body">
       <p>The substrate has carried capital events, valued events, and the account fold since the eleven laws landed: one voting share per voting member, each account equal to the fold of its member's events, nothing edited, corrections as compensating entries. The walkaway rehearsal proves the fold round-trips. What is missing is not machinery; it is the adopted rules that give the machinery its numbers.</p>
@@ -150,7 +148,7 @@ footer a { color: var(--faint); }
 </main>
 
 <footer>
-  See your share &middot; PRD v0.3 &middot; <a href="/commons/prd/">the governing specification</a>
+  See your share &middot; <a href="/commons/prd/">the governing specification</a>
 </footer>
 
 </body>

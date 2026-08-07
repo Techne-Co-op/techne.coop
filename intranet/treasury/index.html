@@ -49,6 +49,7 @@ html[data-mode="light"] {
   color-scheme: light;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 body {
   background: var(--bg); color: var(--text); font-family: var(--serif);
   font-size: 16px; line-height: 1.65; min-height: 100vh; display: flex; flex-direction: column;
@@ -60,7 +61,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
 .lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; }
 
-.btn { font-family: var(--mono); font-size: 0.85rem; padding: 10px 24px; border-radius: 6px; border: none; cursor: pointer; }
+.btn { font-family: var(--mono); font-size: 0.85rem; padding: 10px 24px; border-radius: 2px; border: none; cursor: pointer; }
 .btn-primary { background: var(--ember); color: var(--on-accent); }
 .btn-primary:hover { opacity: 0.88; }
 .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
@@ -69,17 +70,17 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 #content { display: none; }
 #not-desk { display: none; }
 
-.notice { padding: var(--s4); border-radius: 6px; margin: var(--s4) 0; font-size: 0.88rem; display: none; }
+.notice { padding: var(--s4); border-radius: 2px; margin: var(--s4) 0; font-size: 0.88rem; display: none; }
 .notice.ok  { background: var(--ok-dim); color: var(--ok); border: 1px solid var(--ok); }
 .notice.err { background: var(--warn-dim); color: var(--warn); border: 1px solid var(--warn); }
 .notice.info { background: var(--info-dim); color: var(--info); border: 1px solid var(--info); display: block; }
 
 .desk-card {
-  border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 2px; background: var(--surface);
   margin-bottom: var(--s5); overflow: hidden;
 }
 .desk-header { padding: var(--s4) var(--s5); display: flex; align-items: baseline; gap: var(--s4); border-bottom: 1px solid var(--line); }
-.desk-title { flex: 1; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+.desk-title { margin: 0; font-weight: 400; flex: 1; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
 .desk-count { font-family: var(--mono); font-size: 0.72rem; color: var(--ember-text); }
 .desk-body { padding: var(--s4) var(--s5); font-size: 0.92rem; }
 .desk-empty { color: var(--muted); font-size: 0.88rem; }
@@ -89,7 +90,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .row-meta { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); }
 .row-meta span { color: var(--ember-text); }
 .chip {
-  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 4px;
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 2px;
   border: 1px solid var(--line); color: var(--muted); white-space: nowrap;
 }
 .chip.anticipated { background: var(--info-dim); color: var(--info); border-color: var(--info); }
@@ -101,7 +102,7 @@ table.bands td { padding: 7px 8px; border-bottom: 1px solid var(--line); }
 /* the statements view (T-07, TREASURY §9a) */
 .basis-line { font-family: var(--mono); font-size: 0.68rem; color: var(--faint); margin: 0 0 var(--s5); }
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--s3); }
-.tile { background: var(--inset); border: 1px solid var(--line); border-radius: 6px; padding: var(--s3) var(--s4); }
+.tile { background: var(--inset); border: 1px solid var(--line); border-radius: 2px; padding: var(--s3) var(--s4); }
 .tile .tk { font-family: var(--mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); margin-bottom: 4px; }
 .tile .tv { font-family: var(--mono); font-size: 1.15rem; color: var(--heading); }
 .tile .tv.waiting { color: var(--faint); }
@@ -112,12 +113,12 @@ table.flow th:first-child, table.flow td:first-child { text-align: left; }
 table.flow td { padding: 7px 8px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; text-align: right; }
 table.flow tr.subtotal td { border-top: 1px solid var(--rule); color: var(--heading); }
 .ribbon { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--s3); }
-.m-chip { font-family: var(--mono); font-size: 0.65rem; padding: 3px 9px; border-radius: 4px; border: 1px solid var(--line); color: var(--muted); }
+.m-chip { font-family: var(--mono); font-size: 0.65rem; padding: 3px 9px; border-radius: 2px; border: 1px solid var(--line); color: var(--muted); }
 .m-chip.closed { background: var(--ok-dim); color: var(--ok); border-color: var(--ok); }
 .m-chip.provisional { background: var(--info-dim); color: var(--info); border-color: var(--info); }
 .m-chip.future { color: var(--faint); border-style: dashed; }
 .desk-h2 { font-size: 1.25rem; font-weight: 700; color: var(--heading); margin: var(--s7) 0 var(--s3); }
-details.stmt { border: 1px solid var(--line); border-radius: 6px; margin-bottom: var(--s3); background: var(--inset); }
+details.stmt { border: 1px solid var(--line); border-radius: 2px; margin-bottom: var(--s3); background: var(--inset); }
 details.stmt summary { cursor: pointer; padding: var(--s3) var(--s4); display: flex; gap: var(--s3); align-items: baseline; flex-wrap: wrap; list-style: none; }
 details.stmt summary::-webkit-details-marker { display: none; }
 details.stmt summary::before { content: "+"; font-family: var(--mono); color: var(--ember-text); width: 12px; }
@@ -157,11 +158,11 @@ footer a { color: var(--faint); }
   <div id="statements" style="display:none">
     <h1>Treasury</h1>
     <div class="section-rule"></div>
-    <p class="lead">The cooperative's finances at member scale: what we hold, how money moved, and what stands outstanding, by month, quarter, and fiscal year. No figure here is entered; each derives from the record, an instrument in force, or a rail's read, and each names its source (TREASURY &sect;9a). Your own money facts also appear on your own surfaces, movement lines beside meaning lines.</p>
+    <p class="lead">The cooperative's finances at member scale: what we hold, how money moved, and what stands outstanding, by month, quarter, and fiscal year. No figure here is entered; each derives from the record, an instrument in force, or a rail's read, and each names its source in the treasury specification. Your own money facts also appear on your own surfaces, movement lines beside meaning lines.</p>
     <div class="basis-line" id="basis-line"></div>
 
     <div class="desk-card">
-      <div class="desk-header"><span class="desk-title">Position &middot; what we hold, owe, and own</span><span class="desk-count" id="pos-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Position &middot; what we hold, owe, and own</h2><span class="desk-count" id="pos-mark"></span></div>
       <div class="desk-body">
         <div class="tiles" id="pos-tiles"></div>
         <div class="desk-empty" id="pos-note" style="margin-top:var(--s3)"></div>
@@ -169,22 +170,22 @@ footer a { color: var(--faint); }
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><span class="desk-title">Flow &middot; cash, direct method</span><span class="desk-count" id="flow-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Flow &middot; cash, direct method</h2><span class="desk-count" id="flow-mark"></span></div>
       <div class="desk-body" id="flow-body"></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><span class="desk-title">Monthly statements &middot; from the rails</span><span class="desk-count" id="stmt-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Monthly statements &middot; from the rails</h2><span class="desk-count" id="stmt-mark"></span></div>
       <div class="desk-body" id="stmt-body"><span class="desk-empty">Reading&hellip;</span></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><span class="desk-title">Standing &middot; who has paid, what is outstanding</span><span class="desk-count" id="standing-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Standing &middot; who has paid, what is outstanding</h2><span class="desk-count" id="standing-mark"></span></div>
       <div class="desk-body" id="standing-body"></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><span class="desk-title">The close ribbon &middot; fiscal year 2026</span><span class="desk-count" id="ribbon-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">The close ribbon &middot; fiscal year 2026</h2><span class="desk-count" id="ribbon-mark"></span></div>
       <div class="desk-body">
         <div class="ribbon" id="ribbon"></div>
         <div class="desk-empty" id="ribbon-note"></div>
@@ -194,32 +195,32 @@ footer a { color: var(--faint); }
 
   <div id="content">
     <div class="desk-h2">The Desk</div>
-    <p class="lead">The treasurer's surface, read by the directors and officers the bylaws seat here (&sect;3.1, &sect;4.4): what stands proposed, what awaits execution, what the record has committed and not yet seen settle, and whether the last window reconciled. Read-only for now; the acts that move money arrive with the policy that governs them.</p>
+    <p class="lead">The treasurer's surface, read by the directors and officers <a href="/legal/">the bylaws</a> seat here: what stands proposed, what awaits execution, what the record has committed and not yet seen settle, and whether the last window reconciled. Read-only for now; the acts that move money arrive with the policy that governs them.</p>
 
     <div class="notice" id="page-notice"></div>
 
     <div class="desk-card">
-      <div class="desk-header"><span class="desk-title">The instrument in force</span><span class="desk-count" id="policy-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">The instrument in force</h2><span class="desk-count" id="policy-mark"></span></div>
       <div class="desk-body" id="policy-body"><span class="desk-empty">Reading&hellip;</span></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><span class="desk-title">Proposal queue</span><span class="desk-count" id="prop-count"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Proposal queue</h2><span class="desk-count" id="prop-count"></span></div>
       <div class="desk-body" id="prop-body"></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><span class="desk-title">Awaiting execution</span><span class="desk-count" id="exec-count"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Awaiting execution</h2><span class="desk-count" id="exec-count"></span></div>
       <div class="desk-body" id="exec-body"></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><span class="desk-title">Commitments &middot; the PATRONAGE joint</span><span class="desk-count" id="commit-count"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Commitments &middot; patronage</h2><span class="desk-count" id="commit-count"></span></div>
       <div class="desk-body" id="commit-body"></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><span class="desk-title">Reconciliation</span><span class="desk-count" id="recon-count"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Reconciliation</h2><span class="desk-count" id="recon-count"></span></div>
       <div class="desk-body" id="recon-body"></div>
     </div>
   </div>
@@ -364,7 +365,7 @@ function renderFlowTable(byMonth) {
   });
   rows += `<tr class="subtotal"><td>FY ${FY}</td><td>${fmtUsd(yIn)}</td><td>${fmtUsd(yOut)}</td><td>${fmtUsd(yIn - yOut)}</td><td>${fmtUsd(running)}</td></tr>`;
   return `<table class="flow"><tr><th>month</th><th>in</th><th>out</th><th>net</th><th>cash</th></tr>${rows}</table>
-  <div class="row-meta" style="margin-top:var(--s3)">Inflows from money.received by purpose; outflows from disbursement.executed. Quarters and the year are sums of months (&sect;9a). Follow any figure to its events.</div>`;
+  <div class="row-meta" style="margin-top:var(--s3)">Inflows from money.received by purpose; outflows from disbursement.executed. Quarters and the year are sums of months. Follow any figure to its events.</div>`;
 }
 
 function renderRibbon(windows) {
@@ -485,7 +486,7 @@ function renderStandingFromSnapshot(latest) {
     shown.map(i => `<tr><td style="text-align:left">${escHtml(i.invoice || '?')}</td><td>${escHtml(i.issued)}</td><td>${escHtml(i.due)}</td><td>${fmtUsd(i.amount_due)}</td><td>${i.days_past_due > 0 ? i.days_past_due : ''}</td></tr>`).join('') +
     `</table>` +
     (ar.count > 15 ? `<div class="row-meta" style="margin-top:var(--s2)">and ${ar.count - 15} more in the book</div>` : '') +
-    `<div class="row-meta" style="margin-top:var(--s3)">Invoice numbers, never names, on the member cut (&sect;9a). The dues schedule instrument will make expected-minus-received computable from the record; until then this is the book's own receivable, read live.</div>`;
+    `<div class="row-meta" style="margin-top:var(--s3)">Invoice numbers, never names, on the member view. The dues schedule instrument will make expected-minus-received computable from the record; until then this is the book's own receivable, read live.</div>`;
   document.getElementById('standing-mark').textContent = ar.count + ' outstanding';
   return true;
 }
@@ -530,7 +531,7 @@ async function loadStatements(atDesk, evs) {
       document.getElementById('pos-mark').textContent = 'aggregate';
     } else {
       document.getElementById('pos-tiles').innerHTML =
-        tile('cash in custody', '–', 'the &sect;9 rail reads &middot; T-06', true) +
+        tile('cash in custody', '–', 'waits on the bank rail reads', true) +
         tile('receivables', '–', 'awaits the dues schedule', true) +
         tile('commitments standing', '–', 'the fold emission', true) +
         tile('member capital', '–', 'the fold emission', true);
@@ -553,7 +554,7 @@ async function loadStatements(atDesk, evs) {
       document.getElementById('standing-body').innerHTML = `<div class="row-line"><span class="row-main">${s.current_count} current &middot; ${s.outstanding_count} outstanding${total}</span></div>`;
       document.getElementById('standing-mark').textContent = 'aggregate';
     } else {
-      document.getElementById('standing-body').innerHTML = `<span class="desk-empty">Standing derives from the dues schedule, expected minus received, and reaches members as counts and totals, never names. It waits on the schedule recording as an instrument (&sect;14) and on the fold emission. Your own line, once it exists, appears here in full; it was already yours to see.</span>`;
+      document.getElementById('standing-body').innerHTML = `<span class="desk-empty">Standing derives from the dues schedule, expected minus received, and reaches members as counts and totals, never names. It waits on the dues schedule recording as an instrument. Your own line, once it exists, appears here in full; it was already yours to see.</span>`;
       document.getElementById('standing-mark').textContent = 'waiting';
     }
     renderRibbon([]);
@@ -572,12 +573,12 @@ async function loadStatements(atDesk, evs) {
   const capitalTotal = capital.reduce((a, e) => a + (Number(e.book_delta) || 0), 0);
 
   document.getElementById('pos-tiles').innerHTML =
-    tile('cash in custody', '–', 'the &sect;9 rail reads arrive with T-06; credentials are a &sect;14 item', true) +
-    tile('receivables', '–', 'awaits the dues schedule as an instrument (&sect;14)', true) +
+    tile('cash in custody', '–', 'waits on the bank rail reads', true) +
+    tile('receivables', '–', 'awaits the dues schedule as an instrument', true) +
     tile('commitments standing', fmtUsd(commitTotal), 'unpaired capital.distribution rows', false) +
     tile('member capital', capital.length ? fmtUsd(capitalTotal) : '–', capital.length ? 'the PP capital-account fold, ' + capital.length + ' events' : 'no capital events stand yet', !capital.length);
   document.getElementById('pos-mark').textContent = 'desk cut';
-  document.getElementById('pos-note').innerHTML = 'The equation shows whole when its parts exist: assets, cash and receivables, against commitments and member capital, with the delta to Xero’s position surfaced beside it, not smoothed (&sect;9a).';
+  document.getElementById('pos-note').innerHTML = 'The equation shows whole when its parts exist: assets, cash and receivables, against commitments and member capital, with the delta to the books surfaced beside it, not smoothed.';
 
   if (money.length === 0 && exec.length === 0) {
     document.getElementById('flow-body').innerHTML = '<span class="desk-empty">No governed movement stands in the record. The first money.received arrives with the intake rail (T-02), or as a manual entry at R1; the first outflow arrives with disbursement execution (T-04). The table folds itself from the events the moment they exist.</span>';
@@ -590,7 +591,7 @@ async function loadStatements(atDesk, evs) {
     document.getElementById('flow-mark').textContent = (money.length + exec.length) + ' movements';
   }
 
-  document.getElementById('standing-body').innerHTML = '<span class="desk-empty">The named roster, each member’s expected, received, outstanding, and age, derives from the dues schedule, and no dues schedule stands as an instrument; it is routed in &sect;14 and the roster activates when it records, the same condition R2’s intake pricing waits on. Members see this region as counts and totals only, under the small-cohort withholding (&sect;9a).</span>';
+  document.getElementById('standing-body').innerHTML = '<span class="desk-empty">The named roster, each member’s expected, received, outstanding, and age, derives from the dues schedule, and no dues schedule yet stands as an instrument; the roster activates when it records. Members see this region as counts and totals only, under the small-cohort withholding.</span>';
   document.getElementById('standing-mark').textContent = 'desk cut · waiting on the instrument';
 
   renderRibbon(windows);
