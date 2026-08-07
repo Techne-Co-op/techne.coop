@@ -4,9 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="Apply to join Techne -- a Colorado limited cooperative association in Boulder.">
+<meta name="description" content="Join Techne, a cooperative workshop in Boulder. Community and co-working enrollment is open now; cooperative membership grows from participation. Choose your way in and apply.">
 <title>Join &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/join/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/join/">
+<meta property="og:title" content="Join · Techne">
+<meta property="og:description" content="Choose your way into the cooperative and apply. Community and co-working enrollment is open now.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
@@ -20,223 +28,186 @@
   })();
 </script>
 <style>
+/* tokens: techne v4, values per commons.css */
 :root {
   --serif: 'Libre Baskerville', Georgia, serif;
   --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
   --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
-  --on-accent: #fff;
 }
 html[data-mode="dark"] {
   --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
   --line: #2A2A30; --rule: #3A3A42;
   --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
   --ember: #C4956A; --ember-text: #D4A57A;
-  --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12); --warn: #C46A6A;
+  --ok: #6A9A6A; --warn: #C46A6A;
   color-scheme: dark;
 }
 html[data-mode="light"] {
   --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
   --line: #D8D3C8; --rule: #9A958A;
   --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
   --ember: #8A6A4A; --ember-text: #6F5436;
-  --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10); --warn: #A84F4C;
+  --ok: #4A7A4A; --warn: #A84F4C;
   color-scheme: light;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--serif);
-  font-size: 16px;
-  line-height: 1.65;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  background: var(--bg); color: var(--text);
+  font-family: var(--serif); font-size: 16px; line-height: 1.65;
+  display: flex; flex-direction: column; min-height: 100vh;
 }
+a { color: var(--blue-text); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.skip { position: absolute; left: -9999px; top: 0; z-index: 100; font-family: var(--mono); font-size: 13px;
+  background: var(--surface); color: var(--blue-text); border: 1px solid var(--blue); padding: 10px 16px; }
+.skip:focus { left: 12px; top: 12px; }
+
 .topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--s5);
-  height: 48px;
-  border-bottom: 1px solid var(--line);
-  background: var(--surface);
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--s5); height: 48px;
+  border-bottom: 1px solid var(--line); background: var(--surface);
+  position: sticky; top: 0; z-index: 10;
 }
-.topbar-brand {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--muted);
-  text-decoration: none;
-  letter-spacing: 0.04em;
-}
+.topbar-brand { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; }
 .topbar-brand strong { color: var(--heading); font-weight: 500; }
-.mode-btn {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--muted);
-  background: none;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  padding: 3px 8px;
-  cursor: pointer;
-}
+.mode-btn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); background: none;
+  border: 1px solid var(--line); border-radius: 2px; padding: 4px 10px; cursor: pointer; }
 .mode-btn:hover { color: var(--heading); border-color: var(--rule); }
 
-main {
-  flex: 1;
-  max-width: 640px;
-  margin: 0 auto;
-  padding: var(--s7) var(--s5);
-  width: 100%;
-}
-h1 {
-  font-family: var(--serif);
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--heading);
-  line-height: 1.25;
-  margin-bottom: var(--s4);
-}
-.lede {
-  color: var(--muted);
-  font-size: 1rem;
-  margin-bottom: var(--s6);
-  line-height: 1.7;
-}
-.lede a { color: var(--ember-text); text-decoration: none; }
-.lede a:hover { text-decoration: underline; }
+main { flex: 1; max-width: 640px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+h1 { font-family: var(--serif); font-size: 1.75rem; font-weight: 700; color: var(--heading); line-height: 1.25; margin-bottom: var(--s4); }
+.lede { color: var(--muted); font-size: 1rem; margin-bottom: var(--s6); line-height: 1.7; }
 .rule { border: none; border-top: 1px solid var(--line); margin: var(--s6) 0; }
 
-/* form */
+/* the ways in: a radio group of cards */
+fieldset.ways { border: none; margin: 0 0 var(--s5); }
+fieldset.ways legend { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: var(--s2); }
+.way { position: relative; display: block; background: var(--surface); border: 1px solid var(--line);
+  border-radius: 2px; padding: var(--s3) var(--s4) var(--s3) 40px; margin-bottom: var(--s2); cursor: pointer;
+  transition: border-color var(--micro) var(--ease); }
+.way:hover { border-color: var(--rule); }
+.way input { position: absolute; left: var(--s3); top: 18px; accent-color: var(--blue); }
+.way .w-name { font-family: var(--serif); font-weight: 700; font-size: 0.95rem; color: var(--heading); }
+.way .w-open { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ok); margin-left: 8px; }
+.way .w-open.later { color: var(--muted); }
+.way .w-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin-top: 2px; }
+.way:has(input:checked) { border-color: var(--blue); }
+.way:has(input:focus-visible) { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+/* form, v4 */
 .field { margin-bottom: var(--s5); }
-label {
-  display: block;
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: var(--s2);
-}
-label span { color: var(--warn); margin-left: 2px; }
+.field > label { display: block; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: var(--s2); }
+.field > label .req { color: var(--warn); margin-left: 2px; }
 input[type=text], input[type=email], textarea {
-  width: 100%;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  color: var(--heading);
-  font-family: var(--serif);
-  font-size: 1rem;
-  padding: 10px var(--s4);
-  transition: border-color var(--micro) var(--ease);
-  outline: none;
-  resize: vertical;
+  width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 2px;
+  color: var(--heading); font-family: var(--serif); font-size: 1rem; padding: 10px var(--s4);
+  transition: border-color var(--micro) var(--ease); outline: none; resize: vertical;
 }
-input:focus, textarea:focus { border-color: var(--ember); }
+input:focus, textarea:focus { border-color: var(--blue); }
 textarea { min-height: 100px; }
-.field-hint {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--faint);
-  margin-top: var(--s2);
-}
+.field-hint { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); margin-top: var(--s2); }
 .submit-btn {
-  background: var(--ember);
-  color: var(--on-accent);
-  border: none;
-  border-radius: 6px;
-  font-family: var(--mono);
-  font-size: 0.85rem;
-  letter-spacing: 0.04em;
-  padding: 12px 28px;
-  cursor: pointer;
-  transition: opacity var(--micro) var(--ease);
+  background: none; color: var(--blue-text); border: 1px solid var(--blue); border-radius: 2px;
+  font-family: var(--mono); font-size: 0.85rem; letter-spacing: 0.04em;
+  padding: 12px 28px; cursor: pointer; min-height: 44px;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: background-color var(--micro) var(--ease);
 }
-.submit-btn:hover { opacity: 0.88; }
+.submit-btn:hover { background: color-mix(in srgb, var(--blue) 12%, transparent); }
 .submit-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.submit-btn svg { width: 15px; height: 15px; flex: none; }
 
-/* states */
-.notice {
-  padding: var(--s4) var(--s5);
-  border-radius: 6px;
-  font-size: 0.9rem;
-  margin-bottom: var(--s5);
-  display: none;
-}
-.notice.ok { background: var(--ok-dim); color: var(--ok); border: 1px solid var(--ok); }
-.notice.err { background: rgba(196,106,106,0.10); color: var(--warn); border: 1px solid var(--warn); }
+.form-status { min-height: 1.5em; font-family: var(--mono); font-size: 0.8rem; color: var(--muted); margin-top: var(--s3); }
+.form-status.err { color: var(--warn); }
 
-.received {
-  display: none;
-  text-align: center;
-  padding: var(--s7) 0;
-}
-.received-icon {
-  font-size: 2rem;
-  margin-bottom: var(--s4);
-}
-.received h2 {
-  font-size: 1.25rem;
-  color: var(--heading);
-  margin-bottom: var(--s3);
-}
+.received { display: none; text-align: center; padding: var(--s7) 0; }
+.received svg { width: 30px; height: 30px; color: var(--ok); margin-bottom: var(--s4); }
+.received h2 { font-size: 1.25rem; color: var(--heading); margin-bottom: var(--s3); }
 .received p { color: var(--muted); font-size: 0.9rem; }
 
 footer {
-  border-top: 1px solid var(--line);
-  padding: var(--s4) var(--s5);
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  color: var(--faint);
-  text-align: center;
+  border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
+  font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-align: center;
 }
-footer a { color: var(--faint); }
+footer a { color: var(--muted); }
 </style>
 <script src="/assets/error-boundary.js"></script>
 </head>
 <body>
-<nav class="topbar">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
   <a class="topbar-brand" href="/"><strong>Techne</strong> &middot; join</a>
-  <button class="mode-btn" id="mode-btn">light / dark</button>
-</nav>
+  <button class="mode-btn" id="mode-btn" aria-label="Toggle light and dark mode">light / dark</button>
+</header>
 
-<main>
-  <h1>Apply to join Techne</h1>
+<main id="main">
+  <h1>Join Techne</h1>
   <p class="lede">
-    Techne is a Colorado limited cooperative association cultivating scenius in Boulder.
-    Members practice craft together -- design, code, soil, facilitation, law, and adjacent trades.
-    Membership is by invitation after a period of participation; this form opens the intake record.
-    A steward will be in touch. Read <a href="/legal">the bylaws and membership agreement</a> before submitting.
+    Techne is a cooperative workshop in Boulder: many crafts, one roof, owned by the people who use it.
+    There is more than one way in, and two of them are open right now, no invitation needed.
+    Cooperative membership, the ownership class, grows out of roughly ninety days of participation.
+    Compare the classes, costs, and rights on <a href="/participation/">the ways in</a>;
+    the ratified framework lives at <a href="/legal/participation/">legal/participation</a>.
+    This form opens your intake record either way, and a steward replies by email.
   </p>
 
-  <div class="notice" id="error-notice"></div>
+  <div class="form-status err" id="error-notice" role="alert" style="display:none"></div>
 
-  <div id="form-section">
+  <form id="join-form" novalidate>
+    <fieldset class="ways">
+      <legend>Your way in</legend>
+      <label class="way">
+        <input type="radio" name="way" value="Community Participant (Class Three)" id="way-community">
+        <span class="w-name">Come by</span><span class="w-open">open now</span>
+        <span class="w-desc">Community Participant. Events, day passes, the people. From $25 a month, cancel anytime.</span>
+      </label>
+      <label class="way">
+        <input type="radio" name="way" value="Co-working Member (Class Two)" id="way-coworking">
+        <span class="w-name">Take a desk</span><span class="w-open">open now</span>
+        <span class="w-desc">Co-working Member. A place to work and full hub access, with patronage counted from day one. From $250 a month.</span>
+      </label>
+      <label class="way">
+        <input type="radio" name="way" value="Cooperative Member (Class One) interest" id="way-cooperative">
+        <span class="w-name">Grow into ownership</span><span class="w-open later">by invitation</span>
+        <span class="w-desc">Cooperative Member. A vote, a capital account, a share in the results. Begins with participation; the board invites after about 90 days.</span>
+      </label>
+      <label class="way">
+        <input type="radio" name="way" value="Investor Member (Class Four) inquiry" id="way-investor">
+        <span class="w-name">Invest</span><span class="w-open later">board terms</span>
+        <span class="w-desc">Investor Member. Capital with a stake, not a vote. Terms are set by the Board; this opens the conversation.</span>
+      </label>
+    </fieldset>
+
     <div class="field">
-      <label>Your name <span>*</span></label>
-      <input type="text" id="name" placeholder="Full name" autocomplete="name" required>
+      <label for="name">Your name <span class="req" aria-hidden="true">*</span></label>
+      <input type="text" id="name" name="name" placeholder="Full name" autocomplete="name" required>
     </div>
     <div class="field">
-      <label>Email address <span>*</span></label>
-      <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required>
-      <div class="field-hint">Used to send you a sign-in link once the steward completes your intake.</div>
+      <label for="email">Email address <span class="req" aria-hidden="true">*</span></label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+      <div class="field-hint" id="email-hint">Used to send you a sign-in link once the steward completes your intake.</div>
     </div>
     <div class="field">
-      <label>A brief note</label>
-      <textarea id="note" placeholder="What draws you to Techne? What do you practice?"></textarea>
-      <div class="field-hint">Optional -- but a sentence or two helps the steward place your application.</div>
+      <label for="note">A brief note</label>
+      <textarea id="note" name="note" placeholder="What draws you to Techne? What do you practice?"></textarea>
+      <div class="field-hint">Optional, but a sentence or two helps the steward place your application.</div>
     </div>
     <hr class="rule">
-    <button class="submit-btn" id="submit-btn">Submit application</button>
-  </div>
+    <button class="submit-btn" id="submit-btn" type="submit">Submit application
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+    </button>
+    <div class="form-status" id="form-status" aria-live="polite"></div>
+  </form>
 
   <div class="received" id="received-section">
-    <div class="received-icon">&#10003;</div>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>
     <h2>Application received</h2>
     <p>Your intake record is in the cooperative's information system.<br>
     A steward will be in touch at the email address you provided.</p>
@@ -246,7 +217,9 @@ footer a { color: var(--faint); }
 <footer>
   <span>Techne &middot; RegenHub, LCA &middot; Boulder, Colorado</span>
   &nbsp;&middot;&nbsp;
-  <a href="/legal">legal</a>
+  <a href="/participation/">the ways in</a>
+  &nbsp;&middot;&nbsp;
+  <a href="/legal/">legal</a>
   &nbsp;&middot;&nbsp;
   <a href="/commons/">commons</a>
 </footer>
@@ -264,11 +237,21 @@ document.getElementById('mode-btn').addEventListener('click', function () {
   try { localStorage.setItem('techne-mode', next); } catch(e) {}
 });
 
-document.getElementById('submit-btn').addEventListener('click', async function () {
+// preselect the way from ?way=, the participation page's hand-off
+(function () {
+  var way = new URLSearchParams(location.search).get('way');
+  var el = way && document.getElementById('way-' + way);
+  if (el) el.checked = true;
+})();
+
+document.getElementById('join-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
   const name  = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const note  = document.getElementById('note').value.trim();
+  const wayEl = document.querySelector('input[name="way"]:checked');
   const errEl = document.getElementById('error-notice');
+  const statusEl = document.getElementById('form-status');
 
   errEl.style.display = 'none';
 
@@ -277,29 +260,32 @@ document.getElementById('submit-btn').addEventListener('click', async function (
 
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
-  btn.textContent = 'Submitting...';
+  statusEl.textContent = 'Submitting…';
+
+  // the way in travels in the note: the intake seam stays exactly as it is
+  const fullNote = (wayEl ? 'Way in: ' + wayEl.value + '.' : '') + (note ? ' ' + note : '');
 
   try {
     const sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
     const { data, error } = await sb.rpc('apply_for_membership', {
       p_display_name: name,
       p_email:        email,
-      p_note:         note || null
+      p_note:         fullNote || null
     });
     if (error) throw error;
 
-    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('join-form').style.display = 'none';
+    statusEl.textContent = '';
     document.getElementById('received-section').style.display = 'block';
   } catch (err) {
     btn.disabled = false;
-    btn.textContent = 'Submit application';
+    statusEl.textContent = '';
     showErr(Techne.report(err, 'Something went wrong. Please try again or email a steward directly.'));
   }
 });
 
 function showErr(msg) {
   var el = document.getElementById('error-notice');
-  el.className = 'notice err';
   el.textContent = msg;
   el.style.display = 'block';
 }
