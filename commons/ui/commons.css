@@ -13,7 +13,8 @@
 :root {
   --serif:"Libre Baskerville",Georgia,serif;            /* document voice, X-06 decision 2026-07-20 */
   --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
-  --sans:"Inter","Helvetica Neue",Arial,sans-serif;     /* interface layer */
+  /* two faces only: Inter retired per X-06 (U-12). Formation-era commons
+     documents carry their own inline copies until each page's re-emission. */
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
   --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
   /* sunset range: a twilight-to-sunset sweep, gold at the top of a page, blue at the foot */
@@ -51,9 +52,8 @@ body { margin:0; background:var(--bg); color:var(--text);
   transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
 .mono { font-family:var(--mono); }
 .num { font-variant-numeric:tabular-nums; }
-.sans { font-family:var(--sans); }
-.dash-h { font:800 1.75rem/1.2 var(--sans); color:var(--heading); }   /* dashboard heading */
-.seclabel { font:700 .68rem/1.6 var(--sans); text-transform:uppercase; letter-spacing:.08em; color:var(--faint); }
+.dash-h { font:700 1.75rem/1.2 var(--serif); color:var(--heading); }  /* dashboard heading, restated in the document face (U-12) */
+.seclabel { font:600 .68rem/1.6 var(--mono); text-transform:uppercase; letter-spacing:.08em; color:var(--faint); }
 em { font-style:italic; color:var(--heading); }
 code { font:400 .85em/1 var(--mono); color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
 a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; transition:text-decoration-thickness var(--micro) var(--ease); }
