@@ -6,8 +6,8 @@ Generated from rdm-ledger.yaml. 79 items total.
 | status | count |
 |--------|-------|
 | drafted | 10 |
-| anticipated | 20 |
-| open | 49 |
+| anticipated | 15 |
+| open | 54 |
 | filed | 0 |
 
 ## Drafted
@@ -60,6 +60,11 @@ Generated from rdm-ledger.yaml. 79 items total.
 - **U-05** open · verified -- The member's register
 - **U-06** open · in-session -- The frame on a narrow screen
 - **U-07** open · in-session -- The parked door
+- **U-08** open · delivered -- The pattern library grows
+- **U-09** open · delivered -- The launch page joins the site
+- **U-10** open · delivered -- The front door tells the truth
+- **U-11** open · delivered -- The member surface speaks one language
+- **U-12** open · delivered -- Two faces, no third
 - **X-01** open · verified -- Error boundary and observability
 - **X-02** open · verified -- Notices v1
 - **X-03** open · verified -- Export paths
@@ -92,11 +97,6 @@ Generated from rdm-ledger.yaml. 79 items total.
 - **T-04** Disbursement execution
 - **T-06** The balance view
 - **T-07** The statements view
-- **U-08** The pattern library grows
-- **U-09** The launch page joins the site
-- **U-10** The front door tells the truth
-- **U-11** The member surface speaks one language
-- **U-12** Two faces, no third
 
 ---
 
