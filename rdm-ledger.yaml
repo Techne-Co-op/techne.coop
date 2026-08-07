@@ -4,7 +4,7 @@
 # Validator: scripts/validate.py — schema, acyclicity, gating.
 # Status marks: drafted | anticipated | open · (blocker)
 # No dates. Dependency is the schedule.
-# 74 items: 10 series and module documents + 64 work packets across 9 trains.
+# 78 items: 10 series and module documents + 68 work packets across 9 trains.
 
 series:
 
@@ -1255,6 +1255,119 @@ shell:
       and fetches none; it is a status contract rendered as a door, the
       same honesty the roadmap practices, at the address members will
       keep.
+
+  - address: U-08
+    title: The pattern library grows
+    intent: >
+      The launch-week audit found the system silent where the surfaces
+      most need it: no icon source since the HUDLayout note went stale,
+      no accessible hint pattern, no disclosure pattern, no form pattern
+      despite two live forms, no named loading or absence states, and no
+      component for the one thing a newcomer must do, choose a class of
+      participation. This packet evolves the constitution: Lucide adopted
+      as the icon source, inlined as SVG with no runtime dependency; term
+      hints that put a weighted word's definition where it stands; the
+      treasury's disclosure promoted to a system pattern; the v4 form;
+      participation cards and the member curve; skeleton, first-run, and
+      honest-absence states.
+    status: anticipated
+    cites: [UI, BP, PRD]
+    ready_when: U-05 verified; the steward adopts by merge.
+    deliverable: >
+      commons.css pattern additions (icons, term hints, disclosure,
+      forms, participation cards, member curve, states); assets/hints.js,
+      dependency free; the design-system reference re-emitted with the
+      Lucide amendment and the new sections.
+    acceptance: >
+      The design-system page documents each new pattern with markup; the
+      token audit and style-lint stay green; hints degrade to hover and
+      focus without their script; disclosure is native details; no title
+      attribute carries a definition anywhere the patterns are adopted.
+    note: >
+      Staged 2026-08-07 on branch U-08 at the steward's direction
+      (T-7 audit session): Lucide chosen over inline hand-drawn and over
+      CDN delivery, prices held to the participation detail surface.
+      Merge is the act of adoption.
+
+  - address: U-09
+    title: The launch page joins the site
+    intent: >
+      The public page was an island: an empty navigation list, a footer
+      without links, a primary action that pointed at its own section,
+      and no path to the framework, the join form, or the record. The
+      audit also found the countdown overflowing a phone screen and
+      load-bearing text set in the decorative faint token. The page keeps
+      its voice and its copy; it gains its connections, its icons, and
+      its accessibility.
+    status: anticipated
+    cites: [UI, BP]
+    ready_when: U-08 adopted.
+    deliverable: >
+      index.html re-emitted: topbar navigation and footer links, the
+      hero action routed to the join surface, three-ways-in cards linked
+      to the participation surface with Lucide icons in their standing
+      wells, countdown wrapped and aria-treated, faint-token text raised
+      to muted, a skip link, section tints reconciled.
+    acceptance: >
+      Every section of the site a visitor may need is reachable from the
+      launch page; the primary action lands somewhere real; no
+      horizontal scroll at 320px; the countdown is quiet to a screen
+      reader; style-lint and the token audit green.
+    note: Staged on branch U-09; merge is the act of adoption.
+
+  - address: U-10
+    title: The front door tells the truth
+    intent: >
+      The join surface said membership is by invitation while the
+      ratified Participation Framework holds two open-enrollment classes.
+      This packet gives the cooperative a public participation surface,
+      cards, comparison, and the member curve, rendered from the
+      framework and citing it as the instrument, and rebuilds the join
+      form as class-aware enrollment: choose a way in, see what it
+      carries, apply with a real form. Prices appear here, on the detail
+      surface, by the steward's call of 2026-08-07.
+    status: anticipated
+    cites: [UI, PRD, BP]
+    ready_when: U-08 adopted; G-A unchanged (the gate chain is not touched).
+    deliverable: >
+      /participation/ public surface built on the U-08 participation
+      cards, citing /legal/participation/; /commons/join/ re-emitted as
+      a v4 form with class selection, bound labels, and live status;
+      term hints on the weighted words.
+    acceptance: >
+      A visitor can reach class self-selection from the launch page in
+      one step, compare the four classes with their costs, and enroll or
+      apply along the track the framework opens to them; the legal
+      instrument is linked, not reformatted; apply_for_membership is
+      called exactly as before.
+    note: Staged on branch U-10; merge is the act of adoption.
+
+  - address: U-11
+    title: The member surface speaks one language
+    intent: >
+      The intranet pages predate the v4 emission and the U-05 register
+      cut both: rounded corners and ember-filled buttons against the
+      constitution, and section marks, packet addresses, migration
+      numbers, and a raw event identifier in member-facing copy. This
+      packet aligns the five signed-in surfaces to v4, finishes the
+      U-05 cut, seats icons in the shell's map, and gives every surface
+      its heading structure, focus states, and first-run orientation.
+    status: anticipated
+    cites: [UI, BP, PRD]
+    ready_when: U-08 adopted; U-05 stands (the register cut extends to
+      section marks and packet addresses in member copy).
+    deliverable: >
+      The five intranet surfaces aligned to v4 (radius, buttons, focus,
+      headings); U-05 leaks removed from member copy; Lucide icons in
+      the shell map and the door cards; aria-current on the active map
+      link; the stale statement link routed to the treasury surface;
+      first-run cards where a newcomer lands.
+    acceptance: >
+      No section mark, packet address, migration number, or event
+      identifier renders in member-facing copy; the five surfaces carry
+      one visual grammar; the shell marks the active section for
+      assistive readers; style-lint and the token audit green.
+    note: Staged on branch U-11; merge is the act of adoption.
 
 cross_cutting:
 

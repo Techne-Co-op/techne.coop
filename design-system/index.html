@@ -567,15 +567,13 @@
   <!-- ICON SYSTEM -->
   <section class="sec" id="icons">
     <h2>Icon System</h2>
-    <p class="lead">Techne uses inline SVG throughout: no emoji, no icon font, no external icon library. Icons render through a shared component that takes a path string and a size, on a 16 or 24 viewBox, 1.5px stroke, round caps, color inherited from <code>currentColor</code>.</p>
-    <pre class="code"><span class="c1">// Icon component (HUDLayout, intranet-src)</span>
-function Icon({ d, size = <span class="c2">16</span> }) {
-  return &lt;svg width={size} height={size} viewBox=<span class="c2">"0 0 16 16"</span>
-    fill=<span class="c2">"none"</span> stroke=<span class="c2">"currentColor"</span> strokeWidth=<span class="c2">"1.5"</span>
-    strokeLinecap=<span class="c2">"round"</span> strokeLinejoin=<span class="c2">"round"</span>&gt;
-    &lt;path d={d} /&gt;
-  &lt;/svg&gt;
-}</pre>
+    <p class="lead">Icons are drawn from the <em>Lucide</em> set and inlined as SVG markup: no emoji, no icon font, no runtime library, no external request. The glyph is copied from Lucide into the page, normalized to a 24 viewBox, 1.5px stroke, round caps and joins, color inherited from <code>currentColor</code>. Amended per the U-08 packet, 2026-08-07: Lucide replaces the hand-drawn set below as the source of new icons; existing glyphs stand until each surface's re-emission.</p>
+    <pre class="code"><span class="c1">&lt;!-- a Lucide icon, inlined; decorative beside its word --&gt;</span>
+&lt;svg class=<span class="c2">"lucide"</span> viewBox=<span class="c2">"0 0 24 24"</span> fill=<span class="c2">"none"</span> stroke=<span class="c2">"currentColor"</span>
+  stroke-width=<span class="c2">"1.5"</span> stroke-linecap=<span class="c2">"round"</span> stroke-linejoin=<span class="c2">"round"</span> aria-hidden=<span class="c2">"true"</span>&gt;
+  &lt;path d=<span class="c2">"..."</span>/&gt;
+&lt;/svg&gt;</pre>
+    <p class="note"><b>Rules.</b> An icon is decorative beside a word, never a meaning alone: <code>aria-hidden="true"</code> on every inline icon, and the adjacent text carries the sense. Sizing through <code>svg.lucide</code> (16px inline, <code>.lg</code> 22px, <code>.ico-well</code> for card wells) in commons.css. Choose the plainest glyph that names the thing; one icon per concept, reused everywhere the concept appears.</p>
     <div class="icons">
       <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg><span class="nm">dashboard</span></div>
       <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="nm">account</span></div>
@@ -592,7 +590,43 @@ function Icon({ d, size = <span class="c2">16</span> }) {
       <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span class="nm">sun</span></div>
       <div class="ic"><svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg><span class="nm">moon</span></div>
     </div>
-    <p class="note">Paths live in <code>HUDLayout.jsx</code> under the <code>ICONS</code> constant. A new icon is a path added there and referenced by key: no import, no bundle overhead. The 16 viewBox serves nav; the 24 viewBox serves larger contexts such as onboarding and profile.</p>
+    <p class="note">The grid above is the formation-era hand-drawn set, retained for the record. The earlier note pointing to <code>HUDLayout.jsx</code> described a component that never landed and is retired with the U-08 amendment: an icon is now Lucide markup inlined where it stands, styled by <code>svg.lucide</code> in commons.css.</p>
+  </section>
+
+  <!-- HINTS, DISCLOSURE, EDUCATION -->
+  <section class="sec" id="hints">
+    <h2>Term Hints &amp; Disclosure</h2>
+    <p class="lead">Two instruments of gated complexity, added per U-08. A <em>term hint</em> gives a weighted word its definition where it stands; a <em>disclosure</em> holds depth behind a one-line summary, closed by default. Together they carry the cooperative principle of education, training, and information into the surface itself: the page teaches at the moment of contact, and the depth waits until asked for.</p>
+
+    <div class="subhead">Term hint</div>
+    <p class="note">A dotted-underline button inside prose. Hover or keyboard focus shows the definition card through CSS alone; <code>/assets/hints.js</code> adds tap-to-open, Escape, outside-tap close, and <code>aria-expanded</code>, so touch readers get the same definition. The card ends with a path deeper, usually the Lexicon. <b>Never a title attribute</b>: those reach neither touch nor keyboard.</p>
+    <pre class="code">&lt;span class=<span class="c2">"term"</span>&gt;
+  &lt;button type=<span class="c2">"button"</span> aria-expanded=<span class="c2">"false"</span>&gt;patronage&lt;/button&gt;
+  &lt;span class=<span class="c2">"term-card"</span> role=<span class="c2">"note"</span>&gt;&lt;b&gt;Patronage&lt;/b&gt; is participation the record
+    counts... &lt;a href=<span class="c2">"/commons/build/lexicon/"</span>&gt;Lexicon&lt;/a&gt;&lt;/span&gt;
+&lt;/span&gt;</pre>
+
+    <div class="subhead">Disclosure</div>
+    <p class="note">Native <code>details.disclose</code> with a mono summary line and a plus mark that becomes a minus when open. Promoted from the treasury statements view, where a month's statement sits closed behind its headline figures. Use it wherever a newcomer needs the sentence and a member may want the paragraphs.</p>
+    <pre class="code">&lt;details class=<span class="c2">"disclose"</span>&gt;
+  &lt;summary&gt;How patronage becomes ownership &lt;span class=<span class="c2">"sum-note"</span>&gt;the pathway&lt;/span&gt;&lt;/summary&gt;
+  &lt;div class=<span class="c2">"disclose-body"</span>&gt;...&lt;/div&gt;
+&lt;/details&gt;</pre>
+  </section>
+
+  <!-- PARTICIPATION CARDS -->
+  <section class="sec" id="participation">
+    <h2>Participation Cards</h2>
+    <p class="lead">The class-of-participation card, added per U-08: how a newcomer meets the four classes of the Participation Framework and chooses a track. The card carries the track banner, the class number and name, the cost, the rights (a mark beside every line, the word carrying the meaning), the admission path, and one action. Cards render on public surfaces from the ratified framework at <code>/legal/participation/</code>, which remains the instrument; the card cites, never restates beyond it.</p>
+    <p class="note"><b>Anatomy</b> (commons.css): <code>.pgrid</code> a responsive comparison grid &middot; <code>.pcard</code> the card, top-ruled in its track's tint via <code>data-tint</code> &middot; <code>.p-track</code>, <code>.p-class</code>, <code>.p-name</code>, <code>.p-price</code> &middot; rights as <code>li.yes</code> (Lucide check, ok green) and <code>li.no</code> (Lucide minus, muted; the sentence states the absence) &middot; <code>.p-admit</code> the admission line &middot; <code>.p-act</code> the action. The <em>member curve</em>, the path through the classes over time, renders as <code>.curve</code> steps: when, what, one sentence.</p>
+  </section>
+
+  <!-- FORMS & STATES -->
+  <section class="sec" id="forms">
+    <h2>Forms &amp; States</h2>
+    <p class="lead">The v4 form and the three honest states, added per U-08. Every form is a real <code>&lt;form&gt;</code> whose submit is the form's own event; every label is bound to its control with <code>for</code>; every hint sits under its field; the status line carries <code>aria-live="polite"</code> so a screen reader hears what a sighted member sees.</p>
+    <p class="note"><b>Form anatomy</b>: <code>.field</code> &gt; <code>label</code> (mono, uppercase, <code>.req</code> mark) + control (serif, 2px radius, blue focus border) + <code>.field-hint</code> (mono, muted, never <code>--faint</code>) &middot; <code>.form-status</code> with <code>.ok</code> / <code>.err</code>, present in the DOM from first paint so the live region exists before the first message.</p>
+    <p class="note"><b>States</b>: loading is <code>.skel</code>, a quiet shimmer that respects reduced motion, never a spinner; absence is <code>.absence</code>, a sentence naming why the thing is not here and what it waits on, after the Share door's practice; a member's first visit to a surface may show one <code>.first-run</code> orientation card, dismissable, its dismissal kept on the device, never shown again.</p>
   </section>
 
   <!-- CONTENT STANDARDS -->
