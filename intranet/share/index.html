@@ -83,7 +83,7 @@ h1 { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(
 
 .dash-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: var(--s3);
   margin-bottom: var(--s4);
 }
@@ -128,6 +128,17 @@ footer a { color: var(--faint); }
 @media (max-width: 640px) {
   main { padding: var(--s5) var(--s4); }
   h1 { font-size: 1.35rem; }
+  /* the fold keeps its columns legible: figures never wrap mid-number, so
+     when the table cannot fit it scrolls inside its own panel rather than
+     pushing the whole page sideways under the reader's thumb */
+  .panel { overflow-x: auto; }
+  table.fold td.lbl { word-break: break-word; }
+  .section-head { min-width: 0; }
+  .section-head .head-note { margin-left: 0; overflow-wrap: anywhere; }
+  /* the period rows carry three nowrap parts; let them wrap rather than
+     set a floor the viewport cannot meet */
+  .period { flex-wrap: wrap; }
+  .period .p-span { min-width: 0; flex-basis: 100%; }
 }
 </style>
 <script src="/assets/error-boundary.js"></script>

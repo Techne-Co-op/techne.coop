@@ -127,7 +127,7 @@ body {
 
 .dash-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: var(--s4);
   margin-bottom: var(--s7);
 }
@@ -215,6 +215,17 @@ footer {
 
 @media (max-width: 640px) {
   .intranet-main { padding: var(--s4); }
+  /* the doors read as a compact list in hand: the description clamps
+     to two lines; the door itself is the destination, not the essay */
+  .dash-card { padding: var(--s4); }
+  .dash-card .card-desc {
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .dash-card .card-go { margin-top: var(--s2); }
+
+  /* every control the thumb has to hit clears 44px */
+  .signout-btn, .fr-close { min-height: 44px; padding: 10px 16px; }
 }
 </style>
 <script src="/assets/error-boundary.js"></script>

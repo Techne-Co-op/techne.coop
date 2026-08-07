@@ -93,8 +93,11 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 /* slide-over drawer (steward walkthrough 2026-08-07) */
 .cis-drawer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 60; opacity: 0; pointer-events: none; transition: opacity var(--micro) var(--ease); }
 .cis-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
-.cis-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(460px, 100vw); background: var(--surface); border-left: 1px solid var(--line); z-index: 61; transform: translateX(102%); transition: transform var(--dur) var(--ease); overflow-y: auto; padding: var(--s5); }
-.cis-drawer.open { transform: translateX(0); }
+/* closed: hidden, not merely pushed aside. A fixed panel parked past the
+   right edge still widens the scrollable area on a phone, and its fields
+   stay in the tab order where no one can see them. */
+.cis-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(460px, 100vw); background: var(--surface); border-left: 1px solid var(--line); z-index: 61; transform: translateX(102%); visibility: hidden; transition: transform var(--dur) var(--ease), visibility 0s linear var(--dur); overflow-y: auto; padding: var(--s5); overscroll-behavior: contain; }
+.cis-drawer.open { transform: translateX(0); visibility: visible; transition: transform var(--dur) var(--ease), visibility 0s; }
 .cis-drawer-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s4); padding-bottom: var(--s3); border-bottom: 1px solid var(--line); }
 .cis-drawer-title { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ember); }
 .cis-drawer-close { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); background: none; border: 1px solid var(--line); padding: 4px 10px; cursor: pointer; }
@@ -122,7 +125,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .tab-chip.sel { border-color: var(--ember); color: var(--ember-text); }
 
 /* compact grid so a widescreen view holds the roll without long scrolling */
-.dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); column-gap: var(--s6); align-items: start; }
+.dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); column-gap: var(--s6); align-items: start; }
 .dir-empty { font-family: var(--mono); font-size: 0.75rem; color: var(--faint); font-style: italic; padding: var(--s3) 0; }
 
 /* directory list */
@@ -182,7 +185,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .pf-two { display: flex; gap: var(--s3); }
 .pf-two > div { flex: 1; }
 .pf-link-row { display: flex; gap: var(--s2); align-items: center; margin-bottom: var(--s2); }
-.pf-link-row input { flex: 1; min-width: 0; background: var(--inset); border: 1px solid var(--line); border-radius: 6px; color: var(--heading); font-family: var(--serif); font-size: 0.88rem; padding: 6px var(--s3); outline: none; }
+.pf-link-row input { flex: 1; min-width: 0; background: var(--inset); border: 1px solid var(--line); border-radius: 6px; color: var(--heading); font-family: var(--serif); font-size: 16px; padding: 6px var(--s3); outline: none; }
 .pf-link-row input:focus { border-color: var(--ember); }
 .pf-rm { font-family: var(--mono); font-size: 0.85rem; line-height: 1; padding: 6px 10px; border-radius: 4px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; flex-shrink: 0; }
 .pf-rm:hover { border-color: var(--warn); color: var(--warn); }
@@ -265,6 +268,11 @@ button.adm-head:hover .adm-label { color: var(--heading); }
 
   /* Your card: full-width opener */
   .edit-open-btn { width: 100%; min-height: 44px; }
+
+  /* every control the thumb has to hit clears 44px */
+  .tab-chip { min-height: 44px; padding: 10px 14px; }
+  .cis-drawer-close { min-height: 44px; padding: 10px 16px; }
+  .pf-link-row button, .pf-add-link { min-height: 44px; }
 
   /* Directory entries: chip stays inline but smaller */
   .dir-entry { gap: var(--s3); }

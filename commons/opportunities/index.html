@@ -96,9 +96,10 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 }
 .kind-opt:hover { color: var(--heading); border-color: var(--rule); }
 .kind-opt.sel { border-color: var(--ember); color: var(--ember-text); }
+/* 16px floor: anything smaller makes iOS zoom the page on focus */
 .post-body input[type=text], .post-body textarea, .respond-input, .resolve-note {
   width: 100%; background: var(--inset); border: 1px solid var(--line); border-radius: 6px;
-  color: var(--heading); font-family: var(--serif); font-size: 0.95rem; padding: 9px var(--s4);
+  color: var(--heading); font-family: var(--serif); font-size: 16px; padding: 9px var(--s4);
   outline: none;
 }
 .post-body input:focus, .post-body textarea:focus, .respond-input:focus, .resolve-note:focus { border-color: var(--ember); }
@@ -156,7 +157,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .response-who { font-family: var(--mono); font-size: 0.7rem; color: var(--ember-text); margin-bottom: 2px; }
 .response-note { font-size: 0.88rem; color: var(--text); white-space: pre-wrap; }
 .respond-form { display: flex; gap: var(--s3); margin-top: var(--s3); align-items: flex-start; }
-.respond-input { flex: 1; min-height: 40px; resize: vertical; font-size: 0.9rem; }
+.respond-input { flex: 1; min-height: 40px; resize: vertical; }
 .respond-btn, .resolve-btn, .withdraw-btn {
   font-family: var(--mono); font-size: 0.72rem; padding: 8px 14px; border-radius: 4px;
   border: 1px solid var(--ember); background: transparent; color: var(--ember-text);

@@ -87,9 +87,10 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
   letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin-bottom: 4px;
 }
 .field-row .hint { font-family: var(--mono); font-size: 0.66rem; color: var(--faint); margin-top: 4px; }
+/* 16px floor: anything smaller makes iOS zoom the page on focus */
 .field-row textarea, .field-row select {
   width: 100%; background: var(--inset); border: 1px solid var(--line); border-radius: 2px;
-  color: var(--heading); font-family: var(--serif); font-size: 0.9rem;
+  color: var(--heading); font-family: var(--serif); font-size: 16px;
   padding: 8px var(--s3); outline: none;
 }
 .field-row textarea { min-height: 96px; resize: vertical; line-height: 1.6; }
