@@ -122,7 +122,8 @@ details.stmt summary { cursor: pointer; padding: var(--s3) var(--s4); display: f
 details.stmt summary::-webkit-details-marker { display: none; }
 details.stmt summary::before { content: "+"; font-family: var(--mono); color: var(--ember-text); width: 12px; }
 details.stmt[open] summary::before { content: "\2212"; }
-details.stmt .stmt-inner { padding: 0 var(--s4) var(--s4); }
+details.stmt .stmt-inner { padding: 0 var(--s4) var(--s4); overflow-x: auto; }
+details.stmt .stmt-inner td { overflow-wrap: anywhere; }
 .stmt-month { font-weight: 700; color: var(--heading); font-size: 1rem; flex: 1; min-width: 120px; }
 .stmt-kpi { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
 .stmt-kpi b { color: var(--heading); font-weight: 500; }
@@ -387,6 +388,14 @@ function renderRibbon(windows) {
    events (TR §9); aggregates only, member-cut visible (§9a). */
 const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
+function fmtAddr(name) {
+  /* a 42-character address conflicts with the card; show head and tail,
+     keep the whole value on the title for hover and copy from the book */
+  const m = /^(0x[0-9a-fA-F]{4})[0-9a-fA-F]{32,}([0-9a-fA-F]{4})$/.exec(String(name || '').trim());
+  if (!m) return escHtml(name);
+  return `<span title="${escHtml(name)}" style="font-family:var(--mono)">${m[1]}\u2026${m[2]}</span>`;
+}
+
 function fmtMonth(m) { return MONTH_NAMES[parseInt(m.slice(5), 10) - 1] + ' ' + m.slice(0, 4); }
 
 function renderStatement(row) {
@@ -433,7 +442,7 @@ function renderStatement(row) {
   /* the book's custody lines */
   const custody = (x.bank_summary || []).filter(c => c.account !== 'Total');
   const custodyRows = custody.map(c =>
-    `<tr><td style="text-align:left">${escHtml(c.account)}</td><td>${fmtUsd(c.open)}</td><td>${fmtUsd(c['in'])}</td><td>${fmtUsd(c.out)}</td><td>${fmtUsd(c.close)}</td></tr>`).join('');
+    `<tr><td style="text-align:left">${fmtAddr(c.account)}</td><td>${fmtUsd(c.open)}</td><td>${fmtUsd(c['in'])}</td><td>${fmtUsd(c.out)}</td><td>${fmtUsd(c.close)}</td></tr>`).join('');
 
   return `<details class="stmt">
     <summary>
