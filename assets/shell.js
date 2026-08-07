@@ -27,6 +27,12 @@
 (function () {
   'use strict';
 
+  /* U-15: a page may declare itself public with data-public on the
+     script tag. Signed out, such a page is left exactly as authored,
+     no gate, no frame; signed in, it gains the members' frame so the
+     map never disappears under a reader's feet. */
+  var PUBLIC = !!(document.currentScript && document.currentScript.hasAttribute('data-public'));
+
   var SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
   var ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
   var TOKEN_KEY = 'sb-ujujwgopdwirebgcpekc-auth-token';
@@ -64,12 +70,9 @@
     { group: 'Common agency', items: [
       { href: '/intranet/direct/', label: 'Direction', icon: '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>', tint: 'blue' }
     ]},
-    { group: 'Steward', steward: true, items: [
-      { href: '/commons/directory/', label: 'Admissions', icon: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>', tint: 'ember', noactive: true }
-    ]},
     { group: 'The record', items: [
-      { href: '/commons/', label: 'The Commonplace Book', icon: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>', tint: 'blue', outside: true },
-      { href: '/commons/build/', label: 'Living roadmap', icon: '<path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>', tint: 'blue', outside: true }
+      { href: '/commons/', label: 'The Commonplace Book', icon: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>', tint: 'blue' },
+      { href: '/commons/build/', label: 'Living roadmap', icon: '<path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>', tint: 'blue' }
     ]}
   ];
 
@@ -410,7 +413,7 @@
 
     var sent = el('div');
     sent.style.display = 'none';
-    var sentLine = el('p', 'cis-gate-status ok', 'ok -- Sign-in link sent.');
+    var sentLine = el('p', 'cis-gate-status ok', 'Link sent.');
     sentLine.style.marginTop = '0';
     sent.appendChild(sentLine);
     sent.appendChild(el('p', 'cis-gate-body', 'Check your email and open the link to continue. You can close this tab.'));
@@ -459,6 +462,16 @@
     var sess = session();
     var pending = !sess && authCallbackPending();
     var signedIn = !!sess || pending;
+    if (!signedIn && PUBLIC) return;
+
+    /* U-15: a public page has already raised its own topbar (U-13).
+       When the members' frame takes the page over, that bar is
+       superseded, not stacked above the content it framed. */
+    if (PUBLIC) {
+      var pub = document.querySelector('.tc-topbar');
+      if (pub && pub.parentNode) pub.parentNode.removeChild(pub);
+    }
+
     var active = activeItem();
 
     /* topbar */
@@ -499,6 +512,7 @@
     var main = el('div', 'cis-main');
     var frame = el('div', 'cis-body');
     var body = document.body;
+    var foot = null;
 
     if (signedIn) {
       /* the members' frame: map, context strip, the page */
@@ -551,6 +565,9 @@
 
       while (body.firstChild) main.appendChild(body.firstChild);
       if (context) main.insertBefore(context, main.firstChild);
+      /* the footer belongs to the whole frame, not the column beside
+         the map (U-15) */
+      foot = main.querySelector('footer');
       frame.appendChild(side);
       frame.appendChild(main);
 
@@ -587,6 +604,7 @@
 
     body.appendChild(topbar);
     body.appendChild(frame);
+    if (foot) body.appendChild(foot);
 
     /* identity: chip detail and the steward group */
     function resolveIdentity(s) {

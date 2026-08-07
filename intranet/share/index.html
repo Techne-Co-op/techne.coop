@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="See your share: contribution history, the capital account as a fold, and the written rules that compute it. Parked until the counting rules adopt.">
+<meta name="description" content="See your share: your patronage by kind under the staged counting rules, the capital account as a fold, and the accounting-year structure. All zeros until the Board adopts COUNTING-RULES v1.">
 <title>Your share &middot; Techne</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -32,6 +32,7 @@ html[data-mode="dark"] {
   --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
   --line: #2A2A30; --rule: #3A3A42;
   --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
   --ember: #C4956A; --ember-text: #D4A57A;
   --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
   --info: #6A8AC4; --info-dim: rgba(106,138,196,0.12);
@@ -42,6 +43,7 @@ html[data-mode="light"] {
   --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
   --line: #D8D3C8; --rule: #9A958A;
   --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
   --ember: #8A6A4A; --ember-text: #6F5436;
   --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
   --info: #4A6FB0; --info-dim: rgba(74,111,176,0.10);
@@ -56,39 +58,66 @@ body {
 }
 /* the topbar, the map, and the mode toggle are the shell's (U-01) */
 
-main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
-h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
-.section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
-.lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; }
+main { flex: 1; max-width: 1120px; margin: 0 auto; padding: var(--s6) var(--s5) var(--s7); width: 100%; }
 
-.axis-line {
-  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
-  color: var(--faint); margin-bottom: var(--s5);
+.page-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; color: var(--ember); text-transform: uppercase; margin-bottom: var(--s2); }
+h1 { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--heading); line-height: 1.25; }
+.section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s3) 0 var(--s3); }
+.lead { color: var(--muted); font-size: 0.92rem; margin-bottom: var(--s3); max-width: 96ch; }
+
+.adoption-banner {
+  background: var(--warn-dim); border: 1px solid var(--warn); border-left: 3px solid var(--warn);
+  border-radius: 2px; padding: var(--s3) var(--s4); margin-bottom: var(--s4);
+  font-size: 0.88rem; line-height: 1.6;
 }
-.axis-line span { color: var(--info); }
+.adoption-banner b { color: var(--heading); font-weight: 700; }
+.adoption-banner a { color: var(--ember-text); }
 
-.parked-card {
-  border: 1px solid var(--line); border-radius: 2px; background: var(--surface);
-  margin-bottom: var(--s5); overflow: hidden;
+.section-head {
+  display: flex; align-items: baseline; gap: var(--s3); flex-wrap: wrap;
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em;
+  color: var(--ember); text-transform: uppercase;
+  padding-bottom: var(--s2); border-bottom: 1px solid var(--line); margin-bottom: var(--s4);
 }
-.parked-header { padding: var(--s4) var(--s5); display: flex; align-items: baseline; gap: var(--s4); border-bottom: 1px solid var(--line); }
-.parked-title { margin: 0; font-weight: 400; flex: 1; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
-.chip {
-  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 2px;
-  border: 1px solid var(--info); color: var(--info); background: var(--info-dim); white-space: nowrap;
+.section-head .head-note { margin-left: auto; letter-spacing: 0.04em; text-transform: none; color: var(--faint); font-size: 0.68rem; }
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--s3);
+  margin-bottom: var(--s4);
 }
-.parked-body { padding: var(--s4) var(--s5); font-size: 0.92rem; }
-.parked-body p { margin-bottom: var(--s4); }
-.parked-body p:last-child { margin-bottom: 0; }
+.dash-card { background: var(--surface); border: 1px solid var(--line); padding: var(--s4) var(--s4); }
+.dash-card .card-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--faint); text-transform: uppercase; margin-bottom: var(--s2); display: flex; justify-content: space-between; gap: var(--s2); }
+.dash-card .card-label .basis { letter-spacing: 0.02em; text-transform: none; }
+.dash-card .card-value { font-family: var(--mono); font-size: 1.25rem; line-height: 1.2; color: var(--ember); }
+.dash-card .card-desc { font-size: 0.78rem; color: var(--muted); margin-top: var(--s2); line-height: 1.5; }
+/* zero-state: the figure is a placeholder, not a measurement */
+.dash-card.zero { border-style: dashed; }
+.dash-card.zero .card-value { color: var(--faint); }
+.dash-card.zero .card-value .unit { font-size: 0.72rem; color: var(--faint); }
 
-.sentence { padding: var(--s3) 0; border-bottom: 1px solid var(--line); display: flex; gap: var(--s3); align-items: baseline; }
-.sentence:last-child { border-bottom: none; }
-.sentence-mark { font-family: var(--mono); font-size: 0.65rem; color: var(--faint); white-space: nowrap; }
-.sentence-text { color: var(--heading); font-size: 0.92rem; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s4); align-items: start; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
 
-.waits { background: var(--inset); border-radius: 2px; padding: var(--s4) var(--s5); font-size: 0.88rem; margin-bottom: var(--s5); }
-.waits b { color: var(--heading); font-weight: 700; }
-.waits a { color: var(--ember-text); }
+.panel { background: var(--surface); border: 1px dashed var(--line); padding: var(--s4); }
+.panel .panel-note { font-size: 0.78rem; color: var(--muted); line-height: 1.55; margin-top: var(--s3); }
+.panel .panel-note a { color: var(--ember-text); }
+
+table.fold { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.78rem; }
+table.fold td { padding: 7px 4px; border-bottom: 1px solid var(--line); }
+table.fold tr:last-child td { border-bottom: none; border-top: 1px solid var(--rule); color: var(--heading); }
+table.fold td.amt { text-align: right; color: var(--faint); white-space: nowrap; }
+table.fold td.lbl { color: var(--text); }
+table.fold td.lbl small { color: var(--faint); font-size: 0.66rem; }
+
+.period-ribbon { display: flex; flex-direction: column; gap: var(--s2); }
+.period { display: flex; align-items: baseline; gap: var(--s3); border: 1px solid var(--line); border-radius: 2px; padding: var(--s2) var(--s3); }
+.period .p-name { font-family: var(--mono); font-size: 0.7rem; color: var(--heading); white-space: nowrap; }
+.period .p-span { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); flex: 1; }
+.period .p-state { font-family: var(--mono); font-size: 0.62rem; padding: 1px 7px; border-radius: 2px; border: 1px solid var(--line); color: var(--faint); white-space: nowrap; }
+.period.open-q { border-style: dashed; }
+.period.first .p-state { border-color: var(--info); color: var(--info); background: var(--info-dim); }
 
 footer {
   border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
@@ -99,7 +128,6 @@ footer a { color: var(--faint); }
 @media (max-width: 640px) {
   main { padding: var(--s5) var(--s4); }
   h1 { font-size: 1.35rem; }
-  .parked-header, .parked-body { padding: var(--s3) var(--s4); }
 }
 </style>
 <script src="/assets/error-boundary.js"></script>
@@ -108,47 +136,91 @@ footer a { color: var(--faint); }
 <body>
 
 <main>
+  <div class="page-label">See your share &middot; Techne &middot; RegenHub, LCA</div>
   <h1>Your share</h1>
   <div class="section-rule"></div>
-  <p class="lead">The slice through which each member sees what they have put in, whether work, patronage, or capital, and the share of results that follows, alongside the written rules that computed it.</p>
+  <p class="lead">What you have put in, by kind, and the capital account that folds over it. Every figure reads from the event record under the counting rules in force; there are none in force yet.</p>
 
-  <div class="axis-line">provenance <span>real</span> &middot; settlement <span>open</span> &middot; temporal <span>ahead</span></div>
+  <div class="adoption-banner">
+    <b>Illustrative structure; nothing is being counted.</b> The Board has not adopted <a href="/commons/patronage/counting-rules/">COUNTING-RULES v1</a>, so no Contribution is valued and every figure on this page is a zero by construction, not a measurement. When the rules are adopted, counting begins from that day forward, never backward, and this page fills in from the record.
+  </div>
 
-  <div class="parked-card">
-    <div class="parked-header">
-      <h2 class="parked-title">What will stand here</h2>
-      <span class="chip">parked &middot; waits on the counting rules</span>
+  <h2 class="section-head">Your patronage by kind <span class="head-note">the six Primitives of COUNTING-RULES v1 &sect;2 &middot; a closed set</span></h2>
+  <div class="dash-grid">
+    <div class="dash-card zero">
+      <div class="card-label"><span>HOURS</span><span class="basis">Labor Schedule tier</span></div>
+      <div class="card-value">0.0 <span class="unit">hrs &middot; $0.00 valued</span></div>
+      <div class="card-desc">Work or practice on a resolved, affiliated Opportunity, claimed by you and confirmed by another hand, at the Labor Schedule tier in force.</div>
     </div>
-    <div class="parked-body">
-      <div class="sentence">
-        <span class="sentence-text">See your contribution history, itemized.</span>
-      </div>
-      <div class="sentence">
-        <span class="sentence-text">See your capital account as a fold over that history. Balances are computed from the event log, never stored as editable numbers.</span>
-      </div>
-      <div class="sentence">
-        <span class="sentence-text">Follow any figure to the events and the policy that produced it.</span>
-      </div>
+    <div class="dash-card zero">
+      <div class="card-label"><span>REVENUE</span><span class="basis">REVENUE percentage</span></div>
+      <div class="card-value">$0.00 <span class="unit">attributed</span></div>
+      <div class="card-desc">Revenue actually received by the cooperative and attributable to your patronage, entering at the percentage the board sets.</div>
+    </div>
+    <div class="dash-card zero">
+      <div class="card-label"><span>CASH</span><span class="basis">face value</span></div>
+      <div class="card-value">$0.00</div>
+      <div class="card-desc">Contributed capital beyond the membership share, recorded at face value with its movement reference.</div>
+    </div>
+    <div class="dash-card zero">
+      <div class="card-label"><span>OUTPUT</span><span class="basis">Program unit value</span></div>
+      <div class="card-value">0 <span class="unit">units &middot; $0.00 valued</span></div>
+      <div class="card-desc">Units a Program's POLICY-PATRONAGE defines, at the unit value in the policy in force. No ad hoc outputs.</div>
+    </div>
+    <div class="dash-card zero">
+      <div class="card-label"><span>PRESENCE</span><span class="basis">presence credit, capped</span></div>
+      <div class="card-value">0 <span class="unit">of 26 occurrences &middot; $0.00</span></div>
+      <div class="card-desc">A registration and a presence mark at a gathering that counts presence, at the board's presence credit, capped per accounting year.</div>
+    </div>
+    <div class="dash-card zero">
+      <div class="card-label"><span>PROPERTY</span><span class="basis">documented FMV</span></div>
+      <div class="card-value">$0.00</div>
+      <div class="card-desc">In-kind property the cooperative accepts, at documented fair market value; a board resolution above the threshold before it posts.</div>
     </div>
   </div>
 
-  <div class="waits">
-    <b>What this door waits on, by name.</b> The Board adopting the counting rules: which contributions count, how each kind is valued, and when the first accounting year begins. The rules are drafted and staged at <a href="/commons/patronage/counting-rules/">COUNTING-RULES v1</a>; they bind on adoption, and this page opens when they do. Nothing here is withheld by an administrator; the numbers are absent because the rules that would compute them are not yet the cooperative's act.
-  </div>
-
-  <div class="parked-card">
-    <div class="parked-header">
-      <h2 class="parked-title">Already true underneath</h2>
-    </div>
-    <div class="parked-body">
-      <p>The substrate has carried capital events, valued events, and the account fold since the eleven laws landed: one voting share per voting member, each account equal to the fold of its member's events, nothing edited, corrections as compensating entries. The walkaway rehearsal proves the fold round-trips. What is missing is not machinery; it is the adopted rules that give the machinery its numbers.</p>
-      <p>The frame of it is written at <a href="/commons/patronage/">Program Patronage</a>, and the weights stay with the Plan.</p>
-    </div>
+  <div class="two-col">
+    <section>
+      <h2 class="section-head">Capital account <span class="head-note">a fold over your events, never a stored number</span></h2>
+      <div class="panel">
+        <table class="fold">
+          <tr><td class="lbl">Opening balance</td><td class="amt">$0.00</td></tr>
+          <tr><td class="lbl">Contributions valued in the year <small>the six kinds above</small></td><td class="amt">$0.00</td></tr>
+          <tr><td class="lbl">Allocated to you at the year's close</td><td class="amt">$0.00</td></tr>
+          <tr><td class="lbl">Corrections <small>compensating entries only, each naming what it corrects</small></td><td class="amt">$0.00</td></tr>
+          <tr><td class="lbl">Closing balance</td><td class="amt">$0.00</td></tr>
+        </table>
+        <p class="panel-note">Your $100 membership share is the Membership Interest of MA &sect;1.4 and the $100 annual dues are operating revenue under Bylaws Schedule A; neither is a Contribution, and neither enters this account. Every line, once live, follows to the events and the policy citation that produced it.</p>
+      </div>
+    </section>
+    <section>
+      <h2 class="section-head">Accounting years &amp; allocation <span class="head-note">COUNTING-RULES v1 &sect;5</span></h2>
+      <div class="panel">
+        <div class="period-ribbon">
+          <div class="period open-q">
+            <span class="p-name">formation period</span>
+            <span class="p-span">Feb 6, 2026 to adoption &middot; real work, uncounted under these rules</span>
+            <span class="p-state">named open</span>
+          </div>
+          <div class="period first">
+            <span class="p-name">first accounting year</span>
+            <span class="p-span">adoption date through Dec 31, 2026</span>
+            <span class="p-state">not begun</span>
+          </div>
+          <div class="period open-q">
+            <span class="p-name">2027 onward</span>
+            <span class="p-span">calendar years</span>
+            <span class="p-state">ahead</span>
+          </div>
+        </div>
+        <p class="panel-note">At each year's close, the year's valued Contributions enter allocation under the weights proposed in the Plan (40 labor, 30 revenue, 20 cash, 10 community). The weights stay with the Plan and each Program's POLICY-PATRONAGE; the counting rules only make quantities valuable. Every valuation is declared by the contributor and confirmed by a distinct hand.</p>
+      </div>
+    </section>
   </div>
 </main>
 
 <footer>
-  See your share &middot; <a href="/commons/prd/">the governing specification</a>
+  See your share &middot; <a href="/commons/patronage/counting-rules/">COUNTING-RULES v1, staged</a> &middot; <a href="/commons/patronage/">Program Patronage</a> &middot; <a href="/commons/prd/">the governing specification</a>
 </footer>
 
 </body>

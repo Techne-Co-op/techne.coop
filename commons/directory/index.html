@@ -33,6 +33,7 @@ html[data-mode="dark"] {
   --line: #2A2A30; --rule: #3A3A42;
   --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
   --ember: #C4956A; --ember-text: #D4A57A;
+  --blue: #6A8AC4; --blue-text: #8AA5D4;
   --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
   --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
   color-scheme: dark;
@@ -42,6 +43,7 @@ html[data-mode="light"] {
   --line: #D8D3C8; --rule: #9A958A;
   --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
   --ember: #8A6A4A; --ember-text: #6F5436;
+  --blue: #4A6AA4; --blue-text: #3A5484;
   --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
   --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
   color-scheme: light;
@@ -53,7 +55,7 @@ body {
 }
 /* the topbar, the map, and the mode toggle are the shell's (U-01) */
 
-main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+main { flex: 1; max-width: 1040px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
 h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
 .section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
 
@@ -79,15 +81,49 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .your-meta { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
 
 /* edit form */
-.edit-row { display: flex; gap: var(--s3); align-items: center; margin-top: var(--s4); }
-.edit-row input {
-  flex: 1; background: var(--inset); border: 1px solid var(--line); border-radius: 6px;
-  color: var(--heading); font-family: var(--serif); font-size: 0.95rem; padding: 8px var(--s4); outline: none;
-}
-.edit-row input:focus { border-color: var(--ember); }
-.edit-row button { font-family: var(--mono); font-size: 0.78rem; padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; background: var(--ember); color: var(--on-accent); }
-.edit-row button:hover { opacity: 0.88; }
 .edit-hint { font-family: var(--mono); font-size: 0.7rem; color: var(--faint); margin-top: var(--s2); }
+.edit-open-btn {
+  font-family: var(--mono); font-size: 0.75rem; padding: 8px 18px; margin-top: var(--s3);
+  border-radius: 4px; border: 1px solid var(--ember); background: transparent;
+  color: var(--ember-text); cursor: pointer;
+  transition: background var(--micro) var(--ease), color var(--micro) var(--ease);
+}
+.edit-open-btn:hover { background: var(--ember); color: var(--on-accent); }
+
+/* slide-over drawer (steward walkthrough 2026-08-07) */
+.cis-drawer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 60; opacity: 0; pointer-events: none; transition: opacity var(--micro) var(--ease); }
+.cis-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+.cis-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(460px, 100vw); background: var(--surface); border-left: 1px solid var(--line); z-index: 61; transform: translateX(102%); transition: transform var(--dur) var(--ease); overflow-y: auto; padding: var(--s5); }
+.cis-drawer.open { transform: translateX(0); }
+.cis-drawer-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s4); padding-bottom: var(--s3); border-bottom: 1px solid var(--line); }
+.cis-drawer-title { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ember); }
+.cis-drawer-close { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); background: none; border: 1px solid var(--line); padding: 4px 10px; cursor: pointer; }
+.cis-drawer-close:hover { color: var(--heading); border-color: var(--rule); }
+.cis-field { margin-bottom: var(--s4); }
+.cis-field label { display: block; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: var(--s2); }
+.cis-field input, .cis-field textarea, .cis-field select { width: 100%; box-sizing: border-box; background: var(--inset); border: 1px solid var(--line); color: var(--heading); font-family: var(--mono); font-size: 16px; padding: 10px 12px; outline: none; }
+.cis-field input:focus, .cis-field textarea:focus, .cis-field select:focus { border-color: var(--blue); }
+@media (prefers-reduced-motion: reduce) { .cis-drawer, .cis-drawer-backdrop { transition: none; } }
+/* drawer field exceptions: the checkbox row and the file picker keep their own shapes */
+.cis-field label.pf-check {
+  display: flex; align-items: center; gap: var(--s2); text-transform: none; letter-spacing: 0;
+  font-size: 0.75rem; color: var(--muted); margin: var(--s2) 0 0; cursor: pointer;
+}
+.cis-field input[type=checkbox] { width: auto; }
+.cis-field input[type=file] { width: auto; background: transparent; border: none; padding: 0; }
+
+/* directory tabs (idiom shared with the opportunities board) */
+.tab-bar { display: flex; gap: var(--s2); margin-bottom: var(--s5); flex-wrap: wrap; }
+.tab-chip {
+  font-family: var(--mono); font-size: 0.72rem; padding: 4px 12px; border-radius: 4px;
+  border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer;
+}
+.tab-chip:hover { color: var(--heading); border-color: var(--rule); }
+.tab-chip.sel { border-color: var(--ember); color: var(--ember-text); }
+
+/* compact grid so a widescreen view holds the roll without long scrolling */
+.dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); column-gap: var(--s6); align-items: start; }
+.dir-empty { font-family: var(--mono); font-size: 0.75rem; color: var(--faint); font-style: italic; padding: var(--s3) 0; }
 
 /* directory list */
 .dir-header { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin-bottom: var(--s4); }
@@ -135,7 +171,6 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .rec-quiet { font-family: var(--mono); font-size: 0.7rem; color: var(--faint); font-style: italic; }
 
 /* profile editor (0009) */
-.pf-grid { margin-top: var(--s4); display: flex; flex-direction: column; gap: var(--s4); border-top: 1px solid var(--line); padding-top: var(--s4); }
 .pf-label { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: var(--s1); display: block; }
 .pf-field input[type=text], .pf-field input[type=email], .pf-field input[type=url], .pf-field textarea {
   width: 100%; background: var(--inset); border: 1px solid var(--line); border-radius: 6px;
@@ -145,7 +180,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .pf-field textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
 .pf-count { font-family: var(--mono); font-size: 0.66rem; color: var(--faint); text-align: right; margin-top: 2px; }
 .pf-two { display: flex; gap: var(--s3); }
-.pf-two .pf-field { flex: 1; }
+.pf-two > div { flex: 1; }
 .pf-link-row { display: flex; gap: var(--s2); align-items: center; margin-bottom: var(--s2); }
 .pf-link-row input { flex: 1; min-width: 0; background: var(--inset); border: 1px solid var(--line); border-radius: 6px; color: var(--heading); font-family: var(--serif); font-size: 0.88rem; padding: 6px var(--s3); outline: none; }
 .pf-link-row input:focus { border-color: var(--ember); }
@@ -184,6 +219,9 @@ footer a { color: var(--faint); }
   padding: var(--s3) var(--s5); border-bottom: 1px solid var(--line);
   display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3);
 }
+button.adm-head { width: 100%; background: none; border: none; border-bottom: 1px solid var(--line); cursor: pointer; text-align: left; }
+button.adm-head[aria-expanded="false"] { border-bottom: none; }
+button.adm-head:hover .adm-label { color: var(--heading); }
 .adm-label {
   font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em;
   text-transform: uppercase; color: var(--ember-text);
@@ -225,10 +263,8 @@ footer a { color: var(--faint); }
   main { padding: var(--s5) var(--s4); }
   h1 { font-size: 1.35rem; }
 
-  /* Your card: edit row stacks vertically */
-  .edit-row { flex-direction: column; align-items: stretch; }
-  .edit-row input { font-size: 16px; /* prevent iOS auto-zoom */ }
-  .edit-row button { min-height: 44px; }
+  /* Your card: full-width opener */
+  .edit-open-btn { width: 100%; min-height: 44px; }
 
   /* Directory entries: chip stays inline but smaller */
   .dir-entry { gap: var(--s3); }
@@ -266,9 +302,26 @@ footer a { color: var(--faint); }
     <div id="save-notice" class="notice"></div>
 
     <div class="dir-header" id="dir-header"></div>
-    <div id="dir-list"></div>
+    <div class="tab-bar" id="tab-bar">
+      <button class="tab-chip sel" data-tab="members" data-label="Members">Members</button>
+      <button class="tab-chip" data-tab="programs" data-label="Programs">Programs</button>
+      <button class="tab-chip" data-tab="orgs" data-label="Organizations">Organizations</button>
+    </div>
+    <div class="dir-grid" id="panel-members"></div>
+    <div class="dir-grid" id="panel-programs" style="display:none"></div>
+    <div class="dir-grid" id="panel-orgs" style="display:none"></div>
   </div>
 </main>
+
+<div class="cis-drawer-backdrop" id="drawer-backdrop"></div>
+<aside class="cis-drawer" id="profile-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+  <div class="cis-drawer-head">
+    <span class="cis-drawer-title" id="drawer-title">Edit your profile</span>
+    <button type="button" class="cis-drawer-close" id="drawer-close">Close</button>
+  </div>
+  <div class="notice" id="drawer-notice"></div>
+  <div id="drawer-form"></div>
+</aside>
 
 <footer>
   <span>Techne &middot; RegenHub, LCA &middot; Boulder, Colorado</span>
@@ -308,7 +361,7 @@ async function loadDirectory(session) {
   const profiles = profilesRes.ok ? await profilesRes.json() : [];
 
   if (!Array.isArray(agents)) {
-    document.getElementById('dir-list').innerHTML = '<p style="color:var(--muted)">Could not load directory.</p>';
+    document.getElementById('panel-members').innerHTML = '<p style="color:var(--muted)">Could not load directory.</p>';
     return;
   }
 
@@ -331,11 +384,19 @@ async function loadDirectory(session) {
     loadAdmissions(self, agents, headers, token);
   }
 
-  // render directory (exclude instruments, show persons + cooperatives + programs)
+  // render directory (exclude instruments) into tabs by kind:
+  // Members (person), Programs (program), Organizations (cooperative and anything else)
   const visible = agents.filter(a => a.kind !== 'instrument');
   document.getElementById('dir-header').textContent = visible.length + ' ' + (visible.length === 1 ? 'entry' : 'entries');
 
-  const list = document.getElementById('dir-list');
+  const panels = {
+    members: document.getElementById('panel-members'),
+    programs: document.getElementById('panel-programs'),
+    orgs: document.getElementById('panel-orgs')
+  };
+  const tabCounts = { members: 0, programs: 0, orgs: 0 };
+  const tabFor = (kind) => kind === 'person' ? 'members' : (kind === 'program' ? 'programs' : 'orgs');
+
   visible.forEach(agent => {
     const mem = memMap[agent.id];
     const prof = profMap[agent.id];
@@ -360,7 +421,9 @@ async function loadDirectory(session) {
       </div>
       <div class="dir-detail" id="detail-${esc(agent.id)}"></div>
     `;
-    list.appendChild(card);
+    const tab = tabFor(agent.kind);
+    tabCounts[tab] += 1;
+    panels[tab].appendChild(card);
 
     const entry = card.querySelector('.dir-entry');
     const detail = card.querySelector('.dir-detail');
@@ -380,6 +443,21 @@ async function loadDirectory(session) {
         card.querySelector('.dir-mark').replaceChildren(img);
       });
     }
+  });
+
+  // tab counts, empty states, and switching
+  document.querySelectorAll('.tab-chip').forEach(btn => {
+    btn.textContent = btn.dataset.label + ' (' + tabCounts[btn.dataset.tab] + ')';
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-chip').forEach(b => b.classList.remove('sel'));
+      btn.classList.add('sel');
+      Object.keys(panels).forEach(k => {
+        panels[k].style.display = k === btn.dataset.tab ? '' : 'none';
+      });
+    });
+  });
+  Object.keys(panels).forEach(k => {
+    if (tabCounts[k] === 0) panels[k].innerHTML = '<div class="dir-empty">No entries in this view yet.</div>';
   });
 }
 
@@ -513,14 +591,24 @@ async function loadAdmissions(self, agents, headers, token) {
     </div>`;
   }).join('');
 
+  const admOpen = pending.length > 0;
   sec.innerHTML = `<div class="adm-card">
-    <div class="adm-head">
+    <button type="button" class="adm-head" id="adm-toggle" aria-expanded="${admOpen ? 'true' : 'false'}" aria-controls="adm-body">
       <span class="adm-label">Admissions &middot; the assigned hand</span>
       <span class="adm-count">${pending.length} pending</span>
+    </button>
+    <div id="adm-body"${admOpen ? '' : ' style="display:none"'}>
+      ${rows || '<div class="adm-empty">No pending applications.</div>'}
+      <div class="adm-hint">Admission is the Board's decision (§1.3); this records it as one act: the state transition and its membership.admitted event together. Binding happens on the member's first sign-in.</div>
     </div>
-    ${rows || '<div class="adm-empty">No pending applications.</div>'}
-    <div class="adm-hint">Admission is the Board's decision (§1.3); this records it as one act: the state transition and its membership.admitted event together. Binding happens on the member's first sign-in.</div>
   </div>`;
+
+  document.getElementById('adm-toggle').addEventListener('click', function () {
+    const body = document.getElementById('adm-body');
+    const nowOpen = body.style.display === 'none';
+    body.style.display = nowOpen ? '' : 'none';
+    this.setAttribute('aria-expanded', nowOpen ? 'true' : 'false');
+  });
 
   sec.querySelectorAll('.adm-btn').forEach(btn => {
     btn.addEventListener('click', async () => {
@@ -553,56 +641,60 @@ function renderYourCard(agent, mem, token, prof, selfEmail) {
       <div class="your-label">Your profile</div>
       <div class="your-name" id="your-name-display">${esc(agent.display_name)}</div>
       <div class="your-meta">${esc(agent.kind)}${mem ? ' &middot; ' + esc(mem.state) : ''}</div>
-      <div class="edit-row">
-        <input type="text" id="name-input" value="${esc(agent.display_name)}" placeholder="Your display name" autocomplete="off">
-        <button id="save-name-btn">Save</button>
-      </div>
+      <button type="button" class="edit-open-btn" id="edit-profile-btn" aria-expanded="false" aria-controls="profile-drawer" aria-haspopup="dialog">Edit your profile</button>
       <div class="edit-hint">§1.13: each member keeps their own record current.</div>
-      <div class="pf-grid" id="pf-grid">
-        <div class="pf-field">
-          <label class="pf-label" for="pf-bio">Bio</label>
-          <textarea id="pf-bio" maxlength="1200" placeholder="A few lines about you">${esc(bioVal)}</textarea>
-          <div class="pf-count" id="pf-bio-count"></div>
-        </div>
-        <div class="pf-two">
-          <div class="pf-field">
-            <label class="pf-label" for="pf-location">Location</label>
-            <input type="text" id="pf-location" maxlength="120" value="${esc(prof && prof.location ? prof.location : '')}" autocomplete="off">
-          </div>
-          <div class="pf-field">
-            <label class="pf-label" for="pf-pronouns">Pronouns</label>
-            <input type="text" id="pf-pronouns" maxlength="40" value="${esc(prof && prof.pronouns ? prof.pronouns : '')}" autocomplete="off">
-          </div>
-        </div>
-        <div class="pf-field">
-          <span class="pf-label">Links (up to 6, http(s) only)</span>
-          <div id="pf-links"></div>
-          <button type="button" class="pf-add" id="pf-add-link">+ add link</button>
-        </div>
-        <div class="pf-field">
-          <label class="pf-label" for="pf-email">Email</label>
-          <input type="email" id="pf-email" maxlength="254" value="${esc(selfEmail || '')}" autocomplete="email">
-          <label class="pf-check"><input type="checkbox" id="pf-email-visible"${prof && prof.email_visible ? ' checked' : ''}> show my email to members</label>
-        </div>
-        <div class="pf-field">
-          <span class="pf-label">Avatar</span>
-          <div class="pf-avatar-row">
-            <img class="pf-avatar-preview" id="pf-avatar-img" alt="" style="display:none">
-            <span class="pf-avatar-fallback" id="pf-avatar-fallback">${esc(initials)}</span>
-            <input type="file" id="pf-avatar-file" class="pf-file" accept="image/jpeg,image/png,image/webp">
-          </div>
-          <div class="edit-hint">JPEG, PNG, or WebP, up to 1 MB.</div>
-        </div>
-        <div class="pf-save-row"><button id="save-profile-btn">Save profile</button></div>
-      </div>
     </div>
   `;
 
+  document.getElementById('drawer-form').innerHTML = `
+    <div class="cis-field">
+      <label for="name-input">Display name</label>
+      <input type="text" id="name-input" value="${esc(agent.display_name)}" placeholder="Your display name" autocomplete="off">
+      <div class="pf-save-row" style="margin-top:var(--s2)"><button id="save-name-btn">Save</button></div>
+    </div>
+    <div class="cis-field">
+      <label for="pf-bio">Bio</label>
+      <textarea id="pf-bio" maxlength="1200" placeholder="A few lines about you">${esc(bioVal)}</textarea>
+      <div class="pf-count" id="pf-bio-count"></div>
+    </div>
+    <div class="pf-two">
+      <div class="cis-field">
+        <label for="pf-location">Location</label>
+        <input type="text" id="pf-location" maxlength="120" value="${esc(prof && prof.location ? prof.location : '')}" autocomplete="off">
+      </div>
+      <div class="cis-field">
+        <label for="pf-pronouns">Pronouns</label>
+        <input type="text" id="pf-pronouns" maxlength="40" value="${esc(prof && prof.pronouns ? prof.pronouns : '')}" autocomplete="off">
+      </div>
+    </div>
+    <div class="cis-field">
+      <span class="pf-label">Links (up to 6, http(s) only)</span>
+      <div id="pf-links"></div>
+      <button type="button" class="pf-add" id="pf-add-link">+ add link</button>
+    </div>
+    <div class="cis-field">
+      <label for="pf-email">Email</label>
+      <input type="email" id="pf-email" maxlength="254" value="${esc(selfEmail || '')}" autocomplete="email">
+      <label class="pf-check"><input type="checkbox" id="pf-email-visible"${prof && prof.email_visible ? ' checked' : ''}> show my email to members</label>
+    </div>
+    <div class="cis-field">
+      <span class="pf-label">Avatar</span>
+      <div class="pf-avatar-row">
+        <img class="pf-avatar-preview" id="pf-avatar-img" alt="" style="display:none">
+        <span class="pf-avatar-fallback" id="pf-avatar-fallback">${esc(initials)}</span>
+        <input type="file" id="pf-avatar-file" class="pf-file" accept="image/jpeg,image/png,image/webp">
+      </div>
+      <div class="edit-hint">JPEG, PNG, or WebP, up to 1 MB.</div>
+    </div>
+    <div class="pf-save-row"><button id="save-profile-btn">Save profile</button></div>
+  `;
+
+  wireDrawer();
   wireProfileEditor(agent, token, prof);
 
   document.getElementById('save-name-btn').addEventListener('click', async function () {
     const val = document.getElementById('name-input').value.trim();
-    const notice = document.getElementById('save-notice');
+    const notice = document.getElementById('drawer-notice');
     if (!val) { showNotice(notice, 'err', 'Name cannot be empty.'); return; }
     this.disabled = true; this.textContent = 'Saving...';
     const res = await fetch(`${SUPABASE_URL}/rest/v1/agents?id=eq.${agent.id}`, {
@@ -623,6 +715,33 @@ function renderYourCard(agent, mem, token, prof, selfEmail) {
       showNotice(notice, 'err', 'Could not save -- check your permissions.');
     }
     this.disabled = false; this.textContent = 'Save';
+  });
+}
+
+// slide-over drawer: opener focuses the first field; close by button, backdrop, or Escape
+function wireDrawer() {
+  const drawer = document.getElementById('profile-drawer');
+  const backdrop = document.getElementById('drawer-backdrop');
+  const openBtn = document.getElementById('edit-profile-btn');
+  const closeBtn = document.getElementById('drawer-close');
+  const openDrawer = () => {
+    drawer.classList.add('open');
+    backdrop.classList.add('open');
+    openBtn.setAttribute('aria-expanded', 'true');
+    const first = drawer.querySelector('input, textarea, select');
+    if (first) first.focus();
+  };
+  const closeDrawer = () => {
+    drawer.classList.remove('open');
+    backdrop.classList.remove('open');
+    openBtn.setAttribute('aria-expanded', 'false');
+    openBtn.focus();
+  };
+  openBtn.addEventListener('click', openDrawer);
+  closeBtn.addEventListener('click', closeDrawer);
+  backdrop.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
   });
 }
 
@@ -682,7 +801,7 @@ function wireProfileEditor(agent, token, prof) {
   }
   const fileEl = document.getElementById('pf-avatar-file');
   fileEl.addEventListener('change', () => {
-    const notice = document.getElementById('save-notice');
+    const notice = document.getElementById('drawer-notice');
     const f = fileEl.files && fileEl.files[0];
     if (!f) { pendingAvatarFile = null; return; }
     if (AVATAR_TYPES.indexOf(f.type) === -1) {
@@ -699,7 +818,7 @@ function wireProfileEditor(agent, token, prof) {
 
   // save
   document.getElementById('save-profile-btn').addEventListener('click', async function () {
-    const notice = document.getElementById('save-notice');
+    const notice = document.getElementById('drawer-notice');
     const btn = this;
     btn.disabled = true; btn.textContent = 'Saving...';
     try {

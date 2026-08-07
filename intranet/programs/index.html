@@ -27,6 +27,7 @@
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
   --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
   --on-accent: #fff;
+  --blue: var(--info);
 }
 html[data-mode="dark"] {
   --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
@@ -94,6 +95,29 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
   background: var(--inset); border-radius: 2px; font-size: 0.85rem; color: var(--muted);
 }
 .recognition .k { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); display: block; margin-bottom: 2px; }
+/* card expansion (U-15): the header is a button; the detail opens in place */
+button.prog-header {
+  width: 100%; background: none; border: none; color: inherit;
+  font: inherit; text-align: left; cursor: pointer;
+}
+button.prog-header:hover .prog-name { color: var(--ember-text); }
+.prog-caret { font-family: var(--mono); font-size: 0.8rem; color: var(--faint); flex-shrink: 0; align-self: center; min-width: 1em; text-align: center; }
+.prog-detail { display: none; }
+.prog-card.open .prog-detail { display: block; }
+.detail-label {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint); margin: 0 var(--s5) var(--s3);
+}
+.detail-list { margin: 0 var(--s5) var(--s4); border: 1px solid var(--line); border-radius: 2px; }
+.detail-row { display: flex; gap: var(--s4); padding: var(--s2) var(--s3); border-bottom: 1px solid var(--line); font-size: 0.85rem; }
+.detail-row:last-child { border-bottom: none; }
+.detail-k { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); width: 148px; flex-shrink: 0; padding-top: 2px; }
+.detail-v { color: var(--text); word-break: break-word; min-width: 0; }
+.detail-v .dim { color: var(--faint); font-style: italic; }
+.schema-note {
+  padding: var(--s3) var(--s5); border-top: 1px solid var(--line);
+  font-family: var(--mono); font-size: 0.68rem; color: var(--muted);
+}
 .prog-opps { border-top: 1px solid var(--line); padding: var(--s4) var(--s5); background: var(--inset); }
 .prog-opps-label {
   font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
@@ -143,6 +167,21 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .field-row input:focus { border-color: var(--ember); }
 .field-row input::placeholder { color: var(--faint); }
 
+/* slide-over drawer (U-15) */
+.cis-drawer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 60; opacity: 0; pointer-events: none; transition: opacity var(--micro) var(--ease); }
+.cis-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+.cis-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(460px, 100vw); background: var(--surface); border-left: 1px solid var(--line); z-index: 61; transform: translateX(102%); transition: transform var(--dur) var(--ease); overflow-y: auto; padding: var(--s5); }
+.cis-drawer.open { transform: translateX(0); }
+.cis-drawer-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s4); padding-bottom: var(--s3); border-bottom: 1px solid var(--line); }
+.cis-drawer-title { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ember); }
+.cis-drawer-close { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); background: none; border: 1px solid var(--line); padding: 4px 10px; cursor: pointer; }
+.cis-drawer-close:hover { color: var(--heading); border-color: var(--rule); }
+.cis-field { margin-bottom: var(--s4); }
+.cis-field label { display: block; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: var(--s2); }
+.cis-field input, .cis-field textarea, .cis-field select { width: 100%; box-sizing: border-box; background: var(--inset); border: 1px solid var(--line); color: var(--heading); font-family: var(--mono); font-size: 16px; padding: 10px 12px; outline: none; }
+.cis-field input:focus, .cis-field textarea:focus, .cis-field select:focus { border-color: var(--blue); }
+@media (prefers-reduced-motion: reduce) { .cis-drawer, .cis-drawer-backdrop { transition: none; } }
+
 .section-head {
   font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
   text-transform: uppercase; color: var(--faint); margin: var(--s6) 0 var(--s4);
@@ -186,22 +225,7 @@ footer a { color: var(--faint); }
     <div id="steward-panel" style="display:none">
       <div class="section-head">Designate a Program</div>
       <p class="lead" style="margin-bottom:var(--s4)">A steward or director act (Bylaws &sect;3.1, &sect;4.1). The Program enters the record as an agent and its designation event together, standing <em>in formation</em> until the board adopts its POLICY-PATRONAGE instrument, which is what brings a Coordinator and a way of recognizing work.</p>
-      <div class="prog-card">
-        <div class="affiliate-sec" style="border-top:none">
-          <div class="field-row">
-            <label for="prog-name">Name</label>
-            <input type="text" id="prog-name" placeholder="RegenHub.xyz" autocomplete="off">
-          </div>
-          <div class="field-row">
-            <label for="prog-purpose">Purpose</label>
-            <input type="text" id="prog-purpose" placeholder="What this Program is for, in a sentence." autocomplete="off">
-          </div>
-          <div class="affiliate-form" style="margin-top:var(--s3)">
-            <button class="affiliate-btn" id="designate-btn">Designate</button>
-            <span class="status-msg" id="designate-status"></span>
-          </div>
-        </div>
-      </div>
+      <button class="affiliate-btn" id="open-designate" aria-expanded="false" aria-controls="designate-drawer" aria-haspopup="dialog">Designate a Program</button>
     </div>
 
     <div class="section-head">The roster</div>
@@ -212,6 +236,26 @@ footer a { color: var(--faint); }
     <div id="unaffiliated"></div>
   </div>
 </main>
+
+<div class="cis-drawer-backdrop" id="drawer-backdrop"></div>
+<aside class="cis-drawer" id="designate-drawer" role="dialog" aria-modal="true" aria-labelledby="designate-drawer-title">
+  <div class="cis-drawer-head">
+    <span class="cis-drawer-title" id="designate-drawer-title">Designate a Program</span>
+    <button class="cis-drawer-close" id="drawer-close" type="button">Close</button>
+  </div>
+  <div class="cis-field">
+    <label for="prog-name">Name</label>
+    <input type="text" id="prog-name" placeholder="RegenHub.xyz" autocomplete="off">
+  </div>
+  <div class="cis-field">
+    <label for="prog-purpose">Purpose</label>
+    <input type="text" id="prog-purpose" placeholder="What this Program is for, in a sentence." autocomplete="off">
+  </div>
+  <div class="affiliate-form" style="margin-top:var(--s3)">
+    <button class="affiliate-btn" id="designate-btn">Designate</button>
+    <span class="status-msg" id="designate-status"></span>
+  </div>
+</aside>
 
 <footer>
   <span>Techne &middot; RegenHub, LCA &middot; Boulder, Colorado</span>
@@ -225,6 +269,7 @@ const SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
 const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
 let sb, currentAgentId;
 let roster = [], affiliations = [], opportunities = [];
+const openPrograms = new Set(); /* which cards stand expanded across re-renders */
 
 function escHtml(s) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -242,6 +287,27 @@ function recognitionHtml(p) {
     weights = Object.entries(p.weights).map(([k,v]) => `${escHtml(k)} ${escHtml(String(v))}%`).join(' · ');
   }
   return `<div class="recognition"><span class="k">How recognition works here &middot; ${escHtml(p.policy_code || '')} ${escHtml(p.policy_version || '')}</span>${prims ? 'Active Primitives: ' + escHtml(prims) + '.' : ''} ${weights ? 'Weights: ' + weights + '.' : ''} Read from the version in force; nothing stored twice.</div>`;
+}
+
+function detailValueHtml(v) {
+  if (v === null || v === undefined || v === '') return '<span class="dim">not on the record yet</span>';
+  if (Array.isArray(v)) {
+    if (v.length === 0) return '<span class="dim">none recorded</span>';
+    return escHtml(v.map(x => typeof x === 'object' ? JSON.stringify(x) : String(x)).join(', '));
+  }
+  if (typeof v === 'object') {
+    const parts = Object.entries(v).map(([k, x]) => `${k}: ${typeof x === 'object' ? JSON.stringify(x) : String(x)}`);
+    if (parts.length === 0) return '<span class="dim">none recorded</span>';
+    return escHtml(parts.join(', '));
+  }
+  return escHtml(String(v));
+}
+
+function detailRowsHtml(p) {
+  /* everything the roster call returns, field by field; nothing invented */
+  return Object.entries(p).map(([k, v]) =>
+    `<div class="detail-row"><span class="detail-k">${escHtml(k.replace(/_/g, ' '))}</span><span class="detail-v">${detailValueHtml(v)}</span></div>`
+  ).join('');
 }
 
 function oppRowHtml(o, aff) {
@@ -283,22 +349,30 @@ function render() {
       const oppsHtml = progOpps.length
         ? progOpps.map(o => oppRowHtml(o, affByOpp[o.id])).join('')
         : `<div class="opp-row"><span class="opp-row-title" style="color:var(--muted);font-size:0.88rem">No open Opportunities affiliated yet.</span></div>`;
-      return `<div class="prog-card">
-        <div class="prog-header">
-          <div>
+      const isOpen = openPrograms.has(p.program_agent_id);
+      return `<div class="prog-card${isOpen ? ' open' : ''}" data-prog="${escHtml(p.program_agent_id)}">
+        <button class="prog-header" type="button" aria-expanded="${isOpen ? 'true' : 'false'}" aria-controls="prog-detail-${escHtml(p.program_agent_id)}">
+          <div style="flex:1">
             <div class="prog-name">${escHtml(p.display_name)}</div>
             <div class="prog-meta">${coord}</div>
           </div>
           <span class="standing-chip ${chipCls}">${escHtml(p.standing)}</span>
-        </div>
+          <span class="prog-caret" aria-hidden="true">${isOpen ? '&minus;' : '+'}</span>
+        </button>
         ${p.purpose ? `<div class="prog-purpose">${escHtml(p.purpose)}</div>` : ''}
-        ${recognitionHtml(p)}
-        <div class="prog-opps">
-          <div class="prog-opps-label">Open opportunities, this Program</div>
-          ${oppsHtml}
+        <div class="prog-detail" id="prog-detail-${escHtml(p.program_agent_id)}">
+          ${recognitionHtml(p)}
+          <div class="detail-label">On the record, from the roster</div>
+          <div class="detail-list">${detailRowsHtml(p)}</div>
+          <div class="prog-opps">
+            <div class="prog-opps-label">Open opportunities, this Program</div>
+            ${oppsHtml}
+          </div>
+          <div class="schema-note">Member affiliations, files, and links arrive with the extended Program schema.</div>
         </div>
       </div>`;
     }).join('');
+    wireProgToggles();
   }
 
   const unaffEl = document.getElementById('unaffiliated');
@@ -318,6 +392,52 @@ function render() {
     </div>`).join('');
     wireAffiliateControls();
   }
+}
+
+// ── Card expansion (U-15) ─────────────────────────────────────────────────────
+
+function wireProgToggles() {
+  document.querySelectorAll('#roster button.prog-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.prog-card');
+      const id = card.dataset.prog;
+      if (openPrograms.has(id)) openPrograms.delete(id); else openPrograms.add(id);
+      const open = openPrograms.has(id);
+      card.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      const caret = btn.querySelector('.prog-caret');
+      if (caret) caret.innerHTML = open ? '&minus;' : '+';
+    });
+  });
+}
+
+// ── The designation drawer (U-15) ─────────────────────────────────────────────
+
+function openDrawer() {
+  document.getElementById('drawer-backdrop').classList.add('open');
+  document.getElementById('designate-drawer').classList.add('open');
+  const opener = document.getElementById('open-designate');
+  if (opener) opener.setAttribute('aria-expanded', 'true');
+  document.getElementById('prog-name').focus();
+}
+
+function closeDrawer() {
+  document.getElementById('drawer-backdrop').classList.remove('open');
+  document.getElementById('designate-drawer').classList.remove('open');
+  const opener = document.getElementById('open-designate');
+  if (opener) { opener.setAttribute('aria-expanded', 'false'); opener.focus(); }
+}
+
+function wireDrawer() {
+  const opener = document.getElementById('open-designate');
+  if (opener.dataset.wired) return;
+  opener.dataset.wired = '1';
+  opener.addEventListener('click', openDrawer);
+  document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+  document.getElementById('drawer-backdrop').addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.getElementById('designate-drawer').classList.contains('open')) closeDrawer();
+  });
 }
 
 // ── The affiliation act (the one verb this page holds) ────────────────────────
@@ -386,6 +506,7 @@ async function showStewardPanel() {
   const roles = (grants || []).map(g => g.role);
   if (!roles.includes('steward') && !roles.includes('director')) return;
   document.getElementById('steward-panel').style.display = 'block';
+  wireDrawer();
   const btn = document.getElementById('designate-btn');
   if (btn && !btn.dataset.wired) {
     btn.dataset.wired = '1';

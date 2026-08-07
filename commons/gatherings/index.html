@@ -33,6 +33,7 @@ html[data-mode="dark"] {
   --line: #2A2A30; --rule: #3A3A42;
   --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
   --ember: #C4956A; --ember-text: #D4A57A;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
   --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
   --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
   color-scheme: dark;
@@ -42,6 +43,7 @@ html[data-mode="light"] {
   --line: #D8D3C8; --rule: #9A958A;
   --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
   --ember: #8A6A4A; --ember-text: #6F5436;
+  --blue: #4A6FB0; --blue-text: #39588F;
   --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
   --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
   color-scheme: light;
@@ -67,6 +69,13 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 #loading { text-align: center; padding: var(--s7) 0; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; }
 #content { display: none; }
 
+.section-head {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--faint); margin: var(--s6) 0 var(--s4);
+}
+.status-msg { font-family: var(--mono); font-size: 0.72rem; color: var(--ok); }
+.status-msg.err { color: var(--warn); }
+
 .notice { padding: var(--s4); border-radius: 6px; margin: var(--s4) 0; font-size: 0.88rem; display: none; }
 .notice.ok  { background: var(--ok-dim); color: var(--ok); border: 1px solid var(--ok); }
 .notice.err { background: var(--warn-dim); color: var(--warn); border: 1px solid var(--warn); }
@@ -77,11 +86,11 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
-  margin-bottom: var(--s5);
+  margin-bottom: var(--s3);
   overflow: hidden;
 }
 .gathering-header {
-  padding: var(--s4) var(--s5);
+  padding: var(--s3) var(--s4);
   border-bottom: 1px solid var(--line);
   display: flex;
   align-items: flex-start;
@@ -113,14 +122,14 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 }
 
 /* sessions list */
-.sessions-list { padding: var(--s4) var(--s5); }
+.sessions-list { padding: var(--s2) var(--s4) var(--s3); }
 .sessions-label {
   font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em;
   text-transform: uppercase; color: var(--faint); margin-bottom: var(--s3);
 }
 .session-row {
   display: flex; align-items: center; gap: var(--s4);
-  padding: var(--s3) 0; border-bottom: 1px solid var(--line);
+  padding: var(--s2) 0; border-bottom: 1px solid var(--line);
 }
 .session-row:last-child { border-bottom: none; }
 .session-dot {
@@ -249,6 +258,44 @@ footer a { color: var(--faint); }
 .gathering-desc { font-size: 0.9rem; color: var(--text); margin-top: var(--s2); }
 @media (max-width: 560px) { .field-pair { grid-template-columns: 1fr; } }
 
+/* archive action (host only) */
+.archive-btn {
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px;
+  border-radius: 4px; border: 1px solid var(--line); background: transparent;
+  color: var(--muted); cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  transition: color var(--micro) var(--ease), border-color var(--micro) var(--ease);
+}
+.archive-btn:hover { color: var(--warn); border-color: var(--warn); }
+.archive-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* past gatherings, folded to keep the calendar short */
+.past-fold { margin-top: var(--s4); }
+.past-fold summary {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--muted); cursor: pointer;
+  padding: var(--s2) 0; list-style-position: inside;
+}
+.past-fold summary:hover { color: var(--heading); }
+.past-fold[open] summary { margin-bottom: var(--s3); }
+
+/* slide-over drawer */
+.cis-drawer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 60; opacity: 0; pointer-events: none; transition: opacity var(--micro) var(--ease); }
+.cis-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
+.cis-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(460px, 100vw); background: var(--surface); border-left: 1px solid var(--line); z-index: 61; transform: translateX(102%); transition: transform var(--dur) var(--ease); overflow-y: auto; padding: var(--s5); }
+.cis-drawer.open { transform: translateX(0); }
+.cis-drawer-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s4); padding-bottom: var(--s3); border-bottom: 1px solid var(--line); }
+.cis-drawer-title { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ember); }
+.cis-drawer-close { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); background: none; border: 1px solid var(--line); padding: 4px 10px; cursor: pointer; }
+.cis-drawer-close:hover { color: var(--heading); border-color: var(--rule); }
+.cis-field { margin-bottom: var(--s4); }
+.cis-field label { display: block; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: var(--s2); }
+.cis-field input, .cis-field textarea, .cis-field select { width: 100%; box-sizing: border-box; background: var(--inset); border: 1px solid var(--line); color: var(--heading); font-family: var(--mono); font-size: 16px; padding: 10px 12px; outline: none; }
+.cis-field input:focus, .cis-field textarea:focus, .cis-field select:focus { border-color: var(--blue); }
+.cis-field label .opt { text-transform: none; letter-spacing: 0; opacity: 0.75; }
+.cis-field textarea { resize: vertical; }
+.cis-drawer .field-pair { grid-template-columns: 1fr; gap: 0; }
+@media (prefers-reduced-motion: reduce) { .cis-drawer, .cis-drawer-backdrop { transition: none; } }
+
 @media (max-width: 640px) {
   /* Topbar: hide nav links, keep brand + mode toggle */
 
@@ -320,45 +367,49 @@ footer a { color: var(--faint); }
     <div class="section-rule"></div>
     <p class="lead">What is happening and who hosts it. Register or cancel your spot directly, or hold one of your own.</p>
 
-    <div id="schedule-panel" style="display:none">
-      <div class="section-head">Hold a gathering</div>
-      <p class="lead" style="margin-bottom:var(--s4)">Any member may hold one; you are its host, and the record says so. Only the title and the start are required.</p>
-      <div class="gathering-card">
-        <div class="gathering-body">
-          <div class="field-row">
-            <label for="g-title">Title</label>
-            <input type="text" id="g-title" maxlength="200" placeholder="What is it called?" autocomplete="off">
-          </div>
-          <div class="field-row">
-            <label for="g-desc">What it is</label>
-            <textarea id="g-desc" rows="2" maxlength="1000" placeholder="Enough for a member to know whether to come."></textarea>
-          </div>
-          <div class="field-row">
-            <label for="g-loc">Where</label>
-            <input type="text" id="g-loc" maxlength="300" placeholder="A room at 1515 Walnut, an address, or a link." autocomplete="off">
-          </div>
-          <div class="field-pair">
-            <div class="field-row">
-              <label for="g-start">Starts</label>
-              <input type="datetime-local" id="g-start">
-            </div>
-            <div class="field-row">
-              <label for="g-end">Ends <span class="opt">optional</span></label>
-              <input type="datetime-local" id="g-end">
-            </div>
-          </div>
-          <div class="schedule-actions">
-            <button class="btn btn-primary" id="schedule-btn">Hold it</button>
-            <span class="status-msg" id="schedule-status"></span>
-          </div>
-        </div>
-      </div>
+    <div id="schedule-panel" style="display:none; margin-bottom: var(--s5);">
+      <button class="btn btn-primary" id="drawer-open-btn" aria-expanded="false" aria-controls="schedule-drawer">Hold a gathering</button>
     </div>
 
     <div class="section-head">The calendar</div>
     <div id="gatherings-list"></div>
   </div>
 </main>
+
+<div class="cis-drawer-backdrop" id="drawer-backdrop"></div>
+<aside class="cis-drawer" id="schedule-drawer" role="dialog" aria-modal="true" aria-labelledby="schedule-drawer-title">
+  <div class="cis-drawer-head">
+    <span class="cis-drawer-title" id="schedule-drawer-title">Hold a gathering</span>
+    <button class="cis-drawer-close" id="drawer-close-btn">close</button>
+  </div>
+  <p class="lead" style="margin-bottom:var(--s4)">Any member may hold one; you are its host, and the record says so. Only the title and the start are required.</p>
+  <div class="cis-field">
+    <label for="g-title">Title</label>
+    <input type="text" id="g-title" maxlength="200" placeholder="What is it called?" autocomplete="off">
+  </div>
+  <div class="cis-field">
+    <label for="g-desc">What it is</label>
+    <textarea id="g-desc" rows="2" maxlength="1000" placeholder="Enough for a member to know whether to come."></textarea>
+  </div>
+  <div class="cis-field">
+    <label for="g-loc">Where</label>
+    <input type="text" id="g-loc" maxlength="300" placeholder="A room at 1515 Walnut, an address, or a link." autocomplete="off">
+  </div>
+  <div class="field-pair">
+    <div class="cis-field">
+      <label for="g-start">Starts</label>
+      <input type="datetime-local" id="g-start">
+    </div>
+    <div class="cis-field">
+      <label for="g-end">Ends <span class="opt">optional</span></label>
+      <input type="datetime-local" id="g-end">
+    </div>
+  </div>
+  <div class="schedule-actions">
+    <button class="btn btn-primary" id="schedule-btn">Hold it</button>
+    <span class="status-msg" id="schedule-status"></span>
+  </div>
+</aside>
 
 <footer>
   <span>Techne &middot; RegenHub, LCA &middot; Boulder, Colorado</span>
@@ -621,6 +672,30 @@ async function scheduleGathering() {
   await loadAll(await sb.auth.getSession().then(r => r.data.session));
 }
 
+// G-05: the host may archive their own gathering; it leaves the calendar but stays in the record
+async function archiveGathering(g, card, btn) {
+  if (!window.confirm('Archive "' + g.title + '"? It leaves the calendar; the record keeps it.')) return;
+  btn.disabled = true;
+  const { error } = await sb.from('gatherings')
+    .update({ archived_at: new Date().toISOString() })
+    .eq('id', g.id);
+  if (error) {
+    alert(Techne.report(error, 'Could not archive right now, please try again.'));
+    btn.disabled = false;
+    return;
+  }
+  await sb.from('events').insert({
+    occurred_at: new Date().toISOString(), actor_agent_id: currentAgentId,
+    kind: 'gathering.archived', agent_id: currentAgentId,
+    payload: { gathering_id: g.id, title: g.title }
+  });
+  card.remove();
+  const container = document.getElementById('gatherings-list');
+  if (container && !container.querySelector('.gathering-card')) {
+    container.innerHTML = '<div class="empty-state"><p>No gatherings on record yet.</p></div>';
+  }
+}
+
 function renderGatherings(gatherings) {
   const container = document.getElementById('gatherings-list');
   if (!gatherings || gatherings.length === 0) {
@@ -637,6 +712,8 @@ function renderGatherings(gatherings) {
   });
 
   container.innerHTML = '';
+  let pastInner = null; // past gatherings fold, created on first past card
+
   gatherings.forEach(g => {
     const sessions = (g.sessions || []).slice().sort((a, b) => new Date(a.starts_at) - new Date(b.starts_at));
     const firstSession = sessions[0];
@@ -650,6 +727,9 @@ function renderGatherings(gatherings) {
     const statusChip = past
       ? '<span class="past-chip">past</span>'
       : '<span class="upcoming-chip">upcoming</span>';
+    const archiveBtnHtml = hostMap[g.id]
+      ? `<button class="archive-btn" id="arch-${g.id}">archive</button>`
+      : '';
 
     let sessionsHtml;
     if (sessions.length === 0) {
@@ -701,14 +781,30 @@ function renderGatherings(gatherings) {
           <div class="gathering-title">${escHtml(g.title)}</div>
           <div class="gathering-host">Hosted by <span>${escHtml(hostName)}</span></div>
         </div>
+        ${archiveBtnHtml}
         ${statusChip}
       </div>
       ${gatheringDetailHtml(g)}
       ${sessionsHtml}`;
 
-    container.appendChild(card);
+    if (past) {
+      if (!pastInner) {
+        const fold = document.createElement('details');
+        fold.className = 'past-fold';
+        fold.innerHTML = '<summary>Past gatherings</summary><div class="past-fold-inner"></div>';
+        container.appendChild(fold);
+        pastInner = fold.querySelector('.past-fold-inner');
+      }
+      pastInner.appendChild(card);
+    } else {
+      container.appendChild(card);
+    }
 
     // Wire buttons
+    if (hostMap[g.id]) {
+      const archBtn = document.getElementById('arch-' + g.id);
+      if (archBtn) archBtn.addEventListener('click', () => archiveGathering(g, card, archBtn));
+    }
     sessions.forEach(s => {
       const regBtn = document.getElementById('reg-' + s.id);
       if (regBtn) regBtn.addEventListener('click', () => handleRegBtn(regBtn, s.id));
@@ -721,9 +817,28 @@ function renderGatherings(gatherings) {
       }
     });
   });
+
+  if (pastInner) {
+    const summary = pastInner.parentElement.querySelector('summary');
+    if (summary) summary.textContent = 'Past gatherings (' + pastInner.children.length + ')';
+  }
 }
 
 // ── Data loading ──────────────────────────────────────────────────────────────
+
+function openScheduleDrawer() {
+  document.getElementById('schedule-drawer').classList.add('open');
+  document.getElementById('drawer-backdrop').classList.add('open');
+  document.getElementById('drawer-open-btn').setAttribute('aria-expanded', 'true');
+  const first = document.getElementById('g-title');
+  if (first) first.focus();
+}
+
+function closeScheduleDrawer() {
+  document.getElementById('schedule-drawer').classList.remove('open');
+  document.getElementById('drawer-backdrop').classList.remove('open');
+  document.getElementById('drawer-open-btn').setAttribute('aria-expanded', 'false');
+}
 
 function showSchedulePanel() {
   if (!currentAgentId) return;
@@ -732,6 +847,18 @@ function showSchedulePanel() {
   panel.style.display = 'block';
   const btn = document.getElementById('schedule-btn');
   if (btn && !btn.dataset.wired) { btn.dataset.wired = '1'; btn.addEventListener('click', scheduleGathering); }
+  const opener = document.getElementById('drawer-open-btn');
+  if (opener && !opener.dataset.wired) {
+    opener.dataset.wired = '1';
+    opener.addEventListener('click', openScheduleDrawer);
+    document.getElementById('drawer-close-btn').addEventListener('click', closeScheduleDrawer);
+    document.getElementById('drawer-backdrop').addEventListener('click', closeScheduleDrawer);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.getElementById('schedule-drawer').classList.contains('open')) {
+        closeScheduleDrawer();
+      }
+    });
+  }
 }
 
 async function loadAll(session) {
@@ -753,10 +880,11 @@ async function loadAll(session) {
     currentIsOverseer = (grants || []).some(g => overseerRoles.includes(g.role));
   }
 
-  // Load gatherings + sessions
+  // Load gatherings + sessions (archived gatherings stay out of the calendar)
   const { data: gatherings, error: gErr } = await sb
     .from('gatherings')
     .select('*, agents(display_name), sessions(*)')
+    .is('archived_at', null)
     .order('created_at', { ascending: true });
 
   if (gErr) {
