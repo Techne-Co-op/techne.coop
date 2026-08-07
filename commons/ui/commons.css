@@ -220,6 +220,122 @@ pre.agent { background:var(--inset); border:1px solid var(--line); border-left:2
 footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s5) 0 var(--s8); font:400 11px/1.8 var(--mono); color:var(--muted); }
 footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
 
+/* ---------- icons: the Lucide set, inlined (U-08) ----------
+   Icons are drawn from the Lucide set and inlined as <svg> markup:
+   viewBox 0 0 24 24, fill none, stroke currentColor, stroke-width 1.5,
+   round caps and joins. No icon font, no external request, no runtime
+   library: the glyph travels with the page and takes the text's color.
+   Every icon is decorative beside a word (aria-hidden="true"); an icon
+   never stands alone for a meaning. */
+svg.lucide { width:16px; height:16px; flex:none; vertical-align:-3px; }
+svg.lucide.lg { width:22px; height:22px; vertical-align:-5px; }
+.ico-well { width:44px; height:44px; flex:none; display:flex; align-items:center; justify-content:center;
+  background:color-mix(in srgb, var(--shue, var(--ember)) 12%, transparent); color:var(--shue-t, var(--ember-text)); }
+.ico-well svg.lucide { width:22px; height:22px; }
+
+/* ---------- term hints (U-08) ----------
+   A word that carries weight takes its definition where it stands,
+   education in place rather than a glossary a click away. Markup:
+     <span class="term"><button type="button" aria-expanded="false">patronage</button>
+       <span class="term-card" role="note">... <a href="/commons/build/lexicon/">Lexicon</a></span></span>
+   assets/hints.js manages the open state, Escape, and outside taps;
+   without it the card still shows on hover and keyboard focus.
+   Never a title attribute: those reach neither touch nor keyboard. */
+.term { position:relative; display:inline-block; }
+.term > button { font:inherit; color:inherit; background:none; border:none; padding:0; cursor:help;
+  border-bottom:1px dotted var(--ember); }
+.term > button:hover, .term > button[aria-expanded="true"] { color:var(--ember-text); border-bottom-style:solid; }
+.term-card { display:none; position:absolute; left:0; top:calc(100% + 6px); z-index:30; width:min(320px, 78vw);
+  background:var(--raised); border:1px solid var(--line); border-left:2px solid var(--ember);
+  padding:var(--s3) var(--s4); font:400 13px/1.6 var(--serif); color:var(--text); text-align:left; }
+.term-card b { color:var(--heading); }
+.term-card a { font-family:var(--mono); font-size:11px; }
+.term.open > .term-card, .term > button:focus-visible + .term-card, .term:hover > .term-card { display:block; }
+
+/* ---------- disclosure (U-08) ----------
+   Gated complexity: the summary states the whole in one line, the body
+   carries the depth, closed by default. Promoted from the treasury
+   statements view. */
+details.disclose { border:1px solid var(--line); background:var(--inset); margin:var(--s3) 0; }
+details.disclose > summary { cursor:pointer; padding:var(--s3) var(--s4); display:flex; gap:var(--s3);
+  align-items:baseline; list-style:none; font:500 13px/1.5 var(--mono); color:var(--heading); }
+details.disclose > summary::-webkit-details-marker { display:none; }
+details.disclose > summary::before { content:"+"; font-family:var(--mono); color:var(--ember-text); width:14px; flex:none; }
+details.disclose[open] > summary::before { content:"\2212"; }
+details.disclose > .disclose-body { padding:0 var(--s4) var(--s4); }
+details.disclose > summary .sum-note { font:400 11px/1.5 var(--mono); color:var(--muted); margin-left:auto; }
+
+/* ---------- forms (U-08) ----------
+   The v4 form: label bound to control, hint under it, status line with
+   aria-live, blue focus, 2px radius. Every form is a <form>; submit is
+   the form's own event, never a click handler alone. */
+.field { margin:0 0 var(--s5); }
+.field > label { display:block; font:500 11px/1.6 var(--mono); letter-spacing:.06em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:var(--s2); }
+.field > label .req { color:var(--warn); margin-left:2px; }
+.field input[type="text"], .field input[type="email"], .field textarea, .field select {
+  width:100%; box-sizing:border-box; background:var(--surface); border:1px solid var(--line); border-radius:2px;
+  color:var(--heading); font:400 16px/1.5 var(--serif); padding:10px var(--s3);
+  transition:border-color var(--micro) var(--ease); }
+.field input:focus, .field textarea:focus, .field select:focus { border-color:var(--blue); outline:none; }
+.field textarea { resize:vertical; min-height:100px; }
+.field-hint { font:400 12px/1.6 var(--mono); color:var(--muted); margin-top:var(--s2); }
+.form-status { min-height:1.5em; font:400 13px/1.6 var(--mono); margin-top:var(--s3); color:var(--muted); }
+.form-status.err { color:var(--warn); }
+.form-status.ok { color:var(--ok); }
+
+/* ---------- participation cards (U-08) ----------
+   A class of participation as a card a newcomer can choose from:
+   track, class, name, cost, rights (a mark beside every line, the word
+   carrying the meaning), admission, and the action. Tint by track via
+   data-tint on the card or its container. */
+.pgrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(232px, 1fr)); gap:var(--s4); margin:var(--s5) 0; }
+.pcard { background:var(--surface); border:1px solid var(--line); border-top:2px solid var(--shue, var(--ember));
+  display:flex; flex-direction:column; }
+.pcard .p-track { font:500 10px/1.6 var(--mono); letter-spacing:.1em; text-transform:uppercase;
+  color:var(--shue-t, var(--ember-text)); padding:var(--s4) var(--s4) 0; }
+.pcard .p-class { font:400 11px/1.6 var(--mono); color:var(--muted); padding:0 var(--s4); }
+.pcard h3, .pcard .p-name { font:700 19px/1.3 var(--serif); color:var(--heading); margin:var(--s2) 0 0; padding:0 var(--s4); }
+.pcard .p-price { font:500 15px/1.4 var(--mono); color:var(--heading); padding:var(--s3) var(--s4);
+  border-bottom:1px solid var(--line); }
+.pcard .p-price small { display:block; font:400 11px/1.6 var(--mono); color:var(--muted); font-variant-numeric:tabular-nums; }
+.pcard ul { list-style:none; margin:0; padding:var(--s3) var(--s4); flex:1; }
+.pcard li { display:flex; gap:8px; align-items:flex-start; font:400 13.5px/1.55 var(--serif);
+  color:var(--text); padding:4px 0; }
+.pcard li svg.lucide { width:14px; height:14px; margin-top:4px; }
+.pcard li.yes svg.lucide { color:var(--ok); }
+.pcard li.no { color:var(--muted); }
+.pcard .p-admit { font:400 12px/1.65 var(--mono); color:var(--muted); padding:var(--s3) var(--s4);
+  border-top:1px solid var(--line); }
+.pcard .p-act { padding:var(--s3) var(--s4) var(--s4); }
+
+/* the member curve: the path through the classes, as steps on a line */
+.curve { display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:var(--s4); margin:var(--s5) 0; }
+.curve .c-step { border-top:2px solid var(--shue, var(--line)); padding-top:var(--s3); }
+.curve .c-when { font:500 10px/1.6 var(--mono); letter-spacing:.08em; text-transform:uppercase;
+  color:var(--shue-t, var(--ember-text)); }
+.curve .c-t { font:700 14px/1.5 var(--serif); color:var(--heading); margin:2px 0 4px; }
+.curve .c-d { font:400 12.5px/1.65 var(--serif); color:var(--text); }
+
+/* ---------- states (U-08) ----------
+   Loading is a visible fact, absence is an honest sentence, and a
+   member's first visit gets one dismissable orientation card. */
+.skel { display:inline-block; height:1em; min-width:5ch; border-radius:2px;
+  background:linear-gradient(90deg, var(--inset), var(--raised), var(--inset));
+  background-size:200% 100%; animation:skel 1.2s linear infinite; }
+@keyframes skel { to { background-position:-200% 0; } }
+.first-run { position:relative; background:var(--surface); border:1px solid var(--line);
+  border-left:2px solid var(--blue); padding:var(--s4) var(--s5); margin:0 0 var(--s5);
+  font:400 14px/1.7 var(--serif); }
+.first-run .fr-title { font:500 11px/1.6 var(--mono); letter-spacing:.08em; text-transform:uppercase;
+  color:var(--blue-text); margin-bottom:var(--s2); }
+.first-run .fr-close { position:absolute; top:6px; right:6px; font:500 11px/1 var(--mono); color:var(--muted);
+  background:none; border:1px solid var(--line); border-radius:2px; padding:4px 8px; cursor:pointer; }
+.first-run .fr-close:hover { color:var(--heading); border-color:var(--rule); }
+.absence { background:var(--inset); border:1px solid var(--line); padding:var(--s4) var(--s5);
+  font:400 14px/1.7 var(--serif); }
+.absence b { color:var(--heading); }
+
 /* ---------- responsive and motion ---------- */
 @media (max-width:760px){
   .mast h1 { font-size:30px; }
@@ -235,4 +351,4 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
 @media (max-width:520px){
   .grid3, .board { grid-template-columns:1fr; }
 }
-@media (prefers-reduced-motion: reduce){ * { transition:none !important; } }
+@media (prefers-reduced-motion: reduce){ * { transition:none !important; animation:none !important; } }
