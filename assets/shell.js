@@ -42,34 +42,34 @@
      The section keeps its name and its colour. */
   var MAP = [
     { group: null, items: [
-      { href: '/intranet/', label: 'Overview', tint: 'gold' }
+      { href: '/intranet/', label: 'Overview', icon: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>', tint: 'gold' }
     ]},
     { group: 'Belong', items: [
-      { href: '/commons/agreements/', label: 'Agreements', tint: 'amber' },
-      { href: '/commons/directory/', label: 'Directory', tint: 'amber' }
+      { href: '/commons/agreements/', label: 'Agreements', icon: '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>', tint: 'amber' },
+      { href: '/commons/directory/', label: 'Directory', icon: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>', tint: 'amber' }
     ]},
     { group: 'Gather', items: [
-      { href: '/commons/gatherings/', label: 'Gatherings', tint: 'coral' }
+      { href: '/commons/gatherings/', label: 'Gatherings', icon: '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>', tint: 'coral' }
     ]},
     { group: 'Find one another', items: [
-      { href: '/commons/opportunities/', label: 'Opportunities', tint: 'rose' },
-      { href: '/intranet/programs/', label: 'Programs', tint: 'rose' }
+      { href: '/commons/opportunities/', label: 'Opportunities', icon: '<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>', tint: 'rose' },
+      { href: '/intranet/programs/', label: 'Programs', icon: '<rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/>', tint: 'rose' }
     ]},
     { group: 'See your share', items: [
-      { href: '/intranet/share/', label: 'Your share', tint: 'violet' }
+      { href: '/intranet/share/', label: 'Your share', icon: '<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>', tint: 'violet' }
     ]},
     { group: 'Treasury', items: [
-      { href: '/intranet/treasury/', label: 'The Desk', tint: 'violet' }
+      { href: '/intranet/treasury/', label: 'The Desk', icon: '<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>', tint: 'violet' }
     ]},
     { group: 'Common agency', items: [
-      { href: '/intranet/direct/', label: 'Direction', tint: 'blue' }
+      { href: '/intranet/direct/', label: 'Direction', icon: '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>', tint: 'blue' }
     ]},
     { group: 'Steward', steward: true, items: [
-      { href: '/commons/directory/', label: 'Admissions', tint: 'ember', noactive: true }
+      { href: '/commons/directory/', label: 'Admissions', icon: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>', tint: 'ember', noactive: true }
     ]},
     { group: 'The record', items: [
-      { href: '/commons/', label: 'The Commonplace Book', tint: 'blue', outside: true },
-      { href: '/commons/build/', label: 'Living roadmap', tint: 'blue', outside: true }
+      { href: '/commons/', label: 'The Commonplace Book', icon: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>', tint: 'blue', outside: true },
+      { href: '/commons/build/', label: 'Living roadmap', icon: '<path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>', tint: 'blue', outside: true }
     ]}
   ];
 
@@ -93,7 +93,8 @@
     '.cis-body{display:flex;align-items:stretch;min-height:calc(100vh - 49px);}',
     '.cis-side{view-transition-name:cis-side;width:212px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--line);padding:20px 0 32px;position:sticky;top:49px;align-self:flex-start;height:calc(100vh - 49px);overflow-y:auto;}',
     '.cis-side .cis-group{padding:6px 16px 4px;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--faint);text-transform:uppercase;margin-top:14px;}',
-    '.cis-side a{display:block;padding:7px 16px;font-family:var(--mono);font-size:.78rem;color:var(--muted);text-decoration:none;letter-spacing:.03em;border-left:2px solid transparent;}',
+    '.cis-side a{display:flex;align-items:center;gap:9px;padding:7px 16px;font-family:var(--mono);font-size:.78rem;color:var(--muted);text-decoration:none;letter-spacing:.03em;border-left:2px solid transparent;}',
+    '.cis-side a svg.lucide{width:14px;height:14px;flex:none;opacity:.75;}',
     '.cis-side a:hover{color:var(--ember);background:var(--surface);}',
     '.cis-side a.active{color:var(--ember);border-left-color:var(--ember);background:linear-gradient(to right, color-mix(in srgb, var(--ember) 10%, transparent), transparent);}',
     '.cis-side a.cis-out{color:var(--faint);}',
@@ -510,10 +511,27 @@
         if (grp.steward) { wrap.id = 'cis-steward-nav'; wrap.style.display = 'none'; }
         if (grp.group) wrap.appendChild(el('div', 'cis-group', grp.group));
         grp.items.forEach(function (it) {
-          var a = el('a', null, it.label);
+          var a = el('a');
           a.href = it.href;
+          if (it.icon) {
+            var ic = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            ic.setAttribute('class', 'lucide');
+            ic.setAttribute('viewBox', '0 0 24 24');
+            ic.setAttribute('fill', 'none');
+            ic.setAttribute('stroke', 'currentColor');
+            ic.setAttribute('stroke-width', '1.5');
+            ic.setAttribute('stroke-linecap', 'round');
+            ic.setAttribute('stroke-linejoin', 'round');
+            ic.setAttribute('aria-hidden', 'true');
+            ic.innerHTML = it.icon;
+            a.appendChild(ic);
+          }
+          a.appendChild(document.createTextNode(it.label));
           if (it.outside) a.className = 'cis-out';
-          if (!it.noactive && !it.outside && normalize(it.href) === here) a.className = 'active';
+          if (!it.noactive && !it.outside && normalize(it.href) === here) {
+            a.className = 'active';
+            a.setAttribute('aria-current', 'page');
+          }
           wrap.appendChild(a);
         });
         if (grp.steward) side.appendChild(wrap);

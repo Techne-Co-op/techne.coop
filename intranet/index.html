@@ -55,6 +55,7 @@ html[data-mode="light"] {
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 html, body { height: 100%; }
 body {
   background: var(--bg);
@@ -171,6 +172,16 @@ body {
   margin-bottom: var(--s4);
 }
 
+.first-run { position: relative; background: var(--surface); border: 1px solid var(--line);
+  border-left: 3px solid var(--blue); padding: var(--s4) var(--s5); margin-bottom: var(--s4);
+  font-size: 0.9rem; }
+.first-run .fr-title { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--blue-text); margin-bottom: var(--s2); }
+.first-run .fr-close { position: absolute; top: 8px; right: 8px; font-family: var(--mono); font-size: 0.68rem;
+  color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 2px;
+  padding: 4px 8px; cursor: pointer; }
+.first-run .fr-close:hover { color: var(--heading); border-color: var(--rule); }
+
 .notice {
   background: var(--surface);
   border-left: 3px solid var(--blue);
@@ -228,11 +239,17 @@ footer {
 
       <div class="notice" id="identity-notice" style="display:none"></div>
 
+      <div class="first-run" id="first-run" style="display:none">
+        <div class="fr-title">First time here?</div>
+        The intranet is a set of doors into one shared record. Start with <a href="/commons/agreements/" style="color:var(--blue-text)">the shelf</a> to see what binds you, <a href="/commons/gatherings/" style="color:var(--blue-text)">the calendar</a> to show up, and <a href="/commons/opportunities/" style="color:var(--blue-text)">the board</a> to find work and play. The map on the left carries everything else.
+        <button class="fr-close" id="fr-close" type="button" aria-label="Dismiss this orientation note">Got it</button>
+      </div>
+
       <div class="notice">
         <strong>One record, many doors.</strong> Everything here reads and writes one shared record, so what you see is what the cooperative knows. Nothing is kept twice and nothing is quietly overwritten. Words that carry weight are defined in <a href="/commons/build/lexicon/" style="color:var(--blue-text)">the Lexicon</a>.
       </div>
 
-      <div class="section-head">The doors</div>
+      <h2 class="section-head">The doors</h2>
       <div class="dash-grid">
         <a class="dash-card door-card" href="/commons/agreements/">
           <div class="card-label">Belong · agreements</div>
@@ -243,7 +260,7 @@ footer {
         <a class="dash-card door-card" href="/commons/directory/">
           <div class="card-label">Belong · directory</div>
           <div class="card-value" style="font-size:1rem">The members</div>
-          <div class="card-desc">The people and entities of the cooperative, each with a profile they alone control (§1.13, §2.9).</div>
+          <div class="card-desc">The people and entities of the cooperative, each with a profile they alone control.</div>
           <div class="card-go">open the directory →</div>
         </a>
         <a class="dash-card door-card" href="/commons/gatherings/">
@@ -279,17 +296,17 @@ footer {
         <div class="dash-card planned">
           <div class="card-label">See your share · account</div>
           <div class="card-value" style="font-size:1rem">Your account</div>
-          <div class="card-desc">Contribution history and the capital account as a fold. Opens when the Board adopts the Q3 counting rules; nothing illustrative shown before then. June statement: <a href="https://techne.institute/intranet/treasury/statements/2026-06.html" style="color:var(--blue-text)">techne.institute ↗</a></div>
+          <div class="card-desc">Contribution history and the capital account as a fold. Opens when the Board adopts the Q3 counting rules; nothing illustrative shown before then. Monthly statements already stand on <a href="/intranet/treasury/" style="color:var(--blue-text)">the treasury view</a>.</div>
         </div>
       </div>
 
       <div id="steward-section" style="display:none">
-        <div class="section-head">The steward's desk</div>
+        <h2 class="section-head">The steward's desk</h2>
         <div class="dash-grid">
           <a class="dash-card door-card steward-card" href="/commons/directory/">
             <div class="card-label">Admissions · the assigned hand</div>
             <div class="card-value" id="stat-pending"> -- </div>
-            <div class="card-desc">Pending applications. The panel at the top of the directory records admission as one act: the state transition and its event together (§1.3, 0008).</div>
+            <div class="card-desc">Pending applications. The panel at the top of the directory records admission as one act, the decision and its record together.</div>
             <div class="card-go">open admissions →</div>
           </a>
           <a class="dash-card door-card steward-card" href="/intranet/treasury/">
@@ -301,7 +318,7 @@ footer {
         </div>
       </div>
 
-      <div class="section-head">The record, live</div>
+      <h2 class="section-head">The record, live</h2>
       <div class="dash-grid">
         <div class="dash-card">
           <div class="card-label">Agents</div>
@@ -464,6 +481,16 @@ async function signOut() {
 document.addEventListener('DOMContentLoaded', function() {
   var signoutBtn = document.getElementById('signout-btn');
   if (signoutBtn) signoutBtn.addEventListener('click', signOut);
+  /* one orientation card, dismissed once, kept on the device */
+  try {
+    var fr = document.getElementById('first-run');
+    if (fr && !localStorage.getItem('cis-first-run-seen')) fr.style.display = '';
+    var frClose = document.getElementById('fr-close');
+    if (frClose) frClose.addEventListener('click', function () {
+      fr.style.display = 'none';
+      try { localStorage.setItem('cis-first-run-seen', '1'); } catch (e) {}
+    });
+  } catch (e) {}
 });
 
 init();
