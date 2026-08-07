@@ -27,6 +27,7 @@
     } catch(e) {}
   })();
 </script>
+<script src="/assets/topbar.js" defer></script>
 <style>
 /* tokens: techne v4, values per commons.css */
 :root {
@@ -66,17 +67,8 @@ a { color: var(--blue-text); text-underline-offset: 3px; }
   background: var(--surface); color: var(--blue-text); border: 1px solid var(--blue); padding: 10px 16px; }
 .skip:focus { left: 12px; top: 12px; }
 
-.topbar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 var(--s5); height: 48px;
-  border-bottom: 1px solid var(--line); background: var(--surface);
-  position: sticky; top: 0; z-index: 10;
-}
-.topbar-brand { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; }
-.topbar-brand strong { color: var(--heading); font-weight: 500; }
-.mode-btn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); background: none;
-  border: 1px solid var(--line); border-radius: 2px; padding: 4px 10px; cursor: pointer; }
-.mode-btn:hover { color: var(--heading); border-color: var(--rule); }
+/* the primary navigation is the shared public topbar,
+   injected by /assets/topbar.js per U-13 */
 
 main { flex: 1; max-width: 640px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
 h1 { font-family: var(--serif); font-size: 1.75rem; font-weight: 700; color: var(--heading); line-height: 1.25; margin-bottom: var(--s4); }
@@ -142,11 +134,6 @@ footer a { color: var(--muted); }
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="topbar">
-  <a class="topbar-brand" href="/"><strong>Techne</strong> &middot; join</a>
-  <button class="mode-btn" id="mode-btn" aria-label="Toggle light and dark mode">light / dark</button>
-</header>
-
 <main id="main">
   <h1>Join Techne</h1>
   <p class="lede">
@@ -228,14 +215,6 @@ footer a { color: var(--muted); }
 <script>
 const SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
 const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
-
-// mode toggle
-document.getElementById('mode-btn').addEventListener('click', function () {
-  var cur = document.documentElement.getAttribute('data-mode');
-  var next = cur === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-mode', next);
-  try { localStorage.setItem('techne-mode', next); } catch(e) {}
-});
 
 // preselect the way from ?way=, the participation page's hand-off
 (function () {

@@ -8,6 +8,7 @@
     document.documentElement.setAttribute('data-mode',m);
   })();
   </script>
+  <script src="/assets/topbar.js" defer></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Encyclopedia of Artifacts · Techne</title>
@@ -56,35 +57,8 @@
     a{color:var(--blue-text);text-decoration:none;}
     a:hover{text-decoration:underline;}
 
-    /* Topbar */
-    .topbar{
-      position:sticky;top:0;z-index:40;
-      display:flex;align-items:center;gap:var(--s5);
-      padding:0 6vw;height:60px;
-      background:color-mix(in srgb,var(--bg) 86%,transparent);
-      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--line);
-    }
-    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0;}
-    .brand .mark{font-family:var(--serif);font-weight:700;font-size:22px;color:var(--heading);letter-spacing:-0.01em;}
-    .nav-links{display:flex;align-items:center;gap:var(--s4);flex:1;list-style:none;}
-    .nav-links a{
-      font-family:var(--mono);font-size:13px;letter-spacing:0.04em;
-      color:var(--muted);text-decoration:none;padding:4px 0;
-      transition:color var(--micro) var(--ease);
-    }
-    .nav-links a:hover{color:var(--text);}
-    .nav-links a[aria-current="page"]{color:var(--heading);}
-    .mode-toggle{
-      margin-left:auto;flex-shrink:0;
-      font-family:var(--mono);font-size:12px;color:var(--muted);
-      background:var(--surface);border:1px solid var(--line);border-radius:2px;
-      padding:9px 17px;cursor:pointer;
-      display:flex;align-items:center;gap:8px;
-      transition:border-color var(--micro) var(--ease),color var(--micro) var(--ease);
-    }
-    .mode-toggle:hover{border-color:var(--blue);color:var(--blue-text);}
-    .mode-toggle:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
+    /* the primary navigation is the shared public topbar,
+       injected by /assets/topbar.js per U-13 */
 
     /* Layout */
     .wrap{max-width:900px;margin:0 auto;padding:0 var(--s5);}
@@ -242,30 +216,11 @@
     }
 
     @media(max-width:600px){
-      .topbar{padding:0 5vw;}
-      .nav-links{display:none;}
       .wrap{padding:0 5vw;}
     }
   </style>
 </head>
 <body>
-
-<header>
-  <div class="topbar">
-    <a class="brand" href="/">
-      <span class="mark">Techne</span>
-    </a>
-    <nav aria-label="Site navigation">
-      <ul class="nav-links">
-        <li><a href="/encyclopedia/" aria-current="page">Encyclopedia</a></li>
-        <li><a href="/legal/">Legal</a></li>
-      </ul>
-    </nav>
-    <button class="mode-toggle" id="modeToggle" aria-label="Toggle light and dark mode">
-      <span id="modeLabel">Light</span>
-    </button>
-  </div>
-</header>
 
 <div class="wrap">
 
@@ -463,25 +418,6 @@
     RegenHub, LCA, operating as Techne &middot; Colorado Public Benefit Limited Cooperative Association &middot; Boulder, CO &middot; July 2026
   </div>
 </footer>
-
-<script>
-(function(){
-  var btn = document.getElementById('modeToggle');
-  var lbl = document.getElementById('modeLabel');
-  function apply(m) {
-    document.documentElement.setAttribute('data-mode', m);
-    lbl.textContent = (m === 'dark') ? 'Light' : 'Dark';
-  }
-  btn.addEventListener('click', function(){
-    var next = document.documentElement.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
-    apply(next);
-    try { localStorage.setItem('techne-mode', next); } catch(e) {}
-  });
-  // Set label to match initial mode (already applied in <head>)
-  var cur = document.documentElement.getAttribute('data-mode') || 'dark';
-  lbl.textContent = (cur === 'dark') ? 'Light' : 'Dark';
-})();
-</script>
 
 </body>
 </html>

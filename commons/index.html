@@ -26,6 +26,7 @@
     document.documentElement.setAttribute('data-mode', m);
   })();
 </script>
+<script src="/assets/topbar.js" defer></script>
 <style>
 /* ============================================================
    TOKENS  --  techne v4
@@ -81,48 +82,8 @@ body {
   transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
 
-/* ============================================================
-   TOPBAR
-   ============================================================ */
-.topbar {
-  position: sticky; top: 0; z-index: 40;
-  display: flex; align-items: center; gap: var(--s5);
-  padding: 0 6vw; height: 60px;
-  background: color-mix(in srgb, var(--bg) 86%, transparent);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
-}
-.brand {
-  display: flex; align-items: center; gap: 12px;
-  text-decoration: none; flex-shrink: 0;
-}
-.mark {
-  font-family: var(--mono); font-size: 0.82rem; font-weight: 500;
-  letter-spacing: 0.06em; color: var(--heading);
-  transition: color var(--micro) var(--ease);
-}
-.brand:hover .mark { color: var(--ember-text); }
-nav { flex: 1; }
-.nav-links {
-  list-style: none; display: flex; gap: var(--s4); align-items: center;
-}
-.nav-links a {
-  font-family: var(--mono); font-size: 0.72rem; font-weight: 400;
-  letter-spacing: 0.04em; color: var(--muted);
-  text-decoration: none;
-  transition: color var(--micro) var(--ease);
-}
-.nav-links a:hover { color: var(--heading); }
-.nav-links a[aria-current="page"] { color: var(--ember-text); }
-.mode-toggle {
-  margin-left: auto; display: flex; align-items: center; gap: 6px;
-  font-family: var(--mono); font-size: 0.7rem; font-weight: 400;
-  color: var(--muted); background: none; border: 1px solid var(--line);
-  border-radius: 3px; padding: 5px 10px; cursor: pointer;
-  transition: color var(--micro) var(--ease), border-color var(--micro) var(--ease);
-}
-.mode-toggle:hover { color: var(--heading); border-color: var(--rule); }
-.mode-toggle svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+/* the primary navigation is the shared public topbar,
+   injected by /assets/topbar.js per U-13 */
 
 /* ============================================================
    MASTHEAD
@@ -294,27 +255,6 @@ footer {
 </head>
 <body>
 
-<header>
-  <div class="topbar">
-    <a class="brand" href="/">
-      <span class="mark">Techne</span>
-    </a>
-    <nav aria-label="Site navigation">
-      <ul class="nav-links">
-        <li><a href="/commons/" aria-current="page">Commons</a></li>
-        <li><a href="/commons/series/">Series</a></li>
-        <li><a href="/commons/build/">Build</a></li>
-        <li><a href="/legal/">Legal</a></li>
-        <li><a href="/intranet/">Intranet</a></li>
-      </ul>
-    </nav>
-    <button class="mode-toggle" id="modeToggle" aria-label="Toggle light and dark mode">
-      <svg id="modeIcon" viewBox="0 0 24 24" aria-hidden="true"></svg>
-      <span id="modeLabel">Light</span>
-    </button>
-  </div>
-</header>
-
 <div class="mast">
   <div class="eyebrow">RegenHub, LCA &middot; Techne &middot; Boulder, Colorado</div>
   <h1>The Commonplace<br>Book</h1>
@@ -388,24 +328,5 @@ footer {
   <span>Techne &middot; techne.coop</span>
 </footer>
 
-<script>
-var ICON = {
-  moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
-  sun:  '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>'
-};
-function paintMode() {
-  var dark = document.documentElement.getAttribute('data-mode') === 'dark';
-  document.getElementById('modeIcon').innerHTML = dark ? ICON.sun : ICON.moon;
-  document.getElementById('modeLabel').textContent = dark ? 'Light' : 'Dark';
-}
-document.getElementById('modeToggle').addEventListener('click', function () {
-  var cur = document.documentElement.getAttribute('data-mode');
-  var next = cur === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-mode', next);
-  try { localStorage.setItem('techne-mode', next); } catch(e) {}
-  paintMode();
-});
-paintMode();
-</script>
 </body>
 </html>
