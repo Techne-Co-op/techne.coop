@@ -96,6 +96,19 @@ body {
 }
 .mono { font-family: var(--mono); }
 em { font-style: italic; color: var(--heading); }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+/* skip link: first tab stop, visible only on focus */
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  font-family: var(--mono); font-size: 13px;
+  background: var(--surface); color: var(--blue-text);
+  border: 1px solid var(--blue); padding: 10px 16px;
+}
+.skip:focus { left: 12px; top: 12px; }
+
+/* inline lucide icons */
+svg.lucide { width: 17px; height: 17px; flex: none; }
 
 /* ============================================================
    TOPBAR
@@ -272,7 +285,7 @@ footer { background: var(--inset); }
 .cd-cap {
   font-family: var(--mono);
   font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--faint);
+  color: var(--muted);
   margin-top: 12px;
 }
 .cd-colon {
@@ -287,7 +300,7 @@ footer { background: var(--inset); }
 }
 .cd-since {
   font-family: var(--serif);
-  font-style: italic; font-size: 16px; color: var(--faint);
+  font-style: italic; font-size: 16px; color: var(--muted);
 }
 
 /* placeholder marker */
@@ -351,7 +364,7 @@ footer { background: var(--inset); }
 .step .when {
   font-family: var(--mono);
   font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--faint);
+  color: var(--muted);
   margin: 16px 0 14px;
 }
 .step h3 {
@@ -374,9 +387,11 @@ footer { background: var(--inset); }
   background: var(--surface);
   border: 1px solid var(--line);
   padding: 40px 36px;
+  display: block; color: inherit; text-decoration: none;
   transition: border-color var(--micro) var(--ease), transform var(--micro) var(--ease);
 }
-.cardx:hover { border-color: var(--rule); transform: translateY(-2px); }
+.cardx:hover { border-color: var(--ember); transform: translateY(-2px); }
+a.cardx:hover .step-act { color: var(--ember-text); }
 .cardx .ico {
   width: 52px; height: 52px;
   background: var(--ember-dim);
@@ -575,8 +590,13 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
 }
 @media (max-width: 600px) {
   body { font-size: 18px; }
-  .topbar { padding: 0 5vw; }
-  .nav-links { display: none; }
+  .topbar { padding: 0 5vw; gap: var(--s3); }
+  /* the links stay reachable on a phone: a quiet scroll, not a cut */
+  .nav-links { overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { white-space: nowrap; }
+  .cd-colon { display: none; }
+  .cd-clock { gap: 10px; }
   .wrap { padding: 0 5vw; }
   .hero { padding-left: 5vw; padding-right: 5vw; }
   .steps { grid-template-columns: 1fr; }
@@ -603,32 +623,41 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
 </head>
 <body>
 
+<a class="skip" href="#main">Skip to content</a>
+
 <!-- topbar -->
-<div class="topbar">
+<header class="topbar">
   <a class="brand" href="/">
     <span class="mark">Techne</span>
   </a>
   <nav aria-label="Site navigation">
     <ul class="nav-links">
+      <li><a href="#grows">The workshop</a></li>
+      <li><a href="#ways">Ways in</a></li>
+      <li><a href="/participation/">Participation</a></li>
+      <li><a href="/commons/">The commons</a></li>
+      <li><a href="/legal/">Legal</a></li>
     </ul>
   </nav>
   <button class="mode-toggle" id="modeToggle" aria-label="Toggle light and dark mode">
     <svg id="modeIcon" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
     <span id="modeLabel">Dark</span>
   </button>
-</div>
+</header>
+
+<main id="main">
 
 <!-- ===== HERO ===== -->
-<header class="hero">
+<section class="hero" aria-labelledby="hero-title">
   <div class="hero-inner">
     <div class="eyebrow"><span class="mono">techn&#275;</span><span class="sep"></span><span>the old word for craft</span></div>
     <span class="accent-rule"></span>
-    <h1>This summer,<br>the workshop opens.<span class="alt">A co-op of many crafts, held in common.</span></h1>
+    <h1 id="hero-title">This summer,<br>the workshop opens.<span class="alt">A co-op of many crafts, held in common.</span></h1>
     <p class="purpose">Techne takes its name from the Greek for craft  --  skill held in the hands and in the community, before art and craft were divided. It began with one craft, technology practiced as craft rather than extraction, and grew into a workshop for many: a cooperative in downtown Boulder where different kinds of makers do serious work side by side, build with others, and own the tools that come out of it. On August 14, a stake in the whole  --  not a subscription to any part.</p>
 
-    <div class="cd">
+    <div class="cd" role="timer" aria-label="Doors open August 14, 2026 at 3:00 PM Mountain Time">
       <span class="cd-label">Counting toward &mdash; not down</span>
-      <div class="cd-clock">
+      <div class="cd-clock" aria-hidden="true">
         <div class="cd-unit"><span class="cd-num t" id="cd-d">--</span><span class="cd-cap">days</span></div>
         <span class="cd-colon">:</span>
         <div class="cd-unit"><span class="cd-num" id="cd-h">--</span><span class="cd-cap">hrs</span></div>
@@ -643,12 +672,12 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
 
     <div class="cta-row">
       <a class="btn primary" href="#ways">Become a member
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        <svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
       <a class="btn ghost" href="#grows">See what takes shape here</a>
     </div>
   </div>
-</header>
+</section>
 
 <!-- ===== SECTION 01 · THE YEAR BEHIND US (band · gold, the past) ===== -->
 <section class="band" data-tint="gold">
@@ -766,7 +795,7 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
   </div>
 </section>
 
-<!-- ===== SECTION 03 · THREE WAYS IN (page · rose, the choosing) ===== -->
+<!-- ===== SECTION 03 · THREE WAYS IN (band · coral, the choosing) ===== -->
 <section class="band" data-tint="coral" id="ways">
   <div class="wrap">
     <div class="section-head">
@@ -776,34 +805,37 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
       <p class="section-lede">You do not have to commit to ownership on day one. Most people begin by showing up, and step deeper as it makes sense.</p>
     </div>
     <div class="cards-3">
-      <div class="cardx">
+      <a class="cardx" href="/participation/#community">
+        <div class="ico"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="tier">Community participant</div>
         <h3>Come by</h3>
         <p>Join an event, take a day pass, meet the people. The lowest step, and the most common place to begin. No commitment beyond curiosity.</p>
-        <div class="step-act">Open now.</div>
-      </div>
-      <div class="cardx">
-        <div class="tier">Coworking member</div>
+        <div class="step-act">Open now &middot; see the tiers &rarr;</div>
+      </a>
+      <a class="cardx" href="/participation/#coworking">
+        <div class="ico"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg></div>
+        <div class="tier">Co-working member</div>
         <h3>Take a desk</h3>
         <p>A regular place to work, with full access to the space and its rhythms. A paying membership, without the obligations of governance.</p>
-        <div class="step-act">Open now.</div>
-      </div>
-      <div class="cardx">
+        <div class="step-act">Open now &middot; see the desks &rarr;</div>
+      </a>
+      <a class="cardx" href="/participation/#cooperative">
+        <div class="ico"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg></div>
         <div class="tier">Cooperative member</div>
         <h3>Become an owner</h3>
         <p>A member-owner with a vote. You help govern the cooperative, share in its work, and carry a piece of its future.</p>
-        <div class="step-act">Opening as the board is seated.</div>
-      </div>
+        <div class="step-act">Opening August 14 &middot; how it works &rarr;</div>
+      </a>
     </div>
     <div class="statusline">
       <span class="chip ok"><span class="dot"></span>filed &amp; operating</span>
       <span class="chip warn"><span class="dot"></span>ownership opens Aug 14</span>
-      <span class="note">Bylaws and Membership Agreement ratified July 2026. Member-owner onboarding opens at launch  --  August 14, 2026.</span>
+      <span class="note"><a href="/legal/">Bylaws and Membership Agreement</a> ratified July 2026. Member-owner onboarding opens at launch  --  August 14, 2026.</span>
     </div>
   </div>
 </section>
 
-<!-- ===== SECTION 04 · JOIN (page · rose, the action) ===== -->
+<!-- ===== SECTION 04 · JOIN (rose, the action) ===== -->
 <section class="join-section" data-tint="rose" id="hello">
   <div class="wrap">
     <div class="join-card">
@@ -812,14 +844,17 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
       <h2>Want to be part of it?</h2>
       <p>Whether you are ready to become an owner or just want to see the space, the door is open. Tell us a little about yourself and we will be in touch.</p>
       <div class="cta-row">
-        <a class="btn primary" href="#hello">Reach out to join
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+        <a class="btn primary" href="/commons/join/">Reach out to join
+          <svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
         </a>
+        <a class="btn ghost" href="/participation/">Compare the ways in</a>
       </div>
-      <div class="reach"></div>
+      <div class="reach">The form opens your intake with the cooperative; a steward replies by email.</div>
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- ===== FOOTER ===== -->
 <footer>
@@ -832,7 +867,21 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
         1515 Walnut Street<br>
         Boulder, Colorado
       </div>
-<div class="col">
+      <div class="col">
+        <span class="h">Participate</span>
+        <a href="/participation/">The ways in</a><br>
+        <a href="/commons/join/">Apply to join</a><br>
+        <a href="/commons/gatherings/">Gatherings</a><br>
+        <a href="/intranet/">Member intranet</a>
+      </div>
+      <div class="col">
+        <span class="h">The commons</span>
+        <a href="/commons/">The Commonplace Book</a><br>
+        <a href="/commons/build/">The living roadmap</a><br>
+        <a href="/legal/">Legal instruments</a><br>
+        <a href="/legal/participation/">Participation Framework</a>
+      </div>
+      <div class="col">
         <span class="h">On the record</span>
         Colorado Limited Cooperative Association<br>
         Public Benefit entity<br>
