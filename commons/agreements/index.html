@@ -58,6 +58,12 @@ body {
 /* the topbar, the map, and the mode toggle are the shell's (U-01) */
 
 main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+/* widescreen: the index sits in two columns so the whole shelf reads without scrolling */
+@media (min-width: 1100px) {
+  main { max-width: 1080px; }
+  #agreements-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--s6); align-items: start; }
+  .group-section { min-width: 0; }
+}
 h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
 .section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
 
@@ -73,35 +79,45 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 /* content */
 #content { display: none; }
 
-.group-head { margin: var(--s6) 0 var(--s3); }
-.group-head:first-child { margin-top: 0; }
+.group-head { margin: var(--s5) 0 var(--s3); }
+.group-section:first-child .group-head { margin-top: 0; }
 .group-title { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ember-text); }
 .group-note { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
 .agreement-card {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
-  padding: var(--s5);
-  margin-bottom: var(--s4);
+  margin-bottom: var(--s3);
+  overflow: hidden;
 }
-.agreement-header {
+/* the collapsed row: title, version, standing at a glance; click to open the detail */
+.agreement-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: var(--s4);
-  margin-bottom: var(--s3);
+  padding: var(--s3) var(--s4);
+  cursor: pointer;
 }
+.agreement-row:hover { background: var(--raised); }
+.agreement-row:focus-visible { outline: 2px solid var(--ember); outline-offset: -2px; }
 .agreement-title {
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   font-weight: 700;
   color: var(--heading);
 }
 .agreement-meta {
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--faint);
-  margin-top: var(--s2);
+  margin-top: 2px;
 }
+.agreement-detail {
+  display: none;
+  padding: 0 var(--s4) var(--s4);
+  border-top: 1px solid var(--line);
+}
+.agreement-detail.open { display: block; }
 .sig-chip {
   font-family: var(--mono);
   font-size: 0.72rem;
@@ -196,9 +212,8 @@ footer a { color: var(--faint); }
   main { padding: var(--s5) var(--s4); }
   h1 { font-size: 1.35rem; }
 
-  /* Agreement card: header stacks vertically so chip sits below title */
-  .agreement-card { padding: var(--s4); }
-  .agreement-header { flex-direction: column; gap: var(--s2); }
+  /* Agreement row stacks vertically so chip sits below title */
+  .agreement-row { flex-direction: column; align-items: flex-start; gap: var(--s2); }
   .sig-chip { align-self: flex-start; }
 
   /* Sign panel actions stack vertically */
@@ -333,18 +348,23 @@ async function loadAgreements(user) {
       : active.filter(ag => group.kinds.includes(ag.kind || 'contract'));
     if (!rows.length) return;
 
+    const section = document.createElement('section');
+    section.className = 'group-section';
+
     const head = document.createElement('div');
     head.className = 'group-head';
     head.innerHTML = `<div class="group-title">${esc(group.head)}</div><div class="group-note">${esc(group.note)}</div>`;
-    list.appendChild(head);
+    section.appendChild(head);
 
     rows.forEach(ag => {
       const card = document.createElement('div');
       card.className = 'agreement-card';
       card.dataset.agreementId = ag.id;
       renderCard(card, ag, standing[ag.id], agentId, agentName, group.key);
-      list.appendChild(card);
+      section.appendChild(card);
     });
+
+    list.appendChild(section);
   });
 }
 
@@ -356,16 +376,17 @@ function renderCard(card, ag, held, agentId, agentName, groupKey) {
   if (groupKey === 'coming') {
     const readLink = ag.uri
       ? `<a class="agreement-link" href="${esc(ag.uri)}" target="_blank" rel="noopener">Read the full text &rarr;</a>`
-      : '';
+      : '<span class="agreement-meta">No text on file yet.</span>';
     card.innerHTML = `
-      <div class="agreement-header">
+      <div class="agreement-row" role="button" tabindex="0" aria-expanded="false" aria-controls="detail-${esc(ag.id)}">
         <div>
           <div class="agreement-title">${esc(ag.title)}</div>
           <div class="agreement-meta">${esc(ag.code)} &middot; ${esc(ag.version)} &middot; anticipated</div>
         </div>
         <span class="sig-chip unsigned">coming into effect</span>
       </div>
-      <div>${readLink}</div>`;
+      <div class="agreement-detail" id="detail-${esc(ag.id)}">${readLink}</div>`;
+    wireToggle(card);
     return;
   }
 
@@ -394,19 +415,25 @@ function renderCard(card, ag, held, agentId, agentName, groupKey) {
       <div class="notice" id="sign-notice-${esc(ag.id)}"></div>
     </div>` : '';
 
+  const body = (readLink || actBtn)
+    ? `${readLink}${actBtn}`
+    : '<span class="agreement-meta">No text on file.</span>';
+
   card.innerHTML = `
-    <div class="agreement-header">
+    <div class="agreement-row" role="button" tabindex="0" aria-expanded="false" aria-controls="detail-${esc(ag.id)}">
       <div>
         <div class="agreement-title">${esc(ag.title)}</div>
         <div class="agreement-meta">${esc(ag.code)} &middot; ${esc(ag.version)} &middot; effective ${fmtDate(ag.effective_date)}</div>
       </div>
       <span id="chip-${esc(ag.id)}">${chip}</span>
     </div>
-    <div>
-      ${readLink}${actBtn}
+    <div class="agreement-detail" id="detail-${esc(ag.id)}">
+      <div>${body}</div>
+      ${panel}
     </div>
-    ${panel}
   `;
+
+  wireToggle(card);
 
   const btn = card.querySelector('.sign-btn');
   if (btn) {
@@ -463,6 +490,21 @@ function renderCard(card, ag, held, agentId, agentName, groupKey) {
       }
     });
   }
+}
+
+// the row opens and closes its detail; buttons and links inside the detail keep their own behavior
+function wireToggle(card) {
+  const row = card.querySelector('.agreement-row');
+  const detail = card.querySelector('.agreement-detail');
+  if (!row || !detail) return;
+  const toggle = () => {
+    const open = detail.classList.toggle('open');
+    row.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+  row.addEventListener('click', toggle);
+  row.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+  });
 }
 
 function fmtDate(iso) {

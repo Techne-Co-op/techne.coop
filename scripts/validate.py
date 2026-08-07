@@ -321,9 +321,15 @@ def check_one_navigation(packets):
     """One primary navigation per page (U-13): every HTML page loads exactly
     one of the two shared frames, /assets/shell.js (signed-in) or
     /assets/topbar.js (public), and no page carries an inline topbar of its
-    own. Drift between hand-rolled topbars is what this check retires."""
+    own. Drift between hand-rolled topbars is what this check retires.
+
+    One page may carry both (U-15): a record page the members' map points
+    at declares shell.js data-public, so it renders exactly as authored to
+    the public and gains the members' frame to a member. Only one bar is
+    ever on screen; shell.js retires the public topbar when it takes over."""
     import re as _re
     shell_re = _re.compile(r'<script[^>]+src="/assets/shell\.js"')
+    public_re = _re.compile(r'<script[^>]+src="/assets/shell\.js"[^>]*\sdata-public')
     topbar_re = _re.compile(r'<script[^>]+src="/assets/topbar\.js"')
     inline_re = _re.compile(r'class="topbar"|class="nav-links"|class="top-nav"')
     for p in sorted(REPO_ROOT.rglob("*.html")):
@@ -331,7 +337,7 @@ def check_one_navigation(packets):
         text = p.read_text(encoding="utf-8", errors="replace")
         has_shell = bool(shell_re.search(text))
         has_topbar = bool(topbar_re.search(text))
-        if has_shell and has_topbar:
+        if has_shell and has_topbar and not public_re.search(text):
             err(f"{rel}: loads both shell.js and topbar.js; a page carries one frame (U-13)")
         elif not has_shell and not has_topbar:
             err(f"{rel}: loads neither shell.js nor topbar.js; every page carries one primary navigation (U-13)")
