@@ -289,7 +289,7 @@ details.disclose > summary .sum-note { font:400 11px/1.5 var(--mono); color:var(
    track, class, name, cost, rights (a mark beside every line, the word
    carrying the meaning), admission, and the action. Tint by track via
    data-tint on the card or its container. */
-.pgrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(232px, 1fr)); gap:var(--s4); margin:var(--s5) 0; }
+.pgrid { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(232px, 100%), 1fr)); gap:var(--s4); margin:var(--s5) 0; }
 .pcard { background:var(--surface); border:1px solid var(--line); border-top:2px solid var(--shue, var(--ember));
   display:flex; flex-direction:column; }
 .pcard .p-track { font:500 10px/1.6 var(--mono); letter-spacing:.1em; text-transform:uppercase;
@@ -310,7 +310,7 @@ details.disclose > summary .sum-note { font:400 11px/1.5 var(--mono); color:var(
 .pcard .p-act { padding:var(--s3) var(--s4) var(--s4); }
 
 /* the member curve: the path through the classes, as steps on a line */
-.curve { display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:var(--s4); margin:var(--s5) 0; }
+.curve { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(170px, 100%), 1fr)); gap:var(--s4); margin:var(--s5) 0; }
 .curve .c-step { border-top:2px solid var(--shue, var(--line)); padding-top:var(--s3); }
 .curve .c-when { font:500 10px/1.6 var(--mono); letter-spacing:.08em; text-transform:uppercase;
   color:var(--shue-t, var(--ember-text)); }

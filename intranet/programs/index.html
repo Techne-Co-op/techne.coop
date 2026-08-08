@@ -140,8 +140,8 @@ button.prog-header:hover .prog-name { color: var(--ember-text); }
 .affiliate-form { display: flex; gap: var(--s3); align-items: center; flex-wrap: wrap; }
 .affiliate-form select {
   background: var(--inset); border: 1px solid var(--line); border-radius: 2px;
-  color: var(--heading); font-family: var(--serif); font-size: 0.9rem; padding: 8px var(--s3);
-  outline: none; flex: 1; min-width: 200px;
+  color: var(--heading); font-family: var(--serif); font-size: 16px; padding: 8px var(--s3);
+  outline: none; flex: 1; min-width: 0;
 }
 .affiliate-btn {
   font-family: var(--mono); font-size: 0.72rem; padding: 8px 14px; border-radius: 2px;
@@ -170,8 +170,11 @@ button.prog-header:hover .prog-name { color: var(--ember-text); }
 /* slide-over drawer (U-15) */
 .cis-drawer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 60; opacity: 0; pointer-events: none; transition: opacity var(--micro) var(--ease); }
 .cis-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
-.cis-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(460px, 100vw); background: var(--surface); border-left: 1px solid var(--line); z-index: 61; transform: translateX(102%); transition: transform var(--dur) var(--ease); overflow-y: auto; padding: var(--s5); }
-.cis-drawer.open { transform: translateX(0); }
+/* closed: hidden, not merely pushed aside. A fixed panel parked past the
+   right edge still widens the scrollable area on a phone, and its fields
+   stay in the tab order where no one can see them. */
+.cis-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(460px, 100vw); background: var(--surface); border-left: 1px solid var(--line); z-index: 61; transform: translateX(102%); visibility: hidden; transition: transform var(--dur) var(--ease), visibility 0s linear var(--dur); overflow-y: auto; padding: var(--s5); overscroll-behavior: contain; }
+.cis-drawer.open { transform: translateX(0); visibility: visible; transition: transform var(--dur) var(--ease), visibility 0s; }
 .cis-drawer-head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s4); padding-bottom: var(--s3); border-bottom: 1px solid var(--line); }
 .cis-drawer-title { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ember); }
 .cis-drawer-close { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); background: none; border: 1px solid var(--line); padding: 4px 10px; cursor: pointer; }
@@ -204,6 +207,14 @@ footer a { color: var(--faint); }
   .prog-opps, .affiliate-sec { padding: var(--s3) var(--s4); }
   .affiliate-btn { min-height: 44px; padding: 10px 16px; }
   .btn-primary { width: 100%; min-height: 44px; }
+  /* detail rows stack: a 148px key column leaves no room for the value */
+  .detail-row { flex-direction: column; gap: 2px; }
+  .detail-k { width: auto; padding-top: 0; }
+
+  /* every control the thumb has to hit clears 44px */
+  .cis-drawer-close { min-height: 44px; padding: 10px 16px; }
+  .affiliate-form select { min-height: 44px; }
+  .prog-header { min-height: 44px; }
 }
 </style>
 <script src="/assets/error-boundary.js"></script>

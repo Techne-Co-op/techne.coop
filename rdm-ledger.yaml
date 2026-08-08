@@ -1546,6 +1546,43 @@ shell:
       of them waiting on the steward: the sender spend and the
       affiliation authority that gates U-16.
 
+  - address: U-17
+    title: The intranet in the hand
+    intent: >
+      The members' surface was built and reviewed on a desk. The
+      steward opened it on a phone on 2026-08-07 and found it did
+      not meet the ordinary expectations of a page held in one
+      hand: the bar overflowed, forms invited the system to zoom,
+      controls sat under the size a thumb can reliably hit, and a
+      grid track wider than the screen pushed whole sections
+      sideways. This packet holds the members' surface to the same
+      standard at 320 and 390 as at 1280.
+    status: open · delivered
+    cites: [U-15, U-13, UI]
+    ready_when: U-15 adopted.
+    deliverable: >
+      The topbar sheds the member chip on a narrow screen and the
+      identity moves to the foot of the map, where there is room
+      for it; the brand drops its suffix under 420. Every field
+      that takes typing reads at 16px, the floor below which
+      mobile browsers zoom the page on focus. Every control a
+      thumb must hit clears 44px: the tabs, the archive verb, the
+      drawer close, sign out, the affiliate select. A closed
+      drawer is hidden rather than parked past the right edge,
+      which both keeps it out of the tab order and stops it
+      widening the page. Grid tracks that could not shrink below
+      their minimum, minmax with a fixed floor, become
+      minmax(min(N, 100%), 1fr) in all six places they appear.
+      The dashboard doors clamp their descriptions to two lines,
+      the Program detail rows stack, the gathering card's own
+      words sit inside its padding, and the share page's period
+      rows wrap instead of setting a floor no phone can meet.
+    acceptance: >
+      At 320 and 390 CSS pixels, signed in, every members' surface
+      reports zero horizontal scroll and no field below 16px;
+      the desktop rendering is unchanged.
+    note: Staged on branch U-17; merge is the act of adoption.
+
 cross_cutting:
 
   - address: X-01

@@ -89,6 +89,8 @@
     '.cis-topbar{view-transition-name:cis-topbar;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 20px;height:48px;border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:0;z-index:40;}',
     '.cis-brand{font-family:var(--mono);font-size:.78rem;color:var(--ember);letter-spacing:.08em;text-decoration:none;white-space:nowrap;}',
     '.cis-topbar-right{display:flex;align-items:center;gap:10px;min-width:0;}',
+    '.cis-side-you{display:none;}',
+    '@media (max-width:420px){.cis-brand-suffix{display:none;}}',
     '.cis-chip{font-family:var(--mono);font-size:.68rem;color:var(--muted);border:1px solid var(--line);padding:3px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw;}',
     '.cis-chip b{color:var(--heading);font-weight:500;}',
     '.cis-mode{font-family:var(--mono);font-size:.7rem;color:var(--muted);background:none;border:1px solid var(--line);padding:3px 10px;cursor:pointer;letter-spacing:.04em;}',
@@ -102,7 +104,7 @@
     '.cis-side a.active{color:var(--ember);border-left-color:var(--ember);background:linear-gradient(to right, color-mix(in srgb, var(--ember) 10%, transparent), transparent);}',
     '.cis-side a.cis-out{color:var(--faint);}',
     '.cis-side .cis-home{margin-top:20px;}',
-    '.cis-main{flex:1;min-width:0;}',
+    '.cis-main{flex:1;min-width:0;max-width:100%;}',
     '.cis-context{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;padding:9px 24px;border-bottom:1px solid var(--line);background:var(--bg);font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;color:var(--muted);}',
     '.cis-context .cis-mark{width:8px;height:8px;flex:none;align-self:center;background:var(--cis-tint,var(--ember));}',
     '.cis-context .cis-addr{color:var(--cis-tint,var(--ember));text-transform:uppercase;letter-spacing:.1em;}',
@@ -145,6 +147,15 @@
     '@media (max-width:760px){',
     '.cis-menu{display:inline-block;}',
     '.cis-body{flex-direction:column;}',
+    /* the bar fits the hand: no member email competing for 390px,
+       no horizontal scroll. Identity moves to the foot of the map
+       drawer; the overview card carries it too. */
+    '.cis-topbar{padding:0 12px;gap:8px;}',
+    '.cis-topbar-right{gap:6px;}',
+    '.cis-chip{display:none;}',
+    '.cis-menu,.cis-bell,.cis-mode{padding:8px 12px;min-height:40px;}',
+    '.cis-brand{display:inline-flex;align-items:center;min-height:44px;}',
+    '.cis-side-you{display:block;padding:12px 20px 4px;font-family:var(--mono);font-size:.68rem;color:var(--muted);border-top:1px solid var(--line);margin-top:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}',
     /* the map is a drawer on a narrow screen: closed by default, so the
        page a member came for is the first thing under the topbar */
     '.cis-side{position:static;width:100%;height:auto;max-height:0;overflow:hidden;border-right:none;border-bottom:none;padding:0;display:block;transition:max-height var(--dur,.4s) var(--ease,ease);}',
@@ -476,7 +487,8 @@
 
     /* topbar */
     var topbar = el('header', 'cis-topbar');
-    var brand = el('a', 'cis-brand', 'Techne · intranet');
+    var brand = el('a', 'cis-brand', 'Techne');
+    brand.appendChild(el('span', 'cis-brand-suffix', ' · intranet'));
     brand.href = '/intranet/';
     var right = el('div', 'cis-topbar-right');
     var menuBtn = null;
@@ -553,6 +565,10 @@
       var home = el('a', 'cis-out cis-home', '← techne.coop');
       home.href = '/';
       side.appendChild(home);
+      /* on a phone the topbar has no room for the member chip; the
+         map drawer carries the identity line instead */
+      side.appendChild(el('div', 'cis-side-you',
+        sess && sess.user.email ? sess.user.email : 'signed in'));
 
       var context = null;
       if (active) {
