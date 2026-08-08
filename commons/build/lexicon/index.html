@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="The Lexicon: the working vocabulary of the Common Information System, defined in plain language. Companion to the Run-Through.">
-<title>The Lexicon &middot; RDM v1 &middot; Techne</title>
+<meta name="description" content="The Lexicon, v2: the working vocabulary of the Common Information System in its two roots, ground and craft, with the concordance that keeps the history readable.">
+<title>The Lexicon &middot; v2 &middot; Techne</title>
 <link rel="canonical" href="https://techne.coop/commons/build/lexicon/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://techne.coop/commons/build/lexicon/">
-<meta property="og:title" content="The Lexicon · RDM v1 · Techne">
-<meta property="og:description" content="The working vocabulary of the CIS, defined in plain language. Companion to the Run-Through.">
+<meta property="og:title" content="The Lexicon · v2 · Techne">
+<meta property="og:description" content="The working vocabulary of the CIS in its two roots, ground and craft, with the concordance that keeps the history readable.">
 <meta property="og:site_name" content="Techne">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
@@ -88,21 +88,6 @@ em { font-style:italic; color:var(--heading); }
 .sec p:last-child { margin-bottom:0; }
 .lead { font-size:1.05rem; line-height:1.7; }
 
-.chip {
-  display:inline-flex; align-items:center; gap:5px;
-  font-family:var(--mono); font-size:0.6rem; font-weight:500; letter-spacing:0.05em;
-  padding:3px 7px; border-radius:2px; border:1px solid var(--line);
-  background:var(--surface); white-space:nowrap; vertical-align:middle; color:var(--muted);
-}
-.chip .dot { width:5px; height:5px; border-radius:1px; flex-shrink:0; }
-.chip.ok { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
-.chip.ok .dot { background:var(--ok); }
-.chip.open { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
-.chip.open .dot { background:transparent; border:1px solid var(--warn); }
-.chip.anticipated { color:var(--faint); border-color:var(--line); }
-.chip.anticipated .dot { background:transparent; border:1px solid var(--faint); }
-
-.gate-head { display:flex; align-items:baseline; gap:var(--s3); flex-wrap:wrap; }
 .condition {
   margin:var(--s4) 0; background:var(--surface);
   border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s3) var(--s4);
@@ -110,27 +95,12 @@ em { font-style:italic; color:var(--heading); }
 }
 .condition .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); display:block; margin-bottom:var(--s1); }
 
-.script { margin:var(--s4) 0; counter-reset:beat; }
-.beat { display:grid; grid-template-columns:34px 110px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--line); align-items:baseline; }
-.beat:last-child { border-bottom:0; }
-.beat-n { font-family:var(--mono); font-size:0.68rem; font-weight:600; color:var(--ember-text); text-align:right; padding-top:3px; }
-.beat-who { font-family:var(--mono); font-size:0.68rem; color:var(--muted); padding-top:3px; }
-.beat-body { font-size:0.88rem; line-height:1.65; color:var(--text); }
-.beat-body .sentence { display:block; font-style:italic; color:var(--heading); margin-bottom:var(--s1); }
-.beat-body .observe { display:block; font-family:var(--mono); font-size:0.72rem; color:var(--muted); margin-top:var(--s1); }
-
-.attest {
-  margin:var(--s4) 0; background:var(--inset);
-  border:1px solid var(--line); border-left:2px solid var(--ok); padding:var(--s4);
-}
-.attest .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ok); margin-bottom:var(--s3); }
-.attest p { font-size:0.92rem; font-style:italic; color:var(--heading); margin-bottom:var(--s3); }
-pre.rec {
-  background:var(--inset); border:1px solid var(--line);
-  padding:var(--s4); overflow-x:auto;
-  font-family:var(--mono); font-size:0.74rem; line-height:1.8; color:var(--text);
-  margin:var(--s3) 0 0;
-}
+.concord { width:100%; border-collapse:collapse; margin:var(--s4) 0; font-size:0.85rem; line-height:1.6; }
+.concord th { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); text-align:left; padding:var(--s2) var(--s3); border-bottom:1px solid var(--rule); }
+.concord td { padding:var(--s2) var(--s3); border-bottom:1px solid var(--line); vertical-align:top; }
+.concord td.retired { font-family:var(--mono); font-size:0.78rem; color:var(--muted); }
+.concord td.evolved { color:var(--heading); }
+.concord td.note { color:var(--muted); font-size:0.8rem; }
 
 .memo {
   margin:var(--s7) 0 0; padding:var(--s4) 0;
@@ -142,43 +112,65 @@ pre.rec {
 footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s4) var(--s5) var(--s8); font-family:var(--mono); font-size:0.65rem; color:var(--faint); display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); max-width:860px; margin-left:auto; margin-right:auto; }
 
 @media (max-width:700px) {
-  .beat { grid-template-columns:28px 1fr; }
-  .beat-who { grid-column:2; padding-top:0; }
-  .beat-body { grid-column:2; }
   .mast h1 { font-size:1.7rem; }
+  .concord td.note { display:none; }
 }
 </style>
 </head>
 <body>
 
 <div class="mast">
-  <div class="mast-eyebrow">the lexicon &middot; RDM v1 &middot; companion to the run-through</div>
+  <div class="mast-eyebrow">the lexicon &middot; v2 &middot; ground and craft</div>
   <h1>The Lexicon</h1>
-  <p class="mast-dek">The working vocabulary of the Common Information System, defined in plain language. Every term here is used somewhere in the build with a precise meaning; this page is where the meanings live in one place. Read it alongside <a href="/commons/build/run-through/">the Run-Through</a>, or whenever a word on any surface carries more weight than it seems to.</p>
+  <p class="mast-dek">The working vocabulary of the Common Information System, defined in plain language. Every term here is used somewhere in the build with a precise meaning; this page is where the meanings live in one place. The register draws from the cooperative's two roots, ground and craft, and the concordance at the end keeps every retired term readable forever. Read it alongside <a href="/commons/build/run-through/">the Run-Through</a>, or whenever a word on any surface carries more weight than it seems to.</p>
   <div class="mast-meta">
-    <span>cites &middot; RDM v1 &middot; PRD v0.3 &middot; IM v0.1 &middot; AM v0.1 &middot; BP v1</span>
-    <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
+    <span>cites &middot; Ground and Craft &middot; ALM v2 &middot; PRD v0.3 &middot; IM v0.1 &middot; AM v0.1 &middot; BP v1</span>
+    <span>RegenHub, LCA &middot; Boulder &middot; August 2026</span>
   </div>
 </div>
 
 <div class="doc-wrap">
 
-  <section class="sec" id="record">
+  <section class="sec" id="roots">
     <div class="addr">&sect;1</div>
+    <h2>The two roots</h2>
+    <p class="lead">Every working term in this register descends from one of two roots, and the pairing is not decorative: it is the cooperative's own dual nature.</p>
+    <p>The <em>ground</em> root gives the words for where work grows and how it joins: the Ground, beds, grafts, yields, the Almanac. This is RegenHub's root, the soil register of the formation record, in which the cooperative is substrate rather than firm: a place things grow from, not a machine that produces.</p>
+    <p>The <em>craft</em> root gives the words for what hands make and how it is proven: pieces, proofs, tallies, marks. This is Techne's root, the guild register, in which capability is demonstrated before one's peers and nothing wears a standing it has not earned.</p>
+    <p>Place and practice, the two houses of one cooperative, each holding half the vocabulary. The two roots meet in a single object exactly once, at the tally, which is craft-made and ground-cut; that meeting is described where the term is defined.</p>
+    <p>One law bounds the register, and it is the system's own: history is not editable. Addresses already cited in commits and attestations, events already in the record, and the text of entries already verified keep the words they were written in. The language around them evolves fully; the marks themselves are not re-cut. The concordance in &sect;9 is the reader's bridge.</p>
+  </section>
+
+  <section class="sec" id="spine">
+    <div class="addr">&sect;2</div>
+    <h2>The steered garden</h2>
+    <p class="lead">The cybernetic spine runs through both roots, and the register is built to make it visible rather than hide it under metaphor.</p>
+    <p>The word cybernetics descends from the Greek for steersman, the same root as governor. A garden under a gardener's hand is a steered system: sensing and tending in loops. Read against the viable system frame the cooperative already works in, the register lays out so:</p>
+    <div class="condition"><span class="k">operations &middot; system one</span>The capabilities and their beds: the work members live inside. Belonging, gathering, finding, sharing, each grown in its own bed toward its own proof.</div>
+    <div class="condition"><span class="k">coordination &middot; system two</span>The Ground and the shell: the shared substrate beneath the beds and the one frame the surfaces wear, so the beds do not collide.</div>
+    <div class="condition"><span class="k">audit &middot; system three</span>The verification suites and the probe matrix: the channel by which the system checks that the machine agrees with itself, on every change, without being asked.</div>
+    <div class="condition"><span class="k">intelligence &middot; system four</span>The signal loop, which keeps its name because it is already the cybernetic instrument: what is workable, what unblocks the most, what has stalled quietly are exactly the intelligence questions.</div>
+    <div class="condition"><span class="k">identity &middot; system five</span>Proofs and adoption: the acts that close the loop between the machine's claims and the cooperative's word. Nothing becomes real until a person adopts it.</div>
+    <div class="condition"><span class="k">the algedonic channel</span>Stop cards: pain routed past everything, straight to attention. The one shape for stopping is defined with the work terms in &sect;5.</div>
+    <div class="condition"><span class="k">the transducer</span>The tally: the reading by which the system knows its own state from its own history. Defined in &sect;3, where the record lives.</div>
+  </section>
+
+  <section class="sec" id="record">
+    <div class="addr">&sect;3</div>
     <h2>The record</h2>
     <p class="lead">The system's first claim: what is true is what happened, and everything else is a reading of it.</p>
-    <div class="condition"><span class="k">event</span>The unit of record. One thing that happened, written once, never edited: an application received, a signature signed, an opportunity resolved, a gate attested. Every event carries when it occurred, who acted, whom it concerns, and a payload. The events table is the single source of truth.</div>
+    <div class="condition"><span class="k">event</span>The unit of record. One thing that happened, written once, never edited: an application received, a signature signed, an opportunity resolved, a proof attested. Every event carries when it occurred, who acted, whom it concerns, and a payload. The events table is the single source of truth.</div>
     <div class="condition"><span class="k">append-only</span>The event log admits new rows and refuses everything else. A database trigger raises an error on any update or delete, for anyone. History is not editable, by design and by machinery.</div>
     <div class="condition"><span class="k">correction</span>How a wrong event is handled, since it cannot be erased: a new event is written that compensates for the old one and points back at it. The mistake and its correction both remain in the record. Nothing is ever quietly fixed.</div>
-    <div class="condition"><span class="k">fold</span>A reading computed over events. State at any moment is the fold of everything that happened up to it: state(t) = fold(events). A fold is recomputed, never stored as an editable number, so any figure can be traced to the events that produced it.</div>
-    <div class="condition"><span class="k">projection</span>What a fold produces for a particular reader or purpose. A member's capital account has two projections, book and tax, both folded from the same events.</div>
-    <div class="condition"><span class="k">capital account</span>Each member's share of the cooperative's results, as a fold over capital events. It is a database view, not a table: there is no stored balance to edit. Currently a stub awaiting the Q3 counting rules.</div>
-    <div class="condition"><span class="k">stock ledger</span>The record of membership shares, one share of common voting stock per member on admission. Distinct from the roadmap ledger below; when someone says ledger, ask which.</div>
+    <div class="condition"><span class="k">tally</span>The reading computed over events: state at any moment is the tally of everything that happened up to it, recomputed and never stored, so any figure traces to the events that produced it. This is the register's oldest word and the one place its two roots meet in a single object: a tally stick is craft-made and ground-cut, and the split tally, whose halves were called stock and foil, carried two-party records for centuries and is one root the financial word stock is commonly traced to. The mathematical sense is kept as the gloss: a tally is, in the old functional vocabulary, a fold, state(t) = fold(events).</div>
+    <div class="condition"><span class="k">projection</span>What a tally produces for a particular reader or purpose. A member's capital account has two projections, book and tax, both computed from the same events.</div>
+    <div class="condition"><span class="k">capital account &middot; capital tally</span>Each member's share of the cooperative's results, as a tally over capital events. It is a database view, not a table: there is no stored balance to edit. Currently a stub awaiting the Q3 counting rules. The proof of the Share bed reads: the tally shown equals the tally computed by hand.</div>
+    <div class="condition"><span class="k">stock ledger</span>The record of membership shares, one share of common voting stock per member on admission. Distinct from the almanac ledger below; when someone says ledger, ask which.</div>
     <div class="condition"><span class="k">provenance</span>A mark every event carries: real or illustrative. A demonstration or seeded example is marked illustrative at creation and can never be mistaken for a member's actual history. A demonstration that leaks into the real record unmarked is a defect.</div>
   </section>
 
   <section class="sec" id="people">
-    <div class="addr">&sect;2</div>
+    <div class="addr">&sect;4</div>
     <h2>People and roles</h2>
     <p class="lead">Authority in this system is event-based and time-bound: nobody simply is an authority; they hold a recorded grant.</p>
     <div class="condition"><span class="k">agent</span>The identity spine: one row per participant, human or not, across every relationship state. An applicant, a member, the cooperative itself, and the runtime instrument are all agents. Being an agent grants nothing by itself.</div>
@@ -190,50 +182,53 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <div class="condition"><span class="k">overseer</span>Shorthand in the policy layer for the roles with broad read: director, secretary, treasurer, steward. Each is a row in role_grants with a granted date and, when it ends, a revoked date.</div>
     <div class="condition"><span class="k">host</span>The member who stands a gathering. The host manages their gathering's sessions and records attendance for them; the steward may act as host.</div>
     <div class="condition"><span class="k">author and responder</span>The two parties of an opportunity. The author posts and closes it; a responder answers it. A response is visible to exactly these parties and the overseers, nobody else.</div>
-    <div class="condition"><span class="k">countersigner</span>The second human of a gate attestation: a non-organizer member who demonstrates or witnesses alongside the organizer, because belonging is not self-certified.</div>
+    <div class="condition"><span class="k">countersigner</span>The second human of a proof attestation: a non-organizer member who demonstrates or witnesses alongside the organizer, because belonging is not self-certified.</div>
     <div class="condition"><span class="k">instrument</span>A non-human agent with capabilities but no authority: the runtime (Nou) and the session-scoped build agents. Instruments hold no role, no grant, no vote. Nothing an instrument writes becomes record or policy until an organizer adopts it by visible act. Common Agency &sect;5 stages one narrow exception as a question rather than taking it: whether the instrument may hold a scoped authority over the direction namespace alone, so that its own acceptances and refusals can be recorded by its own hand. Until that is decided, the sentence above holds without qualification, and the steward relays.</div>
     <div class="condition"><span class="k">direct &middot; a member's word to the instrument</span>To give the instrument work as a recorded act. Any patron member may; deciding remains people's. The instrument drafts, surfaces, and proposes, and merge, adoption, and signature are never its to make (Law X).</div>
   </section>
 
   <section class="sec" id="work">
-    <div class="addr">&sect;3</div>
+    <div class="addr">&sect;5</div>
     <h2>The work of building</h2>
     <p class="lead">The build itself keeps a record, with the same honesty rules as the system it builds.</p>
-    <div class="condition"><span class="k">packet</span>The unit of work: a validated entry in the roadmap ledger, small enough for one session to advance and complete enough for a stranger to pick up. A packet carries an address, an intent, citations, a readiness condition, a deliverable, an acceptance, and its honest status.</div>
-    <div class="condition"><span class="k">address</span>A packet's citable code: SUB-01, B-03, X-02, A-01, G-F. Used in branches, commits, escalation cards, and conversation. When this page says X-02, it means one exact thing.</div>
-    <div class="condition"><span class="k">train</span>A dependency-ordered sequence of packets sharing a gate: Substrate, Belong, Gather, Find, Share, Treasury, Shell, Agency, Cross-cutting. Not every train has a gate of its own; the shell has none, because a frame is demonstrated by the surfaces wearing it. Trains advance in parallel once the substrate under them is verified. There are no dates; the only schedule is each packet's readiness condition.</div>
-    <div class="condition"><span class="k">slice</span>The product-side word for the same territory: a member capability described in sentences ("a member can register without asking anyone"). PRD v0.3 &sect;4 defines four launch slices; the trains build them.</div>
-    <div class="condition"><span class="k">roadmap ledger</span>rdm-ledger.yaml: the validated YAML file holding every packet and its status. The living roadmap page reads it; the validator enforces it; status changes land by commit. The ledger is truth; prose that disagrees with it is wrong.</div>
-    <div class="condition"><span class="k">status marks</span>drafted (the document exists and governs) &middot; anticipated (defined, upstream must clear) &middot; open &middot; (blocker) (workable or blocked, the mark names by what) &middot; verified (acceptance demonstrated, marked in the steward's name) &middot; attested (a gate's human act recorded). Nothing wears a status it has not earned.</div>
-    <div class="condition"><span class="k">verified</span>A packet's acceptance was demonstrated and an organizer marked it so, with evidence cited. Verification is a human adoption, usually the merge of the pull request that records it.</div>
-    <div class="condition"><span class="k">gate</span>A human act closing a train: people demonstrate the capability live, speak the attestation, and record it as a gate.attested event. CI proves the machine agrees with itself; a gate proves the cooperative agrees with the machine. Scripts live in the Gate Book.</div>
-    <div class="condition"><span class="k">escalation card</span>The one shape for stopping: standing in (where), found (what, with citations), the question (the smallest one that unblocks), a default (a proposed answer a busy organizer can approve with a word). Agents escalate anything touching money, membership, governance semantics, new dependencies, or public names.</div>
+    <div class="condition"><span class="k">the Almanac</span>The plan of the build, as a book of conditions rather than dates. An almanac is the gardener's instrument for exactly this: what may be sown when its condition is met, never on a calendar day. The build's oldest discipline, no dates, only readiness, was almanac logic before it had the name. Its document code is ALM v2, superseding RDM v1, with the supersession recorded in the page's footer lineage. The Almanac pairs with the Commonplace Book, the member-facing name of the system: two book genres, one for the plan and one for the record. Lives at <a href="/commons/build/">/commons/build/</a>.</div>
+    <div class="condition"><span class="k">piece</span>The unit of work: one complete thing a pair of hands can make in a session, carrying an address, an intent, citations, a readiness condition, a deliverable, an acceptance, and its honest status. Piecework is the craft economy's own word for the unit, and the guild tradition carries its highest form: the piece examined before one's peers is where the word masterpiece comes from, which is precisely what verification is. One piece per branch.</div>
+    <div class="condition"><span class="k">address</span>A piece's citable code: SUB-01, B-03, X-02, A-01, G-F. Used in branches, commits, stop cards, and conversation. When this page says X-02, it means one exact thing. Addresses keep their letters verbatim, everywhere and forever: they are tally marks, and the stick is not re-cut. New beds mint new letters as before.</div>
+    <div class="condition"><span class="k">bed</span>A prepared ground where ordered pieces grow toward their proof: Belong, Gather, Find, Share, Treasury, Shell, Agency, Lexicon, and the cross-cutting bed. Beds grow in parallel once the ground beneath them is verified; a bed with no proof of its own, like the shell, is a bed whose growth shows in what stands on it. There are no dates; the only schedule is each piece's readiness condition.</div>
+    <div class="condition"><span class="k">the Ground</span>The bed the beds are made in: the tables, the event log, the tally view, the security floor. The SUB addresses stay, and its machinery is described in &sect;7.</div>
+    <div class="condition"><span class="k">capability</span>The product-side territory: a member capability described in sentences ("a member can register without asking anyone"), which the beds grow. The word is the augmentation tradition's own, from the line of work this whole system descends from: tools exist to improve human capability, and PRD v0.3 &sect;4 defines the four launch capabilities exactly so. The nearer craft word, practice, is already taken by the opportunity kinds and stays there.</div>
+    <div class="condition"><span class="k">almanac ledger</span>The validated file holding every piece and its status; the Almanac reads it, the validator enforces it, and status changes land by commit. The ledger is truth; prose that disagrees with it is wrong. The file answers to its machinery name, <code>rdm-ledger.yaml</code>, until the machinery piece L-07.</div>
+    <div class="condition"><span class="k">status marks</span>drafted (the document exists and governs) &middot; anticipated (defined, upstream must clear) &middot; open &middot; (blocker) (workable or blocked, the mark names by what) &middot; verified (acceptance demonstrated, marked in the steward's name) &middot; attested (a proof's human act recorded). Plain honesty words, unchanged by the register: nothing wears a status it has not earned.</div>
+    <div class="condition"><span class="k">verified</span>A piece's acceptance was demonstrated and an organizer marked it so, with evidence cited. Verification is a human adoption, usually the merge of the pull request that records it.</div>
+    <div class="condition"><span class="k">proof</span>The human act that closes a bed: members demonstrate the capability live, speak the attestation, and record it. Proof is the baker's word for a live culture showing itself ready, the printer's word for the sheet examined before the run, and the guild's word for work brought before peers; the mathematical sense rides along without strain. The suites prove the machine agrees with itself; a proof proves the cooperative agrees with the machine. Scripts live in <a href="/commons/build/gates/">the Proof Book</a>. The G addresses stay, and the letter now reads as the proof mark.</div>
+    <div class="condition"><span class="k">graft</span>The act by which an adopted module joins its pieces into the Almanac. Grafting is the ground root's word for deliberate joining: new growth set into rootstock by a decision and a skilled hand, never by drift. PATRONAGE, TREASURY, and AGY grafted their pieces in on adoption; future modules do the same.</div>
+    <div class="condition"><span class="k">stop card</span>The one shape for stopping: standing in (where), found (what, with citations), the question (the smallest one that unblocks), a default (a proposed answer a busy organizer can approve with a word). Agents stop on anything touching money, membership, governance semantics, new dependencies, or public names. Its cybernetic role is the algedonic signal: pain routed past everything to attention.</div>
     <div class="condition"><span class="k">decision record</span>An organizer's answer, written into the ledger where the card stands. Decisions are visible acts in the history, citable like any other record.</div>
     <div class="condition"><span class="k">Direction</span>A patron member's recorded request that the instrument take up a piece of work: a brief, a kind (draft, build, survey, answer), and the repositories it may touch. An act with an author, answerable and refusable, not a button that fires a mechanism. Its whole life is events: direction.given, then accepted or refused, then completed or halted.</div>
     <div class="condition"><span class="k">Run &middot; Scope &middot; Estate list</span>A Run is one isolated working session serving one Direction. A Scope is the declared boundary of what it may write: named repositories and the direction kinds, nothing else. The Estate list is the adopted enumeration of repositories a Direction may name, which grows by amendment and not by request.</div>
     <div class="condition"><span class="k">the provenance pair</span>The two hands on everything a Run makes: Authored-by names the instrument, Directed-by names the member who directed it. Work the instrument takes up on its own standing duties carries no Directed-by, and that absence is itself information.</div>
-    <div class="condition"><span class="k">named condition</span>An open blocker with a name instead of a date: Q1 (the public label for the opportunity surface), Q3 (the counting rules), the steward's run-through, the first grant (whether the instrument may hold a scoped authority in the record), and the AGY &sect;15 visibility decision. Work waits on conditions, never on the calendar.</div>
+    <div class="condition"><span class="k">named condition</span>An open blocker with a name instead of a date: Q1 (the public label for the opportunity surface), Q3 (the counting rules), the steward's run-through, the first grant (whether the instrument may hold a scoped authority in the record), and the AGY &sect;15 visibility decision. Work waits on conditions the way sowing waits on soil, never on the calendar.</div>
     <div class="condition"><span class="k">provenance trailer</span>The authorship mark on agent commits: Authored-by: build-agent / &lt;address&gt;. The build's own history says who drafted what, so adoption stays a human act.</div>
   </section>
 
   <section class="sec" id="documents">
-    <div class="addr">&sect;4</div>
+    <div class="addr">&sect;6</div>
     <h2>The governing documents</h2>
     <p class="lead">Ten drafted artifacts govern the build, seven of the series and three module documents; two ratified instruments govern the cooperative. When documents disagree, lower yields to higher, and the disagreement is filed either way.</p>
-    <div class="condition"><span class="k">the series</span>SER (the overview) &middot; PRD (what to build, in member sentences) &middot; BP (how agents and organizers work) &middot; UI (tokens and patterns) &middot; IM (the information model and its laws) &middot; VS (verification: suites and gates) &middot; AM (who may do what, anchored in the Bylaws). Each emits something the repository carries: a schema, a stylesheet, a workflow, an operating contract.</div>
-    <div class="condition"><span class="k">the module documents</span>Specifications that arrive after the series and splice their own packets into the ledger on adoption: PATRONAGE (Programs, contributions, the allocation sequence) &middot; TREASURY (the movement layer and its two-person discipline) &middot; AGY, Common Agency (a member directs the instrument on the record). Each is proposed, argued, and adopted by merge; each carries its own splice, so the roadmap grows by decision rather than by drift.</div>
+    <div class="condition"><span class="k">the series</span>SER (the overview) &middot; PRD (what to build, in member sentences) &middot; BP (how agents and organizers work) &middot; UI (tokens and patterns) &middot; IM (the information model and its laws) &middot; VS (verification: suites and proofs) &middot; AM (who may do what, anchored in the Bylaws). Each yields something the repository carries: a schema, a stylesheet, a workflow, an operating contract. The document governs; its yields distill.</div>
+    <div class="condition"><span class="k">the module documents</span>Specifications that arrive after the series and graft their own pieces into the ledger on adoption: PATRONAGE (Programs, contributions, the allocation sequence) &middot; TREASURY (the movement layer and its two-person discipline) &middot; AGY, Common Agency (a member directs the instrument on the record). Each is proposed, argued, and adopted by merge; each carries its own graft, so the Almanac grows by decision rather than by drift.</div>
     <div class="condition"><span class="k">bylaws &middot; membership agreement</span>The ratified instruments: Bylaws v2.1 and Membership Agreement v2.3, both Ratified July 2026, published under /legal/ with commentary. The Authority Map anchors every policy in them.</div>
     <div class="condition"><span class="k">anchor</span>The bylaws citation a policy carries in its comment: the section that authorizes what the policy does. A policy without an anchor does not merge. G-R re-verifies every anchor against the governing text before it attests.</div>
-    <div class="condition"><span class="k">precedence</span>The order when texts disagree: law and bylaws &rarr; board policy &rarr; PRD &rarr; IM and AM &rarr; BP and VS &rarr; packet briefs &rarr; code. The emissions conform to the documents, not the documents to the code; 0005 exists because the deployed database once disagreed with the matrix and lost.</div>
+    <div class="condition"><span class="k">precedence</span>The order when texts disagree: law and bylaws &rarr; board policy &rarr; PRD &rarr; IM and AM &rarr; BP and VS &rarr; piece briefs &rarr; code. The yields conform to the documents, not the documents to the code; 0005 exists because the deployed database once disagreed with the matrix and lost.</div>
     <div class="condition"><span class="k">adoption</span>The visible human act that turns a draft into a record: a merge, a decision written into the ledger, an attestation spoken and recorded. The system runs on adoption the way the database runs on events.</div>
   </section>
 
   <section class="sec" id="machinery">
-    <div class="addr">&sect;5</div>
+    <div class="addr">&sect;7</div>
     <h2>The machinery</h2>
-    <p class="lead">What actually runs, and the names it answers to.</p>
+    <p class="lead">What actually runs, and the names it answers to. The machine grammar, the event kinds and view names already live, evolves only at the Information Model's own revision; until then the Lexicon states which register the machine speaks, and this section glosses it.</p>
     <div class="condition"><span class="k">CIS</span>The Common Information System: the whole of it. One database, its policies, the pages over it, and the record they keep together. Also called the Commonplace Book on the member-facing side.</div>
-    <div class="condition"><span class="k">substrate</span>The foundation the trains stand on: the thirteen tables, the event log, and the fold, emitted by the Information Model as migration 0001 and verified through gate G0.</div>
+    <div class="condition"><span class="k">the Ground, in machinery</span>The thirteen tables, the event log, and the tally view, yielded by the Information Model as migration 0001 and proven through G0, the security floor. The migration files keep their machinery word, substrate, which is how the soil register said it before the Ground completed the figure.</div>
     <div class="condition"><span class="k">migration chain</span>The numbered SQL files that stand the database from zero: 0001 substrate &middot; 0002 policies &middot; 0003 sign_agreement &middot; 0004 export views &middot; 0005 matrix conformance &middot; 0006 notices rail &middot; 0007 the front door &middot; 0008 admissions &middot; 0009 profiles &middot; 0010 the programs view &middot; 0011 agreements typing &middot; 0012 designation &middot; 0013 the scheduling act &middot; 0015 the member's notices &middot; 0016 the rail's wider ear &middot; 0017 the direction rail &middot; 0018 the desk's read. Timestamped, ordered, applied once each; the repository can reconstruct the database because the chain is complete.</div>
     <div class="condition"><span class="k">policy &middot; RLS</span>Row-level security: the database itself decides, row by row, what each asker may see or write. Visibility is never client-side courtesy; a page that showed you someone else's rows could not, because the rows never leave the database. Deny by default; every allowance is a named policy with an anchor.</div>
     <div class="condition"><span class="k">definer function</span>A database function that runs with its own authority to make several writes one act: sign_agreement() lands the signature and its event atomically; apply_for_membership() is the front door, landing application, membership, and event in one motion for a stranger who holds no permissions at all; give_direction() is the only door a Direction enters by, refusing in the words of the rule that refuses. A definer read does the mirror work: direction_standing() returns the bounds a member is held to without widening what they may see.</div>
@@ -241,16 +236,16 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <div class="condition"><span class="k">notices rail</span>The path from an event to a human: a database trigger forwards admission events to a small function that delivers notices. Two sinks, each behind its own seam: the steward's intake notice rides Telegram, live; the applicant's email acknowledgment waits on DNS. A missing sink is named as a gap in the steward notice, never silently dropped.</div>
     <div class="condition"><span class="k">seam</span>A deliberate single point of replacement. The notice sender lives behind one seam, so swapping providers changes one function and nothing else. Seams are how the system stays small without staying stuck.</div>
     <div class="condition"><span class="k">export &middot; export SHA</span>The walkaway's food: every table serialized to canonical JSON, each file hashed, and a manifest of those hashes whose own sha256 is THE export SHA. Two exports with the same SHA are byte-identical; nothing time-dependent lives inside.</div>
-    <div class="condition"><span class="k">walkaway</span>The proof that the cooperative could leave: export the record, stand fresh infrastructure from the public repository alone, import, re-export, and require SHA equality with the fold exactly reconstructed. Rehearsed weekly in CI; run live on 2026-07-21 with its events recorded. If the platform vanished tomorrow, the record would not.</div>
-    <div class="condition"><span class="k">the suites</span>The seven CI checks on every change: ledger-validate, schema-lint, db-verify, rls-audit, gate-rehearsal, restore-test, style-lint. Green suites are the floor, not the ceiling: they prove the machine agrees with itself.</div>
+    <div class="condition"><span class="k">walkaway</span>The proof that the cooperative could leave: export the record, stand fresh infrastructure from the public repository alone, import, re-export, and require SHA equality with the tally exactly reconstructed. Rehearsed weekly in CI; run live on 2026-07-21 with its events recorded. If the platform vanished tomorrow, the record would not.</div>
+    <div class="condition"><span class="k">the suites</span>The seven CI checks on every change, by their machinery names: ledger-validate, schema-lint, db-verify, rls-audit, gate-rehearsal, restore-test, style-lint. Green suites are the floor, not the ceiling: they prove the machine agrees with itself.</div>
     <div class="condition"><span class="k">probe matrix</span>The rls-audit's heart: every role tried against every table, each probe citing the Authority Map cell it proves. Found two real gaps once; the documents won.</div>
-    <div class="condition"><span class="k">gate rehearsal</span>The mechanical half of the Gate Book: every member-capability sentence run as a committed, sequential journey in CI, with four personas and every refusal asserted, so the human ceremony never discovers a defect.</div>
+    <div class="condition"><span class="k">proof rehearsal</span>The mechanical half of the Proof Book: every member-capability sentence run as a committed, sequential journey in CI, with four personas and every refusal asserted, so the human ceremony never discovers a defect. The suite keeps its machinery name, gate-rehearsal, until the machinery piece L-07.</div>
   </section>
 
   <section class="sec" id="surfaces">
-    <div class="addr">&sect;6</div>
+    <div class="addr">&sect;8</div>
     <h2>The surfaces</h2>
-    <p class="lead">Doors over one record, some public, some behind the gate. Each page is self-contained, tokens inline, no build step.</p>
+    <p class="lead">Doors over one record, some public, some behind sign-in. Each page is self-contained, tokens inline, no build step.</p>
     <div class="condition"><span class="k">the join form</span>/commons/join/ &middot; the front door. A stranger applies without an account, a meeting, or help; the record opens with their application and the steward is notified.</div>
     <div class="condition"><span class="k">the agreements shelf</span>/commons/agreements/ &middot; every agreement that binds you, version and standing marked, with inline signing. You cannot be bound by something you cannot read.</div>
     <div class="condition"><span class="k">the directory</span>/commons/directory/ &middot; members, each with a profile they alone control.</div>
@@ -264,18 +259,45 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <div class="condition"><span class="k">gathering &middot; session</span>A gathering is the thing (a meetup, a workshop, a meeting) with a host and a governing agreement; sessions are its occurrences in time. Registration and attendance attach to sessions.</div>
   </section>
 
+  <section class="sec" id="concordance">
+    <div class="addr">&sect;9</div>
+    <h2>The concordance</h2>
+    <p class="lead">The retired register, kept readable forever. Historical records, verified entries, commit messages, and event payloads speak the old words verbatim; this table is the bridge, in both directions.</p>
+    <table class="concord">
+      <thead><tr><th>retired</th><th>evolved</th><th>note</th></tr></thead>
+      <tbody>
+        <tr><td class="retired">Living Roadmap, RDM v1</td><td class="evolved">the Almanac, ALM v2</td><td class="note">supersession recorded in the lineage</td></tr>
+        <tr><td class="retired">packet</td><td class="evolved">piece</td><td class="note">unit of work; one piece per branch</td></tr>
+        <tr><td class="retired">train</td><td class="evolved">bed</td><td class="note">ordered pieces sharing a proof</td></tr>
+        <tr><td class="retired">the substrate train</td><td class="evolved">the Ground</td><td class="note">SUB addresses unchanged</td></tr>
+        <tr><td class="retired">gate</td><td class="evolved">proof</td><td class="note">the Gate Book becomes the Proof Book; G addresses unchanged</td></tr>
+        <tr><td class="retired">splice</td><td class="evolved">graft</td><td class="note">modules graft pieces in on adoption</td></tr>
+        <tr><td class="retired">fold</td><td class="evolved">tally</td><td class="note">fold kept as the mathematical gloss</td></tr>
+        <tr><td class="retired">emits</td><td class="evolved">yields</td><td class="note">documents yield their artifacts</td></tr>
+        <tr><td class="retired">slice</td><td class="evolved">capability</td><td class="note">the four launch capabilities</td></tr>
+        <tr><td class="retired">escalation card</td><td class="evolved">stop card</td><td class="note">same shape, plain name</td></tr>
+        <tr><td class="retired">roadmap ledger</td><td class="evolved">almanac ledger</td><td class="note">file rename rides the machinery piece</td></tr>
+        <tr><td class="retired">signal loop</td><td class="evolved">signal loop</td><td class="note">kept; the System Four instrument</td></tr>
+        <tr><td class="retired">status marks</td><td class="evolved">unchanged</td><td class="note">drafted, anticipated, open, verified, attested</td></tr>
+        <tr><td class="retired">addresses</td><td class="evolved">unchanged, everywhere</td><td class="note">tally marks; the stick is not re-cut</td></tr>
+      </tbody>
+    </table>
+  </section>
+
   <div class="memo" style="margin-top:var(--s7)">
     <div class="k">one sentence, if you keep only one</div>
-    <p>Everything is an event, every number is a fold, every permission has an anchor, every status is earned, and nothing becomes real until a person adopts it.</p>
+    <p>Everything is an event, every number is a tally, every permission has an anchor, every status is earned, and nothing becomes real until a person adopts it.</p>
   </div>
 
 </div>
 
 <footer>
-  <span>The Lexicon &middot; RDM v1</span>
-  <span>RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
+  <span>The Lexicon &middot; v2 &middot; Ground and Craft</span>
+  <span>supersedes the v1 register of RDM v1 &middot; adopted by the steward, August 2026</span>
+  <span>RegenHub, LCA &middot; Boulder, Colorado</span>
+  <span><a href="/commons/build/">The Almanac</a></span>
   <span><a href="/commons/build/run-through/">The Run-Through</a></span>
-  <span><a href="/commons/build/gates/">The Gate Book</a></span>
+  <span><a href="/commons/build/gates/">The Proof Book</a></span>
 </footer>
 
 </body>

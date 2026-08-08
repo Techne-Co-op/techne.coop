@@ -357,6 +357,25 @@ gates:
       page resynced the same day (PR #70) precedes this gate; its catch-up
       is flagged to the steward, not taken here.
 
+  - address: G-L
+    title: The lexicon proof
+    intent: The evolved register demonstrated readable end to end.
+    status: anticipated
+    cites: [BP, VS]
+    ready_when: L-01 through L-06 verified.
+    gate: >
+      A newcomer reads the Almanac, the Lexicon, and the build pages end
+      to end and meets no working word the Lexicon does not hold; every
+      historical term they encounter in the record answers through the
+      concordance; every suite is green.
+    deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
+    acceptance: >
+      G-L status updated to attested, by the steward and a countersigning
+      member, recorded as an event, like every proof before it.
+    note: >
+      Entered 2026-08-08 with the L bed on the adoption of Ground and
+      Craft, the migration specification of the evolved register.
+
 belong:
 
   - address: B-01
@@ -2273,3 +2292,152 @@ agency:
       run at all, which makes that step blocking rather than a later
       refinement. It is a Gateway configuration change on the
       steward's host, and his.
+
+lexicon:
+
+  # The lexicon bed: the evolved register of the build. Entered
+  # 2026-08-08 on the steward's adoption of Ground and Craft, the
+  # migration specification, with elections D1 through D5 at their
+  # defaults. Supersedes The Register Bridge (X-15), which under-read
+  # the direction by holding the primary terms fixed. Pieces run
+  # strictly in order: L-01 merges before anything else, because the
+  # Lexicon governs and its yields distill. One law bounds the bed:
+  # history is not editable. Entries at verified or attested, event
+  # payloads, commit history, and quoted records keep the retired
+  # register verbatim; the concordance is the reader's bridge.
+
+  - address: L-01
+    title: Lexicon v2
+    intent: >
+      The register section of Ground and Craft becomes the canonical
+      Lexicon at commons/build/lexicon/: the two-roots preface, the
+      cybernetic spine, the full definitions of the evolved register,
+      and the concordance table that keeps the history readable
+      forever. The ground root gives the words for where work grows
+      and how it joins; the craft root gives the words for what hands
+      make and how it is proven.
+    status: open · in-session
+    cites: [SER, BP, VS]
+    ready_when: >
+      Ground and Craft adopted by the steward with elections D1
+      through D5 recorded. Adopted 2026-08-08, all defaults elected.
+    deliverable: >
+      commons/build/lexicon/index.html rewritten as Lexicon v2; the L
+      bed and its proof G-L entered in the ledger.
+    acceptance: >
+      Every working term is defined, every retired term answers
+      through the concordance, and style-lint is green.
+
+  - address: L-02
+    title: The Almanac
+    intent: >
+      commons/build/index.html rewritten end to end in the register:
+      title, code, eyebrow, dek, tab labels, bed headers, captions,
+      condition cards, loop prose, the tree panel labels, and the
+      footer lineage recording that ALM v2 supersedes RDM v1. The
+      generated counts block and its comment markers untouched; meta
+      descriptions follow the page.
+    status: anticipated
+    cites: [SER, BP, UI]
+    ready_when: L-01 merged; the Lexicon governs before the pages speak it.
+    deliverable: commons/build/index.html as the Almanac, ALM v2.
+    acceptance: >
+      No retired term appears outside quotation of historical records,
+      and every suite is green.
+
+  - address: L-03
+    title: The ledger speaks
+    intent: >
+      The almanac ledger's own voice moves to the register: header
+      comments, section keys, the self-describing entries, and the
+      intents of pieces still open or anticipated, with the
+      validator's section handling and its gate-address constant
+      updated in the same commit (the constant also gains G-A, which
+      the agency graft created and the constant missed, and G-L),
+      behavior identical, suites proving it. The law of this piece:
+      entries at verified or attested keep their text verbatim,
+      because their words are part of the evidence; only the file's
+      present voice evolves.
+    status: anticipated
+    cites: [BP, VS]
+    ready_when: L-02 merged.
+    deliverable: rdm-ledger.yaml and scripts/validate.py, evolved together.
+    acceptance: >
+      ledger-validate green and no verified or attested entry differs
+      by one byte.
+
+  - address: L-04
+    title: The companions
+    intent: >
+      The Proof Book, wearing its new name, the Run-Through, the
+      instructions, and the launch page re-worded to the register.
+    status: anticipated
+    cites: [BP, VS]
+    ready_when: L-03 merged.
+    deliverable: >
+      commons/build/gates/, commons/build/run-through/,
+      commons/build/instructions/, and commons/build/launch/ revised.
+    acceptance: >
+      The four pages and the Almanac agree word for word on every
+      term.
+
+  - address: L-05
+    title: The series speaks
+    intent: >
+      BP, VS, PRD, and SER revised to the register as new versions;
+      the Information Model's language layer revised per election D2,
+      machine identifiers held for the IM's own revision, the
+      concordance carrying the mapping and new event kinds minted in
+      the new register from that adoption forward; AGENTS.md
+      re-yielded from the revised BP. Each merge an adoption.
+    status: anticipated
+    cites: [SER, PRD, BP, VS, IM]
+    ready_when: L-04 merged.
+    deliverable: >
+      commons/bp/, commons/vs/, commons/prd/, commons/series/, the
+      commons/im/ language layer, and AGENTS.md.
+    acceptance: >
+      The documents define the terms the pages use and no page uses a
+      term the documents do not define.
+
+  - address: L-06
+    title: The modules speak
+    intent: >
+      PATRONAGE, TREASURY, and AGY re-worded as new versions, their
+      grafts named as grafts.
+    status: anticipated
+    cites: [PATRONAGE, TREASURY, AGY, BP]
+    ready_when: L-05 merged.
+    deliverable: >
+      commons/patronage/, commons/treasury/, and commons/agency/
+      documents revised.
+    acceptance: The steward's three merges recorded.
+
+  - address: L-07
+    title: The machinery
+    intent: >
+      Per election D3, the bed's late piece: file and identifier
+      renames, the ledger file, the rehearsal script, workflow names,
+      CSS class families, every reference updated in the same commit,
+      suites proving equivalence. Mechanical, CI-proven, and lowest
+      value per unit of churn, which is why it waits.
+    status: anticipated
+    cites: [BP, VS]
+    ready_when: L-06 merged; every page reads true first.
+    deliverable: Renames landed with every reference updated in the same commit.
+    acceptance: Suites green before and after; behavior identical.
+
+  - address: L-08
+    title: The quarantine
+    intent: >
+      Per election D5, the teeth: the retired register enters the
+      style-lint vocabulary quarantine for authored prose, exactly as
+      the Subchapter K quarantine works, with named exemptions for the
+      concordance, quotations of historical records, and the preserved
+      text of verified entries. A vocabulary evolution without teeth
+      is a suggestion.
+    status: anticipated
+    cites: [VS, BP]
+    ready_when: G-L attested; the proof precedes the teeth.
+    deliverable: The style-lint suite extended, exemptions named.
+    acceptance: Proven against the whole estate; every suite green.
