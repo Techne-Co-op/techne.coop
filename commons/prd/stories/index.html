@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>The participation stories &middot; Techne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* tokens: techne v4, values per commons.css (the distillation of the live constitution) */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --dur: .4s; --ease: cubic-bezier(.4,0,.2,1);
+  --sun-gold: #EAB668; --sun-amber: #E09A52; --sun-coral: #D1755A;
+  --sun-rose: #B45C7C; --sun-violet: #6E5494; --sun-blue: #5476B8;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --ok: #6A9A6A; --info: #6A8AC4; --warn: #C46A6A;
+  --sun-gold-t: #EAB668; --sun-amber-t: #E5A562; --sun-coral-t: #DE8872;
+  --sun-rose-t: #CF7C9A; --sun-violet-t: #9E86C4; --sun-blue-t: #8FAEE0;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --ok: #4A7A4A; --info: #4A6FB0; --warn: #A84F4C;
+  --sun-gold-t: #87621F; --sun-amber-t: #8C581D; --sun-coral-t: #9C4636;
+  --sun-rose-t: #8C3D58; --sun-violet-t: #4C3870; --sun-blue-t: #3A5694;
+  color-scheme: light;
+}
+[data-tint="gold"]   { --shue: var(--sun-gold);   --shue-t: var(--sun-gold-t); }
+[data-tint="amber"]  { --shue: var(--sun-amber);  --shue-t: var(--sun-amber-t); }
+[data-tint="coral"]  { --shue: var(--sun-coral);  --shue-t: var(--sun-coral-t); }
+[data-tint="rose"]   { --shue: var(--sun-rose);   --shue-t: var(--sun-rose-t); }
+[data-tint="violet"] { --shue: var(--sun-violet); --shue-t: var(--sun-violet-t); }
+[data-tint="blue"]   { --shue: var(--sun-blue);   --shue-t: var(--sun-blue-t); }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; background: var(--bg); }
+body { background: var(--bg); color: var(--text); font: 400 16px/1.75 var(--serif);
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+em { font-style: italic; color: var(--heading); }
+a { color: var(--blue-text); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.wrap { max-width: 1060px; margin: 0 auto; padding: 0 var(--s5); }
+
+
+.mast { border-bottom: 1px solid var(--rule); padding: var(--s8) 0 var(--s6); }
+.mast .kick { font: 500 11px/1.6 var(--mono); color: var(--ember-text); text-transform: uppercase; letter-spacing: .12em; }
+.mast h1 { font: 700 clamp(30px, 4.5vw, 40px)/1.15 var(--serif); color: var(--heading); margin: var(--s3) 0 var(--s4); letter-spacing: -.01em; }
+.mast .dek { font: 400 17px/1.7 var(--serif); color: var(--text); margin: 0; max-width: 66ch; }
+.band { display: flex; height: 6px; margin-top: var(--s5); border: 1px solid var(--line); }
+.band span { flex: 1; }
+
+.preface { background: var(--surface); border: 1px solid var(--line); border-left: 2px solid var(--ember);
+  padding: var(--s4) var(--s5); margin: var(--s6) 0 0; max-width: 900px; font-size: 14.5px; line-height: 1.7; }
+.preface .pl { font: 500 10px/1.6 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ember-text); margin-bottom: var(--s2); }
+.preface p { margin-bottom: var(--s3); color: var(--text); }
+.preface p:last-child { margin-bottom: 0; }
+
+.sec { padding: var(--s7) 0 0; }
+.sec h2 { font: 700 22px/1.3 var(--serif); color: var(--heading); margin: 0 0 var(--s2);
+  letter-spacing: -.01em; padding-left: 14px; border-left: 3px solid var(--shue, var(--ember)); }
+.sec .secnote { font: 400 14px/1.7 var(--serif); color: var(--muted); max-width: 70ch; margin: 0 0 var(--s4); font-style: italic; }
+
+.story { display: grid; grid-template-columns: 58px 1fr 230px; gap: var(--s4); padding: var(--s4) 0;
+  border-bottom: 1px solid var(--line); align-items: start; }
+.story:last-of-type { border-bottom: 1px solid var(--rule); }
+.story .sid { font: 600 11px/1.8 var(--mono); color: var(--shue-t, var(--ember-text)); letter-spacing: .06em; }
+.story .sbody .sent { font: 400 15px/1.65 var(--serif); color: var(--heading); max-width: 66ch; }
+.story .sbody .prove { font: 400 11.5px/1.65 var(--mono); color: var(--muted); margin-top: 6px; max-width: 74ch; }
+.story .sbody .prove b { color: var(--text); font-weight: 500; }
+.story .smeta { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.chip { display: inline-flex; align-items: center; gap: 7px; font: 500 9.5px/1.5 var(--mono); letter-spacing: .1em;
+  text-transform: uppercase; padding: 3px 9px; border: 1px solid var(--line); border-radius: 2px; background: var(--surface); color: var(--muted); }
+.chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--faint); flex: none; }
+.chip.live { color: var(--ok); border-color: var(--ok); } .chip.live .dot { background: var(--ok); }
+.chip.drafted { color: var(--info); border-color: var(--info); } .chip.drafted .dot { background: var(--info); }
+.chip.proposed { color: var(--warn); border-color: var(--warn); } .chip.proposed .dot { background: transparent; border: 2px solid var(--warn); }
+.chip.anticipated { border-style: dashed; } .chip.anticipated .dot { background: transparent; border: 1px dashed var(--muted); }
+.surf { font: 400 10.5px/1.6 var(--mono); color: var(--faint); }
+
+.legend { font: 400 10px/1.8 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+  display: flex; gap: var(--s5); flex-wrap: wrap; margin-top: var(--s6); }
+
+.fnotes { margin-top: var(--s8); border-top: 1px solid var(--rule); padding-top: var(--s5); }
+.fnotes .fl { font: 500 10px/1.6 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: var(--s3); }
+.fnotes ol { list-style: none; counter-reset: fn; }
+.fnotes li { counter-increment: fn; position: relative; padding-left: 26px; margin-bottom: var(--s3);
+  font: 400 13px/1.65 var(--serif); color: var(--muted); max-width: 86ch; }
+.fnotes li::before { content: counter(fn); position: absolute; left: 0; top: 2px; font: 600 11px/1 var(--mono); color: var(--ember-text); }
+sup.fn { font-family: var(--mono); font-size: 10px; }
+sup.fn a { text-decoration: none; color: var(--ember-text); }
+
+footer { border-top: 1px solid var(--rule); margin-top: var(--s7); padding: var(--s5) 0 var(--s8);
+  font: 400 11px/1.9 var(--mono); color: var(--muted); }
+footer .row { display: flex; flex-wrap: wrap; gap: 6px var(--s5); }
+
+@media (max-width: 760px) {
+  .story { grid-template-columns: 1fr; gap: var(--s2); }
+  .story .smeta { flex-direction: row; flex-wrap: wrap; align-items: center; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<header class="mast">
+  <div class="kick">Techne &middot; the commons &middot; product register</div>
+  <h1>The participation stories</h1>
+  <p class="dek">Every way a person can act in the commons and the intranet, written as capability sentences: what someone can do, how it is proven, and what its standing honestly is. One set per persona, walking the participation index from the door inward, with refusals counted as capabilities, because what the system will not do is half of what it promises.<sup class="fn"><a href="#n1">1</a></sup></p>
+  <div class="band" aria-hidden="true">
+    <span style="background:var(--sun-gold)"></span><span style="background:var(--sun-blue)"></span><span style="background:var(--sun-amber)"></span><span style="background:var(--sun-coral)"></span><span style="background:var(--sun-rose)"></span><span style="background:var(--sun-violet)"></span>
+  </div>
+
+  <div class="preface">
+    <div class="pl">The frame, named before it is used</div>
+    <p>The register is the PRD's: a capability is a member sentence, and each story below carries its proving act in the manner of a piece's acceptance.<sup class="fn"><a href="#n2">2</a></sup> Personas follow the classes of the participation index, extended by the proposed guild levels; the rehearsal walks the newcomer, the host, and the steward in CI, with the unsigned stranger probed across every table; class-scoped personas are not among them yet, and this set is written so the guild and community personas can join when P-03 lands.<sup class="fn"><a href="#n3">3</a></sup> Story numbers here are document-local for conversation, not Almanac addresses; only the Almanac mints addresses.</p>
+    <p>What this frame leaves out, deliberately: the hub's physical life (doors, desks, keys are not the record's to promise), governance meetings and voting (held under the Bylaws, not yet carried by any surface), Class Four (anticipated, no surface), and anything marked proposed, which stands before the board and binds nobody. Statuses shown are as of August 2026 and follow the Almanac; where a story waits, the chip names what it waits on.</p>
+  </div>
+</header>
+
+<!-- ============ A · AT THE DOOR ============ -->
+<section class="sec" data-tint="gold">
+  <h2>A &middot; The stranger at the door</h2>
+  <p class="secnote">No account, no class, no obligations. The system's first promises are made to people it does not know.</p>
+
+  <div class="story"><div class="sid">A-1</div><div class="sbody"><div class="sent">A stranger can read what the cooperative is, what participation costs, and every instrument that would bind them, before giving anyone their name.</div><div class="prove"><b>Proven when</b> the participation index, the legal shelf, and the commons pages render without sign-in.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">/participation &middot; /legal &middot; /commons</span></div></div>
+
+  <div class="story"><div class="sid">A-2</div><div class="sbody"><div class="sent">A stranger can apply through the front door in one sitting, without an account, a meeting, or help, and the record opens with their application.</div><div class="prove"><b>Proven when</b> the application, the membership state, and the event land as one act for a person holding no permissions at all.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">/commons/join</span></div></div>
+
+  <div class="story"><div class="sid">A-3</div><div class="sbody"><div class="sent">When an application lands, the steward hears within moments, and if any notice cannot be delivered, the gap is named rather than swallowed.</div><div class="prove"><b>Proven when</b> the intake notice arrives on the rail and a missing sink appears by name in the steward's notice.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">notices rail</span></div></div>
+
+  <div class="story"><div class="sid">A-4</div><div class="sbody"><div class="sent">An applicant receives an acknowledgment to their own inbox.</div><div class="prove"><b>Proven when</b> the email sink clears its seam; until then the absence is a named gap, never a silent one.</div></div><div class="smeta"><span class="chip anticipated"><span class="dot"></span>Anticipated &middot; DNS</span><span class="surf">notices rail</span></div></div>
+
+  <div class="story"><div class="sid">A-5</div><div class="sbody"><div class="sent">A signed-in stranger is nobody in particular until a steward binds them, and sees what nobody sees.</div><div class="prove"><b>Proven when</b> an authenticated, unbound session is refused by every member-scoped read, in the words of the rule that refuses.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live &middot; refusal</span><span class="surf">binding &middot; RLS</span></div></div>
+
+  <div class="story"><div class="sid">A-6</div><div class="sbody"><div class="sent">A stranger cannot see members' profiles, responses, or the intranet, because the rows never leave the database.</div><div class="prove"><b>Proven when</b> the probe matrix asserts every such refusal against its Authority Map cell, on every change.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live &middot; refusal</span><span class="surf">probe matrix</span></div></div>
+</section>
+
+<!-- ============ B · GUILD ============ -->
+<section class="sec" data-tint="blue">
+  <h2>B &middot; The guild participant &middot; Class Three, virtual</h2>
+  <p class="secnote">Every story in this section is proposed: it stands before the board with GUILD v0.1 and binds nobody until adoption. Written here so the machinery and the promise can be reviewed as one thing.<sup class="fn"><a href="#n4">4</a></sup></p>
+
+  <div class="story"><div class="sid">B-1</div><div class="sbody"><div class="sent">A person anywhere can join the guild online in minutes, at a monthly amount they choose from ten to two hundred dollars, and every amount opens the same doors.</div><div class="prove"><b>Proven when</b> the front door completes the guild way end to end in one sitting, and no surface anywhere distinguishes participants by amount.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; GUILD adoption</span><span class="surf">/commons/join?way=guild</span></div></div>
+
+  <div class="story"><div class="sid">B-2</div><div class="sbody"><div class="sent">Before being bound, they can read the Guild Participation Terms in plain language and sign inline, and the signature is an event.</div><div class="prove"><b>Proven when</b> the terms stand on the shelf, version and standing marked, and signing lands atomically.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; terms adoption</span><span class="surf">/commons/agreements</span></div></div>
+
+  <div class="story"><div class="sid">B-3</div><div class="sbody"><div class="sent">From day one they hold a profile in the directory that they alone control.</div><div class="prove"><b>Proven when</b> their edits land, and nobody else's do, per the profile policies already proven for members.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; on adoption</span><span class="surf">/commons/directory</span></div></div>
+
+  <div class="story"><div class="sid">B-4</div><div class="sbody"><div class="sent">They can browse gatherings, register for sessions, cancel, and return, wherever a host stands a virtual door.</div><div class="prove"><b>Proven when</b> registration and cancellation land as events and the host's attendance record counts them.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; on adoption</span><span class="surf">/commons/gatherings</span></div></div>
+
+  <div class="story"><div class="sid">B-5</div><div class="sbody"><div class="sent">They can author on the board from day one, play, practice, or work, and close what they open, saying what it led to.</div><div class="prove"><b>Proven when</b> a guild participant's post, resolution, and withdrawal each land as events under the board's lifecycle.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; on adoption</span><span class="surf">/commons/opportunities</span></div></div>
+
+  <div class="story"><div class="sid">B-6</div><div class="sbody"><div class="sent">They can respond to any open opportunity, and the response is visible to exactly the author, themselves, and the overseers.</div><div class="prove"><b>Proven when</b> the probe matrix asserts the response scope for the guild persona.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; on adoption</span><span class="surf">the board</span></div></div>
+
+  <div class="story"><div class="sid">B-7</div><div class="sbody"><div class="sent">They can see their own path as a tally: days established, invitations standing, and what remains, with every figure tracing to the events that made it. The tally is self-facing and never comparative; eligibility is a condition, not a target, which is how this story and X-3 hold together.</div><div class="prove"><b>Proven when</b> the path tally shown equals the tally computed by hand from the record.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; GUILD P-04</span><span class="surf">path tally</span></div></div>
+
+  <div class="story"><div class="sid">B-8</div><div class="sbody"><div class="sent">They can cancel on reasonable notice, and their history remains in the record, correctable but never erased, exportable with everything else.</div><div class="prove"><b>Proven when</b> cancellation lands as an event and the walkaway export carries their rows like any other.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; on adoption</span><span class="surf">the record</span></div></div>
+
+  <div class="story"><div class="sid">B-9</div><div class="sbody"><div class="sent">They cannot vote, accrue no patronage allocation, hold no hub space, are never converted to membership automatically, and their dues are never capital, at any amount.</div><div class="prove"><b>Proven when</b> every one of these refusals is asserted in the rehearsal for the guild persona, and the terms say the capital sentence in plain words.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; refusal set</span><span class="surf">terms &middot; probe matrix</span></div></div>
+
+  <div class="story"><div class="sid">B-10</div><div class="sbody"><div class="sent">Whether a guild participant reads the Programs view and other intranet surfaces is an Authority Map cell that does not yet exist, and this document refuses to guess it.</div><div class="prove"><b>Proven when</b> the cell is written with its Bylaws anchor and the probe asserts whichever answer the organizers give.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Open &middot; AM cell</span><span class="surf">/intranet</span></div></div>
+</section>
+
+<!-- ============ C · COMMUNITY ============ -->
+<section class="sec" data-tint="gold">
+  <h2>C &middot; The community participant &middot; Class Three, at the hub</h2>
+  <p class="secnote">The hub's open edge. The room itself is outside the record's promises; the commons stories are the same ones the guild will share.</p>
+
+  <div class="story"><div class="sid">C-1</div><div class="sbody"><div class="sent">A community participant can enroll at the level that fits, Threshold, Footing, or Standing, and change levels on reasonable notice.</div><div class="prove"><b>Proven when</b> the join surface carries the level choice and a level change lands as an event; today enrollment lands without a level and no surface changes one, so the machinery is named here rather than claimed.</div></div><div class="smeta"><span class="chip drafted"><span class="dot"></span>Drafted &middot; level machinery</span><span class="surf">/commons/join?way=community</span></div></div>
+
+  <div class="story"><div class="sid">C-2</div><div class="sbody"><div class="sent">Once bound, they hold the same commons capabilities the guild stories name: a profile, gatherings, and the board.</div><div class="prove"><b>Proven when</b> a community persona joins the rehearsal (P-03) and walks B-3 through B-6 with the same assertions; the machinery is live for members, but no class-scoped persona has walked it.</div></div><div class="smeta"><span class="chip drafted"><span class="dot"></span>Drafted &middot; P-03 persona</span><span class="surf">the commons</span></div></div>
+
+  <div class="story"><div class="sid">C-3</div><div class="sbody"><div class="sent">Hub space at Footing and above is the framework's promise about a room, not the record's; the system claims nothing about doors.</div><div class="prove"><b>Proven by</b> its honest absence: no surface implies the record controls the space.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Out of scope, named</span><span class="surf">the hub</span></div></div>
+
+  <div class="story"><div class="sid">C-4</div><div class="sbody"><div class="sent">They cannot vote and accrue no patronage allocation, exactly as the class provides.</div><div class="prove"><b>Proven when</b> the refusals hold in the rehearsal for the community persona, which arrives with P-03; until then the class-scoped assertion has not run.</div></div><div class="smeta"><span class="chip drafted"><span class="dot"></span>Drafted &middot; P-03 refusals</span><span class="surf">probe matrix</span></div></div>
+</section>
+
+<!-- ============ D · CO-WORKING ============ -->
+<section class="sec" data-tint="amber">
+  <h2>D &middot; The co-working member &middot; Class Two</h2>
+  <p class="secnote">A desk, a signed agreement, and a trail of credits toward conversion. The counting itself waits on the counting rules, and the stories say so.</p>
+
+  <div class="story"><div class="sid">D-1</div><div class="sbody"><div class="sent">A co-working member can read and sign the Hub Membership Agreement on the shelf, and their patronage tracking begins from first execution.</div><div class="prove"><b>Proven when</b> the signature lands atomically and the execution date anchors the tracking clock.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">/commons/agreements</span></div></div>
+
+  <div class="story"><div class="sid">D-2</div><div class="sbody"><div class="sent">They can see their credits accruing toward conversion, as a tally over recorded contributions.</div><div class="prove"><b>Proven when</b> the Q3 counting rules give contributions their rates and the tally shown equals the hand trace.</div></div><div class="smeta"><span class="chip anticipated"><span class="dot"></span>Anticipated &middot; Q3</span><span class="surf">patronage tally</span></div></div>
+
+  <div class="story"><div class="sid">D-3</div><div class="sbody"><div class="sent">On reaching the board-set threshold, they may be invited to apply for membership, with the credits informing the invitation per Schedule A.</div><div class="prove"><b>Proven when</b> the threshold reads from the same tally the member sees, and the invitation lands as a recorded act.</div></div><div class="smeta"><span class="chip drafted"><span class="dot"></span>Drafted &middot; tally on Q3</span><span class="surf">Schedule A</span></div></div>
+
+  <div class="story"><div class="sid">D-4</div><div class="sbody"><div class="sent">They cannot vote, hold no capital account, and receive no Schedule K-1, because a desk is not a partnership.</div><div class="prove"><b>Proven when</b> the refusals hold in the rehearsal and the participation surfaces say so in plain words.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live &middot; refusal</span><span class="surf">probe matrix</span></div></div>
+</section>
+
+<!-- ============ E · COOPERATIVE MEMBER ============ -->
+<section class="sec" data-tint="coral">
+  <h2>E &middot; The cooperative member &middot; Class One, the patron</h2>
+  <p class="secnote">Ownership, and the fullest set. Where a right exists on paper but its surface waits, the chip says which condition it waits on.</p>
+
+  <div class="story"><div class="sid">E-1</div><div class="sbody"><div class="sent">An invited person can sign the Membership Agreement, pay the one-time share, and watch the capital account open at one hundred dollars as a view over events, never a stored balance.</div><div class="prove"><b>Proven when</b> admission lands as events and the capital tally, once the counting rules give it life, equals the hand trace.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live &middot; tally stub on Q3</span><span class="surf">the record</span></div></div>
+
+  <div class="story"><div class="sid">E-2</div><div class="sbody"><div class="sent">A member can always see every agreement that binds them, and can never be bound by something they cannot read.</div><div class="prove"><b>Proven when</b> the shelf shows each instrument with version and standing, and signing is inline.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">/commons/agreements</span></div></div>
+
+  <div class="story"><div class="sid">E-3</div><div class="sbody"><div class="sent">A member sees the member-scoped commons whole: the directory, the calendar, the board, and the responses that concern them.</div><div class="prove"><b>Proven when</b> the member persona walks every commons capability in the rehearsal.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">the commons</span></div></div>
+
+  <div class="story"><div class="sid">E-4</div><div class="sbody"><div class="sent">A member can host: stand a gathering under a governing agreement, manage its sessions, and record attendance where the record counts it.</div><div class="prove"><b>Proven when</b> a hosted session's registration and attendance land as events under the host's hand.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">/commons/gatherings</span></div></div>
+
+  <div class="story"><div class="sid">E-5</div><div class="sbody"><div class="sent">A member can read the Desk: the governance record of every movement the rules care about, read-only until the treasury policy adopts.</div><div class="prove"><b>Proven when</b> the Desk's reads match the movement record and no write path exists before adoption.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live read &middot; policy pending</span><span class="surf">/intranet/treasury</span></div></div>
+
+  <div class="story"><div class="sid">E-6</div><div class="sbody"><div class="sent">A member can see the Programs view: each Program's purpose, its Coordinator, its policy standing, and how it recognizes work.</div><div class="prove"><b>Proven when</b> the roster's standing equals the standing folded by hand from adoption events.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">/intranet/programs</span></div></div>
+
+  <div class="story"><div class="sid">E-7</div><div class="sbody"><div class="sent">A member can see their patronage and their distributive share as tallies, once the counting rules name the rates.</div><div class="prove"><b>Proven when</b> Q3 is recorded and every figure traces to contribution events at the adopted rates.</div></div><div class="smeta"><span class="chip anticipated"><span class="dot"></span>Anticipated &middot; Q3</span><span class="surf">patronage &middot; capital tally</span></div></div>
+
+  <div class="story"><div class="sid">E-8</div><div class="sbody"><div class="sent">A member can invite an access-track participant toward membership as a recorded act, once per pair, and the invitation appears in that person's path tally.</div><div class="prove"><b>Proven when</b> the verb refuses non-members and duplicates in the words of the rule, and the tally counts distinct inviters.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; GUILD P-04</span><span class="surf">invitation verb</span></div></div>
+
+  <div class="story"><div class="sid">E-9</div><div class="sbody"><div class="sent">A member can bring a body of work forward and stand as its carrier by a recorded act beside the designation, toward Program standing today and Venture standing when that module adopts; designation itself stays name and purpose only, exactly as F-4 provides.</div><div class="prove"><b>Proven when</b> the carrier act lands as its own event citing the designation, and its floor asserts active membership at the moment of the act.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; STANDING &middot; P-05</span><span class="surf">designation</span></div></div>
+
+  <div class="story"><div class="sid">E-10</div><div class="sbody"><div class="sent">A member can direct the instrument: give it work as a recorded act with a brief, a kind, and a scope, watch the arc of it, and see its acceptance or refusal on the record.</div><div class="prove"><b>Proven when</b> a Direction's whole life lands as events and the desk shows the arc, with the provenance pair on everything the run makes.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live &middot; steward-relayed</span><span class="surf">/intranet/direct</span></div></div>
+
+  <div class="story"><div class="sid">E-11</div><div class="sbody"><div class="sent">A member votes in meetings under the Bylaws; no surface carries ballots, and none pretends to.</div><div class="prove"><b>Proven by</b> honest absence, until the members ever decide otherwise.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Out of scope, named</span><span class="surf">the Bylaws</span></div></div>
+
+  <div class="story"><div class="sid">E-12</div><div class="sbody"><div class="sent">A member can withdraw on fourteen days' notice, settle at the capital account balance, and know the record of their years remains intact, correctable but never erased.</div><div class="prove"><b>Proven when</b> withdrawal lands as events and settlement reads from the same tally the member always saw.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live terms &middot; tally on Q3</span><span class="surf">the record</span></div></div>
+</section>
+
+<!-- ============ F · ROLES ============ -->
+<section class="sec" data-tint="rose">
+  <h2>F &middot; The roles &middot; grants, not titles</h2>
+  <p class="secnote">Nobody simply is an authority; each of these is a dated row in the grants, revocable, and probed.</p>
+
+  <div class="story"><div class="sid">F-1</div><div class="sbody"><div class="sent">The steward hears every application, binds sign-ins to agents, records lifecycle transitions, and relays the instrument's marks while the first grant stands undecided.</div><div class="prove"><b>Proven when</b> each act lands under the steward's grant and its Authority Map cell, and nothing lands without one.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">role grants</span></div></div>
+
+  <div class="story"><div class="sid">F-2</div><div class="sbody"><div class="sent">A host manages their own gathering's sessions and attendance, and nobody else's.</div><div class="prove"><b>Proven when</b> the probe asserts the host scope against its cell.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">/commons/gatherings</span></div></div>
+
+  <div class="story"><div class="sid">F-3</div><div class="sbody"><div class="sent">A Coordinator recognizes work within their Program by its ratified policy, and only within it.</div><div class="prove"><b>Proven when</b> recognition writes carry the policy's citation and refuse outside its bounds.</div></div><div class="smeta"><span class="chip drafted"><span class="dot"></span>Drafted &middot; verbs on Q3</span><span class="surf">/intranet/programs</span></div></div>
+
+  <div class="story"><div class="sid">F-4</div><div class="sbody"><div class="sent">The steward or a director can designate a Program by the verb, carrying name and purpose only, with substance arriving by policy.</div><div class="prove"><b>Proven when</b> designation refuses all other hands in the words of the rule, as it did for both principal Programs.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">designation</span></div></div>
+
+  <div class="story"><div class="sid">F-5</div><div class="sbody"><div class="sent">Overseers hold broad read by dated grant, and a revoked grant closes the door the same day it is cut.</div><div class="prove"><b>Proven when</b> the probe matrix walks every role against every table on every change.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">probe matrix</span></div></div>
+</section>
+
+<!-- ============ G · THE INSTRUMENT ============ -->
+<section class="sec" data-tint="violet">
+  <h2>G &middot; The instrument &middot; capabilities without authority</h2>
+  <p class="secnote">Nou's stories are mostly refusals, which is the design working.</p>
+
+  <div class="story"><div class="sid">G-1</div><div class="sbody"><div class="sent">Under a member's Direction, the instrument drafts, surfaces, and proposes, and everything a run makes carries two hands: authored by the instrument, directed by the member.</div><div class="prove"><b>Proven when</b> the provenance pair stands on every artifact and its absence on standing duties is itself legible.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">/intranet/direct</span></div></div>
+
+  <div class="story"><div class="sid">G-2</div><div class="sbody"><div class="sent">The instrument cannot merge, adopt, sign, or decide, and its refusals speak in the words of the rule that refuses.</div><div class="prove"><b>Proven when</b> every adoption in the history shows a human act, and no record or policy traces to an instrument's hand alone.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live &middot; refusal</span><span class="surf">Law X</span></div></div>
+
+  <div class="story"><div class="sid">G-3</div><div class="sbody"><div class="sent">Whether the instrument may hold one scoped authority, recording its own acceptances and refusals in the direction namespace alone, is staged as a question, not taken.</div><div class="prove"><b>Proven when</b> the organizers answer the first grant, either way, as a decision record.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Open &middot; the first grant</span><span class="surf">AGY &sect;5</span></div></div>
+</section>
+
+<!-- ============ X · EVERY PARTICIPANT ============ -->
+<section class="sec" data-tint="blue">
+  <h2>X &middot; Every participant, whatever the class</h2>
+  <p class="secnote">The promises that do not vary by persona, which is why they come last and bind everything above.</p>
+
+  <div class="story"><div class="sid">X-1</div><div class="sbody"><div class="sent">Nothing about you is a stored label: your standing is computed from what happened, corrections stay visible beside their mistakes, and history is not editable, for anyone.</div><div class="prove"><b>Proven when</b> the append-only trigger refuses every update and delete, and every tally traces.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">the record</span></div></div>
+
+  <div class="story"><div class="sid">X-2</div><div class="sbody"><div class="sent">Every right a page claims can be traced to the instrument that grants it, and every permission the database enforces carries its Bylaws anchor.</div><div class="prove"><b>Proven when</b> a policy without an anchor cannot merge and the anchors re-verify at the proof.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">authority map</span></div></div>
+
+  <div class="story"><div class="sid">X-3</div><div class="sbody"><div class="sent">No score, rank, or leaderboard represents you anywhere, at any class or any amount, and no measure of participation is made into a target.</div><div class="prove"><b>Proven when</b> no surface renders a comparative figure of persons, and the guard holds in review; the path tally of B-7 stays self-facing, a condition shown to its own person, never a ranking.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live guard</span><span class="surf">every surface</span></div></div>
+
+  <div class="story"><div class="sid">X-4</div><div class="sbody"><div class="sent">Sign-in is a link to your inbox; there is no password anywhere in the system to forget or to steal.</div><div class="prove"><b>Proven when</b> authentication completes by magic link alone and binding resolves who is asking.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">sign-in</span></div></div>
+
+  <div class="story"><div class="sid">X-5</div><div class="sbody"><div class="sent">If the platform vanished tomorrow, the record would not: the cooperative rehearses leaving every week, and has done it live.</div><div class="prove"><b>Proven when</b> export, fresh restore, and re-export agree byte for byte, with the tally exactly reconstructed.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">the walkaway</span></div></div>
+</section>
+
+<div class="legend">
+  <span>live &middot; verified machinery</span>
+  <span>drafted &middot; governs, growing</span>
+  <span>anticipated &middot; upstream must clear</span>
+  <span>proposed / open &middot; before the organizers</span>
+</div>
+
+<!-- ============ SOURCES ============ -->
+<div class="fnotes">
+  <div class="fl">Sources</div>
+  <ol>
+    <li id="n1">The participation index at techne.coop/participation, as refactored in this series to present the guild levels and the invitation pathway on adoption; classes and tracks as the adopted Participation Framework of June 24, 2026 provides.</li>
+    <li id="n2">The Lexicon v2 and PRD v0.3 register: a capability is a member sentence; pieces carry acceptances; the proof rehearsal runs every capability as a committed journey with every refusal asserted. Story numbers here are document-local; only the Almanac mints addresses.</li>
+    <li id="n3">The Almanac at techne.coop/commons/build: the surfaces and their standing (front door, shelf, directory, calendar, board, Programs view, Desk, Direction); the named conditions Q1, Q3, DNS, the treasury policy, and the first grant; the probe matrix and walkaway disciplines the proving lines lean on.</li>
+    <li id="n4">GUILD v0.1 and the STANDING module, this series, both proposed and unadopted: the guild persona's stories, the invitation verb and path tally, and the carrier act, each binding nobody until the board acts and the elections GUILD-D2, GUILD-D5, and STANDING-D1 through STANDING-D5 are recorded.</li>
+  </ol>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span>Techne &middot; RegenHub, LCA &middot; Boulder, Colorado</span>
+      <span>Prepared by Nou &middot; Todd directed and reviewed &middot; the organizers adopt</span>
+      <span>Statuses follow the Almanac &middot; August 2026</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
