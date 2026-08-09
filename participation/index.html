@@ -1,16 +1,21 @@
 <!DOCTYPE html>
+<!-- HOLD FOR ADOPTION · piece P-06, the public presentation (GUILD v0.1).
+     This file presents an amendment the board has not yet adopted. Per the build
+     protocol, merge is the presentation of an adopted instrument: do not merge
+     before the board action adopts, GUILD-D2 (invitation count) and GUILD-D5 (public name)
+     are recorded, and the "as amended" date below is set. One piece per branch. -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="The ways into Techne: four classes of participation, two tracks, their costs and rights, and the path from first visit to member-owner. Community and co-working enrollment is open now.">
+<meta name="description" content="The ways into Techne: four classes of participation, two tracks, their costs and rights, and the path from first visit to member-owner. Community, co-working, and guild enrollment is open now.">
 <title>The ways in &middot; Techne</title>
 <link rel="canonical" href="https://techne.coop/participation/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://techne.coop/participation/">
 <meta property="og:title" content="The ways in · Techne">
-<meta property="og:description" content="Four classes of participation, two tracks, and the path from first visit to member-owner. Community and co-working enrollment is open now.">
+<meta property="og:description" content="Four classes of participation, two tracks, and the path from first visit to member-owner. Community, co-working, and guild enrollment is open now.">
 <meta property="og:site_name" content="Techne">
 <meta property="og:image" content="https://techne.coop/assets/og-default.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -175,8 +180,6 @@ footer a { color: var(--muted); }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
-<script src="/assets/error-boundary.js"></script>
-<script src="/assets/hints.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -186,23 +189,24 @@ footer a { color: var(--muted); }
   <header class="mast">
     <div class="kick">Techne &middot; Participation</div>
     <h1>The ways in</h1>
-    <p class="dek">Techne is owned and governed by the people who use it, and there is more than one way to use it. Four classes of participation stand, on two tracks: an <em>access track</em> you can join today, and a <em>patron track</em> you grow into. Start wherever fits, and step deeper as it makes sense. Nothing here asks for ownership on day one.</p>
+    <p class="dek">Techne is owned and governed by the people who use it, and there is more than one way to use it. Four classes of participation stand, on two tracks: an <em>access track</em> you can join today, at the hub in Boulder or in the guild from anywhere, and a <em>patron track</em> you grow into. Start wherever fits, and step deeper as it makes sense. Nothing here asks for ownership on day one.</p>
     <div class="band" aria-hidden="true">
       <span style="background:var(--sun-gold)"></span>
       <span style="background:var(--sun-amber)"></span>
       <span style="background:var(--sun-coral)"></span>
       <span style="background:var(--sun-violet)"></span>
+      <span style="background:var(--sun-blue)"></span>
     </div>
   </header>
 
   <section class="sec" data-tint="gold" aria-labelledby="h-access">
     <h2 id="h-access">The access track &middot; open now</h2>
-    <p class="lead">Two classes enroll openly: no invitation, no buy-in, cancel on reasonable notice. Both are ways of belonging to the workshop without the obligations of governance, and time spent here counts. Co-working participation accrues <span class="term"><button type="button" aria-expanded="false">patronage</button><span class="term-card" role="note"><b>Patronage</b> is participation the cooperative counts: the work, presence, and custom a member brings. In a cooperative, benefit follows patronage rather than capital. <a href="/commons/patronage/">Program Patronage</a></span></span> credits from the first day of an executed agreement.</p>
+    <p class="lead">Three doors enroll openly across two classes: no invitation, no buy-in, cancel on reasonable notice. All are ways of belonging to the workshop without the obligations of governance, and time spent here counts. Co-working participation accrues <span class="term"><button type="button" aria-expanded="false">patronage</button><span class="term-card" role="note"><b>Patronage</b> is participation the cooperative counts: the work, presence, and custom a member brings. In a cooperative, benefit follows patronage rather than capital. <a href="/commons/patronage/">Program Patronage</a></span></span> credits from the first day of an executed agreement; guild time counts toward the invitation pathway below.</p>
 
     <div class="pgrid">
       <div class="pcard" data-tint="gold" id="community">
         <div class="p-track">Access track &middot; open enrollment</div>
-        <div class="p-class">Class Three</div>
+        <div class="p-class">Class Three &middot; at the hub</div>
         <h3>Community Participant</h3>
         <div class="p-price">$25 &middot; $50 &middot; $100 / month
           <small>Threshold &middot; Footing &middot; Standing</small>
@@ -215,6 +219,26 @@ footer a { color: var(--muted); }
         </ul>
         <div class="p-admit">Open enrollment. Cancel on reasonable notice. No buy-in.</div>
         <div class="p-act"><a href="/commons/join/?way=community">Come by
+          <svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
+      </div>
+
+      <!-- GUILD-D5: "Guild Participant" is the working name; the public name is the board's election -->
+      <div class="pcard" data-tint="blue" id="guild">
+        <div class="p-track">Access track &middot; open enrollment</div>
+        <div class="p-class">Class Three &middot; in the guild, virtual</div>
+        <h3>Guild Participant</h3>
+        <div class="p-price">$10 &middot; $25 &middot; $100 &middot; $200 / month
+          <small>self-chosen &middot; one standing at every amount</small>
+        </div>
+        <ul>
+          <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>The commons as the room: directory, gatherings, the board</li>
+          <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Author opportunities from day one</li>
+          <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Time in good standing counts toward the invitation pathway</li>
+          <li class="no"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>No vote on governance, no patronage allocation</li>
+          <li class="no"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>No hub space; dues are dues, never capital</li>
+        </ul>
+        <div class="p-admit">Guild Participation Terms, signed online. Open enrollment, from anywhere. Cancel on reasonable notice.</div>
+        <div class="p-act"><a href="/commons/join/?way=guild">Join the guild
           <svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
       </div>
 
@@ -238,9 +262,10 @@ footer a { color: var(--muted); }
     </div>
 
     <details class="disclose">
-      <summary>How co-working becomes ownership <span class="sum-note" style="font:400 11px/1.5 var(--mono);color:var(--muted);margin-left:auto">the conversion pathway</span></summary>
+      <summary>How participation becomes ownership <span class="sum-note" style="font:400 11px/1.5 var(--mono);color:var(--muted);margin-left:auto">the two pathways</span></summary>
       <div class="disclose-body">
-        <p>A Co-working Member who reaches a board-established patronage threshold may be invited to apply for Cooperative Member status. Upon Board acceptance, the member executes the Membership Agreement, pays the $100 one-time share, and moves fully to the patron track. The credits earned as a Co-working Member inform the invitation; the threshold and the credit methodology are set by board resolution and specified in Schedule A of the <a href="/legal/participation/">Participation Framework</a>.</p>
+        <p>At a desk: a Co-working Member who reaches a board-established patronage threshold may be invited to apply for Cooperative Member status. Upon Board acceptance, the member executes the Membership Agreement, pays the $100 one-time share, and moves fully to the patron track. The credits earned as a Co-working Member inform the invitation; the threshold and the credit methodology are set by board resolution and specified in Schedule A of the <a href="/legal/participation/">Participation Framework</a>.</p>
+        <p>In the guild, and anywhere on the access track: after ninety days of continuous participation in good standing, a participant becomes invitable. When two <!-- GUILD-D2: two is the drafted default; the board may set three --> Cooperative Members have each recorded an invitation in the cooperative's record, the participant is eligible to apply. An invitation is a member's act, not a form's checkbox: it says a member knows this person's work and direction of travel. Board acceptance, the Membership Agreement, and the $100 share follow exactly as above. Eligibility opens the door and never pushes anyone through it; membership is chosen from both sides.</p>
       </div>
     </details>
   </section>
@@ -263,7 +288,7 @@ footer a { color: var(--muted); }
           <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Capital account; annual <span class="term"><button type="button" aria-expanded="false">Schedule K-1</button><span class="term-card" role="note"><b>Schedule K-1</b> is the tax form a cooperative issues each member for their distributive share of its results. The cooperative covers the estimated K-1 tax liability by its Tax Distribution policy, adopted June 24, 2026.</span></span> with tax distribution</li>
           <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Full financial information and inspection rights</li>
         </ul>
-        <div class="p-admit">By invitation, after roughly 90 days of established relationship. Withdrawal on 14-day notice; settlement at capital account balance.</div>
+        <div class="p-admit">By invitation, after roughly 90 days of established relationship: patronage credits at a desk, or recorded member invitations in the guild. Withdrawal on 14-day notice; settlement at capital account balance.</div>
         <div class="p-act"><a href="/commons/join/?way=cooperative">Begin the relationship
           <svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
       </div>
@@ -296,7 +321,7 @@ footer a { color: var(--muted); }
       <div class="c-step" data-tint="gold">
         <div class="c-when">~90 days</div>
         <div class="c-t">Relationship</div>
-        <div class="c-d">Community or co-working participation. Patronage tracked. The relationship establishes itself.</div>
+        <div class="c-d">Community, co-working, or guild participation. Credits tracked at the hub; invitations gathered in the guild. The relationship establishes itself.</div>
       </div>
       <div class="c-step" data-tint="amber">
         <div class="c-when">Day 0</div>
@@ -318,9 +343,10 @@ footer a { color: var(--muted); }
 
   <section class="sec" data-tint="blue" aria-labelledby="h-instrument" style="margin-top:var(--s6)">
     <h2 id="h-instrument">The instrument governs</h2>
-    <p>This page presents; the ratified framework decides. Costs, rights, and admissions above are drawn from the Participation Framework adopted by board resolution on June 24, 2026, and from the Membership Agreement and Bylaws ratified July 2026. Where this page and an instrument differ, the instrument is right and this page owes a correction.</p>
+    <p>This page presents; the ratified framework decides. Costs, rights, and admissions above are drawn from the Participation Framework adopted by board resolution on June 24, 2026, as amended <!-- set the amendment date at merge, per the HOLD note --> to establish the guild levels and the invitation pathway, and from the Membership Agreement and Bylaws ratified July 2026. Where this page and an instrument differ, the instrument is right and this page owes a correction.</p>
     <div class="provrow">
       <span class="prov"><b>Participation Framework</b> &middot; <a href="/legal/participation/">legal/participation</a></span>
+      <span class="prov"><b>Guild Participation Terms</b> &middot; <a href="/commons/agreements/">commons/agreements</a></span>
       <span class="prov"><b>Bylaws &middot; Membership Agreement</b> &middot; <a href="/legal/">legal</a></span>
       <span class="prov"><b>Program Patronage</b> &middot; <a href="/commons/patronage/">commons/patronage</a></span>
     </div>
