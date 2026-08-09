@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="Verification Spec v1 for the Common Information System of RegenHub, LCA. How done is judged without a clock or a supervisor: five suites, packet acceptance, slice gates with human attestation, and the walkaway test as an executable check.">
-<title>Verification Spec &middot; VS v1 &middot; Techne</title>
+<meta name="description" content="Verification Spec v2 for the Common Information System of RegenHub, LCA. How done is judged without a clock or a supervisor: five suites, piece acceptance, capability proofs with human attestation, and the walkaway test as an executable check.">
+<title>Verification Spec &middot; VS v2 &middot; Techne</title>
 <link rel="canonical" href="https://techne.coop/commons/vs/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://techne.coop/commons/vs/">
-<meta property="og:title" content="Verification Spec · VS v1 · Techne">
-<meta property="og:description" content="How done is judged without a clock or a supervisor: five suites, packet acceptance, slice gates with human attestation, and the walkaway test as an executable check.">
+<meta property="og:title" content="Verification Spec · VS v2 · Techne">
+<meta property="og:description" content="How done is judged without a clock or a supervisor: five suites, piece acceptance, capability proofs with human attestation, and the walkaway test as an executable check.">
 <meta property="og:site_name" content="Techne">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
@@ -209,14 +209,14 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
 <div class="wrap">
 
   <header class="mast">
-    <div class="kick">verification contract &middot; VS v1 &middot; how done is judged</div>
+    <div class="kick">verification contract &middot; VS v2 &middot; how done is judged</div>
     <h1>Verification Spec</h1>
-    <p class="dek">In a build with no dates and no supervisor, done must be a fact about the record rather than a feeling about the work. This document defines that fact: the five suites that run as code, how a packet proves its acceptance, the gates each slice must pass with a human attestation, and the walkaway test as something executed rather than admired. The document governs; the workflow it emits distills.</p>
+    <p class="dek">In a build with no dates and no supervisor, done must be a fact about the record rather than a feeling about the work. This document defines that fact: the five suites that run as code, how a piece proves its acceptance, the proofs each capability must pass with a human attestation, and the walkaway test as something executed rather than admired. The document governs; the workflow it yields distills.</p>
     <div class="meta">
       <span>status &middot; <span class="chip drafted"><span class="dot"></span>Drafted</span></span>
-      <span>cites &middot; <b>BP v1</b> &middot; <b><a href="/commons/im/">IM v0.1</a></b> &middot; <a href="/commons/prd/">PRD v0.3</a> &middot; <a href="/commons/series/">SER v0.1</a></span>
+      <span>cites &middot; <b>BP v2</b> &middot; <b><a href="/commons/im/">IM v0.1</a></b> &middot; <a href="/commons/prd/">PRD v0.4</a> &middot; <a href="/commons/series/">SER v0.3</a></span>
       <span class="em">consolidates &middot; VERIFICATION.md &middot; C3 &middot; C11 &middot; retires C9</span>
-      <span>emits &middot; <a href="/commons/vs/verify.yml">verify.yml</a></span>
+      <span>yields &middot; <a href="/commons/vs/verify.yml">verify.yml</a></span>
       <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
     </div>
   </header>
@@ -224,9 +224,9 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
   <section class="sec" id="s1" data-tint="gold">
     <div class="addr">&sect;1</div>
     <h2>Preamble</h2>
-    <p class="lead">This contract consolidates the estate's verification layer: the CI job contracts of VERIFICATION.md, the verification definitions of C3, and the C11 wave gates, rewritten from waves to slices. The C9 KPI fixture pack retires with the grant it measured, per the deprecation record at <a href="/commons/prd/">PRD v0.3</a> &sect;1a; its useful habit, designed pass and fail cases, carries without its KPIs, under the fixture discipline of &sect;7.</p>
-    <p>The same honest limit that bound the Build Protocol binds this document: the estate files hold check contracts at a finer grain than the commons index records, and those are not silently dropped. The reconciliation packet BP v1 &sect;1 opened grows in scope to include VERIFICATION.md, C3, and C11: at the merge, each finer-grained contract is adopted here by amendment or retired by name. <span class="chip open"><span class="dot"></span>Open &middot; reconciliation packet, scope grown</span></p>
-    <p>The emission continues the series pattern: <a href="/commons/vs/verify.yml"><code>verify.yml</code></a> is the workflow the repository actually runs, and the invariant assertions inside it execute against the substrate migration <a href="/commons/im/">IM v0.1</a> emitted, so the schema's refusals are proven, not presumed. What the workflow cannot honestly run yet, it names as deferred rather than faking green.</p>
+    <p class="lead">This contract consolidates the estate's verification layer: the CI job contracts of VERIFICATION.md, the verification definitions of C3, and the C11 wave gates, rewritten from waves to capabilities. The C9 KPI fixture pack retires with the grant it measured, per the deprecation record at <a href="/commons/prd/">PRD v0.4</a> &sect;1a; its useful habit, designed pass and fail cases, carries without its KPIs, under the fixture discipline of &sect;7.</p>
+    <p>The same honest limit that bound the Build Protocol binds this document: the estate files hold check contracts at a finer grain than the commons index records, and those are not silently dropped. The reconciliation piece BP v2 &sect;1 opened grows in scope to include VERIFICATION.md, C3, and C11: at the merge, each finer-grained contract is adopted here by amendment or retired by name. <span class="chip open"><span class="dot"></span>Open &middot; reconciliation piece, scope grown</span></p>
+    <p>The yield continues the series pattern: <a href="/commons/vs/verify.yml"><code>verify.yml</code></a> is the workflow the repository actually runs, and the invariant assertions inside it execute against the substrate migration <a href="/commons/im/">IM v0.1</a> yielded, so the schema's refusals are proven, not presumed. What the workflow cannot honestly run yet, it names as deferred rather than faking green.</p>
   </section>
 
   <section class="sec" id="s2" data-tint="gold">
@@ -234,20 +234,20 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
     <h2>The five suites</h2>
     <p class="lead">Every merge runs five suites. Three are fully runnable today; two run in their honest partial form and grow with the artifacts they wait on.</p>
     <div class="def">
-      <div class="def-row"><span class="t"><span class="k">carries unchanged</span>ledger-validate</span><span class="d">The estate's validator on the packet ledger: schema compliance, dependency acyclicity, and gating consistency, with done requiring verified upstream. This suite is why the ledger can be trusted as a scheduler.</span></div>
-      <div class="def-row"><span class="t"><span class="k">new &middot; audit prerequisite</span>schema-lint</span><span class="d">Static discipline on the substrate: migrations timestamped and ordered, every table commented, every future policy carrying its bylaw anchor per cite-as-you-enforce. A policy without an anchor does not merge; the lint is how that rule stops being a sentence and becomes a gate. Absorbs the schema-lint prerequisite the pre-build audit named.</span></div>
+      <div class="def-row"><span class="t"><span class="k">carries unchanged</span>ledger-validate</span><span class="d">The estate's validator on the almanac ledger: schema compliance, dependency acyclicity, and proof consistency, with done requiring verified upstream. This suite is why the ledger can be trusted as a scheduler.</span></div>
+      <div class="def-row"><span class="t"><span class="k">new &middot; audit prerequisite</span>schema-lint</span><span class="d">Static discipline on the substrate: migrations timestamped and ordered, every table commented, every future policy carrying its bylaw anchor per cite-as-you-enforce. A policy without an anchor does not merge; the lint is how that rule stops being a sentence and becomes a check. Absorbs the schema-lint prerequisite the pre-build audit named.</span></div>
       <div class="def-row"><span class="t"><span class="k">runnable now</span>db-verify</span><span class="d">The invariant suite of &sect;4: a fresh database, the migrations applied, and the conserved quantities of <a href="/commons/im/">IM v0.1</a> &sect;6 proven by attempted violation. The substrate is trusted because it demonstrably refuses.</span></div>
       <div class="def-row"><span class="t"><span class="k">honest partial</span>rls-audit</span><span class="d">The visibility suite. Until the Authority Map lands, its whole expectation matrix is one row repeated: every probe, on every table, denied. That is runnable today and is exactly what the deny-by-default posture claims. When AM cites its anchors, the C7 probe shape returns as roles by tables, expectations sourced from the map, never from the code.</span></div>
       <div class="def-row"><span class="t"><span class="k">new</span>style-lint</span><span class="d">The house rules as CI, on authored documents and pages: the vocabulary quarantine (the retired cooperative-tax terms appear nowhere), no em dashes, no emoji, and no raw hex outside the token layer on site pages. Editorial discipline that runs on every merge stops depending on anyone's vigilance, including Todd's.</span></div>
     </div>
-    <p>The signal loop's synchronization job carries alongside these but is not of them: it feeds an attention instrument, and an instrument is not an authority, per BP v1 &sect;8.</p>
+    <p>The signal loop's synchronization job carries alongside these but is not of them: it feeds an attention instrument, and an instrument is not an authority, per BP v2 &sect;8.</p>
   </section>
 
   <section class="sec" id="s3" data-tint="amber">
     <div class="addr">&sect;3</div>
-    <h2>Proving a packet</h2>
-    <p class="lead">A packet's acceptance field is its test statement, written so this document can check it. For slice work, the member-capability sentences of <a href="/commons/prd/">PRD v0.3</a> &sect;4 are the acceptance language verbatim: each sentence beginning <em>a member can</em> is demonstrated, not asserted.</p>
-    <p>Done is a conjunction, never a mood: the five suites green on the packet's branch; the acceptance demonstrated in a way the reviewer can reproduce; the review tier of BP v1 &sect;6 satisfied, with a decision record where the tier demands one; and the status changed by commit. A failed check does not argue, it names: the packet's status becomes the Open chip carrying the check's name, <span class="mono">blocked &middot; db-verify/one-voting-share</span>, so the status table reads as reasons. And the protocol's last line binds here with full force: if unsure whether done, not done.</p>
+    <h2>Proving a piece</h2>
+    <p class="lead">A piece's acceptance field is its test statement, written so this document can check it. For capability work, the member-capability sentences of <a href="/commons/prd/">PRD v0.4</a> &sect;4 are the acceptance language verbatim: each sentence beginning <em>a member can</em> is demonstrated, not asserted.</p>
+    <p>Done is a conjunction, never a mood: the five suites green on the piece's branch; the acceptance demonstrated in a way the reviewer can reproduce; the review tier of BP v2 &sect;6 satisfied, with a decision record where the tier demands one; and the status changed by commit. A failed check does not argue, it names: the piece's status becomes the Open chip carrying the check's name, <span class="mono">blocked &middot; db-verify/one-voting-share</span>, so the status table reads as reasons. And the protocol's last line binds here with full force: if unsure whether done, not done.</p>
   </section>
 
   <section class="sec" id="s4" data-tint="amber">
@@ -258,54 +258,54 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
       <div class="an-row"><span class="f">append-only</span><span class="v">An update and a delete are attempted on <code>events</code>; the trigger must raise. Law I, <a href="/commons/im/">IM v0.1</a> &sect;4.</span></div>
       <div class="an-row"><span class="f">one-voting-share</span><span class="v">A second issued voting share for the same agent is inserted; the partial unique index must refuse. Law III, <a href="/commons/im/">IM v0.1</a> &sect;6.</span></div>
       <div class="an-row"><span class="f">lifecycle-legality</span><span class="v">An illegal transition, applied straight to suspended, is attempted; the automaton trigger must raise. Law VI.</span></div>
-      <div class="an-row"><span class="f">no-stored-balance</span><span class="v">The information schema is scanned: no base table carries a balance-like column. Balances exist only as folds. Law VII, <a href="/commons/im/">IM v0.1</a> &sect;7.</span></div>
-      <div class="an-row"><span class="f">replay-holds</span><span class="v">Known capital events are inserted and the <code>capital_accounts</code> view must equal their hand-computed folds, both projections. Law I and VII, the smallest true replay.</span></div>
+      <div class="an-row"><span class="f">no-stored-balance</span><span class="v">The information schema is scanned: no base table carries a balance-like column. Balances exist only as tallies. Law VII, <a href="/commons/im/">IM v0.1</a> &sect;7.</span></div>
+      <div class="an-row"><span class="f">replay-holds</span><span class="v">Known capital events are inserted and the <code>capital_accounts</code> view must equal their hand-computed tallies, both projections. Law I and VII, the smallest true replay.</span></div>
       <div class="an-row"><span class="f">rls-everywhere</span><span class="v">Every launch table reports row security enabled; a probe role with table grants and no policies reads zero rows. Law V in its deny-by-default form.</span></div>
     </div>
-    <p>Assertions for vote arithmetic, the patron-majority floor, allocation sums under substantial economic effect, and the paired covering distribution are stated in <a href="/commons/im/">IM v0.1</a> &sect;6 and enter this suite when their slices land; listing them green before their schema exists would be a plan dressed as a fact. <span class="chip anticipated"><span class="dot"></span>Anticipated &middot; with their slices</span></p>
+    <p>Assertions for vote arithmetic, the patron-majority floor, allocation sums under substantial economic effect, and the paired covering distribution are stated in <a href="/commons/im/">IM v0.1</a> &sect;6 and enter this suite when their capabilities land; listing them green before their schema exists would be a plan dressed as a fact. <span class="chip anticipated"><span class="dot"></span>Anticipated &middot; with their capabilities</span></p>
   </section>
 
   <section class="sec" id="s5" data-tint="coral">
     <div class="addr">&sect;5</div>
-    <h2>The gates</h2>
-    <p class="lead">Gates replace the wave gates one for one in mechanics and change only in shape: a gate now closes a slice, not a wave. Each gate is a named set of required checks plus a human attestation, and passing it is what unlocks the packets that cite it. Parts are proven by steps; the whole is proven here, and that estate phrase carries verbatim.</p>
+    <h2>The proofs</h2>
+    <p class="lead">Proofs replace the wave gates one for one in mechanics and change only in shape: a proof now closes a capability, not a wave. Each proof is a named set of required checks plus a human attestation, and passing it is what unlocks the pieces that cite it. Parts are proven by steps; the whole is proven here, and that estate phrase carries verbatim.</p>
     <div class="def">
-      <div class="def-row"><span class="t"><span class="k">carries unchanged</span>G0 &middot; security floor</span><span class="d">The pre-slice gate, inherited whole: conservation enforced in the database, the audit log structural, row security enabled and denying without the map, backup taken and restore actually performed. No slice gate can be attempted while G0 is red.</span></div>
-      <div class="def-row"><span class="t"><span class="k">gate &middot; august 14</span>G-B &middot; Belong</span><span class="d">The Belong acceptance sentences demonstrated end to end: read, sign, appear, onboard. All five suites green; attestation by an organizer and by one member who is not an organizer, since the curious-newcomer criterion cannot be self-attested.</span></div>
-      <div class="def-row"><span class="t"><span class="k">gate &middot; august 14</span>G-G &middot; Gather</span><span class="d">The Gather sentences demonstrated: see, register, cancel, be counted. Same suites, same two-party attestation.</span></div>
-      <div class="def-row"><span class="t"><span class="k">following slice</span>G-F &middot; Find one another</span><span class="d">The opportunity lifecycle demonstrated open to resolved, with the resolution landing as an event, not a table row. Slice name pending the short-form question. <span class="chip open"><span class="dot"></span>Open &middot; naming</span></span></div>
-      <div class="def-row"><span class="t"><span class="k">after counting rules</span>G-S &middot; See your share</span><span class="d">The fold shown to a member equals the fold computed by hand from their events, both projections, with every figure traceable to its inputs. <span class="chip open"><span class="dot"></span>blocked &middot; Q3</span></span></div>
-      <div class="def-row"><span class="t"><span class="k">the flip</span>G-R &middot; ratification</span><span class="d">The gate the vote opens. Every bylaw anchor in the schema and the Authority Map is re-verified against the ratified text, and only through this gate may any surface begin to display the Ratified mark. Until G-R passes, a Ratified chip anywhere is itself a lint failure.</span></div>
+      <div class="def-row"><span class="t"><span class="k">carries unchanged</span>G0 &middot; security floor</span><span class="d">The proof before the capabilities, inherited whole: conservation enforced in the database, the audit log structural, row security enabled and denying without the map, backup taken and restore actually performed. No capability proof can be attempted while G0 is red.</span></div>
+      <div class="def-row"><span class="t"><span class="k">proof &middot; august 14</span>G-B &middot; Belong</span><span class="d">The Belong acceptance sentences demonstrated end to end: read, sign, appear, onboard. All five suites green; attestation by an organizer and by one member who is not an organizer, since the curious-newcomer criterion cannot be self-attested.</span></div>
+      <div class="def-row"><span class="t"><span class="k">proof &middot; august 14</span>G-G &middot; Gather</span><span class="d">The Gather sentences demonstrated: see, register, cancel, be counted. Same suites, same two-party attestation.</span></div>
+      <div class="def-row"><span class="t"><span class="k">following capability</span>G-F &middot; Find one another</span><span class="d">The opportunity lifecycle demonstrated open to resolved, with the resolution landing as an event, not a table row. Capability name pending the short-form question. <span class="chip open"><span class="dot"></span>Open &middot; naming</span></span></div>
+      <div class="def-row"><span class="t"><span class="k">after counting rules</span>G-S &middot; See your share</span><span class="d">The tally shown to a member equals the tally computed by hand from their events, both projections, with every figure traceable to its inputs. <span class="chip open"><span class="dot"></span>blocked &middot; Q3</span></span></div>
+      <div class="def-row"><span class="t"><span class="k">the flip</span>G-R &middot; ratification</span><span class="d">The proof the vote opens. Every bylaw anchor in the schema and the Authority Map is re-verified against the ratified text, and only through this proof may any surface begin to display the Ratified mark. Until G-R passes, a Ratified chip anywhere is itself a lint failure.</span></div>
     </div>
   </section>
 
   <section class="sec" id="s6" data-tint="coral">
     <div class="addr">&sect;6</div>
     <h2>Attestation as events</h2>
-    <p class="lead">A gate attestation is not a checkbox in a workflow run; it is a record in the system the gate protects. Passing a gate writes an event, <span class="mono">gate.attested</span>, carrying the gate's name, the suites' run references, and the human actors, per Laws II and X: the act of attesting is a happening, and it belongs to people.</p>
-    <p>This closes a loop worth naming: the record verifies the build, and the build's verification becomes part of the record. An auditor asking whether a gate truly passed queries the same ledger a member queries for their capital account, with the same traceability, and the answer never depends on a CI provider's retention window.</p>
+    <p class="lead">A proof attestation is not a checkbox in a workflow run; it is a record in the system the proof protects. Passing a proof writes an event, <span class="mono">gate.attested</span>, the kind keeping its machinery name until the Information Model's own revision, carrying the proof's name, the suites' run references, and the human actors, per Laws II and X: the act of attesting is a happening, and it belongs to people.</p>
+    <p>This closes a loop worth naming: the record verifies the build, and the build's verification becomes part of the record. An auditor asking whether a proof truly passed queries the same ledger a member queries for their capital account, with the same traceability, and the answer never depends on a CI provider's retention window.</p>
   </section>
 
   <section class="sec" id="s7" data-tint="rose">
     <div class="addr">&sect;7</div>
     <h2>Fixtures and simulation</h2>
     <p class="lead">C9 retires, its habit survives. Designed cases that should pass and designed cases that must fail remain the best way to prove an assertion means something; only the KPIs they measured are gone.</p>
-    <p>Fixture discipline follows the simulation rule of BP v1 &sect;5 without exception: fixture and demonstration data carries <span class="mono">provenance: illustrative</span> at creation, lives only in test databases and branch environments, and writes nothing back to live records. The db-verify suite builds its world fresh on every run and discards it after; a fixture that leaks into the ledger is a defect the suites themselves should catch, which is why the live record is also linted for illustrative provenance outside designated demonstration surfaces.</p>
+    <p>Fixture discipline follows the simulation rule of BP v2 &sect;5 without exception: fixture and demonstration data carries <span class="mono">provenance: illustrative</span> at creation, lives only in test databases and branch environments, and writes nothing back to live records. The db-verify suite builds its world fresh on every run and discards it after; a fixture that leaks into the ledger is a defect the suites themselves should catch, which is why the live record is also linted for illustrative provenance outside designated demonstration surfaces.</p>
   </section>
 
   <section class="sec" id="s8" data-tint="rose">
     <div class="addr">&sect;8</div>
     <h2>The walkaway test, executable</h2>
     <p class="lead">Law XI's promise, turned into a procedure: on infrastructure the cooperative does not control, a stranger with only the published artifacts can stand the system up and arrive at the same state.</p>
-    <p>The procedure, stated so a harness can run it: provision a fresh database from nothing but the public repository; apply the migrations in order; load each table's documented export together with the event log; replay; and compare every fold, both capital projections included, against the folds published by the source system. The run must complete within the bounded recovery window Law XI names, and it must require no conversation with anyone at RegenHub, which is what without renegotiation means operationally.</p>
-    <p>The harness is a packet, not yet a suite: it enters <a href="/commons/vs/verify.yml"><code>verify.yml</code></a> on a schedule rather than on every merge once the first per-table exports land, and its first green run is a success criterion of <a href="/commons/prd/">PRD v0.3</a> &sect;10, not a decoration. <span class="chip anticipated"><span class="dot"></span>Anticipated &middot; harness packet</span></p>
+    <p>The procedure, stated so a harness can run it: provision a fresh database from nothing but the public repository; apply the migrations in order; load each table's documented export together with the event log; replay; and compare every tally, both capital projections included, against the tallies published by the source system. The run must complete within the bounded recovery window Law XI names, and it must require no conversation with anyone at RegenHub, which is what without renegotiation means operationally.</p>
+    <p>The harness is a piece, not yet a suite: it enters <a href="/commons/vs/verify.yml"><code>verify.yml</code></a> on a schedule rather than on every merge once the first per-table exports land, and its first green run is a success criterion of <a href="/commons/prd/">PRD v0.4</a> &sect;10, not a decoration. <span class="chip anticipated"><span class="dot"></span>Anticipated &middot; harness piece</span></p>
   </section>
 
   <section class="sec" id="s9" data-tint="blue">
     <div class="addr">&sect;9</div>
-    <h2>The emission, and amendment</h2>
-    <p class="lead">The workflow <a href="/commons/vs/verify.yml"><code>verify.yml</code></a> distills this document into five jobs. Today it runs honestly: ledger-validate calls the estate validator where the ledger exists; schema-lint and style-lint run whole; db-verify provisions a database in the runner, applies <a href="/commons/im/0001_substrate.sql"><code>0001_substrate.sql</code></a>, and executes every &sect;4 assertion by attempted violation; rls-audit proves deny-by-default with a grant-bearing, policy-less probe role. The probe matrix, the walkaway harness, and the with-their-slices assertions are named in the workflow as deferred, in comments a reader can find, because a suite that fakes green teaches people to ignore it.</p>
-    <p>Changes to this document are Tier C under BP v1 &sect;6, and a change that weakens a check is a regression to be named, never absorbed, which is the one sentence of the old gate discipline this refactor keeps with pride. The workflow versions with the document; supersession is explicit; the superseded contracts remain in the record as history.</p>
+    <h2>The yield, and amendment</h2>
+    <p class="lead">The workflow <a href="/commons/vs/verify.yml"><code>verify.yml</code></a> distills this document into five jobs. Today it runs honestly: ledger-validate calls the estate validator where the ledger exists; schema-lint and style-lint run whole; db-verify provisions a database in the runner, applies <a href="/commons/im/0001_substrate.sql"><code>0001_substrate.sql</code></a>, and executes every &sect;4 assertion by attempted violation; rls-audit proves deny-by-default with a grant-bearing, policy-less probe role. The probe matrix, the walkaway harness, and the with-their-capabilities assertions are named in the workflow as deferred, in comments a reader can find, still speaking the retired register until the machinery piece L-07, because a suite that fakes green teaches people to ignore it.</p>
+    <p>Changes to this document are Tier C under BP v2 &sect;6, and a change that weakens a check is a regression to be named, never absorbed, which is the one sentence of the old gate discipline this refactor keeps with pride. The workflow versions with the document; supersession is explicit; the superseded contracts remain in the record as history.</p>
     <div class="memo">
       <div class="k">the working agreement of this contract</div>
       <p>A green suite is not the truth; it is the absence of known lies, kept honest by checks that try to break what they protect. The suites exist so that done is a fact about the record, and so that trust in the build, like trust in the cooperative, never has to be taken on anyone's word, including ours.</p>
@@ -314,8 +314,9 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
 
   <footer>
     <div class="row">
-      <span>Verification Spec &middot; VS v1 &middot; Drafted</span>
-      <span>emits <a href="/commons/vs/verify.yml">verify.yml</a> &middot; consolidates VERIFICATION.md, C3, C11 &middot; retires C9</span>
+      <span>Verification Spec &middot; VS v2 &middot; Drafted</span>
+      <span>supersedes VS v1 &middot; adopted by the steward, August 2026</span>
+      <span>yields <a href="/commons/vs/verify.yml">verify.yml</a> &middot; consolidates VERIFICATION.md, C3, C11 &middot; retires C9</span>
       <span><a href="/commons/series/">The Common Record Series</a> &middot; VS</span>
       <span>techne.coop &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
     </div>
