@@ -1,14 +1,31 @@
 # Contributing to techne.coop
 
-This repository is a cooperative project, built under the **Build Protocol (BP v1)**. Contributions come in two forms: work by human organizers, and work by build agents under organizer direction. Both paths end at the same place: a pull request, reviewed by an organizer, merged only with the validator green.
+This repository is a cooperative project, built under the **Build Protocol (BP v2)**. Contributions come in two forms: work by human organizers, and work by build agents under organizer direction. Both paths end at the same place: a pull request, reviewed by an organizer, merged only with the validator green.
 
 ---
 
 ## The operating contract
 
-Read `AGENTS.md` before anything else. It summarizes BP v1, the single governing document for all work in this repository. BP v1 governs; `AGENTS.md` summarizes. When the two disagree, file the conflict and follow BP v1.
+Read `AGENTS.md` before anything else. It summarizes BP v2, the single governing document for all work in this repository; the full text is at [techne.coop/commons/bp/](https://techne.coop/commons/bp/). BP v2 governs; `AGENTS.md` summarizes. When the two disagree, file the conflict and follow BP v2.
 
 The full agent instructions, including design system alignment and ledger orientation, are at [techne.coop/commons/build/instructions/](https://techne.coop/commons/build/instructions/).
+
+---
+
+## The register
+
+The build speaks its own register, defined with its concordance in the Lexicon at [techne.coop/commons/build/lexicon/](https://techne.coop/commons/build/lexicon/):
+
+| Term | Meaning |
+|---|---|
+| piece | One unit of work: a branch, a pull request, an adoption |
+| bed | A dependency-ordered sequence of pieces |
+| proof | A human attestation that a capability works, recorded as an event |
+| graft | A module document adopted into the ledger |
+| tally | Computed state over the event record; balances are computed, never stored |
+| stop card | The four-field question an agent files at a decision boundary |
+
+The retired terms (packet, train, gate, splice, fold) survive only in preserved historical records, in the concordance, and in machinery names not yet renamed. Do not write them in new prose.
 
 ---
 
@@ -27,9 +44,9 @@ Organizers are the decision-making body. They record outcomes, approve merges, a
 
 ### Human contribution path
 
-1. Open an issue describing the change or the problem. Name the packet address if one exists.
-2. Branch from `main` using the packet address as the branch name (e.g. `SUB-01`, `B-03`).
-3. Work inside the cited constraints of the packet.
+1. Open an issue describing the change or the problem. Name the piece address if one exists.
+2. Branch from `main` using the piece address as the branch name (e.g. `SUB-01`, `B-03`).
+3. Work inside the cited constraints of the piece.
 4. Open a pull request. State what was decided within scope and what was escalated.
 5. Wait for organizer review. Tier A (work within cited scope): one organizer approves. Tier B (schema, authority, money, membership): organizer review plus a decision record. Tier C (series artifacts): Todd approves.
 6. Merge only with the validator green.
@@ -38,23 +55,23 @@ Organizers are the decision-making body. They record outcomes, approve merges, a
 
 ## Build agents
 
-Build agents are session-scoped instruments  --  capabilities without authority. They hold no standing between sessions and presume no memory. Their entire working context is assembled from the series artifacts and the packet in hand.
+Build agents are session-scoped instruments  --  capabilities without authority. They hold no standing between sessions and presume no memory. Their entire working context is assembled from the series artifacts and the piece in hand.
 
 ### Session start (every session, every time)
 
 1. Read `AGENTS.md` at the repository root.
 2. Read the series overview at [techne.coop/commons/series/](https://techne.coop/commons/series/).
-3. Read the living roadmap at [techne.coop/commons/build/](https://techne.coop/commons/build/).
-4. Read the packet you are working, and every artifact it cites, in full.
+3. Read the Almanac at [techne.coop/commons/build/](https://techne.coop/commons/build/).
+4. Read the piece you are working, and every artifact it cites, in full.
 5. Only then, open the code.
 
 ### What agents decide
 
-Inside a packet's cited constraints, agents decide freely: code structure, query shape, test arrangement, file layout, internal naming, draft copy, order of their own steps.
+Inside a piece's cited constraints, agents decide freely: code structure, query shape, test arrangement, file layout, internal naming, draft copy, order of their own steps.
 
-### What agents escalate
+### What agents stop for
 
-Agents stop and file an escalation card for anything touching:
+Agents stop and file a stop card for anything touching:
 - Permissions or visibility not already in the Authority Map
 - Schema changes not already in the Information Model
 - Money, membership standing, or governance semantics
@@ -63,10 +80,10 @@ Agents stop and file an escalation card for anything touching:
 - Public names and public claims
 - Anything where the bylaws are silent
 
-**Escalation card shape:**
+**Stop card shape:**
 
 ```
-standing in:  <packet address and step>
+standing in:  <piece address and step>
 found:        <what was encountered, with artifact citations>
 the question: <the smallest question whose answer unblocks the work  --  one question>
 a default:    <proposed answer, marked as a proposal>
@@ -74,11 +91,12 @@ a default:    <proposed answer, marked as a proposal>
 
 ### Agent commit convention
 
+Per BP v2, agent-authored commits carry an authorship trailer naming the agent role and the piece address:
+
 ```
 <brief imperative summary>
 
-Packet: <address>
-Authored-by: build-agent / <address>
+Authored-by: <agent role> / <piece address>
 ```
 
 ---
@@ -120,12 +138,10 @@ Every claim wears its mark:
 
 ## The ledger
 
-The roadmap lives at `commons/build/index.html` and reads from `rdm-ledger.yaml`. Do not edit the living roadmap directly  --  it is generated from the ledger and the series. The validator enforces schema compliance, dependency acyclicity, and gating consistency on every change.
+The Almanac lives at `commons/build/index.html` and reads from `rdm-ledger.yaml`. The ledger is the truth; the generated regions of the Almanac, `STATUS.md`, and `index.json` are written by `scripts/validate.py` and must not be edited by hand. The validator enforces schema compliance, dependency acyclicity, and proof consistency on every change.
 
-Current state (July 2026): 7 drafted series documents · 23 anticipated packets · 10 open conditions.
-
-The one immediately workable packet: **SUB-01**  --  stand the repository on the estate layout with the validator reshaped to slices.
+The live census is generated to [STATUS.md](./STATUS.md); the Almanac renders the same state at [techne.coop/commons/build/](https://techne.coop/commons/build/).
 
 ---
 
-*RegenHub, LCA · Boulder, Colorado · BP v1 · July 2026*
+*RegenHub, LCA · Boulder, Colorado · BP v2 · August 2026*
