@@ -1,10 +1,10 @@
-# rdm-ledger.yaml · RDM v1 · Drafted
-# Living roadmap for the Common Record Series build.
-# The Common Record Series · RegenHub, LCA · July 2026
-# Validator: scripts/validate.py — schema, acyclicity, gating.
+# rdm-ledger.yaml · ALM v2 · Drafted
+# The almanac ledger of the Common Record Series build: every piece,
+# its bed, and its honest mark. ALM v2 supersedes RDM v1; the file's
+# own rename rides L-07. RegenHub, LCA · July 2026
+# Validator: scripts/validate.py — schema, acyclicity, proof addresses.
 # Status marks: drafted | anticipated | open · (blocker)
-# No dates. Dependency is the schedule.
-# 79 items: 10 series and module documents + 69 work packets across 9 trains.
+# No dates. Readiness is the schedule.
 
 series:
 
@@ -18,15 +18,15 @@ series:
 
   - address: PRD
     title: Product Requirements v0.3
-    intent: Deprecation record, four slices, three doors, ten principles.
+    intent: Deprecation record, four capabilities, three doors, ten principles.
     status: drafted
     cites: [SER]
     deliverable: commons/prd/index.html
-    acceptance: Published. Slice names match living roadmap. Deprecation at §1a.
+    acceptance: Published. Capability names match the Almanac. Deprecation at §1a.
 
   - address: BP
     title: Build Protocol
-    intent: One operating contract, packet ledger grammar, decide/escalate, provenance. Emits AGENTS.md.
+    intent: One operating contract, piece ledger grammar, decisions and stop cards, provenance. Yields AGENTS.md.
     status: drafted
     cites: [SER, PRD]
     deliverable: commons/bp/index.html, AGENTS.md
@@ -34,7 +34,7 @@ series:
 
   - address: UI
     title: Tokens and Patterns
-    intent: Design tokens and patterns aligned to techne.coop/design-system. Emits commons.css.
+    intent: Design tokens and patterns aligned to techne.coop/design-system. Yields commons.css.
     status: drafted
     cites: [SER, BP]
     deliverable: commons/ui/index.html, commons.css
@@ -42,7 +42,7 @@ series:
 
   - address: IM
     title: Information Model
-    intent: Information model and the eleven laws. Emits 0001_substrate.sql.
+    intent: Information model and the eleven laws. Yields 0001_substrate.sql.
     status: drafted
     cites: [SER, PRD]
     deliverable: commons/im/index.html, commons/im/0001_substrate.sql
@@ -50,7 +50,7 @@ series:
 
   - address: VS
     title: Verification Spec
-    intent: Five suites and six gates. Emits verify.yml.
+    intent: Five suites and six proofs. Yields verify.yml.
     status: drafted
     cites: [SER, BP, IM]
     deliverable: commons/vs/verify.yml, .github/workflows/verify.yml
@@ -58,7 +58,7 @@ series:
 
   - address: AM
     title: Authority Map
-    intent: Authority map anchored in Bylaws v2.1. Emits 0002_policies.sql.
+    intent: Authority map anchored in Bylaws v2.1. Yields 0002_policies.sql.
     status: drafted
     cites: [SER, PRD, IM]
     deliverable: commons/authority-map/index.html, commons/authority-map/0002_policies.sql
@@ -69,13 +69,13 @@ series:
     intent: >
       Programs as organizing bodies for Opportunities; the event contract for
       contributions, claims, and the allocation sequence; configuration as
-      record; the Programs view. Emits, anticipated, 000N_patronage_verbs.sql.
+      record; the Programs view. Yields, anticipated, 000N_patronage_verbs.sql.
       Proposal posture per its own §1; nothing adopted by drafting.
     status: drafted
     cites: [SER, PRD, BP, IM, VS, AM]
     deliverable: commons/patronage/index.html
     acceptance: >
-      Published at techne.coop/commons/patronage/. The §14 splice entered in this
+      Published at techne.coop/commons/patronage/. The §14 graft entered in this
       ledger; adoption is the merge, and the merge is Todd's.
 
   - address: TREASURY
@@ -83,13 +83,13 @@ series:
     intent: >
       The movement layer over Stripe, Mercury, and Xero; governed movements as
       events; the two-person signature discipline as record; reconciliation as
-      a fold; the four joint contracts with PATRONAGE. Emits, anticipated,
+      a tally; the four joint contracts with PATRONAGE. Yields, anticipated,
       000N_treasury_verbs.sql. Proposal posture per its own §1.
     status: drafted
     cites: [SER, PRD, BP, IM, VS, AM, PATRONAGE]
     deliverable: commons/treasury/index.html
     acceptance: >
-      Published at techne.coop/commons/treasury/. The §13 splice entered in this
+      Published at techne.coop/commons/treasury/. The §13 graft entered in this
       ledger; adoption is the merge, and the merge is Todd's.
 
   - address: AGY
@@ -97,17 +97,17 @@ series:
     intent: >
       Patron members direct the cooperative's agent on the record: the
       direction rail, the run, provenance under two hands, the desk, the
-      floor, and the first-grant decision, staged and routed. Emits,
+      floor, and the first-grant decision, staged and routed. Yields,
       anticipated, 000N_direction_rail.sql. Proposal posture per its own
       §1; adopted by the steward's merge 2026-07-27 (PR #73).
     status: drafted
     cites: [SER, PRD, BP, IM, AM, PATRONAGE, U-04, X-02]
     deliverable: commons/agency/index.html
     acceptance: >
-      Published at techne.coop/commons/agency/. The §14 splice entered in
+      Published at techne.coop/commons/agency/. The §14 graft entered in
       this ledger; adoption is the merge, and the merge is Todd's.
 
-substrate:
+ground:
 
   - address: SUB-01
     title: Repository scaffold
@@ -227,7 +227,7 @@ substrate:
       recorded in live CIS: 91e05e60-910f-4448-885e-2b5a8d34679a.
       Recorded by Nou / SUB-05, 2026-07-11.
 
-gates:
+proofs:
 
   - address: G0
     title: Security floor
@@ -246,17 +246,17 @@ gates:
       Unlocks all slice trains: Belong, Gather, Find, Share, Cross-cutting.
 
   - address: G-B
-    title: Belong gate
+    title: Belong proof
     intent: Belong demonstrated end to end with two-party attestation.
     status: anticipated
     ready_when: >
-      B-02, B-04, B-05 verified. B-04 escalation resolved — sign_agreement()
+      B-02, B-04, B-05 verified. B-04 stop card resolved — sign_agreement()
       SECURITY DEFINER applied 2026-07-12. The steward's run-through.
-    gate: Organizer and non-organizer member demonstrate every Belong sentence live.
+    proof: Organizer and non-organizer member demonstrate every Belong sentence live.
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
     acceptance: G-B status updated to attested. B-02, B-04, B-05 all verified.
     note: >
-      Demonstration script published in the Gate Book at
+      Demonstration script published in the Proof Book at
       commons/build/gates/: five beats, the newcomer drives, the organizer
       countersigns, attestation text and recording procedure included.
       Mechanical rehearsal green in CI (gate-rehearsal suite,
@@ -270,15 +270,15 @@ gates:
       non-organizer member countersigns at the steward's convenience.
 
   - address: G-G
-    title: Gather gate
+    title: Gather proof
     intent: Gather demonstrated end to end with two-party attestation.
     status: anticipated
     ready_when: G-03 verified. The steward's run-through.
-    gate: Two-party attestation. Every Gather sentence demonstrated live.
+    proof: Two-party attestation. Every Gather sentence demonstrated live.
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
     acceptance: G-G status updated to attested. G-03 verified.
     note: >
-      Demonstration script published in the Gate Book at
+      Demonstration script published in the Proof Book at
       commons/build/gates/. Mechanical rehearsal green in CI
       (gate-rehearsal suite): host creates the gathering under the named
       agreement, member registers, cancels, returns, host records
@@ -290,35 +290,35 @@ gates:
       convenience.
 
   - address: G-F
-    title: Find gate
+    title: Find proof
     intent: Find demonstrated end to end.
     status: anticipated
     ready_when: F-03 verified. G-B attested.
-    gate: Human attestation recorded.
+    proof: Human attestation recorded.
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
     acceptance: G-F status updated to attested. F-01, F-02, F-03 all verified.
 
   - address: G-S
-    title: Share gate
+    title: Share proof
     intent: See Your Share demonstrated end to end.
     status: anticipated
     ready_when: S-03 verified. Q3 counting rules adopted.
-    gate: Human attestation recorded.
+    proof: Human attestation recorded.
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
-    acceptance: G-S status updated to attested. S-01 through S-03 verified. Q3 counting rules on record. The fold shown equals the fold computed by hand.
+    acceptance: G-S status updated to attested. S-01 through S-03 verified. Q3 counting rules on record. The tally shown equals the tally computed by hand.
     note: >
-      Re-anchored 2026-07-22 per the PATRONAGE §14 splice: the S train re-decomposed
-      to three packets, and the gate follows the last of them. The gate
+      Re-anchored 2026-07-22 per the PATRONAGE §14 graft: the S bed re-decomposed
+      to three pieces, and the proof follows the last of them. The proof
       sentence is unchanged. The first accounting year may reach G-S on an
-      illustrative run, provenance marked, if the Gate Book prefers not to
-      wait for a fiscal close; that choice belongs to the Gate Book.
+      illustrative run, provenance marked, if the Proof Book prefers not to
+      wait for a fiscal close; that choice belongs to the Proof Book.
 
   - address: G-T
-    title: Treasury gate
+    title: Treasury proof
     intent: Governed movement demonstrated end to end, per TREASURY §12.
     status: anticipated
     ready_when: T-04 verified.
-    gate: Human attestation recorded.
+    proof: Human attestation recorded.
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
     acceptance: >
       G-T status updated to attested. A movement shown settled equals a
@@ -326,15 +326,15 @@ gates:
       and the window attests with nothing unexplained.
 
   - address: G-R
-    title: Cross-cutting gate
-    intent: All cross-cutting packets verified.
+    title: Cross-cutting proof
+    intent: All cross-cutting pieces verified.
     status: anticipated
     ready_when: X-01 through X-09 verified.
-    gate: Human attestation recorded.
+    proof: Human attestation recorded.
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
     acceptance: G-R status updated to attested. X-01 through X-09 all verified.
     note: >
-      Procedure published in the Gate Book at commons/build/gates/: the
+      Procedure published in the Proof Book at commons/build/gates/: the
       anchor re-verification pass over 0002, 0005, and the schema comments
       against the governing text, and the bylaws-mark discrepancy (AM v0.1
       section 1a) resolved before attestation. Discrepancy resolved
@@ -344,17 +344,17 @@ gates:
       already right; the index caught up.
 
   - address: G-A
-    title: The agency gate
+    title: The agency proof
     intent: Common direction demonstrated by a member who is not the steward.
     status: anticipated
     cites: [AGY, VS]
     ready_when: A-04 verified.
-    gate: The AGY §13 gate sentence, demonstrated live and recorded.
+    proof: The AGY §13 proof sentence, demonstrated live and recorded.
     deliverable: Attestation recorded in rdm-ledger.yaml with attesting agent and date.
     acceptance: G-A status updated to attested. A-01 through A-04 all verified.
     note: >
-      Entered 2026-07-27 with the A train on AGY adoption. The gates tree
-      page resynced the same day (PR #70) precedes this gate; its catch-up
+      Entered 2026-07-27 with the A bed on AGY adoption. The proofs tree
+      page resynced the same day (PR #70) precedes this proof; its catch-up
       is flagged to the steward, not taken here.
 
   - address: G-L
@@ -363,7 +363,7 @@ gates:
     status: anticipated
     cites: [BP, VS]
     ready_when: L-01 through L-06 verified.
-    gate: >
+    proof: >
       A newcomer reads the Almanac, the Lexicon, and the build pages end
       to end and meets no working word the Lexicon does not hold; every
       historical term they encounter in the record answers through the
@@ -630,7 +630,7 @@ gather:
       A gathering enters the calendar from the calendar. Any member may
       hold one and is its host; a steward may act for any. The gathering
       gains the two things it could not say about itself, what it is and
-      where to stand, and the act lands as an event like the Find train's.
+      where to stand, and the act lands as an event like the Find bed's.
     status: open · in-session
     cites: [PRD, AM, IM]
     ready_when: G-03 verified.
@@ -646,8 +646,8 @@ gather:
       no policy change: 0002's gatherings_host_write already let a member
       write a gathering they host and a steward act for any, so the gap
       was a surface, not an authority. The client writes the row and the
-      event as the Find train does (F-01, F-03), which keeps the two
-      trains reading alike.
+      event as the Find bed does (F-01, F-03), which keeps the two
+      beds reading alike.
 
 find:
 
@@ -687,9 +687,9 @@ find:
       by the identity consolidation that reduced the steward to one agent.
       No member can regenerate it alone: a response is a message to an
       author, so the surface offers no self-response, by design. The
-      mechanism stands proven in the gate rehearsal, beats 10 through 10.2,
+      mechanism stands proven in the proof rehearsal, beats 10 through 10.2,
       against three distinct personas including the visibility rule that
-      the live row never proved. The packet waits on the steward's word:
+      the live row never proved. The piece waits on the steward's word:
       record it on the rehearsal, or leave it until a second member answers
       a posting after launch.
     note: >
@@ -846,12 +846,12 @@ share:
       Rules entered as instruments. Wording reconciled 2026-07-27 (X-13): the
       Bylaws Schedule A is already entered; the instrument that values HOURS is
       LABOR-SCHEDULE, per the 2026-07-24 recode.
-    acceptance: A contribution posted by verb appears in the poster's fold, citing its policy version.
+    acceptance: A contribution posted by verb appears in the poster's tally, citing its policy version.
     note: >
-      Spliced 2026-07-22 per PATRONAGE §14: the prior S-01, Capital account view, and
+      Grafted 2026-07-22 per PATRONAGE §14: the prior S-01, Capital account view, and
       S-02, Allocation event, read against the dashboard's contribution
-      posting paths and fold surface, resolved as an under-decomposition; the
-      union is the three-packet train below. Superseded descriptions kept in
+      posting paths and tally surface, resolved as an under-decomposition; the
+      union is the three-piece bed below. Superseded descriptions kept in
       history, per the discipline.
 
       Schedule A entered 2026-07-24 at the steward's direction: agreements
@@ -862,7 +862,7 @@ share:
       (MA section 1.4; Bylaws sections 1.2.4 and 1.2.5; the Board decision
       of 2026-07-24; PR 55 the durable form). Half the instrument
       deliverable stands; the Counting Rules instrument remains with Q3,
-      which still gates the packet.
+      which still bars the piece.
 
       COUNTING-RULES v1 drafted and staged 2026-07-24 at the steward's
       direction, at commons/patronage/counting-rules/: the six-Primitive
@@ -877,7 +877,7 @@ share:
       this draft.
 
   - address: S-02
-    title: The fold surface
+    title: The tally surface
     intent: >
       /intranet/share/ shows the balance and the itemized history with traceable
       inputs per Law IV. Address reconciled 2026-07-27 (X-13) to the door U-07
@@ -909,12 +909,12 @@ treasury:
     acceptance: The thresholds in force are visible on the Desk, cited to their instrument.
     note: >
       Build staged 2026-07-22 on the steward's direction: the Desk stands
-      read-only at /intranet/treasury/, audience-gated to the roles 0002's
+      read-only at /intranet/treasury/, audience-bound to the roles 0002's
       events_read seats there, every section honest about its empty state
       and naming the emission that will fill it. TREASURY-POLICY v1 is
       drafted and staged to the FSC and the board at
       commons/treasury/policy/ with the §6 floor and the drafter's band
-      cut. The packet completes when the board adopts: the agreements row
+      cut. The piece completes when the board adopts: the agreements row
       enters, the adoption event carries the payload, and the thresholds
       render on the Desk cited to their instrument. No verb, no migration,
       no movement; the record as it is, which is quiet.
@@ -929,12 +929,12 @@ treasury:
     acceptance: A replayed webhook writes once; a purchase prices only from the instrument in force.
 
   - address: T-03
-    title: The reconciliation fold
+    title: The reconciliation tally
     intent: Three-way pairing across ledger, bank, and book; windows attest; gaps card, per TREASURY §8.
     status: anticipated
     cites: [TREASURY, IM, VS]
     ready_when: T-02 verified. Mercury feed and Xero references flowing.
-    deliverable: The reconciliation fold; treasury.reconciled and treasury.gap_resolved verbs; gap cards on the Desk.
+    deliverable: The reconciliation tally; treasury.reconciled and treasury.gap_resolved verbs; gap cards on the Desk.
     acceptance: First window attested; an injected gap blocks attestation until resolved.
 
   - address: T-04
@@ -969,8 +969,8 @@ treasury:
     intent: /intranet/treasury/ shows the cooperative's finances by month, quarter, and fiscal year, position, flow, standing, and the close ribbon, derived from the record and cut per audience, per TREASURY §9a.
     status: anticipated
     cites: [TREASURY, PATRONAGE, IM, AM, VS]
-    ready_when: T-01 verified. The dues schedule recorded as an instrument for the standing region; the member-cut fold functions emitted.
-    deliverable: /intranet/treasury/ statements view, the four regions and the two cuts; 000N_treasury_folds.sql, the member-cut definer folds returning aggregates only; the close ribbon bound to attested windows; the small-cohort withholding.
+    ready_when: T-01 verified. The dues schedule recorded as an instrument for the standing region; the member-cut tally functions yielded.
+    deliverable: /intranet/treasury/ statements view, the four regions and the two cuts; 000N_treasury_folds.sql, the member-cut definer tallies returning aggregates only; the close ribbon bound to attested windows; the small-cohort withholding.
     acceptance: Every figure resolves to its events, its instrument, or its read; the member cut returns no other member's name or amount under probe; outstanding equals instrument-expected minus received by hand; a month shows closed only under an attested window.
     note: >
       Staged 2026-08-05 on the steward's direction, ahead of T-01's board
@@ -979,13 +979,13 @@ treasury:
       applied live; the runner at scripts/treasury_statements.py; and the
       first three monthly statements, May through July 2026, rail-derived
       and rendering at the member cut on /intranet/treasury/, each marked
-      provisional until a window attests. The packet still completes by
-      its acceptance when the record's own folds and instruments arrive.
+      provisional until a window attests. The piece still completes by
+      its acceptance when the record's own tallies and instruments arrive.
 
 shell:
 
-  # The U train: the frame every slice shares. Refiled here 2026-07-27 (X-13);
-  # these packets had accreted into the share and treasury sections, and the
+  # The U bed: the frame every capability shares. Refiled here 2026-07-27 (X-13);
+  # these pieces had accreted into the share and treasury sections, and the
   # section keys are part of the ledger's legibility even where the validator
   # reads them flat.
 
@@ -1251,7 +1251,7 @@ shell:
   - address: U-07
     title: The parked door
     intent: >
-      Three of the four slices stand at launch and the fourth was simply
+      Three of the four capabilities stand at launch and the fourth was simply
       absent from the map, which read as forgotten rather than waiting.
       The Share door now exists and tells the truth in the system's own
       vocabulary: what will stand there, sentence by sentence, and what it
@@ -1261,7 +1261,7 @@ shell:
     cites: [PRD, UI, PATRONAGE]
     ready_when: U-06 in session; S-01 and S-02 stand blocked on Q3.
     deliverable: >
-      /intranet/share/ carrying the three S-train sentences, the three-axis
+      /intranet/share/ carrying the three S-bed sentences, the three-axis
       line, and the block named with a path to the staged COUNTING-RULES;
       the See your share group on the shell's map.
     acceptance: >
@@ -1272,7 +1272,7 @@ shell:
     note: >
       Built in the launch-gap review 2026-07-27. The page carries no data
       and fetches none; it is a status contract rendered as a door, the
-      same honesty the roadmap practices, at the address members will
+      same honesty the Almanac practices, at the address members will
       keep.
 
   - address: U-08
@@ -1283,7 +1283,7 @@ shell:
       no accessible hint pattern, no disclosure pattern, no form pattern
       despite two live forms, no named loading or absence states, and no
       component for the one thing a newcomer must do, choose a class of
-      participation. This packet evolves the constitution: Lucide adopted
+      participation. This piece evolves the constitution: Lucide adopted
       as the icon source, inlined as SVG with no runtime dependency; term
       hints that put a weighted word's definition where it stands; the
       treasury's disclosure promoted to a system pattern; the v4 form;
@@ -1295,7 +1295,7 @@ shell:
     deliverable: >
       commons.css pattern additions (icons, term hints, disclosure,
       forms, participation cards, member curve, states); assets/hints.js,
-      dependency free; the design-system reference re-emitted with the
+      dependency free; the design-system reference re-yielded with the
       Lucide amendment and the new sections.
     acceptance: >
       The design-system page documents each new pattern with markup; the
@@ -1327,7 +1327,7 @@ shell:
     cites: [UI, BP]
     ready_when: U-08 adopted.
     deliverable: >
-      index.html re-emitted: topbar navigation and footer links, the
+      index.html re-yielded: topbar navigation and footer links, the
       hero action routed to the join surface, three-ways-in cards linked
       to the participation surface with Lucide icons in their standing
       wells, countdown wrapped and aria-treated, faint-token text raised
@@ -1349,7 +1349,7 @@ shell:
     intent: >
       The join surface said membership is by invitation while the
       ratified Participation Framework holds two open-enrollment classes.
-      This packet gives the cooperative a public participation surface,
+      This piece gives the cooperative a public participation surface,
       cards, comparison, and the member curve, rendered from the
       framework and citing it as the instrument, and rebuilds the join
       form as class-aware enrollment: choose a way in, see what it
@@ -1357,10 +1357,10 @@ shell:
       surface, by the steward's call of 2026-08-07.
     status: open · delivered
     cites: [UI, PRD, BP]
-    ready_when: U-08 adopted; G-A unchanged (the gate chain is not touched).
+    ready_when: U-08 adopted; G-A unchanged (the proof chain is not touched).
     deliverable: >
       /participation/ public surface built on the U-08 participation
-      cards, citing /legal/participation/; /commons/join/ re-emitted as
+      cards, citing /legal/participation/; /commons/join/ re-yielded as
       a v4 form with class selection, bound labels, and live status;
       term hints on the weighted words.
     acceptance: >
@@ -1383,15 +1383,15 @@ shell:
     intent: >
       The intranet pages predate the v4 emission and the U-05 register
       cut both: rounded corners and ember-filled buttons against the
-      constitution, and section marks, packet addresses, migration
+      constitution, and section marks, piece addresses, migration
       numbers, and a raw event identifier in member-facing copy. This
-      packet aligns the five signed-in surfaces to v4, finishes the
+      piece aligns the five signed-in surfaces to v4, finishes the
       U-05 cut, seats icons in the shell's map, and gives every surface
       its heading structure, focus states, and first-run orientation.
     status: open · delivered
     cites: [UI, BP, PRD]
     ready_when: U-08 adopted; U-05 stands (the register cut extends to
-      section marks and packet addresses in member copy).
+      section marks and piece addresses in member copy).
     deliverable: >
       The five intranet surfaces aligned to v4 (radius, buttons, focus,
       headings); U-05 leaks removed from member copy; Lucide icons in
@@ -1399,13 +1399,13 @@ shell:
       link; the stale statement link routed to the treasury surface;
       first-run cards where a newcomer lands.
     acceptance: >
-      No section mark, packet address, migration number, or event
+      No section mark, piece address, migration number, or event
       identifier renders in member-facing copy; the five surfaces carry
       one visual grammar; the shell marks the active section for
       assistive readers; style-lint and the token audit green.
     note: Staged on branch U-11; merge is the act of adoption.
     resolution: >
-      Adopted as PR 88, merged by the steward 2026-08-07. The gate
+      Adopted as PR 88, merged by the steward 2026-08-07. The proof
       shown unbroken by headless render; the signed-in map's icons and
       aria-current await a signed-in walkthrough to call verified,
       since a static render does not exercise a member's frame.
@@ -1417,10 +1417,10 @@ shell:
       Baskerville and IBM Plex Mono, yet commons.css still carried
       Inter as an interface layer and the design-system reference
       still loaded and specified it, a constitution disagreeing with
-      itself. This packet completes the adoption: the sans token and
+      itself. This piece completes the adoption: the sans token and
       its classes retired from commons.css, the dashboard-heading and
       section-label roles restated in the two faces, and the
-      design-system page re-emitted without the third face.
+      design-system page re-yielded without the third face.
     status: open · delivered
     cites: [UI, BP]
     ready_when: U-08 adopted; X-06 stands.
@@ -1447,7 +1447,7 @@ shell:
       agreed: contents, height, and type size drifted page to page,
       while a third of the pages carried no primary navigation at all.
       The shell settled this question for the signed-in surface in
-      U-01; this packet settles it for the public face. One topbar,
+      U-01; this piece settles it for the public face. One topbar,
       one manifest, one geometry, injected by /assets/topbar.js, its
       frame mirroring the shell topbar so the two faces of the site
       read as one element at the crossing.
@@ -1457,7 +1457,7 @@ shell:
     deliverable: >
       /assets/topbar.js, the shared public topbar; the design-system
       reference amended with its specification; every public page
-      re-emitted to load it, inline topbars and floating mode toggles
+      re-yielded to load it, inline topbars and floating mode toggles
       retired; the validator extended so every page names exactly one
       frame, shell or topbar, and no inline topbar returns.
     acceptance: >
@@ -1509,7 +1509,7 @@ shell:
     title: The intranet walkthrough, answered
     intent: >
       The steward walked every intranet view on 2026-08-07 and
-      recorded eleven minutes of asks: less chrome at the gate,
+      recorded eleven minutes of asks: less chrome at the sign-in,
       fewer duplicated words, forms behind buttons rather than
       standing open, tabs where lists grew long, an archive verb
       where the record offered only silence, and the record's own
@@ -1519,15 +1519,15 @@ shell:
     cites: [U-14, UI, F-04, A-02]
     ready_when: the steward's walkthrough of 2026-08-07.
     deliverable: >
-      The gate says Link sent; the duplicate Admissions door folds
-      into the directory; the footer spans the frame; the overview
+      The sign-in door says Link sent; the duplicate Admissions door
+      merges into the directory; the footer spans the frame; the overview
       doors follow the map's order and the treasury card carries
       one name; the directory tabs by kind with the profile behind
       an edit button; gatherings and programs raise their forms in
       a drawer; the host may archive a gathering (migration 0020,
       applied live); the agreements shelf reads as a compact
       index; Your share shows the account's shape at zero; the
-      Commonplace Book and the living roadmap keep the members'
+      Commonplace Book and the Almanac keep the members'
       frame when a member is signed in and render exactly as
       authored when no one is.
     deferred: >
@@ -1535,7 +1535,7 @@ shell:
       is a spend decision, not code: it wants a paid Supabase tier
       and custom SMTP on the co-op domain. The extended Program
       schema (files, links, member affiliations, a detail view
-      past the record) is a substrate packet of its own and
+      past the record) is a Ground piece of its own and
       carries a governance question this branch will not answer
       alone: who may affiliate a member with a Program. The
       steward named it for launch day; it is addressed as U-16
@@ -1552,18 +1552,18 @@ shell:
     resolution: >
       Adopted as PR 95, merged by the steward 2026-08-07. All eight
       checks green on the merge, and the live site verified after
-      deploy: the gate says Link sent; the record pages carry the
+      deploy: the sign-in door says Link sent; the record pages carry the
       public bar with shell.js declared data-public beside it; the
       Admissions door is gone from the map, its overview card
       pointing at the directory panel; the treasury card carries
       one name; the directory's blue tokens read exactly from the
-      canonical scale. What remains open on the packet is use, not
+      canonical scale. What remains open on the piece is use, not
       construction: the drawers, tabs, and the archive verb have
       rendered under a rehearsed session but have not yet been
       driven by a member against live data, and the archive path
       writes to the record. The four deferrals stand as named, two
       of them waiting on the steward: the sender spend and the
-      affiliation authority that gates U-16.
+      affiliation authority that bars U-16.
 
   - address: U-17
     title: The intranet in the hand
@@ -1574,7 +1574,7 @@ shell:
       hand: the bar overflowed, forms invited the system to zoom,
       controls sat under the size a thumb can reliably hit, and a
       grid track wider than the screen pushed whole sections
-      sideways. This packet holds the members' surface to the same
+      sideways. This piece holds the members' surface to the same
       standard at 320 and 390 as at 1280.
     status: open · delivered
     cites: [U-15, U-13, UI]
@@ -1677,7 +1677,7 @@ cross_cutting:
       An export projection defined as select star freezes its columns when
       it is created, so a column added to a base table afterwards never
       reaches the walkaway. The one drifted view is re-expanded and the
-      class is closed: the gate rehearsal now applies the export views and
+      class is closed: the proof rehearsal now applies the export views and
       asserts each carries its base table's columns exactly.
     status: open · in-session
     cites: [VS, IM]
@@ -2067,35 +2067,35 @@ cross_cutting:
     title: The build surface agrees
     intent: >
       The public build surface resynced to the ledger it claims to read.
-      X-13 made the three PRDs agree with the record; this packet does the
+      X-13 made the three PRDs agree with the record; this piece does the
       same for the six pages under /commons/build/, which had drifted
-      further and quieter: the roadmap narrated seven trains where the
+      further and quieter: the Almanac narrated seven beds where the
       ledger held nine, the instructions counted 52 items where it held
-      72, the Gate Book scored six gates where it held eight, and the
-      Lexicon defined a migration chain that stopped at 0007. The A train
+      72, the Proof Book scored six proofs where it held eight, and the
+      Lexicon defined a migration chain that stopped at 0007. The A bed
       and the AGY module are the occasion; the drift is older than they
       are.
     status: open · in-session
     cites: [AGY, BP, SER]
     ready_when: >
-      The A train entered the ledger (2026-07-27). Requested by the
+      The A bed entered the ledger (2026-07-27). Requested by the
       steward the same day, which is also the authority for it: these are
       public claims, and reconciling public claims is his call, not the
       instrument's.
     deliverable: >
-      commons/build/index.html: the AGY document row, the U and A trains
+      commons/build/index.html: the AGY document row, the U and A beds
       narrated for the first time, the tree tab's migration chain carried
-      to 0018, the gates list at eight, the signal panel carrying the
+      to 0018, the proofs list at eight, the signal panel carrying the
       first grant and the visibility decision.
       commons/build/gates/index.html: G-A scored with its five beats and
-      its distinct cast requirement; the attestation template's gate list
+      its distinct cast requirement; the attestation template's proof list
       completed with G-T and G-A.
       commons/build/lexicon/index.html: ten drafted artifacts, nine
-      trains, the module documents, the chain through 0018, the new
+      beds, the module documents, the chain through 0018, the new
       definer verbs, and the terms Direction, Run, Scope, Estate list,
       and the provenance pair.
       commons/build/instructions/index.html: the count paragraph and the
-      train table corrected, the Shell and Agency rows added,
+      bed table corrected, the Shell and Agency rows added,
       commons/agency/ in the repository layout.
       commons/build/launch/index.html: the first grant as a board-side
       row, the visibility decision and the two migrations as steward-side
@@ -2105,12 +2105,12 @@ cross_cutting:
       carrying the agency conditions.
     acceptance: >
       No page under /commons/build/ states a count, an enumeration, or a
-      standing that the ledger contradicts. Every train in the ledger is
-      narrated on the roadmap; every gate is scored in the Gate Book.
+      standing that the ledger contradicts. Every bed in the ledger is
+      narrated on the Almanac; every proof is scored in the Proof Book.
     note: >
       The instructions page carried the worst of it in one paragraph:
-      five numerals, all stale, including a train count that predated the
-      U train entirely. Recorded here because a page that counts wrongly
+      five numerals, all stale, including a bed count that predated the
+      U bed entirely. Recorded here because a page that counts wrongly
       is not merely out of date, it is a claim the record does not
       support, and this estate's whole argument is that claims answer to
       the record.
@@ -2119,7 +2119,7 @@ cross_cutting:
     title: The documents agree
     intent: >
       The three published PRDs, the ledger, and the deployed map claimed
-      different truths in four places: the fold surface address, the modules'
+      different truths in four places: the tally surface address, the modules'
       proposal posture, the treasury naming, and the ledger's own section
       grouping. Each document amends to what the record settled, with the
       amendment dated and the superseded wording kept in history, because a
@@ -2129,18 +2129,18 @@ cross_cutting:
     ready_when: >
       U-07 in session; the full review of the three PRDs delivered 2026-07-27.
     deliverable: >
-      PATRONAGE v0.2.1: fold surface address follows the built door at
+      PATRONAGE v0.2.1: tally surface address follows the built door at
       /intranet/share/; the adopted posture recorded; the address line closed.
       TREASURY v0.1.2: the adopted posture recorded; the public name settled
       as Treasury per the deployed map. PRD v0.3 section 4 and Q6 amended:
       treasury naming settled, governance named as the one scoped capability
-      without a trajectory. Ledger sections refiled so lane means slice:
-      G-04 to gather, F-05 to find, the U train to its own shell section.
+      without a trajectory. Ledger sections refiled so lane means capability:
+      G-04 to gather, F-05 to find, the U bed to its own shell section.
       S-01 and S-02 wording reconciled.
     acceptance: >
       Every address, name, and adoption status the three PRDs claim matches
       the ledger and the deployed map; the validator and the freshness job
-      stay green; each amendment carries its date and its packet address.
+      stay green; each amendment carries its date and its piece address.
     note: >
       Raised in the steward's full-review request of 2026-07-27 and composed
       at his direction the same day. Two items found in that review are
@@ -2154,14 +2154,14 @@ cross_cutting:
   - address: X-15
     title: The register bridge
     intent: >
-      The roadmap prose brought nearer the cooperative's native
+      The Almanac prose brought nearer the cooperative's native
       register. U-05 taught the signed-in surfaces to speak the
-      cooperative's language rather than the build's; this packet
-      extends the same courtesy to the roadmap itself: unearned
+      cooperative's language rather than the build's; this piece
+      extends the same courtesy to the Almanac itself: unearned
       interface labels retired, the loop headers yield the Q letters
       to the named conditions that own them, one stale date clause
       repaired, and three native terms set where their meanings
-      already hold. No address, status, count, gate, or citation
+      already hold. No address, status, count, proof, or citation
       changes.
     status: open · in-session
     cites: [SER, BP, UI]
@@ -2176,15 +2176,15 @@ cross_cutting:
       Nothing else.
     acceptance: >
       Every applied change matches the adopted specification byte for
-      byte; no packet intent, address, status mark, gate, named
+      byte; no piece intent, address, status mark, proof, named
       condition, or generated block altered; style-lint and
       ledger-validate green.
 
 agency:
 
   # The agency lane: common direction of the instrument. Entered 2026-07-27
-  # on AGY adoption (PR #73), per the AGY §14 splice. The splice wrote its
-  # first two packets "open · AGY adoption"; they enter as anticipated in
+  # on AGY adoption (PR #73), per the AGY §14 graft. The graft wrote its
+  # first two pieces "open · AGY adoption"; they enter as anticipated in
   # this ledger's grammar: declared, adoption recorded, not yet taken up.
 
   - address: A-01
@@ -2194,10 +2194,10 @@ agency:
       the AGY §11 floor asserted by probes.
     status: open · in-session
     cites: [AGY, IM, AM, BP]
-    ready_when: AGY adopted. G0 attested. Both recorded; the packet waits only on hands.
+    ready_when: AGY adopted. G0 attested. Both recorded; the piece waits only on hands.
     deliverable: commons/authority-map/0017_direction_rail.sql; probe matrix cells (scripts/rls_probe.py).
     note: >
-      Taken up 2026-07-27, the day the splice entered. The packet is the
+      Taken up 2026-07-27, the day the graft entered. The piece is the
       verb and the probes; no policy widens, since events_scoped_insert
       already excludes the direction kinds from the member's direct pen.
       The Estate list and the flooding bounds read from AGY-ESTATE when
@@ -2265,7 +2265,7 @@ agency:
     note: >
       Staged 2026-07-27 on branch A-04, ahead of its readiness condition
       and held at anticipated per the X-09 convention for work staged
-      ahead of its decision. The packet opens when the grant lands
+      ahead of its decision. The piece opens when the grant lands
       (A-03), not when this branch merges. Staged here: RUN.md, the
       brief a Run is opened with, distilled from AGY §7 and §11;
       scripts/rail_poll.py, the queue read of AGY §6, read-only by
@@ -2277,15 +2277,15 @@ agency:
       Until then the R0 form of AGY §12 operates, the harness preparing
       a close that a human hand writes. The steward's own Direction of
       2026-07-27 (d6e22f76) stands as the rehearsal subject this
-      packet's readiness condition asks for.
+      piece's readiness condition asks for.
 
-      One finding from staging, and it bears on the packet's shape.
+      One finding from staging, and it bears on the piece's shape.
       The poll was written as a scheduled job with its tool policy
       narrowed to the shell alone, and the Gateway refused to run it:
       the claude-cli backend cannot enforce a runtime tool allowlist,
       and says so rather than running unrestricted. The job is
       recorded and left disabled. This is the right refusal, and it
-      settles a question the packet had left implicit: on this
+      settles a question the piece had left implicit: on this
       runtime the Run's bounds could only ever be instruction, and
       AGY §7 requires construction. The harness therefore needs an
       embedded runtime and a sandboxed runner identity before it may
@@ -2316,7 +2316,7 @@ lexicon:
       forever. The ground root gives the words for where work grows
       and how it joins; the craft root gives the words for what hands
       make and how it is proven.
-    status: open · in-session
+    status: open · delivered
     cites: [SER, BP, VS]
     ready_when: >
       Ground and Craft adopted by the steward with elections D1
@@ -2337,7 +2337,7 @@ lexicon:
       footer lineage recording that ALM v2 supersedes RDM v1. The
       generated counts block and its comment markers untouched; meta
       descriptions follow the page.
-    status: anticipated
+    status: open · delivered
     cites: [SER, BP, UI]
     ready_when: L-01 merged; the Lexicon governs before the pages speak it.
     deliverable: commons/build/index.html as the Almanac, ALM v2.
@@ -2351,14 +2351,14 @@ lexicon:
       The almanac ledger's own voice moves to the register: header
       comments, section keys, the self-describing entries, and the
       intents of pieces still open or anticipated, with the
-      validator's section handling and its gate-address constant
+      validator's section handling and its proof-address constant
       updated in the same commit (the constant also gains G-A, which
       the agency graft created and the constant missed, and G-L),
       behavior identical, suites proving it. The law of this piece:
       entries at verified or attested keep their text verbatim,
       because their words are part of the evidence; only the file's
       present voice evolves.
-    status: anticipated
+    status: open · in-session
     cites: [BP, VS]
     ready_when: L-02 merged.
     deliverable: rdm-ledger.yaml and scripts/validate.py, evolved together.
