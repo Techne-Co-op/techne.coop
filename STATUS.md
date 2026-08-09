@@ -6,22 +6,22 @@ Generated from rdm-ledger.yaml. 93 items total.
 | status | count |
 |--------|-------|
 | drafted | 10 |
-| anticipated | 23 |
-| open | 60 |
+| anticipated | 21 |
+| open | 62 |
 | filed | 0 |
 
 ## Drafted
 
 - **AGY** Common Agency · Module PRD and Specification -- Patron members direct the cooperative's agent on the record: the direction rail,
-- **AM** Authority Map -- Authority map anchored in Bylaws v2.1. Emits 0002_policies.sql.
-- **BP** Build Protocol -- One operating contract, packet ledger grammar, decide/escalate, provenance. Emit
-- **IM** Information Model -- Information model and the eleven laws. Emits 0001_substrate.sql.
+- **AM** Authority Map -- Authority map anchored in Bylaws v2.1. Yields 0002_policies.sql.
+- **BP** Build Protocol -- One operating contract, piece ledger grammar, decisions and stop cards, provenan
+- **IM** Information Model -- Information model and the eleven laws. Yields 0001_substrate.sql.
 - **PATRONAGE** Program Patronage · Module PRD and Specification -- Programs as organizing bodies for Opportunities; the event contract for contribu
-- **PRD** Product Requirements v0.3 -- Deprecation record, four slices, three doors, ten principles.
+- **PRD** Product Requirements v0.3 -- Deprecation record, four capabilities, three doors, ten principles.
 - **SER** Series Overview -- The covering document of the refactor, including itself.
 - **TREASURY** Treasury · Module PRD and Specification -- The movement layer over Stripe, Mercury, and Xero; governed movements as events;
-- **UI** Tokens and Patterns -- Design tokens and patterns aligned to techne.coop/design-system. Emits commons.c
-- **VS** Verification Spec -- Five suites and six gates. Emits verify.yml.
+- **UI** Tokens and Patterns -- Design tokens and patterns aligned to techne.coop/design-system. Yields commons.
+- **VS** Verification Spec -- Five suites and six proofs. Yields verify.yml.
 
 ## Open
 
@@ -44,9 +44,11 @@ Generated from rdm-ledger.yaml. 93 items total.
 - **G-03** open · verified -- Attendance recording
 - **G-04** open · in-session -- The scheduling act
 - **G0** open · attested -- Security floor
-- **L-01** open · in-session -- Lexicon v2
+- **L-01** open · delivered -- Lexicon v2
+- **L-02** open · delivered -- The Almanac
+- **L-03** open · in-session -- The ledger speaks
 - **S-01** open · Q3 -- Contribution posting paths
-- **S-02** open · Q3 -- The fold surface
+- **S-02** open · Q3 -- The tally surface
 - **SUB-01** open · verified -- Repository scaffold
 - **SUB-02** open · verified -- Governing emissions at root
 - **SUB-03** open · verified -- Provision database environment
@@ -90,16 +92,14 @@ Generated from rdm-ledger.yaml. 93 items total.
 
 - **A-03** The first grant and the instrument's pen
 - **A-04** The run harness
-- **G-A** The agency gate
-- **G-B** Belong gate
-- **G-F** Find gate
-- **G-G** Gather gate
+- **G-A** The agency proof
+- **G-B** Belong proof
+- **G-F** Find proof
+- **G-G** Gather proof
 - **G-L** The lexicon proof
-- **G-R** Cross-cutting gate
-- **G-S** Share gate
-- **G-T** Treasury gate
-- **L-02** The Almanac
-- **L-03** The ledger speaks
+- **G-R** Cross-cutting proof
+- **G-S** Share proof
+- **G-T** Treasury proof
 - **L-04** The companions
 - **L-05** The series speaks
 - **L-06** The modules speak
@@ -107,7 +107,7 @@ Generated from rdm-ledger.yaml. 93 items total.
 - **L-08** The quarantine
 - **S-03** The allocation run
 - **T-02** The intake rail
-- **T-03** The reconciliation fold
+- **T-03** The reconciliation tally
 - **T-04** Disbursement execution
 - **T-06** The balance view
 - **T-07** The statements view
