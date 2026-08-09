@@ -16,13 +16,19 @@
    Dependency free. No build step. The page remains a readable
    document without it. Pages keep their own data loading; the
    shell reads the session, it never creates a second client.
-   CSS stays inline per page per the SUB-02 consumption card;
-   the shell carries only its own frame styles.
+   CSS stays inline per page per the SUB-02 consumption card; the
+   frame's own appearance is assets/shell.css, which must load with
+   the document rather than after it (U-18).
+
+   U-18: the shell also declares where the map can take a member, so
+   the browser can fetch the next surface before the click instead of
+   after it. See speculate() below.
 
    Usage, in <head> after the error boundary:
+     <link rel="stylesheet" href="/assets/shell.css">
      <script src="/assets/shell.js" defer></script>
 
-   The Common Record Series · RegenHub, LCA · July 2026
+   The Common Record Series · RegenHub, LCA · August 2026
    ============================================================ */
 (function () {
   'use strict';
@@ -77,103 +83,18 @@
   ];
 
   /* ---------- frame styles ----------
-     Values mirror commons.css (the distillation of the live
-     constitution); everything structural leans on the page's
-     own inline v4 tokens. cis- custom properties only, so no
-     collision with page token blocks. */
-  var CSS = [
-    'html[data-mode="dark"]{--cis-gold:#EAB668;--cis-amber:#E5A562;--cis-coral:#DE8872;--cis-rose:#CF7C9A;--cis-violet:#9E86C4;--cis-blue:#8FAEE0;--cis-ember:#D4A57A;}',
-    'html[data-mode="light"]{--cis-gold:#87621F;--cis-amber:#8C581D;--cis-coral:#9C4636;--cis-rose:#8C3D58;--cis-violet:#4C3870;--cis-blue:#3A5694;--cis-ember:#6F5436;}',
-    '@view-transition{navigation:auto;}',
-    '@media (prefers-reduced-motion:reduce){@view-transition{navigation:none;}}',
-    '.cis-topbar{view-transition-name:cis-topbar;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 20px;height:48px;border-bottom:1px solid var(--line);background:var(--surface);position:sticky;top:0;z-index:40;}',
-    '.cis-brand{font-family:var(--mono);font-size:.78rem;color:var(--ember);letter-spacing:.08em;text-decoration:none;white-space:nowrap;}',
-    '.cis-topbar-right{display:flex;align-items:center;gap:10px;min-width:0;}',
-    '.cis-side-you{display:none;}',
-    '@media (max-width:420px){.cis-brand-suffix{display:none;}}',
-    '.cis-chip{font-family:var(--mono);font-size:.68rem;color:var(--muted);border:1px solid var(--line);padding:3px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw;}',
-    '.cis-chip b{color:var(--heading);font-weight:500;}',
-    '.cis-mode{font-family:var(--mono);font-size:.7rem;color:var(--muted);background:none;border:1px solid var(--line);padding:3px 10px;cursor:pointer;letter-spacing:.04em;}',
-    '.cis-mode:hover{color:var(--ember);border-color:var(--ember);}',
-    '.cis-body{display:flex;align-items:stretch;min-height:calc(100vh - 49px);}',
-    '.cis-side{view-transition-name:cis-side;width:212px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--line);padding:20px 0 32px;position:sticky;top:49px;align-self:flex-start;height:calc(100vh - 49px);overflow-y:auto;}',
-    '.cis-side .cis-group{padding:6px 16px 4px;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--faint);text-transform:uppercase;margin-top:14px;}',
-    '.cis-side a{display:flex;align-items:center;gap:9px;padding:7px 16px;font-family:var(--mono);font-size:.78rem;color:var(--muted);text-decoration:none;letter-spacing:.03em;border-left:2px solid transparent;}',
-    '.cis-side a svg.lucide{width:14px;height:14px;flex:none;opacity:.75;}',
-    '.cis-side a:hover{color:var(--ember);background:var(--surface);}',
-    '.cis-side a.active{color:var(--ember);border-left-color:var(--ember);background:linear-gradient(to right, color-mix(in srgb, var(--ember) 10%, transparent), transparent);}',
-    '.cis-side a.cis-out{color:var(--faint);}',
-    '.cis-side .cis-home{margin-top:20px;}',
-    '.cis-main{flex:1;min-width:0;max-width:100%;}',
-    '.cis-context{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;padding:9px 24px;border-bottom:1px solid var(--line);background:var(--bg);font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;color:var(--muted);}',
-    '.cis-context .cis-mark{width:8px;height:8px;flex:none;align-self:center;background:var(--cis-tint,var(--ember));}',
-    '.cis-context .cis-addr{color:var(--cis-tint,var(--ember));text-transform:uppercase;letter-spacing:.1em;}',
-    '.cis-context .cis-meta{color:var(--faint);}',
-    '.cis-parked{display:none;}',
-    '.cis-gate{min-height:calc(100vh - 49px);display:flex;align-items:center;justify-content:center;padding:48px 24px;}',
-    '.cis-gate-card{background:var(--surface);border:1px solid var(--line);padding:48px 56px;max-width:460px;width:100%;}',
-    '.cis-gate-label{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--ember);text-transform:uppercase;margin-bottom:12px;}',
-    '.cis-gate-h{font-family:var(--serif);font-size:1.5rem;color:var(--heading);font-weight:400;margin:0 0 12px;line-height:1.3;}',
-    '.cis-gate-body{font-family:var(--serif);font-size:.9rem;color:var(--muted);margin:0 0 20px;line-height:1.6;}',
-    '.cis-gate-dest{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--cis-tint,var(--ember));text-transform:uppercase;margin-bottom:24px;}',
-    '.cis-gate-dest .cis-mark{width:8px;height:8px;flex:none;background:var(--cis-tint,var(--ember));}',
-    '.cis-gate label{display:block;font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em;margin-bottom:8px;}',
-    '.cis-gate input{width:100%;box-sizing:border-box;background:var(--inset);border:1px solid var(--line);color:var(--heading);font-family:var(--mono);font-size:16px;padding:10px 12px;outline:none;}',
-    '.cis-gate input:focus{border-color:var(--blue);}',
-    '.cis-gate input::placeholder{color:var(--faint);}',
-    '.cis-gate-btn{width:100%;box-sizing:border-box;background:color-mix(in srgb, var(--ember) 14%, transparent);border:1px solid var(--ember);color:var(--ember-text);font-family:var(--mono);font-size:.8rem;letter-spacing:.06em;padding:11px;cursor:pointer;margin-top:12px;}',
-    '.cis-gate-btn:hover{background:color-mix(in srgb, var(--ember) 24%, transparent);}',
-    '.cis-gate-btn:disabled{opacity:.4;cursor:default;}',
-    '.cis-gate-status{margin-top:14px;font-family:var(--mono);font-size:.76rem;min-height:1.4em;color:var(--muted);}',
-    '.cis-gate-status.err{color:var(--warn);}',
-    '.cis-gate-status.ok{color:var(--ok);}',
-    '.cis-gate-again{background:none;border:none;color:var(--muted);font-family:var(--mono);font-size:.74rem;cursor:pointer;text-decoration:underline;padding:0;margin-top:14px;}',
-    '.cis-menu{display:none;font-family:var(--mono);font-size:.7rem;color:var(--muted);background:none;border:1px solid var(--line);padding:3px 10px;cursor:pointer;letter-spacing:.04em;}',
-    '.cis-menu:hover{color:var(--ember);border-color:var(--ember);}',
-    '.cis-menu[aria-expanded="true"]{color:var(--ember);border-color:var(--ember);}',
-    '.cis-bell{display:none;font-family:var(--mono);font-size:.7rem;color:var(--muted);background:none;border:1px solid var(--line);padding:3px 10px;cursor:pointer;letter-spacing:.04em;white-space:nowrap;}',
-    '.cis-bell:hover,.cis-bell[aria-expanded="true"]{color:var(--ember);border-color:var(--ember);}',
-    '.cis-bell.cis-has{color:var(--ember-text);border-color:var(--ember);background:color-mix(in srgb, var(--ember) 14%, transparent);}',
-    '.cis-notices{display:none;position:fixed;top:52px;right:12px;width:min(360px, calc(100vw - 24px));max-height:70vh;overflow-y:auto;background:var(--surface);border:1px solid var(--line);z-index:50;}',
-    '.cis-notices.cis-open{display:block;}',
-    '.cis-notices-head{padding:10px 14px;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--faint);text-transform:uppercase;border-bottom:1px solid var(--line);}',
-    '.cis-notice{display:block;padding:10px 14px;border-bottom:1px solid var(--line);text-decoration:none;border-left:2px solid transparent;}',
-    '.cis-notice:last-child{border-bottom:none;}',
-    '.cis-notice:hover{border-left-color:var(--ember);background:color-mix(in srgb, var(--ember) 6%, transparent);}',
-    '.cis-notice.cis-new{border-left-color:var(--ember);}',
-    '.cis-notice-line{font-family:var(--serif);font-size:.86rem;color:var(--heading);line-height:1.45;}',
-    '.cis-notice-when{font-family:var(--mono);font-size:.62rem;color:var(--faint);letter-spacing:.06em;margin-top:3px;}',
-    '.cis-notices-empty{padding:18px 14px;font-family:var(--serif);font-size:.86rem;color:var(--muted);}',
-    '@media (max-width:760px){',
-    '.cis-menu{display:inline-block;}',
-    '.cis-body{flex-direction:column;}',
-    /* the bar fits the hand: no member email competing for 390px,
-       no horizontal scroll. Identity moves to the foot of the map
-       drawer; the overview card carries it too. */
-    '.cis-topbar{padding:0 12px;gap:8px;}',
-    '.cis-topbar-right{gap:6px;}',
-    '.cis-chip{display:none;}',
-    '.cis-menu,.cis-bell,.cis-mode{padding:8px 12px;min-height:40px;}',
-    '.cis-brand{display:inline-flex;align-items:center;min-height:44px;}',
-    '.cis-side-you{display:block;padding:12px 20px 4px;font-family:var(--mono);font-size:.68rem;color:var(--muted);border-top:1px solid var(--line);margin-top:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}',
-    /* the map is a drawer on a narrow screen: closed by default, so the
-       page a member came for is the first thing under the topbar */
-    '.cis-side{position:static;width:100%;height:auto;max-height:0;overflow:hidden;border-right:none;border-bottom:none;padding:0;display:block;transition:max-height var(--dur,.4s) var(--ease,ease);}',
-    '.cis-side.cis-open{max-height:80vh;overflow-y:auto;border-bottom:1px solid var(--line);padding:8px 0 14px;}',
-    '.cis-side .cis-group{margin-top:10px;padding:6px 20px 2px;}',
-    /* full-width rows with a touch-sized target, not inline chips */
-    '.cis-side a{padding:11px 20px;font-size:.82rem;border-left:3px solid transparent;}',
-    '.cis-side a.active{border-left-color:var(--ember);}',
-    '.cis-side .cis-home{margin-top:14px;}',
-    '.cis-context{padding:8px 16px;}',
-    '.cis-gate-card{padding:32px 24px;}',
-    '@media (prefers-reduced-motion:reduce){.cis-side{transition:none;}}',
-    '}'
-  ].join('\n');
+     Moved to assets/shell.css by U-18. A stylesheet injected by a
+     deferred script arrives after the first paint, and the
+     @view-transition opt-in it carried was therefore never present
+     at the moment the browser reads it, which is pagereveal, before
+     any deferred script has run. Every cross-document transition on
+     this estate was skipped, and every skip rejected with AbortError
+     "Transition was skipped". The appearance now loads with the
+     document and this file keeps only the behaviour.
 
-  var style = document.createElement('style');
-  style.textContent = CSS;
-  (document.head || document.documentElement).appendChild(style);
+     Pages carry, in <head> and before this script:
+       <link rel="stylesheet" href="/assets/shell.css">
+     ---------- */
 
   /* ---------- the transition's own promises ----------
      A cross-document view transition carries ready, finished, and
@@ -196,6 +117,51 @@
     window.addEventListener('pagereveal', function (e) { tame(e.viewTransition); });
     window.addEventListener('pageswap', function (e) { tame(e.viewTransition); });
   })();
+
+  /* ---------- speculation (U-18) ----------
+     The members' surfaces are separate documents, and a navigation
+     between them is a document load: the frame is raised again, the
+     fonts are resolved again, the page's own reads are issued again.
+     That is what made the intranet feel like it reloaded, because it
+     did. Rather than dissolve the estate into a client-side router,
+     which would cost the property that every page remains a readable
+     document, the shell tells the browser where the member is likely
+     to go and lets it do the work before the click.
+
+     Eagerness is moderate: the browser acts on hover or pointerdown,
+     not on sight, so a member who reads the Overview without touching
+     the map costs the record nothing. The candidates come from the
+     manifest, which is already the one true list of where the map can
+     take you, minus the page we are on.
+
+     Read-only by construction. Every write on these surfaces sits
+     behind a click handler; the reads a prerender issues are the same
+     reads the click would have issued a moment later, under the same
+     row security. Browsers without the API ignore the element. */
+  function speculate() {
+    try {
+      if (!(window.HTMLScriptElement && HTMLScriptElement.supports &&
+            HTMLScriptElement.supports('speculationrules'))) return;
+      var here = normalize(location.pathname);
+      var urls = [];
+      MAP.forEach(function (grp) {
+        grp.items.forEach(function (it) {
+          if (it.outside) return;
+          if (normalize(it.href) === here) return;
+          if (urls.indexOf(it.href) < 0) urls.push(it.href);
+        });
+      });
+      if (!urls.length) return;
+      var s = document.createElement('script');
+      s.type = 'speculationrules';
+      s.textContent = JSON.stringify({
+        prerender: [{ source: 'list', urls: urls, eagerness: 'moderate' }]
+      });
+      document.head.appendChild(s);
+    } catch (e) {
+      if (window.Techne && Techne.record) Techne.record('handled', 'shell speculation: ' + (e && e.message ? e.message : e));
+    }
+  }
 
   /* ---------- session, read not owned ---------- */
   function session() {
@@ -667,6 +633,18 @@
     } else {
       window.cisUser = null;
       document.dispatchEvent(new CustomEvent('cis:user', { detail: null }));
+    }
+
+    /* Only a member gets speculation: there is nothing behind the gate
+       to fetch ahead for a reader who is not signed in. A document that
+       is itself being prerendered waits until it is activated, so the
+       browser is never asked to nest one speculation inside another. */
+    if (signedIn) {
+      if (document.prerendering) {
+        document.addEventListener('prerenderingchange', speculate, { once: true });
+      } else {
+        speculate();
+      }
     }
   }
 

@@ -72,6 +72,24 @@ def audit():
             elif HEX_RE.search(val):
                 findings.append(f"commons.css: hex outside a token definition: {prop}: {val}")
 
+    # Shared stylesheets under assets/ are audited on the same terms as a
+    # page's inline block (U-18). Before U-18 the shell's frame styles lived
+    # in a JavaScript string, outside every check; moving them into a real
+    # stylesheet would have moved them out of coverage as well, which is the
+    # kind of silent weakening VS v1 section 9 forbids. Widening the audit
+    # keeps the move honest.
+    for sheet in sorted(REPO_ROOT.glob('assets/*.css')):
+        rel = str(sheet.relative_to(REPO_ROOT))
+        for sel, prop, val in parse_css(sheet.read_text()):
+            if prop.startswith('--'):
+                sc = mode_scope(sel)
+                if sc:
+                    canon = tokens.get((sc, prop))
+                    if canon is not None and norm(val) != canon:
+                        findings.append(f"{rel}: token drift in {sc}: {prop}: {val} (commons.css: {canon})")
+            elif HEX_RE.search(val):
+                findings.append(f"{rel}: hex outside a token definition: {sel} {{ {prop}: {val} }}")
+
     for page in sorted(REPO_ROOT.rglob('*.html')):
         rel = str(page.relative_to(REPO_ROOT))
         if rel.startswith(EXEMPT):

@@ -1602,6 +1602,82 @@ shell:
       the desktop rendering is unchanged.
     note: Staged on branch U-17; merge is the act of adoption.
 
+  - address: U-18
+    title: The frame that never held
+    intent: >
+      U-01 specified one persistent frame carried across navigations
+      by cross-document view transitions, and the design system and
+      the UI inventory both said so. It was never true. The opt-in,
+      @view-transition, lived inside a stylesheet the shell injected
+      on DOMContentLoaded, and the browser reads that opt-in at
+      pagereveal, which precedes every deferred script. The new
+      document had therefore not opted in at the moment of the
+      question, so every transition on this estate was skipped from
+      the first day, and every skip rejected with an AbortError the
+      error boundary faithfully recorded as benign on every single
+      navigation. The steward read those lines in the console on
+      2026-08-09 and asked why the intranet reloaded between pages.
+      It reloaded because it was reloading: nothing persisted, the
+      frame was rebuilt from an empty body each time, and the console
+      had been saying so all along. This piece makes the frame's
+      appearance load with the document, so the transitions run, and
+      tells the browser where the map leads, so the next surface is
+      fetched before the click rather than after it.
+    status: open · in-session
+    cites: [U-01, U-15, UI, X-01]
+    ready_when: U-17 merged.
+    deliverable: >
+      assets/shell.css carrying the frame's appearance and the
+      @view-transition opt-in, linked in the head of all eleven
+      surfaces the shell frames and ahead of the deferred script;
+      the CSS string removed from assets/shell.js; speculation rules
+      emitted from the shell's own manifest at moderate eagerness for
+      signed-in members, deferred while a document is itself being
+      prerendered; scripts/token_audit.py widened to assets/*.css so
+      the move does not carry the frame's colours out of coverage;
+      the false claim corrected where the estate made it, in
+      design-system/ and commons/ui/.
+    acceptance: >
+      A measured navigation between two members' surfaces reports a
+      view transition present at pagereveal and no AbortError, where
+      the same measurement before the change reported neither
+      transition nor frame; the hex discipline still runs over the
+      frame's colours; and no page states that the frame holds across
+      a navigation, which it does not yet do.
+    note: >
+      What this piece does not do is make the topbar and the map hold
+      still. That needs the frame present in the new document before
+      the first paint, which means rendering it into the markup rather
+      than raising it from script, and that path runs through the auth
+      gate: static frame markup must not show the members' map to a
+      signed-out reader for even one frame. Filed as U-19 and not
+      attempted in launch week. Staged on branch U-18; merge is the
+      act of adoption.
+
+  - address: U-19
+    title: The frame before the paint
+    intent: >
+      Render the topbar and the map into each surface's markup so the
+      named elements exist at pagereveal and genuinely morph across a
+      navigation, instead of the whole view transitioning because the
+      frame is rebuilt on arrival. The gate is the hard part, not the
+      furniture: the map is for members, so the markup must be shown
+      or withheld before the first paint, from the session the
+      document can read synchronously, with no frame in which a
+      signed-out reader sees a members' map.
+    status: anticipated
+    cites: [U-18, U-04, U-01]
+    ready_when: U-18 merged; launch week past.
+    deliverable: >
+      The frame emitted into the markup of every surface the shell
+      frames, the shell reduced to marking the active section and
+      filling the member chip, and the gate proven against a
+      signed-out load.
+    acceptance: >
+      A measured navigation reports the topbar and the map captured
+      under their own transition names in both the old and the new
+      document; a signed-out load never paints the map.
+
 cross_cutting:
 
   - address: X-01
