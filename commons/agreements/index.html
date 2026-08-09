@@ -57,10 +57,9 @@ body {
 }
 /* the topbar, the map, and the mode toggle are the shell's (U-01) */
 
-main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+main { flex: 1; width: 100%; max-width: 70rem; margin-inline: auto; padding-block: clamp(var(--s5), 3.5vw, var(--s7)); padding-inline: clamp(var(--s4), 3vw, var(--s6)); }
 /* widescreen: the index sits in two columns so the whole shelf reads without scrolling */
 @media (min-width: 1100px) {
-  main { max-width: 1080px; }
   #agreements-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--s6); align-items: start; }
   .group-section { min-width: 0; }
 }
@@ -209,7 +208,6 @@ footer a { color: var(--faint); }
   /* Topbar */
 
   /* Main layout */
-  main { padding: var(--s5) var(--s4); }
   h1 { font-size: 1.35rem; }
 
   /* Agreement row stacks vertically so chip sits below title */

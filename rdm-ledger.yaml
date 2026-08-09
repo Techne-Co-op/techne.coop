@@ -1681,6 +1681,39 @@ shell:
       under their own transition names in both the old and the new
       document; a signed-out load never paints the map.
 
+  - address: U-20
+    title: The frame measure
+    intent: >
+      The nine surfaces the shell frames carried four different content
+      widths, 720 to 1120 and one page with none at all, because each
+      hand-rolled its own container rule and the token layer had
+      nothing to offer them. On 2026-08-09 the steward opened the
+      intranet and saw two clumps: pages with room around the content
+      (Agreements, Directory, Your Share) and pages hemmed in on both
+      sides (Gatherings, Opportunities, Programs), pointing at four
+      different widths in fact. The words carried the opposite of the
+      geometry, so the fix is a measure, not a preference, and it goes
+      in the layer where the layer already spoke of two grammars. This
+      piece names a third: the frame measure, fluid, applied to every
+      surface the shell frames, and enforced against drift.
+    status: open · in-session
+    cites: [UI, U-01, U-17]
+    ready_when: U-18 merged.
+    deliverable: >
+      commons/ui/commons.css defines .wrap-frame with a rem-based cap
+      and continuous gutters via clamp, so the column fills a phone,
+      grows with the window, and stops at a comfortable maximum on a
+      desk without a breakpoint on the way; the SUB-02 consumption
+      card is honoured and the nine surfaces inline the rule
+      verbatim; scripts/measure_audit.py proves the copies still
+      agree, wired into the style-lint step; a page's lead prose
+      keeps a 68ch measure so a sentence never runs the full column.
+    acceptance: >
+      Nine framed surfaces report the identical rendered content
+      column and gutter at 360, 1024, and 1920; no page overflows at
+      any width in the range; the audit refuses a page that
+      reintroduces a pixel cap, proven by a live regression test.
+
 cross_cutting:
 
   - address: X-01

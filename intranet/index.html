@@ -72,7 +72,7 @@ body {
 
 
 /* ---- intranet main (shown when authed) ---- */
-.intranet-main { display: none; padding: var(--s6) var(--s7); }
+.intranet-main { display: none; flex: 1; width: 100%; max-width: 70rem; margin-inline: auto; padding-block: clamp(var(--s5), 3.5vw, var(--s7)); padding-inline: clamp(var(--s4), 3vw, var(--s6)); }
 .intranet-main.visible { display: block; }
 
 .page-label {
@@ -214,7 +214,6 @@ footer {
 .steward-card { border-left: 3px solid var(--ember); }
 
 @media (max-width: 640px) {
-  .intranet-main { padding: var(--s4); }
   /* the doors read as a compact list in hand: the description clamps
      to two lines; the door itself is the destination, not the essay */
   .dash-card { padding: var(--s4); }

@@ -270,6 +270,12 @@ jobs:
           if grep -rnP "[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}]" --include='*.html' --include='*.md' . ; then
             echo "::error::emoji found; the rule is absolute (techne.coop/design-system)"; exit 1
           fi
+      - name: frame measure audit (U-20)
+        # UI v1 section 1 · the nine framed surfaces inline the layer's
+        # content measure, and verbatim copies drift. Four different widths
+        # appeared that way once already. Proves the copies still agree with
+        # .wrap-frame and that none has been pinned back to a pixel cap.
+        run: python3 scripts/measure_audit.py
       - name: token audit (X-06)
         # UI v1 · hex only in custom-property definitions; color-token
         # drift against commons.css is a defect. Exemptions and the

@@ -66,6 +66,39 @@ a:hover { text-decoration-thickness:2px; }
 /* instrument grammar: widescreen, no-scroll intent, mono-forward, to 1600px */
 .wrap-hud { max-width:1600px; margin:0 auto; padding:0 var(--s4); }
 
+/* ---------- the frame measure (U-20) ----------
+   A third container, for the surfaces the shell frames. Neither grammar
+   fitted them: a members' surface is not a reading column, because it
+   carries cards, rosters, and tables, and it is not a 1600px instrument,
+   because it sits beside a 212px map and would sprawl. Before this rule
+   the nine framed surfaces carried four different hand-rolled widths,
+   720 to 1120 and one with none at all, because each page chose a number
+   on its own day rather than reading a layer that had nothing to say.
+
+   Sized dynamically, not by breakpoint. The column is bounded by a cap
+   rather than set to a width, so it fills a phone edge to edge, grows
+   with the window, and stops at a comfortable maximum on a desk. The
+   gutters scale continuously between the spacing tokens instead of
+   jumping at a media query, so there is no width at which the page
+   looks wrong on the way. The cap is in rem, so a reader who raises
+   their base font size gets a proportionally wider column rather than a
+   cramped one.
+
+   The pages inline this rule verbatim per the SUB-02 consumption card,
+   because the frame must be correct at first paint and the shell's own
+   stylesheet is not page-scoped. scripts/measure_audit.py proves the
+   copies still agree with this definition. */
+.wrap-frame {
+  width:100%;
+  max-width:70rem;
+  margin-inline:auto;
+  padding-block:clamp(var(--s5), 3.5vw, var(--s7));
+  padding-inline:clamp(var(--s4), 3vw, var(--s6));
+}
+/* prose inside the frame keeps the layer's measure: a column wide enough
+   for a roster is far too wide for a sentence. */
+.wrap-frame .lead { max-width:68ch; }
+
 /* ---------- sweep assignment: data-tint ---------- */
 [data-tint="gold"]   { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
 [data-tint="amber"]  { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
