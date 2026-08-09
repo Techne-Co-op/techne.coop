@@ -55,7 +55,7 @@ body {
 }
 /* the topbar, the map, and the mode toggle are the shell's (U-01) */
 
-main { flex: 1; max-width: 1040px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+main { flex: 1; width: 100%; max-width: 70rem; margin-inline: auto; padding-block: clamp(var(--s5), 3.5vw, var(--s7)); padding-inline: clamp(var(--s4), 3vw, var(--s6)); }
 h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
 .section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
 
@@ -125,7 +125,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .tab-chip.sel { border-color: var(--ember); color: var(--ember-text); }
 
 /* compact grid so a widescreen view holds the roll without long scrolling */
-.dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); column-gap: var(--s6); align-items: start; }
+.dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-min, 300px), 100%), 1fr)); column-gap: var(--s6); row-gap: var(--s4); align-items: start; }
 .dir-empty { font-family: var(--mono); font-size: 0.75rem; color: var(--faint); font-style: italic; padding: var(--s3) 0; }
 
 /* directory list */
@@ -263,7 +263,6 @@ button.adm-head:hover .adm-label { color: var(--heading); }
   /* Topbar */
 
   /* Main layout */
-  main { padding: var(--s5) var(--s4); }
   h1 { font-size: 1.35rem; }
 
   /* Your card: full-width opener */

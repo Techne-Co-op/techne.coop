@@ -55,14 +55,14 @@ body {
   display: flex;
   flex-direction: column;
 }
+#agreements-list { display: flex; flex-direction: column; gap: var(--s7); }
+.group-section { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-min, 300px), 100%), 1fr)); column-gap: var(--s6); row-gap: var(--s4); align-items: start; }
+.group-head { grid-column: 1 / -1; }
 /* the topbar, the map, and the mode toggle are the shell's (U-01) */
 
-main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+main { flex: 1; width: 100%; max-width: 70rem; margin-inline: auto; padding-block: clamp(var(--s5), 3.5vw, var(--s7)); padding-inline: clamp(var(--s4), 3vw, var(--s6)); }
 /* widescreen: the index sits in two columns so the whole shelf reads without scrolling */
-@media (min-width: 1100px) {
-  main { max-width: 1080px; }
-  #agreements-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--s6); align-items: start; }
-  .group-section { min-width: 0; }
+
 }
 h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
 .section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
@@ -209,7 +209,6 @@ footer a { color: var(--faint); }
   /* Topbar */
 
   /* Main layout */
-  main { padding: var(--s5) var(--s4); }
   h1 { font-size: 1.35rem; }
 
   /* Agreement row stacks vertically so chip sits below title */

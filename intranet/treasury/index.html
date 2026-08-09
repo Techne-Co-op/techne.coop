@@ -56,10 +56,10 @@ body {
 }
 /* the topbar, the map, and the mode toggle are the shell's (U-01) */
 
-main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+main { flex: 1; width: 100%; max-width: 70rem; margin-inline: auto; padding-block: clamp(var(--s5), 3.5vw, var(--s7)); padding-inline: clamp(var(--s4), 3vw, var(--s6)); }
 h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
 .section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
-.lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; }
+.lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; max-width: 68ch; }
 
 .btn { font-family: var(--mono); font-size: 0.85rem; padding: 10px 24px; border-radius: 2px; border: none; cursor: pointer; }
 .btn-primary { background: var(--ember); color: var(--on-accent); }
@@ -101,7 +101,7 @@ table.bands td { padding: 7px 8px; border-bottom: 1px solid var(--line); }
 
 /* the statements view (T-07, TREASURY §9a) */
 .basis-line { font-family: var(--mono); font-size: 0.68rem; color: var(--faint); margin: 0 0 var(--s5); }
-.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: var(--s3); }
+.tiles { --grid-min: 150px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-min, 300px), 100%), 1fr)); gap: var(--s3); align-items: start; }
 .tile { background: var(--inset); border: 1px solid var(--line); border-radius: 2px; padding: var(--s3) var(--s4); }
 .tile .tk { font-family: var(--mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); margin-bottom: 4px; }
 .tile .tv { font-family: var(--mono); font-size: 1.15rem; color: var(--heading); }
@@ -141,7 +141,6 @@ footer {
 footer a { color: var(--faint); }
 
 @media (max-width: 640px) {
-  main { padding: var(--s5) var(--s4); }
   h1 { font-size: 1.35rem; }
   .desk-header, .desk-body { padding: var(--s3) var(--s4); }
   .btn-primary { width: 100%; min-height: 44px; }

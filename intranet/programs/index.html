@@ -57,10 +57,10 @@ body {
 }
 /* the topbar, the map, and the mode toggle are the shell's (U-01) */
 
-main { flex: 1; max-width: 720px; margin: 0 auto; padding: var(--s7) var(--s5); width: 100%; }
+main { flex: 1; width: 100%; max-width: 70rem; margin-inline: auto; padding-block: clamp(var(--s5), 3.5vw, var(--s7)); padding-inline: clamp(var(--s4), 3vw, var(--s6)); }
 h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
 .section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
-.lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; }
+.lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; max-width: 68ch; }
 
 .btn { font-family: var(--mono); font-size: 0.85rem; padding: 10px 24px; border-radius: 2px; border: none; cursor: pointer; }
 .btn-primary { background: var(--ember); color: var(--on-accent); }
@@ -200,7 +200,6 @@ footer {
 footer a { color: var(--faint); }
 
 @media (max-width: 640px) {
-  main { padding: var(--s5) var(--s4); }
   h1 { font-size: 1.35rem; }
   .prog-header { padding: var(--s3) var(--s4); flex-wrap: wrap; gap: var(--s2); }
   .prog-purpose { padding: 0 var(--s4) var(--s3); }

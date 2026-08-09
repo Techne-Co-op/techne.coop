@@ -430,6 +430,47 @@
     </div>
   </section>
 
+  <!-- LAYOUT -->
+  <section class="sec" id="layout">
+    <h2>Layout &middot; The Frame Measure</h2>
+    <p class="lead">Every surface the shell frames uses one content measure and one alignment pattern. A new members' page adopts both and decides nothing about its own width. This section is the rule; <a href="/commons/ui/"><code>commons.css</code></a> is its emission and <code>scripts/measure_audit.py</code> enforces it in CI.</p>
+
+    <div class="subhead">Why this section exists</div>
+    <p class="note"><b>Register.</b> The nine framed surfaces once carried four different content widths, 720 to 1120 and one with no cap at all, and five different alignment patterns beneath them. Nothing had gone wrong; nothing had been decided. This reference named two grammars, the reading column and the widescreen instrument, and neither fitted a members' page, so each page chose for itself on the day it shipped and the estate stopped looking like one thing. Named per the U-20 packet, 2026-08-09, at the steward's direction.</p>
+
+    <div class="subhead">The measure</div>
+    <pre class="code"><span class="c1">/* the container of every framed surface */</span>
+&lt;main class=<span class="c2">"wrap-frame"</span>&gt; ... &lt;/main&gt;
+
+.wrap-frame {
+  width: <span class="c2">100%</span>;
+  max-width: <span class="c2">70rem</span>;
+  margin-inline: auto;
+  padding-block:  clamp(<span class="c2">var(--s5)</span>, <span class="c2">3.5vw</span>, <span class="c2">var(--s7)</span>);
+  padding-inline: clamp(<span class="c2">var(--s4)</span>, <span class="c2">3vw</span>,   <span class="c2">var(--s6)</span>);
+}</pre>
+    <p class="note">Bounded, not set. The column fills a phone edge to edge, grows with the window, and stops at a comfortable maximum on a desk; the gutters scale continuously through the spacing tokens rather than jumping at a breakpoint, so there is no width on the way at which the page looks wrong. The cap is in <code>rem</code>, so a reader who raises their base font size gets a proportionally wider column instead of a cramped one. Prose inside the frame keeps the layer's measure at <code>68ch</code>: a column wide enough for a roster is far too wide for a sentence.</p>
+
+    <div class="subhead">The alignment pattern</div>
+    <pre class="code"><span class="c1">/* every list of cards on a framed surface */</span>
+&lt;div class=<span class="c2">"frame-grid"</span>&gt; ... &lt;/div&gt;
+&lt;div class=<span class="c2">"frame-grid"</span> style=<span class="c2">"--grid-min:150px"</span>&gt; ... &lt;/div&gt;
+
+.frame-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(<span class="c2">var(--grid-min, 300px)</span>, <span class="c2">100%</span>), <span class="c2">1fr</span>));
+  gap: <span class="c2">var(--s4)</span>;
+  align-items: start;
+}</pre>
+    <p class="note">A page sets the track minimum and nothing else. The grid reflows on the space it actually has, so it needs no media query and no container query.</p>
+
+    <div class="subhead">Why intrinsic, and not a breakpoint</div>
+    <p class="note">A framed surface sits beside a 212px map, so <b>the viewport is not the width the content has</b>, and a breakpoint written against the viewport fires at the wrong moment. Agreements went to two columns at a 1100px viewport while its content column measured 1056px: a rule keyed to a number the content never sees. Prefer an intrinsic grid. Where a genuine query is unavoidable, key it to a container, never to the viewport; do not put <code>container-type</code> on the shell's <code>.cis-main</code>, because the drawers are <code>position: fixed</code> and containment would trap them inside the content column.</p>
+
+    <div class="subhead">Adding a page to the intranet</div>
+    <p class="note">Give <code>&lt;main&gt;</code> the frame measure, put every card list in a <code>frame-grid</code>, and set <code>--grid-min</code> only if the default 300px is wrong for the content. Do not give <code>main</code> a <code>max-width</code>, do not write a viewport breakpoint that changes a column count, and do not introduce a second width. The measure audit fails the build on all three. The one exception in force is dense numeric tiles, which take <code>--grid-min:150px</code>; any other value is a design decision and belongs in a decision record rather than in a page.</p>
+  </section>
+
   <!-- COMPONENTS -->
   <section class="sec" id="components">
     <h2>Components</h2>

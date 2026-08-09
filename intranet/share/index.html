@@ -58,12 +58,12 @@ body {
 }
 /* the topbar, the map, and the mode toggle are the shell's (U-01) */
 
-main { flex: 1; max-width: 1120px; margin: 0 auto; padding: var(--s6) var(--s5) var(--s7); width: 100%; }
+main { flex: 1; width: 100%; max-width: 70rem; margin-inline: auto; padding-block: clamp(var(--s5), 3.5vw, var(--s7)); padding-inline: clamp(var(--s4), 3vw, var(--s6)); }
 
 .page-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; color: var(--ember); text-transform: uppercase; margin-bottom: var(--s2); }
 h1 { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--heading); line-height: 1.25; }
 .section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s3) 0 var(--s3); }
-.lead { color: var(--muted); font-size: 0.92rem; margin-bottom: var(--s3); max-width: 96ch; }
+.lead { color: var(--muted); font-size: 0.92rem; margin-bottom: var(--s3); max-width: 68ch; }
 
 .adoption-banner {
   background: var(--warn-dim); border: 1px solid var(--warn); border-left: 3px solid var(--warn);
@@ -81,12 +81,7 @@ h1 { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(
 }
 .section-head .head-note { margin-left: auto; letter-spacing: 0.04em; text-transform: none; color: var(--faint); font-size: 0.68rem; }
 
-.dash-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-  gap: var(--s3);
-  margin-bottom: var(--s4);
-}
+.dash-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-min, 300px), 100%), 1fr)); gap: var(--s4); align-items: start; margin-bottom: var(--s6); }
 .dash-card { background: var(--surface); border: 1px solid var(--line); padding: var(--s4) var(--s4); }
 .dash-card .card-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--faint); text-transform: uppercase; margin-bottom: var(--s2); display: flex; justify-content: space-between; gap: var(--s2); }
 .dash-card .card-label .basis { letter-spacing: 0.02em; text-transform: none; }
@@ -97,8 +92,7 @@ h1 { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(
 .dash-card.zero .card-value { color: var(--faint); }
 .dash-card.zero .card-value .unit { font-size: 0.72rem; color: var(--faint); }
 
-.two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s4); align-items: start; }
-@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+.two-col { --grid-min: 480px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-min, 300px), 100%), 1fr)); gap: var(--s4); align-items: start; }
 
 .panel { background: var(--surface); border: 1px dashed var(--line); padding: var(--s4); }
 .panel .panel-note { font-size: 0.78rem; color: var(--muted); line-height: 1.55; margin-top: var(--s3); }
@@ -126,7 +120,6 @@ footer {
 footer a { color: var(--faint); }
 
 @media (max-width: 640px) {
-  main { padding: var(--s5) var(--s4); }
   h1 { font-size: 1.35rem; }
   /* the fold keeps its columns legible: figures never wrap mid-number, so
      when the table cannot fit it scrolls inside its own panel rather than
