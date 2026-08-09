@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="Agent instructions for the CIS build: the Build Protocol, the RDM v1 ledger, and alignment with the Techne design system. Read this before the packet.">
+<meta name="description" content="Agent instructions for the CIS build: the Build Protocol, the ALM v2 ledger, and alignment with the Techne design system. Read this before the piece.">
 <title>Agent Instructions &middot; BP v1 &middot; Techne</title>
 <link rel="canonical" href="https://techne.coop/commons/build/instructions/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://techne.coop/commons/build/instructions/">
 <meta property="og:title" content="Agent Instructions · BP v1 · Techne">
-<meta property="og:description" content="Build Protocol, roadmap, and design system alignment for agents working on the CIS. Read this before the packet.">
+<meta property="og:description" content="Build Protocol, the Almanac, and design system alignment for agents working on the CIS. Read this before the piece.">
 <meta property="og:site_name" content="Techne">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
@@ -113,7 +113,7 @@ em { font-style:italic; color:var(--heading); }
 .lead { font-size:1.05rem; line-height:1.7; }
 
 /* ============================================================
-   ANATOMY  --  packet fields
+   ANATOMY  --  piece fields
    ============================================================ */
 .anatomy {
   margin:var(--s4) 0;
@@ -128,7 +128,7 @@ em { font-style:italic; color:var(--heading); }
 .an-row .v { font-size:0.88rem; line-height:1.6; color:var(--text); }
 
 /* ============================================================
-   DECIDE / ESCALATE TWIN
+   DECIDE / STOP TWIN
    ============================================================ */
 .twin { display:grid; grid-template-columns:1fr 1fr; gap:var(--s3); margin:var(--s4) 0; }
 .panel { background:var(--surface); border:1px solid var(--line); }
@@ -145,7 +145,7 @@ em { font-style:italic; color:var(--heading); }
 .panel.escalate ul li::before { content:""; position:absolute; left:0; top:14px; width:6px; height:6px; border:1px solid var(--ember); background:transparent; }
 
 /* ============================================================
-   ESCALATION CARD
+   STOP CARD
    ============================================================ */
 .esc {
   margin:var(--s4) 0; background:var(--inset);
@@ -177,7 +177,7 @@ em { font-style:italic; color:var(--heading); }
 .step-body strong { font-weight:700; color:var(--heading); }
 
 /* ============================================================
-   LEDGER TRAIN TABLE
+   LEDGER BED TABLE
    ============================================================ */
 .train-table { width:100%; border-collapse:collapse; margin:var(--s4) 0; border:1px solid var(--line); }
 .train-table th { font-family:var(--mono); font-size:0.62rem; font-weight:600; letter-spacing:0.08em; text-transform:lowercase; text-align:left; padding:8px var(--s3); background:var(--raised); border-bottom:1px solid var(--rule); color:var(--muted); }
@@ -259,12 +259,12 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
 
 <!-- MASTHEAD -->
 <div class="mast">
-  <div class="mast-eyebrow">agent instructions &middot; BP v1 &middot; RDM v1 &middot; UI v1</div>
+  <div class="mast-eyebrow">agent instructions &middot; BP v1 &middot; ALM v2 &middot; UI v1</div>
   <h1>Build Instructions</h1>
-  <p class="mast-dek">Read this before the packet. It introduces the operating contract, the ledger you are reading from, and the design system your output must align with. The instructions summarize; the series governs. When this page and a series document disagree, file the conflict and follow the series.</p>
+  <p class="mast-dek">Read this before the piece. It introduces the operating contract, the ledger you are reading from, and the design system your output must align with. The instructions summarize; the series governs. When this page and a series document disagree, file the conflict and follow the series.</p>
   <div class="mast-meta">
     <span>contract &middot; <span class="cite">BP v1</span></span>
-    <span>roadmap &middot; <span class="cite">RDM v1</span></span>
+    <span>almanac &middot; <span class="cite">ALM v2</span></span>
     <span>design &middot; <span class="cite">UI v1</span></span>
     <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
   </div>
@@ -277,7 +277,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
   <section class="sec" id="s1">
     <div class="addr">&sect;1</div>
     <h2>The build protocol</h2>
-    <p class="lead">The single operating contract is BP v1. It consolidates the agent instructions, governance mechanics, repository conventions, and packet authoring guide into one document. The machine-facing distillation lives at the repository root as <code>AGENTS.md</code>; the full text will be published at <a href="/commons/bp/">techne.coop/commons/bp/</a> as BP lands in the series. What follows is an orientation, not a substitute.</p>
+    <p class="lead">The single operating contract is BP v1. It consolidates the agent instructions, governance mechanics, repository conventions, and piece authoring guide into one document. The machine-facing distillation lives at the repository root as <code>AGENTS.md</code>; the full text will be published at <a href="/commons/bp/">techne.coop/commons/bp/</a> as BP lands in the series. What follows is an orientation, not a substitute.</p>
 
     <p>The protocol's first premise is the system's first principle applied to the build itself: agents draft, surface, and guide; humans decide, sign, and govern. Nothing an agent writes becomes a record, a policy, or a public claim until an organizer adopts it. Adoption is a visible act in the history.</p>
 
@@ -289,7 +289,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       </div>
       <div class="def-row">
         <span class="t"><span class="k">drafting</span>Build agents</span>
-        <span class="d">Session-scoped instruments with capabilities, not authority. No memory between sessions, no standing, no authority. Working context derives entirely from this series and the packet in hand.</span>
+        <span class="d">Session-scoped instruments with capabilities, not authority. No memory between sessions, no standing, no authority. Working context derives entirely from this series and the piece in hand.</span>
       </div>
       <div class="def-row">
         <span class="t"><span class="k">operating</span>Nou</span>
@@ -298,23 +298,23 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     </div>
   </section>
 
-  <!-- §2  --  The packet -->
+  <!-- §2  --  The piece -->
   <section class="sec" id="s2">
     <div class="addr">&sect;2</div>
-    <h2>The packet</h2>
-    <p class="lead">The packet is the unit of work. It is a validated YAML entry in the ledger, small enough for one session to advance and complete enough for a stranger to pick up. A packet is not done until its upstream dependencies are verified. The validator enforces schema compliance, dependency acyclicity, and gating consistency on every change.</p>
+    <h2>The piece</h2>
+    <p class="lead">The piece is the unit of work. It is a validated YAML entry in the ledger, small enough for one session to advance and complete enough for a stranger to pick up. A piece is not done until its upstream dependencies are verified. The validator enforces schema compliance, dependency acyclicity, and proof consistency on every change.</p>
 
     <div class="anatomy">
-      <div class="an-row"><span class="f">address</span><span class="v">A citable code, unique in the ledger. Used in branches, commits, and escalation cards. Example: <code>SUB-01</code>, <code>B-03</code>, <code>G-G</code>.</span></div>
+      <div class="an-row"><span class="f">address</span><span class="v">A citable code, unique in the ledger. Used in branches, commits, and stop cards. Example: <code>SUB-01</code>, <code>B-03</code>, <code>G-G</code>.</span></div>
       <div class="an-row"><span class="f">intent</span><span class="v">One sentence, plain language, readable by a curious member with no prior context.</span></div>
-      <div class="an-row"><span class="f">cites</span><span class="v">Artifact sections this packet depends on, by code, version, and section. An uncited constraint does not bind. A needed-but-missing citation is an escalation.</span></div>
-      <div class="an-row"><span class="f">ready_when</span><span class="v">The condition under which work may begin. No dates. Conditions name upstream packets or named decisions.</span></div>
-      <div class="an-row"><span class="f">deliverable</span><span class="v">What exists when the packet is done: files, migrations, documents, or a recorded decision brief.</span></div>
-      <div class="an-row"><span class="f">acceptance</span><span class="v">How done is judged, stated so the Verification Spec can check it. Slice work uses PRD v0.3 &sect;4 member-capability sentences as acceptance language.</span></div>
+      <div class="an-row"><span class="f">cites</span><span class="v">Artifact sections this piece depends on, by code, version, and section. An uncited constraint does not bind. A needed-but-missing citation is a stop.</span></div>
+      <div class="an-row"><span class="f">ready_when</span><span class="v">The condition under which work may begin. No dates. Conditions name upstream pieces or named decisions.</span></div>
+      <div class="an-row"><span class="f">deliverable</span><span class="v">What exists when the piece is done: files, migrations, documents, or a recorded decision brief.</span></div>
+      <div class="an-row"><span class="f">acceptance</span><span class="v">How done is judged, stated so the Verification Spec can check it. Capability work uses PRD v0.3 &sect;4 member-capability sentences as acceptance language.</span></div>
       <div class="an-row"><span class="f">status</span><span class="v">The honest mark. Marks: <span class="chip drafted"><span class="dot"></span>drafted</span> &nbsp;<span class="chip anticipated"><span class="dot"></span>anticipated</span> &nbsp;<span class="chip open"><span class="dot"></span>open &middot; (blocker name)</span></span></div>
     </div>
 
-    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">What you decide. What you escalate.</h3>
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">What you decide. What you stop for.</h3>
     <div class="twin">
       <div class="panel decide">
         <div class="ph"><span class="pt">decide freely</span></div>
@@ -327,7 +327,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
         </ul>
       </div>
       <div class="panel escalate">
-        <div class="ph"><span class="pt">stop and escalate</span></div>
+        <div class="ph"><span class="pt">stop and file a card</span></div>
         <ul>
           <li>Any permission or visibility not already in the Authority Map; any schema change not in the Information Model.</li>
           <li>Anything touching money, membership standing, or governance semantics.</li>
@@ -339,10 +339,10 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       </div>
     </div>
 
-    <p>Escalations follow one shape:</p>
+    <p>A stop follows one shape:</p>
     <div class="esc">
-      <div class="k">the escalation card</div>
-      <div class="er"><span class="f">standing in</span><span class="v">The packet address and the step within it.</span></div>
+      <div class="k">the stop card</div>
+      <div class="er"><span class="f">standing in</span><span class="v">The piece address and the step within it.</span></div>
       <div class="er"><span class="f">found</span><span class="v">What was encountered, with citations to the artifacts that frame it.</span></div>
       <div class="er"><span class="f">the question</span><span class="v">The smallest question whose answer unblocks the work. One question per card.</span></div>
       <div class="er"><span class="f">a default</span><span class="v">Your proposed answer, marked as a proposal. A busy organizer can say yes, no, or otherwise.</span></div>
@@ -362,11 +362,11 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       </div>
       <div class="step">
         <div class="step-n">02</div>
-        <div class="step-body"><strong>Read the map.</strong> Read the RDM v1 series overview and the living roadmap at <a href="/commons/build/">/commons/build/</a> to locate where this packet sits and what its neighbors are.</div>
+        <div class="step-body"><strong>Read the map.</strong> Read the Almanac at <a href="/commons/build/">/commons/build/</a> to locate where this piece sits and what its neighbors are.</div>
       </div>
       <div class="step">
         <div class="step-n">03</div>
-        <div class="step-body"><strong>Read the packet, and every artifact it cites, in full.</strong> A cited section that cannot be found is an escalation. An uncited constraint does not bind.</div>
+        <div class="step-body"><strong>Read the piece, and every artifact it cites, in full.</strong> A cited section that cannot be found is a stop. An uncited constraint does not bind.</div>
       </div>
       <div class="step">
         <div class="step-n">04</div>
@@ -374,13 +374,13 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       </div>
     </div>
 
-    <p>A session closes by committing with provenance, updating status by commit, filing any open questions as escalation cards rather than resolving them, and leaving a short note of what was tried and abandoned, so the next session inherits judgment and not just files.</p>
+    <p>A session closes by committing with provenance, updating status by commit, filing any open questions as stop cards rather than resolving them, and leaving a short note of what was tried and abandoned, so the next session inherits judgment and not just files.</p>
 
     <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Provenance marks</h3>
     <div class="def">
       <div class="def-row">
         <span class="t">Commit trailers</span>
-        <span class="d">Agent-authored commits carry an authorship trailer naming the agent role and the packet address. Example: <code>Authored-by: build-agent / SUB-01</code>.</span>
+        <span class="d">Agent-authored commits carry an authorship trailer naming the agent role and the piece address. Example: <code>Authored-by: build-agent / SUB-01</code>.</span>
       </div>
       <div class="def-row">
         <span class="t">Draft marking</span>
@@ -397,20 +397,20 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     </div>
   </section>
 
-  <!-- §4  --  The ledger and trains -->
+  <!-- §4  --  The ledger and beds -->
   <section class="sec" id="s4">
     <div class="addr">&sect;4</div>
-    <h2>The ledger and the trains</h2>
-    <p class="lead">The roadmap is a validated YAML ledger at <code>rdm-ledger.yaml</code>, read by the living roadmap at <a href="/commons/build/">/commons/build/</a>. Work is organized into trains: dependency-ordered sequences of packets that advance in parallel once their substrate is verified. There are no dates. The only scheduling constraint is the readiness condition on each packet.</p>
+    <h2>The ledger and the beds</h2>
+    <p class="lead">The Almanac reads a validated YAML ledger at <code>rdm-ledger.yaml</code> and stands at <a href="/commons/build/">/commons/build/</a>. Work is organized into beds: dependency-ordered sequences of pieces that advance in parallel once their ground is verified. There are no dates. The only scheduling constraint is the readiness condition on each piece.</p>
 
-    <p>The current ledger has 74 items: 10 governing documents (the seven series artifacts plus the PATRONAGE, TREASURY, and AGY module specifications, the first two spliced 2026-07-22 and AGY adopted 2026-07-27) and 64 work packets across 9 trains. The validated <code>STATUS.md</code> marks the state: 10 drafted, 15 anticipated, 49 open, 0 filed, of which 34 carry a verified mark. Of the open packets, the Substrate, Belong, Gather, Shell, and most Cross-cutting work is verified and waits only on gate attestation; the live in-session work is the Find train's response flow (F-02), the agency rail and desk (A-01, A-02), and the build-surface reconciliations (X-13, X-14); the board-held work is the Share train, held on the Q3 counting rules, and the Treasury train, held on TREASURY-POLICY adoption. The A train is held by neither: it waits on a single decision about authority, described in AGY &sect;5.</p>
+    <p>The current ledger has 74 items: 10 governing documents (the seven series artifacts plus the PATRONAGE, TREASURY, and AGY module specifications, the first two grafted 2026-07-22 and AGY adopted 2026-07-27) and 64 work pieces across 9 beds. The validated <code>STATUS.md</code> marks the state: 10 drafted, 15 anticipated, 49 open, 0 filed, of which 34 carry a verified mark. Of the open pieces, the Substrate, Belong, Gather, Shell, and most Cross-cutting work is verified and waits only on proof attestation; the live in-session work is the Find bed's response flow (F-02), the agency rail and desk (A-01, A-02), and the build-surface reconciliations (X-13, X-14); the board-held work is the Share bed, held on the Q3 counting rules, and the Treasury bed, held on TREASURY-POLICY adoption. The A bed is held by neither: it waits on a single decision about authority, described in AGY &sect;5.</p>
 
     <table class="train-table">
       <thead>
         <tr>
-          <th>train</th>
-          <th>packets</th>
-          <th>gate</th>
+          <th>bed</th>
+          <th>pieces</th>
+          <th>proof</th>
           <th>ready when</th>
         </tr>
       </thead>
@@ -478,16 +478,16 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       </tbody>
     </table>
 
-    <p>Gates are <em>gate.attested</em> events, not automatic merges. Each gate requires human attestation before the next train opens. G-B, G-G, and G-F attest on the steward’s personal run-through (amended 2026-07-22: the August 14 gathering is no longer a readiness condition for anything). G-A is the one gate the steward cannot attest alone: its sentence requires a member who is not the steward to direct the instrument, which is the whole claim the module makes. The <a href="/commons/build/run-through/">run-through</a> is the guide to that walk.</p>
+    <p>A proof lands as a <em>gate.attested</em> event, never as an automatic merge. Each proof requires human attestation before the next bed opens. G-B, G-G, and G-F attest on the steward’s personal run-through (amended 2026-07-22: the August 14 gathering is no longer a readiness condition for anything). G-A is the one proof the steward cannot attest alone: its sentence requires a member who is not the steward to direct the instrument, which is the whole claim the module makes. The <a href="/commons/build/run-through/">run-through</a> is the guide to that walk.</p>
 
     <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Open conditions at session start</h3>
-    <p>Before claiming a packet, check the signal loop at <a href="/commons/build/">/commons/build/</a> for named open conditions. An open packet bears its blocker in the status field: <span class="chip open"><span class="dot"></span>open &middot; Q3</span> means the packet waits on the Q3 counting-rules decision. Do not claim an open packet; file an escalation if you believe the condition is resolvable.</p>
+    <p>Before claiming a piece, check the signal loop at <a href="/commons/build/">/commons/build/</a> for named open conditions. An open piece bears its blocker in the status field: <span class="chip open"><span class="dot"></span>open &middot; Q3</span> means the piece waits on the Q3 counting-rules decision. Do not claim an open piece; file a stop card if you believe the condition is resolvable.</p>
 
     <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Repository conventions</h3>
     <div class="def">
       <div class="def-row">
         <span class="t">Branch and merge</span>
-        <span class="d">One packet per branch, named by the packet address. The pull request cites the address, states what was decided and what was escalated, merges only with the validator green.</span>
+        <span class="d">One piece per branch, named by the piece address. The pull request cites the address, states what was decided and what was stopped on, merges only with the validator green.</span>
       </div>
       <div class="def-row">
         <span class="t">Review tiers</span>
@@ -499,7 +499,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       </div>
       <div class="def-row">
         <span class="t">Precedence</span>
-        <span class="d">When documents disagree: law and bylaws &rarr; board policy &rarr; PRD &rarr; IM and AM &rarr; BP and VS &rarr; packet briefs &rarr; code. Lower yields to higher. The disagreement is filed either way.</span>
+        <span class="d">When documents disagree: law and bylaws &rarr; board policy &rarr; PRD &rarr; IM and AM &rarr; BP and VS &rarr; piece briefs &rarr; code. Lower yields to higher. The disagreement is filed either way.</span>
       </div>
     </div>
   </section>
@@ -535,7 +535,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       <div class="token-row"><span class="token-name">--ember / --ember-text</span><span class="token-val">Primary accent: addresses, eyebrows, active nav, left borders</span></div>
       <div class="token-row"><span class="token-name">--blue / --blue-text</span><span class="token-val">Primary interactive: links, <code>drafted</code> chips, decide panels</span></div>
       <div class="token-row"><span class="token-name">--ok / --ok-dim</span><span class="token-val">Positive / filed / verified state</span></div>
-      <div class="token-row"><span class="token-name">--warn / --warn-dim</span><span class="token-val">Open / blocked / escalation state</span></div>
+      <div class="token-row"><span class="token-name">--warn / --warn-dim</span><span class="token-val">Open / blocked / stop state</span></div>
     </div>
     <div class="token-group">
       <div class="token-group-label">sunset sweep  --  section tints</div>
@@ -565,7 +565,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     </div>
 
     <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Status chips</h3>
-    <p>Every claim wears its status. Use the chip component with the correct mark. Never omit a status chip from an artifact header or packet entry.</p>
+    <p>Every claim wears its status. Use the chip component with the correct mark. Never omit a status chip from an artifact header or piece entry.</p>
     <div class="anatomy">
       <div class="an-row"><span class="f">drafted</span><span class="v"><span class="chip drafted"><span class="dot"></span>drafted</span> &mdash; blue. The document exists and governs. May still change before ratification.</span></div>
       <div class="an-row"><span class="f">anticipated</span><span class="v"><span class="chip anticipated"><span class="dot"></span>anticipated</span> &mdash; faint. Work is defined, upstream must clear first.</span></div>
@@ -618,14 +618,14 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Directory layout</h3>
     <div class="anatomy">
       <div class="an-row"><span class="f">AGENTS.md</span><span class="v">Machine-facing distillation of BP v1. Read this first, every session. Governess: BP v1.</span></div>
-      <div class="an-row"><span class="f">CONTRIBUTORS.md</span><span class="v">Human and agent contribution paths, vocabulary, escalation card shape, and status marks.</span></div>
+      <div class="an-row"><span class="f">CONTRIBUTORS.md</span><span class="v">Human and agent contribution paths, vocabulary, stop card shape, and status marks.</span></div>
       <div class="an-row"><span class="f">index.html</span><span class="v">Landing page. Techne cooperative home, opening at launch after the steward’s review.</span></div>
       <div class="an-row"><span class="f">commons/</span><span class="v">The Commonplace Book. The cooperative's shared record. Member-facing landing at <code>commons/index.html</code>.</span></div>
       <div class="an-row"><span class="f">commons/series/</span><span class="v">The Common Record Series (SER v0.2). Eleven artifacts, the register, dependency order.</span></div>
-      <div class="an-row"><span class="f">commons/build/</span><span class="v">Living Roadmap (RDM v1). Packet ledger, signal loop, repository tree. The instrument you are reading from.</span></div>
+      <div class="an-row"><span class="f">commons/build/</span><span class="v">The Almanac (ALM v2). Piece ledger, signal loop, repository tree. The instrument you are reading from.</span></div>
       <div class="an-row"><span class="f">commons/build/instructions/</span><span class="v">This page. Agent instructions for the build.</span></div>
-      <div class="an-row"><span class="f">commons/patronage/</span><span class="v">PATRONAGE module (PP v0.2, Drafted): Programs as organizing bodies, the contribution event contract. Spliced into the ledger 2026-07-22.</span></div>
-      <div class="an-row"><span class="f">commons/agency/</span><span class="v">AGY module (v0.1, Drafted): a patron member directs the instrument on the record; the rail, the run and its floor, provenance under two hands. Adopted 2026-07-27, and its splice entered the ledger the same day.</span></div>
+      <div class="an-row"><span class="f">commons/patronage/</span><span class="v">PATRONAGE module (PP v0.2, Drafted): Programs as organizing bodies, the contribution event contract. Grafted into the ledger 2026-07-22.</span></div>
+      <div class="an-row"><span class="f">commons/agency/</span><span class="v">AGY module (v0.1, Drafted): a patron member directs the instrument on the record; the rail, the run and its floor, provenance under two hands. Adopted 2026-07-27, and its graft entered the ledger the same day.</span></div>
       <div class="an-row"><span class="f">commons/treasury/</span><span class="v">TREASURY module (TR v0.1.3, Drafted): the movement layer over Stripe, Mercury, and Xero; the Desk, the policy instrument, the balance view, and the statements view, governed movements as events.</span></div>
       <div class="an-row"><span class="f">design-system/</span><span class="v">Techne v4 token and pattern reference. The source for the design system section of these instructions.</span></div>
       <div class="an-row"><span class="f">legal/</span><span class="v">Formation documents: bylaws, membership agreement, participation terms, community supporter template.</span></div>
@@ -650,9 +650,9 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     </div>
 
     <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Branch and deploy convention</h3>
-    <p>Branch from <code>main</code> using the packet address as the branch name: <code>git checkout -b SUB-01</code>. Every commit on a packet branch carries the packet address in the message. The PR title names the address and summarizes the deliverable. After organizer approval and validator green, squash-merge to <code>main</code>. GitHub Pages deploys within 60 seconds.</p>
+    <p>Branch from <code>main</code> using the piece address as the branch name: <code>git checkout -b SUB-01</code>. Every commit on a piece branch carries the piece address in the message. The PR title names the address and summarizes the deliverable. After organizer approval and validator green, squash-merge to <code>main</code>. GitHub Pages deploys within 60 seconds.</p>
 
-    <p>The CIS reference site (<a href="https://github.com/Techne-Co-op/cis-reference">Techne-Co-op/cis-reference</a>) provides a live schema and policy reference, with row counts fetched from Supabase. It is a companion instrument, not a build target for packets in this ledger.</p>
+    <p>The CIS reference site (<a href="https://github.com/Techne-Co-op/cis-reference">Techne-Co-op/cis-reference</a>) provides a live schema and policy reference, with row counts fetched from Supabase. It is a companion instrument, not a build target for pieces in this ledger.</p>
   </section>
 
   <!-- §7  --  AGENTS.md distillation -->
@@ -687,16 +687,16 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
 
     <div class="memo">
       <div class="k">the working agreement</div>
-      <p>An agent that stops is doing its job. An agent that invents is doing someone else's. The build goes fast precisely because the boundary is bright: inside a packet's citations, full speed; at the boundary, a card, a question, and a person.</p>
+      <p>An agent that stops is doing its job. An agent that invents is doing someone else's. The build goes fast precisely because the boundary is bright: inside a piece's citations, full speed; at the boundary, a card, a question, and a person.</p>
     </div>
   </section>
 
 </div><!-- /doc-wrap -->
 
 <footer>
-  <span>Agent Instructions &middot; BP v1 &middot; RDM v1 &middot; UI v1</span>
+  <span>Agent Instructions &middot; BP v1 &middot; ALM v2 &middot; UI v1</span>
   <span>RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
-  <span><a href="/commons/build/">Living Roadmap</a></span>
+  <span><a href="/commons/build/">The Almanac</a></span>
   <span><a href="/design-system/">Design System</a></span>
 </footer>
 

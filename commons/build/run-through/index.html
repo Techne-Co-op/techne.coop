@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
 <meta name="description" content="The Run-Through: a steward's guide to testing the built Common Information System end to end before launch. What the machine already proves, what only a person can, and how to record what you attest.">
-<title>The Run-Through &middot; RDM v1 &middot; Techne</title>
+<title>The Run-Through &middot; ALM v2 &middot; Techne</title>
 <link rel="canonical" href="https://techne.coop/commons/build/run-through/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://techne.coop/commons/build/run-through/">
-<meta property="og:title" content="The Run-Through · RDM v1 · Techne">
+<meta property="og:title" content="The Run-Through · ALM v2 · Techne">
 <meta property="og:description" content="A steward's guide to testing the built CIS end to end before launch.">
 <meta property="og:site_name" content="Techne">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -152,11 +152,11 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
 <body>
 
 <div class="mast">
-  <div class="mast-eyebrow">the run-through &middot; RDM v1 &middot; steward's systems test</div>
+  <div class="mast-eyebrow">the run-through &middot; ALM v2 &middot; steward's systems test</div>
   <h1>The Run-Through</h1>
-  <p class="mast-dek">A guide to testing the built system end to end, by hand, before launch. The machine has already agreed with itself; this is where the steward finds out whether the system tells the truth to a person. Walked in order, the run-through drives the outstanding acceptances and sets up the three gate attestations that are ready. G-A is not among them: its sentence asks for a member who is not the steward, so it is the one gate this walk cannot reach alone. Unfamiliar words are defined in <a href="/commons/build/lexicon/">the Lexicon</a>. Budget roughly an hour for the walk itself.</p>
+  <p class="mast-dek">A guide to testing the built system end to end, by hand, before launch. The machine has already agreed with itself; this is where the steward finds out whether the system tells the truth to a person. Walked in order, the run-through drives the outstanding acceptances and sets up the three proof attestations that are ready. G-A is not among them: its sentence asks for a member who is not the steward, so it is the one proof this walk cannot reach alone. Unfamiliar words are defined in <a href="/commons/build/lexicon/">the Lexicon</a>. Budget roughly an hour for the walk itself.</p>
   <div class="mast-meta">
-    <span>cites &middot; RDM v1 &middot; PRD v0.3 &sect;4 &middot; the Gate Book &middot; the notices runbook</span>
+    <span>cites &middot; ALM v2 &middot; PRD v0.3 &sect;4 &middot; the Proof Book &middot; the notices runbook</span>
     <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
   </div>
 </div>
@@ -167,12 +167,12 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <div class="addr">&sect;1</div>
     <h2>What the machine already proves</h2>
     <p class="lead">Seven suites run on every change, and an eighth rehearses weekly. Before you touch anything, know what is already held, so your attention goes where only a person can look.</p>
-    <div class="condition"><span class="k">ledger-validate</span>The roadmap is coherent: schema, dependency acyclicity, gating consistency, manifest freshness. A packet cannot claim a status it has not earned.</div>
-    <div class="condition"><span class="k">schema-lint &middot; db-verify</span>The migration chain applies clean from zero and the emitted schema matches the Information Model: thirteen tables, the event log append-only, the fold a view.</div>
+    <div class="condition"><span class="k">ledger-validate</span>The Almanac is coherent: schema, dependency acyclicity, proof consistency, manifest freshness. A piece cannot claim a status it has not earned.</div>
+    <div class="condition"><span class="k">schema-lint &middot; db-verify</span>The migration chain applies clean from zero and the yielded schema matches the Information Model: thirteen tables, the event log append-only, the tally a view.</div>
     <div class="condition"><span class="k">rls-audit</span>The probe matrix: every role against every table per AM v0.1 &sect;5, each probe citing its cell. Who can see what is proven cell by cell, not assumed.</div>
     <div class="condition"><span class="k">gate-rehearsal</span>Every Belong, Gather, and Find sentence as a committed sequential journey: apply, admit, read, sign, register, attend, post, respond, resolve, with every refusal asserted. Thirteen beats, four personas.</div>
-    <div class="condition"><span class="k">restore-test &middot; style-lint</span>Backup restores and folds match; the prose keeps house style.</div>
-    <div class="condition"><span class="k">walkaway (weekly)</span>Export, stand fresh infrastructure, import, re-export, byte-identical, fold reconstructed. Already run live on 2026-07-21: events <code>export.taken</code> and <code>walkaway.rehearsed</code> are in your record.</div>
+    <div class="condition"><span class="k">restore-test &middot; style-lint</span>Backup restores and tallies match; the prose keeps house style.</div>
+    <div class="condition"><span class="k">walkaway (weekly)</span>Export, stand fresh infrastructure, import, re-export, byte-identical, tally reconstructed. Already run live on 2026-07-21: events <code>export.taken</code> and <code>walkaway.rehearsed</code> are in your record.</div>
     <p>What none of this can prove: that the deployed pages against the live database behave the way the CI substrate does; that a real magic link arrives and signs in; that the Telegram notice lands in your hand; and that the whole thing reads honestly to the person using it. That is the run-through.</p>
   </section>
 
@@ -207,7 +207,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
         <div class="beat-body">
           <span class="sentence">&ldquo;Admission notice delivered on the membership.state transition to applied.&rdquo;</span>
           Pick up your phone. The intake notice should already be in your Telegram: the applicant's name, the event id, the address, and the named gap where the email acknowledgment will one day ride.
-          <span class="observe">this delivery is the X-02 acceptance; say so and the packet verifies</span>
+          <span class="observe">this delivery is the X-02 acceptance; say so and the piece verifies</span>
         </div>
       </div>
     </div>
@@ -250,7 +250,7 @@ select a.display_name, a.auth_user_id is not null as bound, m.state
   <section class="sec" id="belong">
     <div class="addr">&sect;5 &middot; G-B</div>
     <h2>Third act &middot; Belong</h2>
-    <p class="lead">The newcomer drives every beat; you watch. The full script with attestation text is in <a href="/commons/build/gates/#g-b">the Gate Book</a>. In short:</p>
+    <p class="lead">The newcomer drives every beat; you watch. The full script with attestation text is in <a href="/commons/build/gates/#g-b">the Proof Book</a>. In short:</p>
     <div class="script">
       <div class="beat">
         <div class="beat-n">03</div><div class="beat-who">newcomer</div>
@@ -310,7 +310,7 @@ values ('&lt;gathering_id&gt;',
   <section class="sec" id="find">
     <div class="addr">&sect;7 &middot; G-F</div>
     <h2>Fifth act &middot; Find one another</h2>
-    <p class="lead">The newest surface, at <a href="/commons/opportunities/">/commons/opportunities/</a>. Three acts verify the train.</p>
+    <p class="lead">The newest surface, at <a href="/commons/opportunities/">/commons/opportunities/</a>. Three acts verify the bed.</p>
     <div class="script">
       <div class="beat">
         <div class="beat-n">08</div><div class="beat-who">newcomer</div>
@@ -364,7 +364,7 @@ returning id, display_name;</pre>
         <div class="beat-n">13</div><div class="beat-who">steward</div>
         <div class="beat-body">
           Open the Desk. Every section is honestly empty and names the emission that fills it; the instrument panel points at the staged TREASURY-POLICY v1.1 draft, the version that names the two Programs you just seeded. Nothing to act on, and that is the observation: the movement layer refuses to exist ahead of its policy. A balance view is now specified beside it (T-06, TREASURY &sect;9): each rail's reported holding, read-only, with the delta to the record; it stays anticipated until the three read-only rail credentials exist, so there is nothing to walk here yet.
-          <span class="observe">T-01 stop: read-only stands; the packet completes on the board's adoption; T-06 waits on the rail reads</span>
+          <span class="observe">T-01 stop: read-only stands; the piece completes on the board's adoption; T-06 waits on the rail reads</span>
         </div>
       </div>
     </div>
@@ -405,7 +405,7 @@ returning id, display_name;</pre>
   <section class="sec" id="record">
     <div class="addr">&sect;9</div>
     <h2>Read the record back</h2>
-    <p class="lead">The system's claim is that state is a fold over events. So fold it, by eye, at the desk:</p>
+    <p class="lead">The system's claim is that state is a tally over events. So tally it, by eye, at the desk:</p>
     <pre class="rec">select e.occurred_at, e.kind,
        coalesce(a.display_name, '(system)') as actor,
        e.payload
@@ -419,7 +419,7 @@ returning id, display_name;</pre>
     <div class="addr">&sect;10</div>
     <h2>What the system must refuse</h2>
     <p class="lead">A record is defined as much by what it will not do. Each of these is CI-asserted; spot-check whichever you like by hand.</p>
-    <div class="condition"><span class="k">signed out</span>Every member page shows the auth gate and nothing else. The anon role reads no table.</div>
+    <div class="condition"><span class="k">signed out</span>Every member page shows the sign-in door and nothing else. The anon role reads no table.</div>
     <div class="condition"><span class="k">double signature</span>Signing the same agreement twice is refused, not duplicated.</div>
     <div class="condition"><span class="k">another's profile</span>No member edits any profile but their own.</div>
     <div class="condition"><span class="k">self-reported presence</span>Attendance is recorded by host or steward only.</div>
@@ -430,8 +430,8 @@ returning id, display_name;</pre>
   <section class="sec" id="attest">
     <div class="addr">&sect;11</div>
     <h2>Attest and flip</h2>
-    <p class="lead">When the walk satisfies you, three gates are ready to attest: G-B and G-G with your countersigner, G-F on the same evidence. G-A waits on a second person and on the first grant, and is not part of this walk. The words and the recording procedure are in <a href="/commons/build/gates/#final">the Gate Book</a>: speak the sentence, insert the <code>gate.attested</code> event, and hand me the word; the ledger flips by commit and the roadmap follows.</p>
-    <p>Left standing after the walk, each named and held: the <strong>Q3 counting rules</strong> before the Share train exists at all; the <strong>TREASURY-POLICY adoption</strong> before T-01 completes and the movement layer opens; the <strong>read-only rail credentials</strong> for Stripe, Mercury, and Xero before the balance view (T-06) can stand; the <strong>anchor pass</strong> for G-R, re-verifying 0002, 0005, and the schema comments against the governing text (the bylaws mark itself resolved 2026-07-22, the index aligned to the ratified instruments); the <strong>Q1 public name</strong> for the opportunity surface, yours whenever you want it; the <strong>email sink</strong>, dormant until the zone manager places two DNS records; and, from the agency train, the <strong>first grant</strong> with its AM v0.2 addendum, the <strong>AGY-ESTATE instrument</strong> that would put the Estate list and the flooding bounds on the record instead of in the module's opening values, the <strong>&sect;15 visibility decision</strong> that fills the commons shelf either way, and the harness <strong>rehearsal on your own Directions</strong> before any member's.</p>
+    <p class="lead">When the walk satisfies you, three proofs are ready to attest: G-B and G-G with your countersigner, G-F on the same evidence. G-A waits on a second person and on the first grant, and is not part of this walk. The words and the recording procedure are in <a href="/commons/build/gates/#final">the Proof Book</a>: speak the sentence, insert the <code>gate.attested</code> event, and hand me the word; the ledger flips by commit and the Almanac follows.</p>
+    <p>Left standing after the walk, each named and held: the <strong>Q3 counting rules</strong> before the Share bed exists at all; the <strong>TREASURY-POLICY adoption</strong> before T-01 completes and the movement layer opens; the <strong>read-only rail credentials</strong> for Stripe, Mercury, and Xero before the balance view (T-06) can stand; the <strong>anchor pass</strong> for G-R, re-verifying 0002, 0005, and the schema comments against the governing text (the bylaws mark itself resolved 2026-07-22, the index aligned to the ratified instruments); the <strong>Q1 public name</strong> for the opportunity surface, yours whenever you want it; the <strong>email sink</strong>, dormant until the zone manager places two DNS records; and, from the agency bed, the <strong>first grant</strong> with its AM v0.2 addendum, the <strong>AGY-ESTATE instrument</strong> that would put the Estate list and the flooding bounds on the record instead of in the module's opening values, the <strong>&sect;15 visibility decision</strong> that fills the commons shelf either way, and the harness <strong>rehearsal on your own Directions</strong> before any member's.</p>
     <pre class="rec">the run sheet
 [ ] join form submitted from the stranger's browser
 [ ] intake notice in Telegram            -&gt; X-02 verified
@@ -459,10 +459,10 @@ returning id, display_name;</pre>
 </div>
 
 <footer>
-  <span>The Run-Through &middot; RDM v1</span>
+  <span>The Run-Through &middot; ALM v2</span>
   <span>RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
-  <span><a href="/commons/build/">Living Roadmap</a></span>
-  <span><a href="/commons/build/gates/">The Gate Book</a></span>
+  <span><a href="/commons/build/">The Almanac</a></span>
+  <span><a href="/commons/build/gates/">The Proof Book</a></span>
   <span><a href="/commons/build/run-through/organizers/">The Fifteen-Minute Walk</a></span>
 </footer>
 
