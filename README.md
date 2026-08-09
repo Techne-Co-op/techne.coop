@@ -33,23 +33,25 @@ The Commonplace Book opens in four slices:
 
 ## The Common Record Series
 
-The CIS build is organized by **The Common Record Series**  --  eleven governing artifacts, dependency-ordered, with no dates. Dependency is the schedule.
+The CIS build is organized by **The Common Record Series**  --  the governing artifacts, dependency-ordered, with no dates. Dependency is the schedule.
 
 | Code | Artifact | Status |
 |---|---|---|
-| SER | Series Overview | Drafted |
-| PRD | Product Requirements v0.3 | Drafted |
-| IM | Information Model & Invariants | Drafted |
-| AM | Authority Map | Drafted |
-| BP | Build Protocol | Drafted |
-| VS | Verification Spec | Drafted |
-| UI | Interface Tokens & Patterns | Drafted |
-| RDM | Roadmap | Drafted |
+| SER | Series Overview v0.3 | Drafted |
+| PRD | Product Requirements v0.4 | Drafted |
+| IM | Information Model & Invariants v0.1 | Drafted |
+| AM | Authority Map v0.1 | Drafted |
+| BP | Build Protocol v2 | Drafted |
+| VS | Verification Spec v2 | Drafted |
+| UI | Interface Tokens & Patterns v1 | Drafted |
+| ALM | The Almanac v2 (supersedes RDM v1, the Roadmap) | Drafted |
 | LP | Landing Page | Drafted |
 | NC | Nou Charter v2 | Anticipated |
 | OR | Operations Runbook | Anticipated |
 
-The living roadmap is at [techne.coop/commons/build/](https://techne.coop/commons/build/)  --  40 packets across 7 trains (SUB, Belong, Gather, Find, Share, Cross-cutting), 7 drafted series documents, 23 anticipated, 10 open.
+The Almanac  --  the piece ledger  --  is at [techne.coop/commons/build/](https://techne.coop/commons/build/): every piece with an address, a readiness condition, its citations into the series, and an honest mark. The live census is generated to [STATUS.md](./STATUS.md) by the validator on every change; counts copied into this file would only go stale, so they live there.
+
+The build speaks its own register  --  the *piece*, the *bed*, the *proof*, the *graft*, the *tally*  --  defined with its concordance at [techne.coop/commons/build/lexicon/](https://techne.coop/commons/build/lexicon/).
 
 Build instructions for agents: [techne.coop/commons/build/instructions/](https://techne.coop/commons/build/instructions/)
 
@@ -60,10 +62,13 @@ Build instructions for agents: [techne.coop/commons/build/instructions/](https:/
 ```
 /                         Landing page  --  Techne, opening August 14, 2026
 /commons/                 The Commonplace Book  --  cooperative shared record
-/commons/series/          The Common Record Series (SER v0.2)
-/commons/build/           Living Roadmap (RDM v1 · packet ledger)
-/commons/build/instructions/  Agent instructions (BP v1 · RDM v1 · UI v1)
+/commons/series/          The Common Record Series (SER v0.3)
+/commons/build/           The Almanac (ALM v2 · the piece ledger)
+/commons/build/instructions/  Agent instructions (BP v2 · ALM v2 · UI v1)
+/commons/build/lexicon/   The Lexicon  --  the build's register and concordance
+/participation/           Participation classes and the join paths
 /design-system/           Techne v4 token and pattern reference
+/accounting/              Accounting statements and the counsel memo
 /legal/                   Formation documents
 /intranet/                Member intranet (authenticated)
 /encyclopedia/            Techne vocabulary
@@ -74,16 +79,16 @@ Build instructions for agents: [techne.coop/commons/build/instructions/](https:/
 
 ## Agent-Driven Build
 
-This repository is built under **BP v1** (Build Protocol). The operating contract lives at `AGENTS.md` in the root, where agent harnesses load it automatically. BP v1 governs; `AGENTS.md` summarizes.
+This repository is built under **BP v2** (Build Protocol). The operating contract lives at `AGENTS.md` in the root, where agent harnesses load it automatically; the full text is at [techne.coop/commons/bp/](https://techne.coop/commons/bp/). BP v2 governs; `AGENTS.md` summarizes.
 
 Key rules:
-- One packet per branch, named by the packet address (e.g. `SUB-01`, `B-03`)
-- Commits carry authorship trailer: `Authored-by: build-agent / <packet-address>`
-- Agents decide inside cited constraints; they stop and file an escalation card at the boundary
-- Nothing becomes a record or policy until an organizer adopts it by visible act
+- One piece per branch, named by the piece address (e.g. `SUB-01`, `B-03`)
+- Commits carry the authorship trailer: `Authored-by: <agent role> / <piece address>`
+- Agents decide inside cited constraints; they stop and file a stop card at the boundary
+- Nothing becomes a record or policy until an organizer adopts it by visible act; merge is adoption
 - The validator must be green before any merge
 
-Read `AGENTS.md` before opening the code. Read the packet and every artifact it cites before any file.
+Read `AGENTS.md` before opening the code. Read the piece and every artifact it cites before any file.
 
 ---
 
@@ -93,7 +98,7 @@ Read `AGENTS.md` before opening the code. Read the packet and every artifact it 
 |---|---|---|
 | [Techne-Co-op/techne.coop](https://github.com/Techne-Co-op/techne.coop) | techne.coop | This repo  --  main co-op site and commons |
 | [Techne-Co-op/journal](https://github.com/Techne-Co-op/journal) | journal.techne.coop | Daybook  --  studio journal and working notes |
-| [RegenHub-Boulder/techne.institute](https://github.com/RegenHub-Boulder/techne.institute) | techne.institute | Legal documents (being retired; /intranet migrating here) |
+| [RegenHub-Boulder/techne.institute](https://github.com/RegenHub-Boulder/techne.institute) | techne.institute | Legal documents (being retired; /intranet migrated here) |
 | [Techne-Co-op/cis-reference](https://github.com/Techne-Co-op/cis-reference) |  --  | CIS schema and policy reference (live Supabase fetch) |
 
 ---
