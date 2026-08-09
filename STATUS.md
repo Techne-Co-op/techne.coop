@@ -77,7 +77,7 @@ Generated from rdm-ledger.yaml. 111 items total.
 - **U-14** open · delivered -- The front door, briefer
 - **U-15** open · delivered -- The intranet walkthrough, answered
 - **U-17** open · delivered -- The intranet in the hand
-- **U-18** open · in-session -- The frame that never held
+- **U-18** open · delivered -- The frame that never held
 - **X-01** open · verified -- Error boundary and observability
 - **X-02** open · verified -- Notices v1
 - **X-03** open · verified -- Export paths

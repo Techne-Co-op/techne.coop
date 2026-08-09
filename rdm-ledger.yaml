@@ -1623,7 +1623,7 @@ shell:
       appearance load with the document, so the transitions run, and
       tells the browser where the map leads, so the next surface is
       fetched before the click rather than after it.
-    status: open · in-session
+    status: open · delivered
     cites: [U-01, U-15, UI, X-01]
     ready_when: U-17 merged.
     deliverable: >
@@ -1651,8 +1651,11 @@ shell:
       than raising it from script, and that path runs through the auth
       gate: static frame markup must not show the members' map to a
       signed-out reader for even one frame. Filed as U-19 and not
-      attempted in launch week. Staged on branch U-18; merge is the
-      act of adoption.
+      attempted in launch week. Adopted by merge on 2026-08-09, PR 109.
+      Verified against the deployed site the same day: a navigation
+      between two public shell-framed surfaces reports a view
+      transition present at pagereveal and no rejection, where the
+      same measurement before the change reported neither.
 
   - address: U-19
     title: The frame before the paint
