@@ -40,6 +40,12 @@ CHECKED = ('width', 'max-width', 'margin-inline', 'padding-block', 'padding-inli
 SHELL = re.compile(r'<script src="/assets/shell\.js"([^>]*)>')
 
 
+def styles(text):
+    """Every <style> block on the page, comments stripped."""
+    css = '\n'.join(re.findall(r'<style[^>]*>(.*?)</style>', text, re.S))
+    return re.sub(r'/\*.*?\*/', '', css, flags=re.S)
+
+
 def decls(block):
     out = {}
     for decl in block.split(';'):
@@ -96,6 +102,23 @@ def audit():
         if re.search(r'\d+px', cap):
             findings.append(f"{rel}: content measure pinned to a pixel cap ({cap}); "
                             f"the measure is fluid by decision U-20")
+
+        # The alignment pattern. A framed surface sits beside a 212px map, so a
+        # breakpoint keyed to the viewport fires at a width the content never
+        # has: Agreements went to two columns at a 1100px viewport while its
+        # column measured 1056. Column counts are intrinsic here, so any
+        # grid-template-columns inside a media query is the old defect
+        # returning. design-system/#layout carries the rule.
+        for q in re.finditer(r'@media([^{]+)\{((?:[^{}]|\{[^{}]*\})*)\}', styles(text)):
+            if 'grid-template-columns' in q.group(2):
+                findings.append(f"{rel}: column count changed inside @media{q.group(1).strip()}; "
+                                f"the frame grid is intrinsic, not queried (U-20)")
+        # Hard column counts outside a query are the same defect without the query.
+        for r in re.finditer(r'([^{}]+)\{([^{}]*grid-template-columns[^{}]*)\}', styles(text)):
+            tracks = re.search(r'grid-template-columns: *([^;]+)', r.group(2)).group(1).strip()
+            if 'auto-fit' not in tracks and 'auto-fill' not in tracks and tracks not in ('1fr',):
+                findings.append(f"{rel}: {r.group(1).strip()} pins its columns to '{tracks}'; "
+                                f"use the frame grid so the layout reflows on the space it has (U-20)")
 
     if seen == 0:
         findings.append('no framed surfaces found; the audit is not exercising anything')

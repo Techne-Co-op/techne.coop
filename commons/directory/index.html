@@ -125,7 +125,7 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .tab-chip.sel { border-color: var(--ember); color: var(--ember-text); }
 
 /* compact grid so a widescreen view holds the roll without long scrolling */
-.dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); column-gap: var(--s6); align-items: start; }
+.dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-min, 300px), 100%), 1fr)); column-gap: var(--s6); row-gap: var(--s4); align-items: start; }
 .dir-empty { font-family: var(--mono); font-size: 0.75rem; color: var(--faint); font-style: italic; padding: var(--s3) 0; }
 
 /* directory list */

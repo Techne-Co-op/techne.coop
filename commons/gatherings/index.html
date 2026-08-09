@@ -250,7 +250,7 @@ footer a { color: var(--faint); }
 }
 .field-row input:focus, .field-row textarea:focus { border-color: var(--ember); }
 .field-row input::placeholder, .field-row textarea::placeholder { color: var(--faint); }
-.field-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
+.field-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min, 200px), 100%), 1fr)); gap: var(--s3); }
 .schedule-actions { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; margin-top: var(--s2); }
 /* the card's own words sit inside its padding, like everything else it holds */
 .gathering-where {
@@ -258,7 +258,6 @@ footer a { color: var(--faint); }
 }
 .gathering-desc { font-size: 0.9rem; color: var(--text); margin: var(--s2) var(--s4) 0; }
 .gathering-desc:last-child, .gathering-where:last-child { margin-bottom: var(--s3); }
-@media (max-width: 560px) { .field-pair { grid-template-columns: 1fr; } }
 
 /* archive action (host only) */
 .archive-btn {
@@ -298,7 +297,7 @@ footer a { color: var(--faint); }
 .cis-field input:focus, .cis-field textarea:focus, .cis-field select:focus { border-color: var(--blue); }
 .cis-field label .opt { text-transform: none; letter-spacing: 0; opacity: 0.75; }
 .cis-field textarea { resize: vertical; }
-.cis-drawer .field-pair { grid-template-columns: 1fr; gap: 0; }
+.cis-drawer .field-pair { --grid-min: 100%; gap: 0; }
 @media (prefers-reduced-motion: reduce) { .cis-drawer, .cis-drawer-backdrop { transition: none; } }
 
 @media (max-width: 640px) {

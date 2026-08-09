@@ -125,12 +125,7 @@ body {
 }
 .signout-btn:hover { color: var(--warn); border-color: var(--warn); }
 
-.dash-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
-  gap: var(--s4);
-  margin-bottom: var(--s7);
-}
+.dash-grid { --grid-min: 240px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-min, 300px), 100%), 1fr)); gap: var(--s4); align-items: start; margin-bottom: var(--s7); }
 .dash-card {
   background: var(--surface);
   border: 1px solid var(--line);
