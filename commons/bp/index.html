@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="Build Protocol v1 for the Common Information System of RegenHub, LCA. The single operating contract for agent-driven work: the packet, decide and escalate, provenance, conventions, sessions, precedence, and amendment.">
-<title>Build Protocol &middot; BP v1</title>
+<meta name="description" content="Build Protocol v2 for the Common Information System of RegenHub, LCA. The single operating contract for agent-driven work: the piece, decide and stop, provenance, conventions, sessions, precedence, and amendment.">
+<title>Build Protocol &middot; BP v2</title>
 <link rel="canonical" href="https://techne.coop/commons/bp/">
-<meta property="og:title" content="Build Protocol &middot; BP v1">
+<meta property="og:title" content="Build Protocol &middot; BP v2">
 <meta property="og:description" content="The single operating contract for agent-driven work on the Common Information System.">
 <meta property="og:url" content="https://techne.coop/commons/bp/">
 <meta property="og:type" content="website">
@@ -102,14 +102,14 @@
   .def-row .t .k { display:block; font:500 9.5px/1.8 var(--mono); font-weight:500; color:var(--shue-t); text-transform:uppercase; letter-spacing:.1em; }
   .def-row .d { font:400 13.5px/1.7 var(--serif); color:var(--text); }
 
-  /* packet anatomy */
+  /* piece anatomy */
   .anatomy { margin:var(--s4) 0; background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--shue); }
   .an-row { display:grid; grid-template-columns:140px 1fr; gap:var(--s3); padding:9px var(--s4); border-bottom:1px solid var(--line); align-items:baseline; }
   .an-row:last-child { border-bottom:0; }
   .an-row .f { font:600 11px/1.7 var(--mono); color:var(--shue-t); }
   .an-row .v { font:400 13px/1.7 var(--serif); color:var(--text); }
 
-  /* decide / escalate twin panels */
+  /* decide / stop twin panels */
   .twin { display:grid; grid-template-columns:1fr 1fr; gap:var(--s3); margin:var(--s4) 0; }
   .panel { background:var(--surface); border:1px solid var(--line); }
   .panel .ph { display:flex; align-items:center; gap:8px; padding:9px var(--s3); border-bottom:1px solid var(--line); }
@@ -119,7 +119,7 @@
   .panel.escalate { border-top:2px solid var(--ember); }
   .panel.escalate .pt { color:var(--ember-text); }
 
-  /* escalation card */
+  /* stop card; the class names keep their machinery spelling until L-07 */
   .esc { margin:var(--s4) 0; background:var(--inset); border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s4); }
   .esc .k { font:500 10px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; margin-bottom:var(--s2); }
   .esc .er { display:grid; grid-template-columns:110px 1fr; gap:var(--s3); padding:6px 0; border-bottom:1px solid var(--line); align-items:baseline; }
@@ -160,24 +160,24 @@
 <div class="wrap">
 
   <header class="mast">
-    <div class="kick">operating contract &middot; BP v1 &middot; read first, every session</div>
+    <div class="kick">operating contract &middot; BP v2 &middot; read first, every session</div>
     <h1>Build Protocol</h1>
-    <p class="dek">The single operating contract for agent-driven work on the Common Information System: what a packet of work is, what an agent may decide and what it must escalate, how agent-authored work is marked, how changes flow through the repository, and where authority sits when documents disagree. Its first premise is the system's first principle, applied to the build itself: agents draft, surface, and guide; humans decide, sign, and govern.</p>
+    <p class="dek">The single operating contract for agent-driven work on the Common Information System: what a piece of work is, what an agent may decide and where it must stop, how agent-authored work is marked, how changes flow through the repository, and where authority sits when documents disagree. Its first premise is the system's first principle, applied to the build itself: agents draft, surface, and guide; humans decide, sign, and govern.</p>
     <div class="meta">
       <span>status &middot; <span class="chip drafted"><span class="dot"></span>Drafted</span></span>
-      <span>cites &middot; <b><a href="/commons/series/">SER v0.1</a></b> &middot; <b><a href="/commons/prd/">PRD v0.3</a></b> (Drafted)</span>
+      <span>cites &middot; <b><a href="/commons/series/">SER v0.3</a></b> &middot; <b><a href="/commons/prd/">PRD v0.4</a></b> (Drafted)</span>
       <span class="em">consolidates &middot; AGENTS.md &middot; GOVERNANCE.md &middot; CONVENTIONS.md &middot; C10</span>
-      <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
+      <span>RegenHub, LCA &middot; Boulder &middot; August 2026</span>
     </div>
   </header>
 
   <section class="sec" id="s1">
     <div class="addr">&sect;1</div>
     <h2>Preamble</h2>
-    <p class="lead">This contract consolidates four estate documents into one: the agent operating contract, the ledger's governance mechanics, the repository conventions, and the packet authoring guide. It is rewritten from waves to slices, and from a calendar to readiness conditions, per the series overview. Two bodies of content move out rather than in: secret custody belongs to the Operations Runbook, and the executable verification contracts belong to the <a href="/commons/vs/">Verification Spec</a>. This document governs how work happens; those govern how work is kept and proven.</p>
-    <p>The consolidation carries a stated limit, honestly. It restates the estate's contract-level rules, the ones recorded in the commons index: stop and ask rather than invent; every status change is a commit; a packet is not done until its upstream is verified; only organizers record decisions; the instruments are attention, not authority. Rules that live in the estate files at a finer grain than that are not silently dropped: at the merge, each is either adopted here by amendment or retired by name. That reconciliation is itself a packet. <span class="chip open"><span class="dot"></span>Open &middot; reconciliation packet</span></p>
+    <p class="lead">This contract consolidates four estate documents into one: the agent operating contract, the ledger's governance mechanics, the repository conventions, and the piece authoring guide. It is rewritten from waves to capabilities, and from a calendar to readiness conditions, per the series overview. Two bodies of content move out rather than in: secret custody belongs to the Operations Runbook, and the executable verification contracts belong to the <a href="/commons/vs/">Verification Spec</a>. This document governs how work happens; those govern how work is kept and proven.</p>
+    <p>The consolidation carries a stated limit, honestly. It restates the estate's contract-level rules, the ones recorded in the commons index: stop and ask rather than invent; every status change is a commit; a piece is not done until its upstream is verified; only organizers record decisions; the instruments are attention, not authority. Rules that live in the estate files at a finer grain than that are not silently dropped: at the merge, each is either adopted here by amendment or retired by name. That reconciliation is itself a piece. <span class="chip open"><span class="dot"></span>Open &middot; reconciliation piece</span></p>
     <p>The contract's ancestry is local. The scale-one rules of <em>Practices for Growing Teams</em> are its informal ancestors: keep one place where the work lives; say what is, and mark what you guessed; show the gaps; some acts belong to people, name them and leave them alone; when you are not sure, stop and ask. This document is those five rules, written down for a collaborator who has no memory and no standing between sessions.</p>
-    <p>Because agent harnesses now read a standard file at the repository root, this contract emits a machine-facing distillation, reproduced at &sect;10, which lives as <code>AGENTS.md</code> and points back here. The distillation summarizes; this document governs.</p>
+    <p>Because agent harnesses now read a standard file at the repository root, this contract yields a machine-facing distillation, reproduced at &sect;10, which lives as <code>AGENTS.md</code> and points back here. The distillation summarizes; this document governs.</p>
   </section>
 
   <section class="sec" id="s2">
@@ -190,7 +190,7 @@
       </div>
       <div class="def-row">
         <span class="t"><span class="k">drafting</span>Build agents</span>
-        <span class="d">Session-scoped instruments with capabilities, not authority. A build agent holds no standing between sessions, presumes no memory, and derives its entire working context from this series and the packet it is given. It may read broadly, draft freely, and write only under the conventions of &sect;5 and &sect;6.</span>
+        <span class="d">Session-scoped instruments with capabilities, not authority. A build agent holds no standing between sessions, presumes no memory, and derives its entire working context from this series and the piece it is given. It may read broadly, draft freely, and write only under the conventions of &sect;5 and &sect;6.</span>
       </div>
       <div class="def-row">
         <span class="t"><span class="k">operating</span>Nou</span>
@@ -198,36 +198,36 @@
       </div>
       <div class="def-row">
         <span class="t"><span class="k">remembering</span>The record</span>
-        <span class="d">The repository and the ledger are the only memory the build has. If it is not committed, it did not happen; if it happened, the commit says who, under which packet, and with what provenance.</span>
+        <span class="d">The repository and the ledger are the only memory the build has. If it is not committed, it did not happen; if it happened, the commit says who, under which piece, and with what provenance.</span>
       </div>
     </div>
   </section>
 
   <section class="sec" id="s3">
     <div class="addr">&sect;3</div>
-    <h2>The work packet</h2>
-    <p class="lead">The packet replaces the milestone-in-wave as the unit of work. It is a validated YAML entry in the ledger, small enough for one session to advance and complete enough for a stranger to pick up. The validator enforces schema compliance, dependency acyclicity, and gating consistency on every change, and a packet may not be marked done until its upstream dependencies are verified. Those mechanics carry from the estate unchanged.</p>
+    <h2>The work piece</h2>
+    <p class="lead">The piece replaces the milestone-in-wave as the unit of work. It is a validated YAML entry in the ledger, small enough for one session to advance and complete enough for a stranger to pick up. The validator enforces schema compliance, dependency acyclicity, and proof consistency on every change, and a piece may not be marked done until its upstream dependencies are verified. Those mechanics carry from the estate unchanged.</p>
     <div class="anatomy">
-      <div class="an-row"><span class="f">address</span><span class="v">A citable code, unique in the ledger, used in branches, commits, and escalations.</span></div>
+      <div class="an-row"><span class="f">address</span><span class="v">A citable code, unique in the ledger, used in branches, commits, and stop cards.</span></div>
       <div class="an-row"><span class="f">intent</span><span class="v">One sentence, in plain language, that a curious member could read.</span></div>
-      <div class="an-row"><span class="f">cites</span><span class="v">The artifact sections this packet depends on, by code, version, and section. An uncited constraint does not bind; a needed-but-missing citation is an escalation.</span></div>
+      <div class="an-row"><span class="f">cites</span><span class="v">The artifact sections this piece depends on, by code, version, and section. An uncited constraint does not bind; a needed-but-missing citation is a stop card.</span></div>
       <div class="an-row"><span class="f">ready-when</span><span class="v">The condition under which work may begin. There are no dates anywhere in the ledger.</span></div>
-      <div class="an-row"><span class="f">deliverable</span><span class="v">What exists when the packet is done: files, migrations, documents, or a recorded decision brief.</span></div>
-      <div class="an-row"><span class="f">acceptance</span><span class="v">How done is judged, stated so the <a href="/commons/vs/">Verification Spec</a> can check it. For slice work, the member-capability sentences of <a href="/commons/prd/">PRD v0.3</a> &sect;4 are the acceptance language.</span></div>
-      <div class="an-row"><span class="f">status</span><span class="v">The honest mark. A blocked packet wears the mark of what blocks it, by name: <span class="mono">blocked &middot; Q3</span> is a complete status.</span></div>
+      <div class="an-row"><span class="f">deliverable</span><span class="v">What exists when the piece is done: files, migrations, documents, or a recorded decision brief.</span></div>
+      <div class="an-row"><span class="f">acceptance</span><span class="v">How done is judged, stated so the <a href="/commons/vs/">Verification Spec</a> can check it. For capability work, the member-capability sentences of <a href="/commons/prd/">PRD v0.4</a> &sect;4 are the acceptance language.</span></div>
+      <div class="an-row"><span class="f">status</span><span class="v">The honest mark. A blocked piece wears the mark of what blocks it, by name: <span class="mono">blocked &middot; Q3</span> is a complete status.</span></div>
     </div>
-    <p>Packets are authored progressively, salvaging the estate's boundary-authoring discipline: distant work enters the ledger as stubs, and a stub is promoted to a full brief at the slice boundary where it becomes near, with its required sections completed and its dependency edges replaced with real addresses. Authoring a brief is agent work; accepting one into the ledger is organizer work.</p>
+    <p>Pieces are authored progressively, salvaging the estate's boundary-authoring discipline: distant work enters the ledger as stubs, and a stub is promoted to a full brief at the capability boundary where it becomes near, with its required sections completed and its dependency edges replaced with real addresses. Authoring a brief is agent work; accepting one into the ledger is organizer work.</p>
   </section>
 
   <section class="sec" id="s4">
     <div class="addr">&sect;4</div>
-    <h2>Decide and escalate</h2>
-    <p class="lead">The line that keeps agency where it belongs. Within a packet's cited constraints, an agent decides freely and moves fast. At the boundary, it stops. Stopping is not failure; it is the contract working. The estate's phrase carries verbatim: stop and ask rather than invent.</p>
+    <h2>Decide and stop</h2>
+    <p class="lead">The line that keeps agency where it belongs. Within a piece's cited constraints, an agent decides freely and moves fast. At the boundary, it stops. Stopping is not failure; it is the contract working. The estate's phrase carries verbatim: stop and ask rather than invent.</p>
     <div class="twin">
       <div class="panel decide">
         <div class="ph"><span class="pt">an agent decides</span></div>
         <ul>
-          <li>Implementation detail inside the packet's cited constraints: code structure, query shape, test arrangement, file layout.</li>
+          <li>Implementation detail inside the piece's cited constraints: code structure, query shape, test arrangement, file layout.</li>
           <li>Naming of internal things, under the conventions of &sect;6: variables, files, branches, test cases.</li>
           <li>Draft copy and draft documents, marked as drafts, for an organizer to adopt or discard.</li>
           <li>The order of its own steps within a session, and when to abandon an approach that is not working.</li>
@@ -235,34 +235,34 @@
         </ul>
       </div>
       <div class="panel escalate">
-        <div class="ph"><span class="pt">an agent escalates</span></div>
+        <div class="ph"><span class="pt">an agent stops</span></div>
         <ul>
           <li>Any permission or visibility not already in the Authority Map, and any schema change not already in the <a href="/commons/im/">Information Model</a>.</li>
           <li>Anything touching money, membership standing, or governance semantics, however small it looks.</li>
           <li>Any new dependency: a package, a service, a font, an endpoint. Each requires a decision record.</li>
           <li>A conflict between two cited artifacts, or between an artifact and the code. The conflict is the deliverable; it is never resolved silently.</li>
           <li>Public names and public claims. Naming belongs to Todd; the public page may only say what the series holds.</li>
-          <li>Anything that would lower a floor of <a href="/commons/prd/">PRD v0.3</a> &sect;9, and anything on which the bylaws are silent, since silence requires a deliberate, recorded product decision.</li>
+          <li>Anything that would lower a floor of <a href="/commons/prd/">PRD v0.4</a> &sect;9, and anything on which the bylaws are silent, since silence requires a deliberate, recorded product decision.</li>
         </ul>
       </div>
     </div>
-    <p>An escalation is a small, well-formed thing, not a dump of context. It follows one shape:</p>
+    <p>A stop is a small, well-formed thing, not a dump of context. It follows one shape:</p>
     <div class="esc">
-      <div class="k">the escalation card</div>
-      <div class="er"><span class="f">standing in</span><span class="v">The packet address and the step within it.</span></div>
+      <div class="k">the stop card</div>
+      <div class="er"><span class="f">standing in</span><span class="v">The piece address and the step within it.</span></div>
       <div class="er"><span class="f">found</span><span class="v">What was encountered, with citations to the artifacts that frame it.</span></div>
       <div class="er"><span class="f">the question</span><span class="v">The smallest question whose answer unblocks the work. One question per card.</span></div>
       <div class="er"><span class="f">a default</span><span class="v">The agent's proposed answer, marked as a proposal, so a busy organizer can say yes, no, or otherwise.</span></div>
     </div>
-    <p>Consequential outcomes are recorded as decision records in the continuing D-series, at citable addresses. Agents may draft and improve the briefs; only organizers record outcomes, and a recorded outcome unblocks every packet that cited the question. <span class="chip filed"><span class="dot"></span>Filed &middot; estate practice, carried</span></p>
+    <p>Consequential outcomes are recorded as decision records in the continuing D-series, at citable addresses. Agents may draft and improve the briefs; only organizers record outcomes, and a recorded outcome unblocks every piece that cited the question. <span class="chip filed"><span class="dot"></span>Filed &middot; estate practice, carried</span></p>
   </section>
 
   <section class="sec" id="s5">
     <div class="addr">&sect;5</div>
     <h2>Provenance and simulation</h2>
-    <p class="lead">Everything an agent writes says so. Provenance marking is conservative, and the three-axis status contract of <a href="/commons/prd/">PRD v0.3</a> &sect;5 applies to every artifact an agent touches, not only to data.</p>
+    <p class="lead">Everything an agent writes says so. Provenance marking is conservative, and the three-axis status contract of <a href="/commons/prd/">PRD v0.4</a> &sect;5 applies to every artifact an agent touches, not only to data.</p>
     <div class="def">
-      <div class="def-row"><span class="t">Authored-by marks</span><span class="d">Agent-authored commits carry an authorship trailer naming the agent role and the packet address. Agent-authored documents carry the same in their front matter. A reader can always tell drafted-by-instrument from written-by-hand.</span></div>
+      <div class="def-row"><span class="t">Authored-by marks</span><span class="d">Agent-authored commits carry an authorship trailer naming the agent role and the piece address. Agent-authored documents carry the same in their front matter. A reader can always tell drafted-by-instrument from written-by-hand.</span></div>
       <div class="def-row"><span class="t">Drafts are drafts</span><span class="d">Nothing an agent writes becomes a record, a policy, or a public claim until an organizer adopts it. Adoption is an act by a person, visible in the history.</span></div>
       <div class="def-row"><span class="t">The simulation rule</span><span class="d">Simulated and illustrative entries are marked as such at creation and write nothing back to live records. Only delivered work earns write-backs. A demonstration that leaks into the ledger is a defect, not a convenience.</span></div>
       <div class="def-row"><span class="t">Voice is preserved</span><span class="d">When an agent edits human-authored prose, it clears obstacles rather than smoothing toward the average, and it flags changes of rhythm or word choice so the choice stays with the author.</span></div>
@@ -274,8 +274,8 @@
     <h2>Repository conventions</h2>
     <p class="lead">Every status change is a commit, so the history is the audit. The conventions below are the minimum that keeps a many-handed build legible; the finer grain lives with the code and is reconciled per &sect;1.</p>
     <div class="def">
-      <div class="def-row"><span class="t">Branch and merge</span><span class="d">One packet per branch, named by the packet address. The pull request cites the address, states what was decided within scope and what was escalated, and merges only with the validator green.</span></div>
-      <div class="def-row"><span class="t">Review tiers</span><span class="d">Tier A, work within a packet's cited scope: one organizer approves. Tier B, anything touching schema, authority, money, or membership: organizer review plus a decision record where the change is new. Tier C, the series artifacts themselves: Todd approves.</span></div>
+      <div class="def-row"><span class="t">Branch and merge</span><span class="d">One piece per branch, named by the piece address. The pull request cites the address, states what was decided within scope and where the work stopped, and merges only with the validator green.</span></div>
+      <div class="def-row"><span class="t">Review tiers</span><span class="d">Tier A, work within a piece's cited scope: one organizer approves. Tier B, anything touching schema, authority, money, or membership: organizer review plus a decision record where the change is new. Tier C, the series artifacts themselves: Todd approves.</span></div>
       <div class="def-row"><span class="t">Migrations and policies</span><span class="d">Migrations are timestamped and ordered. Every row-level policy carries a comment naming its bylaw anchor, per cite-as-you-enforce. A policy without an anchor does not merge.</span></div>
       <div class="def-row"><span class="t">Vocabulary quarantine</span><span class="d">Subchapter K grammar throughout: distributive share, capital account, allocation. The retired terms (patronage dividend, written notice of allocation, per-unit retain) appear nowhere. Patronage remains valid as an economic basis, never as a tax term.</span></div>
       <div class="def-row"><span class="t">House style</span><span class="d">Agent-authored documents follow the house editorial rules: no emoji; no em dashes, with commas, colons, or restructured sentences instead; italics for key terms rather than bold in running prose; no exclamation points; honest status chips; and the two grammars of the interface artifact <span class="mono">(<a href="/commons/ui/">UI</a>)</span>, document and instrument, with inline icons only.</span></div>
@@ -288,47 +288,47 @@
     <p class="lead">A session begins the same way every time, because the agent beginning it remembers nothing. Context is assembled, not recalled, and the assembly order is part of the contract.</p>
     <div class="def">
       <div class="def-row"><span class="t"><span class="k">first</span>Load the contract</span><span class="d">This document, or its root distillation loaded by the harness. If the two ever disagree, this document wins and the disagreement is filed.</span></div>
-      <div class="def-row"><span class="t"><span class="k">second</span>Read the map</span><span class="d">The <a href="/commons/series/">series overview</a>, for where this packet sits and what its neighbors are.</span></div>
-      <div class="def-row"><span class="t"><span class="k">third</span>Read the packet, and its cites, in full</span><span class="d">Every artifact section the packet cites is read before any file is opened. A cited section that cannot be found is an escalation, not a shrug.</span></div>
+      <div class="def-row"><span class="t"><span class="k">second</span>Read the map</span><span class="d">The <a href="/commons/series/">series overview</a>, for where this piece sits and what its neighbors are.</span></div>
+      <div class="def-row"><span class="t"><span class="k">third</span>Read the piece, and its cites, in full</span><span class="d">Every artifact section the piece cites is read before any file is opened. A cited section that cannot be found is a stop card, not a shrug.</span></div>
       <div class="def-row"><span class="t"><span class="k">fourth</span>Only then, the code</span><span class="d">Work proceeds inside the cited constraints, at whatever speed the constraints allow.</span></div>
     </div>
     <p>The instruments are the session's opening glance, not its authority. The signal loop's three panels answer the three starting questions: what is workable now, which open decision unblocks the most, and what has stalled quietly. Nothing an instrument displays overrides the ledger it reads from.</p>
-    <p>A session closes by committing with provenance, updating status by commit, filing any open questions as escalation cards rather than resolving them, and leaving a short note of what was tried and abandoned, so the next session inherits judgment and not just files. A session that ends mid-packet says so in the packet.</p>
+    <p>A session closes by committing with provenance, updating status by commit, filing any open questions as stop cards rather than resolving them, and leaving a short note of what was tried and abandoned, so the next session inherits judgment and not just files. A session that ends mid-piece says so in the piece.</p>
   </section>
 
   <section class="sec" id="s8">
     <div class="addr">&sect;8</div>
     <h2>The ledger and its instruments</h2>
-    <p class="lead">The ledger is validated YAML with a generated machine index and a generated human status table. The validator runs before every merge and enforces three things: schema compliance, dependency acyclicity, and gating consistency, with done requiring verified upstream. These mechanics carry from the estate unchanged, and they are the reason the build can be trusted without a supervisor.</p>
+    <p class="lead">The ledger is validated YAML with a generated machine index and a generated human status table. The validator runs before every merge and enforces three things: schema compliance, dependency acyclicity, and proof consistency, with done requiring verified upstream. These mechanics carry from the estate unchanged, and they are the reason the build can be trusted without a supervisor.</p>
     <p>Two instruments carry with them. The implementation HUD is the widescreen view over the whole ledger for organizers and agents alike. The signal loop is the attention surface described in &sect;7; it reads live from the database, and it cannot write to the repository or record a decision, because those actions belong to the organizers. The estate named this distinction well, and it is kept verbatim in spirit: an attention instrument, not an authority.</p>
-    <p>Packet statuses use the series marks, with one addition already noted: <span class="mono">blocked &middot; (name)</span>, where the name is the open question or unverified upstream doing the blocking. A glance at the status table should read as a set of reasons, not a set of moods.</p>
+    <p>Piece statuses use the series marks, with one addition already noted: <span class="mono">blocked &middot; (name)</span>, where the name is the open question or unverified upstream doing the blocking. A glance at the status table should read as a set of reasons, not a set of moods.</p>
   </section>
 
   <section class="sec" id="s9">
     <div class="addr">&sect;9</div>
     <h2>Conflict and precedence</h2>
-    <p class="lead">When documents disagree, the order of authority is: law and the bylaws; board policy; the PRD; the <a href="/commons/im/">Information Model</a> and Authority Map; this protocol and the <a href="/commons/vs/">Verification Spec</a>; packet briefs; and last, the code and its comments. The lower yields to the higher, and the disagreement is filed either way, because a conflict is a deliverable.</p>
-    <p>Two nuances. A newer version of an artifact supersedes an older one of the same code, always explicitly. And a Drafted artifact binds the build while it is the best available statement; its mark is a warning that it may change, and a packet that cites it inherits that risk knowingly, which is the honest condition of building anything before ratification.</p>
+    <p class="lead">When documents disagree, the order of authority is: law and the bylaws; board policy; the PRD; the <a href="/commons/im/">Information Model</a> and Authority Map; this protocol and the <a href="/commons/vs/">Verification Spec</a>; piece briefs; and last, the code and its comments. The lower yields to the higher, and the disagreement is filed either way, because a conflict is a deliverable.</p>
+    <p>Two nuances. A newer version of an artifact supersedes an older one of the same code, always explicitly. And a Drafted artifact binds the build while it is the best available statement; its mark is a warning that it may change, and a piece that cites it inherits that risk knowingly, which is the honest condition of building anything before ratification.</p>
     <p>Where every level is silent, no one improvises: the gap becomes a deliberate product decision, recorded in the D-series, per the third principle of the <a href="/commons/prd/">PRD</a>. Silence is an input to a decision, never a license.</p>
   </section>
 
   <section class="sec" id="s10">
     <div class="addr">&sect;10</div>
     <h2>Adoption, amendment, and the distillation</h2>
-    <p class="lead">This contract is Drafted. It is adopted by the organizers with notice to the board, since it governs operations rather than membership rights. Amendments are prospective, made by decision record, and versioned; supersession is explicit. The first source of amendments is the reconciliation packet of &sect;1, which merges the estate files into this document rule by rule, adopting or retiring each by name.</p>
+    <p class="lead">This contract is Drafted. It is adopted by the organizers with notice to the board, since it governs operations rather than membership rights. Amendments are prospective, made by decision record, and versioned; supersession is explicit. The first source of amendments is the reconciliation piece of &sect;1, which merges the estate files into this document rule by rule, adopting or retiring each by name.</p>
     <p>The machine-facing distillation below lives at the repository root as <code>AGENTS.md</code>, where agent harnesses load it automatically. It summarizes; this document governs.</p>
-<pre class="agent">READ    this file summarizes BP v1; BP governs. read your
-        packet and every artifact it cites before any code.
+<pre class="agent">READ    this file summarizes BP v2; BP governs. read your
+        piece and every artifact it cites before any code.
 
 STAND   you are a session-scoped instrument: no memory, no
         standing, no authority. organizers decide and adopt.
 
-WORK    one packet per branch, named by its address. commits
+WORK    one piece per branch, named by its address. commits
         carry your authorship trailer and the address.
 
 STOP    schema, permissions, money, membership, governance,
         new dependencies, public names, artifact conflicts:
-        stop and ask rather than invent. file the card:
+        stop and ask rather than invent. file the stop card:
         standing-in / found / the question / a default.
 
 MARK    drafts are drafts until a person adopts them.
@@ -343,16 +343,17 @@ DONE    validator green, upstream verified, status changed
 
     <div class="memo">
       <div class="k">the working agreement of this contract</div>
-      <p>An agent that stops is doing its job. An agent that invents is doing someone else's. The build goes fast precisely because the boundary is bright: inside a packet's citations, full speed; at the boundary, a card, a question, and a person.</p>
+      <p>An agent that stops is doing its job. An agent that invents is doing someone else's. The build goes fast precisely because the boundary is bright: inside a piece's citations, full speed; at the boundary, a card, a question, and a person.</p>
     </div>
   </section>
 
   <footer>
     <div class="row">
-      <span>Build Protocol &middot; BP v1 &middot; Drafted</span>
+      <span>Build Protocol &middot; BP v2 &middot; Drafted</span>
+      <span>supersedes BP v1 &middot; adopted by the steward, August 2026</span>
       <span>consolidates AGENTS.md &middot; GOVERNANCE.md &middot; CONVENTIONS.md &middot; C10</span>
       <span><a href="/commons/series/">The Common Record Series</a> &middot; BP</span>
-      <span>techne.coop &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
+      <span>techne.coop &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; August 2026</span>
     </div>
   </footer>
 

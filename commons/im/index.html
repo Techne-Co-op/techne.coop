@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="Information Model and Invariants v0.1 for the Common Information System of RegenHub, LCA. The four primitives, the eleven laws, the event log, the launch-slice tables, the conserved quantities, and the substrate migration this document emits.">
+<meta name="description" content="Information Model and Invariants v0.1 for the Common Information System of RegenHub, LCA. The four primitives, the eleven laws, the event log, the launch capability tables, the conserved quantities, and the substrate migration this document yields.">
 <title>Information Model &amp; Invariants &middot; IM v0.1 &middot; Techne</title>
 <link rel="canonical" href="https://techne.coop/commons/im/">
 <meta property="og:type" content="website">
@@ -170,12 +170,12 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
   <header class="mast">
     <div class="kick">canonical schema &middot; IM v0.1 &middot; the single artifact every build agent touches</div>
     <h1>Information Model &amp; Invariants</h1>
-    <p class="dek">The canonical shape of the record: the four primitives that close the vocabulary, the eleven laws that hold on any implementation, the event log they all fold from, the tables the four launch slices require, and the conserved quantities the database itself refuses to break. The document governs; the substrate migration it emits distills.</p>
+    <p class="dek">The canonical shape of the record: the four primitives that close the vocabulary, the eleven laws that hold on any implementation, the event log they all tally from, the tables the four launch capabilities require, and the conserved quantities the database itself refuses to break. The document governs; the substrate migration it yields distills.</p>
     <div class="meta">
       <span>status &middot; <span class="chip drafted"><span class="dot"></span>Drafted</span></span>
-      <span>cites &middot; <b>PRD v0.3</b> &middot; SER v0.1 &middot; BP v1</span>
+      <span>cites &middot; <b>PRD v0.4</b> &middot; SER v0.3 &middot; BP v2</span>
       <span class="em">seeded by &middot; the eleven laws (The System Before Its Name) &middot; the C6 schema card</span>
-      <span>emits &middot; <a href="/commons/im/0001_substrate.sql">0001_substrate.sql</a></span>
+      <span>yields &middot; <a href="/commons/im/0001_substrate.sql">0001_substrate.sql</a></span>
       <span>RegenHub, LCA &middot; Boulder &middot; July 2026</span>
     </div>
   </header>
@@ -183,9 +183,9 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
   <section class="sec" id="s1" data-tint="gold">
     <div class="addr">&sect;1</div>
     <h2>Preamble</h2>
-    <p class="lead">Every build agent reads this document before touching the schema, because ambiguity here multiplies into every packet downstream. Version 0.1 does three things: it carries the eleven invariant laws already drafted in <em>The System Before Its Name</em>, with one derivation updated and flagged; it specifies in full the tables the four launch slices of PRD v0.3 &sect;4 require; and it carries the post-launch table families by reference to their bylaw anchors, to be re-specified when their slices are authored.</p>
-    <p>Its inheritance from the estate is the C6 schema reference card, thirty-one tables with source annotations. The nineteen cooperative core tables carry in principle; this document re-specifies the launch subset by name and leaves a reconciliation packet to confirm or retire the remainder against C6, entry by entry, at the merge. The twelve Hub extension tables reduce to the four that Gather needs, plus one salvage into Belong; the rest retire with the grant, per the deprecation record at PRD v0.3 &sect;1a. <span class="chip open"><span class="dot"></span>Open &middot; C6 reconciliation packet</span></p>
-    <p>The emission pattern of the series continues: this document governs, and <a href="/commons/im/0001_substrate.sql"><code>0001_substrate.sql</code></a> distills it into the first migration. Row-level policies are not in the emission; they belong to the Authority Map, and until AM lands the substrate ships with row security enabled and denying by default, which is the honest posture for a schema whose visibility function is still being drafted.</p>
+    <p class="lead">Every build agent reads this document before touching the schema, because ambiguity here multiplies into every piece downstream. Version 0.1 does three things: it carries the eleven invariant laws already drafted in <em>The System Before Its Name</em>, with one derivation updated and flagged; it specifies in full the tables the four launch capabilities of PRD v0.4 &sect;4 require; and it carries the post-launch table families by reference to their bylaw anchors, to be re-specified when their capabilities are authored.</p>
+    <p>Its inheritance from the estate is the C6 schema reference card, thirty-one tables with source annotations. The nineteen cooperative core tables carry in principle; this document re-specifies the launch subset by name and leaves a reconciliation piece to confirm or retire the remainder against C6, entry by entry, at the merge. The twelve Hub extension tables reduce to the four that Gather needs, plus one salvage into Belong; the rest retire with the grant, per the deprecation record at PRD v0.4 &sect;1a. <span class="chip open"><span class="dot"></span>Open &middot; C6 reconciliation piece</span></p>
+    <p>The yield pattern of the series continues: this document governs, and <a href="/commons/im/0001_substrate.sql"><code>0001_substrate.sql</code></a> distills it into the first migration. Row-level policies are not in the yield; they belong to the Authority Map, and until AM lands the Ground ships with row security enabled and denying by default, which is the honest posture for a schema whose visibility function is still being drafted.</p>
   </section>
 
   <section class="sec" id="s2" data-tint="gold">
@@ -198,7 +198,7 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
       <div class="def-row"><span class="t"><span class="k">what happens</span>Events</span><span class="d">The happenings that transfer resources between agents under agreements. Every change in the system is an event; the log of them is the single source of truth, per Law I.</span></div>
       <div class="def-row"><span class="t"><span class="k">what binds</span>Agreements</span><span class="d">First-class records, not metadata: the bylaws, the membership agreement, board policies, and the schedules beneath them. Versioned and effective-dated, so every computation binds to the policy version in force.</span></div>
     </div>
-    <div class="cap">derives from REA ontology &middot; McCarthy 1982 &middot; as extended in CIS PRD &sect;6 and carried through PRD v0.3 &sect;5</div>
+    <div class="cap">derives from REA ontology &middot; McCarthy 1982 &middot; as extended in CIS PRD &sect;6 and carried through PRD v0.4 &sect;5</div>
   </section>
 
   <section class="sec" id="s3" data-tint="amber">
@@ -224,15 +224,16 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
   <section class="sec" id="s4" data-tint="amber">
     <div class="addr">&sect;4</div>
     <h2>The event log</h2>
-    <p class="lead">One table, <code>events</code>, is the source of truth for everything computed. It keeps the primitive's true name, and the calendar happenings of the Gather slice are named <em>gatherings</em> and <em>sessions</em> to leave it undisturbed. That naming resolves a real collision and is proposed here rather than assumed; it is Todd's to ratify. <span class="chip open"><span class="dot"></span>Open &middot; naming, Todd</span></p>
+    <p class="lead">One table, <code>events</code>, is the source of truth for everything computed. It keeps the primitive's true name, and the calendar happenings of the Gather capability are named <em>gatherings</em> and <em>sessions</em> to leave it undisturbed. That naming resolves a real collision and is proposed here rather than assumed; it is Todd's to ratify. <span class="chip open"><span class="dot"></span>Open &middot; naming, Todd</span></p>
     <p>Every row carries: when it occurred and when it was recorded, as two distinct instants; the acting agent; the book it belongs to, entity or host, per Law IX; its kind; its references into the other three primitive families; a payload; and, for rows that change a governed record, the prior value, so the log answers what happened, when, and why the same way it answers what is true now. Capital events additionally carry a book delta and a tax delta, even when equal, per Law VII, and a valuation method and approver where the contribution is non-cash.</p>
-    <p>Append-only is enforced in the substrate, not requested of it: a trigger refuses updates and deletes outright, and corrections enter as compensating events that reference what they correct. Of the three status axes, provenance and settlement are authored columns; temporal state is never stored, because it is derived from the clock at read time, per PRD v0.3 &sect;5.</p>
+    <p>Append-only is enforced in the Ground, not requested of it: a trigger refuses updates and deletes outright, and corrections enter as compensating events that reference what they correct. Of the three status axes, provenance and settlement are authored columns; temporal state is never stored, because it is derived from the clock at read time, per PRD v0.4 &sect;5.</p>
+    <p>A note on register: the prose of this document now speaks the evolved vocabulary of <a href="/commons/build/lexicon/">Lexicon v2</a>, Ground and Craft, while the machine grammar, the event kinds and view names already live, keeps the register it was minted in until the Information Model's own revision. The Lexicon's concordance carries the mapping between the two registers, and event kinds minted from this adoption forward speak the evolved register.</p>
   </section>
 
   <section class="sec" id="s5" data-tint="coral">
     <div class="addr">&sect;5</div>
     <h2>The launch tables</h2>
-    <p class="lead">The tables the four slices of <a href="/commons/prd/">PRD v0.3</a> &sect;4 require, named here as this version's canon. Anchors cite the Drafted bylaws and harden at ratification. Anything not listed and not carried in &sect;8 does not exist yet, and creating it is an escalation, not an improvisation.</p>
+    <p class="lead">The tables the four capabilities of <a href="/commons/prd/">PRD v0.4</a> &sect;4 require, named here as this version's canon. Anchors cite the Drafted bylaws and harden at ratification. Anything not listed and not carried in &sect;8 does not exist yet, and creating it is a stop card, not an improvisation.</p>
 
     <h3>belong</h3>
     <div class="anatomy">
@@ -266,34 +267,34 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
   <section class="sec" id="s6" data-tint="coral">
     <div class="addr">&sect;6</div>
     <h2>Conserved quantities</h2>
-    <p class="lead">Law III, itemized, each with the locus where the substrate refuses. The interface can be wrong; the ledger cannot.</p>
+    <p class="lead">Law III, itemized, each with the locus where the Ground refuses. The interface can be wrong; the ledger cannot.</p>
     <div class="def">
       <div class="def-row"><span class="t"><span class="k">at launch</span>One voting share per voting member</span><span class="d">A partial unique index on issued voting shares in <code>stock_ledger</code>. A second issuance does not warn; it fails.</span></div>
       <div class="def-row"><span class="t"><span class="k">at launch</span>Lifecycle legality</span><span class="d">A transition trigger on <code>memberships</code> permits only the moves the automaton defines. Transitions the bylaws assign to a human decision additionally require a recorded human actor, per Laws VI and X.</span></div>
-      <div class="def-row"><span class="t"><span class="k">at launch</span>Balances are folds</span><span class="d">No stored balance column exists anywhere in the schema. The capital account is a view over the log; deleting the view loses nothing.</span></div>
+      <div class="def-row"><span class="t"><span class="k">at launch</span>Balances are tallies</span><span class="d">No stored balance column exists anywhere in the schema. The capital account is a view over the log; deleting the view loses nothing.</span></div>
       <div class="def-row"><span class="t"><span class="k">at launch</span>The log is append-only</span><span class="d">A trigger refuses update and delete on <code>events</code> outright. Corrections are compensating rows that cite what they correct.</span></div>
-      <div class="def-row"><span class="t"><span class="k">with their slices</span>Vote arithmetic &middot; patron-majority floor &middot; allocation sums</span><span class="d">Stated now as committed assumptions, enforced in the substrate when the governance and allocation slices land: tallies equal the sum of immutable cast votes; Patron Class economic benefit holds the majority the Colorado act requires; allocated surplus sums to distributable surplus under substantial economic effect.</span></div>
-      <div class="def-row"><span class="t"><span class="k">with its slice</span>No phantom income</span><span class="d">An income allocation and its covering distribution are modeled as linked events, so the commitment is held by the engine, sized to the member's liability, per Law VIII and explicit board policy.</span></div>
+      <div class="def-row"><span class="t"><span class="k">with their capabilities</span>Vote arithmetic &middot; patron-majority floor &middot; allocation sums</span><span class="d">Stated now as committed assumptions, enforced in the Ground when the governance and allocation capabilities land: tallies equal the sum of immutable cast votes; Patron Class economic benefit holds the majority the Colorado act requires; allocated surplus sums to distributable surplus under substantial economic effect.</span></div>
+      <div class="def-row"><span class="t"><span class="k">with its capability</span>No phantom income</span><span class="d">An income allocation and its covering distribution are modeled as linked events, so the commitment is held by the engine, sized to the member's liability, per Law VIII and explicit board policy.</span></div>
     </div>
     <div class="cap">carries the committed assumptions of the patronage spine, A02 through A08 &middot; valuation discipline per A04: fair market value at contribution, revaluation only by explicit event</div>
   </section>
 
   <section class="sec" id="s7" data-tint="rose">
     <div class="addr">&sect;7</div>
-    <h2>Views and folds</h2>
+    <h2>Views and tallies</h2>
     <p class="lead">Everything a surface shows is computed, never stored. The launch set:</p>
     <div class="def">
       <div class="def-row"><span class="t">directory</span><span class="d">Agents joined to their memberships, filtered by the visibility function. Until the Authority Map lands, the view exists and the policies deny, which is the correct order.</span></div>
-      <div class="def-row"><span class="t">capital_accounts</span><span class="d">One row per member, two projections per Law VII: the book fold and the tax fold over capital events. Ships as a stub in the emission; its allocation logic waits on the counting rules. <span class="chip open"><span class="dot"></span>blocked &middot; Q3</span></span></div>
-      <div class="def-row"><span class="t">ledger index</span><span class="d">The generated machine index and status table the instruments read, per BP v1 &sect;8. Derived, disposable, rebuildable.</span></div>
-      <div class="def-row"><span class="t">exports</span><span class="d">Law XI is a criterion, not a phase: every table carries a documented export duty from its first commit, and export plus log reconstructs state on other infrastructure within a bounded window. The duty is stated here; each implementation is packet work verified by the Verification Spec.</span></div>
+      <div class="def-row"><span class="t">capital_accounts</span><span class="d">One row per member, two projections per Law VII: the book tally and the tax tally over capital events. Ships as a stub in the yield; its allocation logic waits on the counting rules. <span class="chip open"><span class="dot"></span>blocked &middot; Q3</span></span></div>
+      <div class="def-row"><span class="t">ledger index</span><span class="d">The generated machine index and status table the instruments read, per BP v2 &sect;8. Derived, disposable, rebuildable.</span></div>
+      <div class="def-row"><span class="t">exports</span><span class="d">Law XI is a criterion, not a phase: every table carries a documented export duty from its first commit, and export plus log reconstructs state on other infrastructure within a bounded window. The duty is stated here; each implementation is piece work verified by the Verification Spec.</span></div>
     </div>
   </section>
 
   <section class="sec" id="s8" data-tint="rose">
     <div class="addr">&sect;8</div>
     <h2>Carried by reference</h2>
-    <p class="lead">The post-launch families remain canon without being re-specified yet. Each carries its bylaw anchors and waits for its slice, per PRD v0.3 &sect;4's closing note.</p>
+    <p class="lead">The post-launch families remain canon without being re-specified yet. Each carries its bylaw anchors and waits for its capability, per PRD v0.4 &sect;4's closing note.</p>
     <div class="def">
       <div class="def-row"><span class="t">Decisions &amp; votes</span><span class="d">Motions, ballots, thresholds, outcomes; all votes immutable once cast. Cites &sect;2.6, &sect;2.8, &sect;3.13 to 3.15.</span></div>
       <div class="def-row"><span class="t">Notices &amp; communications</span><span class="d">Legally-timed notice generation, delivery tracking, waiver capture. Cites &sect;2.4 and Article X.</span></div>
@@ -302,17 +303,17 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
       <div class="def-row"><span class="t">Tax &amp; reporting</span><span class="d">K-1 preparation data and election tracking. Its open constants sit with counsel and the CPA: the deficit-restoration or qualified-income-offset choice, the &sect;704(c) methodology, book-up triggers, and the &sect;754 election. <span class="chip open"><span class="dot"></span>Open &middot; counsel &amp; CPA</span></span></div>
       <div class="def-row"><span class="t">Treasury &amp; distributions</span><span class="d">Accounts, distribution authorization paths, multi-signature custody as security matures. The system is the record of the money, not the money.</span></div>
     </div>
-    <p>The Hub reduction, stated plainly: of the twelve extension tables, four carry as the Gather set, one salvages as <code>applications</code>, and the remainder, the KPI, liaison, and grant-lifecycle machinery, retire with the grant. The C6 reconciliation packet of &sect;1 confirms or retires the rest of the core by name at the merge.</p>
+    <p>The Hub reduction, stated plainly: of the twelve extension tables, four carry as the Gather set, one salvages as <code>applications</code>, and the remainder, the KPI, liaison, and grant-lifecycle machinery, retire with the grant. The C6 reconciliation piece of &sect;1 confirms or retires the rest of the core by name at the merge.</p>
   </section>
 
   <section class="sec" id="s9" data-tint="blue">
     <div class="addr">&sect;9</div>
-    <h2>The emission</h2>
+    <h2>The yield</h2>
     <p class="lead">The substrate migration <a href="/commons/im/0001_substrate.sql"><code>0001_substrate.sql</code></a> distills this document: the enums, the launch tables, the append-only and lifecycle triggers, the capital view stub, and row security enabled with no policies, denying by default until the Authority Map lands. Every table carries a comment naming its bylaw anchor, per cite-as-you-enforce, and the anchors are marked Drafted because the bylaws are.</p>
-    <p>What the emission deliberately defers: policies, to <a href="/commons/authority-map/">AM</a>; seed and fixture data, to packets under the simulation rule; executable checks of the invariants, to the Verification Spec; and each table's export implementation, to packets carrying the &sect;7 duty. Migrations are timestamped and ordered per BP v1 &sect;6, and changes to this document are Tier C, with schema changes beyond it an escalation by definition.</p>
+    <p>What the emission deliberately defers: policies, to <a href="/commons/authority-map/">AM</a>; seed and fixture data, to pieces under the simulation rule; executable checks of the invariants, to the Verification Spec; and each table's export implementation, to pieces carrying the &sect;7 duty. Migrations are timestamped and ordered per BP v2 &sect;6, and changes to this document are Tier C, with schema changes beyond it an escalation by definition.</p>
     <div class="memo">
       <div class="k">the working agreement of this model</div>
-      <p>The schema is the part of the constitution that can refuse. Everything above it may advise, warn, or display; only the substrate says no before the fact, and the eleven laws are the list of its refusals. When a needed thing has no place here, the answer is a packet against this document, never a quiet new table.</p>
+      <p>The schema is the part of the constitution that can refuse. Everything above it may advise, warn, or display; only the substrate says no before the fact, and the eleven laws are the list of its refusals. When a needed thing has no place here, the answer is a piece against this document, never a quiet new table.</p>
     </div>
   </section>
 
@@ -320,7 +321,7 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
     <div class="row">
       <span>Information Model &amp; Invariants &middot; IM v0.1 &middot; Drafted</span>
       <span>emits <a href="/commons/im/0001_substrate.sql">0001_substrate.sql</a> &middot; seeded by the eleven laws and C6</span>
-      <span>The Common Record Series &middot; <a href="/commons/series/">SER v0.2</a></span>
+      <span>The Common Record Series &middot; <a href="/commons/series/">SER v0.3</a></span>
       <span>techne.coop &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
     </div>
   </footer>
