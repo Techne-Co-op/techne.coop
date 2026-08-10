@@ -130,6 +130,9 @@ body {
   max-width: 66ch; margin-bottom: var(--s4);
 }
 .prose-sec p:last-child { margin-bottom: 0; }
+.prose-sec.keyed h2 { border-left-color: var(--blue); }
+.prose-sec a { color: var(--blue-text); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.prose-sec a:hover { color: var(--heading); }
 
 /* ============================================================
    SLICES
@@ -142,6 +145,10 @@ body {
   margin-bottom: var(--s5);
   padding-left: 14px;
   border-left: 3px solid var(--blue);
+}
+.prose-lead {
+  font-size: 1rem; line-height: 1.75; color: var(--text);
+  max-width: 66ch; margin-bottom: var(--s5);
 }
 .slices {
   display: grid;
@@ -242,10 +249,45 @@ footer {
 }
 
 /* ============================================================
+   ROWS  --  the steered reading
+   ============================================================ */
+.rows { border-top: 1px solid var(--line); margin-top: var(--s5); }
+.row {
+  display: grid; grid-template-columns: 210px 1fr; gap: var(--s5);
+  padding: var(--s4) 0;
+  border-bottom: 1px solid var(--line);
+}
+.row-k {
+  font-family: var(--mono); font-size: 0.66rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ember-text); padding-top: 5px;
+}
+.row-v { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.row-v strong { color: var(--heading); font-weight: 700; }
+.after-rows { margin-top: var(--s5); }
+
+/* ============================================================
+   GRAFTS
+   ============================================================ */
+.grafts { list-style: none; margin-top: var(--s5); }
+.graft {
+  padding: var(--s3) 0; border-bottom: 1px solid var(--line);
+  font-size: 0.92rem; line-height: 1.7; color: var(--text);
+  max-width: 66ch;
+}
+.graft:last-child { border-bottom: 0; }
+.graft b { color: var(--heading); font-weight: 700; }
+.graft .when {
+  font-family: var(--mono); font-size: 0.64rem;
+  letter-spacing: 0.06em; color: var(--faint);
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 640px) {
   .slices { grid-template-columns: 1fr; }
+  .row { grid-template-columns: 1fr; gap: var(--s2); }
   .mast { padding: var(--s7) var(--s5) var(--s6); }
   .col { padding: 0 var(--s5); }
   .ctas-sec { flex-direction: column; align-items: flex-start; }
@@ -271,54 +313,114 @@ footer {
       <p>Scholars and craftspeople have kept commonplace books for centuries: not an archive, but a working tool. You copy in what governs your practice, what you've agreed to, what has happened and what it led to. The entries are organized for use rather than display. When someone needs to understand the whole, they open the book.</p>
       <p>RegenHub's Commonplace Book is that practice carried into cooperative life. It holds the authoritative state of the cooperative: who the members are, what agreements bind them, what events have taken place, and what each person's share of the work and the results amounts to. Every figure can be traced to the events that produced it. Every rule can be traced to the governing document that established it. Nothing is hidden behind a decision no one can follow back to its source.</p>
       <p>The book is not an app for doing the work. It is the layer that remembers what has been done &mdash; so that the next question has an honest answer, and the next member doesn't have to ask.</p>
+      <p>Words that carry weight here are defined in one place, <a href="/commons/build/lexicon/">the Lexicon</a>, and the documents that govern the whole are <a href="/commons/series/">the Common Record Series</a>.</p>
     </section>
 
     <section class="slices-sec" aria-labelledby="holds-h">
       <h2 id="holds-h">What it holds</h2>
+      <p class="prose-lead">Four capabilities, each grown in its own bed and each closing on its own proof. A bed is the ordered work; a proof is the act by which a person watches it run and says it is real. Nothing here calls itself finished on a machine's say-so.</p>
       <div class="slices">
 
         <div class="slice">
-          <div class="slice-n">Slice 01</div>
+          <div class="slice-n">Capability 01 &middot; bed B</div>
           <div class="slice-name">Belong</div>
           <div class="slice-cap">A member can</div>
           <p class="slice-body">Read every agreement that binds them, with version and standing marked. Sign the membership agreement and see the signature recorded. Appear in the member directory with a profile they control. Complete onboarding without a meeting.</p>
-          <span class="chip anticipated"><span class="chip-dot"></span>Built &middot; in steward review</span>
+          <span class="chip anticipated"><span class="chip-dot"></span>Built and walked &middot; proof awaits attestation</span>
         </div>
 
         <div class="slice">
-          <div class="slice-n">Slice 02</div>
+          <div class="slice-n">Capability 02 &middot; bed G</div>
           <div class="slice-name">Gather</div>
           <div class="slice-cap">A member can</div>
           <p class="slice-body">See upcoming events and sessions at the studio. Register, and cancel, without asking anyone. Have attendance counted where the record counts it. Host an event under a named agreement or policy.</p>
-          <span class="chip anticipated"><span class="chip-dot"></span>Built &middot; in steward review</span>
+          <span class="chip anticipated"><span class="chip-dot"></span>Built and walked &middot; proof awaits attestation</span>
         </div>
 
         <div class="slice">
-          <div class="slice-n">Slice 03</div>
+          <div class="slice-n">Capability 03 &middot; bed F</div>
           <div class="slice-name">Find one another</div>
           <div class="slice-cap">A member can</div>
           <p class="slice-body">Browse open offers and invitations &mdash; to play, practice, and work. Post their own offer or need, and close it when it resolves. See what an invitation led to, when the parties choose to record it.</p>
-          <span class="chip open"><span class="chip-dot"></span>Built &middot; in steward review</span>
+          <span class="chip open"><span class="chip-dot"></span>Built &middot; one beat wants a second member</span>
         </div>
 
         <div class="slice">
-          <div class="slice-n">Slice 04</div>
+          <div class="slice-n">Capability 04 &middot; bed S</div>
           <div class="slice-name">See your share</div>
           <div class="slice-cap">A member can</div>
-          <p class="slice-body">See their contribution history, itemized. See their capital account as a fold over that history. Follow any figure to the events and the policy that produced it. Balances computed, never stored as editable numbers.</p>
-          <span class="chip blocked"><span class="chip-dot"></span>After counting rules adopt</span>
+          <p class="slice-body">See their contribution history, itemized. See their capital account as a tally over that history. Follow any figure to the events and the policy that produced it. Balances computed, never stored as editable numbers.</p>
+          <span class="chip blocked"><span class="chip-dot"></span>After the counting rules adopt</span>
         </div>
 
       </div>
 
       <div class="gate">
-        <strong>Opening at launch.</strong> Belong, Gather, and Find one another are built end to end and now in the steward’s personal review before opening to members. See your share opens when the board adopts the patronage counting rules, the condition that makes a member account honest rather than illustrative.
+        <strong>Opening at launch.</strong> Belong and Gather are built and walked end to end; each waits on its attestation, which is a person's word and not a test run. Find one another stands built, with one beat that cannot be walked alone: a response is a message to an author, so it wants a second member. See your share opens when the board adopts the patronage counting rules, the condition that makes a member account honest rather than illustrative. What launch waits on is set out condition by condition on the <a href="/commons/build/launch/">launch readiness page</a>: two board adoptions, one authority decision, and a few inputs only people can supply.
       </div>
+    </section>
+
+    <section class="prose-sec keyed" aria-labelledby="steer-h">
+      <h2 id="steer-h">How it is steered</h2>
+      <p>The book is not only a record. It is the sensing half of a system that steers itself, and the vocabulary says so on purpose. Cybernetics takes its name from the Greek for steersman, the same root as the word governor. A garden under a gardener's hand is a steered system: sensing and tending, in loops.</p>
+      <p>Read against the viable system frame the cooperative already works in, the book and its surfaces lay out so.</p>
+
+      <div class="rows">
+        <div class="row">
+          <div class="row-k">Operations &middot; one</div>
+          <div class="row-v">The four capabilities and their beds: the work members live inside. Belonging, gathering, finding, sharing.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">Coordination &middot; two</div>
+          <div class="row-v">The Ground beneath the beds, and the one frame every surface wears, so the beds do not collide.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">Audit &middot; three</div>
+          <div class="row-v">The verification suites and the probe matrix: the channel by which the system checks that it agrees with itself, on every change, without being asked.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">Intelligence &middot; four</div>
+          <div class="row-v">The signal loop. What is workable, what unblocks the most, what has stalled quietly are exactly the intelligence questions, so the instrument keeps its name.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">Identity &middot; five</div>
+          <div class="row-v">Proofs and adoption: the acts that close the loop between the machine's claims and the cooperative's word. <strong>Nothing becomes real until a person adopts it.</strong></div>
+        </div>
+        <div class="row">
+          <div class="row-k">The algedonic channel</div>
+          <div class="row-v">Stop cards. Pain routed past everything, straight to attention, in one shape that anyone may raise.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">The transducer</div>
+          <div class="row-v">The tally: the reading by which the system knows its own state from its own history. State at any moment is the tally of everything that happened up to it, recomputed and never stored.</div>
+        </div>
+      </div>
+
+      <p class="after-rows">This is not a metaphor laid over software. Every row above names something that exists in the record: a bed, a suite, a card, a view, a database trigger that refuses to let history be edited. The reading is set out in full in <a href="/commons/build/lexicon/">the Lexicon</a>, and the plan it governs is <a href="/commons/build/">the Almanac</a>.</p>
+    </section>
+
+    <section class="prose-sec" aria-labelledby="read-h">
+      <h2 id="read-h">Where a member reads it</h2>
+      <p>A record no one can open is a filing cabinet. <a href="/intranet/">The intranet</a> is where a member reads and writes this one, behind sign-in, because some of what the book holds is nobody else's business.</p>
+      <p>It is a set of doors into a single shared record rather than a set of apps: the shelf for what binds you, the calendar for showing up, the board for finding work and play, the Programs that organize that work, your share for what your contribution amounts to, the Desk for the treasury's governed movements, and direction for setting the cooperative's instrument working on the record. Nothing is kept twice and nothing is quietly overwritten. Every figure on those surfaces is a tally computed at the moment you ask, so it can be followed back to the events that produced it.</p>
+      <p>This page and the ones it links to are the public half of the same book. Both halves read the same record.</p>
+    </section>
+
+    <section class="prose-sec" aria-labelledby="graft-h">
+      <h2 id="graft-h">What has been grafted in</h2>
+      <p>The book grows by graft. A module is a document the cooperative adopts, and adoption brings its work into the plan under the same marks as everything else.</p>
+      <ul class="grafts">
+        <li class="graft"><b>Program Patronage</b> <span class="when">adopted 2026-07-22</span><br>Programs as organizing bodies for the opportunities on the board: contributions, claims, and the allocation sequence. Its counting rules are the instrument the Share bed waits on. <a href="/commons/patronage/">Read the module</a>.</li>
+        <li class="graft"><b>Treasury</b> <span class="when">adopted 2026-07-22</span><br>The movement layer over the cooperative's rails, governed movements recorded as events, reconciliation as a tally. The Desk stands and reads, and stays read-only until the board adopts the treasury policy. <a href="/commons/treasury/">Read the module</a>.</li>
+        <li class="graft"><b>Common Agency</b> <span class="when">adopted 2026-07-27</span><br>A patron member may give the cooperative's instrument work as a recorded act, within a declared scope, with every artifact under two hands. The rail and the desk are built; the bed waits on one decision, whether a non-human agent may hold a scoped authority in the record at all. <a href="/commons/agency/">Read the module</a>.</li>
+        <li class="graft"><b>Work Standing</b> and <b>Guild Participation</b> <span class="when">drafted, not adopted</span><br>Two modules staged with their beds recorded at anticipated: how work earns its standing as it matures, and a virtual way in for people who are not in the room. Neither binds until the cooperative adopts it, and the pages say so. <a href="/commons/standing/">Read Work Standing</a>.</li>
+      </ul>
     </section>
 
     <div class="ctas-sec">
       <a class="btn btn-primary" href="/legal/">Become a member</a>
-      <a class="btn btn-secondary" href="/commons/series/">The Common Record Series</a>
+      <a class="btn btn-secondary" href="/commons/build/">The Almanac</a>
+      <a class="btn btn-secondary" href="/commons/build/lexicon/">The Lexicon</a>
     </div>
 
   </div>
