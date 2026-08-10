@@ -23,6 +23,21 @@
 (function () {
   'use strict';
 
+  /* ---------- the pre-launch switch ----------
+     Until the public launch on 14 August 2026 the site is still
+     under construction, and the map it offers is a claim about
+     what is finished. So the bar is withheld: the script still
+     loads on every page (the one-frame rule, U-13, is satisfied
+     by the script, not by the element), it still resolves the
+     mode before first paint, and it builds nothing.
+
+     Withholding the bar hides the map; it does not close the
+     doors. Every page remains public at its own address, and
+     pages that link to each other in their own prose still do.
+
+     To restore the bar, on launch day: OFFER_MAP = true. */
+  var OFFER_MAP = false;
+
   /* ---------- the manifest ----------
      The public map, complete. A page never edits this list;
      the bar is the same bar everywhere it appears. */
@@ -85,6 +100,7 @@
 
   /* ---------- build ---------- */
   function build() {
+    if (!OFFER_MAP) return;
     if (document.querySelector('.tc-topbar')) return;
 
     var bar = document.createElement('header');
