@@ -84,6 +84,15 @@ a { color: var(--blue-text); text-decoration: underline; text-underline-offset: 
   letter-spacing: -.01em; padding-left: 14px; border-left: 3px solid var(--shue, var(--ember)); }
 .sec .secnote { font: 400 14px/1.7 var(--serif); color: var(--muted); max-width: 70ch; margin: 0 0 var(--s4); font-style: italic; }
 
+.dayone { background: var(--inset); border: 1px solid var(--line); border-left: 2px solid var(--shue, var(--ember));
+  padding: var(--s4) var(--s5); margin: 0 0 var(--s5); max-width: 900px; }
+.dayone .dl { font: 500 10px/1.6 var(--mono); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--shue-t, var(--ember-text)); margin-bottom: var(--s2); }
+.dayone p { font: 400 14.5px/1.75 var(--serif); color: var(--text); max-width: 78ch; }
+.dayone p + p { margin-top: var(--s3); }
+.dayone .stop { color: var(--muted); }
+.dayone .stop b { color: var(--text); font-weight: 400; font-style: italic; }
+
 .story { display: grid; grid-template-columns: 58px 1fr 230px; gap: var(--s4); padding: var(--s4) 0;
   border-bottom: 1px solid var(--line); align-items: start; }
 .story:last-of-type { border-bottom: 1px solid var(--rule); }
@@ -130,15 +139,16 @@ footer .row { display: flex; flex-wrap: wrap; gap: 6px var(--s5); }
 <header class="mast">
   <div class="kick">Techne &middot; the commons &middot; product register</div>
   <h1>The participation stories</h1>
-  <p class="dek">Every way a person can act in the commons and the intranet, written as capability sentences: what someone can do, how it is proven, and what its standing honestly is. One set per persona, walking the participation index from the door inward, with refusals counted as capabilities, because what the system will not do is half of what it promises.<sup class="fn"><a href="#n1">1</a></sup></p>
+  <p class="dek">Every way a person can act in the commons and the intranet, written as capability sentences: what someone can do, how it is proven, and what its standing honestly is. One set per persona, walking the participation index from the door inward, with refusals counted as capabilities, because what the system will not do is half of what it promises. Each arrival class opens with its day one passage: what a person actually does in a first sitting, in the order they would do it, and where the sequence stops.<sup class="fn"><a href="#n1">1</a></sup></p>
   <div class="band" aria-hidden="true">
     <span style="background:var(--sun-gold)"></span><span style="background:var(--sun-blue)"></span><span style="background:var(--sun-amber)"></span><span style="background:var(--sun-coral)"></span><span style="background:var(--sun-rose)"></span><span style="background:var(--sun-violet)"></span>
   </div>
 
   <div class="preface">
     <div class="pl">The frame, named before it is used</div>
-    <p>The register is the PRD's: a capability is a member sentence, and each story below carries its proving act in the manner of a piece's acceptance.<sup class="fn"><a href="#n2">2</a></sup> Personas follow the classes of the participation index, extended by the proposed guild levels; the rehearsal walks the newcomer, the host, and the steward in CI, with the unsigned stranger probed across every table; class-scoped personas are not among them yet, and this set is written so the guild and community personas can join when P-03 lands.<sup class="fn"><a href="#n3">3</a></sup> Story numbers here are document-local for conversation, not Almanac addresses; only the Almanac mints addresses.</p>
-    <p>What this frame leaves out, deliberately: the hub's physical life (doors, desks, keys are not the record's to promise), governance meetings and voting (held under the Bylaws, not yet carried by any surface), Class Four (anticipated, no surface), and anything marked proposed, which stands before the board and binds nobody. Statuses shown are as of August 2026 and follow the Almanac; where a story waits, the chip names what it waits on.</p>
+    <p>The register is the PRD's: a capability is a member sentence, and each story below carries its proving act in the manner of a piece's acceptance.<sup class="fn"><a href="#n2">2</a></sup> Personas follow the classes of the participation index, extended by the guild, the cooperative's emergent virtual way in; the rehearsal walks the newcomer, the host, and the steward in CI, with the unsigned stranger probed across every table; class-scoped personas are not among them yet, and this set is written so the guild and community personas can join when P-03 lands.<sup class="fn"><a href="#n3">3</a></sup> Story numbers here are document-local for conversation, not Almanac addresses; only the Almanac mints addresses.</p>
+    <p>Each of the five arrival classes opens with a <em>day one</em> passage before its stories: plain narrative, first sitting, in order, and then the stop, which is the sentence naming where the sequence refuses and what it waits on. The passage claims nothing the stories below do not carry, and where a step is broken today rather than merely unbuilt, it says so in the same voice. A register that narrates only intentions is a brochure.</p>
+    <p>What this frame leaves out, deliberately: the hub's physical life (doors, desks, keys are not the record's to promise), governance meetings and voting (held under the Bylaws, not yet carried by any surface), and Class Four, which has neither a surface nor, on the legal shelf, an instrument: the Investor Agreement is still to be drafted, and a class the record cannot yet bind is a class this register will not narrate. Left out too is anything marked proposed, which stands before the board and binds nobody. Section B stands there entire: the guild waits on the board's adoption of GUILD v0.1 and on two elections, GUILD-D2, the invitation count, and GUILD-D5, the public name. Statuses shown are as of August 2026 and follow the Almanac; where a story waits, the chip names what it waits on.</p>
   </div>
 </header>
 
@@ -146,6 +156,12 @@ footer .row { display: flex; flex-wrap: wrap; gap: 6px var(--s5); }
 <section class="sec" data-tint="gold">
   <h2>A &middot; The stranger at the door</h2>
   <p class="secnote">No account, no class, no obligations. The system's first promises are made to people it does not know.</p>
+
+  <div class="dayone">
+    <div class="dl">Day one</div>
+    <p>A stranger arrives holding nothing and can read everything that would bind them: the participation index, the whole legal shelf, and the commons pages, all of it rendering without a sign-in (A-1). If they decide, they apply at the front door in one sitting, with no account, no meeting, and nobody's help, and the application, the membership state, and the event land as a single act (A-2). Within moments the steward hears it on the notices rail (A-3).</p>
+    <p class="stop"><b>Where it stops:</b> nothing comes back to them. The acknowledgment to the applicant's own inbox waits on the mail seam clearing DNS (A-4), so from where the applicant stands, the first thing the cooperative does is go quiet. The gap is named in the steward's notice rather than swallowed, which is honest, and it is still silence.</p>
+  </div>
 
   <div class="story"><div class="sid">A-1</div><div class="sbody"><div class="sent">A stranger can read what the cooperative is, what participation costs, and every instrument that would bind them, before giving anyone their name.</div><div class="prove"><b>Proven when</b> the participation index, the legal shelf, and the commons pages render without sign-in.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">/participation &middot; /legal &middot; /commons</span></div></div>
 
@@ -155,7 +171,7 @@ footer .row { display: flex; flex-wrap: wrap; gap: 6px var(--s5); }
 
   <div class="story"><div class="sid">A-4</div><div class="sbody"><div class="sent">An applicant receives an acknowledgment to their own inbox.</div><div class="prove"><b>Proven when</b> the email sink clears its seam; until then the absence is a named gap, never a silent one.</div></div><div class="smeta"><span class="chip anticipated"><span class="dot"></span>Anticipated &middot; DNS</span><span class="surf">notices rail</span></div></div>
 
-  <div class="story"><div class="sid">A-5</div><div class="sbody"><div class="sent">A signed-in stranger is nobody in particular until a steward binds them, and sees what nobody sees.</div><div class="prove"><b>Proven when</b> an authenticated, unbound session is refused by every member-scoped read, in the words of the rule that refuses.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live &middot; refusal</span><span class="surf">binding &middot; RLS</span></div></div>
+  <div class="story"><div class="sid">A-5</div><div class="sbody"><div class="sent">A signed-in stranger is nobody in particular until a steward binds them, and sees what nobody sees.</div><div class="prove"><b>Proven when</b> an authenticated, unbound session is refused by every member-scoped read, in the words of the rule that refuses. The refusal holds by construction, since an unbound session resolves to no agent and every member-scoped predicate is therefore false; but the probe matrix carries no unbound persona, so nothing asserts it, and on the three commons surfaces it speaks as an empty list rather than as the rule. Only the intranet names the condition to the person standing in it. The correction belongs with the class personas of P-03.</div></div><div class="smeta"><span class="chip drafted"><span class="dot"></span>Holds &middot; unasserted</span><span class="surf">binding &middot; RLS</span></div></div>
 
   <div class="story"><div class="sid">A-6</div><div class="sbody"><div class="sent">A stranger cannot see members' profiles, responses, or the intranet, because the rows never leave the database.</div><div class="prove"><b>Proven when</b> the probe matrix asserts every such refusal against its Authority Map cell, on every change.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live &middot; refusal</span><span class="surf">probe matrix</span></div></div>
 </section>
@@ -163,7 +179,14 @@ footer .row { display: flex; flex-wrap: wrap; gap: 6px var(--s5); }
 <!-- ============ B · GUILD ============ -->
 <section class="sec" data-tint="blue">
   <h2>B &middot; The guild participant &middot; Class Three, virtual</h2>
-  <p class="secnote">Every story in this section is proposed: it stands before the board with GUILD v0.1 and binds nobody until adoption. Written here so the machinery and the promise can be reviewed as one thing.<sup class="fn"><a href="#n4">4</a></sup></p>
+  <p class="secnote">The guild is the cooperative's emergent virtual extension: the workshop reaching past one address to hold emergent projects at the intersection of art, craft, and science, in service of the public benefit the Articles name. An open tent with a deliberate starting edge, technologist and technology-adjacent art and craft, because that is where infrastructure and architecture bound by economic democracy get built first. What follows is that purpose expressed as machinery. Every story in it is proposed: it stands before the board with GUILD v0.1 and binds nobody until adoption, and it is written here so the promise and the machinery can be reviewed as one thing.<sup class="fn"><a href="#n4">4</a></sup></p>
+
+  <div class="dayone">
+    <div class="dl">Day one, on adoption</div>
+    <p>A person anywhere reads the Guild Participation Terms in plain language and signs them inline, the signature landing as an event (B-2, waiting on P-01). They choose a monthly amount they can carry, from ten to two hundred dollars, and complete enrollment in one sitting, with no surface anywhere distinguishing them by what they chose (B-1, waiting on P-02). They land in the directory holding a profile only they control (B-3), browse gatherings and register wherever a host stands a virtual door (B-4), and put the first piece of work on the board the same day, as play, practice, or work (B-5), where any bound participant can respond to them (B-6). Over the months that follow they can see their own path as a self-facing tally, never a ranking (B-7, waiting on P-04).</p>
+    <p class="stop"><b>Where it stops, and this one is worse than waiting:</b> the participation index today invites a reader to join the guild and hands them to a way the front door does not carry, so the very first step of this sequence refuses without saying so, on the live site. Until the board adopts and P-02 builds the fifth way, the honest guild day one is that it cannot begin. Naming that is this register's job; the remedy is either the fifth way or withdrawing the invitation until it exists.</p>
+    <p class="stop">A second thing to see before adoption: every commons policy keys on an active membership, not on a class. So what a guild participant reads on the day they enroll turns on how enrollment writes their membership and on the class question P-03 holds open, which is the same open cell B-10 declines to guess. The commons from day one is a policy decision nobody has recorded yet, and no amount of drafting here records it.</p>
+  </div>
 
   <div class="story"><div class="sid">B-1</div><div class="sbody"><div class="sent">A person anywhere can join the guild online in minutes, at a monthly amount they choose from ten to two hundred dollars, and every amount opens the same doors.</div><div class="prove"><b>Proven when</b> the front door completes the guild way end to end in one sitting, and no surface anywhere distinguishes participants by amount.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; GUILD adoption</span><span class="surf">/commons/join?way=guild</span></div></div>
 
@@ -191,6 +214,12 @@ footer .row { display: flex; flex-wrap: wrap; gap: 6px var(--s5); }
   <h2>C &middot; The community participant &middot; Class Three, at the hub</h2>
   <p class="secnote">The hub's open edge. The room itself is outside the record's promises; the commons stories are the same ones the guild will share.</p>
 
+  <div class="dayone">
+    <div class="dl">Day one</div>
+    <p>A community participant comes through the same front door as everyone else and enrolls in one sitting, the application landing as an event like any other (A-2). Once a steward binds them, the commons opens: a profile in the directory that they alone control, the gatherings calendar, and the board, the same capabilities the guild stories name one section above (C-2).</p>
+    <p class="stop"><b>Where it stops, twice:</b> the level they are enrolling at, Threshold, Footing, or Standing, is not on the surface, so enrollment lands without a level and a steward carries it out of band until the level machinery is built (C-1). And no class-scoped persona has walked any of this in the rehearsal, so what a community participant can do is inferred from the member's walk rather than proven on their own, until P-03 lands (C-2, C-4).</p>
+  </div>
+
   <div class="story"><div class="sid">C-1</div><div class="sbody"><div class="sent">A community participant can enroll at the level that fits, Threshold, Footing, or Standing, and change levels on reasonable notice.</div><div class="prove"><b>Proven when</b> the join surface carries the level choice and a level change lands as an event; today enrollment lands without a level and no surface changes one, so the machinery is named here rather than claimed.</div></div><div class="smeta"><span class="chip drafted"><span class="dot"></span>Drafted &middot; level machinery</span><span class="surf">/commons/join?way=community</span></div></div>
 
   <div class="story"><div class="sid">C-2</div><div class="sbody"><div class="sent">Once bound, they hold the same commons capabilities the guild stories name: a profile, gatherings, and the board.</div><div class="prove"><b>Proven when</b> a community persona joins the rehearsal (P-03) and walks B-3 through B-6 with the same assertions; the machinery is live for members, but no class-scoped persona has walked it.</div></div><div class="smeta"><span class="chip drafted"><span class="dot"></span>Drafted &middot; P-03 persona</span><span class="surf">the commons</span></div></div>
@@ -205,6 +234,12 @@ footer .row { display: flex; flex-wrap: wrap; gap: 6px var(--s5); }
   <h2>D &middot; The co-working member &middot; Class Two</h2>
   <p class="secnote">A desk, a signed agreement, and a trail of credits toward conversion. The counting itself waits on the counting rules, and the stories say so.</p>
 
+  <div class="dayone">
+    <div class="dl">Day one</div>
+    <p>A co-working member's first sitting is a signature. They read the Hub Membership Agreement on the shelf, sign it inline, and the execution date anchors the patronage clock from that moment (D-1). The desk itself, the door, the key, the hours, is the hub's business and never the record's (C-3); what the record does from that day is count.</p>
+    <p class="stop"><b>Where it stops:</b> the counting has no rates yet, so credits accrue and the tally cannot be shown until the Q3 counting rules give contributions their values (D-2), and the invitation threshold that reads from that same tally waits with it (D-3). And the instrument is not where the shelf implies: the personal shelf carries one signable contract row titled Hub Membership Agreement, marked provisional in its seed and pointing at the Membership Agreement's page, while the legal shelf marks the Hub Membership Agreement drafted, under counsel review, and not yet published, and the Participation Framework names it as still to be drafted for both classes it governs. The signing machinery is live. The instrument this class signs is not yet its own.</p>
+  </div>
+
   <div class="story"><div class="sid">D-1</div><div class="sbody"><div class="sent">A co-working member can read and sign the Hub Membership Agreement on the shelf, and their patronage tracking begins from first execution.</div><div class="prove"><b>Proven when</b> the signature lands atomically and the execution date anchors the tracking clock.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">/commons/agreements</span></div></div>
 
   <div class="story"><div class="sid">D-2</div><div class="sbody"><div class="sent">They can see their credits accruing toward conversion, as a tally over recorded contributions.</div><div class="prove"><b>Proven when</b> the Q3 counting rules give contributions their rates and the tally shown equals the hand trace.</div></div><div class="smeta"><span class="chip anticipated"><span class="dot"></span>Anticipated &middot; Q3</span><span class="surf">patronage tally</span></div></div>
@@ -218,6 +253,12 @@ footer .row { display: flex; flex-wrap: wrap; gap: 6px var(--s5); }
 <section class="sec" data-tint="coral">
   <h2>E &middot; The cooperative member &middot; Class One, the patron</h2>
   <p class="secnote">Ownership, and the fullest set. Where a right exists on paper but its surface waits, the chip says which condition it waits on.</p>
+
+  <div class="dayone">
+    <div class="dl">Day one</div>
+    <p>A member's first sitting is the fullest one in the estate. An invited person signs the Membership Agreement inline, pays the one-time share, and watches the capital account open at one hundred dollars as a view over events rather than a stored balance (E-1, E-2). The member-scoped commons opens whole in the same session: the directory, the calendar, the board, and the responses that concern them (E-3). They can stand a gathering that day (E-4), read the Desk's governance record of every movement the rules care about (E-5) and the Programs view with each Program's purpose, Coordinator, and policy standing (E-6), and use the one act nobody else in the estate holds: give the instrument work as a recorded act, with a brief, a kind, and a scope, and watch its arc to acceptance or refusal on the record (E-10).</p>
+    <p class="stop"><b>Where it stops:</b> the two acts a new member reaches for soonest are both proposed. Standing as the carrier of a body of work waits on the standing module and P-05 (E-9), and inviting someone along the access track waits on the invitation count and P-04 (E-8). The tallies that make ownership legible, patronage and the distributive share, wait on the Q3 counting rules (E-7), so a member can see that the account opened and not yet what it has earned.</p>
+  </div>
 
   <div class="story"><div class="sid">E-1</div><div class="sbody"><div class="sent">An invited person can sign the Membership Agreement, pay the one-time share, and watch the capital account open at one hundred dollars as a view over events, never a stored balance.</div><div class="prove"><b>Proven when</b> admission lands as events and the capital tally, once the counting rules give it life, equals the hand trace.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live &middot; tally stub on Q3</span><span class="surf">the record</span></div></div>
 
@@ -272,6 +313,34 @@ footer .row { display: flex; flex-wrap: wrap; gap: 6px var(--s5); }
   <div class="story"><div class="sid">G-3</div><div class="sbody"><div class="sent">Whether the instrument may hold one scoped authority, recording its own acceptances and refusals in the direction namespace alone, is staged as a question, not taken.</div><div class="prove"><b>Proven when</b> the organizers answer the first grant, either way, as a decision record.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Open &middot; the first grant</span><span class="surf">AGY &sect;5</span></div></div>
 </section>
 
+<!-- ============ H · SHARING A PROJECT ============ -->
+<section class="sec" data-tint="amber">
+  <h2>H &middot; Sharing a project, class by class</h2>
+  <p class="secnote">A project is the day one word for a body of work someone brings: a thing with a shape, a person behind it, and no standing yet. The record holds no object by that name and never will, which is a decision and not an omission. This section says who can do what about a project today, class by class, without inventing one.<sup class="fn"><a href="#n5">5</a></sup></p>
+
+  <div class="dayone">
+    <div class="dl">Day one</div>
+    <p>Someone with a project in hand does the same first thing at every class that can do it at all: they post it to the board as play, practice, or work, say what they are looking for, and let people respond. Nothing is designated, nothing is named a project in the database, and nothing about their standing changes. If the work goes somewhere, standing arrives later and by adoption, never by the act of posting.</p>
+    <p class="stop"><b>Where it stops:</b> today only a cooperative member can do it, because the board is scoped to an active membership. The guild's version of this act is the piece of the guild people will feel first, and it is proposed (B-5). The carrier act, which is how a person's name attaches to a body of work, is proposed too (E-9). So on the estate as it stands, sharing a project is a member's capability and nobody else's.</p>
+  </div>
+
+  <div class="story"><div class="sid">H-1</div><div class="sbody"><div class="sent">A project is a body of work before the record knows it, and the record leaves it alone on purpose: no object, table, or status represents project standing anywhere, and none ever will.</div><div class="prove"><b>Proven by</b> honest absence, held as a refusal in the standing module: the origin's only surfaces are the board and the unaffiliated shelf, both already built, and no piece of any bed may introduce a project object as a convenience.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live &middot; refusal</span><span class="surf">STANDING P3 &middot; &sect;4</span></div></div>
+
+  <div class="story"><div class="sid">H-2</div><div class="sbody"><div class="sent">A cooperative member can bring a project forward today: post it to the board as play, practice, or work, read the responses that concern them, and close it saying what it led to.</div><div class="prove"><b>Proven when</b> the author's post, its responses, and its resolution land as events under the board's lifecycle, with the write refusing any hand but the author's and any status but active membership.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live</span><span class="surf">/commons/opportunities</span></div></div>
+
+  <div class="story"><div class="sid">H-3</div><div class="sbody"><div class="sent">A guild participant can do exactly the same, from anywhere, on the day they enroll, which is the whole point of a virtual way in and the first thing a person will reach for.</div><div class="prove"><b>Proven when</b> a guild participant's post, response, and resolution land under the same lifecycle as a member's, asserted for the guild persona rather than inferred from the member's walk.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; GUILD &middot; B-5</span><span class="surf">the board</span></div></div>
+
+  <div class="story"><div class="sid">H-4</div><div class="sbody"><div class="sent">A community participant holds the same board capability once bound, on the same terms as any other bound participant.</div><div class="prove"><b>Proven when</b> the community persona walks it in the rehearsal (P-03); today the policies key on an active membership and not on a class, so the capability is real and its class scoping is unasserted.</div></div><div class="smeta"><span class="chip drafted"><span class="dot"></span>Drafted &middot; P-03 persona</span><span class="surf">the board</span></div></div>
+
+  <div class="story"><div class="sid">H-5</div><div class="sbody"><div class="sent">A stranger can neither share a project nor read one: the board is not a public feed, and the rows never leave the database.</div><div class="prove"><b>Proven when</b> the probe matrix asserts the anonymous and applicant refusals against their Authority Map cells, on every change.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live &middot; refusal</span><span class="surf">probe matrix</span></div></div>
+
+  <div class="story"><div class="sid">H-6</div><div class="sbody"><div class="sent">A project becomes something the record can prove only by gaining a standing, and a standing is conferred by an adopted instrument, never by activity: Program standing today by designation and ratified policy, Venture standing when the standing module adopts and its instruments exist.</div><div class="prove"><b>Proven when</b> the roster's standing equals the standing folded by hand from adoption events; work moving between ends, or adding the second, is the other family's instrument adopting, and there is no crossing verb.</div></div><div class="smeta"><span class="chip live"><span class="dot"></span>Live &middot; internal end</span><span class="surf">STANDING P1 &middot; P4</span></div></div>
+
+  <div class="story"><div class="sid">H-7</div><div class="sbody"><div class="sent">A member can stand as a project's carrier by a recorded act beside the designation, which is how a person's name attaches to a body of work without the record inventing an object for the work itself.</div><div class="prove"><b>Proven when</b> the carrier act lands as its own event citing the designation, its floor asserting active membership at the moment of the act, exactly as E-9 provides and F-4 constrains.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Proposed &middot; STANDING &middot; P-05</span><span class="surf">designation</span></div></div>
+
+  <div class="story"><div class="sid">H-8</div><div class="sbody"><div class="sent">Whether an opportunity may cite a project as an entity in its own right is a question this register holds open rather than answering by drafting. Today the answer is no: the association a person means when they say this post belongs to that body of work arrives as designation and standing, not as a new object, and the origin stays unrecorded.</div><div class="prove"><b>Proven when</b> the organizers answer it either way as a decision record. Taking the other answer is an election for the board and a revision of the standing module's third principle, never a convenience adopted by the builder.</div></div><div class="smeta"><span class="chip proposed"><span class="dot"></span>Open &middot; the association</span><span class="surf">STANDING P3</span></div></div>
+</section>
+
 <!-- ============ X · EVERY PARTICIPANT ============ -->
 <section class="sec" data-tint="blue">
   <h2>X &middot; Every participant, whatever the class</h2>
@@ -303,6 +372,7 @@ footer .row { display: flex; flex-wrap: wrap; gap: 6px var(--s5); }
     <li id="n2">The Lexicon v2 and PRD v0.3 register: a capability is a member sentence; pieces carry acceptances; the proof rehearsal runs every capability as a committed journey with every refusal asserted. Story numbers here are document-local; only the Almanac mints addresses.</li>
     <li id="n3">The Almanac at techne.coop/commons/build: the surfaces and their standing (front door, shelf, directory, calendar, board, Programs view, Desk, Direction); the named conditions Q1, Q3, DNS, the treasury policy, and the first grant; the probe matrix and walkaway disciplines the proving lines lean on.</li>
     <li id="n4">GUILD v0.1 and the STANDING module, this series, both proposed and unadopted: the guild persona's stories, the invitation verb and path tally, and the carrier act, each binding nobody until the board acts and the elections GUILD-D2, GUILD-D5, and STANDING-D1 through STANDING-D5 are recorded.</li>
+    <li id="n5">Work Standing (STANDING v0.2), drafted and unadopted: the branching maturity model, with project standing at the origin deliberately unrecorded (P3 and &sect;4), Program standing the internal end already built and cited, Venture standing specified for construction, and crossings as adoptions (P4). The refusal that no object, table, or status will ever represent project standing is the module's own; this register carries it rather than restating it, and the association question of H-8 is raised against it, not around it.</li>
   </ol>
 </div>
 
