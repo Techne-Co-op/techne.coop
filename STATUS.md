@@ -5,7 +5,7 @@ Generated from rdm-ledger.yaml. 115 items total.
 
 | status | count |
 |--------|-------|
-| drafted | 13 |
+| drafted | 14 |
 | anticipated | 32 |
 | open | 70 |
 | filed | 0 |
@@ -18,6 +18,7 @@ Generated from rdm-ledger.yaml. 115 items total.
 - **GUILD** Guild Participation · Module PRD and Framework Amendment -- The virtual way in: a Guild Participant level of Class Three, open enrollment fr
 - **IM** Information Model -- Information model and the eleven laws. Yields 0001_substrate.sql.
 - **P-07** The participation stories -- The capability register: every way a person can act in the commons and the intra
+- **P-08** The day-one journeys -- The register said what the system permits; it did not say what a person does in 
 - **PATRONAGE** Program Patronage · Module PRD and Specification -- Programs as organizing bodies for Opportunities; the event contract for contribu
 - **PRD** Product Requirements v0.4 -- Deprecation record, four capabilities, three doors, ten principles.
 - **SER** Series Overview -- The covering document of the refactor, including itself.
