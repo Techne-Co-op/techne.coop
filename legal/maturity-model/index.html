@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+  (function(){
+    var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+    var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+    document.documentElement.setAttribute('data-mode',m);
+  })();
+  </script>
+  <script src="/assets/topbar.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="A possible maturity path for RegenHub, LCA: how the cooperative could grow through sibling entities while keeping its promises constant. A model for discussion, not a decision.">
+  <title>How the Cooperative Could Grow &middot; Techne</title>
+  <link rel="canonical" href="https://techne.coop/legal/maturity-model/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://techne.coop/legal/maturity-model/">
+  <meta property="og:title" content="How the Cooperative Could Grow · Techne">
+  <meta property="og:description" content="A possible maturity path for the cooperative: sibling entities, constant promises. A model for discussion, not a decision.">
+  <meta property="og:site_name" content="Techne">
+  <meta property="og:image" content="https://techne.coop/assets/og-default.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif:'Libre Baskerville',Georgia,serif;
+      --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+      --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+      --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
+    }
+    html[data-mode="dark"] {
+      --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;
+      --line:#2A2A30;--rule:#3A3A42;
+      --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
+      --blue:#6A8AC4;--blue-text:#97B5E8;--blue-dim:rgba(106,138,196,0.14);
+      --ember:#C4956A;--ember-text:#D4A57A;--ember-dim:rgba(196,149,106,0.14);
+      --ok:#6A9A6A;--ok-text:#7DAA7D;--ok-dim:rgba(106,154,106,0.14);
+      --warn:#C46A6A;--warn-text:#D48A8A;
+      color-scheme:dark;
+    }
+    html[data-mode="light"] {
+      --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
+      --line:#D8D3C8;--rule:#9A958A;
+      --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
+      --blue:#4A6FB0;--blue-text:#39588F;--blue-dim:rgba(74,111,176,0.10);
+      --ember:#8A6A4A;--ember-text:#6F5436;--ember-dim:rgba(138,106,74,0.10);
+      --ok:#4A7A4A;--ok-text:#3A6A3A;--ok-dim:rgba(74,122,74,0.10);
+      --warn:#A84F4C;--warn-text:#8F3F3C;
+      color-scheme:light;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0ms!important;}}
+    body{
+      background:var(--bg);color:var(--text);
+      font-family:var(--serif);font-size:17px;line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+      transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);
+    }
+    em{font-style:italic;color:var(--heading);}
+
+    .wrap{max-width:780px;margin:0 auto;padding:0 var(--s5) var(--s8);}
+
+    .page-mast{
+      padding:clamp(56px,8vw,96px) 0 var(--s6);
+      border-bottom:1px solid var(--line);
+      margin-bottom:var(--s6);
+    }
+    .kick{
+      font-family:var(--mono);font-size:11px;text-transform:uppercase;
+      letter-spacing:0.16em;color:var(--ember-text);
+      margin-bottom:var(--s3);
+    }
+    .page-mast h1{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(30px,5vw,44px);line-height:1.15;
+      color:var(--heading);letter-spacing:-0.015em;
+      margin-bottom:var(--s3);
+    }
+    .sub{
+      font-size:18px;line-height:1.65;
+      color:var(--muted);max-width:58ch;
+      margin-bottom:var(--s5);
+    }
+
+    .st{
+      display:inline-block;
+      font-family:var(--mono);font-size:9.5px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.14em;
+      padding:3px 8px;border-radius:2px;white-space:nowrap;
+    }
+    .st-filed{border:1px solid var(--ok);color:var(--ok-text);}
+    .st-drafted{border:1px solid var(--ember);color:var(--ember-text);}
+    .st-antic{border:1px dashed var(--muted);color:var(--muted);}
+    .st-open{border:1px solid var(--warn);color:var(--warn-text);}
+    .chiprow{display:flex;flex-wrap:wrap;gap:var(--s2);}
+
+    section{margin-bottom:var(--s7);}
+    .sec-num{
+      font-family:var(--mono);font-size:11px;letter-spacing:0.14em;
+      color:var(--faint);margin-bottom:var(--s2);
+    }
+    h2{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(22px,3vw,28px);line-height:1.25;
+      color:var(--heading);margin-bottom:var(--s4);
+    }
+    p{margin-bottom:var(--s4);max-width:66ch;}
+    p:last-child{margin-bottom:0;}
+
+    .vessel{
+      border:1px solid var(--line);border-left:3px solid var(--ember);
+      background:var(--surface);
+      padding:var(--s4) var(--s5);margin-bottom:var(--s4);
+    }
+    .vessel-head{
+      display:flex;justify-content:space-between;align-items:baseline;
+      gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s2);
+    }
+    .vessel-title{
+      font-family:var(--serif);font-weight:700;font-size:18px;
+      color:var(--heading);
+    }
+    .vessel p{font-size:15.5px;line-height:1.65;max-width:none;}
+    .vessel-meta{
+      font-family:var(--mono);font-size:11px;color:var(--faint);
+      letter-spacing:0.04em;margin-top:var(--s3);
+    }
+
+    .keep{
+      border-left:2px solid var(--line);
+      padding-left:var(--s4);margin-bottom:var(--s3);max-width:64ch;
+      font-size:16px;line-height:1.65;
+    }
+    .keep em{font-style:italic;}
+
+    .note{
+      background:var(--inset);border:1px solid var(--line);
+      padding:var(--s4) var(--s5);margin-top:var(--s5);
+      font-size:15px;line-height:1.65;color:var(--muted);
+      max-width:none;
+    }
+
+    footer{
+      margin-top:var(--s7);padding-top:var(--s4);border-top:1px solid var(--line);
+      font-family:var(--mono);font-size:11px;line-height:1.8;color:var(--faint);
+      letter-spacing:0.04em;display:flex;justify-content:space-between;
+      gap:var(--s3);flex-wrap:wrap;
+    }
+    footer a{color:var(--faint);}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="page-mast">
+    <div class="kick">Legal &middot; Horizon</div>
+    <h1>How the Cooperative Could Grow</h1>
+    <p class="sub">A possible path for the cooperative's legal shape as its work matures &mdash; not by stretching one entity to do everything, but by adding sibling entities when the need is real, while the promises stay the same. This is a model for discussion. Nothing here is decided.</p>
+    <div class="chiprow">
+      <span class="st st-drafted">Model &middot; Drafted for review</span>
+      <span class="st st-filed">Stage one &middot; Operating now</span>
+      <span class="st st-antic">Stage two &middot; Anticipated</span>
+      <span class="st st-open">Stage three &middot; Open, exploratory</span>
+    </div>
+  </div>
+
+  <section id="idea">
+    <div class="sec-num">&sect;1</div>
+    <h2>The idea: the entity is a vessel, the promise is the point</h2>
+    <p>A legal entity is a container. It holds a lease, signs contracts, files taxes, and spreads risk so it doesn't rest on one person. But the cooperative's identity does not live in the container. It lives in a small set of promises &mdash; who owns the place, who has a voice, what happens to surplus &mdash; and in the shared record that proves those promises are being kept.</p>
+    <p>That distinction matters because no single container fits every stage of a community's life. The one we have today was chosen for what the community needed first: sharing a room and its costs fairly. If the work grows &mdash; ventures worth coordinating, supporters in other cities, capital that wants to help without taking over &mdash; the honest response is not to bend the first container out of shape. It is to add a sibling built for the new need, joined by decision the way a gardener grafts new growth onto rootstock, and to make sure the promises travel intact from one to the other.</p>
+    <p>This page sketches three stages of that path. Only the first exists. The second was anticipated during formation and deferred on purpose. The third is an inference &mdash; a shape the formation conversations kept reaching toward without naming. The stages are offered for orientation; each step waits on conditions the way sowing waits on soil, and each would be a real decision by the members, taken with legal counsel, when its conditions are actually met.</p>
+  </section>
+
+  <section id="vessels">
+    <div class="sec-num">&sect;2</div>
+    <h2>Three stages, in plain words</h2>
+
+    <div class="vessel">
+      <div class="vessel-head">
+        <span class="vessel-title">Stage one &middot; The partnership we have</span>
+        <span class="st st-filed">Filed &middot; Operating</span>
+      </div>
+      <p>Today's entity is a Colorado cooperative whose members are individual people, taxed the way a partnership is taxed: the cooperative itself pays no income tax, and each member accounts for their share. It holds the lease and insurance in common, records each member's contribution, and carries a public benefit promise in its filed articles. It runs on voluntary effort and member dues, and it is naturally rooted in one room in Boulder. Those limits are features, not flaws &mdash; this vessel should stay excellent at holding the ground, not stretch to hold everything.</p>
+      <div class="vessel-meta">Members are individuals &middot; holds the space and the commons &middot; the vessel of launch day</div>
+    </div>
+
+    <div class="vessel">
+      <div class="vessel-head">
+        <span class="vessel-title">Stage two &middot; A sibling for ventures</span>
+        <span class="st st-antic">Anticipated</span>
+      </div>
+      <p>If projects born here grow into ventures worth coordinating, a second cooperative could be formed to hold that growth: employing full-time staff, holding shared venture assets, and welcoming supporters and investors on defined terms &mdash; capital that earns a capped return from what grows, but never owns the ground and never outvotes the people doing the work. Who its members would be is itself an open design question. Organizations &mdash; the ventures, and today's partnership among them &mdash; could be one member class among several; the class structure would be settled by the members at formation, not assumed in advance. The first cooperative stays the soil; the second becomes the granary, grafted on by decision rather than drift. This was discussed during formation and deliberately deferred &mdash; build the ventures first, let the structure follow the life.</p>
+      <div class="vessel-meta">Member classes an open design question &middot; readiness-gated, not date-gated &middot; roughly one to three years out, as a guess</div>
+    </div>
+
+    <div class="vessel">
+      <div class="vessel-head">
+        <span class="vessel-title">Stage three &middot; A trust that keeps the promise</span>
+        <span class="st st-open">Open &middot; Exploratory</span>
+      </div>
+      <p>If the pattern spreads to more than one place, a purpose trust could hold the promises themselves &mdash; an entity organized around a purpose rather than around owners, with standing to challenge any sibling that drifts from it. Companies like Patagonia have used this shape to put purpose permanently in charge. Here the trust would guard the promises, steward the standard agreements so a new community adopts proven instruments rather than improvising, and translate them across borders. The earlier stages do things; this one keeps things true. It is the most speculative stage, and this page says so plainly.</p>
+      <div class="vessel-meta">No owners, only a purpose &middot; three or more years out, if ever &middot; requires trust counsel and more than one community</div>
+    </div>
+  </section>
+
+  <section id="constant">
+    <div class="sec-num">&sect;3</div>
+    <h2>What stays constant, and how a step gets taken</h2>
+    <p>A growth step that weakened any of the following would not count as growth. These are the promises every stage must carry, in whatever legal vocabulary its container requires:</p>
+    <div class="keep"><em>The ground is not for sale.</em> The people who use and tend the commons govern it. Outside capital can share in what grows, never in the ground or the votes.</div>
+    <div class="keep"><em>One person, one vote.</em> Among the working members, every voice weighs the same, whatever other classes a container adds.</div>
+    <div class="keep"><em>Surplus is planted.</em> What the cooperative earns beyond its needs is reinvested in the work before it is distributed.</div>
+    <div class="keep"><em>The public benefit is written down and reported.</em> Each entity states the promise in its founding document and reports on it every year in plain language. Weakening it requires a supermajority.</div>
+    <div class="keep"><em>Contribution is recognized the same way.</em> The same grammar of recording what members give, and what they are owed for it, applies in every container.</div>
+    <div class="keep"><em>The record is portable.</em> Agreements are versioned; events are written once and never rewritten, and a mistake is answered by a new entry that points back at it, never quietly fixed. Every number is a tally over the events beneath it, and the whole can be exported and restored elsewhere &mdash; a discipline the commons already rehearses and calls the walkaway. What moves between siblings moves as recorded events with their history attached.</div>
+    <p>Each step forward is a decision, not a schedule. Forming a sibling would require demonstrated venture activity, funding for the people who would run it, a settled design for its member classes, resolved terms for participating capital, and the public benefit promise written into the new articles <em>before</em> filing. Forming a trust would require more than one operating community, a stable body of standard agreements worth stewarding, and counsel on where and how such a trust is best formed. Both would require member deliberation and a vote. Until then, this model is research to inform those conversations &mdash; a map of where the road could go, drawn so the promises are always the strongest thing in the room, whichever room they are in.</p>
+    <div class="note">This page is a plain-language summary of a working model, not legal or tax advice, and it binds no one. Its formal companion is the <a href="/legal/maturity-model/specification/">Maturity Model Specification</a>; several of its working words are defined in <a href="/commons/build/lexicon/">the Lexicon</a>; and the governing documents it sits beside are at <a href="/legal/">techne.coop/legal</a>.</div>
+  </section>
+
+  <footer>
+    <span>Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street, Boulder</span>
+    <span>Maturity Model &middot; Drafted &middot; August 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
