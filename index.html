@@ -182,41 +182,48 @@ footer { background: var(--inset); }
 /* ============================================================
    HERO
    ============================================================ */
+/* The hero is sized to be read without scrolling: its reserve is the
+   viewport less the topbar's own 48px band (the bar is sticky, so it
+   takes flow space when OFFER_MAP returns on launch day), and every
+   interior gap is tuned so the eyebrow through the buttons clear a
+   laptop fold. svh, not vh, so a mobile URL bar cannot push the
+   buttons under the fold. */
 .hero {
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 48px);
+  min-height: calc(100svh - 48px);
   display: flex; flex-direction: column;
   justify-content: center; align-items: center;
   text-align: center;
-  padding: clamp(80px, 10vh, 144px) 6vw;
+  padding: clamp(32px, 4vh, 56px) 6vw;
   background: var(--bg);
 }
 .hero-inner { max-width: 920px; width: 100%; }
-.hero .eyebrow { margin-bottom: 28px; }
-.hero .accent-rule { margin: 0 auto 40px; }
+.hero .eyebrow { margin-bottom: 18px; }
+.hero .accent-rule { margin: 0 auto 26px; }
 
 .hero h1 {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: clamp(42px, 6.8vw, 72px);
-  line-height: 1.08;
+  font-size: clamp(38px, 5.4vw, 58px);
+  line-height: 1.1;
   letter-spacing: -0.02em;
   color: var(--heading);
-  margin: 0 auto 32px;
+  margin: 0 auto 22px;
   max-width: 20ch;
 }
 .hero h1 .alt {
   display: block; font-style: italic; font-weight: 400;
-  font-size: clamp(22px, 2.8vw, 32px);
+  font-size: clamp(21px, 2.4vw, 27px);
   color: var(--muted);
-  margin-top: 18px; letter-spacing: 0;
+  margin-top: 12px; letter-spacing: 0;
 }
 
 .hero .purpose {
-  font-size: clamp(20px, 2.3vw, 25px);
-  line-height: 1.6;
+  font-size: clamp(19px, 2vw, 22px);
+  line-height: 1.55;
   color: var(--text);
-  max-width: 44ch;
-  margin: 0 auto 64px;
+  max-width: 46ch;
+  margin: 0 auto 34px;
 }
 
 /* ============================================================
@@ -224,9 +231,9 @@ footer { background: var(--inset); }
    ============================================================ */
 .cd {
   display: inline-flex; flex-direction: column;
-  align-items: center; gap: 16px;
-  margin: 0 auto 64px;
-  padding: clamp(28px, 3.5vw, 40px) clamp(32px, 5vw, 56px);
+  align-items: center; gap: 11px;
+  margin: 0 auto 34px;
+  padding: clamp(20px, 2.4vw, 26px) clamp(28px, 4vw, 48px);
   background: var(--surface);
   border: 1px solid var(--line);
   border-top: 2px solid var(--blue);
@@ -243,7 +250,7 @@ footer { background: var(--inset); }
 }
 .cd-num {
   font-family: var(--mono); font-weight: 500;
-  font-size: clamp(40px, 5.2vw, 56px);
+  font-size: clamp(34px, 4.2vw, 46px);
   line-height: 1; color: var(--heading);
   font-variant-numeric: tabular-nums;
 }
@@ -252,11 +259,11 @@ footer { background: var(--inset); }
   font-family: var(--mono);
   font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
   color: var(--muted);
-  margin-top: 12px;
+  margin-top: 8px;
 }
 .cd-colon {
   font-family: var(--mono);
-  font-size: clamp(34px, 4.4vw, 46px);
+  font-size: clamp(28px, 3.6vw, 38px);
   color: var(--rule); line-height: 1.05;
 }
 .cd-when {
@@ -414,7 +421,21 @@ a.cardx:hover .step-act { color: var(--ember-text); }
 /* ============================================================
    FOOTER
    ============================================================ */
-footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
+footer { padding: 52px 0 60px; border-top: 1px solid var(--line); }
+
+/* Pre launch: the simplified band. One row of who and where, no columns
+   of links, matching the restraint of the withheld map. The .foot-grid
+   rules below stay in place for the four column footer that returns on
+   launch day. */
+.foot-simple {
+  display: flex; flex-wrap: wrap;
+  gap: 8px 26px;
+  font-family: var(--mono);
+  font-size: 14px; line-height: 1.8;
+  color: var(--muted);
+}
+.foot-simple .ft-brand { color: var(--heading); }
+
 .foot-grid {
   display: flex; justify-content: space-between;
   gap: 40px; flex-wrap: wrap;
@@ -479,6 +500,32 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+/* Short viewports carry the same hero, compressed rather than cropped.
+   The fold on a laptop lands near 700px of viewport height, and the
+   eyebrow through the buttons must clear it without scrolling. Measured
+   on this page, not assumed: see the sizes named in the pull request. */
+@media (max-height: 840px) {
+  .hero { padding-top: clamp(20px, 2.5vh, 34px); padding-bottom: clamp(20px, 2.5vh, 34px); }
+  .hero .eyebrow { margin-bottom: 14px; }
+  .hero .accent-rule { margin-bottom: 20px; }
+  .hero h1 { font-size: clamp(34px, 4.4vw, 48px); margin-bottom: 18px; }
+  .hero h1 .alt { font-size: clamp(19px, 2vw, 23px); margin-top: 10px; }
+  .hero .purpose { font-size: clamp(18px, 1.6vw, 20px); margin-bottom: 26px; }
+  .cd { gap: 9px; margin-bottom: 26px; padding: clamp(16px, 2vw, 22px) clamp(24px, 3.4vw, 40px); }
+  .cd-num { font-size: clamp(30px, 3.4vw, 38px); }
+  .cd-colon { font-size: clamp(24px, 2.8vw, 31px); }
+  .cd-cap { margin-top: 6px; }
+}
+@media (max-height: 720px) {
+  .hero h1 { font-size: clamp(30px, 3.6vw, 40px); margin-bottom: 14px; }
+  .hero h1 .alt { font-size: clamp(18px, 1.8vw, 21px); margin-top: 8px; }
+  .hero .purpose { font-size: 18px; line-height: 1.5; margin-bottom: 20px; }
+  .cd { gap: 7px; margin-bottom: 20px; padding: 14px 26px; }
+  .cd-num { font-size: clamp(26px, 2.8vw, 32px); }
+  .cd-colon { font-size: 24px; }
+  .btn { padding: 14px 26px; }
+}
+
 @media (max-width: 980px) {
   .cards-3 { grid-template-columns: 1fr; }
   .grows { grid-template-columns: 1fr; }
@@ -525,7 +572,7 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
     <div class="eyebrow"><span class="mono">techn&#275;</span><span class="sep"></span><span>the old word for craft</span></div>
     <span class="accent-rule"></span>
     <h1 id="hero-title">This summer,<br>the workshop opens.<span class="alt">A co-op of many crafts, held in common.</span></h1>
-    <p class="purpose">A cooperative workshop in downtown Boulder, where makers of many crafts work side by side and own the tools that come out of it. On August 14, ownership opens: a stake in the whole, not a subscription to any part.</p>
+    <p class="purpose">A cooperative workshop in downtown Boulder, where makers of many crafts work side by side and own the tools that come out of it. We open the doors on August 14.</p>
 
     <div class="cd" role="timer" aria-label="Doors open August 14, 2026 at 3:00 PM Mountain Time">
       <span class="cd-label">Counting toward &mdash; not down</span>
@@ -619,13 +666,13 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
         <div class="tier">Cooperative member</div>
         <h3>Become an owner</h3>
         <p>A member-owner with a vote. You help govern the cooperative, share in its work, and carry a piece of its future.</p>
-        <div class="step-act">Opening August 14 &middot; how it works &rarr;</div>
+        <div class="step-act">Intended at launch &middot; how it works &rarr;</div>
       </a>
     </div>
     <div class="statusline">
-      <span class="chip ok"><span class="dot"></span>filed &amp; operating</span>
-      <span class="chip warn"><span class="dot"></span>ownership opens Aug 14</span>
-      <span class="note"><a href="/legal/">Bylaws and Membership Agreement</a> ratified July 2026. Member-owner onboarding opens at launch  --  August 14, 2026.</span>
+      <span class="chip ok"><span class="dot"></span>incorporated february 2026</span>
+      <span class="chip warn"><span class="dot"></span>in formation</span>
+      <span class="note">The Articles are on the public record with the Colorado Secretary of State. The <a href="/legal/">Bylaws and Membership Agreement</a> are still in review with our cooperative counsel, and member-owner onboarding is intended to open at launch.</span>
     </div>
   </div>
 </section>
@@ -654,6 +701,10 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="wrap">
+    <!-- PRE LAUNCH WITHHOLD, restore on 2026-08-14: the footer's four columns
+         carry the site's second navigation, and they are withheld for the same
+         reason the public map is (OFFER_MAP in /assets/topbar.js). To restore,
+         delete the .foot-simple block below and uncomment this block.
     <div class="foot-grid">
       <div class="col">
         <span class="h">The cooperative</span>
@@ -683,6 +734,13 @@ footer { padding: 64px 0 72px; border-top: 1px solid var(--line); }
         Filed February 6, 2026<br>
         SOS No. 20261163853
       </div>
+    </div>
+    -->
+    <div class="foot-simple">
+      <span class="ft-brand">Techne &middot; RegenHub, LCA</span>
+      <span>1515 Walnut Street &middot; Boulder, Colorado</span>
+      <span>Colorado Limited Cooperative Association &middot; Public Benefit entity</span>
+      <span>SOS No. 20261163853</span>
     </div>
     <div class="foot-fine">A public-benefit cooperative. Surplus is reinvested in the community, not distributed to outside shareholders.</div>
   </div>
