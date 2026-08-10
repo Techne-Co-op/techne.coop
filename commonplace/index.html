@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The Commonplace: a gathered book of the ideas, phrases, and turns of thought that surfaced across the fifteen conversations in which a coworking space in Boulder talked itself into becoming a cooperative. RegenHub, LCA.">
+<title>The Commonplace &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commonplace/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commonplace/">
+<meta property="og:title" content="The Commonplace · Techne">
+<meta property="og:description" content="A book of what was said during formation: fifteen meetings, seventy-nine entries, arranged by what an idea does rather than when it appeared.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* ============================================================
+   THE COMMONPLACE  --  emission of U-22
+   The formation record in the estate's document grammar.
+   Tokens are the techne v4 layer, inlined per the house
+   practice; hex appears only where a property is defined.
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --ok-dim:rgba(106,154,106,0.13);
+  --warn:#C46A6A; --warn-dim:rgba(196,106,106,0.13);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --ok-dim:rgba(74,122,74,0.10);
+  --warn:#A84F4C; --warn-dim:rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition-duration:0ms !important; } }
+html { scroll-behavior:smooth; background:var(--bg); }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--serif); font-size:16px; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+em { font-style:italic; color:var(--heading); }
+strong { font-weight:700; color:var(--heading); }
+
+/* the primary navigation is the shared public topbar,
+   injected by /assets/topbar.js per U-13 */
+
+/* ---------- masthead ---------- */
+.mast {
+  padding:var(--s7) var(--s5) var(--s6);
+  border-bottom:1px solid var(--rule);
+  max-width:860px; margin:0 auto;
+}
+.mast-eyebrow { font-family:var(--mono); font-size:0.65rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s3); }
+.mast h1 { font-family:var(--serif); font-size:clamp(2rem,4.5vw,2.9rem); font-weight:700; color:var(--heading); line-height:1.1; letter-spacing:-0.015em; margin-bottom:var(--s4); }
+.mast-dek { font-size:1.05rem; line-height:1.65; color:var(--text); max-width:62ch; }
+.mast-meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font-family:var(--mono); font-size:0.68rem; letter-spacing:0.04em; color:var(--muted); }
+
+.doc-wrap { max-width:860px; margin:0 auto; padding:0 var(--s5) var(--s8); }
+
+/* ---------- the standing note ---------- */
+.standing {
+  margin-top:var(--s7);
+  background:var(--surface); border:1px solid var(--line);
+  border-left:3px solid var(--ember);
+  padding:var(--s5);
+}
+.standing .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:var(--ember-text); margin-bottom:var(--s3); }
+.standing p { font-size:0.94rem; line-height:1.72; margin-bottom:var(--s3); max-width:68ch; }
+.standing p:last-child { margin-bottom:0; }
+
+/* ---------- preface ---------- */
+.preface { margin-top:var(--s7); padding-left:var(--s5); border-left:1px solid var(--rule); }
+.preface .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:var(--s3); }
+.preface p { font-size:0.92rem; line-height:1.72; color:var(--muted); margin-bottom:var(--s3); max-width:68ch; }
+.preface p:last-child { margin-bottom:0; }
+
+/* ---------- contents ---------- */
+.contents { margin-top:var(--s7); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:var(--s5) 0; }
+.contents .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:var(--s4); }
+.contents ul { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:var(--s4) var(--s6); }
+.contents li { border-top:1px solid var(--line); padding-top:var(--s2); }
+.contents a { font-family:var(--mono); font-size:0.7rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--ember-text); text-decoration:none; display:block; margin-bottom:var(--s1); }
+.contents a:hover { color:var(--heading); }
+.contents span { display:block; font-size:0.85rem; line-height:1.55; color:var(--muted); }
+
+/* ---------- movement ---------- */
+.movement { margin:var(--s8) 0 var(--s6); padding-top:var(--s5); border-top:3px solid var(--heading); }
+.movement .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.16em; color:var(--ember-text); margin-bottom:var(--s2); }
+.movement h2 { font-family:var(--serif); font-size:clamp(1.5rem,3vw,2rem); font-weight:700; color:var(--heading); line-height:1.12; letter-spacing:-0.01em; margin-bottom:var(--s3); }
+.movement p { font-size:0.95rem; line-height:1.65; color:var(--muted); max-width:64ch; }
+
+/* ---------- entry ---------- */
+.entry { padding:var(--s5) 0; border-bottom:1px solid var(--line); }
+.entry:last-child { border-bottom:0; }
+.entry h3 { font-family:var(--serif); font-size:1.15rem; font-weight:700; color:var(--heading); line-height:1.3; letter-spacing:-0.005em; margin-bottom:var(--s2); }
+.prov { font-family:var(--mono); font-size:0.62rem; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; color:var(--faint); margin-bottom:var(--s4); }
+.prov .m { color:var(--ember-text); font-weight:500; }
+.entry p { font-size:0.94rem; line-height:1.72; margin-bottom:var(--s3); max-width:68ch; }
+.entry p:last-child { margin-bottom:0; }
+
+/* ---------- recorded phrase ---------- */
+.said {
+  margin:var(--s4) 0; padding:var(--s3) var(--s4);
+  background:var(--inset); border-left:2px solid var(--blue);
+  font-size:0.98rem; line-height:1.6; font-style:italic; color:var(--heading);
+  max-width:68ch;
+}
+.said .attr { display:block; margin-top:var(--s2); font-family:var(--mono); font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase; font-style:normal; color:var(--faint); }
+
+/* ---------- tension ---------- */
+.tension { margin:var(--s4) 0; padding:var(--s1) 0 var(--s1) var(--s4); border-left:2px solid var(--ember); font-size:0.88rem; line-height:1.65; color:var(--muted); max-width:68ch; }
+.tension .k { display:block; font-family:var(--mono); font-size:0.6rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s1); }
+
+/* ---------- the meeting ledger ---------- */
+.ledger { margin-top:var(--s5); border-top:1px solid var(--rule); }
+.ledger-row { display:grid; grid-template-columns:38px 104px 1fr; gap:var(--s4); padding:var(--s3) 0; border-bottom:1px solid var(--line); align-items:baseline; }
+.ledger-row .n { font-family:var(--mono); font-size:0.7rem; font-weight:500; color:var(--ember-text); }
+.ledger-row .d { font-family:var(--mono); font-size:0.68rem; letter-spacing:0.04em; color:var(--faint); }
+.ledger-row .t { font-size:0.9rem; line-height:1.6; color:var(--text); }
+
+/* ---------- closing prose ---------- */
+.closing p { font-size:0.94rem; line-height:1.72; margin-bottom:var(--s4); max-width:68ch; }
+.closing p:last-child { margin-bottom:0; }
+
+/* ---------- footer ---------- */
+footer {
+  border-top:1px solid var(--rule);
+  margin-top:var(--s8);
+  padding:var(--s5) var(--s5) var(--s8);
+  max-width:860px; margin-inline:auto;
+  font-family:var(--mono); font-size:0.66rem; letter-spacing:0.04em; color:var(--faint);
+  display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5);
+}
+
+@media (max-width:640px) {
+  .contents ul { grid-template-columns:1fr; }
+  .ledger-row { grid-template-columns:38px 1fr; gap:var(--s1) var(--s4); }
+  .ledger-row .d { grid-column:2; }
+  .ledger-row .t { grid-column:2; }
+}
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <div class="mast-eyebrow">RegenHub, LCA &middot; Techne &middot; Boulder, Colorado</div>
+  <h1>The Commonplace</h1>
+  <p class="mast-dek">A gathered book of the ideas, phrases, and turns of thought that surfaced while a coworking space in Boulder talked itself into becoming a cooperative.</p>
+  <div class="mast-meta">
+    <span>Fifteen meetings &middot; August 2025 to February 2026</span>
+    <span>Seventy-nine entries</span>
+    <span>Assembled from the meeting record &middot; working draft</span>
+  </div>
+</div>
+
+<main class="doc-wrap">
+
+  <div class="standing">
+    <div class="k">Its standing</div>
+    <p>This is a formation record, not a governing instrument. It binds nothing, decides nothing, and confers nothing. What binds are the instruments at <a href="/legal/">the legal record</a>; what the build answers to is <a href="/commons/build/">the Almanac</a>; what a word means now is settled in <a href="/commons/build/lexicon/">the Lexicon</a>.</p>
+    <p>What this book holds instead is the vocabulary. Soil rather than firm. Qualification over quantification. The two piles. Trust rather than reputation. Augmentation over automation. These are the terms the cooperative reasons in, and nearly every one of them entered the room on a particular afternoon for a particular reason, which this book keeps alongside the term.</p>
+    <p><strong>Held as a lens.</strong> The steward asked on 2026-08-10 that it be published in that character: a reading through which the cooperative's work and action are perceived, rather than a rule to comply with. Used that way it asks one question of any proposal, which is whether the thing being built can be found anywhere in these pages, and if it cannot, whether that is an extension or a drift.</p>
+    <p>The name is deliberate and is shared. <a href="/commons/">The Commonplace Book</a> is the cooperative's operating record, what is true now, kept and added to daily. This is the other half: what was said then, closed on the day the articles were filed.</p>
+  </div>
+
+  <div class="preface">
+    <div class="k">Before you read</div>
+    <p>A commonplace book is an old habit: you copy out the lines worth keeping and arrange them so they can find each other. This is that, for the fifteen conversations between August 8, 2025 and February 6, 2026 that ended with articles filed in Colorado.</p>
+    <p>Three things about how it was made. It is arranged by what an idea does rather than by when it appeared, which means arguments have been flattened into vocabulary. Where something was genuinely unresolved, the entry says so. It carries no names, because the meeting recordings had unreliable voice attribution and the summaries were written without speakers. And the lines set apart and marked <em>recorded</em> are not <em>verbatim</em>: they come from the written summaries, which are already a paraphrase of the room.</p>
+    <p>Every entry carries its meeting number and date, so the chronology stays underneath and can be walked back to the source.</p>
+  </div>
+
+  <nav class="contents" aria-label="Contents">
+    <div class="k">The five movements</div>
+    <ul>
+      <li><a href="#ground">I &middot; Ground</a><span>What the place is. Soil, scene, habitat, and the edges of belonging.</span></li>
+      <li><a href="#recognition">II &middot; Recognition</a><span>How a contribution is seen without being priced.</span></li>
+      <li><a href="#circulation">III &middot; Circulation</a><span>How value moves. Giving, saving, investing, and what replaces the loan.</span></li>
+      <li><a href="#form">IV &middot; Form</a><span>The vessel itself. Classes, subchapters, votes, and filings.</span></li>
+      <li><a href="#craft">V &middot; Craft</a><span>How the work gets done, and what the tools are for.</span></li>
+      <li><a href="#ledger">The Ledger</a><span>The fifteen meetings, in order, with what each produced.</span></li>
+      <li><a href="#absences">What it does not hold</a><span>Four absences, stated plainly, because a gathered book looks complete.</span></li>
+    </ul>
+  </nav>
+
+  <div class="movement" id="ground">
+    <div class="k">Movement I</div>
+    <h2><em>Ground</em></h2>
+    <p>The first question was never what the cooperative would do. It was what kind of thing it is. The answers that stuck were all borrowed from growing things.</p>
+  </div>
+
+  <section>
+    <div class="entry">
+      <h3>Soil, not firm</h3>
+      <div class="prov"><span class="m">Meeting 3</span> &middot; September 12, 2025</div>
+      <p>The defining metaphor of the whole series, and the one that resolved the most arguments. The question on the table was whether the cooperative is a productive enterprise that signs contracts and delivers work, or something more like infrastructure. The answer that held was <em>soil</em>: the substrate that creates conditions for growth. Coworking revenue keeps the lights on, the way a blockchain's transaction fees maintain the chain, but the actual value appears in what gets built on top.</p>
+      <p>This did practical work. If the cooperative is soil, it does not need to account for every member's minute-by-minute contribution. It tracks its relationship to the ventures and projects that grow in it. An entire class of accounting anxiety dissolved in one metaphor.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Scenius</h3>
+      <div class="prov"><span class="m">Meetings 2, 3, 6</span> &middot; September 2025</div>
+      <p>A portmanteau of <em>scene</em> and <em>genius</em>, naming the collective intelligence that emerges from mutual inspiration among culturally aligned peers. It landed on first hearing in Meeting 2 and never left. It eventually became the filed public benefit purpose.</p>
+      <p>Meeting 6 added the etymology that made it more than a coinage. The Latin <em>genius</em> originally meant a household guardian spirit, an inspirational presence watching over a person or family from birth. Only later did it narrow to an individual trait and then to exceptional individual talent. Scenius is in that light a restoration rather than an invention: the spirit belongs to the group again.</p>
+      <div class="tension">
+        <span class="k">Unresolved at the time</span>
+        The group knew the word was obscure and could sound precious on first encounter. The working compromise was to introduce it once with a plain definition and then use it sparingly.
+      </div>
+    </div>
+
+    <div class="entry">
+      <h3>Habitat for co-creation</h3>
+      <div class="prov"><span class="m">Meeting 5</span> &middot; September 26, 2025</div>
+      <p>The soil metaphor grown outward. Not just soil but a garden, and not just a garden but an ecosystem, with a forest and trees and a stream. The point of the escalation was that the whole exceeds its parts specifically because of its capacity for life and habitat, not because the parts are individually excellent.</p>
+      <p>The same session gave the plainest version of what reciprocity means here: when the garden has abundance it shares with people who could become gardeners themselves, who are given tools and skills, and when their own gardens flourish some of that returns to the first garden.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Third space</h3>
+      <div class="prov"><span class="m">Meetings 2, 3, 4</span> &middot; September 2025</div>
+      <p>A place that is neither home nor work but something generative in between. The group wanted the term for two reasons: it describes an aspiration, and it names a loss, since third spaces have been broadly collapsing. Meeting 4 added a hard economic consequence. A true third space is historically free or very nearly free to be in, which means membership fees cannot remain the primary revenue stream if the phrase is to be honest.</p>
+      <div class="tension">
+        <span class="k">Flagged as aspirational</span>
+        Meeting 3 pushed back on describing the space as a third space for regenerative changemakers, on the grounds that it described where the community hoped to be rather than where it stood.
+      </div>
+    </div>
+
+    <div class="entry">
+      <h3>Concentric circles of belonging</h3>
+      <div class="prov"><span class="m">Meeting 4</span> &middot; September 19, 2025</div>
+      <p>An answer to the perennial question of who counts as part of RegenHub. The cooperative draws a clean legal line, since you have either signed a member agreement or you have not, but the group was explicit that the legal boundary should not become the social one. The picture instead is rings: a core nucleus of cooperative members, then people who pay for the space without joining the cooperative, then people who come to happy hours and enjoy the scene, then the wider field of people who might one day. Growth means inviting people inward, not policing the edge.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Orientation over output</h3>
+      <div class="prov"><span class="m">Meeting 4</span> &middot; September 19, 2025</div>
+      <p>The membership test the group actually uses, arrived at by working through cases. They would decline someone collecting a paycheck with no projects, no curiosity about what the community is building, and no interest in growth. They would welcome someone in the same professional position who finds the work compelling and wants their life to move that direction. A student with no path figured out but genuine excitement is in.</p>
+      <p>Nobody has to be doing explicitly impact-oriented work. What matters is a current of community care running underneath whatever the vocation is.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Two piles</h3>
+      <div class="prov"><span class="m">Meeting 4</span> &middot; September 19, 2025</div>
+      <p>A blunt and useful description of what actually happens in the building. One pile is people showing up to help RegenHub be RegenHub: artwork, cleaning, infrastructure, cultivating the community. The other pile is individual projects people work on within the walls. Both belong in the structure, but forcing them through one set of member classes would mean routing every project through a single entity, which is both a headache and untrue to how the place works. This observation is a direct ancestor of the dual entity decision six meetings later.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Bioregional resilience and localism</h3>
+      <div class="prov"><span class="m">Meeting 3</span> &middot; September 12, 2025</div>
+      <p>Two words the group asked to keep in the purpose statement. Bioregional resilience grounds the cooperative in place and in care for the living world without narrowing it to environmentalism, with the Front Range as the natural anchor. Localism names an orientation toward the local economy that stays connected to wider networks without dissolving into them.</p>
+    </div>
+
+    <div class="entry">
+      <h3>A second home</h3>
+      <div class="prov"><span class="m">Meeting 2</span> &middot; September 5, 2025</div>
+      <p>From the round-robin visioning exercise, and worth keeping for tone alone. The wish was for a place where members feel they have a vibrant scene of their own.</p>
+      <div class="said">
+        A bumping scene where inspiring nerdy sweethearts dream and build together.
+        <span class="attr">Recorded in the Meeting 2 summary</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <h3>Retrofitting existing civic infrastructure with community</h3>
+      <div class="prov"><span class="m">Meeting 7</span> &middot; October 3, 2025</div>
+      <p>From the Neighborhood Village Project presentation, and the sharpest counter-frame to intentional-community thinking in the whole record. Rather than build new towns or buy land in remote places, you infill community back into the neighborhoods and civic structures that already exist. The underlying theory of change is almost embarrassingly simple: people already live where they live, and the coordination problem of getting everyone to move somewhere better is harder than the problem of getting neighbors to know each other.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Cosmo-local hubs</h3>
+      <div class="prov"><span class="m">Meeting 3</span> &middot; September 12, 2025</div>
+      <p>A frame borrowed from a Network Nations working group mapping physical, place-based spaces that belong to a global solidarity network. It gave the group language for being deeply rooted in Boulder and simultaneously a node in something wider, without the two competing.</p>
+    </div>
+
+  </section>
+
+  <div class="movement" id="recognition">
+    <div class="k">Movement II</div>
+    <h2>Recognition</h2>
+    <p>The longest-running argument in the series. Everyone wanted their gifts seen. Almost nobody wanted them priced. What follows is the vocabulary that grew in the gap.</p>
+  </div>
+
+  <section>
+    <div class="entry">
+      <h3>Qualification over quantification</h3>
+      <div class="prov"><span class="m">Meeting 1</span> &middot; August 8, 2025</div>
+      <p>The first and most durable resolution of the central tension. The goal is not to assign a financial value to every contribution but to build language and categories that make different kinds of value visible. Tracking something and pricing something are separate activities, and the cooperative can do the first without committing to the second.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The commodification tension</h3>
+      <div class="prov"><span class="m">Meeting 1</span> &middot; August 8, 2025</div>
+      <p>Worth preserving as a tension rather than a conclusion, because it never fully resolved and probably should not. Several people were uneasy that reducing gifts to metrics shifts motivation from intrinsic to extrinsic. The same people wanted their particular gifts recognized and reflected in the structure. Both feelings were sincere and they pull opposite ways. Every recognition mechanism discussed across fifteen meetings is an attempt to hold both.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Gratitude as a patronage mechanism</h3>
+      <div class="prov"><span class="m">Meetings 1, 5</span> &middot; August and September 2025</div>
+      <p>Some contributions resist accounting entries. Community energy, culture-setting, the intangible social work of making a room feel good: these may be better recognized through collective expressions of appreciation than through ledger lines. The reference point was Giveth's retroactive praise system, where peers recognize each other after the fact rather than bidding beforehand.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Trust, not reputation</h3>
+      <div class="prov"><span class="m">Meeting 5</span> &middot; September 26, 2025</div>
+      <p>A deliberate refusal. The group pushed back on reputation systems and social credit scores as models, and named trust as the better indicator. The difference matters: reputation is a score others compute about you, while trust is a relation you are inside of. One can be gamed at a distance and the other mostly cannot.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Symbols over numbers</h3>
+      <div class="prov"><span class="m">Meeting 5</span> &middot; September 26, 2025</div>
+      <p>A speculative but revealing proposal: instead of a single trust number, members might be represented by different symbols, a heart or a spark or a mushroom, reflecting the character of a contribution rather than its quantity. The idea itself matters less than what it protects, which is the principle that contributions are qualitatively different rather than hierarchically ranked.</p>
+    </div>
+
+    <div class="entry">
+      <h3>A class matrix, not a class ladder</h3>
+      <div class="prov"><span class="m">Meeting 5</span> &middot; September 26, 2025</div>
+      <p>Tiers and levels imply hierarchy, which cuts against the cooperative's whole disposition. What the group was actually building is an expressive framework that rewards emergent participation, not an assertion of rank. Member classes describe how someone shows up, not where they stand. The metaphor moved from climbing rungs to inhabiting a field.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Goodhart's Law</h3>
+      <div class="prov"><span class="m">Meeting 3</span> &middot; September 12, 2025</div>
+      <p>Named early and treated afterward as a design constraint rather than a warning. When a measure becomes a target it ceases to be a good measure. The community's earlier experiments with contribution tracking had deliberately avoided leaderboards and points for exactly this reason. The stated preference was for non-binding, iterative accounting methods rather than a fixed system locked in at formation.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Resources, Events, Agents</h3>
+      <div class="prov"><span class="m">Meetings 1, 3</span> &middot; August and September 2025</div>
+      <p>An accounting ontology from William McCarthy's 1982 work, introduced as the binding language between different member specializations. The argument against conventional double-entry bookkeeping is that debits and credits capture only a second-order effect of value creation, namely profit. An ontology of resources, events, and agents can recognize resources of any type, events as the moments where value is created or exchanged, and agents as people, organizations, or even the relationships between them.</p>
+      <p>The practical consequence is that a codebase or a community tool can be described as common property of the cooperative, emerging from several specializations working together, without anyone having to price the labor that made it.</p>
+    </div>
+
+    <div class="entry">
+      <h3>First-order and second-order contribution</h3>
+      <div class="prov"><span class="m">Meeting 3</span> &middot; September 12, 2025</div>
+      <p>A two-level framework for patronage. First-order contributions follow from a member's own specialization: the developer writes code, the community builder organizes, the strategist shapes brand and culture. Second-order patronage workflows combine several specializations into something none could produce alone. A hackathon needs community organizing, technical development, and event logistics at once. The second-order layer would be defined by the group rather than by any individual, because it belongs to no one.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Multi-capital, and the trouble with the word capital</h3>
+      <div class="prov"><span class="m">Meetings 1, 3, 5</span> &middot; August and September 2025</div>
+      <p>The recurring case for recognizing intellectual capital such as software and infrastructure, social capital such as relationships and community building, and material assets alongside financial flows. Conventional bookkeeping still handles the money; the expanded view makes the rest visible.</p>
+      <p>Meeting 5 questioned the word itself, preferring simply <em>multiple forms of value</em> or <em>plurality of value</em>. The objection is not decorative. Calling something capital already implies it can be accumulated and deployed, which is most of what the group was trying to avoid assuming.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Collective identity over individual accounting</h3>
+      <div class="prov"><span class="m">Meeting 1</span> &middot; August 8, 2025</div>
+      <p>The reframe underneath the whole recognition problem. The transactional posture is <em>I put in X and get out Y</em>. The cooperative posture is that each person brings their own gifts and everyone benefits when any one of them succeeds. Participants described the shift from individual transaction to collective co-investment as feeling meaningfully different, not merely worded differently.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Peer appreciation over reputation scoring</h3>
+      <div class="prov"><span class="m">Meeting 5</span> &middot; September 26, 2025</div>
+      <p>Recognition should flow peer to peer rather than accumulate as a rating. The distinction from the trust entry above is one of mechanism rather than principle: this is about the direction recognition travels, sideways between members rather than upward into a scoreboard.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Sweat equity</h3>
+      <div class="prov"><span class="m">Meetings 3, 9</span> &middot; September and November 2025</div>
+      <p>The question of how capital contributions might account for work that generates no revenue, making that work eligible for patronage. It returned in Meeting 9 in a different key, when the attorney raised a founding member class as a way to recognize the organizing group's unpaid effort. The group's instinct leaned toward one member, one vote, and the founding class never generated much enthusiasm.</p>
+    </div>
+
+  </section>
+
+  <div class="movement" id="circulation">
+    <div class="k">Movement III</div>
+    <h2><em>Circulation</em></h2>
+    <p>Once you decide not to price contributions, you still have rent. This movement holds the economics: where money comes from, where it goes, and what the cooperative does instead of paying dividends.</p>
+  </div>
+
+  <section>
+    <div class="entry">
+      <h3>Giving, saving, investing together</h3>
+      <div class="prov"><span class="m">Meetings 1, 5</span> &middot; August and September 2025</div>
+      <p>A layered model of economic relationship, ordered from highest trust outward. <em>Giving together</em> is the innermost circle, closest to kinship, where a dollar given carries no attachment. <em>Saving together</em> is mutual aid and rough reciprocity, drawing on rotating savings and labor-pooling traditions found across Islamic finance, Latin American and African informal economies, and some Christian communities. <em>Investing together</em> is the outer ring, where trust exists but risk is higher and expectations of return are explicit.</p>
+      <p>Meeting 5 turned the three layers into three capital pools: a giving pool for unrestricted community benefit, a saving pool aimed at asset acquisition and eventual building ownership, and an investing pool for higher-risk allocations to member ventures.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Community reinvestment in lieu of profit sharing</h3>
+      <div class="prov"><span class="m">Meeting 4</span> &middot; September 19, 2025</div>
+      <p>The clearest single decision in the entire series, and it came from a plain preference test. Offered a choice between each member receiving a discretionary check and the same money reinvested in the community in ways that help others succeed, the group chose the second without much hesitation. Members have their own projects and income; what the cooperative provides is cultural support and infrastructure. Revenue goes toward paving the roads.</p>
+      <div class="tension">
+        <span class="k">Flagged and carried forward</span>
+        The working purpose statement at the time also promised novel mechanisms such as profit sharing and equity distribution. Community reinvestment and profit sharing pull in different directions, and the group noted this rather than resolving it.
+      </div>
+    </div>
+
+    <div class="entry">
+      <h3>Upward spirals</h3>
+      <div class="prov"><span class="m">Meetings 1, 4, 5</span> &middot; August and September 2025</div>
+      <p>The recurring shorthand for the feedback loop the cooperative is trying to start. Coordinating creates conditions for growth, which feeds back into more coordination. Ventures that emerge from the space return some portion to the treasury, which reduces dependence on desk fees, which makes the space more accessible, which brings in more people who start more ventures. It is the same structural claim as the garden, expressed in the language of systems rather than growing things.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Capital allocations instead of loans</h3>
+      <div class="prov"><span class="m">Meeting 5</span> &middot; September 26, 2025</div>
+      <p>Rather than lending money against a promise of interest, the cooperative would make allocations from its pools. The receiving group agrees to return a percentage of value to the pool. Structurally this resembles interest; functionally it is a revenue share and an extension of patronage. The distinction the group cared about is that it is reciprocal rather than extractive, and it runs through the cooperative's own governance rather than an external creditor relationship.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Mutual staking</h3>
+      <div class="prov"><span class="m">Meetings 5, 6, 10</span> &middot; September and November 2025</div>
+      <p>From <em>Protocols for Post-Capitalist Expression</em>, published by the Economic Space Agency, and the theoretical frame that most caught the group's imagination. Value is recognized through performances, defined broadly enough to include building something, organizing an event, or simply showing up and caring for the space. When one member stakes on another's performance, that itself is a reciprocal exchange of value.</p>
+      <p>The most grounded version: paying monthly dues is already a mutual stake. The member stakes in RegenHub and RegenHub stakes in the member. Meeting 6 proposed testing the idea concretely with receipt tokens, where staking on a project causes the project to stake back on you.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Distributed credit issuance</h3>
+      <div class="prov"><span class="m">Meeting 5</span> &middot; September 26, 2025</div>
+      <p>Also from the ECSA framework. If anyone can issue credit to anyone, credit is abundant rather than scarce, and there is no reason to charge interest for it. Credit becomes a public good that keeps an economy flowing rather than a rationed resource controlled by intermediaries.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Decoupling money from value</h3>
+      <div class="prov"><span class="m">Meeting 5</span> &middot; September 26, 2025</div>
+      <p>Currency is a medium of exchange and a mechanism for credit. It is not itself the measure of worth. Value is instead determined by a network of mutual recognition, which the summary renders as <em>what I value and who values me</em>. Price becomes one signal among several rather than the single index everything collapses into.</p>
+      <p>The ecological economics version of the same point: markets do decentralized price discovery reasonably well, but when everything reduces to price, non-priced value simply stops appearing.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Streaming patronage</h3>
+      <div class="prov"><span class="m">Meeting 5</span> &middot; September 26, 2025</div>
+      <p>A speculative thread with a real design instinct in it. Instead of static quarterly dividends, patronage could flow continuously, with each member choosing how to redirect their flow back into the giving, saving, or investing pools. Superfluid was named as one possible implementation. The group noted that conventional token designs still carry a good deal of fiat monetary logic, and wanted something more ecologically shaped.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The sliding scale, and the cash problem it cannot solve</h3>
+      <div class="prov"><span class="m">Meeting 4</span> &middot; September 19, 2025</div>
+      <p>The ideal was stated plainly: everyone pays what feels right, everyone contributes their gifts regularly and organically, and the per-person rent burden falls as more people join. In practice this means a suggested baseline, individual conversations to find a workable number, three-month check-ins, and no emotional pressure about when someone will pay more.</p>
+      <p>The group then named the limit honestly. A prospective member had offered to DJ monthly and host musical events in exchange for reduced fees. The contribution is genuinely valuable. Rent still requires cash. They did not resolve this and did not pretend to.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Ecological credits as currency backing</h3>
+      <div class="prov"><span class="m">Meeting 7</span> &middot; October 3, 2025</div>
+      <p>From a case study of a worker-owned housing cooperative in Baltimore holding roughly twenty properties, financed by Seed Commons and employing people leaving prison or recovery in the renovation work. Because the cooperative held concentrated real estate, it could pursue water credits from the city for rain gardens and green space, and carbon credits for sequestration through soil health and tree planting, verified by satellite. Those credits are cash flow, and in the more speculative version they could back deposits for a local currency.</p>
+      <p>The larger claim was that fiat is not stable at the local level, and a local currency backed by ecological stewardship links environmental care directly to economic resilience.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Normies with hope</h3>
+      <div class="prov"><span class="m">Meeting 7</span> &middot; October 3, 2025</div>
+      <p>An affectionate description of most neighborhood program participants, who are not aware of and not especially interested in local currencies or blockchains. It is included here because it carries a discipline: the tools wait for readiness rather than arriving ahead of it.</p>
+      <div class="said">
+        Technology and ideas must follow trust, not lead it.
+        <span class="attr">Recorded in the Meeting 7 summary</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <h3>Set it and forget it revenue</h3>
+      <div class="prov"><span class="m">Meeting 11</span> &middot; December 12, 2025</div>
+      <p>The revenue disposition that fits a cooperative with no full-time staff. Software with low operational overhead producing a slow drip of income, where several such products each contributing modestly eventually compose into something meaningful. Offered in the context of an unconference scheduling app built collaboratively at the hub.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Speaking two languages</h3>
+      <div class="prov"><span class="m">Meeting 12</span> &middot; January 16, 2026</div>
+      <p>The cooperative has to be fluent in two registers at once. One is the language of capital, in which it is a business selling desks, hosting events, running data infrastructure, and perhaps operating a venture studio. The other is the language of public benefit, in which it stewards regenerative public goods and community infrastructure. Everyone associated with the place should be able to speak both. The claim was that these are not in tension but are complementary wings of the same venture.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Revenue as leverage, and the finder's fee</h3>
+      <div class="prov"><span class="m">Meeting 12</span> &middot; January 16, 2026</div>
+      <p>Two pieces of practical economics from the same session. The first is a framing: more revenue means more optionality, which is a different argument for making money than growth for its own sake. The second is a small policy with outsized signal, a ten percent finder's fee for grant applications paid to whoever spots the opportunity and does the work, plus base compensation regardless of outcome. It prices the labor of noticing.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The fifty-fifty split, tilting outward</h3>
+      <div class="prov"><span class="m">Meeting 15</span> &middot; February 6, 2026</div>
+      <p>The first concrete revenue-sharing framework in the record, proposed for the education program. An even split between the program steward's own entity and the cooperative to start, with the expectation that it moves to seventy-thirty or eighty-twenty in the steward's favor as the program scales, so that the cooperative's shrinking percentage represents a growing absolute amount. It is a small design with a large disposition inside it: the cooperative takes proportionally less as a venture succeeds.</p>
+    </div>
+
+  </section>
+
+  <div class="movement" id="form">
+    <div class="k">Movement IV</div>
+    <h2>Form</h2>
+    <p>The legal vessel, and the decisions that shaped it. This is the movement where aspiration met the Colorado Secretary of State and the Internal Revenue Code, and had to become specific.</p>
+  </div>
+
+  <section>
+    <div class="entry">
+      <h3>Two practical drivers</h3>
+      <div class="prov"><span class="m">Meeting 1</span> &middot; August 8, 2025</div>
+      <p>Worth stating first because everything else grew from it. The space ran collectively but its legal and financial liability sat with one person through an existing company, and members contributed toward rent while that same person covered the gap. Both facts were uncomfortable. Formalizing the structure would bring the legal reality into alignment with how the place already worked. Every philosophical thread in this book hangs off that unglamorous starting point.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Pace layering</h3>
+      <div class="prov"><span class="m">Meeting 1</span> &middot; August 8, 2025</div>
+      <p>Stewart Brand's model applied to the three formation documents, and probably the single most useful organizing idea in the legal work. Articles of organization are the slowest layer, filed with the state and changed rarely. Bylaws are the constitution, amendable by board vote and state filing. Member agreements are the fast outer layer, living documents updated by member vote without any filing at all. Put the things that should change slowly in the slow layer and the things that must adapt in the fast one.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Public benefit as a governance channel</h3>
+      <div class="prov"><span class="m">Meetings 2, 9, 15</span> &middot; September 2025 to February 2026</div>
+      <p>Any Colorado cooperative can form as a public benefit entity by putting specific commitments in its articles: to operate sustainably and responsibly and to produce a material positive benefit that the organizers define. There is no ongoing fee. The obligation is an annual report, which can be a few narrative paragraphs. Standing to enforce belongs to members, not the public.</p>
+      <p>The detail the group cared about most is procedural. Weakening or removing a public benefit commitment requires a two-thirds member vote, higher than a standard amendment and raisable further in bylaws. Meeting 15 returned to this in a wider frame, contrasting public benefit status that exists on paper with structures that give the public interest an actual seat. The lesson taken was that values anchored in governance survive better than values held as intentions.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Three membership tiers</h3>
+      <div class="prov"><span class="m">Meeting 6</span> &middot; September 26, 2025</div>
+      <p>The simplification that stuck, replacing confusing part-time and full-time language. <em>Community participants</em> attend events and use day passes, with no formal membership but recognized presence in the ecosystem. <em>Coworking members</em> pay, have door codes, use the space, collaborate on projects, and can host events, but do not govern. <em>Cooperative members</em> have made a commitment to the cooperative itself, including some buy-in, and hold full governance rights under one member, one vote.</p>
+      <p>The path runs through the middle tier. You start by coworking, and if the fit is mutual on both sides, you join the cooperative. The change was implemented on the website during the meeting itself.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Provisional membership</h3>
+      <div class="prov"><span class="m">Meeting 9</span> &middot; November 21, 2025</div>
+      <p>The attorney's suggestion that the group liked most immediately. New members join for a defined period, six or nine or twelve or twenty-four months, with full or partial rights, giving both the person and the cooperative a chance to assess fit before permanent co-ownership. The argument for it is really an argument about the alternative: without a trial period, removing someone requires an adversarial process where a meeting is convened, a case for removal is made, and the person responds. Provisional membership is kindness disguised as procedure.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The investor member class</h3>
+      <div class="prov"><span class="m">Meetings 1, 3</span> &middot; August and September 2025</div>
+      <p>The distinctive strength of Colorado's cooperative framework, and the reason the LCA was attractive rather than a more conventional cooperative form. Investor members hold capital accounts, their patronage is defined by their capital contributions, and they do not vote unless they also hold another class. This makes the structure genuinely fundraisable, where cooperatives have historically struggled. The recommendation was to include the class at formation even in basic form, since it costs little and preserves future options.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The project member class</h3>
+      <div class="prov"><span class="m">Meeting 2</span> &middot; September 5, 2025</div>
+      <p>An idea raised while trying to figure out where the EthBoulder event should live. A group of members forms a project, and the project itself becomes a member of the cooperative, with its own governance scope distinct from the cooperative's. It would let a project operate with real autonomy while staying connected to shared infrastructure, and the pattern would be repeatable across a portfolio of ventures.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Subchapter T</h3>
+      <div class="prov"><span class="m">Meeting 9</span> &middot; November 21, 2025</div>
+      <p>Corporate tax treatment, and the reason a cooperative would want it: net profits can be allocated by patronage activity, so more active members receive more and less active members receive less, adjusting year to year. Sabbaticals and reduced participation stop generating resentment. It is also the only place in the tax code where an entity can toggle between paying tax itself and passing the obligation to members, which avoids double taxation. To pass through, at least twenty percent of what is allocated to a member must be distributed in cash, with the remainder held in that member's equity account and repaid on a multi-year track at withdrawal.</p>
+      <p>The cost is significant. Under Subchapter T, active worker-owners are presumptively employees, which means payroll, wage and hour compliance, and minimum wage.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Subchapter K</h3>
+      <div class="prov"><span class="m">Meetings 9, 10</span> &middot; November 2025</div>
+      <p>Partnership tax treatment, which sidesteps employment law entirely. Everyone is self-employed, so there is no payroll, no wage and hour compliance, and no work authorization requirement. The cost is symmetrical to the benefit: profits are shared equally regardless of involvement, which produces its own resentments when participation diverges sharply.</p>
+      <p>The group's read was that most activity at the hub is not paid client work, that all contributions should be positioned as voluntary, and that partnership treatment fit the actual shape of the place. This is the path they took.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The dual entity strategy</h3>
+      <div class="prov"><span class="m">Meeting 10</span> &middot; November 28, 2025</div>
+      <p>The structural resolution of the Subchapter T and K tension, and the most consequential design decision in the series. Two entities, each doing what its subchapter does well.</p>
+      <p>The first is a cooperative taxed as a partnership whose members are individuals. It holds the lease, moves liability off one person's company, governs the shared space, and hosts the informal life of the community. Everyone shares equally, everything is voluntary, nobody is on payroll.</p>
+      <p>The second, deferred, would be a cooperative taxed as a corporation whose members are organizations rather than people. Because entities rather than individuals are the members, employment law is not triggered even under corporate treatment, which unlocks capital accounts and patronage-based allocation. Members participate through their own companies. The partnership itself could be a founding member of it.</p>
+      <div class="tension">
+        <span class="k">Sequencing argument</span>
+        The group agreed to form the partnership first and let the second entity wait until collaborative project activity justified it. One participant described it as a ghost entity for the first couple of years, perhaps useful as a home for shared intellectual property before it earns anything. A counterpoint was raised that bespoke venture models should not be built before there are any completed ventures to point at.
+      </div>
+    </div>
+
+    <div class="entry">
+      <h3>Venture cooperative, or venture commons</h3>
+      <div class="prov"><span class="m">Meeting 9</span> &middot; November 21, 2025</div>
+      <p>A concept the group found itself needing a word for, because cooperative vocabulary did not have one. Consumer cooperatives coordinate around purchasing. Worker cooperatives coordinate around labor. What this group wanted to coordinate around was investment in a shared portfolio of projects, where the investment might be money but might equally be time, skill, or assets. Revenue sharing and equity sharing were distinguished as separate layers beyond simple expense sharing.</p>
+      <p>The nearest existing frame was the synthetic commons from the ECSA protocols: members allocate part of their surplus to a common asset profile, and how much they allocated determines how much they can draw.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The multi-stakeholder warning</h3>
+      <div class="prov"><span class="m">Meeting 9</span> &middot; November 21, 2025</div>
+      <p>The attorney's cautionary example, which the group should probably keep. A restaurant cooperative in Austin combines consumer and worker member classes. Consumer members want lower prices. Worker members want higher wages. When both classes vote and hold board seats, those interests collide structurally rather than occasionally. The standard remedy is making the consumer class non-voting, preserving their economic benefits while keeping governance with workers.</p>
+      <p>The group's answer was that its classes are levels of participation rather than distinct roles, and that people move between them as engagement deepens. Whether that avoids the problem or postpones it is an open question.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Consent, not consensus</h3>
+      <div class="prov"><span class="m">Meeting 9</span> &middot; November 21, 2025</div>
+      <p>A decision-making posture with a low and honest threshold. Rather than requiring full agreement, the question is whether something is good enough to try, with the understanding that it can be revisited. The claim in its favor is simply that more decisions actually get made.</p>
+      <p>A companion position was argued in the same session: one member, one vote, optimizing for positive-sum coordination rather than detailed accounting of who did what.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Legal wrapper for legibility</h3>
+      <div class="prov"><span class="m">Meetings 3, 9</span> &middot; September and November 2025</div>
+      <p>A working philosophy borrowed from another cooperative in the network, and arguably the group's actual operating theory. Maintain a clean legal shell for the things that need one, bank accounts and contracts and fiduciary structure, while doing the experimental and unusual work in good faith alongside it. To the state the entity looks one way; among members, practice runs more fluidly. Compliance as baseline, community norms as the living layer.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Bylaws make coordination possible without prescribing it</h3>
+      <div class="prov"><span class="m">Meeting 9</span> &middot; November 21, 2025</div>
+      <p>A useful division of labor. The bylaws mandate that members have capital accounts and set the rules governing them. They do not need to specify how pooled resources get allocated in any particular case, whether that is investing in a member's project or sponsoring a partner or seeding a matching pool. Those decisions can run through committees and member input. The bylaws provide legal protection for coordination; they are not the coordination itself.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The articles are the seed</h3>
+      <div class="prov"><span class="m">Meeting 11</span> &middot; December 12, 2025</div>
+      <p>What actually gets filed is modest: a purpose statement, a list of founding members, and a registered agent, running about three pages. Because the cooperative has an office it can serve as its own registered agent, and members used that address rather than home addresses. The bylaws and member agreement follow and are amendable afterward. The articles are the seed; the rest is the structure that grows from it.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The purpose statement as a commitment you can be held to</h3>
+      <div class="prov"><span class="m">Meetings 3, 11</span> &middot; September and December 2025</div>
+      <p>The balance the group worried about across four drafts. Filed purpose creates a real legal commitment, since in any dispute the cooperative would have to show adherence to it. Too specific and the cooperative constrains its own evolution. Too vague and the public benefit promise means nothing. Meeting 3 had already raised the accountability version of this: would the group be answerable for every aspiration in an annual report?</p>
+      <p>The phrase that survived the compression, from Meeting 11:</p>
+      <div class="said">
+        The collective intelligence that emerges when culturally aligned people share sustained proximity.
+        <span class="attr">Recorded in the Meeting 11 summary</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <h3>Synthesis and simplified</h3>
+      <div class="prov"><span class="m">Meeting 3</span> &middot; September 12, 2025</div>
+      <p>A lesson about translation that generalizes well beyond purpose statements. Two drafts were prepared from the same visioning transcripts. The synthesis version kept the group's own jargon and aspirational reach; it hit the right themes but felt vague and overcommitted. The simplified version was grounded and easy to say yes to; it had lost the enthusiasm, the specificity, and the group's own voice. Neither was right. The instruction was to weave them, finding something legible to the state and still alive with the community's energy.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The lease, not the building</h3>
+      <div class="prov"><span class="m">Meetings 1, 2, 11</span> &middot; August 2025 to December 2025</div>
+      <p>A distinction that had to be held steady through a lot of enthusiasm. Building purchase was raised in the first meeting, with the three-story building valued somewhere between $1.7 and $4.2 million and a conservative down payment around $500,000. Meeting 2 called it moonshotty and named the more grounded goal, which is a continuation path when the lease expires. Meeting 11 stated it plainly: for now the cooperative shares the expense of a lease. Ownership remains a long-term aspiration.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Deadline as forcing function</h3>
+      <div class="prov"><span class="m">Meetings 2, 11, 13</span> &middot; September 2025 to January 2026</div>
+      <p>The formation ran on external dates rather than internal readiness, which is worth noting because it worked. A clean accounting cutover at the start of the calendar year, and a conference in February where the group wanted to be able to say the cooperative exists rather than describe it as a project attached to someone's company. A comparable formation had previously taken about a year. This one took six months, at roughly one hour per week.</p>
+    </div>
+
+  </section>
+
+  <div class="movement" id="craft">
+    <div class="k">Movement V</div>
+    <h2><em>Craft</em></h2>
+    <p>How the work is done, what the tools are for, and what the group came to believe about the difference between a tool that replaces you and one that extends you.</p>
+  </div>
+
+  <section>
+    <div class="entry">
+      <h3>Techne</h3>
+      <div class="prov"><span class="m">Meeting 15</span> &middot; February 6, 2026</div>
+      <p>The Greek root of the word technology, but originally naming the place where art and craft were indistinguishable. It described the philosophy and practice of bringing something into reality through skilled making. The name was chosen for the educational program on the day the articles were filed, and it carries the group's position on tools: they are extensions of human capability rather than substitutes for it.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Augmentation over automation</h3>
+      <div class="prov"><span class="m">Meeting 15</span> &middot; February 6, 2026</div>
+      <p>The philosophical claim underneath the name, and the one with the most economic content. Automation puts a tool in place of a person. Augmentation puts a tool alongside them. The version that makes this more than a preference: if these tools sit on the capital side of the ledger, they tend toward replacing labor. If they sit alongside labor as augmentation, they support a different economic relationship entirely. The same technology, differently placed, produces opposite politics.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Communal design</h3>
+      <div class="prov"><span class="m">Meetings 8, 13</span> &middot; November 2025 and January 2026</div>
+      <p>A methodology from a member's design practice, developed over a year-long engagement. Rather than managing clients through static review cycles, they are invited into the design files themselves, observing and participating from first sketches through delivery. The argument is that genius comes from anywhere, and that including clients, stakeholders, and even peripheral participants in the live process produces work that is both more creative and more thoroughly tested. It requires real confidence, since controlled reveal is replaced by continuous transparency.</p>
+      <p>It borrows from engineering's perpetual beta: continuous testing, fast iteration, and a willingness to discard. Described also as active requirements gathering, where steady creative cadence prevents scope drift from becoming an expensive surprise. Meeting 13 proposed applying it to the cooperative's own identity work, on the grounds that the inputs had to come from the community rather than from one designer working alone.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Single source of truth</h3>
+      <div class="prov"><span class="m">Meeting 8</span> &middot; November 18, 2025</div>
+      <p>A design systems idea extended into organizational design. In a brand system, a single repository holds the design tokens, the colors and typefaces and spacing, so that one change propagates everywhere. The proposal was to ask what that would mean for an entire organization: a place where a change ships once and lands coherently across the whole, rather than fragmenting across siloed tools.</p>
+      <p>The group recognized the problem immediately from its own life. Five messaging platforms, each holding different threads of the same conversations. The engineering principle behind it was named too: each piece of state should be owned and modified in one place, with clear boundaries preventing components from reaching across to change what they do not own.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Admin as opaque power center</h3>
+      <div class="prov"><span class="m">Meeting 8</span> &middot; November 18, 2025</div>
+      <p>Perhaps the most quietly radical claim in the record. Every organization has three irreducible administrative functions, accounting, finance, and legal, and in conventional corporations these operate as opaque power centers. Accounting controls the books, finance controls leverage, legal controls agreements. Those three perpetuate an organization's norms and behaviors more reliably than any stated mission. Meaningful systems change at the corporate level therefore requires making these functions transparent rather than reforming anything more visible.</p>
+      <p>The implication for the cooperative was left implicit but is not subtle. Designing the accounting, financial, and legal infrastructure is not procedural work. It is the mechanism through which stated values are either embodied or quietly contradicted.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The distributed hub model</h3>
+      <div class="prov"><span class="m">Meeting 8</span> &middot; November 18, 2025</div>
+      <p>An agency structure worth borrowing. Rather than hiring contractors under the agency's own entity, they are hired through the client's organization. This teaches clients to build and manage their own creative teams, removes agency overhead, and makes the team modular, so people can join or leave without disrupting the whole. The detail that carries the ethics: everyone on a project is paid the same rate, which eliminates the tensions that grow where pay is uneven and authority is ambiguous.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The bookends</h3>
+      <div class="prov"><span class="m">Meeting 8</span> &middot; November 18, 2025</div>
+      <p>An observation about onboarding and offboarding that became a discipline. Branding work pushes clients through an intense creative process, and many experience something like regret afterward even when the work is strong. Without designed processes framing the beginning and end of an engagement, the container that holds the creative work is weaker. Business starts and ends at the bookends, and they are usually the least designed part of it.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Community data trust</h3>
+      <div class="prov"><span class="m">Meetings 7, 14</span> &middot; October 2025 and January 2026</div>
+      <p>The stewardship logic of a community land trust applied to digital infrastructure. Buying a lot in Boulder might cost millions; buying a server costs a thousand dollars and has generative capacity that depends entirely on what runs on it. Members offered hardware they already owned, and the pooled total was estimated at a thousand dollars of existing machines. It was framed as a small, low-risk experiment in collective infrastructure ownership that could lead to larger ones.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The information right</h3>
+      <div class="prov"><span class="m">Meeting 14</span> &middot; January 30, 2026</div>
+      <p>The community data trust taken to its full aspiration, and the most far-reaching sentence in the later meetings. What if the cooperative committed to holding this building for a hundred years as information infrastructure, the way a land trust commits to holding land for housing? The claim is that there is an information right standing alongside the housing right, and that the first century of computing was shaped by corporate co-option of tools originally conceived as instruments of collective coordination. A locally hosted, solar-supplemented micro data center was imagined as a small tangible expression of that.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Web 2.5</h3>
+      <div class="prov"><span class="m">Meeting 7</span> &middot; October 3, 2025</div>
+      <p>Used approvingly rather than dismissively. Blockchain infrastructure provides the backend properties worth having, permissionless, persistent, verifiable, accountable without being identifying, while the experience stays entirely familiar. In practice this meant tapping a card to check in, to vote, or to transact, with everything underneath abstracted away. Verifiable anonymous neighborhood voting was the worked example: participants proven to be actual neighbors, individual votes private.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Tools follow expressed need</h3>
+      <div class="prov"><span class="m">Meeting 7</span> &middot; October 3, 2025</div>
+      <p>The design principle governing a proposed portfolio of neighborhood tools, and a direct rebuke to technologist habit. Tools emerge from what people say they want, not from builders arriving with solutions. Neighborhoods would self-select from a menu rather than be assigned. The tools would be white-labeled, each community naming and shaping its own instance, but networked underneath so coordination across neighborhoods remains possible.</p>
+      <p>The proof case was a technologist who built a simple offers-and-needs board for his neighborhood only after learning what his neighbors actually wanted.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Plain-language change requests</h3>
+      <div class="prov"><span class="m">Meeting 6</span> &middot; September 26, 2025</div>
+      <p>A small piece of infrastructure with real governance consequences. Anyone with an account can open an issue on the website repository describing a change in ordinary language. A developer or an assistant generates the change, an administrator reviews and approves, and the site updates. The group tested it live and changed the membership language during the meeting. The point is not the tooling. It is that a non-developer can alter what the cooperative says about itself, through a reviewable process, in minutes.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Studio Night and the third object</h3>
+      <div class="prov"><span class="m">Meeting 4</span> &middot; September 19, 2025</div>
+      <p>Recurring evening sessions for side projects and passion projects, oriented around what the group called the third object: the thing beyond your main work that you want to tinker on and ship. The distinction from ordinary coworking is precisely that it is not your primary work. Light facilitation, people mostly in their own bubbles but able to connect. The revenue thought attached to it was that these evenings become the place where prototypes get carried across the gap to launch, as a crew rather than alone.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Mutual interviews</h3>
+      <div class="prov"><span class="m">Meeting 3</span> &middot; September 12, 2025</div>
+      <p>The chosen method for skills mapping, and a small but pointed methodological preference. Not solo questionnaires but real-time dialogue between members, because feedback and nuance and the discovery of unexpected fit only happen in conversation. The occasion for it was the realization that valuable experience within the group was simply unknown to the group.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Project presentations as formation record</h3>
+      <div class="prov"><span class="m">Meetings 7, 8</span> &middot; October and November 2025</div>
+      <p>A practice worth naming as a practice. For several sessions, the meeting time was given over to one member presenting their work in depth, so that the full context of what each person brings became part of the permanent record rather than folklore. It is an unusual thing to spend formation time on, and it produced several of the most substantive entries in this book.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The knowledge graph as intellectual property</h3>
+      <div class="prov"><span class="m">Meeting 12</span> &middot; January 16, 2026</div>
+      <p>Prompted by a visiting cooperative scholar's talk, the group considered recording such talks and building them into a structured knowledge graph. The striking part was the assessment attached: that this accumulated understanding might be the cooperative's core intellectual property. Not the software, not the brand. What the place knows.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The flywheel</h3>
+      <div class="prov"><span class="m">Meeting 15</span> &middot; February 6, 2026</div>
+      <p>The final assembly of the pieces, stated on the day of filing. The school brings people into the network. Those people start ventures. The ventures create deal flow for the venture studio. The studio generates returns that can be reinvested in the school and the cooperative. Each layer reinforces the others. It is the upward spiral from Meeting 1 with actual named components in it.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Fruiting</h3>
+      <div class="prov"><span class="m">Meeting 15</span> &middot; February 6, 2026</div>
+      <p>The soil metaphor completing itself in the last meeting of the series. The education program was described as one of the first fruiting projects in the ecosystem: a living structure grown from the soil that had begun producing something. The three questions put to its steward are the ones the cooperative will presumably keep asking of every venture that grows in it. What do you intend to cultivate here. What do you want to retain for yourself. What reciprocity do you imagine flowing back.</p>
+    </div>
+
+    <div class="entry">
+      <h3>The taproot</h3>
+      <div class="prov"><span class="m">Meeting 6</span> &middot; September 26, 2025</div>
+      <p>An aspiration recorded and explicitly held as aspiration rather than plan. If the annual event grows as a project of the cooperative, it could become a deep and stable source of support, enough eventually to underwrite building acquisition and land-trust-like stewardship of commercial real estate. The group put it on the record as a possibility in the field, not a commitment.</p>
+    </div>
+
+    <div class="entry">
+      <h3>Building the bridge</h3>
+      <div class="prov"><span class="m">Meeting 14</span> &middot; January 30, 2026</div>
+      <p>From a discussion about a potential anchor tenant whose political orientation differed from the community's. The framing offered was that the cooperative is building a bridge between different political and cultural orientations, and that the bridge-building is part of what it offers rather than a cost of doing business. The condition attached was honest: it requires genuine comfort from everyone, and members were encouraged to evaluate the relationship in both directions.</p>
+      <p>This has an earlier echo. Meeting 4 described how the culture shifted over time toward community care through what was called soft power, creating friction with members whose worldview did not fully align, and resolving not by policy but by the orientation simply becoming the culture.</p>
+    </div>
+
+  </section>
+
+  <div class="movement" id="ledger">
+    <div class="k">Appendix</div>
+    <h2>The Ledger</h2>
+    <p>Fifteen meetings in order, so the chronology this book rearranged can be walked back.</p>
+  </div>
+
+  <section>
+    <div class="ledger">
+      <div class="ledger-row"><span class="n">01</span><span class="d">Aug 8 2025</span><span class="t"><em>The Why and the What.</em> Two practical drivers named. Three documents introduced under pace layering. Giving, saving, investing. REA. The commodification tension opened.</span></div>
+      <div class="ledger-row"><span class="n">02</span><span class="d">Sep 5 2025</span><span class="t"><em>Visioning the Scenius.</em> Ninety-day target set. The event entity question. Round-robin visioning produces scenius, third space, co-incubator.</span></div>
+      <div class="ledger-row"><span class="n">03</span><span class="d">Sep 12 2025</span><span class="t"><em>Synthesis and Soil.</em> Two purpose drafts compared. The soil metaphor arrives and resolves the accounting anxiety. Goodhart's Law named.</span></div>
+      <div class="ledger-row"><span class="n">04</span><span class="d">Sep 19 2025</span><span class="t"><em>Community Reinvestment.</em> Reinvestment chosen over profit distribution. Who we serve refined. Orientation over output. Sliding scale and its limit.</span></div>
+      <div class="ledger-row"><span class="n">05</span><span class="d">Sep 26 2025</span><span class="t"><em>Post-Capitalist Protocols.</em> Mutual staking, distributed credit, decoupling money from value. Three capital pools. Class matrix. Ready for counsel.</span></div>
+      <div class="ledger-row"><span class="n">06</span><span class="d">Sep 26 2025</span><span class="t"><em>Implementation Afternoon.</em> Membership simplified to three tiers and shipped to the website during the meeting. Scenius etymology. First contact with the attorney.</span></div>
+      <div class="ledger-row"><span class="n">07</span><span class="d">Oct 3 2025</span><span class="t"><em>Revenue and Neighborhoods.</em> Neighborhood Village Project presented. Trust before tools. Ecological credits. Community data trust proposed.</span></div>
+      <div class="ledger-row"><span class="n">08</span><span class="d">Nov 18 2025</span><span class="t"><em>Projects and Place.</em> A design practice presented. Communal design, single source of truth, the bookends, admin as opaque power center.</span></div>
+      <div class="ledger-row"><span class="n">09</span><span class="d">Nov 21 2025</span><span class="t"><em>Legal Consultation.</em> Subchapter T and partnership treatment explained. Provisional membership. The multi-stakeholder warning. Venture cooperative named.</span></div>
+      <div class="ledger-row"><span class="n">10</span><span class="d">Nov 28 2025</span><span class="t"><em>Dual Entity Strategy.</em> The two-entity resolution. Partnership first, venture studio deferred. Back office tooling as a possible product.</span></div>
+      <div class="ledger-row"><span class="n">11</span><span class="d">Dec 12 2025</span><span class="t"><em>Formation and Planning.</em> Filing deadline set. Minimum viable articles scoped. Purpose statement narrowed to the first entity. Sustained proximity.</span></div>
+      <div class="ledger-row"><span class="n">12</span><span class="d">Jan 16 2026</span><span class="t"><em>Expansion, Grants, Education.</em> Speaking two languages. Third floor as learning hub. Finder's fee policy. Knowledge graph as core intellectual property.</span></div>
+      <div class="ledger-row"><span class="n">13</span><span class="d">Jan 23 2026</span><span class="t"><em>Finalization and Identity.</em> Brief status session. Identity work deferred to communal design after formation.</span></div>
+      <div class="ledger-row"><span class="n">14</span><span class="d">Jan 30 2026</span><span class="t"><em>Infrastructure and Third Floor.</em> Local computing. The information right and the hundred-year commitment. Bridge-building named as a value proposition.</span></div>
+      <div class="ledger-row"><span class="n">15</span><span class="d">Feb 6 2026</span><span class="t"><em>The Vessel and the Institute.</em> Articles filed. Techne named. Augmentation over automation. Fruiting. The flywheel. The series ends.</span></div>
+    </div>
+  </section>
+
+  <div class="movement" id="absences">
+    <div class="k">Closing</div>
+    <h2>What this book does not hold</h2>
+  </div>
+
+  <section class="closing">
+    <p>Four absences are worth stating plainly, since a gathered book can look more complete than it is.</p>
+    <p>There are no people in it. The recordings had unreliable voice attribution, so the summaries were written without speakers, and nothing here can be traced to anyone who said it. That is a real loss. Several of these ideas arrived because a particular person had spent years on something, and the book flattens them into anonymous vocabulary.</p>
+    <p>There is no disagreement, except where an entry says so. The arrangement gives equal weight to the settled and the contested. Community reinvestment was a genuine group decision; streaming patronage was one person thinking out loud on a Friday afternoon. Both appear here as entries of the same size.</p>
+    <p>There are no failures. Ideas that were raised and quietly dropped, or that turned out to be wrong, mostly do not survive into a book like this, because summaries record what was said rather than what was later abandoned. Anyone reading this in a few years should assume some of it did not work.</p>
+    <p>And the words are second-hand. The lines marked as recorded come from written summaries of conversations, which is one remove from the room. If a phrase here matters enough to build on, it is worth going back to the recording.</p>
+  </section>
+
+</main>
+
+<footer>
+  <span>The Commonplace &middot; formation record, meetings one through fifteen</span>
+  <span>Assembled from the meeting summaries &middot; working draft</span>
+  <span>RegenHub, LCA &middot; Boulder, Colorado</span>
+  <span><a href="/commons/">The Commonplace Book</a></span>
+  <span><a href="/legal/">The instruments</a></span>
+  <span><a href="/commons/build/lexicon/">The Lexicon</a></span>
+</footer>
+
+</body>
+</html>
