@@ -178,6 +178,10 @@ a:hover { text-decoration-thickness:2px; }
 .pkt-addr { font-size:0.65rem; font-weight:600; color:var(--ember-text); letter-spacing:0.04em; white-space:nowrap; }
 .pkt-intent { font-size:0.8rem; color:var(--text); line-height:1.5; }
 .pkt-ready { font-size:0.62rem; color:var(--faint); line-height:1.5; }
+/* A mark longer than its column used to run under the readiness text
+   beside it (T-01, T-05, and every in-session mark). The chip wraps
+   inside its own column instead of overflowing the next one. */
+.packet-row .chip { white-space:normal; text-align:left; }
 
 /* Status chips */
 .chip {
@@ -310,18 +314,19 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
 <!-- generated:ledger-state -- written by scripts/validate.py; do not edit by hand -->
     <span class="stat-chip drafted"><span class="n">13</span>&thinsp;drafted</span>
     <span class="stat-chip anticipated"><span class="n">32</span>&thinsp;anticipated</span>
-    <span class="stat-chip open"><span class="n">68</span>&thinsp;open</span>
+    <span class="stat-chip open"><span class="n">69</span>&thinsp;open</span>
     <span class="stat-chip verified"><span class="n">34</span>&thinsp;verified</span>
 <!-- /generated:ledger-state -->
   </div>
 </div>
 
 <div class="state-note">
-  <div class="state-k">Where the build stands &middot; 2026-07-27</div>
-  <p>The steward's run-through is complete: a newcomer came in through the front door without a meeting, signed, appeared in the directory, registered and was counted present, posted and answered and resolved on the board, and both principal Programs were designated from the intranet rather than the console. The signed-in surface now stands inside one frame with one sign-in, and speaks in the cooperative's language rather than the build's.</p>
-  <p>What launch waits on is no longer construction. Two adoptions sit with the board, the counting rules and the treasury policy, and each releases a bed behind it. The labor tiers adopted in June still need entering as an instrument. The Belong and Gather proofs want their attestation now that their beats have been walked. Everything else on this page is either verified or honestly marked as anticipated.</p>
-  <p>Since then the cooperative has taken up a module about itself. <em>Common Agency</em> was adopted on 2026-07-27, and with it the A bed: a patron member may give the instrument work as a recorded act, within a declared scope, with every artifact under two hands. The rail and the desk are built and in session; what the bed waits on now is one decision, whether a non-human agent may hold a scoped authority in the record at all, which is staged here and taken nowhere else.</p>
-  <p class="state-caveat">This page is authored prose over a generated spine: the headline counts above are written from the ledger by the validator and proven current in CI (X-10). The cards below are hand-kept, and this resync (X-14) brought them level with the ledger after two beds, U and A, had been recorded before they were narrated. Since that resync the ledger has grown past the cards again: the design sprint, the register evolution of the L bed, and the cross-cutting tail stand recorded but not yet narrated, and the second resync is staged as X-17. The counts describe the work; they are never targets. The Goodhart constraint reads this page too.</p>
+  <div class="state-k">Where the build stands &middot; 2026-08-10</div>
+  <p>The steward's run-through is complete: a newcomer came in through the front door without a meeting, signed, appeared in the directory, registered and was counted present, posted and resolved on the board, and both principal Programs were designated from the intranet rather than the console. The signed-in surface stands inside one frame with one sign-in, and speaks in the cooperative's language rather than the build's.</p>
+  <p>What launch waits on is not construction. Two adoptions sit with the board, the counting rules and the treasury policy, and each releases a bed behind it. The labor tiers adopted in June still need entering as an instrument. The Belong and Gather proofs want their attestation now that their beats have been walked, and the Find proof wants the one beat a single person cannot walk: a response is a message to an author, so it needs a second member.</p>
+  <p>Three beds have joined since the last time this page was written. <em>Common Agency</em> was adopted on 2026-07-27 and brought the A bed: a patron member may give the instrument work as a recorded act, within a declared scope, with every artifact under two hands. The rail and the desk are built; the bed waits on one decision, whether a non-human agent may hold a scoped authority in the record at all. <em>Ground and Craft</em> was adopted on 2026-08-08 and brought the L bed, which evolved the register this page now speaks: packet to piece, train to bed, gate to proof, fold to tally, and the Living Roadmap to the Almanac. <em>Work Standing</em> and <em>Guild Participation</em> are staged as the V and P beds, drafted and not adopted, recorded so the work is legible and marked so no one mistakes a proposal for a decision.</p>
+  <p>Between those, a design sprint ran through the U bed, U-08 to U-15, giving the estate its pattern library, a public participation surface, one primary navigation, and an intranet answered to eleven minutes of the steward's own walkthrough; then U-17 to U-21 answered what a phone showed, what the frame had been claiming and not doing, and what the public face still said in the retired register.</p>
+  <p class="state-caveat">This page is authored prose over a generated spine: the headline counts above are written from the ledger by the validator and proven current in CI (X-10). The cards below are hand-kept, and drift between the two is the recurring defect of this estate: X-14 reconciled them in July, and this second resync (X-17) found fifty addresses standing in the ledger with no card here and seven cards carrying a mark the ledger contradicts, in both directions. Both are corrected. The counts describe the work; they are never targets. The Goodhart constraint reads this page too.</p>
 </div>
 
 <!-- TAB STRIP -->
@@ -374,6 +379,18 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <a class="rail-link" href="#agy">Agency</a>
     </div>
     <div class="rail-group">
+      <div class="rail-label">bed L</div>
+      <a class="rail-link" href="#lex">Lexicon</a>
+    </div>
+    <div class="rail-group">
+      <div class="rail-label">bed V</div>
+      <a class="rail-link" href="#std">Standing</a>
+    </div>
+    <div class="rail-group">
+      <div class="rail-label">bed P</div>
+      <a class="rail-link" href="#gld">Guild</a>
+    </div>
+    <div class="rail-group">
       <div class="rail-label">cross-cutting</div>
       <a class="rail-link" href="#xct">X bed</a>
     </div>
@@ -387,7 +404,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="slice-header">
         <div class="slice-addr">Series &middot; Governing documents</div>
         <div class="slice-name">Common Record Series</div>
-        <div class="slice-cap">The ten covering and module documents, three received by graft: PATRONAGE and TREASURY on 2026-07-22, AGY on 2026-07-27. All drafted; none done. Done requires the suites and the suites require the Ground. The document governs; its yields distill.</div>
+        <div class="slice-cap">Twelve covering and module documents, three received by graft: PATRONAGE and TREASURY on 2026-07-22, AGY on 2026-07-27. Two more stand drafted and not adopted, STANDING and GUILD, and are named in the beds they would open. All drafted; none done. Done requires the suites and the suites require the Ground. The document governs; its yields distill.</div>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">SER</span>
@@ -397,7 +414,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       </div>
       <div class="packet-row">
         <span class="pkt-addr">PRD</span>
-        <span class="pkt-intent">Product Requirements v0.3: deprecation record at &sect;1a, four capabilities, three doors, ten principles.</span>
+        <span class="pkt-intent">Product Requirements v0.4: deprecation record at &sect;1a, four capabilities, three doors, ten principles.</span>
         <span><span class="chip drafted"><span class="dot"></span>drafted</span></span>
         <span class="pkt-ready">cites: §1a deprecation</span>
       </div>
@@ -534,6 +551,18 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
         <span class="pkt-ready">Todd Youngblood edited profile live &middot; event 40a30ce1 &middot; 2026-07-12</span>
       </div>
       <div class="packet-row">
+        <span class="pkt-addr">B-06</span>
+        <span class="pkt-intent">The member profile: the directory card grows past a name. Avatar, bio, links, location, pronouns, and an email whose visibility its owner controls, with the activity strip derived from the record rather than declared.</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; the run-through &middot; 2026-07-24 &middot; one profiles row, edited by its owner alone</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">B-07</span>
+        <span class="pkt-intent">The shelf complete and correctly typed. Raised on the run-through: the shelf held only the Bylaws and offered a signature on them, so the Bylaws read as the member agreement. The Membership Agreement is signed, the Bylaws are acknowledged, and a signature on them is refused at the definer.</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-24 &middot; two signatures and two acknowledgements in the live record</span>
+      </div>
+      <div class="packet-row">
         <span class="pkt-addr">G-B</span>
         <span class="pkt-intent">Belong demonstrated end to end. Proof attested with organizer and non-organizer member. Every Belong sentence demonstrated live.</span>
         <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
@@ -546,7 +575,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="slice-header">
         <div class="slice-addr">Bed G &middot; proof G-G</div>
         <div class="slice-name">Gather</div>
-        <div class="slice-cap">Calendar of gatherings and sessions, registration and cancellation, attendance recording by host or steward, then the proof. Hub designs stripped of KPI machinery per PRD v0.3 &sect;1a. Attestation proceeds on the steward&rsquo;s run-through.</div>
+        <div class="slice-cap">Calendar of gatherings and sessions, registration and cancellation, attendance recording by host or steward, then the proof. Hub designs stripped of KPI machinery per PRD &sect;1a. Attestation proceeds on the steward&rsquo;s run-through.</div>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">G-01</span>
@@ -567,6 +596,12 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
         <span class="pkt-ready">Todd Youngblood recorded attendance live &middot; host and steward gate, append-only &middot; 2026-07-12</span>
       </div>
       <div class="packet-row">
+        <span class="pkt-addr">G-04</span>
+        <span class="pkt-intent">The scheduling act: a gathering enters the calendar from the calendar. Any member may hold one and is its host; a steward may act for any. The gathering gains the two things it could not say about itself, what it is and where to stand, and the act lands as an event.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">G-03 verified &middot; a member schedules, hosts, and another registers</span>
+      </div>
+      <div class="packet-row">
         <span class="pkt-addr">G-G</span>
         <span class="pkt-intent">Gather demonstrated end to end. Proof attested with two-party attestation. Every Gather sentence demonstrated live.</span>
         <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
@@ -584,8 +619,8 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="packet-row">
         <span class="pkt-addr">F-01</span>
         <span class="pkt-intent">The opportunity board: play, practice, work. Delivered at /commons/opportunities/ over the Ground&rsquo;s tables that carried it from 0001: kind filter, posting form, the house sign-in and error boundary. No schema change.</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
-        <span class="pkt-ready">the steward&rsquo;s live post is the acceptance</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; the run-through &middot; 2026-07-24 &middot; posted live and seen on the board</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">F-02</span>
@@ -596,20 +631,26 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="packet-row">
         <span class="pkt-addr">F-03</span>
         <span class="pkt-intent">Resolution as an event, never a table: the author closes to resolved or withdrawn with an optional outcome note; the row transitions and the outcome lands as an opportunity.* event for the parties the policy admits.</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
-        <span class="pkt-ready">the live resolve act is the acceptance</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; the run-through &middot; 2026-07-24 &middot; closed by its author, landing as opportunity.resolved</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">F-04</span>
         <span class="pkt-intent">The Programs view: Programs as organizing bodies for Opportunities; the principal page at /intranet/programs/ and the Overview primary window, with the affiliation verb, per PATRONAGE &sect;8. Grafted into the bed 2026-07-22.</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
-        <span class="pkt-ready">PATRONAGE adopted &#10003; &middot; visibility decision recorded &#10003; (definer functions at launch, 2026-07-22) &middot; F-01 through F-03 acceptances travel in the same run-through</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">Todd Youngblood &middot; the run-through &middot; 2026-07-24 &middot; both principal Programs designated in the live record</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">F-05</span>
+        <span class="pkt-intent">The designation act: a Program enters the record from the intranet rather than the SQL console. designate_program() writes the agent row and the program.designated event together; a member attempting it is refused and leaves nothing behind; designating a standing Program returns it rather than a twin.</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">applied to the CIS 2026-07-24 &middot; rehearsal beats 13 through 13.6 against a fresh database</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">G-F</span>
-        <span class="pkt-intent">Find demonstrated end to end. Proof attested: open to resolved, landing as an event. Public label awaits Q1 naming resolution.</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; Q1 naming</span></span>
-        <span class="pkt-ready">F-03 verified; label awaits Q1</span>
+        <span class="pkt-intent">Find demonstrated end to end. Proof attested: open to resolved, landing as an event. Every piece of the bed but the response flow is verified, and the response is the one beat a single person cannot walk.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">F-02 verified &middot; a second member answers a posting</span>
       </div>
     </div>
 
@@ -684,6 +725,18 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
         <span class="pkt-ready">the redeemability question resolved by board and counsel</span>
       </div>
       <div class="packet-row">
+        <span class="pkt-addr">T-06</span>
+        <span class="pkt-intent">The balance view: each rail&rsquo;s reported holding, Stripe, Mercury, Xero, read only, with its source and its read time, and the delta to the reconciled record beside it once the windows attest.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">T-01 verified &middot; read-only credentials provisioned for the three rails (met 2026-08-04)</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">T-07</span>
+        <span class="pkt-intent">The statements view: the cooperative&rsquo;s finances by month, quarter, and fiscal year, position, flow, standing, and the close ribbon, derived from the record and cut per audience. Every figure resolves to its events, its instrument, or its read; the member cut returns aggregates and no other member&rsquo;s name.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">T-01 verified &middot; the dues schedule recorded as an instrument &middot; store staged as 0019_treasury_statements.sql</span>
+      </div>
+      <div class="packet-row">
         <span class="pkt-addr">G-T</span>
         <span class="pkt-intent">A movement shown settled equals a movement traced by hand, proposal to approvals to bank line to journal, and the window attests with nothing unexplained.</span>
         <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
@@ -696,7 +749,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="slice-header">
         <div class="slice-addr">Bed U &middot; The frame &middot; no proof of its own</div>
         <div class="slice-name">The shell every capability wears</div>
-        <div class="slice-cap">One frame, one sign-in, one map, injected by assets/shell.js rather than hand-rolled per page. Built 2026-07-24 on the steward&rsquo;s direction; refiled into its own lane 2026-07-27 by X-13, since a lane should mean a capability. A bed with no proof of its own shows its growth in what stands on it. Verified but for the parked door.</div>
+        <div class="slice-cap">One frame, one sign-in, one map, injected by assets/shell.js rather than hand-rolled per page. Built 2026-07-24 on the steward&rsquo;s direction; refiled into its own bed 2026-07-27 by X-13, since a bed should mean a capability. A bed with no proof of its own shows its growth in what stands on it. The first seven pieces built the frame; the design sprint of August, U-08 through U-15, gave the estate its pattern library, its public face, and one primary navigation; U-17 through U-21 answered what the steward found when he opened it on a phone, and what the frame had been claiming and not doing.</div>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">U-01</span>
@@ -730,15 +783,93 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       </div>
       <div class="packet-row">
         <span class="pkt-addr">U-06</span>
-        <span class="pkt-intent">The frame on a narrow screen: the map, the strip, and the topbar hold at phone width without a second layout.</span>
-        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
-        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-27</span>
+        <span class="pkt-intent">The frame on a narrow screen: the map, the strip, and the topbar hold at phone width without a second layout. The drawer stands at zero height closed and 554px open at 390px wide, carrying all eleven links.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">built 2026-07-24; a member&rsquo;s own narrow walkthrough is the acceptance</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">U-07</span>
-        <span class="pkt-intent">The parked door: a signed-out visitor to a member surface meets the gate, not a broken page, and returns to what they asked for after signing in.</span>
-        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
-        <span class="pkt-ready">Todd Youngblood &middot; 2026-07-27</span>
+        <span class="pkt-intent">The parked door: the Share surface names S-01 and S-02 and says the absence is the board&rsquo;s pending act, not an administrator&rsquo;s withholding. It carries no data and fetches none. A status contract rendered as a door, at the address members will keep; it retires when the real surface opens.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">built in the launch-gap review 2026-07-27; a signed-in member finding the door is the acceptance</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-08</span>
+        <span class="pkt-intent">The pattern library grows: the launch-week audit found the system silent where the surfaces most need it, no icon source, no hint, disclosure, or form pattern despite two live forms, and no named loading or absence states. The patterns enter commons.css and the design-system reference gains the Lucide amendment.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">adopted as PR 85 &middot; the steward &middot; 2026-08-07</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-09</span>
+        <span class="pkt-intent">The launch page joins the site: an island with an empty navigation list, a footer without links, and a primary action pointing at its own section is given its paths to the framework, the join form, and the record.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">adopted as PR 86 &middot; 2026-08-07 &middot; no horizontal scroll at 390 or 320</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-10</span>
+        <span class="pkt-intent">The front door tells the truth: the join surface said membership is by invitation while the ratified Participation Framework holds two open-enrollment classes. The public participation surface renders from the framework and cites it; the join form is rebuilt as class-aware enrollment.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">adopted as PR 87 &middot; 2026-08-07 &middot; a live submission remains for the first real applicant</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-11</span>
+        <span class="pkt-intent">The member surface speaks one language: the five signed-in surfaces aligned to v4, and the U-05 cut finished. No section mark, piece address, migration number, or event identifier renders in member-facing copy.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">adopted as PR 88 &middot; 2026-08-07 &middot; the icons and aria-current await a signed-in walkthrough</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-12</span>
+        <span class="pkt-intent">Two faces, no third: the X-06 decision adopted two typefaces, yet commons.css still carried a third as an interface layer, a constitution disagreeing with itself. No governed page loads it now.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">adopted as PR 89 &middot; 2026-08-07 &middot; the font-stack check green</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-13</span>
+        <span class="pkt-intent">One primary navigation for the public face: every public page carried a hand-rolled topbar and no two agreed, while a third carried none at all. The shell settled this for the signed-in surface in U-01; this settles it for the public face, and the check refuses a page that carries two frames or none.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">adopted as PR 91 &middot; 2026-08-07 &middot; verified on the live site after deploy</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-14</span>
+        <span class="pkt-intent">The front door, briefer: five sections below the hero and a ninety-five word purpose paragraph above the fold, cut to a hero that states the thing in two sentences and three sections that do work.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">adopted as PR 93 &middot; 2026-08-07 &middot; verified live, countdown to footer</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-15</span>
+        <span class="pkt-intent">The intranet walkthrough, answered: eleven minutes of the steward&rsquo;s asks from walking every view. Less chrome at the sign-in, forms behind buttons rather than standing open, tabs where lists grew long, and an archive verb where the record offered only silence.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">adopted as PR 95 &middot; 2026-08-07 &middot; the drawers, tabs, and archive verb not yet exercised by a member</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-17</span>
+        <span class="pkt-intent">The intranet in the hand: the members&rsquo; surface was built and reviewed on a desk. Opened on a phone, the bar overflowed, forms invited the system to zoom, and controls sat under the size a thumb can reliably hit. Six defects answered.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">merged 2026-08-08 &middot; a member&rsquo;s own phone is the acceptance</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-18</span>
+        <span class="pkt-intent">The frame that never held: U-01 specified one persistent frame carried across navigations, and two pages said so for weeks. It was never true. The opt-in lived inside a stylesheet injected on DOMContentLoaded, and the browser reads it at pagereveal. The console said so the whole time.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">adopted as PR 109 &middot; 2026-08-09 &middot; verified on the deployed site, not only in the harness</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-19</span>
+        <span class="pkt-intent">The frame before the paint: the topbar and the map rendered into each surface&rsquo;s markup so the named elements exist at pagereveal and genuinely morph across a navigation. The gate is the hard part, not the furniture.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">U-18 merged &#10003; &middot; launch week past &middot; deliberately deferred, since it runs through the auth gate</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-20</span>
+        <span class="pkt-intent">The frame measure: nine framed surfaces carried four different content widths, because each hand-rolled its own container and the token layer had nothing to offer them. The layer now names a third grammar, the frame measure, fluid, and an audit refuses a page that pins it back to a pixel.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">U-18 merged &#10003; &middot; nine surfaces at 360, 1024, and 1920 with no overflow</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">U-21</span>
+        <span class="pkt-intent">The commons page speaks the current book: /commons/ still spoke the retired register and flattened four states into two, and said nothing of the cybernetic reading or of the intranet, where the book is actually read. Re-cut on the steward&rsquo;s ask.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">adopted as PR 114 &middot; 2026-08-10 &middot; a member&rsquo;s reading is the acceptance</span>
       </div>
     </div>
 
@@ -781,12 +912,177 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       </div>
     </div>
 
+    <!-- LEXICON -->
+    <div class="slice-group" id="lex">
+      <div class="slice-header">
+        <div class="slice-addr">Bed L &middot; The register &middot; proof G-L</div>
+        <div class="slice-name">Ground and craft</div>
+        <div class="slice-cap">The register evolution, adopted by the steward 2026-08-08 with all five elections at their defaults. Two roots, the ground root for where work grows and how it joins, the craft root for what hands make and how it is proven, and one law bounding the whole: history is not editable, so addresses already cited keep the words they were written in. The bed moves outward in order, the Lexicon first, then this page, then the ledger, then the companions, then the series, then the modules, because a page may not speak a register the Lexicon has not yet defined.</div>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">L-01</span>
+        <span class="pkt-intent">Lexicon v2: the register section of Ground and Craft becomes the canonical Lexicon, with the two-roots preface, the cybernetic spine, the full definitions, and the concordance that keeps the retired register readable forever.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">adopted 2026-08-08, all defaults elected &middot; the bed and G-L entered the ledger with it</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">L-02</span>
+        <span class="pkt-intent">The Almanac: this page rewritten end to end in the register, from the title to the footer lineage recording that ALM v2 supersedes RDM v1. The generated counts and their markers untouched.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">L-01 merged &#10003; &middot; the Lexicon governs before the pages speak it</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">L-03</span>
+        <span class="pkt-intent">The ledger speaks: the almanac ledger&rsquo;s own voice moves to the register, header comments, section keys, and the intents of pieces still open, with the validator evolved in the same commit.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">L-02 merged &#10003;</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">L-04</span>
+        <span class="pkt-intent">The companions: the Proof Book wearing its new name, the Run-Through, the instructions, and the launch page re-worded to the register.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">L-03 merged &#10003;</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">L-05</span>
+        <span class="pkt-intent">The series speaks: BP, VS, PRD, and SER revised as new versions; the Information Model&rsquo;s language layer revised with machine identifiers held for the IM&rsquo;s own revision; AGENTS.md re-yielded from the revised BP.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">L-04 merged &#10003; &middot; adopted as PR 103, 2026-08-09</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">L-06</span>
+        <span class="pkt-intent">The modules speak: PATRONAGE, TREASURY, and AGY re-worded as new versions, their grafts named as grafts.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">L-05 merged &#10003; &middot; the steward&rsquo;s three merges</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">L-07</span>
+        <span class="pkt-intent">The machinery: file and identifier renames, the ledger file, the rehearsal script, workflow names, class families, every reference updated in the same commit. Mechanical, CI-proven, and lowest value per unit of churn, which is why it waits.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">L-06 merged &middot; every page reads true first</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">L-08</span>
+        <span class="pkt-intent">The quarantine: the retired register enters the style-lint vocabulary quarantine for authored prose, with exemptions named for the concordance, quotations of historical records, and the preserved text of verified entries. A vocabulary evolution without teeth is a suggestion.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">G-L attested &middot; the proof precedes the teeth</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">G-L</span>
+        <span class="pkt-intent">The lexicon proof: the evolved register demonstrated readable end to end, attested by the steward and a countersigning member and recorded as an event, like every proof before it.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">L-01 through L-06 verified</span>
+      </div>
+    </div>
+
+    <!-- STANDING -->
+    <div class="slice-group" id="std">
+      <div class="slice-header">
+        <div class="slice-addr">Bed V &middot; Work standing &middot; proof G-V</div>
+        <div class="slice-name">How work earns its standing</div>
+        <div class="slice-cap">The branching maturity model as record: the origin unrecorded on purpose, Program standing the internal end already built and cited, Venture standing the external end specified for construction. Staged, not adopted; five elections wait for hands. Nothing in this bed binds, and the whole of it is anticipated, which is the honest mark for work whose governing document is still a proposal.</div>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">STANDING</span>
+        <span class="pkt-intent">Work Standing, the module PRD and specification: four principles inside the eleven laws, five elections staged for hands, published at /commons/standing/.</span>
+        <span><span class="chip drafted"><span class="dot"></span>drafted</span></span>
+        <span class="pkt-ready">proposal posture &middot; adoption is the board&rsquo;s act, not the drafter&rsquo;s</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">V-01</span>
+        <span class="pkt-intent">The designation rail: designate_venture() mirroring the applied Program designation contract line for line, with probe cells asserting its floor.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">STANDING adopted &middot; the G0 mark verified live at emission time</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">V-02</span>
+        <span class="pkt-intent">The tallies: ventures_roster(), venture_standing(), and work_standing() as read-time tallies, every row tracing to its event.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">V-01 verified</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">V-03</span>
+        <span class="pkt-intent">The ventures surface at /intranet/ventures/, an Overview window beside Programs, each standing tracing to its instrument on the shelf. Before any instrument exists it stands as the parked door stands, the waiting named by name.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">V-02 verified &middot; the shell manifest entry decided</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">V-04</span>
+        <span class="pkt-intent">The first venture instrument: VENTURE-TERMS adopted by the board with securities counsel, one per-venture instrument authored and adopted citing it, the standing appearing in the tally. People&rsquo;s substance, the instrument&rsquo;s verification.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">STANDING-D2 adopted &middot; the counting rules recorded where the instrument values labor</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">G-V</span>
+        <span class="pkt-intent">The standing proof: a body of work designated, its instrument adopted, its standing shown equal to the standing traced by hand through events and instruments. Not staged artificially; it attests when a real body of work first carries two families.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">V-04 verified &middot; two-party attestation</span>
+      </div>
+    </div>
+
+    <!-- GUILD -->
+    <div class="slice-group" id="gld">
+      <div class="slice-header">
+        <div class="slice-addr">Bed P &middot; Guild participation &middot; no proof of its own</div>
+        <div class="slice-name">The virtual way in</div>
+        <div class="slice-cap">A Guild Participant level of Class Three, open enrollment from anywhere at a self-chosen amount, every amount opening the same doors, with an invitation pathway from the access track toward membership. Grafted at anticipated 2026-08-09: the bed is recorded so the work is legible, and nothing in it moves until the board adopts the framework amendment and the terms. Dues are dues, never capital, at any amount.</div>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">GUILD</span>
+        <span class="pkt-intent">Guild Participation, the module PRD and framework amendment: the two-track presentation, access and patron, and two elections staged for the board.</span>
+        <span><span class="chip drafted"><span class="dot"></span>drafted</span></span>
+        <span class="pkt-ready">the amendment and the terms are the board&rsquo;s act &middot; authored by people</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">P-01</span>
+        <span class="pkt-intent">The terms on the shelf: the Guild Participation Terms enter the agreements shelf as a versioned instrument, plain language, signable inline like every instrument that binds.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">GUILD adopted &middot; the terms authored by people</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">P-02</span>
+        <span class="pkt-intent">The fifth way: /commons/join/ re-yielded with the guild way, the amount chosen and the terms signed inline, enrollment completing in one sitting, with no surface anywhere distinguishing participants by amount.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">P-01 stands</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">P-03</span>
+        <span class="pkt-intent">The class personas: the rehearsal and the probe matrix gain class-scoped personas, so class-conditional capabilities prove instead of assume, refusals included.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">GUILD adopted &middot; the class-structure question decided</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">P-04</span>
+        <span class="pkt-intent">The invitation rail and the path tally: the member&rsquo;s invitation as a recorded act, once per pair; the tally self-facing and never comparative, because eligibility is a condition and not a target.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">GUILD adopted &middot; the invitation count recorded</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">P-05</span>
+        <span class="pkt-intent">The carrier act: a member stands as carrier of a body of work by a recorded act beside the designation. Designation itself stays name and purpose only, per the applied contract; the carrier arrives as its own event citing it.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">GUILD adopted &middot; the venture-end elections settled</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">P-06</span>
+        <span class="pkt-intent">The ways in, re-presented: the participation index with two tracks named and the guild card beside community and co-working, the invitation pathway in the ownership disclosure, the amendment cited as the instrument that governs. Held for adoption by its own head note.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">GUILD adopted &middot; the elections recorded &middot; the amendment date set &middot; staged on branch P-06</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">P-07</span>
+        <span class="pkt-intent">The participation stories: the capability register, every way a person can act in the commons and the intranet, one set per persona, refusals counted as capabilities, each story carrying its proving act and an honest mark. Story numbers are document-local; only this almanac mints addresses.</span>
+        <span><span class="chip drafted"><span class="dot"></span>drafted</span></span>
+        <span class="pkt-ready">published at /commons/prd/stories/ &middot; staged on branch P-07</span>
+      </div>
+    </div>
+
     <!-- CROSS-CUTTING -->
     <div class="slice-group" id="xct">
       <div class="slice-header">
         <div class="slice-addr">X bed &middot; Cross-cutting &middot; proof G-R</div>
         <div class="slice-name">Cross-cutting work</div>
-        <div class="slice-cap">Work that serves every capability or none in particular: observability, notices, exports, manifests, lint, audit, coherence, probes, the walkaway, and the freshness of what this page claims. Seventeen pieces now, X-10 through X-17 added after the first nine; the tail awaits its cards in X-17, the second resync. The rehearsal harness runs weekly in CI.</div>
+        <div class="slice-cap">Work that serves every capability or none in particular: observability, notices, exports, manifests, lint, audit, coherence, probes, the walkaway, and the freshness of what this page claims. Seventeen pieces, the first nine the machinery and the tail since then the estate&rsquo;s own honesty, twice reconciled against the ledger by X-14 and X-17. The rehearsal harness runs weekly in CI.</div>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-01</span>
@@ -797,8 +1093,8 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="packet-row">
         <span class="pkt-addr">X-02</span>
         <span class="pkt-intent">Notices v1: transactional notices on the admission path, two sinks behind one seam each. The steward intake notice rides Telegram, deployed and proven; the applicant email acknowledgment keeps the Resend seam and waits on the zone manager's DNS records. A missing sink is named as a gap, never dropped.</span>
-        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
-        <span class="pkt-ready">rail deployed and wired 2026-07-21; the live join-form delivery is the acceptance</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">rail deployed and wired 2026-07-21 &middot; the steward sink proven; the applicant sink stays dormant until the DNS records land</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-03</span>
@@ -843,8 +1139,62 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
         <span class="pkt-ready">Todd Youngblood &middot; 2026-07-21</span>
       </div>
       <div class="packet-row">
+        <span class="pkt-addr">X-10</span>
+        <span class="pkt-intent">Generated artifacts stay current: the claims a generated artifact makes about the ledger are proven in CI rather than kept by hand. This page&rsquo;s headline counts join STATUS.md and index.json as validator output, and a stale committed copy of any of them is an error.</span>
+        <span><span class="chip verified"><span class="dot"></span>verified</span></span>
+        <span class="pkt-ready">merged as PR 64 &middot; the generated-freshness job green in CI</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-11</span>
+        <span class="pkt-intent">The export follows the substrate: a projection defined as select star freezes its columns when it is created, so a column added afterwards never reaches the walkaway. The one drifted view is re-expanded and the rehearsal now asserts each carries its base table&rsquo;s columns exactly.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">X-03 verified &#10003; &middot; 0014 staged &middot; the rehearsal beat is the acceptance</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-12</span>
+        <span class="pkt-intent">The member&rsquo;s rail: Law I holds that every relationship between records is itself an event, yet a response landed as a row alone and a registration never spoke at all. Two triggers land the relationship in the log addressed to the member it concerns, and the shell renders that address.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">F-02 delivered &middot; G-04 in session &middot; X-02 verified &#10003;</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-13</span>
+        <span class="pkt-intent">The documents agree: the three published PRDs, the ledger, and the deployed map claimed different truths in four places. Each amends to what the record settled, with the amendment dated and the superseded wording kept, because a refactor that hides its lineage is not legible.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">the full review of the three PRDs delivered 2026-07-27</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-14</span>
+        <span class="pkt-intent">The build surface agrees: the first resync. The Almanac narrated seven beds where the ledger held nine, the instructions counted 52 items where it held 72, and the Proof Book scored six proofs where it held eight. A page that counts wrongly is not merely out of date; it is a claim the record does not support.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">the steward&rsquo;s ask, 2026-07-27 &middot; reconciling public claims is his call</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-15</span>
+        <span class="pkt-intent">The register bridge: the Almanac prose brought nearer the cooperative&rsquo;s native register, unearned interface labels retired and the loop headers yielding to the named conditions that own them. Superseded the same day by Ground and Craft, which evolved the whole register rather than bridging it.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">the change specification adopted by the steward &middot; public wording is his call, not the instrument&rsquo;s</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-16</span>
+        <span class="pkt-intent">The estate reads true: the front-door documents aligned with the register and the versions that exist. README, CONTRIBUTORS, and RUN re-cut, the citation sweep across the estate, the instructions census matching the validated state.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">the steward&rsquo;s ask, 2026-08-09 &middot; builds on L-05</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-17</span>
+        <span class="pkt-intent">The second resync: X-14 again, for the beds recorded since. Fifty addresses stood in the ledger without cards on this page, three whole beds among them, and seven cards carried marks the ledger contradicts in both directions. This piece is that reconciliation, and it writes the audit that reads both.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+        <span class="pkt-ready">the steward&rsquo;s ask, 2026-08-10 &middot; the L bed&rsquo;s wording settled first</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">X-18</span>
+        <span class="pkt-intent">The cards answer to the ledger: the teeth for the resync. X-17 wrote scripts/almanac_audit.py and left it out of CI on purpose, because a new gate in launch week is a hazard. This piece wires it in, so a third resync cannot be needed.</span>
+        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
+        <span class="pkt-ready">X-17 merged &middot; launch week past</span>
+      </div>
+      <div class="packet-row">
         <span class="pkt-addr">G-R</span>
-        <span class="pkt-intent">Cross-cutting proof: every piece X-01 through X-09 verified, every anchor re-verified against the governing text. The bylaws-mark discrepancy resolved 2026-07-22: the legal index aligned to the ratified instruments.</span>
+        <span class="pkt-intent">Cross-cutting proof: every piece of the bed verified, every anchor re-verified against the governing text. The bylaws-mark discrepancy resolved 2026-07-22: the legal index aligned to the ratified instruments.</span>
         <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
         <span class="pkt-ready">X-01 through X-09 verified</span>
       </div>
@@ -891,13 +1241,13 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
 
     <div class="signal-sec">
       <div class="signal-label">Build state</div>
-      <p class="signal-note">The Ground is verified through G0. Belong and Gather are verified end to end, the shell carries every signed-in surface, and the cross-cutting bed is one delivery from closed with the live walkaway rehearsed. The Find bed is built and in session; so now is the agency rail and its desk. The August 14 condition is lifted: what converges on launch is the steward&rsquo;s run-through, two board adoptions, and, for the A bed alone, one decision about authority. Two migrations, 0017 and 0018, wait to be applied to the live record.</p>
+      <p class="signal-note">The Ground is verified through G0. Belong and Gather are verified end to end and want only their attestations; Find is verified but for its response beat; the shell carries every signed-in surface and has been re-cut four times since the sprint. The register evolution runs to L-06. What converges on launch is two board adoptions, three attestations, the labor tiers, and, for the A bed alone, one decision about authority. Two migrations, 0017 and 0018, wait to be applied to the live record.</p>
     </div>
 
     <div class="signal-sec">
       <div class="signal-label">Protocol</div>
       <p class="signal-note">BP v2 &middot; Drafted. One piece per branch. Commits carry authorship trailer. Schema, permissions, money, membership: stop and ask. This instrument reads the ledger; it does not write to it.</p>
-      <div class="signal-ts">ALM v2 &middot; Ledger updated 2026-08-08 &middot; Nou</div>
+      <div class="signal-ts">ALM v2 &middot; Ledger updated 2026-08-10 &middot; Nou</div>
     </div>
   </aside>
 
@@ -914,12 +1264,12 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="loop-q-label">What is workable now?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">Thirty-four pieces are verified, the Find bed is built, and the shell now carries every signed-in surface. The newest workable front is the A bed: AGY adopted on 2026-07-27 and its graft entered the same day, so A-01 and A-02 opened and shipped, the rail and the desk, without waiting on anything but hands. What an agent cannot take up next is A-03, because the first grant is an authority question and authority questions are people&rsquo;s. Every other front is the steward&rsquo;s run-through, the Q3 board decision, or a TREASURY readiness condition downstream of both.</p>
+      <p class="loop-answer">Thirty-four pieces are verified, the Find bed is built but for its response beat, and the shell carries every signed-in surface. The workable fronts left before launch are narrow and mostly other people&rsquo;s: the two board adoptions, the labor tiers only a human memory can check, and the two attestations that want words approved before they are written. What an instrument can still take up alone is the L bed, which moves outward document by document and has L-06 next, and the parts of the U bed that do not run through the auth gate. What it cannot take up is A-03, because the first grant is an authority question, and authority questions are people&rsquo;s.</p>
       <ul class="loop-items">
         <li class="loop-item">
-          <span class="loop-item-addr">X-02</span>
-          <span class="loop-item-text">Rail deployed, Telegram sink proven, 0006 live. One live join-form submission delivering the steward's intake notice is the acceptance.</span>
-          <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
+          <span class="loop-item-addr">L-06</span>
+          <span class="loop-item-text">The three module documents re-worded in the register, their grafts named as grafts. Strict order: L-05 merged, so this is the next piece of the bed and needs no one&rsquo;s decision.</span>
+          <span class="loop-item-status"><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
         </li>
         <li class="loop-item">
           <span class="loop-item-addr">A-01 &middot; A-02</span>
@@ -927,8 +1277,8 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
           <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
         </li>
         <li class="loop-item">
-          <span class="loop-item-addr">F-01 &middot; F-02 &middot; F-03</span>
-          <span class="loop-item-text">The opportunity board is live at /commons/opportunities/. Post, respond, resolve: three acts in the run-through verify the bed.</span>
+          <span class="loop-item-addr">F-02</span>
+          <span class="loop-item-text">The board is live and its other four pieces are verified. The response flow is the one beat a single person cannot walk, and its earlier live evidence was destroyed by an identity consolidation. Record it against the proof rehearsal, or wait for a real second member: the steward&rsquo;s call.</span>
           <span class="loop-item-status"><span class="chip open"><span class="dot"></span>open &middot; in session</span></span>
         </li>
       </ul>
@@ -941,7 +1291,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="loop-q-label">Which open condition unblocks the most?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">The X-02 join-form delivery unblocks the last cross-cutting verification and puts G-R in reach, so it ranks first and costs minutes. Q3 (counting rules) unblocks the entire Share bed and is no longer held by infrastructure: the Ground that records the decision is live and verified. The card below stands until the Board takes it up.</p>
+      <p class="loop-answer">The counting rules, by a wide margin. They unblock the entire Share bed, they are the condition the public page names, and they are no longer held by any infrastructure: the Ground that records the decision is live and verified. Nothing an instrument can build moves them. The card below stands until the board takes it up.</p>
       <div class="loop-escalation">
         <div class="loop-esc-label">stop card &middot; Q3 &middot; counting rules</div>
         <div class="loop-esc-rows">
@@ -960,7 +1310,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="loop-q-label">What has stalled quietly?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">One quiet item, not on the critical path to launch: the applicant email sink of X-02 waits on DNS records held by the zone manager; the steward notice does not wait with it, but the applicant acknowledgment stays dormant until they land. The bylaws mark discrepancy cleared 2026-07-22, the legal index aligned to the ratified instruments, so G-R now waits only on the X-02 delivery and the anchor pass.</p>
+      <p class="loop-answer">Two quiet items, neither on the critical path to launch. The applicant email sink of X-02 waits on DNS records held by the zone manager; the steward notice does not wait with it, but the applicant acknowledgment stays dormant until they land. And this page itself stalled quietly for a month: fifty addresses entered the ledger without cards here, which is the same class of fault the cross-cutting bed exists to catch, found by a person reading rather than by a suite. X-17 corrects it and writes the audit that reads both the ledger and the page, but the audit is deliberately not a gate yet: a new way for CI to fail in launch week is a hazard, so the teeth are filed as X-18 for after.</p>
       <ul class="loop-items">
         <li class="loop-item">
           <span class="loop-item-addr">X-02</span>
@@ -994,11 +1344,12 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
 <span class="ok">  .github/workflows/</span>
 <span class="ok">    verify.yml</span>                            the suites per VS v2, nine jobs as they stand
 <span class="ok">    walkaway.yml</span>                          weekly rehearsal (X-09)
-<span class="ok">  commons/im/</span>                             0001_substrate.sql · 0004_export_views.sql
+<span class="ok">  commons/im/</span>                             0001 · 0004 · 0014_export_views_refresh.sql
 <span class="ok">  commons/authority-map/</span>                  0002 · 0003 · 0005 · 0007 · 0008 · 0009 · 0010
 <span class="ok">                        </span>                  0011 · 0012 · 0013 · 0015 · 0017 · 0018
+<span class="ok">  commons/treasury/</span>                       0019_treasury_statements.sql (T-07)
 <span class="ok">  supabase/</span>
-<span class="ok">    migrations/</span>                           0006_notices_rail.sql (X-02) · 0016 (X-12)
+<span class="ok">    migrations/</span>                           0006 (X-02) · 0016 (X-12) · 0020 (U-15)
 <span class="ok">    functions/notices/</span>                    the notices rail, two sinks (X-02)</pre>
   </div>
 
@@ -1017,12 +1368,17 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
 <span class="ok">&#9632;</span> <span class="ok">commons/patronage/ &hellip;</span>       the module and its counting rules, staged
 <span class="ok">&#9632;</span> <span class="ok">commons/treasury/</span>            the treasury module document
 <span class="ok">&#9632;</span> <span class="ok">commons/agency/</span>              Common Agency, adopted 2026-07-27 &larr; the A bed
+<span class="ok">&#9632;</span> <span class="ok">commons/standing/</span>            Work Standing, drafted, not adopted &larr; the V bed
+<span class="ok">&#9632;</span> <span class="ok">commons/build/lexicon/</span>       the Lexicon, v2, ground and craft &larr; the L bed
+<span class="ok">&#9632;</span> <span class="ok">commons/prd/stories/</span>         the participation stories, the capability register &larr; P-07
+<span class="ok">&#9632;</span> <span class="ok">participation/</span>               the ways in, class-aware &larr; U-10
 <span class="ok">&#9632;</span> <span class="ok">design-system/</span>               palette &amp; component reference (the constitution)
 <span class="ok">&#9632;</span> <span class="ok">legal/</span>                       instruments + formation commentary (migrated 2026-07-20)
 <span class="ok">&#9632;</span> <span class="ok">encyclopedia/</span>                encyclopedia of artifacts
 <span class="ok">&#9632;</span> <span class="ok">intranet/</span>                    the signed-in portal, inside one shell &larr; the U bed
 <span class="ok">&#9632;</span> <span class="ok">intranet/programs/</span>           Programs as organizing bodies &larr; F-04
 <span class="ok">&#9632;</span> <span class="ok">intranet/treasury/</span>           the Desk, read-only &larr; T-01
+<span class="ok">&#9632;</span> <span class="ok">intranet/share/</span>              the parked door, the waiting named by name &larr; U-07
 <span class="ok">&#9632;</span> <span class="ok">intranet/direct/</span>             Direction: give the instrument work &larr; A-02</pre>
   </div>
 
@@ -1094,6 +1450,18 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
           <td><span class="chip verified"><span class="dot"></span>applied</span></td>
         </tr>
         <tr>
+          <td class="addr-cell">X-11 &middot; U-15</td>
+          <td class="name-cell">0014_export_views_refresh.sql &middot; 0020_gatherings_archive.sql</td>
+          <td class="desc-cell">The export projections re-expanded so a column added later reaches the walkaway; the host&rsquo;s archive verb, which sets a gathering aside without deleting it, the record keeping what the calendar stops showing.</td>
+          <td><span class="chip open"><span class="dot"></span>staged</span></td>
+        </tr>
+        <tr>
+          <td class="addr-cell">T-07</td>
+          <td class="name-cell">0019_treasury_statements.sql</td>
+          <td class="desc-cell">The statements store: the cooperative&rsquo;s monthly picture derived from the record, the instruments in force, and the rail reads, with the privacy cut made at generation rather than at display.</td>
+          <td><span class="chip open"><span class="dot"></span>staged</span></td>
+        </tr>
+        <tr>
           <td class="addr-cell">A-01</td>
           <td class="name-cell">0017_direction_rail.sql</td>
           <td class="desc-cell">give_direction(): the only door a Direction enters by. Reads the Estate list and the flooding bounds from the AGY-ESTATE version in force, with the module&rsquo;s opening values as defaults until it adopts. No policy widened.</td>
@@ -1110,7 +1478,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
   </div>
 
   <div class="tree-sec">
-    <div class="tree-sec-label">Series artifacts and module documents &middot; CIS Common Record Series &middot; all drafted</div>
+    <div class="tree-sec-label">Series artifacts and module documents &middot; CIS Common Record Series &middot; all drafted &middot; twelve</div>
     <pre class="tree">SER v0.3    Series Overview                    <span class="drafted">Drafted</span>   the covering document of the refactor
 PRD v0.4    Product Requirements Document       <span class="drafted">Drafted</span>   deprecation record §1a, four capabilities, three doors
 BP v2       Build Protocol                      <span class="drafted">Drafted</span>   piece ledger, decide/stop, AGENTS.md
@@ -1120,19 +1488,23 @@ VS v2       Verification Specification          <span class="drafted">Drafted</s
 AM v0.1     Authority Map                       <span class="drafted">Drafted</span>   Bylaws v2.1 anchored, yields 0002_policies.sql
 PP v0.2     Program Patronage (module)          <span class="drafted">Drafted</span>   grafted 2026-07-22, the F-04 and Share pieces
 TR v0.1     Treasury (module)                   <span class="drafted">Drafted</span>   grafted 2026-07-22, the Treasury bed
-AGY v0.1    Common Agency (module)              <span class="drafted">Drafted</span>   adopted 2026-07-27, the A bed and G-A</pre>
+AGY v0.1    Common Agency (module)              <span class="drafted">Drafted</span>   adopted 2026-07-27, the A bed and G-A
+STANDING    Work Standing (module)              <span class="drafted">Drafted</span>   staged, not adopted, the V bed and G-V
+GUILD       Guild Participation (module)        <span class="drafted">Drafted</span>   staged, not adopted, the P bed</pre>
   </div>
 
   <div class="tree-sec">
-    <div class="tree-sec-label">The eight proofs &middot; each attested as an event, none authored as a date</div>
+    <div class="tree-sec-label">The ten proofs &middot; each attested as an event, none authored as a date</div>
     <pre class="tree">G0    Security floor attested                  <span class="ok">attested</span>      2026-07-11 · event 8c5d2d37 · every bed open
-G-B   Belong demonstrated end to end           <span class="ant">anticipated</span>   the steward’s run-through
-G-G   Gather demonstrated end to end           <span class="ant">anticipated</span>   the steward’s run-through
-G-F   Find demonstrated end to end             <span class="ant">anticipated</span>   F bed verified; follows G-B
+G-B   Belong demonstrated end to end           <span class="ant">anticipated</span>   the beats walked; the attestation wants its words
+G-G   Gather demonstrated end to end           <span class="ant">anticipated</span>   the beats walked; the attestation wants its words
+G-F   Find demonstrated end to end             <span class="ant">anticipated</span>   F-02: a response wants a second member
 G-S   Tally shown equals tally computed        <span class="ant">anticipated</span>   counting rules required
 G-T   The Desk equals the movement by hand     <span class="ant">anticipated</span>   TREASURY-POLICY adoption required
-G-R   Anchors re-verified against the text     <span class="ant">anticipated</span>   discrepancy resolved 2026-07-22
-G-A   A member not the steward directs         <span class="ant">anticipated</span>   the first grant, then the run harness</pre>
+G-R   Anchors re-verified against the text     <span class="ant">anticipated</span>   the cross-cutting tail verified first
+G-A   A member not the steward directs         <span class="ant">anticipated</span>   the first grant, then the run harness
+G-L   The evolved register reads true          <span class="ant">anticipated</span>   L-01 through L-06 verified
+G-V   Standing shown equals standing traced    <span class="ant">anticipated</span>   the module adopted, then a real body of work</pre>
   </div>
 
 </div>
@@ -1146,7 +1518,7 @@ G-A   A member not the steward directs         <span class="ant">anticipated</sp
   <span>ALM v2 supersedes RDM v1, which superseded the private alpha plan</span>
   <span>RegenHub, LCA &middot; Boulder, Colorado</span>
   <span>Techne &middot; techne.coop/commons/build</span>
-  <span>Nou &middot; 2026-07-10 &middot; evolved to ALM v2 2026-08-08</span>
+  <span>Nou &middot; 2026-07-10 &middot; evolved to ALM v2 2026-08-08 &middot; cards resynced 2026-08-10</span>
 </footer>
 
 <script>
