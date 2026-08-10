@@ -1714,6 +1714,49 @@ shell:
       any width in the range; the audit refuses a page that
       reintroduces a pixel cap, proven by a live regression test.
 
+  - address: U-21
+    title: The commons page speaks the current book
+    intent: >
+      /commons/ is the public face of the Commonplace Book, and it had
+      not been re-cut since U-18. It still spoke the retired register,
+      Slice 01 through Slice 04, which the Lexicon v2 concordance
+      retired to capability when Ground and Craft was adopted, making
+      it the last public page carrying the old words. It flattened
+      four different states into two marks, so a bed with an
+      unrecorded beat read the same as a bed waiting only on a
+      person's attestation. And it was silent on the two things the
+      steward asked it to carry on 2026-08-10: the cybernetic reading
+      the Lexicon now sets out under the steered garden, and the
+      intranet, which is where a member actually reads and writes the
+      book. A page that describes the record and does not say where
+      the record is read is describing a filing cabinet.
+    status: open · in-session
+    cites: [UI, PRD, BP, L-01]
+    ready_when: L-01 merged; U-20 in session (this page is data-public and unframed, so the measure audit does not reach it).
+    deliverable: >
+      commons/index.html re-cut: the four capabilities named as
+      capabilities with their beds and proofs, each carrying the mark
+      the ledger carries rather than a rounded one; a steered-garden
+      section reading the book against the viable system frame,
+      systems one through five with the algedonic channel and the
+      transducer, each row naming a thing that exists in the record;
+      a section on the intranet as the member's half of the same
+      book; the four grafted modules with their adoption dates and
+      the two that are drafted and not adopted; links out to the
+      Almanac, the Lexicon, the launch readiness page, and the module
+      documents, which matter more than usual while the public map is
+      withheld. CSS identifiers are left alone: renames are L-07's
+      work and it waits by election. One incidental correction rides
+      along, assets/shell.js calling the Almanac by its retired name,
+      Living roadmap, in the member's map.
+    acceptance: >
+      No retired register term renders on the page; every status
+      shown matches rdm-ledger.yaml, checked entry by entry; every
+      link resolves to a page in the estate; the page states the
+      cybernetic reading and names the intranet; style-lint, the
+      token audit, the one-navigation check, and the validator green.
+    note: Staged on branch U-21; merge is the act of adoption.
+
 cross_cutting:
 
   - address: X-01
