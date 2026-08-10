@@ -2365,14 +2365,57 @@ cross_cutting:
       tail all stand in the ledger without cards. Public wording is
       the steward's call, so the piece is a specification he adopts,
       then the page.
-    status: anticipated
+    status: open · in-session
     cites: [BP, SER]
-    ready_when: The steward takes it up; the L bed's wording settles first.
+    ready_when: >
+      The steward takes it up; the L bed's wording settles first. Taken
+      up 2026-08-10 on his ask, immediately after U-21.
     deliverable: >
       The hand-kept cards of commons/build/index.html level with the
       ledger; every bed section's count and cap true on the day of
-      merge.
-    acceptance: Address coverage complete; validator and style suites green.
+      merge. Measured at pickup: fifty of the ledger's 113 addresses
+      carried no card, three whole beds among them, L, V, and P; and
+      seven cards carried a mark the ledger contradicts, in both
+      directions, four under-claiming (F-01, F-03, F-04, X-02, all
+      verified on the run-through and still shown in session) and two
+      over-claiming (U-06 and U-07 shown verified while the ledger
+      holds them in session), with G-F shown against a naming
+      question the ledger no longer carries. The scope therefore runs
+      past the cards to the rest of the page's hand-kept half, which
+      would otherwise contradict the resync it sits beside: the
+      state note, the signal loop's three answers, the estate panel's
+      page list and migration chain, the proof list, and the series
+      artifacts. The generated block is not touched.
+    acceptance: >
+      Address coverage complete and every card's mark equal to the
+      ledger's, proven by a check that reads both; no count,
+      enumeration, or standing anywhere on the page that the ledger
+      contradicts; validator and style suites green.
+    note: Staged on branch X-17; merge is the act of adoption.
+
+  - address: X-18
+    title: The cards answer to the ledger
+    intent: >
+      The teeth for the resync. Twice the Almanac's hand-kept cards
+      have drifted from the ledger they claim to read, and both times
+      a person reading found it rather than a suite. X-17 wrote the
+      audit that reads both, scripts/almanac_audit.py, and left it out
+      of CI on purpose: a new gate in launch week is a hazard, not a
+      safeguard. This piece wires it into the style-lint step beside
+      the token and measure audits, so a third resync cannot be
+      needed. The audit checks coverage and marks only; what a card
+      says stays the steward's call, which is why the teeth are this
+      narrow.
+    status: anticipated
+    cites: [VS, BP]
+    ready_when: X-17 merged; launch week past.
+    deliverable: >
+      scripts/almanac_audit.py wired into the style-lint job of
+      verify.yml, its scope named per VS v2 section 9.
+    acceptance: >
+      Adding an address to the ledger without carding it on the
+      Almanac fails CI, proven by a live regression test; the estate
+      passes as it stands.
 
 agency:
 
