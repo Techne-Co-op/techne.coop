@@ -152,9 +152,29 @@
       gap:var(--s3);flex-wrap:wrap;
     }
     footer a{color:var(--faint);}
-  </style>
+  
+    /* Formation strip: one verbatim copy per public page. The prose is
+       identical everywhere and scripts/notice_audit.py proves it has not
+       drifted; only the token names differ between the two page families. */
+    .formation-strip{
+      display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+      background:var(--inset);border-bottom:1px solid var(--line);
+      padding:10px 6vw;
+      font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--muted);
+    }
+    .formation-strip .fs-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);white-space:nowrap;
+    }
+    .formation-strip .fs-text{max-width:110ch;}
+    .formation-strip a{color:var(--ember-text);}
+</style>
 </head>
 <body>
+<aside class="formation-strip" aria-label="Formation status">
+  <span class="fs-mark">In formation</span>
+  <span class="fs-text">The Articles are filed with the Colorado Secretary of State; the governing instruments are in counsel review and unexecuted; no member has yet been admitted. Pages here describe how the cooperative is meant to work, not how it currently operates. Where a page and the <a href="/legal/#formation">formation notice</a> disagree, the notice is right.</span>
+</aside>
 <div class="wrap">
 
   <div class="page-mast">
@@ -163,7 +183,7 @@
     <p class="sub">A possible path for the cooperative's legal shape as its work matures &mdash; not by stretching one entity to do everything, but by adding sibling entities when the need is real, while the promises stay the same. This is a model for discussion. Nothing here is decided.</p>
     <div class="chiprow">
       <span class="st st-drafted">Model &middot; Drafted for review</span>
-      <span class="st st-filed">Stage one &middot; Operating now</span>
+      <span class="st st-filed">Stage one &middot; Filed, not yet operating</span>
       <span class="st st-antic">Stage two &middot; Anticipated</span>
       <span class="st st-open">Stage three &middot; Open, exploratory</span>
     </div>
@@ -184,10 +204,10 @@
     <div class="vessel">
       <div class="vessel-head">
         <span class="vessel-title">Stage one &middot; The partnership we have</span>
-        <span class="st st-filed">Filed &middot; Operating</span>
+        <span class="st st-filed">Filed</span>
       </div>
-      <p>Today's entity is a Colorado cooperative whose members are individual people, taxed the way a partnership is taxed: the cooperative itself pays no income tax, and each member accounts for their share. It holds the lease and insurance in common, records each member's contribution, and carries a public benefit promise in its filed articles. It runs on voluntary effort and member dues, and it is naturally rooted in one room in Boulder. Those limits are features, not flaws &mdash; this vessel should stay excellent at holding the ground, not stretch to hold everything.</p>
-      <div class="vessel-meta">Members are individuals &middot; holds the space and the commons &middot; the vessel of launch day</div>
+      <p>Today's entity is a Colorado cooperative whose members are to be individual people, taxed the way a partnership is taxed: the cooperative itself pays no income tax, and each member accounts for their share. It is built to hold the lease and insurance in common, to record each member's contribution, and it carries a public benefit promise in its filed articles. It is meant to run on voluntary effort and member dues, rooted in one room in Boulder. None of that is running yet: the cooperative is in formation and has admitted no members. Those limits are features, not flaws &mdash; this vessel should stay excellent at holding the ground, not stretch to hold everything.</p>
+      <div class="vessel-meta">Members are to be individuals &middot; built to hold the space and the commons &middot; the vessel of launch day</div>
     </div>
 
     <div class="vessel">

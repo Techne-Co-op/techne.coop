@@ -14,7 +14,7 @@
   <title>Governing Documents: Summary of Changes · Techne</title>
   <meta name="description" content="Summary of governing document changes for RegenHub, LCA — Articles of Organization, Bylaws v.2.1, and Membership Agreement v.2.3. Prepared for the board and member body.">
   <meta property="og:title" content="Governing Documents: Summary of Changes · Techne">
-  <meta property="og:description" content="Summary of v.1 → v.2.1 changes to the Bylaws and Membership Agreement. Prepared for the June 2026 board ratification process.">
+  <meta property="og:description" content="Summary of v.1 to v.2.1 changes to the Bylaws and Membership Agreement. Prepared for the June 2026 board review; the drafts remain in counsel review and unexecuted.">
   <meta property="og:url" content="https://techne.coop/legal/summary-of-changes/">
   <meta property="og:site_name" content="Techne">
   <link rel="canonical" href="https://techne.coop/legal/summary-of-changes/">
@@ -811,16 +811,34 @@
       .change-item-header { flex-wrap: wrap; }
       .wrap { padding: 2rem 1.25rem 5rem; }
     }
-  </style>
+  
+    /* Formation strip: one verbatim copy per public page. See CSS_A note. */
+    .formation-strip{
+      display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+      background:var(--surface);border-bottom:1px solid var(--border);
+      padding:10px 6vw;
+      font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--text-muted);
+    }
+    .formation-strip .fs-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--gold);white-space:nowrap;
+    }
+    .formation-strip .fs-text{max-width:110ch;}
+    .formation-strip a{color:var(--gold);}
+</style>
 </head>
 <body>
+<aside class="formation-strip" aria-label="Formation status">
+  <span class="fs-mark">In formation</span>
+  <span class="fs-text">The Articles are filed with the Colorado Secretary of State; the governing instruments are in counsel review and unexecuted; no member has yet been admitted. Pages here describe how the cooperative is meant to work, not how it currently operates. Where a page and the <a href="/legal/#formation">formation notice</a> disagree, the notice is right.</span>
+</aside>
 
 <div class="wrap">
 
   <div style="background:rgba(196,149,106,0.06);border:1px solid rgba(196,149,106,0.25);border-radius:4px;padding:0.7rem 1.1rem;font-family:var(--mono);font-size:0.68rem;line-height:1.6;color:var(--text-muted);margin-bottom:1.5rem;">
     <span style="color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">Formation-era commentary</span> ·
-    Prepared May&ndash;July 2026, during drafting and ratification. Published for member education: the reasoning behind the governing documents.
-    The ratified instruments are the source of truth: <a href="/legal/bylaws/" style="color:var(--gold);text-decoration:none;">Bylaws v.2.1</a> · <a href="/legal/membership-agreement/" style="color:var(--gold);text-decoration:none;">Membership Agreement v.2.3</a>.
+    Prepared May&ndash;July 2026, during the drafting of the governing documents. Published openly for prospective members: the reasoning behind the drafts.
+    The instruments themselves are the source of truth, and neither is executed: <a href="/legal/bylaws/" style="color:var(--gold);text-decoration:none;">Bylaws v.2.1</a> · <a href="/legal/membership-agreement/" style="color:var(--gold);text-decoration:none;">Membership Agreement v.2.3</a>.
   </div>
 
 
@@ -834,7 +852,7 @@
   <!-- ── TL;DR CARD ── -->
   <div class="tldr-card">
     <div class="tldr-kicker">The 30-second version</div>
-    <p>RegenHub, LCA is a Colorado Public Benefit Limited Cooperative Association. The Articles of Organization are in legal effect since February 6, 2026. The Bylaws (v.2.1) and Membership Agreement (v.2.3) were ratified by the board, pending counsel review before execution — not yet binding on any member.</p>
+    <p>RegenHub, LCA is a Colorado Public Benefit Limited Cooperative Association. The Articles of Organization are in legal effect since February 6, 2026. The Bylaws (v.2.1) and Membership Agreement (v.2.3) received a verbal board adoption in June 2026 and remain in counsel review, unexecuted, and binding on no one. The cooperative has not yet admitted a member.</p>
     <p>The cooperative is taxed as a partnership under <strong>Subchapter K</strong>, not as a traditional cooperative under Subchapter T. This distinction is load-bearing: member allocations are taxable when <em>allocated</em>, tracked through capital accounts under IRC § 704(b), and reported on Schedule K-1. The governing documents must say exactly that — and as of v.2.1, they do.</p>
     <div class="tldr-row">
       <div class="tldr-stat">
@@ -868,13 +886,13 @@
       <div class="status-cell-detail">Filed Feb 6, 2026 · SOS 20261163853 · Colorado ULCAA &amp; PBCA · Perpetual term</div>
     </div>
     <div class="status-cell">
-      <div class="status-pill pill-draft">Ratified · counsel review</div>
+      <div class="status-pill pill-draft">Drafted · counsel review</div>
       <div class="status-cell-label">Bylaws v.2.1</div>
       <div class="status-cell-title">18 articles · 15 change items</div>
       <div class="status-cell-detail">June 10, 2026 · 3 blocking before execution · Jeffrey Pote / Pote Law Firm</div>
     </div>
     <div class="status-cell">
-      <div class="status-pill pill-draft">Ratified · counsel review</div>
+      <div class="status-pill pill-draft">Drafted · counsel review</div>
       <div class="status-cell-label">Membership Agreement v.2.3</div>
       <div class="status-cell-title">Cooperative Member · 11 change items</div>
       <div class="status-cell-detail">June 24, 2026 · 1 blocking before execution · Jeffrey Pote / Pote Law Firm</div>
@@ -885,7 +903,7 @@
   <section class="prose-section">
     <p class="section-label">Where the Documents Stand</p>
     <p>The Articles are the only instrument currently in legal effect. The Bylaws and Membership Agreement each exist in two versions: v.1, the original drafts from formation counsel (Jeffrey Pote, Pote Law Firm), and the current revisions (Bylaws v.2.1; Membership Agreement v.2.3), incorporating an organizer-conducted, AI-assisted legal research analysis (May 2026) and conformity fixes (June 2026), performed independently of formation counsel. The changes have not yet been reviewed by an attorney.</p>
-    <p>Both v.2 documents received board ratification, pending counsel review before execution; nothing in them binds any member until executed. They are published openly in the interest of transparency with prospective members and supporters.</p>
+    <p>Both v.2 documents received a verbal board adoption in June 2026, pending counsel review before execution; nothing in them binds anyone until executed, and no member has yet been admitted. They are published openly in the interest of transparency with prospective members and supporters.</p>
   </section>
 
   <!-- ── THE SHAPE OF THE REVISION ── -->
