@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<!-- P-09, the patron track and the access track told apart.
-     Working names, per the elections staged in the Almanac: "Co-working
-     Participant" (P-09-D1) and "Hub Participation Agreement" (P-09-D2) are the
-     names this page carries at the steward's direction of 2026-08-12, that the
-     access track gives up the word member because it is a path to membership.
-     The board elects the public names. The numbered class scheme is retained
-     here as a citation handle only, never as an order (P-09-D3). -->
-<html lang="en">
+<!-- P-10, the front door reads like a front door.
+     P-09 told the two tracks apart and was right about the estate, but it led
+     this page with a legal matrix: a visitor met the membership line, a capital
+     account, and partnership under Subchapter K before being told they could
+     come work here. The steward called it too confusing on the day it merged,
+     and he was right. The order is now what a person does first, what ownership
+     is, how it happens, then one comparison table in plain words, then the
+     instruments. The legal vocabulary is said once, under the table.
+     Working names, elections still open: "Co-working Participant" (P-09-D1),
+     "Hub Participation Agreement" (P-09-D2), the class numbers as citation
+     handles only (P-09-D3). --><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="The ways into Techne: what each one carries, what it does not, and where the membership line falls. Four classes of participation on two tracks, and the path from first visit to member-owner.">
+<meta name="description" content="The ways into Techne: come by, take a desk, or become an owner. What each one gives you, what it costs, and how ownership actually happens.">
 <title>The ways in &middot; Techne</title>
 <link rel="canonical" href="https://techne.coop/participation/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://techne.coop/participation/">
 <meta property="og:title" content="The ways in · Techne">
-<meta property="og:description" content="What each way into Techne carries, what it does not, and where the membership line falls.">
+<meta property="og:description" content="Come by, take a desk, or become an owner. What each one gives you, what it costs, and how ownership happens.">
 <meta property="og:site_name" content="Techne">
 <meta property="og:image" content="https://techne.coop/assets/og-default.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -91,8 +94,8 @@ a:hover { text-decoration-thickness: 2px; }
 
 .wrap { max-width: 1060px; margin: 0 auto; padding: 0 var(--s5); }
 
-/* masthead, document grammar. Held short: the matrix below it is the
-   page's first claim and wants the fold (P-09, issue 121 A5). */
+/* masthead, document grammar. Held short so the three cards make the fold:
+   the first thing a person meets is what they can do (P-10). */
 .mast { border-bottom: 1px solid var(--rule); padding: var(--s5) 0 var(--s4); }
 .mast .kick { font: 500 11px/1.6 var(--mono); color: var(--ember-text); text-transform: uppercase; letter-spacing: .12em; }
 .mast h1 { font: 700 clamp(28px, 4vw, 36px)/1.15 var(--serif); color: var(--heading); margin: var(--s2) 0 var(--s3); letter-spacing: -.01em; }
@@ -111,7 +114,7 @@ svg.lucide { width: 16px; height: 16px; flex: none; vertical-align: -3px; }
 /* term hints, per commons.css (U-08) */
 .term { position: relative; display: inline-block; }
 .term > button { font: inherit; color: inherit; background: none; border: none; padding: 0; cursor: help;
-  border-bottom: 1px dotted var(--ember); }
+  white-space: nowrap; border-bottom: 1px dotted var(--ember); }
 .term > button:hover, .term > button[aria-expanded="true"] { color: var(--ember-text); border-bottom-style: solid; }
 .term-card { display: none; position: absolute; left: 0; top: calc(100% + 6px); z-index: 30; width: min(320px, 78vw);
   background: var(--raised); border: 1px solid var(--line); border-left: 2px solid var(--ember);
@@ -130,10 +133,11 @@ details.disclose[open] > summary::before { content: "\2212"; }
 details.disclose > .disclose-body { padding: 0 var(--s4) var(--s4); }
 details.disclose > .disclose-body p { margin: var(--s3) 0 0; max-width: 68ch; }
 
-/* the matrix (P-09). A class matrix and not a class ladder: the rows are
-   grouped by track, the membership line is drawn across them as a line, and
-   the four standing questions are answered identically for every way in.
-   Cost is last, because standing does not follow price. */
+/* the comparison table (P-09, re-cut by P-10). One table, not a ladder: the
+   ownership line is drawn across the rows as a line, and the four questions are
+   asked in the words a visitor uses, with the statutory vocabulary given once
+   underneath. It sits below the cards, because a comparison answers a question
+   a person only has after they know what they are comparing. */
 .matrix-wrap { overflow-x: auto; margin: var(--s5) 0 var(--s4); border: 1px solid var(--line); background: var(--surface); }
 table.matrix { width: 100%; min-width: 720px; border-collapse: collapse; table-layout: fixed; }
 table.matrix col.c-name { width: 21%; }
@@ -159,20 +163,6 @@ table.matrix tbody tr.m-line th { background: var(--inset); border-top: 2px soli
 table.matrix tbody tr.m-line th b { color: var(--ember-text); font-weight: 600; text-transform: uppercase; letter-spacing: .1em; font-size: 10px; display: block; margin-bottom: 3px; }
 .m-scrollnote { font: 400 11px/1.6 var(--mono); color: var(--faint); margin: 0 0 var(--s5); }
 .m-pending { color: var(--ember-text); }
-
-/* the rings (P-09), the founding picture: belonging is concentric, and the
-   legal boundary is one line drawn across it, not the shape of it. */
-.rings { display: grid; grid-template-columns: 210px 1fr; gap: var(--s5); align-items: center; margin: var(--s5) 0; }
-.rings svg { width: 100%; height: auto; }
-.rings .r-ring { fill: none; stroke: var(--line); stroke-width: 1; }
-.rings .r-core { fill: none; stroke: var(--ember); stroke-width: 1.5; }
-.rings .r-cut { stroke: var(--ember); stroke-width: 1.5; stroke-dasharray: 5 4; }
-.rings ol { margin: 0; padding: 0; list-style: none; counter-reset: r; }
-.rings ol li { font: 400 13.5px/1.6 var(--serif); color: var(--text); padding: 5px 0 5px 26px; position: relative; }
-.rings ol li::before { counter-increment: r; content: counter(r); position: absolute; left: 0; top: 6px;
-  font: 500 10px/1.5 var(--mono); color: var(--faint); }
-.rings ol li b { color: var(--heading); font-weight: 700; }
-@media (max-width: 620px) { .rings { grid-template-columns: 1fr; } .rings svg { max-width: 210px; } }
 
 /* participation cards, per commons.css (U-08). Price is no longer in the
    card head: it is one row among the others, so no card reads as a rung. */
@@ -269,130 +259,22 @@ footer a { color: var(--muted); }
   <header class="mast">
     <div class="kick">Techne &middot; Participation</div>
     <h1>The ways in</h1>
-    <p class="dek">Techne is owned and governed by the people who use it, and there is more than one way to use it. One line runs through everything below: on one side of it you are a <em>member</em> of RegenHub, LCA, with the governance and financial rights the statute attaches to that word, and on the other side you are a <em>participant</em>, which is a way of belonging here that is not ownership. Where you sit is not a function of what you pay.</p>
+    <p class="dek">There is more than one way to be here. Two of them you can start this month: come by, or take a desk. The third is ownership, and it arrives later, by invitation, after people know your work. Start wherever fits.</p>
   </header>
 
-  <section class="sec" data-tint="ember" aria-labelledby="h-matrix" style="padding-top:var(--s5)">
-    <h2 id="h-matrix">Where the line falls</h2>
-    <p>Four questions decide standing, and they answer the same way for everyone in a class.</p>
-
-    <div class="matrix-wrap">
-      <table class="matrix">
-        <caption style="position:absolute;left:-9999px">Standing by class of participation</caption>
-        <colgroup>
-          <col class="c-name"><col class="c-q"><col class="c-qwide"><col class="c-q"><col class="c-qwide"><col class="c-cost">
-        </colgroup>
-        <thead>
-          <tr>
-            <th scope="col">Way in</th>
-            <th scope="col">Vote</th>
-            <th scope="col">Capital account</th>
-            <th scope="col">Schedule K-1</th>
-            <th scope="col">Partner under Subchapter K</th>
-            <th scope="col">What it costs</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="m-band" data-tint="gold"><th colspan="6" scope="colgroup">The access track. Open enrollment, no invitation, no buy-in, cancel on reasonable notice. In no particular order.</th></tr>
-
-          <tr class="m-row">
-            <th scope="row">Community Participant<span class="m-cite">Class Three, at the hub</span></th>
-            <td class="m-no">No</td>
-            <td class="m-no">No</td>
-            <td class="m-no">No</td>
-            <td class="m-no">No</td>
-            <td class="m-cost">$25, $50, or $100 a month</td>
-          </tr>
-
-          <tr class="m-row">
-            <th scope="row">Co-working Participant<span class="m-cite">Class Two</span></th>
-            <td class="m-no">No</td>
-            <td class="m-no">No</td>
-            <td class="m-no">No</td>
-            <td class="m-no">No</td>
-            <td class="m-cost">$250 a month at a hot desk; $500 and up for a dedicated desk or office</td>
-          </tr>
-
-          <tr class="m-row">
-            <th scope="row">Guild Participant<span class="m-cite">Class Three, virtual</span></th>
-            <td class="m-no">No</td>
-            <td class="m-no">No</td>
-            <td class="m-no">No</td>
-            <td class="m-no">No</td>
-            <td class="m-cost">$10, $25, $100, or $200 a month, self-chosen. <span class="m-pending">Not open yet.</span></td>
-          </tr>
-
-          <tr class="m-line"><th colspan="6" scope="colgroup"><b>The membership line</b>Below this line a person is a member of RegenHub, LCA within the meaning of C.R.S. &sect; 7-58-102(13), holding a member's interest under &sect; 7-58-601. Above it a person is not, whatever they pay and however long they have been here. The line is a legal boundary and it is deliberately not the social one: nothing above it is outer, junior, or on the way to something better.</th></tr>
-
-          <tr class="m-band" data-tint="coral"><th colspan="6" scope="colgroup">The patron track. By invitation.</th></tr>
-
-          <tr class="m-row">
-            <th scope="row">Cooperative Member<span class="m-cite">Class One</span></th>
-            <td class="m-yes">Yes, one</td>
-            <td class="m-yes">Yes</td>
-            <td class="m-yes">Yes</td>
-            <td class="m-yes">Yes</td>
-            <td class="m-cost">$100 one-time share, plus $100 a year in dues</td>
-          </tr>
-
-          <tr class="m-band" data-tint="violet"><th colspan="6" scope="colgroup">Beside all of it, on a different axis. Capital without patronage: a stake, and not a step.</th></tr>
-
-          <tr class="m-row">
-            <th scope="row">Investor Member<span class="m-cite">Class Four</span></th>
-            <td class="m-no">No<span class="m-fine">unless co-held with Class One</span></td>
-            <td class="m-yes">Yes</td>
-            <td class="m-yes">Yes</td>
-            <td class="m-yes">Yes</td>
-            <td class="m-cost">A capital contribution. No dues, no fee. Terms set by the Board.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="m-scrollnote">On a narrow screen the table scrolls sideways.</p>
-
-    <div class="snag">
-      <span class="s-mark">Where the record disagrees with itself</span>
-      The drafted Bylaws v2.1 &sect; 1.1(b) define a <em>Coworking Member</em> as a patron member, and &sect; 1.4 gives voting rights to patron members by name. The board determined in June 2026 that this class sits on the access track as a customer rather than a partner, which is what the table above records and what the <a href="/legal/membership-agreement-analysis/">Membership Agreement analysis</a> sets out. Those two things do not both fit. The reconciliation is before counsel with the rest of the pre-execution set, and no one has been admitted under either reading. This page does not decide it.
-    </div>
-  </section>
-
-  <section class="sec" data-tint="rose" aria-labelledby="h-rings" style="margin-top:var(--s6)">
-    <h2 id="h-rings">The shape of it</h2>
-    <p>The founding record drew belonging as concentric rather than stacked: a core of members, then people who use the space without joining, then people who come for an evening, then the wider field of people who might one day. That is still the picture. The membership line is one cut drawn across those rings, and it decides exactly one thing, which is whether you own part of the cooperative.</p>
-
-    <div class="rings">
-      <svg viewBox="0 0 200 200" role="img" aria-label="Four concentric rings with a single line drawn across them. The innermost ring is the members; the line falls just outside it.">
-        <circle class="r-ring" cx="100" cy="100" r="94"/>
-        <circle class="r-ring" cx="100" cy="100" r="72"/>
-        <circle class="r-ring" cx="100" cy="100" r="50"/>
-        <circle class="r-core" cx="100" cy="100" r="28"/>
-        <line class="r-cut" x1="2" y1="92" x2="167" y2="173"/>
-      </svg>
-      <ol>
-        <li><b>The core.</b> Cooperative Members, and Investor Members beside them. One vote each, and only here.</li>
-        <li><b>At a desk or in the room.</b> Co-working and Community Participants. Here every day, and not owners.</li>
-        <li><b>In the guild, from anywhere.</b> Guild Participants, when the guild opens.</li>
-        <li><b>The field.</b> Everyone who comes to a gathering, reads the record, or has not arrived yet. Nothing is asked of them.</li>
-      </ol>
-    </div>
-
-    <p class="tracknote">The dashed line is the legal boundary, and it crosses the rings rather than ringing them. A person outside it can be closer to this cooperative than a person inside it. What the line governs is ownership, not standing among people.</p>
-  </section>
-
   <section class="sec" data-tint="gold" aria-labelledby="h-access" style="margin-top:var(--s6)">
-    <h2 id="h-access">The access track</h2>
-    <p class="lead">Three ways to be here without the obligations of ownership. All three enroll openly: no invitation, no buy-in, and you can leave on reasonable notice. Time spent here counts toward the invitation pathway described below. None of the three makes you a member, and none of them is a lesser version of one.</p>
+    <h2 id="h-access">Ways you can start now</h2>
+    <p class="lead">Two doors, both open to anyone: no invitation, no buy-in, and you can leave on reasonable notice. None of these makes you an owner of the cooperative, and none of them is a lesser version of one. Time spent here is how ownership begins, if it comes to that.</p>
 
     <div class="pgrid">
       <div class="pcard" data-tint="gold" id="community">
-        <div class="p-track">Access track &middot; open enrollment</div>
-        <div class="p-class">Class Three &middot; at the hub</div>
+        <div class="p-track">Open to anyone</div>
         <h3>Community Participant</h3>
         <ul>
           <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Community access and participation</li>
           <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Hub space access at Footing and above</li>
           <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Full hub access at Standing</li>
-          <li class="no"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>No vote on governance, no patronage allocation</li>
+          <li class="no"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>Not ownership: no vote, and no share of what the cooperative earns</li>
         </ul>
         <div class="p-cost"><b>$25, $50, or $100 a month.</b> Threshold, Footing, Standing.</div>
         <div class="p-admit">Open enrollment. Cancel on reasonable notice. No buy-in.</div>
@@ -404,14 +286,12 @@ footer a { color: var(--muted); }
            directed on 2026-08-12 that the access track gives up the word
            member; the public name is the board's election. -->
       <div class="pcard" data-tint="amber" id="coworking">
-        <div class="p-track">Access track &middot; open enrollment</div>
-        <div class="p-class">Class Two</div>
+        <div class="p-track">Open to anyone</div>
         <h3>Co-working Participant</h3>
         <ul>
           <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Full desk and hub access</li>
           <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span class="term"><button type="button" aria-expanded="false">Patronage</button><span class="term-card" role="note"><b>Patronage</b> is participation the cooperative counts: the work, presence, and custom a member brings. In a cooperative, benefit follows patronage rather than capital. <a href="/commons/patronage/">Program Patronage</a></span></span> credits tracked from the day the agreement is executed</li>
-          <li class="no"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>No vote on governance, no capital account</li>
-          <li class="no"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>No Schedule K-1; not a partner</li>
+          <li class="no"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>Not ownership: no vote, and no share of what the cooperative earns</li>
         </ul>
         <div class="p-cost"><b>$250 a month</b> at a hot desk. <b>$500 and up</b> for a dedicated desk or an office.</div>
         <div class="p-admit">Hub Participation Agreement, drafted and with counsel. No invitation required.</div>
@@ -419,32 +299,23 @@ footer a { color: var(--muted); }
           <svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a></div>
       </div>
 
-      <!-- GUILD-D5: "Guild Participant" is the working name; the public name is the board's election -->
-      <div class="pcard" data-tint="blue" id="guild">
-        <div class="p-track">Access track &middot; not open yet</div>
-        <div class="p-class">Class Three &middot; in the guild, virtual</div>
-        <h3>Guild Participant</h3>
-        <ul>
-          <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>The commons as the room: directory, gatherings, the board</li>
-          <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Time in good standing counts toward the invitation pathway</li>
-          <li class="no"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>No vote on governance, no patronage allocation</li>
-          <li class="no"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>No hub space; dues are dues, never capital</li>
-        </ul>
-        <div class="p-cost"><b>$10, $25, $100, or $200 a month</b>, self-chosen. One standing at every amount.</div>
-        <div class="p-admit">Not open. The Guild Participation Terms are not yet written, the amendment establishing the guild is drafted and unadopted, and there is no enrollment path. Described here because it is being built in the open.</div>
-        <div class="p-act"><span class="waiting">Nothing to sign yet.</span></div>
-      </div>
+    </div>
+
+    <div class="aside-block" id="guild" style="border-style:dashed">
+      <div class="a-kick">Being built &middot; not open yet</div>
+      <h3>The guild, from anywhere</h3>
+      <p>A way to be part of this without being in Boulder: the directory, the gatherings, the record, and time that counts toward an invitation the same way time at a desk does. Dues would be self-chosen at $10, $25, $100, or $200 a month, with one standing at every amount.</p>
+      <p class="a-fine">There is nothing to sign yet. The Guild Participation Terms are not written, the amendment establishing the guild is drafted and unadopted, and there is no enrollment path. It is described here because it is being built in the open.</p>
     </div>
   </section>
 
   <section class="sec" data-tint="coral" aria-labelledby="h-patron" style="margin-top:var(--s6)">
-    <h2 id="h-patron">The patron track</h2>
-    <p class="lead">Ownership. A Cooperative Member holds one vote, a <span class="term"><button type="button" aria-expanded="false">capital account</button><span class="term-card" role="note"><b>A capital account</b> is your stake in the cooperative, opened at $100 by the one-time share and grown by the allocations the members retain. On withdrawal it settles at its balance, not at par. <a href="/commons/patronage/">Program Patronage</a></span></span>, and a share of what the work earns, allocated by patronage rather than by capital.</p>
+    <h2 id="h-patron">Becoming an owner</h2>
+    <p class="lead">One class owns the cooperative and governs it. A Cooperative Member holds one vote, a <span class="term"><button type="button" aria-expanded="false">capital account</button><span class="term-card" role="note"><b>A capital account</b> is your stake in the cooperative, opened at $100 by the one-time share and grown by the allocations the members retain. On withdrawal it settles at its balance, not at par. <a href="/commons/patronage/">Program Patronage</a></span></span> that grows, and a share of what the work earns, allocated by the work each person does rather than by the money they put in. It comes by invitation, and it is the only way in that does.</p>
 
-    <div class="pgrid">
+    <div class="pgrid" style="grid-template-columns:minmax(0,440px)">
       <div class="pcard" data-tint="coral" id="cooperative">
-        <div class="p-track">Patron track &middot; by invitation</div>
-        <div class="p-class">Class One</div>
+        <div class="p-track">By invitation</div>
         <h3>Cooperative Member</h3>
         <ul>
           <li class="yes"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>One vote on all governance matters</li>
@@ -460,16 +331,16 @@ footer a { color: var(--muted); }
     </div>
 
     <div class="aside-block" id="investor">
-      <div class="a-kick">Beside all of it &middot; a different axis</div>
-      <h3>Investor Member &middot; Class Four</h3>
-      <p>An Investor Member contributes capital and receives allocated returns and a Schedule K-1, and is a member of the cooperative in the statutory sense. What they do not receive is a vote. This is not a step above or below anything on the tracks: it is a stake rather than a voice, which is a different question from belonging and is drawn here on its own axis for that reason. Control follows people, not capital. One member, one vote is the cooperative's first rule, and the investor class is built to honor it.</p>
+      <div class="a-kick">A separate question &middot; not a step</div>
+      <h3>Putting money in</h3>
+      <p>An Investor Member puts capital in and receives a share of the returns. What an Investor Member does not receive is a vote. This is not a rung above or below anything else on this page: control follows people here, not money, and one member one vote is the cooperative's first rule. If you want to back the work rather than join it, this is the way.</p>
       <p class="a-fine">Direct investment, not a progression from another class. No dues and no membership fee. Terms set by the Board under an Investor Agreement that is not yet drafted. <a href="/commons/join/?way=investor">Write to the board</a>.</p>
     </div>
   </section>
 
   <section class="sec" data-tint="amber" aria-labelledby="h-becoming" style="margin-top:var(--s6)">
-    <h2 id="h-becoming">Crossing the line</h2>
-    <p>Membership is not earned by accumulation and it is not awarded by a threshold being reached. It begins when a member who knows your work says so, and it completes when you agree. Both halves are acts of people.</p>
+    <h2 id="h-becoming">How ownership actually happens</h2>
+    <p>It is not earned by accumulating something, and no threshold awards it. It begins when a member who knows your work invites you, and it completes when you agree. Both halves are acts of people. Roughly ninety days of being around is what makes the first half possible.</p>
 
     <details class="disclose">
       <summary>How participation becomes ownership <span class="sum-note" style="font:400 11px/1.5 var(--mono);color:var(--muted);margin-left:auto">the two pathways</span></summary>
@@ -479,11 +350,8 @@ footer a { color: var(--muted); }
         <p>Nothing on this site will show you a score, a progress bar, or a percentage toward membership, and that is a design decision rather than an omission. A figure a person watches becomes a figure a person plays. What can be shown is what happened: days established, invitations recorded, and what remains, read from the record and never compared against anybody else.</p>
       </div>
     </details>
-  </section>
 
-  <section class="sec" data-tint="rose" aria-labelledby="h-curve" style="margin-top:var(--s6)">
-    <h2 id="h-curve">The member curve</h2>
-    <p class="lead">The path most people walk, from first visit to member-owner and, if it comes to it, out again. Nothing on this curve is a trapdoor; every step is reversible on notice.</p>
+    <p class="tracknote">The path most people walk, and nothing on it is a trapdoor: every step is reversible on notice.</p>
     <div class="curve">
       <div class="c-step" data-tint="gold">
         <div class="c-when">~90 days</div>
@@ -508,6 +376,82 @@ footer a { color: var(--muted); }
     </div>
   </section>
 
+  <section class="sec" data-tint="ember" aria-labelledby="h-compare" style="margin-top:var(--s6)">
+    <h2 id="h-compare">The same four questions, for every way in</h2>
+    <p>Ownership is the only thing that separates them. It is not a function of what you pay: the desk costs more than the share does.</p>
+
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <caption style="position:absolute;left:-9999px">What each way into Techne carries</caption>
+        <colgroup>
+          <col class="c-name"><col class="c-q"><col class="c-q"><col class="c-qwide"><col class="c-cost">
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">Way in</th>
+            <th scope="col">A vote in how it runs</th>
+            <th scope="col">A stake that grows</th>
+            <th scope="col">A share of what it earns</th>
+            <th scope="col">What it costs</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="m-band" data-tint="gold"><th colspan="5" scope="colgroup">Open to anyone. No invitation, no buy-in, cancel on reasonable notice.</th></tr>
+
+          <tr class="m-row">
+            <th scope="row">Community Participant<span class="m-cite">Class Three, at the hub</span></th>
+            <td class="m-no">No</td>
+            <td class="m-no">No</td>
+            <td class="m-no">No</td>
+            <td class="m-cost">$25, $50, or $100 a month</td>
+          </tr>
+
+          <tr class="m-row">
+            <th scope="row">Co-working Participant<span class="m-cite">Class Two</span></th>
+            <td class="m-no">No</td>
+            <td class="m-no">No</td>
+            <td class="m-no">No</td>
+            <td class="m-cost">$250 a month at a hot desk; $500 and up for a dedicated desk or office</td>
+          </tr>
+
+          <tr class="m-row">
+            <th scope="row">Guild Participant<span class="m-cite">Class Three, virtual</span></th>
+            <td class="m-no">No</td>
+            <td class="m-no">No</td>
+            <td class="m-no">No</td>
+            <td class="m-cost">$10, $25, $100, or $200 a month, self-chosen. <span class="m-pending">Not open yet.</span></td>
+          </tr>
+
+          <tr class="m-line"><th colspan="5" scope="colgroup"><b>Everything below this line is ownership</b>Above it you are not an owner, whatever you pay and however long you have been here. This is a legal boundary and not a social one: nothing above it is junior, outer, or on the way to something better.</th></tr>
+
+          <tr class="m-row">
+            <th scope="row">Cooperative Member<span class="m-cite">Class One</span></th>
+            <td class="m-yes">Yes, one</td>
+            <td class="m-yes">Yes</td>
+            <td class="m-yes">Yes</td>
+            <td class="m-cost">$100 one-time share, plus $100 a year in dues</td>
+          </tr>
+
+          <tr class="m-row">
+            <th scope="row">Investor Member<span class="m-cite">Class Four</span></th>
+            <td class="m-no">No<span class="m-fine">unless also a Cooperative Member</span></td>
+            <td class="m-yes">Yes</td>
+            <td class="m-yes">Yes</td>
+            <td class="m-cost">A capital contribution. No dues, no fee. Terms set by the Board.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="m-scrollnote">On a narrow screen the table scrolls sideways.</p>
+
+    <p class="tracknote">In the words the instruments use: a stake that grows is a <em>capital account</em>, a share of the earnings arrives each year as a <em>Schedule K-1</em> and makes the holder a partner under Subchapter K, and anyone below the line is a <em>member</em> of RegenHub, LCA within the meaning of C.R.S. &sect; 7-58-102(13). Everyone above it is a <em>participant</em>. That is the whole of the vocabulary, and this page uses no other.</p>
+
+    <div class="snag">
+      <span class="s-mark">Where the record disagrees with itself</span>
+      The drafted Bylaws v2.1 &sect; 1.1(b) define a <em>Coworking Member</em> as a patron member, and &sect; 1.4 gives voting rights to patron members by name. The board determined in June 2026 that this class sits on the access track as a customer rather than a partner, which is what the table above records and what the <a href="/legal/membership-agreement-analysis/">Membership Agreement analysis</a> sets out. Those two things do not both fit. The reconciliation is before counsel with the rest of the pre-execution set, and no one has been admitted under either reading. This page does not decide it.
+    </div>
+  </section>
+
   <section class="sec" data-tint="blue" aria-labelledby="h-instrument" style="margin-top:var(--s6)">
     <h2 id="h-instrument">The instrument governs</h2>
     <p>This page presents; the instruments decide. The rates and the tax distribution above are the ones this estate records the board as resolving on June 24, 2026. The Bylaws, the Membership Agreement, and the Participation Framework are drafted, in counsel review, and unexecuted; the amendment that would establish the guild levels and the invitation pathway is drafted and unadopted; the Hub Participation Agreement and the Investor Agreement are not published. Where this page and an instrument differ, the instrument is right and this page owes a correction. Every instrument on this site is indexed, with its status and whether signing it makes you a member, at <a href="/legal/">the legal shelf</a>.</p>
@@ -517,12 +461,7 @@ footer a { color: var(--muted); }
       <span class="prov"><b>Bylaws v2.1</b> &middot; <a href="/legal/bylaws/">legal/bylaws</a></span>
       <span class="prov"><b>Program Patronage</b> &middot; <a href="/commons/patronage/">commons/patronage</a></span>
     </div>
-  </section>
-
-  <section class="sec" data-tint="violet" aria-labelledby="h-why" style="margin-top:var(--s6)">
-    <h2 id="h-why">Why the classes are shaped this way</h2>
-    <p>The reasoning is not on this page. It is in <a href="/commonplace/">The Commonplace</a>, the record of the fifteen meetings between August 2025 and February 2026 in which this cooperative was worked out: the decision that member classes should be a matrix and not a ladder, the picture of belonging as concentric rings, and the moment the room chose trust over reputation and symbols over scores. It also holds the sentence that this page is an answer to, from the November 2025 consultation with counsel: whether calling these levels of participation rather than distinct roles avoids the problem or postpones it was left an open question.</p>
-    <p class="tracknote">The Commonplace binds nothing and confers nothing. It is a record of what was said, held as a lens rather than a rule, and where it and an instrument disagree the instrument is right.</p>
+    <p class="tracknote">Why the classes are cut this way, and why belonging here is drawn as circles rather than rungs, is in <a href="/commonplace/">The Commonplace</a>, the record of the fifteen meetings in which this cooperative was worked out. It binds nothing and governs nothing; where it and an instrument disagree, the instrument is right.</p>
   </section>
 
 </main>
