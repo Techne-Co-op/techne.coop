@@ -368,6 +368,14 @@ details.disclose > summary .sum-note { font:400 11px/1.5 var(--mono); color:var(
 .pcard .p-price { font:500 15px/1.4 var(--mono); color:var(--heading); padding:var(--s3) var(--s4);
   border-bottom:1px solid var(--line); }
 .pcard .p-price small { display:block; font:400 11px/1.6 var(--mono); color:var(--muted); font-variant-numeric:tabular-nums; }
+/* p-cost is p-price demoted (P-09). The head slot set price above the rights,
+   in one weight, and a column of cards then read as a column of rungs. Cost is
+   a fact about a class like any other, so it sits below the rights, in the same
+   register as the admission line. Use p-cost where standing must not appear to
+   follow price; p-price remains for surfaces that are genuinely selling. */
+.pcard .p-cost { font:400 12.5px/1.65 var(--mono); color:var(--text); padding:var(--s3) var(--s4);
+  border-top:1px solid var(--line); }
+.pcard .p-cost b { color:var(--heading); font-weight:500; }
 .pcard ul { list-style:none; margin:0; padding:var(--s3) var(--s4); flex:1; }
 .pcard li { display:flex; gap:8px; align-items:flex-start; font:400 13.5px/1.55 var(--serif);
   color:var(--text); padding:4px 0; }
