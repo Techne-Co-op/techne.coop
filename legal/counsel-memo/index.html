@@ -419,9 +419,27 @@
 
     a { color: var(--gold); }
     a:hover { text-decoration: underline; }
-  </style>
+  
+    /* Formation strip: one verbatim copy per public page. See CSS_A note. */
+    .formation-strip{
+      display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+      background:var(--surface);border-bottom:1px solid var(--border);
+      padding:10px 6vw;
+      font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--text-muted);
+    }
+    .formation-strip .fs-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--gold);white-space:nowrap;
+    }
+    .formation-strip .fs-text{max-width:110ch;}
+    .formation-strip a{color:var(--gold);}
+</style>
 </head>
 <body data-doc-path="/legal/counsel-memo/">
+<aside class="formation-strip" aria-label="Formation status">
+  <span class="fs-mark">In formation</span>
+  <span class="fs-text">The Articles are filed with the Colorado Secretary of State; the governing instruments are in counsel review and unexecuted; no member has yet been admitted. Pages here describe how the cooperative is meant to work, not how it currently operates. Where a page and the <a href="/legal/#formation">formation notice</a> disagree, the notice is right.</span>
+</aside>
 <div class="wrap">
 
   <!-- Status banner -->

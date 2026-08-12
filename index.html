@@ -558,9 +558,29 @@ footer { padding: 52px 0 60px; border-top: 1px solid var(--line); }
   .cd-colon { font-size: 26px; }
   .cd-cap { font-size: 10px; }
 }
+
+    /* Formation strip: one verbatim copy per public page. The prose is
+       identical everywhere and scripts/notice_audit.py proves it has not
+       drifted; only the token names differ between the two page families. */
+    .formation-strip{
+      display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+      background:var(--inset);border-bottom:1px solid var(--line);
+      padding:10px 6vw;
+      font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--muted);
+    }
+    .formation-strip .fs-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);white-space:nowrap;
+    }
+    .formation-strip .fs-text{max-width:110ch;}
+    .formation-strip a{color:var(--ember-text);}
 </style>
 </head>
 <body>
+<aside class="formation-strip" aria-label="Formation status">
+  <span class="fs-mark">In formation</span>
+  <span class="fs-text">The Articles are filed with the Colorado Secretary of State; the governing instruments are in counsel review and unexecuted; no member has yet been admitted. Pages here describe how the cooperative is meant to work, not how it currently operates. Where a page and the <a href="/legal/#formation">formation notice</a> disagree, the notice is right.</span>
+</aside>
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -672,7 +692,7 @@ footer { padding: 52px 0 60px; border-top: 1px solid var(--line); }
     <div class="statusline">
       <span class="chip ok"><span class="dot"></span>incorporated february 2026</span>
       <span class="chip warn"><span class="dot"></span>in formation</span>
-      <span class="note">The Articles are on the public record with the Colorado Secretary of State. The <a href="/legal/">Bylaws and Membership Agreement</a> are still in review with our cooperative counsel, and member-owner onboarding is intended to open at launch.</span>
+      <span class="note">The Articles are on the public record with the Colorado Secretary of State. The <a href="/legal/">Bylaws and Membership Agreement</a> are still in review with our cooperative counsel and are not executed. No member has been admitted yet, and member-owner onboarding is intended to open at launch. What the rest of this site describes is a cooperative in formation: the <a href="/legal/#formation">formation notice</a> says plainly what is settled and what is not.</span>
     </div>
   </div>
 </section>

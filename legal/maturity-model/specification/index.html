@@ -196,9 +196,29 @@
       letter-spacing:0.04em;display:flex;justify-content:space-between;
       gap:var(--s3);flex-wrap:wrap;
     }
-  </style>
+  
+    /* Formation strip: one verbatim copy per public page. The prose is
+       identical everywhere and scripts/notice_audit.py proves it has not
+       drifted; only the token names differ between the two page families. */
+    .formation-strip{
+      display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+      background:var(--inset);border-bottom:1px solid var(--line);
+      padding:10px 6vw;
+      font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--muted);
+    }
+    .formation-strip .fs-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);white-space:nowrap;
+    }
+    .formation-strip .fs-text{max-width:110ch;}
+    .formation-strip a{color:var(--ember-text);}
+</style>
 </head>
 <body>
+<aside class="formation-strip" aria-label="Formation status">
+  <span class="fs-mark">In formation</span>
+  <span class="fs-text">The Articles are filed with the Colorado Secretary of State; the governing instruments are in counsel review and unexecuted; no member has yet been admitted. Pages here describe how the cooperative is meant to work, not how it currently operates. Where a page and the <a href="/legal/#formation">formation notice</a> disagree, the notice is right.</span>
+</aside>
 <div class="wrap">
 
   <div class="page-mast">
@@ -207,7 +227,7 @@
     <p class="sub">The formal companion to <a href="/legal/maturity-model/" style="color:var(--blue-text)">How the Cooperative Could Grow</a>. Where that page introduces the model in plain language, this one states it precisely: what a vessel is, which promises are invariant, what conditions govern each transition, and what the record must carry for the whole to remain one system. It is a theoretical specification, drafted for review. It binds no one and decides nothing.</p>
     <div class="chiprow">
       <span class="st st-drafted">MM-0.2 &middot; Drafted for review</span>
-      <span class="st st-filed">V1 &middot; Operating</span>
+      <span class="st st-filed">V1 &middot; Filed</span>
       <span class="st st-antic">V2 &middot; Anticipated</span>
       <span class="st st-open">V3 &middot; Open</span>
     </div>
@@ -237,7 +257,7 @@
       <dt>Record</dt>
       <dd>The shared, append-only account of agreements and events that proves the invariants are being kept. Events are written once and never edited; a mistake is answered by a correction, a new event that compensates and points back at the old one. Every number is a tally: state computed over events, never stored.</dd>
       <dt>Community</dt>
-      <dd>A place-based body operating under the cooperative's standard agreements and record grammar. Today there is one, in Boulder. The formation record's word for this was <em>node</em>; the ground-and-craft register has no settled multi-site word yet, and this specification uses the plain one until the members name it.</dd>
+      <dd>A place-based body that would operate under the cooperative's standard agreements and record grammar. Today there is one forming, in Boulder. The formation record's word for this was <em>node</em>; the ground-and-craft register has no settled multi-site word yet, and this specification uses the plain one until the members name it.</dd>
     </dl>
   </section>
 
@@ -252,7 +272,7 @@
         <td>Colorado limited cooperative association, public benefit entity, taxed as a partnership (the entity pays no income tax; each member accounts for their share)</td>
         <td>Individual people</td>
         <td>The ground: the space, its lease and insurance, the commons, the member record, voluntary contribution</td>
-        <td>Filed and operating</td>
+        <td>Filed; the entity exists and is not yet operating</td>
       </tr>
       <tr>
         <td>V2</td>

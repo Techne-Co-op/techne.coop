@@ -13,7 +13,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Membership Agreement v2.3 · Techne</title>
-  <meta name="description" content="Cooperative Member (Class One) Membership Agreement for RegenHub, LCA — Draft v.2.3, June 2026. Governs patron membership; reflects four-class membership matrix and Class Two access-track determination adopted June 2026.">
+  <meta name="description" content="Cooperative Member (Class One) Membership Agreement for RegenHub, LCA — Draft v.2.3, June 2026, in counsel review and not yet executed. Would govern patron membership; reflects the four-class membership matrix and the Class Two access-track determination of June 2026.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -355,9 +355,29 @@
       .doc-meta-bar { gap: 1rem; }
       .sig-grid { grid-template-columns: 1fr; }
     }
-  </style>
+  
+    /* Formation strip: one verbatim copy per public page. The prose is
+       identical everywhere and scripts/notice_audit.py proves it has not
+       drifted; only the token names differ between the two page families. */
+    .formation-strip{
+      display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+      background:var(--inset);border-bottom:1px solid var(--line);
+      padding:10px 6vw;
+      font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--muted);
+    }
+    .formation-strip .fs-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);white-space:nowrap;
+    }
+    .formation-strip .fs-text{max-width:110ch;}
+    .formation-strip a{color:var(--ember-text);}
+</style>
 </head>
 <body data-doc-path="/legal/membership-agreement-v2/">
+<aside class="formation-strip" aria-label="Formation status">
+  <span class="fs-mark">In formation</span>
+  <span class="fs-text">The Articles are filed with the Colorado Secretary of State; the governing instruments are in counsel review and unexecuted; no member has yet been admitted. Pages here describe how the cooperative is meant to work, not how it currently operates. Where a page and the <a href="/legal/#formation">formation notice</a> disagree, the notice is right.</span>
+</aside>
 
 <div class="wrap">
 
@@ -368,7 +388,7 @@
     <div class="doc-sub">Cooperative Member Patron Membership</div>
   </header>
 
-  <div style="background:var(--ember-dim);border:1px solid var(--ember);border-radius:4px;padding:8px 16px;font-family:var(--mono);font-size:11px;color:var(--ember-text);text-align:center;margin-bottom:1.5rem;">Ratified July 2026.</div>
+  <div style="background:var(--ember-dim);border:1px solid var(--ember);border-radius:4px;padding:8px 16px;font-family:var(--mono);font-size:11px;color:var(--ember-text);text-align:center;margin-bottom:1.5rem;">Drafted. Verbal board adoption June 2026, pending counsel review and execution. No member has signed it.</div>
   <div class="doc-meta-bar">
     <div class="m-item">
       <div class="m-label">Version</div>

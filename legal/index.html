@@ -166,6 +166,21 @@
     .doc-item .di-note{font-size:13px;color:var(--muted);line-height:1.55;}
     .doc-item .di-tag{padding-top:2px;}
 
+    /* Formation notice: the long form of the strip at the top of every
+       public page. This is the copy that governs when a page disagrees. */
+    .formation-note{
+      padding:var(--s5);margin-bottom:var(--s7);
+      background:var(--inset);border:1px solid var(--line);
+      border-left:3px solid var(--ember);
+      font-size:15px;line-height:1.7;color:var(--muted);
+    }
+    .formation-note .fn-head{
+      font-family:var(--mono);font-size:10px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.16em;
+      color:var(--ember-text);margin-bottom:var(--s3);
+    }
+    .formation-note p+p{margin-top:var(--s3);}
+
     /* Group note: prose that qualifies a group before its cards */
     .group-note{
       padding:var(--s4) var(--s5);margin-bottom:var(--s4);
@@ -205,9 +220,29 @@
       .doc-item{grid-template-columns:1fr;}
       .doc-item .di-tag{padding-top:0;margin-top:var(--s2);}
     }
-  </style>
+  
+    /* Formation strip: one verbatim copy per public page. The prose is
+       identical everywhere and scripts/notice_audit.py proves it has not
+       drifted; only the token names differ between the two page families. */
+    .formation-strip{
+      display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+      background:var(--inset);border-bottom:1px solid var(--line);
+      padding:10px 6vw;
+      font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--muted);
+    }
+    .formation-strip .fs-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);white-space:nowrap;
+    }
+    .formation-strip .fs-text{max-width:110ch;}
+    .formation-strip a{color:var(--ember-text);}
+</style>
 </head>
 <body>
+<aside class="formation-strip" aria-label="Formation status">
+  <span class="fs-mark">In formation</span>
+  <span class="fs-text">The Articles are filed with the Colorado Secretary of State; the governing instruments are in counsel review and unexecuted; no member has yet been admitted. Pages here describe how the cooperative is meant to work, not how it currently operates. Where a page and the <a href="/legal/#formation">formation notice</a> disagree, the notice is right.</span>
+</aside>
 
 <div class="wrap">
 
@@ -228,6 +263,13 @@
     <div class="leg-item"><span class="st st-ratified">Ratified</span> Adopted by member vote; in effect between the parties.</div>
     <div class="leg-item"><span class="st st-drafted">Drafted</span> Document exists; not yet formally ratified.</div>
     <div class="leg-item"><span class="st st-antic">Anticipated</span> Identified; not yet drafted.</div>
+  </div>
+
+  <div class="formation-note" id="formation">
+    <div class="fn-head">Where the cooperative stands</div>
+    <p>RegenHub, LCA is in formation. The Articles are filed with the Colorado Secretary of State, and that much is settled. The rest of this site describes a cooperative that is being built: the governing instruments are in counsel review and unexecuted, no member has been admitted, and the frameworks, schedules, and policies described here are drafted rather than adopted. Nothing on this page carries the Ratified mark, because nothing has been adopted by a member vote.</p>
+    <p>We publish in that state deliberately. A cooperative whose members arrive after every decision is already made is not one anybody co-creates, so this is the working record of a live formation, and it will keep changing.</p>
+    <p>Read it accordingly. A page describing how something works is describing how it is meant to work; it binds when an instrument is executed, a board resolution passes, or the members vote. Each document above carries its own status mark. Where a page anywhere on this site and this notice disagree, this notice is right.</p>
   </div>
 
   <!-- Layer 0: Instantiation -->
@@ -266,10 +308,10 @@
     <a class="doc-card" href="/legal/bylaws/">
       <div class="doc-card-head">
         <span class="doc-card-title">Bylaws v2.1</span>
-        <span class="st st-ratified">Ratified</span>
+        <span class="st st-drafted">Drafted</span>
       </div>
       <div class="doc-card-desc">The cooperative's governing rules — member classes, board composition and elections, committee structures, meeting protocols, amendment procedures, and the Subchapter K partnership tax election. Eighteen articles.</div>
-      <div class="doc-card-meta">Colorado ULCAA · C.R.S. Title 7, Art. 58 · Drafted with Jeff Pote (Pote Law Firm) · Ratified July 2026</div>
+      <div class="doc-card-meta">Colorado ULCAA · C.R.S. Title 7, Art. 58 · Drafted with Jeff Pote (Pote Law Firm) · Verbal board adoption June 2026, pending counsel review and execution</div>
     </a>
   </div>
 
@@ -280,10 +322,10 @@
     <a class="doc-card" href="/legal/membership-agreement/">
       <div class="doc-card-head">
         <span class="doc-card-title">Membership Agreement v.2.3</span>
-        <span class="st st-ratified">Ratified</span>
+        <span class="st st-drafted">Drafted</span>
       </div>
       <div class="doc-card-desc">The standard contract each cooperative member (Class One — Labor Member) signs on admission. Establishes standing as a Subchapter K partner, capital account, information rights, obligations, and consent to partnership tax treatment.</div>
-      <div class="doc-card-meta">Cooperative Member · Class One · Labor Member · Patron Track</div>
+      <div class="doc-card-meta">Cooperative Member · Class One · Labor Member · Patron Track · Verbal board adoption June 2026, pending counsel review and execution. No member has yet signed it.</div>
     </a>
 
     <a class="doc-card" href="/legal/community-supporter/">

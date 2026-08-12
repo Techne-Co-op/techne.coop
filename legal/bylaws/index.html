@@ -13,7 +13,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bylaws v2.1 · Techne</title>
-  <meta name="description" content="Bylaws of RegenHub, LCA — v.2.1, ratified July 2026, pending counsel review before execution. A Colorado Public Benefit Limited Cooperative Association.">
+  <meta name="description" content="Bylaws of RegenHub, LCA — v.2.1, drafted, in counsel review and not yet executed. A Colorado Public Benefit Limited Cooperative Association in formation.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -340,9 +340,29 @@
       .doc-meta-bar { gap: 1rem; }
       .toc { columns: 1; }
     }
-  </style>
+  
+    /* Formation strip: one verbatim copy per public page. The prose is
+       identical everywhere and scripts/notice_audit.py proves it has not
+       drifted; only the token names differ between the two page families. */
+    .formation-strip{
+      display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+      background:var(--inset);border-bottom:1px solid var(--line);
+      padding:10px 6vw;
+      font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--muted);
+    }
+    .formation-strip .fs-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);white-space:nowrap;
+    }
+    .formation-strip .fs-text{max-width:110ch;}
+    .formation-strip a{color:var(--ember-text);}
+</style>
 </head>
 <body data-doc-path="/legal/bylaws-v2/">
+<aside class="formation-strip" aria-label="Formation status">
+  <span class="fs-mark">In formation</span>
+  <span class="fs-text">The Articles are filed with the Colorado Secretary of State; the governing instruments are in counsel review and unexecuted; no member has yet been admitted. Pages here describe how the cooperative is meant to work, not how it currently operates. Where a page and the <a href="/legal/#formation">formation notice</a> disagree, the notice is right.</span>
+</aside>
 
 <div class="wrap">
 
@@ -353,11 +373,11 @@
     <div class="doc-sub">RegenHub, LCA (DBA Techne)</div>
   </header>
 
-  <div style="background:var(--ember-dim);border:1px solid var(--ember);border-radius:4px;padding:8px 16px;font-family:var(--mono);font-size:11px;color:var(--ember-text);text-align:center;margin-bottom:1.5rem;">Ratified July 2026.</div>
+  <div style="background:var(--ember-dim);border:1px solid var(--ember);border-radius:4px;padding:8px 16px;font-family:var(--mono);font-size:11px;color:var(--ember-text);text-align:center;margin-bottom:1.5rem;">Drafted. Verbal board adoption June 2026, pending counsel review and execution. Not yet in effect.</div>
   <div class="doc-meta-bar">
     <div class="m-item">
       <div class="m-label">Effective Date</div>
-      <div class="m-val">July 2026</div>
+      <div class="m-val">Not yet effective</div>
     </div>
     <div class="m-item">
       <div class="m-label">Version</div>
