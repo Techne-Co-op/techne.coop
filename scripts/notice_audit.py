@@ -6,11 +6,19 @@ formation strip is a verbatim copy on every public page it covers. Verbatim
 copies drift: U-20 found four different widths where one measure was meant,
 and this audit exists so the same thing cannot happen to a legal disclosure.
 
-Two checks:
+The notice takes two forms since P-11. The steward asked on 2026-08-12 for it
+out of the top banner and into the footer, shorter. It is now:
 
-1. Coverage. Every page named in COVERED carries the strip.
-2. Sameness. The strip's prose is byte-identical on every page that carries
-   it. Only the surrounding CSS may differ, because the estate carries two
+  - a top strip on every page under legal/, because a reader should not be
+    able to read a governing instrument end to end without meeting the
+    sentence that says it is drafted and unexecuted; and
+  - a short footer line everywhere else.
+
+Two checks, run over each form:
+
+1. Coverage. Every page named carries its form of the notice.
+2. Sameness. The prose is byte-identical across every page carrying the same
+   form. Only the surrounding CSS may differ, because the estate carries two
    token families and a copy must use the names its own page defines.
 
 The long form of the notice lives at legal/index.html#formation and is the
@@ -27,9 +35,8 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-COVERED = [
-    "index.html",
-    "participation/index.html",
+# The top strip: the legal shelf and every instrument, analysis, and log on it.
+COVERED_STRIP = [
     "legal/index.html",
     "legal/bylaws/index.html",
     "legal/bylaws-analysis/index.html",
@@ -46,39 +53,53 @@ COVERED = [
     "legal/summary-of-changes/index.html",
 ]
 
+# The footer line: the public pages a visitor meets first.
+COVERED_FOOT = [
+    "index.html",
+    "participation/index.html",
+    "participation/detail/index.html",
+]
+
 LONG_FORM = "legal/index.html"
 
 STRIP_RE = re.compile(
     r'<aside class="formation-strip"[^>]*>(.*?)</aside>', re.S
 )
+FOOT_RE = re.compile(
+    r'<div class="formation-foot"[^>]*>(.*?)</div>', re.S
+)
 
 
-def main():
-    findings = []
+def check(findings, covered, pattern, label):
+    """Coverage and sameness for one form of the notice."""
     seen = {}
-
-    for rel in COVERED:
+    for rel in covered:
         path = REPO_ROOT / rel
         if not path.exists():
             findings.append(f"{rel}: covered page does not exist")
             continue
-        text = path.read_text()
-        match = STRIP_RE.search(text)
+        match = pattern.search(path.read_text())
         if not match:
-            findings.append(f"{rel}: carries no formation strip")
+            findings.append(f"{rel}: carries no formation {label}")
             continue
         seen[rel] = match.group(1).strip()
 
     if seen:
-        # The first page in COVERED order is the reference copy.
-        ref_rel = next(r for r in COVERED if r in seen)
+        ref_rel = next(r for r in covered if r in seen)
         ref = seen[ref_rel]
         for rel, body in seen.items():
             if body != ref:
                 findings.append(
-                    f"{rel}: formation strip differs from {ref_rel}; "
+                    f"{rel}: formation {label} differs from {ref_rel}; "
                     f"the prose is one text, copied, not edited per page"
                 )
+    return len(seen)
+
+
+def main():
+    findings = []
+    n = check(findings, COVERED_STRIP, STRIP_RE, "strip")
+    n += check(findings, COVERED_FOOT, FOOT_RE, "footer line")
 
     long_form = REPO_ROOT / LONG_FORM
     if long_form.exists():
@@ -93,7 +114,7 @@ def main():
 
     for f in findings:
         print(f"notice-audit: {f}")
-    print(f"notice-audit: {len(findings)} finding(s) over {len(COVERED)} pages")
+    print(f"notice-audit: {len(findings)} finding(s) over {n} pages")
     return 1 if findings else 0
 
 
