@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+  (function(){
+    var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+    var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+    document.documentElement.setAttribute('data-mode',m);
+  })();
+  </script>
+  <script src="/assets/topbar.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Defects and open readings found in the RegenHub, LCA governing drafts after publication, with what closes each. A correction log, not an amendment record: the instruments are drafted and unexecuted.">
+  <title>Corrections and open readings &middot; Techne</title>
+  <link rel="canonical" href="https://techne.coop/legal/corrections/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://techne.coop/legal/corrections/">
+  <meta property="og:title" content="Corrections and open readings · Techne">
+  <meta property="og:description" content="Defects and open readings found in the governing drafts after publication, and what closes each.">
+  <meta property="og:site_name" content="Techne">
+  <meta property="og:image" content="https://techne.coop/assets/og-default.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif:'Libre Baskerville',Georgia,serif;
+      --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+      --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+      --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
+    }
+    html[data-mode="dark"] {
+      --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;
+      --line:#2A2A30;--rule:#3A3A42;
+      --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
+      --blue:#6A8AC4;--blue-text:#97B5E8;
+      --ember:#C4956A;--ember-text:#D4A57A;--ember-dim:rgba(196,149,106,0.14);
+      --ok:#6A9A6A;--ok-text:#7DAA7D;
+      --warn:#C46A6A;--warn-text:#D48A8A;
+      color-scheme:dark;
+    }
+    html[data-mode="light"] {
+      --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
+      --line:#D8D3C8;--rule:#9A958A;
+      --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
+      --blue:#4A6FB0;--blue-text:#39588F;
+      --ember:#8A6A4A;--ember-text:#6F5436;--ember-dim:rgba(138,106,74,0.10);
+      --ok:#4A7A4A;--ok-text:#3A6A3A;
+      --warn:#A84F4C;--warn-text:#8F3F3C;
+      color-scheme:light;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0ms!important;}}
+    body{
+      background:var(--bg);color:var(--text);
+      font-family:var(--serif);font-size:17px;line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+      transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);
+    }
+    em{font-style:italic;color:var(--heading);}
+
+    /* Formation strip: one verbatim copy per public page. The prose is
+       identical everywhere and scripts/notice_audit.py proves it has not
+       drifted; only the token names differ between the two page families. */
+    .formation-strip{
+      display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+      background:var(--inset);border-bottom:1px solid var(--line);
+      padding:10px 6vw;
+      font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--muted);
+    }
+    .formation-strip .fs-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);white-space:nowrap;
+    }
+    .formation-strip .fs-text{max-width:110ch;}
+    .formation-strip a{color:var(--ember-text);}
+
+    .wrap{max-width:820px;margin:0 auto;padding:0 var(--s5) var(--s8);}
+
+    .page-mast{
+      padding:clamp(56px,8vw,96px) 0 var(--s6);
+      border-bottom:1px solid var(--line);
+      margin-bottom:var(--s6);
+    }
+    .kick{
+      font-family:var(--mono);font-size:11px;text-transform:uppercase;
+      letter-spacing:0.16em;color:var(--ember-text);margin-bottom:var(--s3);
+    }
+    .page-mast h1{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(30px,5vw,44px);line-height:1.15;
+      color:var(--heading);letter-spacing:-0.015em;margin-bottom:var(--s3);
+    }
+    .sub{font-size:18px;line-height:1.65;color:var(--muted);max-width:62ch;}
+
+    .st{
+      display:inline-block;
+      font-family:var(--mono);font-size:9.5px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.14em;
+      padding:3px 8px;border-radius:2px;white-space:nowrap;
+    }
+    .st-open{border:1px solid var(--warn);color:var(--warn-text);}
+    .st-tracked{border:1px solid var(--ember);color:var(--ember-text);}
+    .st-closed{border:1px solid var(--ok);color:var(--ok-text);}
+    .st-reading{border:1px dashed var(--muted);color:var(--muted);}
+
+    section{margin-bottom:var(--s7);}
+    h2{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(20px,3vw,26px);line-height:1.25;
+      color:var(--heading);margin-bottom:var(--s4);
+    }
+    p{margin-bottom:var(--s4);max-width:68ch;}
+    p:last-child{margin-bottom:0;}
+
+    .item{
+      border:1px solid var(--line);border-left:3px solid var(--ember);
+      background:var(--surface);padding:var(--s4) var(--s5);margin-bottom:var(--s4);
+    }
+    .item-head{
+      display:flex;justify-content:space-between;align-items:baseline;
+      gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s2);
+    }
+    .item-title{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--heading);}
+    .item-where{
+      font-family:var(--mono);font-size:11px;color:var(--faint);
+      letter-spacing:0.04em;margin-bottom:var(--s3);
+    }
+    .row{margin-bottom:var(--s3);font-size:15px;line-height:1.65;}
+    .row:last-child{margin-bottom:0;}
+    .row .rk{
+      display:block;font-family:var(--mono);font-size:10px;
+      letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);
+      margin-bottom:2px;
+    }
+    .quote{font-style:italic;color:var(--heading);}
+
+    .note{
+      background:var(--inset);border:1px solid var(--line);
+      padding:var(--s4) var(--s5);margin-top:var(--s5);
+      font-size:15px;line-height:1.65;color:var(--muted);max-width:none;
+    }
+
+    footer{
+      margin-top:var(--s7);padding-top:var(--s4);border-top:1px solid var(--line);
+      font-family:var(--mono);font-size:11px;line-height:1.8;color:var(--faint);
+      letter-spacing:0.04em;
+    }
+    footer a{color:var(--faint);}
+  </style>
+</head>
+<body>
+<aside class="formation-strip" aria-label="Formation status">
+  <span class="fs-mark">In formation</span>
+  <span class="fs-text">The Articles are filed with the Colorado Secretary of State; the governing instruments are in counsel review and unexecuted; no member has yet been admitted. Pages here describe how the cooperative is meant to work, not how it currently operates. Where a page and the <a href="/legal/#formation">formation notice</a> disagree, the notice is right.</span>
+</aside>
+<div class="wrap">
+
+  <div class="page-mast">
+    <div class="kick">Legal &middot; The correction log</div>
+    <h1>Corrections and open readings</h1>
+    <p class="sub">Defects found in the governing drafts after they were published, and what closes each. This is not an amendment record. The instruments are drafted and unexecuted, so what is listed here is corrected before signature rather than amended after it, and the commentary layer beside it records something different: what changed on the way to v2.1, which is a record of proposals, not of defects in the result.</p>
+  </div>
+
+  <section id="how">
+    <h2>How to read this</h2>
+    <p>Each item names where it was found, what the text says, what is wrong with it, and what would close it. Items already carried under an identifier in the <a href="/legal/counsel-memo/" style="color:var(--ember-text)">Counsel Memo</a> or the changes indices are pointed at that identifier rather than duplicated, because two records of one defect is how a defect gets fixed twice and closed never.</p>
+    <p>An item marked <em>reading</em> does not close by editing. It is a question about what the instrument means, and answering it is the board's or counsel's work, not a drafting fix.</p>
+  </section>
+
+  <section id="items">
+    <h2>Open items</h2>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">DOC-01&middot;01 &nbsp;A cross-reference points at the wrong article</span>
+        <span class="st st-open">Open &middot; for counsel</span>
+      </div>
+      <div class="item-where">Bylaws v2.1 &sect; 3.13 &middot; found 2026-08-12 &middot; not previously tracked</div>
+      <div class="row"><span class="rk">Reads</span><span class="quote">no Director shall vote on any matter in which they have a financial self-interest in any capacity other than as a Member except as expressly permitted by Article XVI.</span></div>
+      <div class="row"><span class="rk">But</span>Article XVI is Distribution of Bylaws. Interested transactions are Article XVII, Certain Transactions, whose &sect; 17.1 is the permission the sentence is reaching for: disclosure to the Board, approval by a majority of all Directors or of the disinterested Directors, or approval by the voting members.</div>
+      <div class="row"><span class="rk">Effect</span>A director checking whether they may vote on an interested transaction is sent to the section about mailing copies of the Bylaws. The substantive rule in Article XVII is unaffected, so the defect is in the pointer and not in the governance.</div>
+      <div class="row"><span class="rk">What closes it</span>The reference corrected to Article XVII in the executed text. This goes to counsel with the rest of the pre-execution set; it is not corrected here, because a cross-reference inside an instrument is not the sort of thing a website edits on its own.</div>
+    </div>
+
+    <div class="item" id="doc-01-02">
+      <div class="item-head">
+        <span class="item-title">DOC-01&middot;02 &nbsp;The initial board is not named in &sect; 3.2.2 &mdash; and where it was named, the count was wrong</span>
+        <span class="st st-open">Open &middot; for counsel &middot; the board's part answered 2026-08-12</span>
+      </div>
+      <div class="item-where">Bylaws v2.1 &sect; 3.2.2 &middot; struck 2026-08-12 as a duplicate of BL-04, reopened the same day against the instrument</div>
+      <div class="row"><span class="rk">Reads</span><span class="quote">such Board consists of: [Initial Directors &mdash; TBD from 8 organizers]</span></div>
+      <div class="row"><span class="rk">What the instrument says</span>The organizers' written consent in lieu of meeting, effective April 24, 2026, resolves that <span class="quote">the initial Board shall consist of seven (7) Directors</span> and appoints seven of the eight organizers, each named in the resolution. Eight organizers executed it. Seven were appointed. Each undersigned organizer resigned as organizer as of the same date. The roster is not reproduced here: it is held with the consent, which carries signatures and is the steward's to release. Note also that the seven appointed in April are not the Board in office today: one Director has since stepped back, and the consequences are at <a href="#doc-01-08">DOC-01&middot;08</a>.</div>
+      <div class="row"><span class="rk">But</span>This item was struck earlier today as already carried under BL-04, on the strength of the Counsel Memo's assertion that the composition was confirmed at <em>six</em> directors, which the memo then named. The consent says seven, and the memo's roster omitted one of them. The estate had a director count and a roster on a public page, sourced to an instrument nobody had read against it.</div>
+      <div class="row"><span class="rk">Effect</span>Two things follow from the number and neither is cosmetic. &sect; 3.13 sets quorum at a simple majority of all Directors, which is four of seven rather than four of six &mdash; the same figure, on a different denominator. &sect; 3.15 permits action without a meeting only when agreed by <em>all</em> members of the Board: a written consent circulated to six directors and signed by six would not be board action. Seven sits inside the 3-to-9 range &sect; 3.2.1 allows, so the number itself is sound. That arithmetic is the arithmetic of a full board, which this one no longer is; what quorum requires today is the subject of <a href="#doc-01-08">DOC-01&middot;08</a>, and the answer there is the same figure again.</div>
+      <div class="row"><span class="rk">Answered</span>&sect; 3.2.2's bracket reads <em>TBD from 8 organizers</em>. Eight organizers are named in Article IV of the Articles and eight executed the consent; seven were appointed. Asked whether the eighth's non-appointment was intended, the steward answered on 2026-08-12 that the organizer in question did not join the board and hopes to participate when membership opens. That is the whole of it: the eighth acted as an organizer, executed this consent along with the others, and was simply not among those appointed. Nothing in the instrument sits crosswise with that account, and nothing here is left for the board to explain.</div>
+      <div class="row"><span class="rk">Also standing</span>The consent's effective date is April 24, 2026; its signatures were collected between April 24 and May 8, 2026. The counterparts clause contemplates this and makes each signature binding as an original, so the drafting is ordinary. It does bear on dating anything the initial Board did: the Board was not fully constituted by execution until the last signature.</div>
+      <div class="row"><span class="rk">What closes it</span>Counsel's answer to the question BL-04 already asks &mdash; whether the bracket must be completed before execution or whether the consent suffices as the operative designation &mdash; and then either the seven names in &sect; 3.2.2 or the consent published beside the Bylaws. Corrected today: the Counsel Memo and the summary of changes, which stated six in four places. The consent itself is not published here; it carries signatures and is the steward's to release.</div>
+    </div>
+
+    <div class="item" id="doc-01-08">
+      <div class="item-head">
+        <span class="item-title">DOC-01&middot;08 &nbsp;The board on the record is not the board in office</span>
+        <span class="st st-open">Open &middot; for counsel and the board</span>
+      </div>
+      <div class="item-where">Every surface of this estate that describes the Board &middot; found 2026-08-12 on the steward's report, hours after the consent arrived</div>
+      <div class="row"><span class="rk">Reads</span>This estate describes the Board as the seven Directors appointed by the organizers' written consent effective April 24, 2026. That composition is the only one anywhere in the record.</div>
+      <div class="row"><span class="rk">But</span>One of the seven has since stepped back, on notice given June 7, 2026, reported by the steward on 2026-08-12. The Board in office is six. Nothing in the record registers the departure or the composition it left behind: no minute, no consent, no note on any page here until this one.</div>
+      <div class="row"><span class="rk">Effect &middot; the number</span>The authorized number stays seven. &sect; 3.2.1 lets the Board change it only by a two-thirds supermajority of all then-current Directors, and provides that no reduction may have the effect of removing a Director. A resignation therefore opens a vacancy rather than shrinking the Board, and &sect; 3.7 lets the remaining Directors fill a vacancy by simple majority <em>even if less than a quorum</em>. One seat is vacant and fillable today.</div>
+      <div class="row"><span class="rk">Effect &middot; quorum</span>&sect; 3.13 sets quorum at <span class="quote">a simple majority of all Directors</span>, unqualified. Elsewhere in the same article the Bylaws distinguish <span class="quote">the authorized number of Directors</span> from <span class="quote">all then-current Directors</span> (&sect; 3.2.1), so the instrument knows the difference and &sect; 3.13 does not say which it means. At the moment the reading does not matter: a simple majority of seven authorized directorships and a simple majority of six sitting Directors are both four. The ambiguity is latent rather than live. It would go live at five, where the two readings give four and three, so it is recorded as a question for counsel and not as a bar to anything.</div>
+      <div class="row"><span class="rk">Effect &middot; consents</span>&sect; 3.15 permits action without a meeting only when <em>all</em> Directors agree and sign. That is six signatures, not seven, and a consent circulated to the roster on the record would go to one person who can no longer give it.</div>
+      <div class="row"><span class="rk">Effect &middot; the one action relied on</span>The Bylaws and the Membership Agreement rest on a verbal board adoption in June 2026, as the Counsel Memo states and this estate now says on every page. The June 7 notice falls inside that month, so the meeting was held with either seven Directors or six. Quorum was four either way, which settles the arithmetic. What the record still does not supply is the meeting itself: its date, who attended, and what was moved and carried. Quorum is a number this page can now compute; attendance is a fact only a minute can furnish.</div>
+      <div class="row"><span class="rk">On naming</span>The Director who stepped back is not named here. A departure belongs more to the person than an appointment does, and there is no instrument in the record to cite for it yet. If the board registers the resignation, the record can speak for itself.</div>
+      <div class="row"><span class="rk">What closes it</span>A minute or consent registering the resignation, the date it took effect, and the resulting composition, and, if the board wishes, the filling of the vacancy. Whether the June 7 notice was in writing bears on the effective date: &sect; 3.6 makes a resignation effective on receipt of written notice unless the notice names a later date. One caution on that: the Bylaws are drafted and not in effect, so &sect; 3.6 is a term the cooperative intends rather than one that governed this departure, and what did govern it is a question for counsel under the ULCAA, C.R.S. Title 7, Article 58. Counsel's reading of <span class="quote">all Directors</span> in &sect; 3.13 travels with the rest, against the day it starts to matter.</div>
+    </div>
+
+    <div class="item" id="doc-01-05">
+      <div class="item-head">
+        <span class="item-title">DOC-01&middot;05 &nbsp;An executed instrument recites the wrong formation date</span>
+        <span class="st st-open">Open &middot; for counsel</span>
+      </div>
+      <div class="item-where">Organizers' written consent, recital &middot; found 2026-08-12</div>
+      <div class="row"><span class="rk">Reads</span>The consent recites that <span class="quote">the Cooperative was formed on February 2, 2026 by filing its articles of organization with the Colorado Secretary of State</span>.</div>
+      <div class="row"><span class="rk">But</span>The Articles of Organization were e-filed February 6, 2026, document 20261163853. The filing stamp on the instrument itself is the source, and every surface on this estate says February 6.</div>
+      <div class="row"><span class="rk">Effect</span>A recital, not an operative provision, so nothing turns on it directly. It is still a wrong date inside a signed document about when the entity came into existence, and the tax year and the formation boundary in the accounting memo both run from that date.</div>
+      <div class="row"><span class="rk">What closes it</span>Counsel's view on whether a recital of this kind is worth correcting in a signed instrument, or is left as a scrivener's error with the filing record controlling. Travels with the pre-execution set.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">DOC-01&middot;03 &nbsp;Community Participants both may and may not take part in governance</span>
+        <span class="st st-reading">Reading &middot; extends BL-A04</span>
+      </div>
+      <div class="item-where">Bylaws v2.1 &sect; 1.1(c) against &sect;&sect; 1.4, 1.11, 1.12.2 &middot; found 2026-08-12</div>
+      <div class="row"><span class="rk">Reads</span>&sect; 1.1(c): <span class="quote">Community Participants may participate in governance as determined by the Board.</span></div>
+      <div class="row"><span class="rk">But</span>&sect; 1.4 provides that <span class="quote">only patron members (Cooperative Members and Coworking Members) shall have voting rights</span>; &sect; 1.11 gives one vote to each patron member holding stock; &sect; 1.12.2 confines the single vote to patron members. Community Participants are none of those.</div>
+      <div class="row"><span class="rk">Effect</span>The Board is empowered to determine governance participation for a class three later sections exclude from voting. The two reconcile if participation means committee service or comment rather than a vote, which is the likely reading, and the text nowhere says so.</div>
+      <div class="row"><span class="rk">What closes it</span>Not an edit. BL-A04 already holds this section, on the different ground that the class fits neither statutory category under the ULCAA; that proposal was not carried into v2.1, which is why the ambiguity survived. This reading is recorded against BL-A04 rather than opened separately, and it wants the same answer: decide what the class is before the Hub Membership Agreement, which governs it, returns from review.</div>
+    </div>
+  </section>
+
+  <section id="closed">
+    <h2>Struck and closed</h2>
+
+    <div class="item" id="doc-01-07">
+      <div class="item-head">
+        <span class="item-title">DOC-01&middot;07 &nbsp;The estate claimed a trade name before one was registered, and the one registered is a different name</span>
+        <span class="st st-closed">Closed on the claim &middot; 2026-08-12 &middot; one question open</span>
+      </div>
+      <div class="item-where">The Bylaws page header and the summary of changes masthead &middot; found 2026-08-12 on the day the filing landed</div>
+      <div class="row"><span class="rk">Was</span>The Bylaws page carried <span class="quote">RegenHub, LCA (DBA Techne)</span> directly beneath its title, where a reader takes it for the instrument's own title block, and the summary of changes carried the same claim in its masthead. Neither instrument says <em>Techne</em> anywhere in its text; the words are this site's chrome. The legal index and the encyclopedia meanwhile listed the trade name registration as <em>anticipated</em>, which is to say the estate asserted a DBA on two pages and recorded on two others that no such filing existed.</div>
+      <div class="row"><span class="rk">Now</span>A Statement of Trade Name of a Reporting Entity was filed with the Colorado Secretary of State on August 12, 2026, document 20268011137, under C.R.S. &sect;&sect; 7-71-103 and 7-71-107, with no delayed effective date. The registered trade name is <strong>techne.coop</strong>. The entity's true name remains RegenHub, LCA.</div>
+      <div class="row"><span class="rk">Open</span>The registered string is <em>techne.coop</em>, and the name this site uses in running text, page titles, and footers is <em>Techne</em>. Whether transacting as <em>Techne</em> is covered by a registration of <em>techne.coop</em>, or wants its own statement, is a question for counsel and not one this page decides. Using <em>Techne</em> as a brand is a different act from asserting it as a registered trade name, and only the second was wrong.</div>
+      <div class="row"><span class="rk">Closed by</span>Both DBA assertions removed, and the registration recorded as filed with its document number on the legal index and in the encyclopedia. The masthead of the summary of changes was corrected rather than preserved as a dated artifact, on the ground that the claim was not true on its date either; the retired vocabulary elsewhere in that document is left alone, because that language was accurate for the draft it describes.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">DOC-01&middot;06 &nbsp;The legal index described the Articles as naming directors</span>
+        <span class="st st-closed">Closed &middot; 2026-08-12</span>
+      </div>
+      <div class="item-where">/legal and the encyclopedia against the Articles of Organization &middot; found and fixed 2026-08-12</div>
+      <div class="row"><span class="rk">Was</span>The legal index called the filing the <em>Articles of Incorporation</em> and said it names <span class="quote">the entity, its Public Benefit purpose, address, and initial directors</span>. The encyclopedia used the same wrong instrument name.</div>
+      <div class="row"><span class="rk">Finding</span>The instrument is the Articles of Organization of a limited cooperative association, and it names no directors. Article IV names the eight organizers; Article VII leaves the qualifications, number, terms, and election of Directors to the Bylaws. This estate's own summary of changes said so correctly while the index said otherwise. Had the claim been true, &sect; 3.2.2's unfilled bracket would have had a second source and DOC-01&middot;02 would have looked smaller than it is.</div>
+      <div class="row"><span class="rk">Closed by</span>Both surfaces corrected: the instrument named properly, the directors claim removed, and the document number carried on the index.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">DOC-01&middot;04 &nbsp;One class carried three names</span>
+        <span class="st st-closed">Closed &middot; 2026-08-12</span>
+      </div>
+      <div class="item-where">&sect; 1.1(a) against this estate's own pages &middot; found and fixed 2026-08-12</div>
+      <div class="row"><span class="rk">Was</span>The Bylaws and the Membership Agreement both name the first class <em>Cooperative Member</em>. The legal index and the encyclopedia called it <em>Class One, Labor Member</em>. The commentary layer calls it <em>Class A patron member</em> in three places.</div>
+      <div class="row"><span class="rk">Finding</span>The instruments never disagreed. <em>Labor Member</em> was not a term of the cooperative at all: it entered on this site's own index in July 2026 and spread to one other page. The estate had invented a name and then read it back as though an instrument said it.</div>
+      <div class="row"><span class="rk">Closed by</span>Both surfaces corrected to Cooperative Member (Class One). The commentary layer's <em>Class A</em> usages are left alone: they are historical documents describing a prior draft, and rewriting them would be editing the record rather than correcting a claim.</div>
+    </div>
+  </section>
+
+  <section id="related">
+    <h2>Related, carried elsewhere</h2>
+    <p><strong>&sect; 5.3.2 still reads <em>may</em>.</strong> BL-A01 proposed changing the pre-Patronage-Plan fallback from <span class="quote">Net Profits may be allocated equally</span> to <em>shall</em>, because a permissive default leaves the opening fiscal period without a determinate allocation rule under IRC &sect; 704(b). The change was not carried into v2.1 and the published text still reads <em>may</em>. Tracked under BL-A01; noted here because it is adjacent to the counting rules and is the item with tax consequences.</p>
+    <p><strong>Who sets what counts as patronage.</strong> &sect; 5.3.2 permits the Board to amend the patronage measurement methodology only through the Patronage Plan amendment process, which requires majority patron member approval. Whether adopting a first Plan is an amendment within that sentence is a legal reading, and it bears on the counting rules now in draft.</p>
+    <p><strong>The third condition of admission.</strong> &sect; 1.3.3 makes membership effective on acceptance, payment for the stock, and full execution of the agreements. Whether the payment condition is being satisfied, and by which of the means &sect; 1.3.1(c) allows, is a question about practice rather than about the text. No member has been admitted, so it is not yet live.</p>
+
+    <div class="note">Nothing on this page amends anything, and nothing here is counsel's advice. The items marked for counsel travel with the pre-execution set to Jeff Pote at Pote Law Firm; the readings are the steward's to put to the board. Source: DOC-01, prepared at the steward's direction 2026-08-12 against the Bylaws v2.1 as published, with the duplicate check run afterward against the <a href="/legal/counsel-memo/" style="color:var(--muted)">Counsel Memo</a> and both changes indices, and then re-run against the organizers' written consent and the Articles of Organization when the steward produced them the same day. The consent and the Articles are read here and quoted only where a claim on this estate depended on them; neither is published on this site, and the signature pages are not reproduced anywhere.</div>
+  </section>
+
+  <footer>
+    Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street &middot; Boulder, Colorado<br>
+    The correction log &middot; opened 2026-08-12 &middot; <a href="/legal/">back to the legal foundation</a>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -35,6 +35,7 @@ COVERED = [
     "legal/bylaws-analysis/index.html",
     "legal/bylaws-analysis/changes/index.html",
     "legal/community-supporter/index.html",
+    "legal/corrections/index.html",
     "legal/counsel-memo/index.html",
     "legal/maturity-model/index.html",
     "legal/maturity-model/specification/index.html",
