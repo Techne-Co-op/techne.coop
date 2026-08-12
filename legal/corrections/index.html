@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+  (function(){
+    var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+    var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+    document.documentElement.setAttribute('data-mode',m);
+  })();
+  </script>
+  <script src="/assets/topbar.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Defects and open readings found in the RegenHub, LCA governing drafts after publication, with what closes each. A correction log, not an amendment record: the instruments are drafted and unexecuted.">
+  <title>Corrections and open readings &middot; Techne</title>
+  <link rel="canonical" href="https://techne.coop/legal/corrections/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://techne.coop/legal/corrections/">
+  <meta property="og:title" content="Corrections and open readings · Techne">
+  <meta property="og:description" content="Defects and open readings found in the governing drafts after publication, and what closes each.">
+  <meta property="og:site_name" content="Techne">
+  <meta property="og:image" content="https://techne.coop/assets/og-default.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif:'Libre Baskerville',Georgia,serif;
+      --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+      --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+      --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
+    }
+    html[data-mode="dark"] {
+      --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;
+      --line:#2A2A30;--rule:#3A3A42;
+      --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
+      --blue:#6A8AC4;--blue-text:#97B5E8;
+      --ember:#C4956A;--ember-text:#D4A57A;--ember-dim:rgba(196,149,106,0.14);
+      --ok:#6A9A6A;--ok-text:#7DAA7D;
+      --warn:#C46A6A;--warn-text:#D48A8A;
+      color-scheme:dark;
+    }
+    html[data-mode="light"] {
+      --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
+      --line:#D8D3C8;--rule:#9A958A;
+      --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
+      --blue:#4A6FB0;--blue-text:#39588F;
+      --ember:#8A6A4A;--ember-text:#6F5436;--ember-dim:rgba(138,106,74,0.10);
+      --ok:#4A7A4A;--ok-text:#3A6A3A;
+      --warn:#A84F4C;--warn-text:#8F3F3C;
+      color-scheme:light;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0ms!important;}}
+    body{
+      background:var(--bg);color:var(--text);
+      font-family:var(--serif);font-size:17px;line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+      transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);
+    }
+    em{font-style:italic;color:var(--heading);}
+
+    /* Formation strip: one verbatim copy per public page. The prose is
+       identical everywhere and scripts/notice_audit.py proves it has not
+       drifted; only the token names differ between the two page families. */
+    .formation-strip{
+      display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
+      background:var(--inset);border-bottom:1px solid var(--line);
+      padding:10px 6vw;
+      font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--muted);
+    }
+    .formation-strip .fs-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);white-space:nowrap;
+    }
+    .formation-strip .fs-text{max-width:110ch;}
+    .formation-strip a{color:var(--ember-text);}
+
+    .wrap{max-width:820px;margin:0 auto;padding:0 var(--s5) var(--s8);}
+
+    .page-mast{
+      padding:clamp(56px,8vw,96px) 0 var(--s6);
+      border-bottom:1px solid var(--line);
+      margin-bottom:var(--s6);
+    }
+    .kick{
+      font-family:var(--mono);font-size:11px;text-transform:uppercase;
+      letter-spacing:0.16em;color:var(--ember-text);margin-bottom:var(--s3);
+    }
+    .page-mast h1{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(30px,5vw,44px);line-height:1.15;
+      color:var(--heading);letter-spacing:-0.015em;margin-bottom:var(--s3);
+    }
+    .sub{font-size:18px;line-height:1.65;color:var(--muted);max-width:62ch;}
+
+    .st{
+      display:inline-block;
+      font-family:var(--mono);font-size:9.5px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.14em;
+      padding:3px 8px;border-radius:2px;white-space:nowrap;
+    }
+    .st-open{border:1px solid var(--warn);color:var(--warn-text);}
+    .st-tracked{border:1px solid var(--ember);color:var(--ember-text);}
+    .st-closed{border:1px solid var(--ok);color:var(--ok-text);}
+    .st-reading{border:1px dashed var(--muted);color:var(--muted);}
+
+    section{margin-bottom:var(--s7);}
+    h2{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(20px,3vw,26px);line-height:1.25;
+      color:var(--heading);margin-bottom:var(--s4);
+    }
+    p{margin-bottom:var(--s4);max-width:68ch;}
+    p:last-child{margin-bottom:0;}
+
+    .item{
+      border:1px solid var(--line);border-left:3px solid var(--ember);
+      background:var(--surface);padding:var(--s4) var(--s5);margin-bottom:var(--s4);
+    }
+    .item-head{
+      display:flex;justify-content:space-between;align-items:baseline;
+      gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s2);
+    }
+    .item-title{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--heading);}
+    .item-where{
+      font-family:var(--mono);font-size:11px;color:var(--faint);
+      letter-spacing:0.04em;margin-bottom:var(--s3);
+    }
+    .row{margin-bottom:var(--s3);font-size:15px;line-height:1.65;}
+    .row:last-child{margin-bottom:0;}
+    .row .rk{
+      display:block;font-family:var(--mono);font-size:10px;
+      letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);
+      margin-bottom:2px;
+    }
+    .quote{font-style:italic;color:var(--heading);}
+
+    .note{
+      background:var(--inset);border:1px solid var(--line);
+      padding:var(--s4) var(--s5);margin-top:var(--s5);
+      font-size:15px;line-height:1.65;color:var(--muted);max-width:none;
+    }
+
+    footer{
+      margin-top:var(--s7);padding-top:var(--s4);border-top:1px solid var(--line);
+      font-family:var(--mono);font-size:11px;line-height:1.8;color:var(--faint);
+      letter-spacing:0.04em;
+    }
+    footer a{color:var(--faint);}
+  </style>
+</head>
+<body>
+<aside class="formation-strip" aria-label="Formation status">
+  <span class="fs-mark">In formation</span>
+  <span class="fs-text">The Articles are filed with the Colorado Secretary of State; the governing instruments are in counsel review and unexecuted; no member has yet been admitted. Pages here describe how the cooperative is meant to work, not how it currently operates. Where a page and the <a href="/legal/#formation">formation notice</a> disagree, the notice is right.</span>
+</aside>
+<div class="wrap">
+
+  <div class="page-mast">
+    <div class="kick">Legal &middot; The correction log</div>
+    <h1>Corrections and open readings</h1>
+    <p class="sub">Defects found in the governing drafts after they were published, and what closes each. This is not an amendment record. The instruments are drafted and unexecuted, so what is listed here is corrected before signature rather than amended after it, and the commentary layer beside it records something different: what changed on the way to v2.1, which is a record of proposals, not of defects in the result.</p>
+  </div>
+
+  <section id="how">
+    <h2>How to read this</h2>
+    <p>Each item names where it was found, what the text says, what is wrong with it, and what would close it. Items already carried under an identifier in the <a href="/legal/counsel-memo/" style="color:var(--ember-text)">Counsel Memo</a> or the changes indices are pointed at that identifier rather than duplicated, because two records of one defect is how a defect gets fixed twice and closed never.</p>
+    <p>An item marked <em>reading</em> does not close by editing. It is a question about what the instrument means, and answering it is the board's or counsel's work, not a drafting fix.</p>
+  </section>
+
+  <section id="items">
+    <h2>Open items</h2>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">DOC-01&middot;01 &nbsp;A cross-reference points at the wrong article</span>
+        <span class="st st-open">Open &middot; for counsel</span>
+      </div>
+      <div class="item-where">Bylaws v2.1 &sect; 3.13 &middot; found 2026-08-12 &middot; not previously tracked</div>
+      <div class="row"><span class="rk">Reads</span><span class="quote">no Director shall vote on any matter in which they have a financial self-interest in any capacity other than as a Member except as expressly permitted by Article XVI.</span></div>
+      <div class="row"><span class="rk">But</span>Article XVI is Distribution of Bylaws. Interested transactions are Article XVII, Certain Transactions, whose &sect; 17.1 is the permission the sentence is reaching for: disclosure to the Board, approval by a majority of all Directors or of the disinterested Directors, or approval by the voting members.</div>
+      <div class="row"><span class="rk">Effect</span>A director checking whether they may vote on an interested transaction is sent to the section about mailing copies of the Bylaws. The substantive rule in Article XVII is unaffected, so the defect is in the pointer and not in the governance.</div>
+      <div class="row"><span class="rk">What closes it</span>The reference corrected to Article XVII in the executed text. This goes to counsel with the rest of the pre-execution set; it is not corrected here, because a cross-reference inside an instrument is not the sort of thing a website edits on its own.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">DOC-01&middot;03 &nbsp;Community Participants both may and may not take part in governance</span>
+        <span class="st st-reading">Reading &middot; extends BL-A04</span>
+      </div>
+      <div class="item-where">Bylaws v2.1 &sect; 1.1(c) against &sect;&sect; 1.4, 1.11, 1.12.2 &middot; found 2026-08-12</div>
+      <div class="row"><span class="rk">Reads</span>&sect; 1.1(c): <span class="quote">Community Participants may participate in governance as determined by the Board.</span></div>
+      <div class="row"><span class="rk">But</span>&sect; 1.4 provides that <span class="quote">only patron members (Cooperative Members and Coworking Members) shall have voting rights</span>; &sect; 1.11 gives one vote to each patron member holding stock; &sect; 1.12.2 confines the single vote to patron members. Community Participants are none of those.</div>
+      <div class="row"><span class="rk">Effect</span>The Board is empowered to determine governance participation for a class three later sections exclude from voting. The two reconcile if participation means committee service or comment rather than a vote, which is the likely reading, and the text nowhere says so.</div>
+      <div class="row"><span class="rk">What closes it</span>Not an edit. BL-A04 already holds this section, on the different ground that the class fits neither statutory category under the ULCAA; that proposal was not carried into v2.1, which is why the ambiguity survived. This reading is recorded against BL-A04 rather than opened separately, and it wants the same answer: decide what the class is before the Hub Membership Agreement, which governs it, returns from review.</div>
+    </div>
+  </section>
+
+  <section id="closed">
+    <h2>Struck and closed</h2>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">DOC-01&middot;02 &nbsp;The initial board is not named in &sect; 3.2.2</span>
+        <span class="st st-tracked">Struck &middot; tracked as BL-04</span>
+      </div>
+      <div class="item-where">Bylaws v2.1 &sect; 3.2.2 &middot; already carried under BL-04</div>
+      <div class="row"><span class="rk">Reads</span><span class="quote">such Board consists of: [Initial Directors &mdash; TBD from 8 organizers]</span></div>
+      <div class="row"><span class="rk">Already recorded</span>BL-04 carries it in the changes index, the bylaws analysis, and the Counsel Memo, which names the six and states the gap plainly: the six are fixed by the organizers' written consent, and the bracket in &sect; 3.2.2 remains unfilled. The memo also puts the question to counsel already: whether the bracket must be completed before execution, or whether the written consent suffices as the operative designation.</div>
+      <div class="row"><span class="rk">What closes it</span>Counsel's answer, and then either the names in &sect; 3.2.2 or the written consent published beside the Bylaws so the pointer can be followed. The consent itself is the evidence behind the memo's assertion and is not yet published.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">DOC-01&middot;04 &nbsp;One class carried three names</span>
+        <span class="st st-closed">Closed &middot; 2026-08-12</span>
+      </div>
+      <div class="item-where">&sect; 1.1(a) against this estate's own pages &middot; found and fixed 2026-08-12</div>
+      <div class="row"><span class="rk">Was</span>The Bylaws and the Membership Agreement both name the first class <em>Cooperative Member</em>. The legal index and the encyclopedia called it <em>Class One, Labor Member</em>. The commentary layer calls it <em>Class A patron member</em> in three places.</div>
+      <div class="row"><span class="rk">Finding</span>The instruments never disagreed. <em>Labor Member</em> was not a term of the cooperative at all: it entered on this site's own index in July 2026 and spread to one other page. The estate had invented a name and then read it back as though an instrument said it.</div>
+      <div class="row"><span class="rk">Closed by</span>Both surfaces corrected to Cooperative Member (Class One). The commentary layer's <em>Class A</em> usages are left alone: they are historical documents describing a prior draft, and rewriting them would be editing the record rather than correcting a claim.</div>
+    </div>
+  </section>
+
+  <section id="related">
+    <h2>Related, carried elsewhere</h2>
+    <p><strong>&sect; 5.3.2 still reads <em>may</em>.</strong> BL-A01 proposed changing the pre-Patronage-Plan fallback from <span class="quote">Net Profits may be allocated equally</span> to <em>shall</em>, because a permissive default leaves the opening fiscal period without a determinate allocation rule under IRC &sect; 704(b). The change was not carried into v2.1 and the published text still reads <em>may</em>. Tracked under BL-A01; noted here because it is adjacent to the counting rules and is the item with tax consequences.</p>
+    <p><strong>Who sets what counts as patronage.</strong> &sect; 5.3.2 permits the Board to amend the patronage measurement methodology only through the Patronage Plan amendment process, which requires majority patron member approval. Whether adopting a first Plan is an amendment within that sentence is a legal reading, and it bears on the counting rules now in draft.</p>
+    <p><strong>The third condition of admission.</strong> &sect; 1.3.3 makes membership effective on acceptance, payment for the stock, and full execution of the agreements. Whether the payment condition is being satisfied, and by which of the means &sect; 1.3.1(c) allows, is a question about practice rather than about the text. No member has been admitted, so it is not yet live.</p>
+
+    <div class="note">Nothing on this page amends anything, and nothing here is counsel's advice. The items marked for counsel travel with the pre-execution set to Jeff Pote at Pote Law Firm; the readings are the steward's to put to the board. Source: DOC-01, prepared at the steward's direction 2026-08-12 against the Bylaws v2.1 as published, with the duplicate check run afterward against the <a href="/legal/counsel-memo/" style="color:var(--muted)">Counsel Memo</a> and both changes indices.</div>
+  </section>
+
+  <footer>
+    Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street &middot; Boulder, Colorado<br>
+    The correction log &middot; opened 2026-08-12 &middot; <a href="/legal/">back to the legal foundation</a>
+  </footer>
+
+</div>
+</body>
+</html>
