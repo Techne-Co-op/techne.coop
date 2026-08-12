@@ -107,6 +107,22 @@
     .st-ratified{border:1px solid var(--ok);color:var(--ok-text);}
     .st-antic{border:1px dashed var(--muted);color:var(--muted);}
 
+    /* Standing marks (P-09). A second mark, deliberately a different shape
+       from the status chips, answering the one question a status chip cannot:
+       does signing this make the signer a member of the cooperative. A reader
+       about to sign something needs that answer before they need to know
+       whether the document is drafted or ratified. */
+    .sm{
+      display:inline-block;
+      font-family:var(--mono);font-size:9.5px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.14em;
+      padding:3px 8px;white-space:nowrap;
+      background:var(--inset);border-left:3px solid var(--line);
+    }
+    .sm-member{border-left-color:var(--ok);color:var(--ok-text);}
+    .sm-not{border-left-color:var(--muted);color:var(--muted);}
+    .marks{display:flex;flex-direction:column;align-items:flex-end;gap:5px;}
+
     /* Status legend */
     .status-legend{
       display:flex;flex-wrap:wrap;gap:var(--s3) var(--s6);
@@ -265,6 +281,12 @@
     <div class="leg-item"><span class="st st-antic">Anticipated</span> Identified; not yet drafted.</div>
   </div>
 
+  <div class="status-legend" style="margin-top:calc(0px - var(--s6));">
+    <div class="leg-item"><span class="sm sm-member">Member</span> Signing this makes the signer a member of the cooperative.</div>
+    <div class="leg-item"><span class="sm sm-not">Not a member</span> Signing this does not. No vote, no capital account, no share of the results.</div>
+    <div class="leg-item">Every agreement a person signs carries both marks: what state the document is in, and what signing it makes you.</div>
+  </div>
+
   <div class="formation-note" id="formation">
     <div class="fn-head">Where the cooperative stands</div>
     <p>RegenHub, LCA is in formation. The Articles are filed with the Colorado Secretary of State, and that much is settled. The rest of this site describes a cooperative that is being built: the governing instruments are in counsel review and unexecuted, no member has been admitted, and the frameworks, schedules, and policies described here are drafted rather than adopted. Nothing on this page carries the Ratified mark, because nothing has been adopted by a member vote.</p>
@@ -323,7 +345,7 @@
     <a class="doc-card" href="/legal/membership-agreement/">
       <div class="doc-card-head">
         <span class="doc-card-title">Membership Agreement v.2.3</span>
-        <span class="st st-drafted">Drafted</span>
+        <span class="marks"><span class="st st-drafted">Drafted</span><span class="sm sm-member">Member</span></span>
       </div>
       <div class="doc-card-desc">The standard contract each Cooperative Member (Class One) signs on admission. Establishes standing as a Subchapter K partner, capital account, information rights, obligations, and consent to partnership tax treatment.</div>
       <div class="doc-card-meta">Cooperative Member · Class One · Patron Track · Verbal board adoption June 2026, pending counsel review and execution. No member has yet signed it.</div>
@@ -332,26 +354,34 @@
     <a class="doc-card" href="/legal/community-supporter/">
       <div class="doc-card-head">
         <span class="doc-card-title">Community Supporter Agreement</span>
-        <span class="st st-drafted">Drafted</span>
+        <span class="marks"><span class="st st-drafted">Drafted</span><span class="sm sm-not">Not a member</span></span>
       </div>
       <div class="doc-card-desc">A lightweight agreement for people who want to support the cooperative without taking on membership. Confers no membership rights, no vote, and no patronage. Not a membership instrument.</div>
-      <div class="doc-card-meta">Contribution Agreement · ULCAA C.R.S. § 7-58-104</div>
+      <div class="doc-card-meta">Contribution Agreement · ULCAA C.R.S. § 7-58-104 · Superseded in purpose, though not by any board action: the steward records, August 12, 2026, that Community Supporter was an early name for what is now the guild track. It stands here until the Guild Participation Terms exist and the board retires it.</div>
     </a>
 
     <div class="doc-item" style="margin-top:var(--s3);border-top:none;">
       <div>
-        <div class="di-name">Hub Membership Agreement</div>
-        <div class="di-note">Governs Co-working Members (Class Two) and Community Participants (Class Three). Under review with legal counsel. Not yet published.</div>
+        <div class="di-name">Hub Participation Agreement</div>
+        <div class="di-note">Governs the access track: Co-working Participants (Class Two) and Community Participants (Class Three). Under review with legal counsel. Not yet published. Listed here until August 12, 2026 as the <em>Hub Membership Agreement</em>. The steward directed on that date that the access track give up the word <em>member</em>, because signing this is a path toward membership rather than an admission to it, and because C.R.S. § 7-58-102(13) attaches particular rights to the word. The new name is a working name; the public name is the board's election, with counsel, taken on the instrument and the class together.</div>
       </div>
-      <div class="di-tag"><span class="st st-drafted">Drafted</span></div>
+      <div class="di-tag"><span class="marks"><span class="st st-drafted">Drafted</span><span class="sm sm-not">Not a member</span></span></div>
+    </div>
+
+    <div class="doc-item">
+      <div>
+        <div class="di-name">Guild Participation Terms</div>
+        <div class="di-note">The instrument for the virtual way in: Guild Participants, Class Three in the guild. Not yet written. The Participation Framework amendment that would establish the guild levels is itself drafted and unadopted, so no one can enrol in the guild until both exist. Described, with that said on its face, at <a href="/participation/#guild" style="color:var(--ember-text)">The ways in</a>.</div>
+      </div>
+      <div class="di-tag"><span class="marks"><span class="st st-antic">Anticipated</span><span class="sm sm-not">Not a member</span></span></div>
     </div>
 
     <div class="doc-item">
       <div>
         <div class="di-name">Investor Member Agreement rider</div>
-        <div class="di-note">Specific terms for the Investor Member class (Class Four). Pending legal work.</div>
+        <div class="di-note">Specific terms for the Investor Member class (Class Four). Pending legal work. An Investor Member is a member of the cooperative under Bylaws § 1.1(d), holding a capital account and receiving a Schedule K-1; what an Investor Member does not hold is a vote.</div>
       </div>
-      <div class="di-tag"><span class="st st-antic">Anticipated</span></div>
+      <div class="di-tag"><span class="marks"><span class="st st-antic">Anticipated</span><span class="sm sm-member">Member</span></span></div>
     </div>
   </div>
 
@@ -359,14 +389,21 @@
   <div class="doc-group">
     <div class="doc-group-head">Layer 3 · Recognition — Patronage</div>
 
-    <a class="doc-card" href="/legal/participation/">
-      <div class="doc-card-head">
-        <span class="doc-card-title">Participation Framework</span>
-        <span class="st st-drafted">Drafted</span>
+    <div class="doc-item" style="border-top:none;">
+      <div>
+        <div class="di-name">Participation Framework</div>
+        <div class="di-note">How members participate in cooperative Programs and how contributions accrue recognition. Covers the six Contribution Primitives, Program archetypes, and the path from contribution to capital account credit. The instrument itself is not published on this site: this entry linked, until August 12, 2026, to a page that presented participation levels rather than to the Framework, and a description of the instrument standing over a link to something else is the kind of thing this shelf exists to prevent. Its amendment establishing the guild levels and the invitation pathway is drafted and unadopted.</div>
       </div>
-      <div class="doc-card-desc">How members participate in cooperative Programs and how contributions accrue recognition. Covers the six Contribution Primitives, Program archetypes, and the path from contribution to capital account credit.</div>
-      <div class="doc-card-meta">Class One through Class Three · Companion to the Program Stack Patronage Plan v1</div>
-    </a>
+      <div class="di-tag"><span class="st st-drafted">Drafted</span></div>
+    </div>
+
+    <div class="doc-item">
+      <div>
+        <div class="di-name">The ways in</div>
+        <div class="di-note">Not an instrument: the public presentation of the classes, their costs, and where the membership line falls. It reads across both tracks, so it is described by track rather than by any span of class numbers. <a href="/participation/" style="color:var(--ember-text)">techne.coop/participation</a>.</div>
+      </div>
+      <div class="di-tag"><span class="st st-drafted">Presentation</span></div>
+    </div>
   </div>
 
   <!-- Understanding the documents: analysis and commentary -->
@@ -461,6 +498,24 @@
       </div>
       <div class="doc-card-desc">The formal companion. Definitions, the three vessel states, six invariants stated as requirements, two transitions with the conditions that would have to be met before either could proceed, and what the record must carry for several entities to remain one system.</div>
       <div class="doc-card-meta">MM-0.2 · supersedes MM-0.1 · Not a governing instrument · August 2026</div>
+    </a>
+  </div>
+
+  <!-- The lens: why the instruments are shaped the way they are -->
+  <div class="doc-group">
+    <div class="doc-group-head">The Lens · Where the shapes came from</div>
+
+    <div class="group-note">
+      A reader who wants to know why the member classes are cut this way, why belonging is drawn as rings rather than rungs, or why nothing on this site shows a score, will not find the reasoning in any instrument above. It is in the formation record. That record binds nothing and confers nothing: it is what was said in the room between August 2025 and February 2026, held as a lens rather than as a rule. Where it and an instrument disagree, the instrument is right.
+    </div>
+
+    <a class="doc-card" href="/commonplace/">
+      <div class="doc-card-head">
+        <span class="doc-card-title">The Commonplace</span>
+        <span class="st st-antic">Record</span>
+      </div>
+      <div class="doc-card-desc">The formation record of the fifteen meetings in which this cooperative was worked out, in five movements. Among them: the decision that member classes should be a matrix and not a ladder, the picture of belonging as concentric circles, the choice of trust over reputation, and the November 2025 consultation at which counsel's multi-stakeholder warning was recorded and the answer to it left an open question.</div>
+      <div class="doc-card-meta">August 2025 to February 2026 · Binds nothing, confers nothing, governs nothing</div>
     </a>
   </div>
 
