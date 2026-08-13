@@ -3,7 +3,16 @@
 # its bed, and its honest mark. ALM v2 supersedes RDM v1; the file's
 # own rename rides L-07. RegenHub, LCA · July 2026
 # Validator: scripts/validate.py — schema, acyclicity, proof addresses.
-# Status marks: drafted | anticipated | open · (blocker)
+# Status marks: drafted | anticipated | open · (mark). A piece is
+# drafted while it is an unadopted document, anticipated before anyone
+# takes it up, and open once it has. The open marks say how far it has
+# come: in-session while an agent is working it, delivered once its
+# deliverable is merged to main, verified once a person has walked its
+# acceptance, attested for a proof under two hands. An open mark that
+# is none of these names the condition the piece waits on, as in
+# open · Q3. Recorded 2026-08-13 by X-19, describing the usage already
+# in force rather than establishing a new one; the marks had drifted
+# because nothing wrote them down.
 # No dates. Readiness is the schedule.
 
 series:
@@ -631,7 +640,7 @@ gather:
       hold one and is its host; a steward may act for any. The gathering
       gains the two things it could not say about itself, what it is and
       where to stand, and the act lands as an event like the Find bed's.
-    status: open · in-session
+    status: open · delivered
     cites: [PRD, AM, IM]
     ready_when: G-03 verified.
     deliverable: >
@@ -675,7 +684,7 @@ find:
   - address: F-02
     title: Response flow
     intent: Respond to an opportunity; author sees the response.
-    status: open · in-session
+    status: open · delivered
     cites: [IM, AM, PRD]
     ready_when: F-01 verified.
     deliverable: Response capture, scoped visibility.
@@ -1230,7 +1239,7 @@ shell:
       whole map. A Menu control in the topbar opens it; a link, the
       Escape key, or the control closes it again. Wide screens are
       untouched.
-    status: open · in-session
+    status: open · delivered
     cites: [UI, PRD]
     ready_when: U-05 verified.
     deliverable: >
@@ -1257,7 +1266,7 @@ shell:
       vocabulary: what will stand there, sentence by sentence, and what it
       waits on, by name. A promise that cannot yet be kept is still owed
       its place on the map.
-    status: open · in-session
+    status: open · delivered
     cites: [PRD, UI, PATRONAGE]
     ready_when: U-06 in session; S-01 and S-02 stand blocked on Q3.
     deliverable: >
@@ -1696,7 +1705,7 @@ shell:
       in the layer where the layer already spoke of two grammars. This
       piece names a third: the frame measure, fluid, applied to every
       surface the shell frames, and enforced against drift.
-    status: open · in-session
+    status: open · delivered
     cites: [UI, U-01, U-17]
     ready_when: U-18 merged.
     deliverable: >
@@ -1730,7 +1739,7 @@ shell:
       intranet, which is where a member actually reads and writes the
       book. A page that describes the record and does not say where
       the record is read is describing a filing cabinet.
-    status: open · in-session
+    status: open · delivered
     cites: [UI, PRD, BP, L-01]
     ready_when: L-01 merged; U-20 in session (this page is data-public and unframed, so the measure audit does not reach it).
     deliverable: >
@@ -1775,7 +1784,7 @@ shell:
       the rest of the estate should be read. The claim is the
       steward's, is recorded as his on the page, and is adopted by the
       merge rather than by the drafting.
-    status: open · in-session
+    status: open · delivered
     cites: [UI, PRD, BP, L-01]
     ready_when: >
       The steward's ask, 2026-08-10. The page is public and unframed,
@@ -1885,7 +1894,7 @@ cross_cutting:
       reaches the walkaway. The one drifted view is re-expanded and the
       class is closed: the proof rehearsal now applies the export views and
       asserts each carries its base table's columns exactly.
-    status: open · in-session
+    status: open · delivered
     cites: [VS, IM]
     ready_when: X-03 verified.
     deliverable: >
@@ -1913,9 +1922,9 @@ cross_cutting:
       shell renders that address as a notices panel, and the notices
       function gains the away-channel half, dormant until the sending
       domain verifies.
-    status: open · in-session
+    status: open · delivered
     cites: [IM, AM, VS]
-    ready_when: F-02 delivered; G-04 in session; X-02 verified.
+    ready_when: F-02 delivered; G-04 delivered; X-02 verified.
     deliverable: >
       0015_member_notices.sql (the triggers); the shell's notices panel
       (U-01 extension); 0016_notices_rail_kinds.sql and the notices
@@ -2281,7 +2290,7 @@ cross_cutting:
       Lexicon defined a migration chain that stopped at 0007. The A bed
       and the AGY module are the occasion; the drift is older than they
       are.
-    status: open · in-session
+    status: open · delivered
     cites: [AGY, BP, SER]
     ready_when: >
       The A bed entered the ledger (2026-07-27). Requested by the
@@ -2330,7 +2339,7 @@ cross_cutting:
       grouping. Each document amends to what the record settled, with the
       amendment dated and the superseded wording kept in history, because a
       refactor that hides its lineage is not legible.
-    status: open · in-session
+    status: open · delivered
     cites: [PRD, PATRONAGE, TREASURY]
     ready_when: >
       U-07 in session; the full review of the three PRDs delivered 2026-07-27.
@@ -2369,7 +2378,7 @@ cross_cutting:
       repaired, and three native terms set where their meanings
       already hold. No address, status, count, proof, or citation
       changes.
-    status: open · in-session
+    status: open · delivered
     cites: [SER, BP, UI]
     ready_when: >
       The change specification adopted by the steward with elections
@@ -2396,7 +2405,7 @@ cross_cutting:
       chrome, the companions' citations, and the instructions census
       brought current. The module documents are left to L-06 by bed
       discipline, and preserved entry prose is not touched.
-    status: open · in-session
+    status: open · delivered
     cites: [BP, SER]
     ready_when: The steward's ask, recorded 2026-08-09. Builds on L-05.
     deliverable: >
@@ -2416,7 +2425,7 @@ cross_cutting:
       tail all stand in the ledger without cards. Public wording is
       the steward's call, so the piece is a specification he adopts,
       then the page.
-    status: open · in-session
+    status: open · delivered
     cites: [BP, SER]
     ready_when: >
       The steward takes it up; the L bed's wording settles first. Taken
@@ -2468,6 +2477,125 @@ cross_cutting:
       Almanac fails CI, proven by a live regression test; the estate
       passes as it stands.
 
+  - address: FORMATION-01
+    title: The site stops saying it is operating
+    intent: >
+      The estate told a reader the cooperative was operating and its
+      instruments ratified. Neither was true of the record: the
+      Bylaws and the Membership Agreement stood adopted verbally by
+      the board in June 2026 and pending counsel and execution, and
+      the ratification claim was the instrument's own, written on
+      2026-07-01 and cited back to itself three weeks later to flip
+      the legal index. Both instruments now read Drafted in the
+      counsel memo's own formulation, a formation notice supersedes
+      every page that disagrees with it, and the maturity model's
+      "operating now" is corrected. Carded here rather than under a
+      capability because it corrects what the estate says about
+      itself, which is what this bed is for.
+    status: open · delivered
+    cites: [BP, SER]
+    ready_when: The steward's ask, 2026-08-12.
+    deliverable: >
+      legal/index.html and the two instrument pages carrying the
+      drafted mark; the formation notice published at
+      /legal/#formation and superseding every page; the maturity
+      model's standing line corrected.
+    acceptance: >
+      No page claims the cooperative is operating or its instruments
+      ratified; the notice states the record's own position in the
+      counsel memo's words; style and token suites green.
+    note: >
+      Merged 2026-08-12 as PR #120. Four questions were parked on the
+      steward at the merge and are not answered by it: whether the
+      space is open today, whether the Participation Framework was
+      adopted on June 24, whether the June board meeting happened as
+      the memo records, and whether the guild cards stand while their
+      terms do not exist.
+
+  - address: DOC-01
+    title: The correction log opens
+    intent: >
+      Four documentation defects were filed against Bylaws v2.1 and
+      the estate had nowhere to put them: the commentary layer
+      records proposals on the way to v2.1, which is a different
+      thing from a defect in published text. legal/corrections/
+      opens as that place. The duplicate check reversed two of the
+      four filings, which is the argument for the log existing at
+      all.
+    status: open · delivered
+    cites: [BP, SER]
+    ready_when: The steward's filing, 2026-08-12.
+    deliverable: >
+      legal/corrections/index.html carrying eight items with their
+      standing; the roster withdrawn from every public surface; the
+      trade name filing recorded against item 07.
+    acceptance: >
+      Every item states what was claimed, what the record holds, and
+      who closes it; nothing is closed by preference; style and token
+      suites green.
+    note: >
+      Merged 2026-08-12 as PR #122. Four items stand open for
+      counsel: 01 the section 3.13 cross-reference, 05 the formation
+      recital against the filing stamp, 07's residue on the trade
+      name, and 08's latent quorum reading. Item 08's factual half
+      closed on the steward's word the same day, that written notice
+      of the departure was given to the board, and that edit is not
+      yet made on main.
+
+  - address: X-19
+    title: The ledger answers to the repository
+    intent: >
+      X-14 and X-17 reconciled the Almanac's cards against the
+      ledger, and scripts/almanac_audit.py now proves that pairing
+      on demand: it reported zero findings over 122 addresses on the
+      day this piece was taken up. The drift had simply moved one
+      link back. Seven merged pieces stood at drafted, the mark this
+      ledger reserves for an unadopted document, while their own
+      notes recorded the pull requests that merged them; seventeen
+      more stood in session, the mark for work an agent has in hand,
+      when every one of their deliverables was merged to main and no
+      one was working any of them; and two merged pieces held no
+      address at all, so a page claiming to hold every piece held
+      neither. A card audit cannot see any of this, because the
+      cards were faithful to a ledger that was wrong. The marks
+      drifted because they had never been written down: the header
+      named three and the file used seven.
+    status: open · delivered
+    cites: [BP, SER, X-17]
+    ready_when: The steward's ask, 2026-08-13.
+    deliverable: >
+      Twenty-four marks corrected in rdm-ledger.yaml, addresses
+      minted for FORMATION-01 and DOC-01, their cards and this
+      piece's written on the Almanac, the state note rewritten to
+      the day of merge, and the open marks themselves defined in the
+      ledger's own header.
+    acceptance: >
+      Every merged piece carries a mark that says it merged; every
+      merged branch has an address; no piece stands in session that
+      no one is working; the almanac audit green over the new count;
+      validator, style, token, measure, and notice suites green.
+    note: >
+      Three calls are the agent's and are flagged so they can be
+      overturned in a word. FORMATION-01 and DOC-01 keep their
+      branch names as addresses rather than becoming X-19 and X-20,
+      because a piece is named by its branch and those branches are
+      already in the history; they sit in this bed because it is
+      where the estate's own honesty is kept. And the delivered mark
+      is used rather than verified: the steward merged both, but
+      verification carries a person's name against a walked
+      acceptance, and no agent may write that line for him. P-06 is
+      deliberately untouched: it stands anticipated while its
+      deliverable has been live and rewritten twice since, and
+      whether it is closed, reopened, or superseded was put to the
+      steward at P-09 and is still his. The third call is the
+      header's definition of the open marks. It describes the usage
+      already in force and settles nothing new, but it does settle
+      it, and the seventeen in-session flips follow from it: a piece
+      whose deliverable is on main is delivered even where its
+      acceptance wants a second person, as G-04 and F-02 do. If the
+      steward reads in-session differently, one word reverts both
+      the definition and the flips.
+
 agency:
 
   # The agency lane: common direction of the instrument. Entered 2026-07-27
@@ -2480,7 +2608,7 @@ agency:
     intent: >
       The direction namespace, the give_direction verb, and the policies;
       the AGY §11 floor asserted by probes.
-    status: open · in-session
+    status: open · delivered
     cites: [AGY, IM, AM, BP]
     ready_when: AGY adopted. G0 attested. Both recorded; the piece waits only on hands.
     deliverable: commons/authority-map/0017_direction_rail.sql; probe matrix cells (scripts/rls_probe.py).
@@ -2500,7 +2628,7 @@ agency:
     intent: >
       /intranet/direct/ and the Overview window; the pen, the arc, the
       commons shelf per AGY §8.
-    status: open · in-session
+    status: open · delivered
     cites: [AGY, PRD, UI]
     ready_when: A-01 verified.
     deliverable: >
@@ -2678,7 +2806,7 @@ lexicon:
       concordance carrying the mapping and new event kinds minted in
       the new register from that adoption forward; AGENTS.md
       re-yielded from the revised BP. Each merge an adoption.
-    status: open · in-session
+    status: open · delivered
     cites: [SER, PRD, BP, VS, IM]
     ready_when: L-04 merged.
     deliverable: >
@@ -3002,7 +3130,7 @@ guild:
       counted as capabilities, each story carrying its proving act
       and an honest chip. Story numbers document-local; only this
       almanac mints addresses.
-    status: drafted
+    status: open · delivered
     cites: [GUILD, PRD, VS, AM]
     deliverable: commons/prd/stories/index.html, staged on branch P-07.
     acceptance: >
@@ -3030,7 +3158,7 @@ guild:
       association question the steward raised, whether an
       opportunity may cite a project as a distinct entity, is staged
       as an open election, not answered by drafting.
-    status: drafted
+    status: open · delivered
     cites: [P-07, GUILD, STANDING, PRD, VS, AM]
     deliverable: commons/prd/stories/index.html, revised on branch P-08.
     acceptance: >
@@ -3070,7 +3198,7 @@ guild:
       surfaces. The access track gives up the word member at the
       steward's direction of 2026-08-12, on the ground that it is
       a path to membership rather than a form of it.
-    status: drafted
+    status: open · delivered
     cites: [GUILD, P-06, P-08, U-13, L-01, UI]
     deliverable: >
       participation/index.html rewritten; legal/participation/
@@ -3135,7 +3263,7 @@ guild:
       instruments. The statutory vocabulary is said once, in one
       paragraph under the table, instead of across a header row.
       Four renderings of the same four classes become two.
-    status: drafted
+    status: open · delivered
     cites: [P-09, GUILD, UI, L-01]
     deliverable: >
       participation/index.html re-cut: the cards first and the
@@ -3190,7 +3318,7 @@ guild:
       instrument end to end without meeting the sentence that says it
       is drafted and unexecuted. That distinction is the agent's
       call, recorded here so it can be overturned in one word.
-    status: drafted
+    status: open · delivered
     cites: [P-09, P-10, UI, L-01]
     deliverable: >
       participation/index.html cut to three sections;
@@ -3235,7 +3363,7 @@ guild:
       the remaining fourteen pages and the estate carries one form of
       the notice and one only. The long form at /legal/#formation is
       untouched and still governs.
-    status: drafted
+    status: open · delivered
     cites: [P-11, UI]
     deliverable: >
       The formation strip removed from every page under legal/ and
@@ -3316,7 +3444,7 @@ horizon:
       reader meets the instruments, then their readings, then the
       model, in that order, and never mistakes the third for the
       first.
-    status: drafted
+    status: open · delivered
     cites: [MM]
     deliverable: >
       legal/maturity-model/, legal/maturity-model/specification/,
