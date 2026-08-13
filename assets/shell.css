@@ -67,6 +67,33 @@ html[data-mode="light"] {
 .cis-topbar { view-transition-name: cis-topbar; }
 .cis-side { view-transition-name: cis-side; }
 
+/* The pre-paint gate (U-19). The frame is in the markup now, so the
+   question of whether a reader may see it has to be answered before
+   the first paint rather than after. assets/shell-gate.js is loaded
+   synchronously in the head and writes the mark; these rules honour
+   it. The test is not [data-cis="out"] but the absence of in, so a
+   document whose gate never ran, scripting off, an error, a file
+   served without the script, withholds the map rather than showing
+   it. Failure is closed.
+
+   The frame is not merely hidden but taken out of flow, and the body
+   returns to a plain block, so a signed-out reader gets the document
+   exactly as its author wrote it with no column offset where the map
+   would have been.
+
+   There are three states, not two. Signed in, the whole frame. Signed
+   out on a members' surface, the topbar stands above the gate card but
+   the map is withheld, which is the U-04 shape. Signed out on a public
+   page, no members' furniture at all, because the page keeps the
+   public topbar it raised for itself (U-15); those frames carry
+   cis-public so this sheet can tell the two signed-out cases apart
+   before the first paint, which a deferred script could not. */
+html:not([data-cis="in"]) .cis-side { display: none; }
+html:not([data-cis="in"]) .cis-topbar.cis-public { display: none; }
+html:not([data-cis="in"]) .cis-menu,
+html:not([data-cis="in"]) .cis-bell { display: none; }
+html:not([data-cis="in"]) .cis-body { display: block; min-height: 0; }
+
 .cis-topbar {
   display: flex; align-items: center; justify-content: space-between;
   gap: 12px; padding: 0 20px; height: 48px;

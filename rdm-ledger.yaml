@@ -1677,9 +1677,12 @@ shell:
       or withheld before the first paint, from the session the
       document can read synchronously, with no frame in which a
       signed-out reader sees a members' map.
-    status: anticipated
+    status: open · delivered
     cites: [U-18, U-04, U-01]
-    ready_when: U-18 merged; launch week past.
+    ready_when: >
+      U-18 merged. The launch-week condition was lifted by the
+      steward on 2026-08-13, in the same word that lifted it for
+      X-18.
     deliverable: >
       The frame emitted into the markup of every surface the shell
       frames, the shell reduced to marking the active section and
@@ -1689,6 +1692,39 @@ shell:
       A measured navigation reports the topbar and the map captured
       under their own transition names in both the old and the new
       document; a signed-out load never paints the map.
+    resolution: >
+      The frame is written, not hand-kept: scripts/shell_frame.py
+      renders the topbar, the map, and the two column wrappers from
+      assets/shell-map.json into a marked block on every surface
+      that loads the shell, eleven at delivery, the list derived
+      from the repository rather than kept. The manifest left
+      shell.js entirely; the script now reads the map the document
+      brought, marks the active item, fills the chip, and wires the
+      drawer, the bell, the mode toggle, and the gate card. The
+      gate is one synchronous head script, assets/shell-gate.js,
+      writing data-cis before the first paint, and shell.css
+      withholds the map from any document not marked in, so
+      scripting off fails closed. Acceptance measured over the
+      debugging protocol: a cross-document navigation between two
+      members' surfaces reports a view transition present at
+      pagereveal with both named elements in the new document and
+      their transition names computed, where before this piece the
+      new document held neither element at that moment; a
+      signed-out load renders the gate card over parked content
+      with no map painted, shown by headless render. Delivered
+      with a seven-case self-test and a freshness check in the
+      shape of the estate's other generated blocks.
+    note: >
+      Two calls are the agent's, flagged so they can be overturned.
+      The public pages that load the shell, two at delivery, carry
+      the frame with a cis-public mark so a signed-out reader gets
+      the page's own topbar and no members' furniture, which reads
+      U-15 as the states demand rather than as written. And the
+      frame markup is served to signed-out readers as inert
+      hidden text, which changes no exposure: the same markup has
+      been public in the repository and in the served documents
+      since the shell existed, and the record's protection is row
+      security, not markup secrecy.
 
   - address: U-20
     title: The frame measure

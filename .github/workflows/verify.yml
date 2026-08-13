@@ -281,6 +281,15 @@ jobs:
         # appeared that way once already. Proves the copies still agree with
         # .wrap-frame and that none has been pinned back to a pixel cap.
         run: python3 scripts/measure_audit.py
+      - name: the frame audit still refuses (U-19)
+        # A check that has stopped checking passes everything; the
+        # seven cases are the ways this one could.
+        run: python3 scripts/shell_frame.py --self-test
+      - name: the frame is written, not hand-kept (U-19)
+        # Eleven surfaces carry the shell frame as a generated block
+        # from assets/shell-map.json. A hand edit or a stale copy is
+        # the same drift the measure audit exists for, one layer up.
+        run: python3 scripts/shell_frame.py --check
       - name: token audit (X-06)
         # UI v1 · hex only in custom-property definitions; color-token
         # drift against commons.css is a defect. Exemptions and the
