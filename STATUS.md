@@ -6,8 +6,8 @@ Generated from rdm-ledger.yaml. 125 items total.
 | status | count |
 |--------|-------|
 | drafted | 13 |
-| anticipated | 32 |
-| open | 80 |
+| anticipated | 31 |
+| open | 81 |
 | filed | 0 |
 
 ## Drafted
@@ -107,6 +107,7 @@ Generated from rdm-ledger.yaml. 125 items total.
 - **X-15** open · delivered -- The register bridge
 - **X-16** open · delivered -- The estate reads true
 - **X-17** open · delivered -- The second resync
+- **X-18** open · delivered -- The cards answer to the ledger, the ledger to the repository
 - **X-19** open · delivered -- The ledger answers to the repository
 
 ## Anticipated
@@ -142,7 +143,6 @@ Generated from rdm-ledger.yaml. 125 items total.
 - **V-02** The tallies
 - **V-03** The ventures surface
 - **V-04** The first venture instrument
-- **X-18** The cards answer to the ledger
 
 ---
 

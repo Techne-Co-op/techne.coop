@@ -2454,7 +2454,7 @@ cross_cutting:
     note: Staged on branch X-17; merge is the act of adoption.
 
   - address: X-18
-    title: The cards answer to the ledger
+    title: The cards answer to the ledger, the ledger to the repository
     intent: >
       The teeth for the resync. Twice the Almanac's hand-kept cards
       have drifted from the ledger they claim to read, and both times
@@ -2465,17 +2465,48 @@ cross_cutting:
       the token and measure audits, so a third resync cannot be
       needed. The audit checks coverage and marks only; what a card
       says stays the steward's call, which is why the teeth are this
-      narrow.
-    status: anticipated
-    cites: [VS, BP]
-    ready_when: X-17 merged; launch week past.
+      narrow. A third check joins them, because X-19 found the drift
+      had moved one link back: the card audit reported clean over
+      every address on the page the same morning the ledger was wrong
+      in twenty-four places, two of them merged pieces holding no
+      address at all. A page can only be as true as the record it
+      reads, so the record is now read against the repository, and
+      every address-shaped branch merged into this history must have
+      an address. The shape rule is what keeps that check quiet: this
+      estate has sixty merged branches that are prose rather than
+      pieces, and none of them is reported.
+    status: open · delivered
+    cites: [VS, BP, X-19]
+    ready_when: >
+      X-17 merged; X-19 merged, which is what the third check reads
+      the ledger for. The launch-week condition was lifted by the
+      steward on 2026-08-13, who held that the site was not ready to
+      launch and asked for the work instead.
     deliverable: >
       scripts/almanac_audit.py wired into the style-lint job of
-      verify.yml, its scope named per VS v2 section 9.
+      verify.yml, its scope named per VS v2 section 9; the third
+      check, reading merged branch names against the ledger; the
+      job's checkout deepened, since a shallow clone carries no merge
+      commits to read; and a self-test step that runs before the audit
+      and refuses to let a check quietly stop checking.
     acceptance: >
       Adding an address to the ledger without carding it on the
-      Almanac fails CI, proven by a live regression test; the estate
-      passes as it stands.
+      Almanac fails CI; merging a piece without an address fails CI;
+      both proven by a live regression test that runs in the same job;
+      the estate passes as it stands.
+    note: >
+      The scope extension is the agent's call and is flagged so it can
+      be overturned. X-18 as filed wired in the audit as X-17 wrote
+      it, and that audit would not have caught either of the two
+      missing addresses, because it reads the ledger and the page and
+      never the repository. Wiring in a check that was clean on the
+      morning of the fault it was meant to catch would have been the
+      appearance of teeth. Two smaller calls: the self-test is a step
+      of its own rather than a comment claiming the checks work, since
+      a check that has stopped checking passes everything; and the
+      delivered mark is written in the pull request that merges the
+      piece rather than added afterwards, which is the practice X-19
+      spent twenty-four corrections arguing for.
 
   - address: FORMATION-01
     title: The site stops saying it is operating
