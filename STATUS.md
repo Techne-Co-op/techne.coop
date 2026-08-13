@@ -6,8 +6,8 @@ Generated from rdm-ledger.yaml. 126 items total.
 | status | count |
 |--------|-------|
 | drafted | 13 |
-| anticipated | 31 |
-| open | 82 |
+| anticipated | 30 |
+| open | 83 |
 | filed | 0 |
 
 ## Drafted
