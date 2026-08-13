@@ -65,25 +65,26 @@ p { margin: 0 0 var(--s4); max-width: 66ch; }
   color: var(--blue-text); background: var(--surface); }
 .fine { font: 400 12.5px/1.7 var(--mono); color: var(--muted); border-top: 1px solid var(--line);
   margin-top: var(--s7); padding-top: var(--s4); }
-.formation-strip{
-  display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
-  background:var(--inset);border-bottom:1px solid var(--line);
-  padding:10px 6vw;
-  font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--muted);
+/* Formation note, footer form. The steward directed the notice out of the
+   top banner on 2026-08-12 for the public pages, and on 2026-08-13 for these
+   as well: one form of it, one place. The long form at /legal/#formation
+   still governs. One verbatim copy per page, proved by
+   scripts/notice_audit.py; only the token names differ, because the estate
+   carries two families. */
+.formation-foot{
+  flex-basis:100%;max-width:96ch;
+  border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+  font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
 }
-.formation-strip .fs-mark{
+.formation-foot .ff-mark{
   font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--ember-text);white-space:nowrap;
+  color:var(--ember-text);margin-right:10px;white-space:nowrap;
 }
-.formation-strip .fs-text{max-width:110ch;}
-.formation-strip a{color:var(--ember-text);}
+.formation-foot a{color:var(--ember-text);}
+
 </style>
 </head>
 <body>
-<aside class="formation-strip" aria-label="Formation status">
-  <span class="fs-mark">In formation</span>
-  <span class="fs-text">The Articles are filed with the Colorado Secretary of State; the governing instruments are in counsel review and unexecuted; no member has yet been admitted. Pages here describe how the cooperative is meant to work, not how it currently operates. Where a page and the <a href="/legal/#formation">formation notice</a> disagree, the notice is right.</span>
-</aside>
 
 <main class="wrap">
   <div class="kick">Techne &middot; Participation</div>
@@ -92,5 +93,9 @@ p { margin: 0 0 var(--s4); max-width: 66ch; }
   <p><a class="go" href="/participation/">Go to The ways in</a></p>
   <p class="fine">Two participation pages stood on this site with different classes and different rates, and neither said which one governed. That is a thing a person can reasonably rely on either way, so one of them had to become a pointer. This one did, on August 12, 2026. It is kept rather than deleted so links already written to it still land. The Participation Framework itself, the drafted instrument, is not published; it is listed with its status on <a href="/legal/">the legal shelf</a>.</p>
 </main>
+
+<footer class="wrap" style="padding-bottom:var(--s6)">
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
 </body>
 </html>
