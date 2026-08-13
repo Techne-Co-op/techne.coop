@@ -3168,6 +3168,61 @@ guild:
       only to a defect. The same true sentences in a different
       order are a different page.
 
+  - address: P-11
+    title: The door and the room behind it
+    intent: >
+      P-10 put the front door first and the steward asked, on the day
+      it merged, for something simpler still with the detail on a
+      secondary page. So the page splits. /participation/ is now the
+      doors, one paragraph on what ownership is, and one link: a
+      person who wants to come by or take a desk can read the whole
+      page and act. /participation/detail/ carries what the front
+      door used to: the comparison table, the two invitation
+      pathways, the timeline, the vocabulary, the instruments, and
+      the note recording where the record disagrees with itself.
+      Nothing is deleted and no claim is softened; the material is
+      addressed to the reader who came looking for it.
+
+      The formation notice moves in the same piece, at the steward's
+      direction: out of the top banner and into the footer, shorter,
+      on the public pages. It keeps the top strip on every page under
+      legal/, because a reader should not be able to read a governing
+      instrument end to end without meeting the sentence that says it
+      is drafted and unexecuted. That distinction is the agent's
+      call, recorded here so it can be overturned in one word.
+    status: drafted
+    cites: [P-09, P-10, UI, L-01]
+    deliverable: >
+      participation/index.html cut to three sections;
+      participation/detail/index.html added carrying the rest;
+      the formation notice in footer form on the public pages and in
+      strip form under legal/; scripts/notice_audit.py taught both
+      forms, with coverage and byte-identical prose checked per form.
+    acceptance: >
+      The front door holds no table, no pathway prose, and no
+      timeline, and a visitor can reach an action without scrolling
+      past anything that is not a door; every claim removed from it
+      is present on the detail page; both pages and the front page
+      carry the footer notice verbatim; every page under legal/ still
+      carries the strip verbatim; the long form at /legal/#formation
+      is unchanged and still governs; no inbound anchor breaks;
+      style-lint, the token audit, the measure audit, the notice
+      audit, and the almanac audit green.
+    note: >
+      A defect fixed in passing and worth recording, because it will
+      recur: .pcard li is a flex container, so an inline-block term
+      hint inside it became a sibling flex item and broke its
+      sentence into columns. Wrapping the bullet text in one span
+      fixes it. Any inline component dropped into a flex list needs
+      the same wrapper.
+
+      Still unanswered by the steward, and now sitting on the detail
+      page rather than the front door: whether the Bylaws v2.1
+      disagreement with the June board determination belongs on
+      /legal/corrections/ instead of on a participation surface. The
+      move to the sub-page is a change of audience, not of venue, and
+      does not decide it.
+
 horizon:
 
   # The horizon bed: the cooperative's legal shape over time, held
