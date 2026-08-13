@@ -386,26 +386,26 @@
       .meta-grid { grid-template-columns: 1fr 1fr; }
     }
   
-    /* Formation strip: one verbatim copy per public page. See CSS_A note. */
-    .formation-strip{
-      display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;
-      background:var(--surface);border-bottom:1px solid var(--border);
-      padding:10px 6vw;
-      font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--text-muted);
+    /* Formation note, footer form. The steward directed the notice out of the
+       top banner on 2026-08-12 for the public pages, and on 2026-08-13 for these
+       as well: one form of it, one place. The long form at /legal/#formation
+       still governs. One verbatim copy per page, proved by
+       scripts/notice_audit.py; only the token names differ, because the estate
+       carries two families. */
+    .formation-foot{
+      flex-basis:100%;max-width:96ch;
+      border-top:1px solid var(--border);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--text-muted);
     }
-    .formation-strip .fs-mark{
+    .formation-foot .ff-mark{
       font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
-      color:var(--gold);white-space:nowrap;
+      color:var(--gold);margin-right:10px;white-space:nowrap;
     }
-    .formation-strip .fs-text{max-width:110ch;}
-    .formation-strip a{color:var(--gold);}
+    .formation-foot a{color:var(--gold);}
+
 </style>
 </head>
 <body>
-<aside class="formation-strip" aria-label="Formation status">
-  <span class="fs-mark">In formation</span>
-  <span class="fs-text">The Articles are filed with the Colorado Secretary of State; the governing instruments are in counsel review and unexecuted; no member has yet been admitted. Pages here describe how the cooperative is meant to work, not how it currently operates. Where a page and the <a href="/legal/#formation">formation notice</a> disagree, the notice is right.</span>
-</aside>
 <div class="wrap">
 
   <div style="background:rgba(196,149,106,0.06);border:1px solid rgba(196,149,106,0.25);border-radius:4px;padding:0.7rem 1.1rem;font-family:var(--mono);font-size:0.68rem;line-height:1.6;color:var(--text-muted);margin-bottom:1.5rem;">
@@ -1006,6 +1006,7 @@
     <span>Colorado Limited Cooperative Association</span>
     <span>SOS No. 20261163853</span>
     <span><a href="/legal/" style="color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border-dim);">&larr; Legal documents</a></span>
+    <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
   </div>
 </footer>
 </body>

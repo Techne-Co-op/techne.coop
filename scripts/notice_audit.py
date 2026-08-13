@@ -6,20 +6,20 @@ formation strip is a verbatim copy on every public page it covers. Verbatim
 copies drift: U-20 found four different widths where one measure was meant,
 and this audit exists so the same thing cannot happen to a legal disclosure.
 
-The notice takes two forms since P-11. The steward asked on 2026-08-12 for it
-out of the top banner and into the footer, shorter. It is now:
+The notice is a short footer line, one form only. The steward directed it out
+of the top banner on 2026-08-12 for the public pages, and on 2026-08-13 for
+the pages under legal/ as well: P-11 had kept the banner there on the agent's
+own reasoning, and the steward overturned it. One notice, one place.
 
-  - a top strip on every page under legal/, because a reader should not be
-    able to read a governing instrument end to end without meeting the
-    sentence that says it is drafted and unexecuted; and
-  - a short footer line everywhere else.
+Three checks:
 
-Two checks, run over each form:
-
-1. Coverage. Every page named carries its form of the notice.
-2. Sameness. The prose is byte-identical across every page carrying the same
-   form. Only the surrounding CSS may differ, because the estate carries two
-   token families and a copy must use the names its own page defines.
+1. Coverage. Every page named in COVERED carries the footer line.
+2. Sameness. Its prose is byte-identical everywhere. Only the surrounding CSS
+   may differ, because the estate carries two token families and a copy must
+   use the names its own page defines.
+3. No survivals. No page anywhere carries the retired top strip. A banner that
+   creeps back onto one page is exactly the drift this audit exists to catch,
+   and it would be invisible in a diff of twenty files.
 
 The long form of the notice lives at legal/index.html#formation and is the
 copy that governs when a page disagrees with it; this audit checks that it
@@ -35,8 +35,10 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-# The top strip: the legal shelf and every instrument, analysis, and log on it.
-COVERED_STRIP = [
+COVERED = [
+    "index.html",
+    "participation/index.html",
+    "participation/detail/index.html",
     "legal/index.html",
     "legal/bylaws/index.html",
     "legal/bylaws-analysis/index.html",
@@ -53,18 +55,8 @@ COVERED_STRIP = [
     "legal/summary-of-changes/index.html",
 ]
 
-# The footer line: the public pages a visitor meets first.
-COVERED_FOOT = [
-    "index.html",
-    "participation/index.html",
-    "participation/detail/index.html",
-]
-
 LONG_FORM = "legal/index.html"
 
-STRIP_RE = re.compile(
-    r'<aside class="formation-strip"[^>]*>(.*?)</aside>', re.S
-)
 FOOT_RE = re.compile(
     r'<div class="formation-foot"[^>]*>(.*?)</div>', re.S
 )
@@ -98,8 +90,16 @@ def check(findings, covered, pattern, label):
 
 def main():
     findings = []
-    n = check(findings, COVERED_STRIP, STRIP_RE, "strip")
-    n += check(findings, COVERED_FOOT, FOOT_RE, "footer line")
+    n = check(findings, COVERED, FOOT_RE, "footer line")
+
+    # The retired banner must not survive anywhere, covered or not.
+    for path in sorted(REPO_ROOT.rglob("*.html")):
+        if "formation-strip" in path.read_text():
+            rel = path.relative_to(REPO_ROOT)
+            findings.append(
+                f"{rel}: carries the retired formation strip; the notice is a "
+                f"footer line, one form only"
+            )
 
     long_form = REPO_ROOT / LONG_FORM
     if long_form.exists():

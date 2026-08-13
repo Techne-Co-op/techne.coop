@@ -3223,6 +3223,51 @@ guild:
       move to the sub-page is a change of audience, not of venue, and
       does not decide it.
 
+  - address: P-12
+    title: One notice, one place
+    intent: >
+      P-11 moved the formation notice into the footer on the public
+      pages and kept the top banner on every page under legal/, on
+      the agent's reasoning that a reader should not finish a
+      governing instrument without meeting the sentence saying it is
+      drafted. The steward overturned that on 2026-08-13: the notice
+      is consistently in the footer, everywhere. The banner comes off
+      the remaining fourteen pages and the estate carries one form of
+      the notice and one only. The long form at /legal/#formation is
+      untouched and still governs.
+    status: drafted
+    cites: [P-11, UI]
+    deliverable: >
+      The formation strip removed from every page under legal/ and
+      the footer line added in its place, in the token family each
+      page defines and at the measure its own footer uses;
+      scripts/notice_audit.py reduced to one form and given a
+      no-survivals check that fails if the retired banner reappears
+      on any page in the repository.
+    acceptance: >
+      No page in the repository contains a formation strip; every
+      page named in the audit carries the footer line with
+      byte-identical prose; each page still renders with its own
+      stylesheet intact, verified by rendering rather than by
+      reading the diff; the long form at /legal/#formation is
+      unchanged; style-lint, the token audit, the measure audit, the
+      notice audit, and the almanac audit green.
+    note: >
+      A near miss worth the record. The first pass replaced each
+      page's strip CSS by splicing from the strip's comment to the
+      next </style>, which on legal/corrections/index.html deleted
+      ninety-two lines of that page's own stylesheet and left it
+      rendering as unstyled text. The audit passed anyway, because
+      an audit that checks for a string cannot see a page that has
+      stopped working. It was caught by rendering the page and
+      looking at it. Two rules follow: a structural edit repeated
+      across many files is matched precisely to what it replaces and
+      never spliced to the next convenient delimiter, and every page
+      touched by such an edit is rendered before the work is called
+      done. The redo matches the strip's own rules and nothing else,
+      and every one of the fourteen pages was rendered and checked
+      for lost styling.
+
 horizon:
 
   # The horizon bed: the cooperative's legal shape over time, held
