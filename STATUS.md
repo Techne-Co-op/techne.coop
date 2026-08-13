@@ -6,8 +6,8 @@ Generated from rdm-ledger.yaml. 125 items total.
 | status | count |
 |--------|-------|
 | drafted | 13 |
-| anticipated | 31 |
-| open | 81 |
+| anticipated | 30 |
+| open | 82 |
 | filed | 0 |
 
 ## Drafted
@@ -54,6 +54,7 @@ Generated from rdm-ledger.yaml. 125 items total.
 - **L-03** open · delivered -- The ledger speaks
 - **L-04** open · delivered -- The companions
 - **L-05** open · delivered -- The series speaks
+- **L-06** open · delivered -- The modules speak
 - **MM-01** open · delivered -- The horizon enters the shelf
 - **P-07** open · delivered -- The participation stories
 - **P-08** open · delivered -- The day-one journeys
@@ -123,7 +124,6 @@ Generated from rdm-ledger.yaml. 125 items total.
 - **G-S** Share proof
 - **G-T** Treasury proof
 - **G-V** The standing proof
-- **L-06** The modules speak
 - **L-07** The machinery
 - **L-08** The quarantine
 - **P-01** The terms on the shelf
