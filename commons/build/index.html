@@ -313,8 +313,8 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
   <div class="mast-stats">
 <!-- generated:ledger-state -- written by scripts/validate.py; do not edit by hand -->
     <span class="stat-chip drafted"><span class="n">13</span>&thinsp;drafted</span>
-    <span class="stat-chip anticipated"><span class="n">32</span>&thinsp;anticipated</span>
-    <span class="stat-chip open"><span class="n">80</span>&thinsp;open</span>
+    <span class="stat-chip anticipated"><span class="n">31</span>&thinsp;anticipated</span>
+    <span class="stat-chip open"><span class="n">81</span>&thinsp;open</span>
     <span class="stat-chip verified"><span class="n">34</span>&thinsp;verified</span>
 <!-- /generated:ledger-state -->
   </div>
@@ -1223,9 +1223,9 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       </div>
       <div class="packet-row">
         <span class="pkt-addr">X-18</span>
-        <span class="pkt-intent">The cards answer to the ledger: the teeth for the resync. X-17 wrote scripts/almanac_audit.py and left it out of CI on purpose, because a new gate in launch week is a hazard. This piece wires it in, so a third resync cannot be needed.</span>
-        <span><span class="chip anticipated"><span class="dot"></span>anticipated</span></span>
-        <span class="pkt-ready">X-17 merged &middot; launch week past</span>
+        <span class="pkt-intent">The cards answer to the ledger, the ledger to the repository: the teeth for the resync. X-17 wrote scripts/almanac_audit.py and left it out of CI on purpose, because a new gate in launch week is a hazard. This piece wires it in and adds the check X-17 did not have, since the card audit reported clean over every address here on the morning the ledger was found wrong in twenty-four places. Every address-shaped branch merged into this history must now hold an address, and a self-test runs first, because a check that has stopped checking passes everything.</span>
+        <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
+        <span class="pkt-ready">X-17 merged &#10003; &middot; X-19 merged &#10003; &middot; the launch-week condition lifted by the steward, 2026-08-13</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">FORMATION-01</span>
@@ -1384,7 +1384,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
       <div class="loop-q-label">What has stalled quietly?</div>
     </div>
     <div class="loop-q-body">
-      <p class="loop-answer">Two quiet items, neither on the critical path to launch. The applicant email sink of X-02 waits on DNS records held by the zone manager; the steward notice does not wait with it, but the applicant acknowledgment stays dormant until they land. And this page itself stalled quietly for a month: fifty addresses entered the ledger without cards here, which is the same class of fault the cross-cutting bed exists to catch, found by a person reading rather than by a suite. X-17 corrects it and writes the audit that reads both the ledger and the page, but the audit is deliberately not a gate yet: a new way for CI to fail in launch week is a hazard, so the teeth are filed as X-18 for after.</p>
+      <p class="loop-answer">Two quiet items, neither on the critical path to launch. The applicant email sink of X-02 waits on DNS records held by the zone manager; the steward notice does not wait with it, but the applicant acknowledgment stays dormant until they land. And this page itself stalled quietly for a month: fifty addresses entered the ledger without cards here, which is the same class of fault the cross-cutting bed exists to catch, found by a person reading rather than by a suite. X-17 corrected it and wrote the audit that reads both the ledger and the page, and held it out of CI, because a new way for CI to fail in launch week is a hazard. The steward lifted that condition on 2026-08-13, and X-18 wired the audit in. It arrived carrying a third check: X-19 had just found the drift one link further back, where the audit was clean over every address on this page and the ledger behind it was wrong in twenty-four places. Every address-shaped branch merged into this history must now hold an address in the ledger, and the audit self-tests before it runs.</p>
       <ul class="loop-items">
         <li class="loop-item">
           <span class="loop-item-addr">X-02</span>

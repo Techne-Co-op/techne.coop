@@ -236,6 +236,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        # X-18 · the almanac audit's third check reads merge commits, and
+        # a shallow clone has none. The default depth of 1 would leave
+        # that check reporting an unreadable history on every run.
+        with:
+          fetch-depth: 0
       - name: vocabulary quarantine (Subchapter K grammar)
         run: |
           set -e
@@ -281,6 +286,18 @@ jobs:
         # drift against commons.css is a defect. Exemptions and the
         # typeface deferral are named in the script per VS v1 §9.
         run: python3 scripts/token_audit.py
+      - name: the almanac audit still refuses (X-18)
+        # The gate before the gate. A check that has stopped checking
+        # passes everything, and this one guards a page whose whole
+        # argument is that the record is true. Scope per VS v2 §9.
+        run: python3 scripts/almanac_audit.py --self-test
+      - name: the cards answer to the ledger, the ledger to the repository (X-18)
+        # X-17 wrote the card audit and left it out of CI on purpose:
+        # a new gate in launch week is a hazard. X-19 then found the
+        # ledger itself wrong in twenty-four places while the card
+        # audit reported clean, so the teeth arrive with the third
+        # check as well as the first two. Scope per VS v2 §9.
+        run: python3 scripts/almanac_audit.py
 
   gate-rehearsal:
     # G-B, G-G · the mechanical half of the Gate Book: every Belong
