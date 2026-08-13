@@ -6,8 +6,8 @@ Generated from rdm-ledger.yaml. 126 items total.
 | status | count |
 |--------|-------|
 | drafted | 13 |
-| anticipated | 31 |
-| open | 82 |
+| anticipated | 30 |
+| open | 83 |
 | filed | 0 |
 
 ## Drafted
@@ -88,6 +88,7 @@ Generated from rdm-ledger.yaml. 126 items total.
 - **U-15** open · delivered -- The intranet walkthrough, answered
 - **U-17** open · delivered -- The intranet in the hand
 - **U-18** open · delivered -- The frame that never held
+- **U-19** open · delivered -- The frame before the paint
 - **U-20** open · delivered -- The frame measure
 - **U-21** open · delivered -- The commons page speaks the current book
 - **U-22** open · delivered -- The Commonplace, published
@@ -138,7 +139,6 @@ Generated from rdm-ledger.yaml. 126 items total.
 - **T-04** Disbursement execution
 - **T-06** The balance view
 - **T-07** The statements view
-- **U-19** The frame before the paint
 - **V-01** The designation rail
 - **V-02** The tallies
 - **V-03** The ventures surface

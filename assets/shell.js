@@ -46,41 +46,12 @@
   var ROLE_CACHE_MS = 5 * 60 * 1000;
 
   /* ---------- the manifest ----------
-     Each section declares its slice and its tint, a stop on the
-     sunset sweep. The taxonomy is the deployed grouping, adopted
-     over the five-slice draft per the U-03 card. Grammar and the
-     table reads were carried here and shown in the strip until
-     U-05: true of the build, and nothing a member came to read.
-     The section keeps its name and its colour. */
-  var MAP = [
-    { group: null, items: [
-      { href: '/intranet/', label: 'Overview', icon: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>', tint: 'gold' }
-    ]},
-    { group: 'Belong', items: [
-      { href: '/commons/agreements/', label: 'Agreements', icon: '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>', tint: 'amber' },
-      { href: '/commons/directory/', label: 'Directory', icon: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>', tint: 'amber' }
-    ]},
-    { group: 'Gather', items: [
-      { href: '/commons/gatherings/', label: 'Gatherings', icon: '<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>', tint: 'coral' }
-    ]},
-    { group: 'Find one another', items: [
-      { href: '/commons/opportunities/', label: 'Opportunities', icon: '<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>', tint: 'rose' },
-      { href: '/intranet/programs/', label: 'Programs', icon: '<rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/>', tint: 'rose' }
-    ]},
-    { group: 'See your share', items: [
-      { href: '/intranet/share/', label: 'Your share', icon: '<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>', tint: 'violet' }
-    ]},
-    { group: 'Treasury', items: [
-      { href: '/intranet/treasury/', label: 'The Desk', icon: '<line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/>', tint: 'violet' }
-    ]},
-    { group: 'Common agency', items: [
-      { href: '/intranet/direct/', label: 'Direction', icon: '<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>', tint: 'blue' }
-    ]},
-    { group: 'The record', items: [
-      { href: '/commons/', label: 'The Commonplace Book', icon: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>', tint: 'blue' },
-      { href: '/commons/build/', label: 'The Almanac', icon: '<path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/>', tint: 'blue' }
-    ]}
-  ];
+     Lives in assets/shell-map.json and is rendered into each
+     surface's markup by scripts/shell_frame.py (U-19). This script
+     reads the map the document brought rather than keeping a copy,
+     because two copies of one manifest is the drift this estate has
+     paid for before: the section's slice, tint, and label all come
+     from the rendered nav. */
 
   /* ---------- frame styles ----------
      Moved to assets/shell.css by U-18. A stylesheet injected by a
@@ -144,13 +115,15 @@
             HTMLScriptElement.supports('speculationrules'))) return;
       var here = normalize(location.pathname);
       var urls = [];
-      MAP.forEach(function (grp) {
-        grp.items.forEach(function (it) {
-          if (it.outside) return;
-          if (normalize(it.href) === here) return;
-          if (urls.indexOf(it.href) < 0) urls.push(it.href);
-        });
-      });
+      var side = document.getElementById('cis-map');
+      var links = side ? side.querySelectorAll('a') : [];
+      for (var i = 0; i < links.length; i++) {
+        var a = links[i];
+        if (a.classList.contains('cis-out')) continue;
+        var href = a.getAttribute('href');
+        if (normalize(href) === here) continue;
+        if (urls.indexOf(href) < 0) urls.push(href);
+      }
       if (!urls.length) return;
       var s = document.createElement('script');
       s.type = 'speculationrules';
@@ -229,20 +202,23 @@
   }
 
   function activeItem() {
+    var side = document.getElementById('cis-map');
+    if (!side) return null;
     var here = normalize(location.pathname);
-    for (var i = 0; i < MAP.length; i++) {
-      for (var j = 0; j < MAP[i].items.length; j++) {
-        var it = MAP[i].items[j];
-        if (!it.noactive && !it.outside && normalize(it.href) === here) return it;
+    var links = side.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      var a = links[i];
+      if (a.classList.contains('cis-out')) continue;
+      if (normalize(a.getAttribute('href')) !== here) continue;
+      var slice = null;
+      var n = a.previousElementSibling;
+      while (n) {
+        if (n.classList && n.classList.contains('cis-group')) { slice = n.textContent; break; }
+        n = n.previousElementSibling;
       }
+      return { el: a, label: a.textContent, tint: a.getAttribute('data-tint') || 'ember', slice: slice };
     }
     return null;
-  }
-
-  function sliceOf(item) {
-    var slice = null;
-    MAP.forEach(function (grp) { if (grp.items.indexOf(item) >= 0) slice = grp.group; });
-    return slice;
   }
 
   function toggleMode() {
@@ -371,8 +347,7 @@
     if (active) {
       var dest = el('div', 'cis-gate-dest');
       dest.appendChild(el('span', 'cis-mark'));
-      var slice = sliceOf(active);
-      dest.appendChild(el('span', null, 'continues to ' + (slice ? slice + ' · ' : '') + active.label));
+      dest.appendChild(el('span', null, 'continues to ' + (active.slice ? active.slice + ' · ' : '') + active.label));
       card.appendChild(dest);
     }
 
@@ -435,10 +410,24 @@
   }
 
   function build() {
-    if (document.querySelector('.cis-topbar')) return;
+    /* U-19: the frame is in the markup, written by scripts/shell_frame.py
+       from assets/shell-map.json. This script no longer raises furniture;
+       it adopts what the document already carries: marks the active item,
+       fills the chip, wires the drawer, the bell, the mode toggle, and
+       the gate card. A surface without the static frame is a build error
+       the shell cannot repair, so it is reported, not patched over. */
+    var topbar = document.querySelector('.cis-topbar');
+    var side = document.getElementById('cis-map');
+    var main = document.querySelector('.cis-main');
+    if (!topbar || !side || !main) {
+      if (window.Techne && Techne.record) Techne.record('handled', 'shell: static frame missing (U-19)');
+      return;
+    }
+
     var sess = session();
     var pending = !sess && authCallbackPending();
     var signedIn = !!sess || pending;
+
     if (!signedIn && PUBLIC) return;
 
     /* U-15: a public page has already raised its own topbar (U-13).
@@ -450,108 +439,34 @@
     }
 
     var active = activeItem();
+    var here = normalize(location.pathname);
+    var chip = document.getElementById('cis-member-chip');
+    var menuBtn = document.getElementById('cis-menu-btn');
+    var bell = topbar.querySelector('.cis-bell');
+    var mode = topbar.querySelector('.cis-mode');
+    if (mode) mode.addEventListener('click', toggleMode);
 
-    /* topbar */
-    var topbar = el('header', 'cis-topbar');
-    var brand = el('a', 'cis-brand', 'Techne');
-    brand.appendChild(el('span', 'cis-brand-suffix', ' · intranet'));
-    brand.href = '/intranet/';
-    var right = el('div', 'cis-topbar-right');
-    var menuBtn = null;
-    if (signedIn) {
-      menuBtn = el('button', 'cis-menu', 'Menu');
-      menuBtn.type = 'button';
-      menuBtn.id = 'cis-menu-btn';
-      menuBtn.setAttribute('aria-expanded', 'false');
-      menuBtn.setAttribute('aria-controls', 'cis-map');
-      menuBtn.setAttribute('aria-label', 'show the intranet map');
-      right.appendChild(menuBtn);
+    if (chip) {
+      chip.textContent = sess && sess.user.email ? sess.user.email
+        : (pending ? 'signing in…' : 'not signed in');
     }
-    var bell = null;
-    if (signedIn) {
-      bell = el('button', 'cis-bell', 'Notices');
-      bell.type = 'button';
-      bell.setAttribute('aria-expanded', 'false');
-      bell.setAttribute('aria-controls', 'cis-notices');
-      bell.setAttribute('aria-label', 'notices addressed to you');
-      right.appendChild(bell);
-    }
-    var chip = el('span', 'cis-chip');
-    chip.id = 'cis-member-chip';
-    chip.textContent = sess && sess.user.email ? sess.user.email
-      : (pending ? 'signing in…' : 'not signed in');
-    var mode = el('button', 'cis-mode', '◐');
-    mode.type = 'button';
-    mode.setAttribute('aria-label', 'toggle light and dark mode');
-    mode.addEventListener('click', toggleMode);
-    right.appendChild(chip); right.appendChild(mode);
-    topbar.appendChild(brand); topbar.appendChild(right);
-
-    var main = el('div', 'cis-main');
-    var frame = el('div', 'cis-body');
-    var body = document.body;
-    var foot = null;
 
     if (signedIn) {
-      /* the members' frame: map, context strip, the page */
-      var side = el('nav', 'cis-side');
-      side.id = 'cis-map';
-      side.setAttribute('aria-label', 'intranet');
-      var here = normalize(location.pathname);
-      MAP.forEach(function (grp) {
-        var wrap = grp.steward ? el('div') : side;
-        if (grp.steward) { wrap.id = 'cis-steward-nav'; wrap.style.display = 'none'; }
-        if (grp.group) wrap.appendChild(el('div', 'cis-group', grp.group));
-        grp.items.forEach(function (it) {
-          var a = el('a');
-          a.href = it.href;
-          if (it.icon) {
-            var ic = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            ic.setAttribute('class', 'lucide');
-            ic.setAttribute('viewBox', '0 0 24 24');
-            ic.setAttribute('fill', 'none');
-            ic.setAttribute('stroke', 'currentColor');
-            ic.setAttribute('stroke-width', '1.5');
-            ic.setAttribute('stroke-linecap', 'round');
-            ic.setAttribute('stroke-linejoin', 'round');
-            ic.setAttribute('aria-hidden', 'true');
-            ic.innerHTML = it.icon;
-            a.appendChild(ic);
-          }
-          a.appendChild(document.createTextNode(it.label));
-          if (it.outside) a.className = 'cis-out';
-          if (!it.noactive && !it.outside && normalize(it.href) === here) {
-            a.className = 'active';
-            a.setAttribute('aria-current', 'page');
-          }
-          wrap.appendChild(a);
-        });
-        if (grp.steward) side.appendChild(wrap);
-      });
-      var home = el('a', 'cis-out cis-home', '← techne.coop');
-      home.href = '/';
-      side.appendChild(home);
-      /* on a phone the topbar has no room for the member chip; the
-         map drawer carries the identity line instead */
-      side.appendChild(el('div', 'cis-side-you',
-        sess && sess.user.email ? sess.user.email : 'signed in'));
+      /* the active item, on the map the document brought */
+      if (active && active.el) {
+        active.el.classList.add('active');
+        active.el.setAttribute('aria-current', 'page');
+      }
+      var you = side.querySelector('.cis-side-you');
+      if (you) you.textContent = sess && sess.user.email ? sess.user.email : 'signed in';
 
-      var context = null;
       if (active) {
-        context = el('div', 'cis-context');
+        var context = el('div', 'cis-context');
         context.style.setProperty('--cis-tint', 'var(--cis-' + active.tint + ')');
         context.appendChild(el('span', 'cis-mark'));
-        var slice = sliceOf(active);
-        context.appendChild(el('span', 'cis-addr', (slice ? slice + ' · ' : '') + active.label));
+        context.appendChild(el('span', 'cis-addr', (active.slice ? active.slice + ' · ' : '') + active.label));
+        main.insertBefore(context, main.firstChild);
       }
-
-      while (body.firstChild) main.appendChild(body.firstChild);
-      if (context) main.insertBefore(context, main.firstChild);
-      /* the footer belongs to the whole frame, not the column beside
-         the map (U-15) */
-      foot = main.querySelector('footer');
-      frame.appendChild(side);
-      frame.appendChild(main);
 
       /* the drawer. Wide screens ignore all of this: the map is simply
          there, and the button is display:none. */
@@ -576,22 +491,19 @@
         });
       }
     } else {
-      /* signed out: the topbar and the gate; the map is for members */
+      /* signed out on a members' surface: the topbar and the gate; the
+         map and the page's content are withheld. The content is parked
+         inside the main column rather than removed, the U-04 shape. */
       var parked = el('div', 'cis-parked');
-      while (body.firstChild) parked.appendChild(body.firstChild);
+      while (main.firstChild) parked.appendChild(main.firstChild);
       main.appendChild(buildGate(active));
       main.appendChild(parked);
-      frame.appendChild(main);
     }
-
-    body.appendChild(topbar);
-    body.appendChild(frame);
-    if (foot) body.appendChild(foot);
 
     /* identity: chip detail and the steward group */
     function resolveIdentity(s) {
       window.cisUser = { userId: s.user.id, email: s.user.email || null };
-      chip.textContent = s.user.email || 'signed in';
+      if (chip) chip.textContent = s.user.email || 'signed in';
       fetchIdentity(s, function (id) {
         if (!id) return;
         window.cisUser = {
@@ -599,7 +511,7 @@
           agentId: id.agentId || null, displayName: id.displayName || null,
           roles: id.roles || []
         };
-        if (id.displayName) {
+        if (id.displayName && chip) {
           chip.textContent = '';
           var b = document.createElement('b');
           b.textContent = id.displayName;
@@ -623,10 +535,14 @@
       var wait = setInterval(function () {
         var s = session();
         tries += 1;
-        if (s) { clearInterval(wait); resolveIdentity(s); }
-        else if (tries > 25) {
+        if (s) {
           clearInterval(wait);
-          chip.textContent = 'not signed in';
+          document.documentElement.setAttribute('data-cis', 'in');
+          resolveIdentity(s);
+        } else if (tries > 25) {
+          clearInterval(wait);
+          document.documentElement.setAttribute('data-cis', 'out');
+          if (chip) chip.textContent = 'not signed in';
           document.dispatchEvent(new CustomEvent('cis:user', { detail: null }));
         }
       }, 400);
