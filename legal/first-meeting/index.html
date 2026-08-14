@@ -12,17 +12,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="dark light">
-  <meta name="description" content="A walkthrough for the first board meeting of RegenHub, LCA: how to convene, what to move, what the minute must carry, and what the meeting cannot do. Drafted, unadopted.">
+  <meta name="description" content="The first board meeting of RegenHub, LCA, run in public as a navigable deck: what it can decide, the words for each motion, and what the minute has to carry. Drafted, unadopted.">
   <title>The first meeting &middot; Techne</title>
   <link rel="canonical" href="https://techne.coop/legal/first-meeting/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://techne.coop/legal/first-meeting/">
   <meta property="og:title" content="The first meeting · Techne">
-  <meta property="og:description" content="A walkthrough for the first board meeting of RegenHub, LCA. Drafted, unadopted.">
+  <meta property="og:description" content="The first board meeting of RegenHub, LCA, run in public. Drafted, unadopted.">
   <meta property="og:site_name" content="Techne">
   <meta property="og:image" content="https://techne.coop/assets/og-default.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -52,7 +51,7 @@
       color-scheme:light;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0ms!important;}}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0ms!important;animation:none!important;}}
     body{
       background:var(--bg);color:var(--text);
       font-family:var(--serif);font-size:17px;line-height:1.7;
@@ -60,497 +59,357 @@
       transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);
     }
     em{font-style:italic;color:var(--heading);}
+    a{color:var(--blue-text);}
 
-    /* the primary navigation is the shared public topbar,
-       injected by /assets/topbar.js per U-13 */
+    /* ============ deck shell ============ */
+    .deck{
+      /* the shared public topbar is 48px, injected per U-13 */
+      min-height:calc(100vh - 48px);min-height:calc(100dvh - 48px);
+      margin-top:48px;
+      display:flex;flex-direction:column;
+    }
+    .slide{
+      display:none;
+      flex:1 1 auto;
+      padding:clamp(20px,4vh,56px) clamp(20px,5vw,64px) clamp(76px,10vh,96px);
+      max-width:1100px;width:100%;margin:0 auto;
+      flex-direction:column;justify-content:center;
+      overflow-y:auto;
+    }
+    .slide.on{display:flex;animation:rise var(--dur) var(--ease);}
+    @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
 
-    /* Layout */
-    .wrap{max-width:780px;margin:0 auto;padding:0 var(--s5);}
-
-    /* Page masthead */
-    .page-mast{
-      padding:clamp(56px,8vw,96px) 0 var(--s7);
+    /* document view: every slide stacked, for reading and for print */
+    body[data-view="doc"] .slide{
+      display:block;animation:none;
+      max-width:820px;
+      padding:var(--s7) var(--s5);
       border-bottom:1px solid var(--line);
-      margin-bottom:var(--s7);
+      justify-content:flex-start;
     }
-    .kick{
-      font-family:var(--mono);font-size:11px;text-transform:uppercase;
-      letter-spacing:0.16em;color:var(--ember-text);
-      margin-bottom:var(--s3);
-    }
-    .page-mast h1{
-      font-family:var(--serif);font-weight:700;
-      font-size:clamp(32px,5vw,48px);line-height:1.15;
-      color:var(--heading);letter-spacing:-0.015em;
-      margin-bottom:var(--s3);
-    }
-    .sub{
-      font-size:18px;line-height:1.65;
-      color:var(--muted);max-width:56ch;
-      margin-bottom:var(--s6);
-    }
-    .entity-band{
-      display:flex;flex-wrap:wrap;gap:4px var(--s5);
-      font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:0.04em;
-      padding-top:var(--s4);border-top:1px solid var(--line);
-    }
+    body[data-view="doc"] .deck-bar .nav-arrows,
+    body[data-view="doc"] .deck-bar .counter{display:none;}
+    body[data-view="doc"] .zone{display:none;}
 
-    /* Status chips */
-    .st{
-      display:inline-block;
-      font-family:var(--mono);font-size:9.5px;font-weight:500;
-      text-transform:uppercase;letter-spacing:0.14em;
-      padding:3px 8px;border-radius:2px;white-space:nowrap;
+    /* ============ slide furniture ============ */
+    .eyebrow{
+      font-family:var(--mono);font-size:clamp(10px,1.1vw,12px);text-transform:uppercase;
+      letter-spacing:0.16em;color:var(--ember-text);margin-bottom:var(--s4);
     }
-    .st-filed{border:1px solid var(--ok);color:var(--ok-text);}
-    .st-drafted{border:1px solid var(--ember);color:var(--ember-text);}
-    .st-ratified{border:1px solid var(--ok);color:var(--ok-text);}
-    .st-antic{border:1px dashed var(--muted);color:var(--muted);}
+    .eyebrow .cite{color:var(--muted);text-transform:none;letter-spacing:0.04em;}
+    h1{
+      font-size:clamp(38px,7vw,76px);line-height:1.06;letter-spacing:-0.02em;
+      color:var(--heading);font-weight:400;margin-bottom:var(--s5);
+    }
+    h2{
+      font-size:clamp(26px,4.2vw,46px);line-height:1.12;letter-spacing:-0.015em;
+      color:var(--heading);font-weight:400;margin-bottom:var(--s5);
+    }
+    .lede{font-size:clamp(17px,1.9vw,23px);line-height:1.55;color:var(--text);max-width:44em;}
+    .lede + .lede{margin-top:var(--s4);}
+    .fine{font-size:clamp(14px,1.3vw,16px);color:var(--muted);max-width:46em;margin-top:var(--s5);line-height:1.65;}
+    .fine strong{color:var(--heading);font-weight:400;}
 
-    /* Standing marks (P-09). A second mark, deliberately a different shape
-       from the status chips, answering the one question a status chip cannot:
-       does signing this make the signer a member of the cooperative. A reader
-       about to sign something needs that answer before they need to know
-       whether the document is drafted or ratified. */
-    .sm{
-      display:inline-block;
-      font-family:var(--mono);font-size:9.5px;font-weight:500;
-      text-transform:uppercase;letter-spacing:0.14em;
-      padding:3px 8px;white-space:nowrap;
-      background:var(--inset);border-left:3px solid var(--line);
-    }
-    .sm-member{border-left-color:var(--ok);color:var(--ok-text);}
-    .sm-not{border-left-color:var(--muted);color:var(--muted);}
-    .marks{display:flex;flex-direction:column;align-items:flex-end;gap:5px;}
-
-    /* Status legend */
-    .status-legend{
-      display:flex;flex-wrap:wrap;gap:var(--s3) var(--s6);
-      margin-bottom:var(--s7);
-      padding:var(--s4) var(--s5);
-      background:var(--inset);border:1px solid var(--line);
-    }
-    .leg-item{
-      display:flex;align-items:baseline;gap:var(--s2);
-      font-family:var(--mono);font-size:11px;color:var(--muted);
-    }
-
-    /* Document groups */
-    .doc-group{margin-bottom:var(--s7);}
-    .doc-group-head{
-      font-family:var(--mono);font-size:10px;font-weight:500;
-      text-transform:uppercase;letter-spacing:0.18em;color:var(--muted);
-      padding-bottom:var(--s3);border-bottom:1px solid var(--rule);
-      margin-bottom:var(--s4);
-    }
-
-    /* Linked document cards */
-    a.doc-card{
-      display:block;text-decoration:none;
-      border:1px solid var(--line);border-left:3px solid var(--ember);
-      padding:var(--s4) var(--s5);margin-bottom:var(--s3);
-      background:var(--surface);
-      transition:background var(--micro) var(--ease),border-left-color var(--micro) var(--ease);
-    }
-    a.doc-card:hover{background:var(--raised);border-left-color:var(--ember-text);}
-    a.doc-card:last-child{margin-bottom:0;}
-    .doc-card-head{
-      display:flex;align-items:baseline;justify-content:space-between;
-      gap:var(--s3);margin-bottom:var(--s2);
-    }
-    .doc-card-title{
-      font-family:var(--mono);font-size:13px;font-weight:500;
-      color:var(--ember-text);letter-spacing:0.02em;
-    }
-    .doc-card-desc{font-size:14px;color:var(--muted);line-height:1.6;}
-    .doc-card-meta{
-      font-family:var(--mono);font-size:11px;color:var(--faint);
-      margin-top:var(--s2);letter-spacing:0.03em;
-    }
-
-    /* Non-linked document items */
-    .doc-item{
-      display:grid;grid-template-columns:1fr auto;
-      gap:var(--s3) var(--s4);align-items:start;
-      padding:var(--s4) 0;border-bottom:1px solid var(--line);
-    }
-    .doc-item:first-of-type{border-top:1px solid var(--line);}
-    .doc-item .di-name{
-      font-family:var(--serif);font-size:15px;color:var(--heading);
-      margin-bottom:4px;
-    }
-    .doc-item .di-note{font-size:13px;color:var(--muted);line-height:1.55;}
-    .doc-item .di-tag{padding-top:2px;}
-
-    /* Formation notice: the long form of the strip at the top of every
-       public page. This is the copy that governs when a page disagrees. */
-    .formation-note{
-      padding:var(--s5);margin-bottom:var(--s7);
-      background:var(--inset);border:1px solid var(--line);
-      border-left:3px solid var(--ember);
-      font-size:15px;line-height:1.7;color:var(--muted);
-    }
-    .formation-note .fn-head{
-      font-family:var(--mono);font-size:10px;font-weight:500;
-      text-transform:uppercase;letter-spacing:0.16em;
-      color:var(--ember-text);margin-bottom:var(--s3);
-    }
-    .formation-note p+p{margin-top:var(--s3);}
-
-    /* Group note: prose that qualifies a group before its cards */
-    .group-note{
-      padding:var(--s4) var(--s5);margin-bottom:var(--s4);
-      background:var(--inset);border:1px solid var(--line);
-      font-size:14px;line-height:1.65;color:var(--muted);
-    }
-
-    /* Coming note */
-    .coming-note{
-      margin-top:var(--s7);
-      padding:var(--s5);
-      background:var(--inset);border:1px solid var(--line);
-      font-size:15px;line-height:1.7;color:var(--muted);
-    }
-    .coming-note p+p{margin-top:var(--s3);}
-
-    /* Footer */
-    footer{
-      background:var(--inset);border-top:1px solid var(--line);
-      margin-top:var(--s8);padding:var(--s7) 0 var(--s8);
-    }
-    .foot-inner{
-      max-width:780px;margin:0 auto;padding:0 var(--s5);
-      display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);
-      font-family:var(--mono);font-size:12px;color:var(--muted);
-    }
-    .ft-brand{color:var(--ember-text);}
-    .foot-fine{
-      max-width:780px;margin:var(--s4) auto 0;padding:0 var(--s5);
-      font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:0.02em;
-    }
-
-    /* Responsive */
-    @media (max-width:600px){
-      body{font-size:16px;}
-      .wrap{padding:0 5vw;}
-      .doc-item{grid-template-columns:1fr;}
-      .doc-item .di-tag{padding-top:0;margin-top:var(--s2);}
-    }
-  
-    /* Formation note, footer form. The steward directed the notice out of the
-       top banner on 2026-08-12 for the public pages, and on 2026-08-13 for these
-       as well: one form of it, one place. The long form at /legal/#formation
-       still governs. One verbatim copy per page, proved by
-       scripts/notice_audit.py; only the token names differ, because the estate
-       carries two families. */
-    .formation-foot{
-      max-width:780px;margin-left:auto;margin-right:auto;
-      padding-left:var(--s5);padding-right:var(--s5);
-      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
-      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
-    }
-    .formation-foot .ff-mark{
-      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
-      color:var(--ember-text);margin-right:10px;white-space:nowrap;
-    }
-    .formation-foot a{color:var(--ember-text);}
-
-</style>
-
-  <style>
-    /* ── The walkthrough ─────────────────────────────────────────
-       A page meant to be held open during a meeting, and printed.
-       Everything on it is either a thing to say, a thing to check,
-       or the provision that puts it there. */
-    .cite{
-      display:inline-block;font-family:var(--mono);font-size:10px;
-      letter-spacing:0.1em;color:var(--ember-text);
-      border:1px solid var(--ember);border-radius:2px;
-      padding:2px 7px;margin-left:var(--s2);white-space:nowrap;
-      vertical-align:middle;
-    }
-    .cannot{
-      border:1px solid var(--rule);border-left:3px solid var(--muted);
-      background:var(--inset);padding:var(--s5);margin-bottom:var(--s7);
-    }
-    .cannot h2{
-      font-family:var(--mono);font-size:11px;font-weight:500;
-      text-transform:uppercase;letter-spacing:0.16em;color:var(--muted);
-      margin-bottom:var(--s3);
-    }
-    .cannot ul{list-style:none;}
-    .cannot li{
-      font-size:15px;line-height:1.7;color:var(--text);
-      padding-left:var(--s5);position:relative;margin-bottom:var(--s3);
-    }
-    .cannot li::before{
-      content:"—";position:absolute;left:0;color:var(--muted);
-    }
-    .cannot li:last-child{margin-bottom:0;}
-    .cannot p{font-size:14px;color:var(--muted);margin-top:var(--s4);}
-
-    .rail{border-left:1px solid var(--rule);margin-left:11px;padding-left:0;}
-    .step{position:relative;padding:0 0 var(--s6) var(--s6);}
-    .step:last-child{padding-bottom:0;}
-    .step .n{
-      position:absolute;left:-11px;top:1px;width:22px;height:22px;
-      border-radius:50%;background:var(--bg);border:1px solid var(--ember);
-      color:var(--ember-text);font-family:var(--mono);font-size:10px;
-      display:flex;align-items:center;justify-content:center;
-    }
-    .step h3{
-      font-family:var(--serif);font-weight:700;font-size:17px;
-      color:var(--heading);margin-bottom:var(--s2);line-height:1.35;
-    }
-    .step p{font-size:15px;line-height:1.7;color:var(--muted);}
-    .step p+p{margin-top:var(--s3);}
+    /* the words to say aloud */
     .say{
-      border:1px solid var(--line);border-left:3px solid var(--blue);
-      background:var(--surface);padding:var(--s4) var(--s5);
-      margin:var(--s3) 0;font-size:15px;line-height:1.75;color:var(--text);
+      border-left:3px solid var(--ember);
+      background:var(--ember-dim);
+      padding:var(--s5) clamp(18px,3vw,34px);
+      margin:var(--s5) 0 0;
+      font-size:clamp(18px,2.3vw,29px);line-height:1.42;
+      color:var(--heading);
     }
-    .say+.say{margin-top:var(--s2);}
-    .say .lead{
-      display:block;font-family:var(--mono);font-size:10px;
-      text-transform:uppercase;letter-spacing:0.14em;color:var(--blue-text);
-      margin-bottom:var(--s2);
+    .say .blank{
+      color:var(--ember-text);font-family:var(--mono);
+      font-size:0.8em;letter-spacing:0.04em;
     }
-    .aside{
-      font-size:14px;line-height:1.65;color:var(--faint);
-      border-top:1px solid var(--line);margin-top:var(--s3);padding-top:var(--s3);
+    .say-label{
+      font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:0.16em;
+      color:var(--ember-text);display:block;margin-bottom:var(--s3);
     }
-    .checks{list-style:none;margin-top:var(--s3);}
-    .checks li{
-      font-size:15px;line-height:1.7;color:var(--text);
-      padding-left:var(--s5);position:relative;margin-bottom:var(--s2);
+    .say + .say{margin-top:var(--s4);}
+    .motion{border-left-color:var(--blue);background:var(--blue-dim);}
+    .motion .say-label,.motion .blank{color:var(--blue-text);}
+
+    /* stacked list of short points */
+    .points{list-style:none;margin-top:var(--s5);}
+    .points li{
+      padding:var(--s4) 0;border-top:1px solid var(--line);
+      font-size:clamp(16px,1.8vw,22px);line-height:1.5;
     }
-    .checks li::before{
-      content:"\2610";position:absolute;left:0;color:var(--ember-text);
-      font-size:15px;line-height:1.6;
+    .points li:last-child{border-bottom:1px solid var(--line);}
+    .points b{color:var(--heading);font-weight:700;}
+    .points .why{display:block;font-size:0.76em;color:var(--muted);margin-top:var(--s2);line-height:1.6;}
+
+    .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s5);margin-top:var(--s6);}
+    .card{border:1px solid var(--line);background:var(--surface);padding:var(--s5);}
+    .card h3{font-size:clamp(16px,1.7vw,20px);color:var(--heading);font-weight:400;margin-bottom:var(--s3);}
+    .card p{font-size:15px;color:var(--muted);line-height:1.6;}
+
+    .chain{
+      display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;
+      margin-top:var(--s6);font-family:var(--mono);
+      font-size:clamp(11px,1.3vw,15px);letter-spacing:0.04em;
     }
-    .sec-head{
-      font-family:var(--mono);font-size:10px;font-weight:500;
-      text-transform:uppercase;letter-spacing:0.18em;color:var(--muted);
-      padding-bottom:var(--s3);border-bottom:1px solid var(--rule);
-      margin:var(--s7) 0 var(--s5);
+    .chain span{border:1px solid var(--line);padding:var(--s2) var(--s4);color:var(--heading);background:var(--surface);}
+    .chain i{color:var(--faint);font-style:normal;}
+    .chain span.now{border-color:var(--ember);color:var(--ember-text);}
+
+    .tag{
+      display:inline-block;font-family:var(--mono);font-size:10px;text-transform:uppercase;
+      letter-spacing:0.14em;padding:3px var(--s3);border:1px solid var(--line);
+      color:var(--muted);margin-right:var(--s2);
+    }
+    .tag.warn{border-color:var(--ember);color:var(--ember-text);}
+    .tag.opt{border-color:var(--blue);color:var(--blue-text);}
+
+    .no{color:var(--ember-text);}
+
+    /* ============ bottom bar ============ */
+    .deck-bar{
+      position:fixed;left:0;right:0;bottom:0;z-index:40;
+      display:flex;align-items:center;gap:var(--s4);
+      padding:var(--s3) clamp(14px,3vw,28px);
+      background:var(--inset);border-top:1px solid var(--line);
+      font-family:var(--mono);font-size:11px;letter-spacing:0.08em;
+      text-transform:uppercase;color:var(--muted);
+    }
+    .deck-bar .who{color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .deck-bar .spacer{flex:1 1 auto;}
+    .deck-bar button{
+      font:inherit;text-transform:inherit;letter-spacing:inherit;
+      background:transparent;color:var(--text);border:1px solid var(--line);
+      padding:var(--s2) var(--s3);cursor:pointer;
+      transition:border-color var(--micro) var(--ease),color var(--micro) var(--ease);
+    }
+    .deck-bar button:hover{border-color:var(--rule);color:var(--heading);}
+    .counter{color:var(--heading);white-space:nowrap;}
+    .nav-arrows{display:flex;gap:var(--s2);}
+    .progress{position:fixed;left:0;bottom:0;height:2px;background:var(--ember);z-index:41;transition:width var(--micro) var(--ease);}
+    body[data-view="doc"] .progress{display:none;}
+
+    /* click zones for advancing without a keyboard */
+    .zone{position:fixed;top:0;bottom:44px;width:14vw;z-index:30;cursor:pointer;background:transparent;border:0;}
+    .zone.prev{left:0;}
+    .zone.next{right:0;}
+
+    @media (max-width:700px){
+      .zone{width:22vw;}
+      .say{font-size:19px;}
     }
     @media print{
-      .cite{border-color:#999;color:#333;}
-      .say{border-left-color:#333;}
-      footer .foot-fine{display:none;}
-      .step{page-break-inside:avoid;}
+      .deck-bar,.zone,.progress{display:none;}
+      .slide{display:block!important;page-break-after:always;}
     }
+
+    footer{border-top:1px solid var(--line);padding:var(--s7) var(--s5) var(--s8);margin-top:var(--s7);}
+    body[data-view="deck"] footer{display:none;}
+    .foot-inner{max-width:820px;margin:0 auto;display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);
+      font-family:var(--mono);font-size:11px;letter-spacing:0.06em;color:var(--faint);}
+    .ft-brand{color:var(--muted);}
+    .formation-foot{max-width:820px;margin:var(--s5) auto 0;font-size:14px;color:var(--muted);line-height:1.6;}
+    .ff-mark{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:0.14em;
+      color:var(--ember-text);margin-right:var(--s3);}
+    .foot-fine{max-width:820px;margin:var(--s5) auto 0;font-family:var(--mono);font-size:10px;
+      letter-spacing:0.1em;color:var(--faint);}
   </style>
-</head><body>
+</head>
+<body data-view="deck">
 
-<div class="wrap">
+<main class="deck" id="deck">
 
-  <div class="page-mast">
-    <div class="kick">RegenHub, LCA &middot; a walkthrough</div>
+  <!-- 1 -->
+  <section class="slide">
+    <div class="eyebrow">RegenHub, LCA &middot; August 14, 2026 &middot; 1515 Walnut Street, Boulder</div>
     <h1>The first meeting.</h1>
-    <p class="sub">How the Board convenes for the first time, what it can decide, the words for each motion, and what the minute has to carry. Every step names the provision that puts it there.</p>
-    <div class="entity-band">
-      <span><span class="st st-drafted">Drafted</span></span>
-      <span>Unadopted &middot; not an instrument</span>
-      <span>Bylaws v2.1, which are themselves drafted</span>
-      <span>Prepared August 14, 2026</span>
+    <p class="lede">The Board of this cooperative has never elected an officer, and has never kept a minute. Both of those end in the next ten minutes, in front of everyone in this room.</p>
+    <p class="fine"><span class="tag warn">Drafted</span><span class="tag">Unadopted, not an instrument</span> This page is a procedure, not a governing document. It cites Bylaws v2.1, which are themselves drafted and not in effect. Where this page and an instrument differ, the instrument is right and this page owes a correction.</p>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide">
+    <div class="eyebrow">Why do this in public</div>
+    <h2>You are not hearing that a cooperative is real.<br>You are the reason it can be shown to have been.</h2>
+    <p class="lede">A cooperative is made of acts that were witnessed and written down. Not of intentions. The procedure below was published <em>before</em> this meeting so that the meeting has something to be measured against, and the minute goes back to the same public shelf tonight.</p>
+    <div class="chain">
+      <span>instrument</span><i>&rarr;</i>
+      <span>published procedure</span><i>&rarr;</i>
+      <span class="now">live act</span><i>&rarr;</i>
+      <span>written minute</span><i>&rarr;</i>
+      <span>public record</span>
     </div>
-  </div>
+    <p class="fine">That loop, closed in ten minutes with witnesses, is the whole demonstration. Everything else on this page is the mechanics of closing it honestly.</p>
+  </section>
 
-  <div class="formation-note">
-    <div class="fn-head">What this page is</div>
-    <p>A procedure, written down so the first meeting of this Board does not have to be reconstructed afterwards from memory. It binds nobody. It cites Bylaws v2.1 throughout, and those Bylaws are drafted and not in effect, so what follows describes the procedure the cooperative intends to follow rather than one that currently governs it.</p>
-    <p>Two questions at the foot of this page should go to counsel before anyone leans on it. They are cheap to answer and neither is on the counsel memo's blocking list yet.</p>
-  </div>
-
-  <div class="cannot">
-    <h2>Three things this meeting cannot do</h2>
-    <ul>
-      <li><b>It cannot make the Bylaws effective.</b> Schedule A carries placeholders that must be completed first, counsel supplies the effective date, and the Secretary signs. That is counsel memo item BL-04, and it is marked blocking.</li>
-      <li><b>It cannot ratify anything.</b> Article XII reserves ratification to a two-thirds vote of the Members. No member has been admitted, so no member vote is possible.</li>
-      <li><b>It cannot admit a member.</b> &sect; 1.3.3 makes membership effective only on acceptance, payment for the Stock, and full execution of the agreements the Board requires, and the Membership Agreement is not executable until Schedule A is.</li>
+  <!-- 3 -->
+  <section class="slide">
+    <div class="eyebrow">Say this out loud first</div>
+    <h2>Three things this meeting <span class="no">cannot</span> do.</h2>
+    <ul class="points">
+      <li><b>It cannot make the Bylaws effective.</b>
+        <span class="why">Schedule A carries placeholders that must be completed first, counsel supplies the effective date, and the Secretary signs. Counsel memo BL-04, marked blocking.</span></li>
+      <li><b>It cannot ratify anything.</b>
+        <span class="why">Article XII reserves ratification to a two-thirds vote of the Members. No member has been admitted, so no member vote is possible.</span></li>
+      <li><b>It cannot admit a member.</b>
+        <span class="why">&sect; 1.3.3 makes membership effective only on acceptance, payment for the Stock, and full execution of the agreements the Board requires. The Membership Agreement is not executable until Schedule A is.</span></li>
     </ul>
-    <p>Saying this aloud in the room is worth more than any motion below. A meeting described afterwards as something it was not is the defect this cooperative already carries once, and the reason it carries it is that nobody wrote down what actually happened.</p>
-  </div>
+    <p class="fine">Saying this aloud is worth more than any motion that follows. A meeting described afterwards as something it was not is the defect this cooperative already carries once, and the reason it carries it is that nobody wrote down what actually happened.</p>
+  </section>
 
-  <div class="sec-head">Before you convene</div>
-
-  <div class="rail">
-
-    <div class="step">
-      <div class="n">A</div>
-      <h3>Who calls it <span class="cite">&sect; 3.10</span></h3>
-      <p>A special meeting may be called by the President, "or, if there is no such person, by the highest officer of the Cooperative, or <b>by at least two (2) Directors</b>." There is no President and no officer of any kind, so two Directors is the route. The drafters anticipated exactly this state.</p>
-      <p>No statement of purpose is required, and "any and all business may be transacted at any special meeting."</p>
+  <!-- 4 -->
+  <section class="slide">
+    <div class="eyebrow">Before you convene <span class="cite">&sect;&sect; 3.10, 3.11, 3.12, 3.13</span></div>
+    <h2>Who calls it, who counts, and why no notice is needed.</h2>
+    <div class="cols">
+      <div class="card"><h3>Two Directors call it</h3><p>&sect; 3.10: a special meeting may be called by the President, or, there being none, by at least two Directors. The drafters anticipated exactly this state.</p></div>
+      <div class="card"><h3>Notice is waived by appearance</h3><p>&sect; 3.11: appearance at a meeting waives notice of it, unless a Director attends for the express purpose of objecting. &sect; 3.10 adds consent of all Directors as a second route.</p></div>
+      <div class="card"><h3>Quorum is four</h3><p>&sect; 3.13: a simple majority of all Directors. Six Directors are in office, so four. A simple majority of those present carries.</p></div>
+      <div class="card"><h3>Presence can be electronic</h3><p>&sect; 3.12: attendance by any means of communication counts as presence, provided all Directors attending can communicate with each other. That proviso is a condition, so the minute records that it held.</p></div>
     </div>
+    <p class="fine">An invitation to this party is not notice of a Board meeting, however far in advance it went out, because it does not tell a Director that a Board meeting will be held. The two provisions above are what carry the meeting instead.</p>
+  </section>
 
-    <div class="step">
-      <div class="n">B</div>
-      <h3>Notice, and why you do not need it <span class="cite">&sect;&sect; 3.11, 3.10</span></h3>
-      <p>&sect; 3.11 wants prior written notice to each Director at least two days before, delivered per Article X. If that was not done, two provisions carry the meeting anyway, and both are ordinary:</p>
-      <p><b>Waiver by appearance.</b> "Notice may be waived by any or all of the Directors, and appearance at a meeting shall constitute a waiver of notice thereof," unless a Director attends for the express purpose of objecting that the meeting was not lawfully called.</p>
-      <p><b>Consent of all Directors.</b> &sect; 3.10's final sentence: a meeting "may be held at any time or place (including electronically) with or without notice upon the consent of all the Directors."</p>
-      <p class="aside">An invitation to an event is not notice of a Board meeting, however far in advance it went out, because it does not tell a Director that a Board meeting will be held. Rely on the two provisions above instead. They are what the instrument actually provides for.</p>
-    </div>
+  <!-- 5 -->
+  <section class="slide">
+    <div class="eyebrow">Before you convene <span class="cite">&sect; 4.5</span></div>
+    <h2>A recording is not a minute.</h2>
+    <p class="lede">Somebody in this room has to write down attendance by name, each motion in its own words, who moved it, and the vote. Video is evidence that a thing happened. A minute is the cooperative's account of what it decided, and only a minute can answer the questions a minute exists to answer.</p>
+    <p class="lede">&sect; 4.5 puts minute-keeping on the Secretary, and its fallback has the President designate a recorder. Neither office exists yet, which is the honest explanation for why earlier meetings of this Board have no minutes. So the first substantive motion appoints a recorder.</p>
+    <p class="fine"><strong>Choose the recorder before the meeting starts, and choose someone who is not on the panel.</strong> The people running the room cannot also be the people writing it down.</p>
+  </section>
 
-    <div class="step">
-      <div class="n">C</div>
-      <h3>Where, and who counts as present <span class="cite">&sect;&sect; 3.12, 3.13</span></h3>
-      <p>&sect; 3.12: attendance by any means of communication, including electronic, counts as presence in person, <b>provided all Directors attending can communicate with each other during the meeting</b>. That proviso is a condition, so the minute should record that it held.</p>
-      <p>&sect; 3.13: a simple majority of all Directors is a quorum. Six Directors are in office, so <b>four</b>. A simple majority of those present carries. If quorum is lost mid-meeting, the meeting may proceed.</p>
-      <p class="aside">Hold it as a bounded meeting with a stated start and a stated adjournment, not as a conversation inside a gathering. A quorum that dissolves halfway through costs more than the few minutes doing it properly saves.</p>
-    </div>
+  <!-- 6 -->
+  <section class="slide">
+    <div class="eyebrow">1 &middot; Call to order <span class="cite">&sect; 3.10</span></div>
+    <div class="say"><span class="say-label">Say</span>The Board of RegenHub, LCA is called to order at <span class="blank">[TIME]</span> on August 14, 2026, at 1515 Walnut Street, Boulder. This special meeting is called by <span class="blank">[NAME]</span> and <span class="blank">[NAME]</span>, two Directors, under Bylaws &sect; 3.10.</div>
+    <p class="fine">No statement of purpose is required. &sect; 3.10: any and all business may be transacted at any special meeting.</p>
+  </section>
 
-    <div class="step">
-      <div class="n">D</div>
-      <h3>Somebody has to write it down <span class="cite">&sect; 4.5</span></h3>
-      <p>&sect; 4.5 puts minute-keeping on the Secretary, and its fallback has the President designate a recorder. Neither office exists yet, which is the honest explanation for why earlier meetings of this Board have no minutes. So the first substantive motion appoints a recorder for this meeting.</p>
-      <p class="aside">Choose the person in advance, and choose one who will still be able to write at the end of it.</p>
-    </div>
+  <!-- 7 -->
+  <section class="slide">
+    <div class="eyebrow">2 &middot; Notice <span class="cite">&sect;&sect; 3.11, 3.10</span></div>
+    <div class="say"><span class="say-label">Say</span>No written notice was delivered under &sect; 3.11. Each Director present waives notice by appearance under &sect; 3.11 and consents to the holding of this meeting under &sect; 3.10. Any Director attending for the express purpose of objecting that this meeting was not lawfully called should say so now.</div>
+    <p class="fine"><strong>Then stop and actually wait.</strong> Record any objection by name. If there is none, say so aloud, and the minute records that too.</p>
+  </section>
 
-  </div>
+  <!-- 8 -->
+  <section class="slide">
+    <div class="eyebrow">3 &middot; Quorum <span class="cite">&sect;&sect; 3.13, 3.12</span></div>
+    <div class="say"><span class="say-label">Say</span>Present are <span class="blank">[NAMES]</span>. Absent are <span class="blank">[NAMES]</span>. <span class="blank">[N]</span> of six Directors in office are present, which is a quorum under &sect; 3.13. All present can communicate with one another.</div>
+    <p class="fine"><strong>By name, not by count.</strong> A count cannot later tell anyone who was in the room. Six Directors are in office: one of the seven authorised seats is vacant, and a person who signed as an organizer was never appointed a Director. Neither of those counts toward quorum and neither votes.</p>
+  </section>
 
-  <div class="sec-head">The meeting</div>
+  <!-- 9 -->
+  <section class="slide">
+    <div class="eyebrow">4 &middot; Appoint a recorder <span class="cite">&sect; 4.5</span></div>
+    <div class="say motion"><span class="say-label">Motion</span>That <span class="blank">[NAME]</span> act as recorder of this meeting and prepare its minute, the office of Secretary being presently unfilled.</div>
+    <p class="fine">Moved, seconded, voted. Before anything else, because everything after it has to be written down by somebody.</p>
+  </section>
 
-  <div class="rail">
+  <!-- 10 -->
+  <section class="slide">
+    <div class="eyebrow">5 &middot; Elect the officers <span class="cite">&sect;&sect; 4.1, 4.2, 3.8</span></div>
+    <h2>Three motions. Three votes. Recorded separately.</h2>
+    <div class="say motion"><span class="say-label">Motion</span>That <span class="blank">[NAME]</span> be elected President of the Cooperative.</div>
+    <div class="say motion"><span class="say-label">Motion</span>That <span class="blank">[NAME]</span> be elected Secretary of the Cooperative.</div>
+    <div class="say motion"><span class="say-label">Motion</span>That <span class="blank">[NAME]</span> be elected Treasurer of the Cooperative.</div>
+    <p class="fine">&sect; 4.1: the officers are elected by the Board. <strong>The President must be a Director</strong> (&sect; 4.2). The other two need not be. Any number of offices may be held by one person, and &sect; 3.8 permits combining Secretary and Treasurer. This single item releases three blockages at once: the signature Schedule A is waiting on, the officer who executes the cooperative's contracts, and the office that keeps every record after this one.</p>
+  </section>
 
-    <div class="step">
-      <div class="n">1</div>
-      <h3>Call to order</h3>
-      <div class="say"><span class="lead">Say</span>The Board of RegenHub, LCA is called to order at [TIME] on [DATE], at [PLACE]. This special meeting is called by [NAME] and [NAME], two Directors, under Bylaws &sect; 3.10.</div>
-    </div>
+  <!-- 11 -->
+  <section class="slide">
+    <div class="eyebrow">6 &middot; Standing meetings <span class="cite">&sect; 3.9</span></div>
+    <div class="say motion"><span class="say-label">Motion</span>That the Board establishes regular meetings on <span class="blank">[SCHEDULE]</span>, held at 1515 Walnut Street or electronically, for which no notice need be given under &sect; 3.9.</div>
+    <p class="fine">Ten seconds of business that retires the notice question permanently. Regular meetings at an established time and place need no notice at all.</p>
+  </section>
 
-    <div class="step">
-      <div class="n">2</div>
-      <h3>Notice <span class="cite">&sect;&sect; 3.11, 3.10</span></h3>
-      <div class="say"><span class="lead">Say</span>No written notice was delivered under &sect; 3.11. Each Director present waives notice by appearance under &sect; 3.11 and consents to the holding of this meeting under &sect; 3.10. Any Director attending for the express purpose of objecting that this meeting was not lawfully called should say so now.</div>
-      <p>Pause. Record any objection by name. If there is none, say so, and the minute records that too.</p>
-    </div>
+  <!-- 12 -->
+  <section class="slide">
+    <div class="eyebrow">7 &middot; The governing documents <span class="tag opt">Optional tonight</span> <span class="cite">Art. XII &middot; BL-04</span></div>
+    <div class="say motion"><span class="say-label">Motion</span>That the Secretary is authorised to complete and execute Schedule A upon receipt from counsel of the effective date and of counsel's confirmation on the &sect; 3.2.2 initial-director bracket; and that the Board records that no member ratification under Article XII is presently possible, no member having been admitted.</div>
+    <p class="fine"><strong>The last clause is the one to read slowly.</strong> It is what stops this meeting being described later as a ratification it could not have been. A fuller version of this motion also approves the text of Bylaws v2.1 and Membership Agreement v2.3 as published at techne.coop/legal/. Move that only if every Director present has read them. Approving instrument text under time pressure, in a room with music in it, is the kind of act that reads badly a year later, and the authorisation above is the half that actually unblocks admission.</p>
+  </section>
 
-    <div class="step">
-      <div class="n">3</div>
-      <h3>Quorum <span class="cite">&sect;&sect; 3.13, 3.12</span></h3>
-      <div class="say"><span class="lead">Say</span>Present are [NAMES]. Absent are [NAMES]. [N] of six Directors in office are present, which is a quorum under &sect; 3.13. All present can communicate with one another.</div>
-      <p>By name, not by count. A count cannot later tell anyone who was in the room.</p>
-    </div>
+  <!-- 13 -->
+  <section class="slide">
+    <div class="eyebrow">8 &middot; Adjourn</div>
+    <div class="say motion"><span class="say-label">Motion</span>To adjourn. The meeting adjourned at <span class="blank">[TIME]</span>.</div>
+    <p class="fine">Hold this as a bounded meeting with a stated start and a stated adjournment, not as a conversation inside a gathering. A quorum that dissolves halfway through costs more than the few minutes doing it properly saves.</p>
+  </section>
 
-    <div class="step">
-      <div class="n">4</div>
-      <h3>Appoint a recorder <span class="cite">&sect; 4.5</span></h3>
-      <div class="say"><span class="lead">Motion</span>That [NAME] act as recorder of this meeting and prepare its minute, the office of Secretary being presently unfilled.</div>
-      <p>Moved, seconded, voted. Before anything else.</p>
-    </div>
+  <!-- 14 -->
+  <section class="slide">
+    <div class="eyebrow">Cut for time, kept for the next meeting</div>
+    <h2>What a longer meeting would also move.</h2>
+    <ul class="points">
+      <li><b>A Financial Systems Committee under &sect; 3.18.</b><span class="why">The committee is already described across this cooperative's published pages as a body with decision rights, including a gate inside the draft treasury policy. Nothing on the record establishes it.</span></li>
+      <li><b>Naming who signs a given instrument.</b><span class="why">&sect; 4.2 makes the President the officer who executes all contracts, so electing a President answers this by default. Article XVII applies first: any Director with a financial self-interest in a matter other than as a Member discloses it, &sect; 3.13 bars them from voting on it, &sect; 17.2 keeps them in the quorum count, and the disclosure and abstention both go in the minute by name.</span></li>
+      <li><b>The period of established relationship before admission.</b><span class="why">Membership Agreement &sect; 1.1 lets the Board set it in place of approximately ninety days.</span></li>
+      <li><b>Filling the vacant seat.</b><span class="why">&sect; 3.7 lets the remaining Directors fill a Board vacancy by simple majority, even if less than a quorum. One of seven authorised seats stands vacant.</span></li>
+    </ul>
+  </section>
 
-    <div class="step">
-      <div class="n">5</div>
-      <h3>Elect the officers <span class="cite">&sect;&sect; 4.1, 4.2, 3.8</span></h3>
-      <p>&sect; 4.1: the officers "shall be elected by the Board" and are a President, a Secretary and a Treasurer. The <b>President must be a Director</b> (&sect; 4.2). The other two need not be. Any number of offices may be held by the same person, and &sect; 3.8 permits combining Secretary and Treasurer into a single Secretary-Treasurer.</p>
-      <div class="say"><span class="lead">Motion</span>That [NAME] be elected President of the Cooperative.</div>
-      <div class="say"><span class="lead">Motion</span>That [NAME] be elected Secretary of the Cooperative.</div>
-      <div class="say"><span class="lead">Motion</span>That [NAME] be elected Treasurer of the Cooperative.</div>
-      <p>One motion and one vote per office, each recorded separately. This single item releases three blockages: the signature Schedule A is waiting on, the officer who executes the cooperative's contracts, and the office that keeps every record after this one.</p>
-    </div>
-
-    <div class="step">
-      <div class="n">6</div>
-      <h3>The governing documents <span class="cite">Art. XII &middot; BL-04</span></h3>
-      <div class="say"><span class="lead">Motion</span>That the Board approves the text of the Bylaws version 2.1 and of the Membership Agreement version 2.3, as published at techne.coop/legal/ on this date, as the governing documents of the Cooperative; that the Secretary is authorised to complete and execute Schedule A upon receipt from counsel of the effective date and of counsel's confirmation on the &sect; 3.2.2 initial-director bracket; and that the Board records that no member ratification under Article XII is presently possible, no member having been admitted.</div>
-      <p>The last clause is the one to read slowly. It is what stops this meeting being described later as a ratification it could not have been.</p>
-    </div>
-
-    <div class="step">
-      <div class="n">7</div>
-      <h3>Standing meetings <span class="cite">&sect; 3.9</span></h3>
-      <div class="say"><span class="lead">Motion</span>That the Board establishes regular meetings on [SCHEDULE], held at [PLACE] or electronically, for which no notice need be given under &sect; 3.9.</div>
-      <p>Ten seconds of business that retires the notice question permanently. Regular meetings at an established time and place need no notice at all.</p>
-    </div>
-
-    <div class="step">
-      <div class="n">8</div>
-      <h3>Committees <span class="cite">&sect; 3.18</span></h3>
-      <div class="say"><span class="lead">Motion</span>That the Board establishes a Financial Systems Committee under &sect; 3.18, appoints [NAMES] to it, and charges it with [SCOPE], effective from this date.</div>
-      <p>The committee is already described across this cooperative's published pages as a body with decision rights, including a gate inside the draft treasury policy. Nothing on the record establishes it. This motion closes the gap between what the pages say and what the record holds.</p>
-    </div>
-
-    <div class="step">
-      <div class="n">9</div>
-      <h3>Who signs <span class="cite">&sect; 4.2 &middot; Art. XVII</span></h3>
-      <p>&sect; 4.2 makes the President the officer who "shall execute all contracts of the Cooperative," except where the Board expressly delegates execution to another officer or agent. Electing a President answers this by default; naming the instrument on the record is still worth doing.</p>
-      <div class="say"><span class="lead">Motion</span>That the President is authorised to execute, on behalf of the Cooperative, [INSTRUMENT] with [COUNTERPARTY] on the terms presented to the Board.</div>
-      <p><b>Article XVII applies first.</b> Any Director with a financial self-interest in the matter other than as a Member discloses it; &sect; 3.13 bars them from voting on it; &sect; 17.2 keeps them in the quorum count. The disclosure and the abstention both go in the minute, by name.</p>
-    </div>
-
-    <div class="step">
-      <div class="n">10</div>
-      <h3>Optional, if the Board wants them <span class="cite">MA &sect; 1.1 &middot; &sect; 3.7</span></h3>
-      <div class="say"><span class="lead">Motion</span>That under Membership Agreement &sect; 1.1 the Board sets [PERIOD] as the period of established relationship required before admission as a Cooperative Member, in place of approximately ninety days.</div>
-      <div class="say"><span class="lead">Motion</span>That [NAME] be appointed to the vacant seat on the Board under &sect; 3.7, to hold office until a successor is elected and qualifies.</div>
-      <p>&sect; 3.7 lets the remaining Directors fill a Board vacancy by simple majority, "even if less than a quorum." One of seven authorised seats stands vacant.</p>
-    </div>
-
-    <div class="step">
-      <div class="n">11</div>
-      <h3>Adjourn</h3>
-      <div class="say"><span class="lead">Motion</span>To adjourn. The meeting adjourned at [TIME].</div>
-    </div>
-
-  </div>
-
-  <div class="sec-head">What the minute has to carry</div>
-
-  <div class="formation-note">
-    <p>Each item is here because a provision asks for it, not because minutes conventionally carry it.</p>
-    <ul class="checks">
+  <!-- 15 -->
+  <section class="slide">
+    <div class="eyebrow">Afterwards</div>
+    <h2>What the minute has to carry.</h2>
+    <ul class="points">
       <li>Date, time, place and medium, with the &sect; 3.12 finding that all attending Directors could communicate with one another.</li>
       <li>How notice was given, or the waiver relied on and its basis.</li>
       <li><b>Attendance by name</b>, and the quorum determination.</li>
       <li><b>Each motion in its own words</b>, who moved it, the vote, and the result.</li>
-      <li><b>Every dissent and abstention, by name.</b> &sect; 3.16 presumes a Director assented unless the dissent or abstention is recorded in the minutes, or they objected at the outset, did not attend, or gave written objection to the chair within twenty-four hours. Without a minute, silence is a yes.</li>
-      <li>Any Article XVII disclosure, and how the vote was taken around it.</li>
-      <li>Anything filed with the minute, including any &sect; 3.15 written consent.</li>
+      <li>Every dissent and abstention, by name.<span class="why">&sect; 3.16 presumes a Director assented unless the dissent is recorded in the minutes, or they objected at the outset, did not attend, or gave written objection to the chair within twenty-four hours. Without a minute, silence is a yes.</span></li>
+      <li>That the Board relied on &sect; 4.1 for the officer elections.<span class="why">&sect; 3.8 ties officer elections to an annual Board meeting that cannot occur, there being no members. Naming the reading relied on costs one sentence and protects the elections.</span></li>
       <li>The recorder's signature, and later the date the Board adopted the minute.</li>
     </ul>
-    <p>A record that omits attendance and motions is a summary. It is not a minute, and it cannot answer the questions a minute exists to answer.</p>
-  </div>
+    <p class="fine">A record that omits attendance and motions is a summary. It is not a minute.</p>
+  </section>
 
-  <div class="sec-head">After</div>
+  <!-- 16 -->
+  <section class="slide">
+    <div class="eyebrow">Afterwards</div>
+    <h2>Four things happen after the music.</h2>
+    <ul class="points">
+      <li><b>The minute is written tonight.</b><span class="why">While attendance and the order of motions are still recoverable. Then circulated.</span></li>
+      <li><b>The Board adopts it at the next meeting.</b><span class="why">That is the moment a draft minute stops being a draft. The Bylaws prescribe an order of business for membership meetings (&sect; 2.10) and none for Board meetings, so nothing currently supplies that moment. This procedure supplies it.</span></li>
+      <li><b>Schedule A is executed when counsel gives the date.</b><span class="why">Counsel memo BL-04. With Schedule A executed the Membership Agreement becomes executable, and admission under &sect; 1.3.3 becomes possible.</span></li>
+      <li><b>The first admission starts a clock.</b><span class="why">Membership Agreement &sect; 2.4 requires the Board to adopt a written Patronage Plan within ninety days of admitting its first patron member. Patron members are Cooperative Members and Coworking Members (&sect; 1.4). Admit deliberately, on a date the Board chose.</span></li>
+    </ul>
+  </section>
 
-  <div class="rail">
-    <div class="step">
-      <div class="n">i</div>
-      <h3>The minute is written the same night</h3>
-      <p>While attendance and the order of motions are still recoverable. Then circulated.</p>
-    </div>
-    <div class="step">
-      <div class="n">ii</div>
-      <h3>The Board adopts it at the next meeting</h3>
-      <p>That is the moment a draft minute stops being a draft. The Bylaws prescribe an order of business for membership meetings (&sect; 2.10) and none for Board meetings, so nothing currently supplies that moment. This procedure supplies it.</p>
-    </div>
-    <div class="step">
-      <div class="n">iii</div>
-      <h3>Schedule A is executed when counsel gives the date</h3>
-      <p>Counsel memo BL-04: "provide effective date &hellip; then Secretary can sign." With Schedule A executed the Membership Agreement becomes executable, and admission under &sect; 1.3.3 becomes possible.</p>
-    </div>
-    <div class="step">
-      <div class="n">iv</div>
-      <h3>The first admission starts a clock</h3>
-      <p>Membership Agreement &sect; 2.4 requires the Board to adopt a written Patronage Plan within ninety days of admitting its first <em>patron</em> member. Patron members are Cooperative Members and Coworking Members (&sect; 1.4), so admitting a Community Participant or an Investor Member does not start it. Admit deliberately, on a date the Board chose.</p>
-    </div>
-  </div>
+  <!-- 17 -->
+  <section class="slide">
+    <div class="eyebrow">Two questions for counsel</div>
+    <h2>Neither is answered here, and both travel with the five already blocking.</h2>
+    <ul class="points">
+      <li><b>Which act makes the Bylaws effective, given that there are no Members?</b><span class="why">Article XII provides that amendments are proposed by a two-thirds vote of the Board or a twenty-five percent member petition and thereafter ratified by a two-thirds vote of the Members. No member has been admitted. The Bylaws have never been in effect, so what is happening now is initial adoption rather than amendment, and Article XII by its terms addresses amendment. BL-04 implies counsel's own view is that execution by the Secretary is the operative act. That is worth stating rather than inferring.</span></li>
+      <li><b>Does &sect; 3.8 confine officer elections to the annual Board meeting?</b><span class="why">&sect; 3.8 ties officer elections to an annual membership meeting that cannot occur. &sect; 4.1 states the power without that tie. &sect; 4.9 offers a third route, filling any vacancy occurring in any office, which reads most naturally as an office that became vacant rather than one never filled. This page relies on &sect; 4.1.</span></li>
+    </ul>
+  </section>
 
-  <div class="sec-head">Two questions for counsel</div>
+  <!-- 18 -->
+  <section class="slide">
+    <div class="eyebrow">Standing</div>
+    <h2>Drafted, unadopted, and not a governing instrument.</h2>
+    <p class="lede">It is a procedure this cooperative intends to follow, written before the first meeting rather than after it, so that the meeting has something to be measured against. Nothing on this page binds anyone, and where it and an instrument differ, the instrument is right and this page owes a correction.</p>
+    <p class="fine">Every instrument named here is indexed, with its status, at <a href="/legal/">the legal shelf</a>. Defects found after publication are logged at <a href="/legal/corrections/">Corrections and open readings</a>. Press <b>D</b> for the whole procedure on one scrollable page, which is the version to print for the recorder.</p>
+  </section>
 
-  <div class="formation-note">
-    <div class="fn-head">Neither is on the counsel memo's blocking list, and both should travel with the five that are</div>
-    <p><b>1. Which act makes the Bylaws effective, given that there are no Members?</b> Article XII provides that amendments are proposed by a two-thirds vote of the Board or a twenty-five percent member petition and "thereafter ratified by a two-thirds (2/3rds) vote of the Members." No member has been admitted, so no member ratification is possible. The Bylaws have never been in effect, so what is happening now is initial adoption rather than amendment, and Article XII by its terms addresses amendment. BL-04 implies counsel's own view is that execution by the Secretary is the operative act. That is worth stating rather than inferring, and it is why step 6 above is phrased as approval and authorisation.</p>
-    <p><b>2. Does &sect; 3.8 confine officer elections to the annual Board meeting?</b> &sect; 3.8 provides that the election of officers "shall occur at each annual Board meeting," and ties that meeting to an annual <em>membership</em> meeting that cannot occur, there being no members. &sect; 4.1 states the power without that tie. &sect; 4.9 offers a third route, filling "any vacancy occurring in any office," which reads most naturally as an office that became vacant rather than one never filled. This page relies on &sect; 4.1.</p>
-  </div>
+</main>
 
-  <div class="formation-note">
-    <div class="fn-head">Standing</div>
-    <p>Drafted, unadopted, and not a governing instrument. It is a procedure this cooperative intends to follow, written before the first meeting rather than after it, so that the meeting has something to be measured against. Nothing on this page binds anyone, and where it and an instrument differ, the instrument is right and this page owes a correction. Every instrument named here is indexed, with its status, at <a href="/legal/" style="color:var(--ember-text)">the legal shelf</a>; defects found after publication are logged at <a href="/legal/corrections/" style="color:var(--ember-text)">Corrections and open readings</a>.</p>
-  </div>
+<button class="zone prev" id="zprev" aria-label="Previous slide"></button>
+<button class="zone next" id="znext" aria-label="Next slide"></button>
+<div class="progress" id="prog"></div>
 
+<div class="deck-bar">
+  <span class="who">RegenHub, LCA &middot; the first meeting &middot; drafted, unadopted</span>
+  <span class="spacer"></span>
+  <span class="counter" id="count">1 / 18</span>
+  <span class="nav-arrows">
+    <button id="bprev" aria-label="Previous slide">&larr;</button>
+    <button id="bnext" aria-label="Next slide">&rarr;</button>
+  </span>
+  <button id="bview">Document</button>
 </div>
 
 <footer>
@@ -564,6 +423,67 @@
   <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
   <div class="foot-fine">Techne v4 · document grammar · Legal Documents</div>
 </footer>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var n=slides.length,i=0;
+  var count=document.getElementById('count');
+  var prog=document.getElementById('prog');
+  var bview=document.getElementById('bview');
+
+  function show(k,push){
+    i=Math.max(0,Math.min(n-1,k));
+    slides.forEach(function(s,x){s.classList.toggle('on',x===i);});
+    count.textContent=(i+1)+' / '+n;
+    prog.style.width=((i+1)/n*100)+'%';
+    if(push!==false){
+      try{history.replaceState(null,'','#'+(i+1));}catch(e){}
+    }
+    if(document.body.dataset.view==='deck'){window.scrollTo(0,0);}
+  }
+  function step(d){show(i+d);}
+
+  function setView(v){
+    document.body.dataset.view=v;
+    bview.textContent=(v==='deck')?'Document':'Deck';
+    if(v==='deck'){show(i);}else{slides.forEach(function(s){s.classList.remove('on');});}
+  }
+
+  document.getElementById('bnext').addEventListener('click',function(){step(1);});
+  document.getElementById('bprev').addEventListener('click',function(){step(-1);});
+  document.getElementById('znext').addEventListener('click',function(){step(1);});
+  document.getElementById('zprev').addEventListener('click',function(){step(-1);});
+  bview.addEventListener('click',function(){setView(document.body.dataset.view==='deck'?'doc':'deck');});
+
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    var k=e.key;
+    if(k==='ArrowRight'||k==='PageDown'||k===' '||k==='n'){if(document.body.dataset.view==='deck'){e.preventDefault();step(1);}}
+    else if(k==='ArrowLeft'||k==='PageUp'||k==='p'){if(document.body.dataset.view==='deck'){e.preventDefault();step(-1);}}
+    else if(k==='Home'){if(document.body.dataset.view==='deck'){e.preventDefault();show(0);}}
+    else if(k==='End'){if(document.body.dataset.view==='deck'){e.preventDefault();show(n-1);}}
+    else if(k==='d'||k==='D'){setView(document.body.dataset.view==='deck'?'doc':'deck');}
+    else if(k==='f'||k==='F'){
+      if(document.fullscreenElement){document.exitFullscreen();}
+      else if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen();}
+    }
+  });
+
+  var start=null;
+  document.addEventListener('touchstart',function(e){start=e.changedTouches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(start===null||document.body.dataset.view!=='deck')return;
+    var dx=e.changedTouches[0].clientX-start;
+    if(Math.abs(dx)>60){step(dx<0?1:-1);}
+    start=null;
+  },{passive:true});
+
+  var h=parseInt((location.hash||'').replace('#',''),10);
+  show(isNaN(h)?0:h-1,false);
+  setView('deck');
+})();
+</script>
 
 </body>
 </html>
