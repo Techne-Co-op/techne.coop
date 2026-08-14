@@ -39,11 +39,21 @@
 
   /* ---------- the manifest ----------
      The public map, complete. A page never edits this list;
-     the bar is the same bar everywhere it appears. */
+     the bar is the same bar everywhere it appears.
+
+     Legal came off the bar on 2026-08-14 at the steward's call.
+     The instruments are not a destination a reader arrives
+     wanting; they are what a reader checks, and the bar is for
+     the three ways into the cooperative. Legal keeps two routes
+     from the bottom of every page: the footer's Legal
+     instruments link where a page carries the four-column
+     footer, and the formation notice, which every page carries
+     and which points at /legal/#formation. Removing a link from
+     the map does not remove it from the estate: fifty-five
+     pages link into /legal/ in their prose. */
   var LINKS = [
     { href: '/participation/', label: 'Participation' },
     { href: '/commons/', label: 'The commons' },
-    { href: '/legal/', label: 'Legal' },
     { href: '/intranet/', label: 'Intranet' }
   ];
 
