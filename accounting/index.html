@@ -48,6 +48,21 @@
     .card .cd { font-size: 0.86rem; color: var(--text-muted); }
     a { color: var(--gold); }
     .foot { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--border-dim); font-family: var(--mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.10em; color: var(--text-dim); line-height: 1.9; }
+  
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--border);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--text-muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--gold);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--gold);}
   </style>
 </head>
 <body>
@@ -61,5 +76,6 @@
   </a>
   <div class="foot">RegenHub, LCA &middot; Boulder, Colorado &middot; sibling practice area: <a href="/legal/">legal</a></div>
 </div>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
 </body>
 </html>

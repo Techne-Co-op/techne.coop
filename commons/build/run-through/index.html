@@ -147,7 +147,22 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
   .beat-body { grid-column:2; }
   .mast h1 { font-size:1.7rem; }
 }
-</style>
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+  </style>
 </head>
 <body>
 
@@ -464,6 +479,7 @@ returning id, display_name;</pre>
   <span><a href="/commons/build/">The Almanac</a></span>
   <span><a href="/commons/build/gates/">The Proof Book</a></span>
   <span><a href="/commons/build/run-through/organizers/">The Fifteen-Minute Walk</a></span>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
 </footer>
 
 </body>
