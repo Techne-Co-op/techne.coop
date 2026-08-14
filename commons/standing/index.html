@@ -152,7 +152,22 @@ h1 { font:400 34px/1.2 var(--serif); color:var(--heading); letter-spacing:-.01em
 footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(--line);
   font:400 11px/1.8 var(--mono); color:var(--faint); letter-spacing:.04em;
   display:flex; justify-content:space-between; gap:var(--s3); flex-wrap:wrap; }
-</style>
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -299,6 +314,7 @@ work_standing(p_agent)       <span class="cm">-- zero, one, or two standings for
 <footer>
   <span>Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street, Boulder</span>
   <span>Document grammar &middot; Techne v4 &middot; STANDING v0.3 &middot; Drafted &middot; August 2026</span>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
 </footer>
 
 </div>

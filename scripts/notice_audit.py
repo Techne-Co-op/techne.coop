@@ -11,9 +11,19 @@ of the top banner on 2026-08-12 for the public pages, and on 2026-08-13 for
 the pages under legal/ as well: P-11 had kept the banner there on the agent's
 own reasoning, and the steward overturned it. One notice, one place.
 
+Coverage is now every page in the estate, discovered rather than listed. The
+hand-maintained list was the defect: it held seventeen pages out of fifty-five,
+so the notice that "is right wherever a page disagrees with it" was absent from
+every page under commons/, intranet/, accounting/, encyclopedia/, commonplace/
+and design-system/ -- including /commons/join/, which the front page links to
+twice and which is where a stranger types their name. A list a person maintains
+by hand drifts at the rate it costs nothing; discovery cannot.
+
 Three checks:
 
-1. Coverage. Every page named in COVERED carries the footer line.
+1. Coverage. Every HTML page in the estate carries the footer line. Nothing is
+   excluded: this site is served whole and publicly, so any page is a page a
+   reader can land on first.
 2. Sameness. Its prose is byte-identical everywhere. Only the surrounding CSS
    may differ, because the estate carries two token families and a copy must
    use the names its own page defines.
@@ -35,25 +45,21 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-COVERED = [
-    "index.html",
-    "participation/index.html",
-    "participation/detail/index.html",
-    "legal/index.html",
-    "legal/bylaws/index.html",
-    "legal/bylaws-analysis/index.html",
-    "legal/bylaws-analysis/changes/index.html",
-    "legal/community-supporter/index.html",
-    "legal/corrections/index.html",
-    "legal/counsel-memo/index.html",
-    "legal/maturity-model/index.html",
-    "legal/maturity-model/specification/index.html",
-    "legal/membership-agreement/index.html",
-    "legal/membership-agreement-analysis/index.html",
-    "legal/membership-agreement-analysis/changes/index.html",
-    "legal/participation/index.html",
-    "legal/summary-of-changes/index.html",
-]
+
+def discover():
+    """Every HTML page in the estate, in a stable order.
+
+    Worktrees under .wt/ are checkouts of other branches, not pages of this
+    one, and are skipped. Everything else counts.
+    """
+    return sorted(
+        path.relative_to(REPO_ROOT).as_posix()
+        for path in REPO_ROOT.rglob("*.html")
+        if ".wt/" not in path.relative_to(REPO_ROOT).as_posix()
+    )
+
+
+COVERED = discover()
 
 LONG_FORM = "legal/index.html"
 
@@ -93,9 +99,8 @@ def main():
     n = check(findings, COVERED, FOOT_RE, "footer line")
 
     # The retired banner must not survive anywhere, covered or not.
-    for path in sorted(REPO_ROOT.rglob("*.html")):
-        if "formation-strip" in path.read_text():
-            rel = path.relative_to(REPO_ROOT)
+    for rel in COVERED:
+        if "formation-strip" in (REPO_ROOT / rel).read_text():
             findings.append(
                 f"{rel}: carries the retired formation strip; the notice is a "
                 f"footer line, one form only"
