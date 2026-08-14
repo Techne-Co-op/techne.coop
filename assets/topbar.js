@@ -23,20 +23,19 @@
 (function () {
   'use strict';
 
-  /* ---------- the pre-launch switch ----------
-     Until the public launch on 14 August 2026 the site is still
-     under construction, and the map it offers is a claim about
-     what is finished. So the bar is withheld: the script still
-     loads on every page (the one-frame rule, U-13, is satisfied
-     by the script, not by the element), it still resolves the
-     mode before first paint, and it builds nothing.
+  /* ---------- the launch switch ----------
+     From 2026-08-10 to the public launch on 14 August 2026 the
+     bar was withheld: the script still loaded on every page (the
+     one-frame rule, U-13, is satisfied by the script, not by the
+     element) and still resolved the mode before first paint, but
+     it built nothing. The estate was under construction, and a
+     map is a claim about what is finished.
 
-     Withholding the bar hides the map; it does not close the
-     doors. Every page remains public at its own address, and
-     pages that link to each other in their own prose still do.
-
-     To restore the bar, on launch day: OFFER_MAP = true. */
-  var OFFER_MAP = false;
+     Restored on launch day, 2026-08-14, per the steward's call
+     of 2026-08-10 that set the date. The switch is kept rather
+     than deleted: it is the one hand that takes the public map
+     off every page at once, should that ever be wanted again. */
+  var OFFER_MAP = true;
 
   /* ---------- the manifest ----------
      The public map, complete. A page never edits this list;
