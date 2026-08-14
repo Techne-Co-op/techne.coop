@@ -423,19 +423,6 @@ a.cardx:hover .step-act { color: var(--ember-text); }
    ============================================================ */
 footer { padding: 52px 0 60px; border-top: 1px solid var(--line); }
 
-/* Pre launch: the simplified band. One row of who and where, no columns
-   of links, matching the restraint of the withheld map. The .foot-grid
-   rules below stay in place for the four column footer that returns on
-   launch day. */
-.foot-simple {
-  display: flex; flex-wrap: wrap;
-  gap: 8px 26px;
-  font-family: var(--mono);
-  font-size: 14px; line-height: 1.8;
-  color: var(--muted);
-}
-.foot-simple .ft-brand { color: var(--heading); }
-
 .foot-grid {
   display: flex; justify-content: space-between;
   gap: 40px; flex-wrap: wrap;
@@ -719,10 +706,6 @@ footer { padding: 52px 0 60px; border-top: 1px solid var(--line); }
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="wrap">
-    <!-- PRE LAUNCH WITHHOLD, restore on 2026-08-14: the footer's four columns
-         carry the site's second navigation, and they are withheld for the same
-         reason the public map is (OFFER_MAP in /assets/topbar.js). To restore,
-         delete the .foot-simple block below and uncomment this block.
     <div class="foot-grid">
       <div class="col">
         <span class="h">The cooperative</span>
@@ -752,13 +735,6 @@ footer { padding: 52px 0 60px; border-top: 1px solid var(--line); }
         Filed February 6, 2026<br>
         SOS No. 20261163853
       </div>
-    </div>
-    -->
-    <div class="foot-simple">
-      <span class="ft-brand">Techne &middot; RegenHub, LCA</span>
-      <span>1515 Walnut Street &middot; Boulder, Colorado</span>
-      <span>Colorado Limited Cooperative Association &middot; Public Benefit entity</span>
-      <span>SOS No. 20261163853</span>
     </div>
     <div class="foot-fine">A public-benefit cooperative. Surplus is reinvested in the community, not distributed to outside shareholders.</div>
     <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
