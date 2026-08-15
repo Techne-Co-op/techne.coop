@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+  (function(){
+    var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+    var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+    document.documentElement.setAttribute('data-mode',m);
+  })();
+  </script>
+  <script src="/assets/topbar.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="The confirming meeting of August 15, 2026: how the Board settles the record of its first meeting without redoing it. Drafted, unadopted.">
+  <title>The confirmation &middot; Techne</title>
+  <link rel="canonical" href="https://techne.coop/legal/first-meeting/confirmation/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://techne.coop/legal/first-meeting/confirmation/">
+  <meta property="og:title" content="The confirmation · Techne">
+  <meta property="og:description" content="The confirming meeting: settling the record of August 14 without redoing it.">
+  <meta property="og:site_name" content="Techne">
+  <meta property="og:image" content="https://techne.coop/assets/og-default.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif:'Libre Baskerville',Georgia,serif;
+      --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+      --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+      --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
+    }
+    html[data-mode="dark"] {
+      --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;
+      --line:#2A2A30;--rule:#3A3A42;
+      --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
+      --blue:#6A8AC4;--blue-text:#97B5E8;--blue-dim:rgba(106,138,196,0.14);
+      --ember:#C4956A;--ember-text:#D4A57A;--ember-dim:rgba(196,149,106,0.14);
+      --ok:#6A9A6A;--ok-text:#7DAA7D;--ok-dim:rgba(106,154,106,0.14);
+      color-scheme:dark;
+    }
+    html[data-mode="light"] {
+      --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
+      --line:#D8D3C8;--rule:#9A958A;
+      --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
+      --blue:#4A6FB0;--blue-text:#39588F;--blue-dim:rgba(74,111,176,0.10);
+      --ember:#8A6A4A;--ember-text:#6F5436;--ember-dim:rgba(138,106,74,0.10);
+      --ok:#4A7A4A;--ok-text:#3A6A3A;--ok-dim:rgba(74,122,74,0.10);
+      color-scheme:light;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0ms!important;}}
+    body{
+      background:var(--bg);color:var(--text);
+      font-family:var(--serif);font-size:17px;line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+      transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);
+    }
+    em{font-style:italic;color:var(--heading);}
+
+    /* the primary navigation is the shared public topbar,
+       injected by /assets/topbar.js per U-13 */
+
+    /* Layout */
+    .wrap{max-width:780px;margin:0 auto;padding:0 var(--s5);}
+
+    /* Page masthead */
+    .page-mast{
+      padding:clamp(56px,8vw,96px) 0 var(--s7);
+      border-bottom:1px solid var(--line);
+      margin-bottom:var(--s7);
+    }
+    .kick{
+      font-family:var(--mono);font-size:11px;text-transform:uppercase;
+      letter-spacing:0.16em;color:var(--ember-text);
+      margin-bottom:var(--s3);
+    }
+    .page-mast h1{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(32px,5vw,48px);line-height:1.15;
+      color:var(--heading);letter-spacing:-0.015em;
+      margin-bottom:var(--s3);
+    }
+    .sub{
+      font-size:18px;line-height:1.65;
+      color:var(--muted);max-width:56ch;
+      margin-bottom:var(--s6);
+    }
+    .entity-band{
+      display:flex;flex-wrap:wrap;gap:4px var(--s5);
+      font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:0.04em;
+      padding-top:var(--s4);border-top:1px solid var(--line);
+    }
+
+    /* Status chips */
+    .st{
+      display:inline-block;
+      font-family:var(--mono);font-size:9.5px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.14em;
+      padding:3px 8px;border-radius:2px;white-space:nowrap;
+    }
+    .st-filed{border:1px solid var(--ok);color:var(--ok-text);}
+    .st-drafted{border:1px solid var(--ember);color:var(--ember-text);}
+    .st-ratified{border:1px solid var(--ok);color:var(--ok-text);}
+    .st-antic{border:1px dashed var(--muted);color:var(--muted);}
+
+    /* Standing marks (P-09). A second mark, deliberately a different shape
+       from the status chips, answering the one question a status chip cannot:
+       does signing this make the signer a member of the cooperative. A reader
+       about to sign something needs that answer before they need to know
+       whether the document is drafted or ratified. */
+    .sm{
+      display:inline-block;
+      font-family:var(--mono);font-size:9.5px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.14em;
+      padding:3px 8px;white-space:nowrap;
+      background:var(--inset);border-left:3px solid var(--line);
+    }
+    .sm-member{border-left-color:var(--ok);color:var(--ok-text);}
+    .sm-not{border-left-color:var(--muted);color:var(--muted);}
+    .marks{display:flex;flex-direction:column;align-items:flex-end;gap:5px;}
+
+    /* Status legend */
+    .status-legend{
+      display:flex;flex-wrap:wrap;gap:var(--s3) var(--s6);
+      margin-bottom:var(--s7);
+      padding:var(--s4) var(--s5);
+      background:var(--inset);border:1px solid var(--line);
+    }
+    .leg-item{
+      display:flex;align-items:baseline;gap:var(--s2);
+      font-family:var(--mono);font-size:11px;color:var(--muted);
+    }
+
+    /* Document groups */
+    .doc-group{margin-bottom:var(--s7);}
+    .doc-group-head{
+      font-family:var(--mono);font-size:10px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.18em;color:var(--muted);
+      padding-bottom:var(--s3);border-bottom:1px solid var(--rule);
+      margin-bottom:var(--s4);
+    }
+
+    /* Linked document cards */
+    a.doc-card{
+      display:block;text-decoration:none;
+      border:1px solid var(--line);border-left:3px solid var(--ember);
+      padding:var(--s4) var(--s5);margin-bottom:var(--s3);
+      background:var(--surface);
+      transition:background var(--micro) var(--ease),border-left-color var(--micro) var(--ease);
+    }
+    a.doc-card:hover{background:var(--raised);border-left-color:var(--ember-text);}
+    a.doc-card:last-child{margin-bottom:0;}
+    .doc-card-head{
+      display:flex;align-items:baseline;justify-content:space-between;
+      gap:var(--s3);margin-bottom:var(--s2);
+    }
+    .doc-card-title{
+      font-family:var(--mono);font-size:13px;font-weight:500;
+      color:var(--ember-text);letter-spacing:0.02em;
+    }
+    .doc-card-desc{font-size:14px;color:var(--muted);line-height:1.6;}
+    .doc-card-meta{
+      font-family:var(--mono);font-size:11px;color:var(--faint);
+      margin-top:var(--s2);letter-spacing:0.03em;
+    }
+
+    /* Non-linked document items */
+    .doc-item{
+      display:grid;grid-template-columns:1fr auto;
+      gap:var(--s3) var(--s4);align-items:start;
+      padding:var(--s4) 0;border-bottom:1px solid var(--line);
+    }
+    .doc-item:first-of-type{border-top:1px solid var(--line);}
+    .doc-item .di-name{
+      font-family:var(--serif);font-size:15px;color:var(--heading);
+      margin-bottom:4px;
+    }
+    .doc-item .di-note{font-size:13px;color:var(--muted);line-height:1.55;}
+    .doc-item .di-tag{padding-top:2px;}
+
+    /* Formation notice: the long form of the strip at the top of every
+       public page. This is the copy that governs when a page disagrees. */
+    .formation-note{
+      padding:var(--s5);margin-bottom:var(--s7);
+      background:var(--inset);border:1px solid var(--line);
+      border-left:3px solid var(--ember);
+      font-size:15px;line-height:1.7;color:var(--muted);
+    }
+    .formation-note .fn-head{
+      font-family:var(--mono);font-size:10px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.16em;
+      color:var(--ember-text);margin-bottom:var(--s3);
+    }
+    .formation-note p+p{margin-top:var(--s3);}
+
+    /* Group note: prose that qualifies a group before its cards */
+    .group-note{
+      padding:var(--s4) var(--s5);margin-bottom:var(--s4);
+      background:var(--inset);border:1px solid var(--line);
+      font-size:14px;line-height:1.65;color:var(--muted);
+    }
+
+    /* Coming note */
+    .coming-note{
+      margin-top:var(--s7);
+      padding:var(--s5);
+      background:var(--inset);border:1px solid var(--line);
+      font-size:15px;line-height:1.7;color:var(--muted);
+    }
+    .coming-note p+p{margin-top:var(--s3);}
+
+    /* Footer */
+    footer{
+      background:var(--inset);border-top:1px solid var(--line);
+      margin-top:var(--s8);padding:var(--s7) 0 var(--s8);
+    }
+    .foot-inner{
+      max-width:780px;margin:0 auto;padding:0 var(--s5);
+      display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);
+      font-family:var(--mono);font-size:12px;color:var(--muted);
+    }
+    .ft-brand{color:var(--ember-text);}
+    .foot-fine{
+      max-width:780px;margin:var(--s4) auto 0;padding:0 var(--s5);
+      font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:0.02em;
+    }
+
+    /* Responsive */
+    @media (max-width:600px){
+      body{font-size:16px;}
+      .wrap{padding:0 5vw;}
+      .doc-item{grid-template-columns:1fr;}
+      .doc-item .di-tag{padding-top:0;margin-top:var(--s2);}
+    }
+  
+    /* Formation note, footer form. The steward directed the notice out of the
+       top banner on 2026-08-12 for the public pages, and on 2026-08-13 for these
+       as well: one form of it, one place. The long form at /legal/#formation
+       still governs. One verbatim copy per page, proved by
+       scripts/notice_audit.py; only the token names differ, because the estate
+       carries two families. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:var(--s5);padding-right:var(--s5);
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+</style>
+
+  <style>
+    .say{border:1px solid var(--line);border-left:3px solid var(--blue);background:var(--surface);
+      padding:var(--s4) var(--s5);margin:var(--s3) 0;font-size:15px;line-height:1.75;color:var(--text);}
+    .say .lead{display:block;font-family:var(--mono);font-size:10px;text-transform:uppercase;
+      letter-spacing:0.14em;color:var(--blue-text);margin-bottom:var(--s2);}
+    .sec-head{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;
+      letter-spacing:0.18em;color:var(--muted);padding-bottom:var(--s3);
+      border-bottom:1px solid var(--rule);margin:var(--s7) 0 var(--s5);}
+    .step-p{font-size:15px;line-height:1.7;color:var(--muted);margin:0 0 var(--s3);}
+    .step-h{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--heading);margin:var(--s5) 0 var(--s2);}
+    .cite{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;
+      color:var(--ember-text);border:1px solid var(--ember);border-radius:2px;
+      padding:2px 7px;margin-left:var(--s2);white-space:nowrap;vertical-align:middle;}
+  </style>
+</head><body>
+<div class="wrap">
+
+  <div class="page-mast">
+    <div class="kick">RegenHub, LCA &middot; a walkthrough</div>
+    <h1>The confirmation.</h1>
+    <p class="sub">How the Board settles the record of its first meeting without holding it again. The acts of August 14 stand; what was thin was the evidence of who assented, and this meeting supplies it.</p>
+    <div class="entity-band">
+      <span><span class="st st-drafted">Drafted</span></span>
+      <span>Unadopted &middot; not an instrument</span>
+      <span>Companion to <a href="/legal/first-meeting/" style="color:var(--ember-text)">The first meeting</a></span>
+      <span>Prepared August 15, 2026</span>
+    </div>
+  </div>
+
+  <div class="formation-note">
+    <div class="fn-head">The principle: confirmation, not repetition</div>
+    <p>The special meeting of August 14, 2026 was validly held on its face: called by two Directors under &sect; 3.10, notice waived by appearance under &sect; 3.11, five of six Directors present for quorum under &sect; 3.13, the question put and declared carried. Under &sect; 3.16 every Director present is taken to have assented, none having dissented, abstained on the record, objected at the outset, or objected in writing within twenty-four hours.</p>
+    <p><b>What is thin is the evidence of who assented, not the validity of what was done.</b> A minute is how a board settles what it did. When the Board adopts a minute recording each Director's vote, that statement becomes the Board's own record and the &sect; 3.16 presumption stops being the only thing holding it up. Nothing is re-decided, and the operative date of every action stays August 14.</p>
+    <p>The same holds for the offices. &sect; 4.9 has officers hold office until successors are elected <em>and shall qualify</em>; it does not require acceptance in the same breath as election. Each officer accepts on the record now, and the election still dates to August 14.</p>
+    <p>A written consent under &sect; 3.15 is deliberately <b>not</b> used here: that section is for action taken <em>without</em> a meeting, and describing August 14 that way would misstate what happened. It stays in reserve as an optional later confirmation carrying all six signatures.</p>
+  </div>
+
+  <div class="sec-head">The order of business</div>
+
+  <div class="step-h">1 &middot; Call to order <span class="cite">&sect; 3.10</span></div>
+  <div class="say"><span class="lead">Say</span>The Board of RegenHub, LCA is called to order at [TIME] on August 15, 2026, at [PLACE]. This special meeting is called by [NAME] and [NAME], two Directors, under Bylaws &sect; 3.10.</div>
+
+  <div class="step-h">2 &middot; Notice <span class="cite">&sect;&sect; 3.11, 3.10</span></div>
+  <div class="say"><span class="lead">Say</span>No written notice was delivered under &sect; 3.11. Each Director present waives notice by appearance under &sect; 3.11 and consents to the holding of this meeting under &sect; 3.10. Any Director attending for the express purpose of objecting that this meeting was not lawfully called should say so now.</div>
+  <p class="step-p">Pause. Record any objection by name; if none, say so.</p>
+
+  <div class="step-h">3 &middot; Quorum <span class="cite">&sect; 3.13</span></div>
+  <div class="say"><span class="lead">Say</span>Present are [NAMES]. Absent are [NAMES]. [N] of six Directors in office are present, which is a quorum under &sect; 3.13. All present can communicate with one another. Persons who are not Directors, if any, are present as observers, and no confidential business will be taken.</div>
+
+  <div class="step-h">4 &middot; Recorder <span class="cite">&sect; 4.5</span></div>
+  <div class="say"><span class="lead">Motion</span>That [NAME] act as recorder of this meeting and prepare its minute.</div>
+  <p class="step-p">The Secretary now exists, so &sect; 4.5 already covers this. Make the motion anyway; the record being settled today exists because a meeting once had nobody named to write it down.</p>
+
+  <div class="step-h">5 &middot; The vote of August 14, entered by name</div>
+  <p class="step-p">The presiding Director reads the question put on August 14 &mdash; electing officers, establishing regular meetings, authorising the Secretary to execute Schedule A, and recording that no member ratification is presently possible &mdash; and asks each Director who was present, by name:</p>
+  <div class="say"><span class="lead">Ask each</span>On the question put at the special meeting of August 14, 2026, how did you vote?</div>
+  <p class="step-p">The recorder writes each answer: aye, abstained, or against. This is testimony about a past meeting, not a new vote. Any Director wishing to dissent from any part says so now and it is recorded.</p>
+
+  <div class="step-h">6 &middot; Acceptance of office <span class="cite">&sect; 4.9</span></div>
+  <div class="say"><span class="lead">Each officer</span>I accept the office of [President / Secretary / Treasurer].</div>
+
+  <div class="step-h">7 &middot; Who presided</div>
+  <div class="say"><span class="lead">Say</span>The record shall show that [NAME] presided at the special meeting of August 14, 2026.</div>
+
+  <div class="step-h">8 &middot; Adopt the minute of August 14</div>
+  <div class="say"><span class="lead">Motion</span>That the Board adopts the minutes of the special meeting of August 14, 2026, as amended today to record the vote of each Director present, the acceptance of office by each officer, and the identity of the presiding Director.</div>
+  <p class="step-p"><b>This motion is the cure.</b> It is the act that turns the draft into the record.</p>
+
+  <div class="step-h">9 &middot; Optional, now that there is time</div>
+  <p class="step-p">The four items cut from the August 14 procedure to fit ten minutes, each as its own motion and its own vote: the Financial Systems Committee under &sect; 3.18; authorisation of the West sublease (Article XVII disclosure first: an interested Director discloses, &sect; 3.13 bars them from voting on it, &sect; 17.2 keeps them in the quorum count, both recorded by name); the Membership Agreement &sect; 1.1 admission period; the vacant seat under &sect; 3.7.</p>
+
+  <div class="step-h">10 &middot; Adjourn</div>
+  <div class="say"><span class="lead">Motion</span>To adjourn. The meeting adjourned at [TIME].</div>
+
+  <div class="sec-head">Afterwards</div>
+  <div class="formation-note">
+    <p>The recorder writes today's minute the same day: date, time, place, the notice waiver, attendance by name, each motion in its own words with its mover, seconder and vote, every dissent and abstention by name, and the recorder's signature. Both minutes, August 14 as adopted and August 15, are filed together, because the second is what settles the first.</p>
+    <p>Whether the combined question of August 14 was procedurally sound is counsel's to say, and nothing in this cure depends on the answer. If counsel later advises it, the Board can ratify the four matters as separate motions at a regular meeting, still without redoing the night.</p>
+  </div>
+
+  <div class="formation-note">
+    <div class="fn-head">Standing</div>
+    <p>Drafted, unadopted, and not a governing instrument. Where this page and an instrument differ, the instrument is right and this page owes a correction. Instruments are indexed at <a href="/legal/" style="color:var(--ember-text)">the legal shelf</a>; defects found after publication are logged at <a href="/legal/corrections/" style="color:var(--ember-text)">Corrections and open readings</a>.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <span class="ft-brand">Techne · RegenHub, LCA</span>
+    <span>1515 Walnut Street · Boulder, Colorado</span>
+    <span>Colorado Limited Cooperative Association</span>
+    <span>Public Benefit entity</span>
+    <span>SOS No. 20261163853</span>
+  </div>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+  <div class="foot-fine">Techne v4 · document grammar · Legal Documents</div>
+</footer>
+
+</body>
+</html>
