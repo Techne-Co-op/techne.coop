@@ -26,6 +26,8 @@
     --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
     /* sunset range, canonical stops (blue..gold) */
     --sun-gold:#EAB668;--sun-amber:#E09A52;--sun-coral:#D1755A;--sun-rose:#B45C7C;--sun-violet:#6E5494;--sun-blue:#5476B8;
+    /* dawn range, canonical stops (indigo..gold), ordered by luminance */
+    --dawn-indigo:#4A5A8A;--dawn-slate:#6B7FB0;--dawn-lilac:#9B8BB8;--dawn-rose:#C99AA6;--dawn-shell:#E0BFA4;--dawn-gold:#F0D49A;
   }
   /* the two mode palettes, ported verbatim from Techne v4 */
   html[data-mode="dark"]{
@@ -268,7 +270,7 @@
   <header class="mast">
     <div class="kick">Techne &middot; Design System</div>
     <h1>Palette &amp; Component Reference</h1>
-    <p>Working reference for the Techne design system, updated to the <em>v4</em> palette. <em>Blue</em> is the primary accent, the color of what a reader does; <em>ember</em> is the secondary, the cooperative's own mark on structure. Both are held against a warm parchment ground through dark and light modes, with a <em>sunset</em> range reserved for section atmosphere and data. Toggle modes with the control in the top-right; it follows your device setting by default.</p>
+    <p>Working reference for the Techne design system, updated to the <em>v4</em> palette. <em>Blue</em> is the primary accent, the color of what a reader does; <em>ember</em> is the secondary, the cooperative's own mark on structure. Both are held against a warm parchment ground through dark and light modes, with a <em>sunset</em> range reserved for section atmosphere and data, and a <em>dawn</em> range as its morning counterpart. Toggle modes with the control in the top-right; it follows your device setting by default.</p>
     <div class="band">
       <span style="background:var(--sun-blue)"></span>
       <span style="background:var(--sun-violet)"></span>
@@ -353,6 +355,18 @@
       <div class="s"><div class="c" style="background:var(--sun-amber)"></div><div class="n">amber</div></div>
       <div class="s"><div class="c" style="background:var(--sun-gold)"></div><div class="n">gold</div></div>
     </div>
+
+    <div class="subhead">Dawn range &middot; the morning counterpart</div>
+    <p class="note">A six-stop sweep from indigo to first gold, the sunset range's sibling for surfaces that face forward rather than back: openings, first light, the start of a cycle. Like the sunset range it is ordered by luminance, so a sequential scale degrades to grayscale and reads for colorblind viewers. Same rules: atmosphere and data only, never a control, never the sign of a number. Entered with the Philosoraptor Summit live snapshot (<a href="/philosoraptor/1/evening/live/">/philosoraptor/1/evening/live/</a>), 2026-08-16, where it carries the closing figure's sky.</p>
+    <div class="ramp">
+      <div class="s"><div class="c" style="background:var(--dawn-indigo)"></div><div class="n">indigo</div></div>
+      <div class="s"><div class="c" style="background:var(--dawn-slate)"></div><div class="n">slate</div></div>
+      <div class="s"><div class="c" style="background:var(--dawn-lilac)"></div><div class="n">lilac</div></div>
+      <div class="s"><div class="c" style="background:var(--dawn-rose)"></div><div class="n">rose</div></div>
+      <div class="s"><div class="c" style="background:var(--dawn-shell)"></div><div class="n">shell</div></div>
+      <div class="s"><div class="c" style="background:var(--dawn-gold)"></div><div class="n">gold</div></div>
+    </div>
+    <p class="note">Canonical stops: <code>--dawn-indigo #4A5A8A</code> &middot; <code>--dawn-slate #6B7FB0</code> &middot; <code>--dawn-lilac #9B8BB8</code> &middot; <code>--dawn-rose #C99AA6</code> &middot; <code>--dawn-shell #E0BFA4</code> &middot; <code>--dawn-gold #F0D49A</code>. Mode-invariant, defined in <code>:root</code> alongside the sunset stops. Read together the two ranges bracket the day: sunset for the record of what happened, dawn for what is beginning.</p>
   </section>
 
   <!-- SITE NAVIGATION -->
