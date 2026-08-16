@@ -89,7 +89,7 @@ body[data-lines="off"] .constellation { opacity:0; }
 #hud-br { bottom:18px; right:22px; font-size:10px; letter-spacing:.12em; color:var(--faint);
   text-align:right; line-height:1.9; max-width:340px; }
 
-/* nested detail panel — the second level of the open world */
+/* nested detail panel: the second level of the open world */
 #panel {
   position:fixed; top:64px; right:22px; bottom:64px; width:min(440px, calc(100vw - 44px));
   background:color-mix(in srgb, var(--surface) 92%, transparent);
@@ -122,6 +122,7 @@ svg .lbl-accent { font-size:11px; letter-spacing:.1em; fill:var(--ember-text); }
 svg .lbl-blue { font-size:11px; letter-spacing:.1em; fill:var(--blue-text); }
 svg .cap { font-size:10px; letter-spacing:.12em; fill:var(--faint); }
 </style>
+<script src="/assets/topbar.js" defer></script>
 </head>
 <body data-lines="on">
 
@@ -184,7 +185,7 @@ svg .cap { font-size:10px; letter-spacing:.12em; fill:var(--faint); }
     <text class="body-tax" x="800" y="532">G-CLASS STAR · THE SYMBIONT</text>
   </g>
 
-  <!-- I · trust graph — terrestrial world, r140 orbit -->
+  <!-- I · trust graph: terrestrial world, r140 orbit -->
   <g id="trust" class="body" tabindex="0" role="button" aria-label="The trust graph: a relational terrestrial world">
     <circle cx="690" cy="344" r="17" fill="var(--surface)" stroke="var(--blue)" stroke-width="2"/>
     <g stroke="var(--blue)" stroke-width="1" opacity=".8">
@@ -195,7 +196,7 @@ svg .cap { font-size:10px; letter-spacing:.12em; fill:var(--faint); }
     <text class="body-tax" x="690" y="294">TERRESTRIAL · RELATIONAL CLASS</text>
   </g>
 
-  <!-- II · commitment — ringed world, r210 orbit -->
+  <!-- II · commitment: ringed world, r210 orbit -->
   <g id="commitment" class="body" tabindex="0" role="button" aria-label="The commitment: a ringed world, stake in orbit">
     <ellipse cx="1005" cy="384" rx="30" ry="9" fill="none" stroke="var(--ember)" stroke-width="1.5" transform="rotate(-18 1005 384)"/>
     <circle cx="1005" cy="384" r="14" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
@@ -204,7 +205,7 @@ svg .cap { font-size:10px; letter-spacing:.12em; fill:var(--faint); }
     <text class="body-tax" x="1005" y="332">RINGED WORLD · STAKE IN ORBIT</text>
   </g>
 
-  <!-- III · human hour — binary pair, r280 orbit -->
+  <!-- III · human hour: binary pair, r280 orbit -->
   <g id="hour" class="body" tabindex="0" role="button" aria-label="The human hour: a binary pair, hour and unit in mutual orbit">
     <circle cx="966" cy="676" r="12" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
     <circle cx="996" cy="694" r="12" fill="var(--surface)" stroke="var(--blue)" stroke-width="2"/>
@@ -214,7 +215,7 @@ svg .cap { font-size:10px; letter-spacing:.12em; fill:var(--faint); }
     <text class="body-tax" x="981" y="750">BINARY PAIR · HOUR ⇌ UNIT</text>
   </g>
 
-  <!-- IV · the triad — trinary system, r350 orbit -->
+  <!-- IV · the triad: trinary system, r350 orbit -->
   <g id="triad" class="body" tabindex="0" role="button" aria-label="The triad: a trinary system of security, privacy, accessibility">
     <circle cx="556" cy="600" r="9" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
     <circle cx="538" cy="632" r="9" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
@@ -226,7 +227,7 @@ svg .cap { font-size:10px; letter-spacing:.12em; fill:var(--faint); }
     <text class="body-tax" x="556" y="690">TRINARY SYSTEM · LAGRANGE CHOICE POINT</text>
   </g>
 
-  <!-- V · transducer — instrument station, r350 orbit -->
+  <!-- V · transducer: instrument station, r350 orbit -->
   <g id="transducer" class="body" tabindex="0" role="button" aria-label="The transducer: an instrument station in high orbit">
     <rect x="434" y="288" width="28" height="20" rx="3" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
     <line x1="424" y1="298" x2="434" y2="298" stroke="var(--ember)" stroke-width="1.5"/>
@@ -238,7 +239,7 @@ svg .cap { font-size:10px; letter-spacing:.12em; fill:var(--faint); }
     <text class="body-tax" x="448" y="248">INSTRUMENT STATION · SHOWS ITS RECEIPTS</text>
   </g>
 
-  <!-- VIII · the saga — a comet family on an eccentric path -->
+  <!-- VIII · the saga: a comet family on an eccentric path -->
   <g id="saga" class="body" tabindex="0" role="button" aria-label="The saga: a comet on an eccentric orbit, in motion">
     <path d="M120 820 C480 690 900 560 1300 190" fill="none" stroke="var(--faint)" stroke-width="1" stroke-dasharray="2 6" opacity=".7"/>
     <g class="pulse">
