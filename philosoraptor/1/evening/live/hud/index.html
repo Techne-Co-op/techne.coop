@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="noindex">
+<meta name="description" content="The evening's thinking as an explorable solar system: a fullscreen HUD where each figure of the night is a body in orbit around the scenius star, joined as a constellation, inside the goldilocks zone.">
+<title>The Evening, HUD &middot; Philosoraptor Summit 1 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/philosoraptor/1/evening/live/hud/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THE EVENING, HUD  --  Philosoraptor Summit 1
+   Open-world HUD prototype. Design constraints (Todd, 08-16):
+   no scroll, everything within fullscreen; open-world style
+   information nesting; a solar system well within the
+   goldilocks zone; constellation in form; solar taxonomy.
+   ============================================================ */
+:root {
+  --serif:'Libre Baskerville', Georgia, serif;
+  --mono:'IBM Plex Mono', Consolas, monospace;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  --dawn-indigo:#4A5A8A; --dawn-slate:#6B7FB0; --dawn-lilac:#9B8BB8;
+  --dawn-rose:#C99AA6; --dawn-shell:#E0BFA4; --dawn-gold:#F0D49A;
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+  --bg:#08080C; --inset:#050508; --surface:#111118; --raised:#1B1B24;
+  --line:#262630; --rule:#3A3A48;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --warn:#C46A6A;
+  color-scheme:dark;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+@media (prefers-reduced-motion:reduce) {
+  *, *::before, *::after { transition-duration:0ms !important; animation:none !important; }
+}
+html, body { height:100%; overflow:hidden; background:var(--bg); }
+body { font-family:var(--serif); color:var(--text); font-size:15px; line-height:1.6; }
+
+/* the system map fills the viewport */
+#system { position:fixed; inset:0; width:100vw; height:100vh; display:block; cursor:default; }
+#system .orbit { fill:none; stroke:var(--line); stroke-width:1; }
+#system .goldilocks { fill:var(--ok); opacity:.05; }
+#system .goldilocks-edge { fill:none; stroke:var(--ok); stroke-width:1; stroke-dasharray:2 6; opacity:.5; }
+#system text { font-family:var(--mono); }
+.body-label { font-size:11px; letter-spacing:.1em; fill:var(--muted); text-anchor:middle;
+  transition:fill var(--micro) var(--ease); pointer-events:none; }
+.body-tax { font-size:9px; letter-spacing:.12em; fill:var(--faint); text-anchor:middle; pointer-events:none; }
+.hud-cap { font-size:10px; letter-spacing:.14em; fill:var(--faint); }
+g.body { cursor:pointer; }
+g.body:hover .body-label, g.body.active .body-label { fill:var(--heading); }
+g.body:hover .halo, g.body.active .halo { opacity:.5; }
+g.body:focus-visible { outline:none; }
+g.body:focus-visible .halo { opacity:.7; stroke:var(--blue); }
+.halo { fill:none; stroke:var(--ember); stroke-width:1; opacity:0; transition:opacity var(--micro) var(--ease); }
+.constellation { stroke:var(--dawn-slate); stroke-width:1; fill:none; opacity:.55;
+  stroke-dasharray:3 5; transition:opacity var(--dur) var(--ease); }
+body[data-lines="off"] .constellation { opacity:0; }
+@keyframes breathe { 0%,100% { opacity:.55; } 50% { opacity:1; } }
+@keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+.pulse { animation:breathe 5s var(--ease) infinite; }
+.belt-spin { transform-origin:800px 450px; animation:spin 480s linear infinite; }
+
+/* HUD chrome */
+.hud { position:fixed; font-family:var(--mono); z-index:5; pointer-events:none; }
+.hud * { pointer-events:auto; }
+#hud-tl { top:18px; left:22px; }
+#hud-tl .kicker { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ember-text); }
+#hud-tl h1 { font-family:var(--serif); font-size:19px; color:var(--heading); margin-top:4px; font-weight:400; }
+#hud-tl .sib { font-size:10.5px; margin-top:6px; }
+#hud-tl a { color:var(--blue-text); text-decoration:none; border-bottom:1px solid var(--line); }
+#hud-tr { top:18px; right:22px; text-align:right; font-size:10.5px; line-height:1.9; color:var(--faint); }
+#hud-tr button {
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;
+  background:var(--surface); color:var(--muted); border:1px solid var(--line);
+  border-radius:4px; padding:4px 10px; cursor:pointer; margin-left:8px;
+}
+#hud-tr button:hover { color:var(--heading); border-color:var(--rule); }
+#hud-bl { bottom:18px; left:22px; font-size:10px; letter-spacing:.1em; color:var(--faint); line-height:2; }
+#hud-bl .tax-k { color:var(--muted); }
+#hud-bl i { font-style:normal; display:inline-block; width:9px; height:9px; border-radius:50%;
+  margin-right:6px; vertical-align:baseline; }
+#hud-br { bottom:18px; right:22px; font-size:10px; letter-spacing:.12em; color:var(--faint);
+  text-align:right; line-height:1.9; max-width:340px; }
+
+/* nested detail panel — the second level of the open world */
+#panel {
+  position:fixed; top:64px; right:22px; bottom:64px; width:min(440px, calc(100vw - 44px));
+  background:color-mix(in srgb, var(--surface) 92%, transparent);
+  border:1px solid var(--rule); border-radius:10px; z-index:10;
+  display:none; flex-direction:column; overflow:hidden;
+  backdrop-filter:blur(6px);
+}
+#panel.open { display:flex; }
+#panel header { padding:14px 18px 10px; border-bottom:1px solid var(--line); flex:none; }
+#panel .p-tax { font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ember-text); }
+#panel h2 { font-family:var(--serif); font-size:18px; font-weight:400; color:var(--heading); margin-top:3px; }
+#panel .p-fig { flex:none; border-bottom:1px solid var(--line); background:var(--inset); }
+#panel .p-fig svg { display:block; width:100%; height:auto; max-height:38vh; }
+#panel .p-body { flex:1; min-height:0; padding:12px 18px; font-size:13.5px; line-height:1.7;
+  color:var(--muted); overflow:hidden; }
+#panel .p-body em { color:var(--text); }
+#panel .p-body a { color:var(--blue-text); }
+#panel footer { flex:none; padding:8px 18px 12px; font-family:var(--mono); font-size:10px;
+  letter-spacing:.1em; color:var(--faint); border-top:1px solid var(--line); }
+#panel .close {
+  position:absolute; top:10px; right:12px; font-family:var(--mono); font-size:12px;
+  background:none; border:1px solid var(--line); border-radius:4px; color:var(--muted);
+  padding:2px 8px; cursor:pointer;
+}
+#panel .close:hover { color:var(--heading); border-color:var(--rule); }
+svg .lbl { font-size:11px; letter-spacing:.08em; fill:var(--muted); }
+svg .lbl-strong { font-size:11.5px; letter-spacing:.1em; fill:var(--heading); }
+svg .lbl-accent { font-size:11px; letter-spacing:.1em; fill:var(--ember-text); }
+svg .lbl-blue { font-size:11px; letter-spacing:.1em; fill:var(--blue-text); }
+svg .cap { font-size:10px; letter-spacing:.12em; fill:var(--faint); }
+</style>
+</head>
+<body data-lines="on">
+
+<!-- ==================== THE SYSTEM MAP ==================== -->
+<svg id="system" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="application"
+     aria-label="An explorable solar system: six bodies orbiting the scenius star inside a habitable zone, joined by constellation lines. Select a body to open its detail panel.">
+  <rect width="1600" height="900" fill="var(--bg)"/>
+  <!-- starfield -->
+  <g fill="var(--faint)">
+    <circle cx="120" cy="140" r="1.2"/><circle cx="340" cy="80" r="1"/><circle cx="580" cy="60" r="1.4"/>
+    <circle cx="990" cy="90" r="1"/><circle cx="1240" cy="150" r="1.3"/><circle cx="1480" cy="70" r="1"/>
+    <circle cx="90" cy="480" r="1"/><circle cx="60" cy="760" r="1.3"/><circle cx="300" cy="840" r="1"/>
+    <circle cx="1520" cy="420" r="1.2"/><circle cx="1440" cy="820" r="1"/><circle cx="1180" cy="860" r="1.2"/>
+    <circle cx="760" cy="30" r="1"/><circle cx="1560" cy="640" r="1"/><circle cx="40" cy="300" r="1.1"/>
+  </g>
+
+  <!-- goldilocks zone: between the Commitment and Transducer orbits -->
+  <path class="goldilocks" d="M800 260 A190 190 0 1 0 800.1 260 Z M800 80 A370 370 0 1 1 799.9 80 Z" fill-rule="evenodd"/>
+  <circle class="goldilocks-edge" cx="800" cy="450" r="190"/>
+  <circle class="goldilocks-edge" cx="800" cy="450" r="370"/>
+  <text class="hud-cap" x="800" y="106" text-anchor="middle" fill="var(--ok)" opacity=".7">GOLDILOCKS ZONE · PLENTIFUL IN HABITAT AND ECOSYSTEM SERVICES</text>
+
+  <!-- orbits -->
+  <circle class="orbit" cx="800" cy="450" r="140"/>
+  <circle class="orbit" cx="800" cy="450" r="210"/>
+  <circle class="orbit" cx="800" cy="450" r="280"/>
+  <circle class="orbit" cx="800" cy="450" r="350"/>
+  <circle class="orbit" cx="800" cy="450" r="420" opacity=".6"/>
+
+  <!-- constellation: the evening's asterism, drawn body to body -->
+  <g class="constellation" aria-hidden="true">
+    <path d="M690 344 L1005 384"/>
+    <path d="M1005 384 L980 685"/>
+    <path d="M980 685 L556 620"/>
+    <path d="M556 620 L448 300"/>
+    <path d="M448 300 L690 344"/>
+    <path d="M690 344 L800 450"/>
+    <path d="M980 685 L800 450"/>
+  </g>
+
+  <!-- the commonplace belt: fifteen meetings, the soil the system accreted from -->
+  <g id="belt" class="body belt-spin" tabindex="0" role="button" aria-label="The Commonplace belt: fifteen meetings, the soil underneath">
+    <g fill="var(--ember)" opacity=".8">
+      <circle cx="800" cy="30" r="3"/><circle cx="973" cy="66" r="2.4"/><circle cx="1120" cy="160" r="3.2"/>
+      <circle cx="1200" cy="310" r="2.2"/><circle cx="1218" cy="470" r="3"/><circle cx="1160" cy="640" r="2.6"/>
+      <circle cx="1030" cy="780" r="3"/><circle cx="870 " cy="864" r="2.2"/><circle cx="700" cy="858" r="3"/>
+      <circle cx="540" cy="780" r="2.4"/><circle cx="425" cy="650" r="3"/><circle cx="382" cy="470" r="2.4"/>
+      <circle cx="405" cy="300" r="3"/><circle cx="510" cy="150" r="2.4"/><circle cx="660" cy="55" r="3"/>
+    </g>
+  </g>
+  <text class="body-tax" x="800" y="885">PROTOPLANETARY BELT · THE COMMONPLACE · FIFTEEN MEETINGS (SELECT ANY ROCK)</text>
+
+  <!-- the star: scenius / the symbiont -->
+  <g id="scenius" class="body" tabindex="0" role="button" aria-label="The scenius star: dawn, the symbiont">
+    <circle class="pulse" cx="800" cy="450" r="52" fill="var(--dawn-gold)" opacity=".14"/>
+    <circle cx="800" cy="450" r="34" fill="var(--dawn-gold)"/>
+    <circle cx="800" cy="450" r="34" fill="none" stroke="var(--ember)" stroke-width="2"/>
+    <circle class="halo" cx="800" cy="450" r="44"/>
+    <text class="body-label" x="800" y="516">SCENIUS</text>
+    <text class="body-tax" x="800" y="532">G-CLASS STAR · THE SYMBIONT</text>
+  </g>
+
+  <!-- I · trust graph — terrestrial world, r140 orbit -->
+  <g id="trust" class="body" tabindex="0" role="button" aria-label="The trust graph: a relational terrestrial world">
+    <circle cx="690" cy="344" r="17" fill="var(--surface)" stroke="var(--blue)" stroke-width="2"/>
+    <g stroke="var(--blue)" stroke-width="1" opacity=".8">
+      <path d="M683 338 L697 341 M697 341 L692 352 M683 338 L686 350 M686 350 L692 352"/>
+    </g>
+    <circle class="halo" cx="690" cy="344" r="26"/>
+    <text class="body-label" x="690" y="308">THE TRUST GRAPH</text>
+    <text class="body-tax" x="690" y="294">TERRESTRIAL · RELATIONAL CLASS</text>
+  </g>
+
+  <!-- II · commitment — ringed world, r210 orbit -->
+  <g id="commitment" class="body" tabindex="0" role="button" aria-label="The commitment: a ringed world, stake in orbit">
+    <ellipse cx="1005" cy="384" rx="30" ry="9" fill="none" stroke="var(--ember)" stroke-width="1.5" transform="rotate(-18 1005 384)"/>
+    <circle cx="1005" cy="384" r="14" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <circle class="halo" cx="1005" cy="384" r="36"/>
+    <text class="body-label" x="1005" y="346">THE COMMITMENT</text>
+    <text class="body-tax" x="1005" y="332">RINGED WORLD · STAKE IN ORBIT</text>
+  </g>
+
+  <!-- III · human hour — binary pair, r280 orbit -->
+  <g id="hour" class="body" tabindex="0" role="button" aria-label="The human hour: a binary pair, hour and unit in mutual orbit">
+    <circle cx="966" cy="676" r="12" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <circle cx="996" cy="694" r="12" fill="var(--surface)" stroke="var(--blue)" stroke-width="2"/>
+    <ellipse cx="981" cy="685" rx="34" ry="16" fill="none" stroke="var(--faint)" stroke-width="1" stroke-dasharray="2 4" transform="rotate(28 981 685)"/>
+    <circle class="halo" cx="980" cy="685" r="40"/>
+    <text class="body-label" x="981" y="736">THE HUMAN HOUR</text>
+    <text class="body-tax" x="981" y="750">BINARY PAIR · HOUR ⇌ UNIT</text>
+  </g>
+
+  <!-- IV · the triad — trinary system, r350 orbit -->
+  <g id="triad" class="body" tabindex="0" role="button" aria-label="The triad: a trinary system of security, privacy, accessibility">
+    <circle cx="556" cy="600" r="9" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <circle cx="538" cy="632" r="9" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <circle cx="574" cy="632" r="9" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <path d="M556 600 L538 632 L574 632 Z" fill="none" stroke="var(--rule)" stroke-width="1"/>
+    <circle class="pulse" cx="556" cy="622" r="4" fill="var(--blue)"/>
+    <circle class="halo" cx="556" cy="620" r="42"/>
+    <text class="body-label" x="556" y="676">THE TRIAD</text>
+    <text class="body-tax" x="556" y="690">TRINARY SYSTEM · LAGRANGE CHOICE POINT</text>
+  </g>
+
+  <!-- V · transducer — instrument station, r350 orbit -->
+  <g id="transducer" class="body" tabindex="0" role="button" aria-label="The transducer: an instrument station in high orbit">
+    <rect x="434" y="288" width="28" height="20" rx="3" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <line x1="424" y1="298" x2="434" y2="298" stroke="var(--ember)" stroke-width="1.5"/>
+    <line x1="462" y1="298" x2="472" y2="298" stroke="var(--ember)" stroke-width="1.5"/>
+    <rect x="416" y="292" width="8" height="12" fill="none" stroke="var(--ember)" stroke-width="1"/>
+    <rect x="472" y="292" width="8" height="12" fill="none" stroke="var(--ember)" stroke-width="1"/>
+    <circle class="halo" cx="448" cy="298" r="34"/>
+    <text class="body-label" x="448" y="262">THE TRANSDUCER</text>
+    <text class="body-tax" x="448" y="248">INSTRUMENT STATION · SHOWS ITS RECEIPTS</text>
+  </g>
+
+  <!-- VIII · the saga — a comet family on an eccentric path -->
+  <g id="saga" class="body" tabindex="0" role="button" aria-label="The saga: a comet on an eccentric orbit, in motion">
+    <path d="M120 820 C480 690 900 560 1300 190" fill="none" stroke="var(--faint)" stroke-width="1" stroke-dasharray="2 6" opacity=".7"/>
+    <g class="pulse">
+      <circle cx="1090" cy="430" r="7" fill="var(--dawn-shell)"/>
+      <path d="M1090 430 L1010 486 M1090 430 L1024 462 M1090 430 L1050 500" stroke="var(--dawn-shell)" stroke-width="1" opacity=".6"/>
+    </g>
+    <circle class="halo" cx="1090" cy="430" r="20"/>
+    <text class="body-label" x="1122" y="416" text-anchor="start">THE SAGA</text>
+    <text class="body-tax" x="1122" y="430" text-anchor="start">COMET FAMILY · IN MOTION</text>
+  </g>
+</svg>
+
+<!-- ==================== HUD CHROME ==================== -->
+<div class="hud" id="hud-tl">
+  <div class="kicker">Philosoraptor Summit · No. 1 · The Evening · HUD</div>
+  <h1>The night as a system</h1>
+  <div class="sib">flat sibling: <a href="/philosoraptor/1/evening/live/">/evening/live/</a> · prose: <a href="/philosoraptor/1/evening/">/evening/</a></div>
+</div>
+<div class="hud" id="hud-tr">
+  <div>
+    <button id="toggle-lines" aria-pressed="true">constellation: on</button>
+  </div>
+  <div>select a body · esc closes</div>
+</div>
+<div class="hud" id="hud-bl">
+  <div class="tax-k">SOLAR TAXONOMY</div>
+  <div><i style="background:var(--dawn-gold)"></i>G-class star · scenius</div>
+  <div><i style="background:var(--blue)"></i>relational terrestrial · <i style="background:var(--ember)"></i>ringed / trinary worlds</div>
+  <div><i style="background:var(--dawn-shell)"></i>comet family · <i style="background:var(--ember);opacity:.6"></i>protoplanetary belt</div>
+</div>
+<div class="hud" id="hud-br">
+  STANDING: snapshot of one evening, recorded Aug 16 2026 · drawings of thinking,
+  not diagrams of anything adopted · RegenHub, LCA
+</div>
+
+<!-- ==================== NESTED DETAIL PANEL ==================== -->
+<aside id="panel" role="dialog" aria-modal="false" aria-labelledby="panel-title">
+  <button class="close" id="panel-close" aria-label="Close panel">esc</button>
+  <header>
+    <div class="p-tax" id="panel-tax"></div>
+    <h2 id="panel-title"></h2>
+  </header>
+  <div class="p-fig" id="panel-fig"></div>
+  <div class="p-body" id="panel-body"></div>
+  <footer id="panel-foot"></footer>
+</aside>
+
+<!-- figure sources for the panel, hidden; trimmed from the flat sibling -->
+<template id="t-trust">
+  <svg viewBox="0 0 840 380" role="img" aria-label="A network of nine circles connected by vouch lines; one dim circle at the edge is not yet vouched.">
+    <rect width="840" height="380" fill="var(--inset)"/>
+    <g stroke="var(--rule)" stroke-width="1.25" fill="none">
+      <path d="M170 190 L320 110"/><path d="M170 190 L300 270"/><path d="M320 110 L470 150"/>
+      <path d="M300 270 L470 150"/><path d="M300 270 L440 300"/><path d="M470 150 L610 100"/>
+      <path d="M470 150 L620 230"/><path d="M440 300 L620 230"/><path d="M610 100 L620 230"/><path d="M320 110 L610 100"/>
+    </g>
+    <path d="M620 230 L740 310" stroke="var(--faint)" stroke-width="1.25" stroke-dasharray="4 5" fill="none"/>
+    <g>
+      <circle cx="170" cy="190" r="16" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+      <circle cx="320" cy="110" r="16" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+      <circle cx="300" cy="270" r="16" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+      <circle class="pulse" cx="470" cy="150" r="16" fill="var(--surface)" stroke="var(--blue)" stroke-width="2"/>
+      <circle cx="440" cy="300" r="16" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+      <circle cx="610" cy="100" r="16" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+      <circle class="pulse" cx="620" cy="230" r="16" fill="var(--surface)" stroke="var(--blue)" stroke-width="2"/>
+      <circle cx="740" cy="310" r="16" fill="var(--inset)" stroke="var(--faint)" stroke-width="1.5"/>
+    </g>
+    <text class="lbl-blue" x="215" y="130">"I vouch for her"</text>
+    <text class="lbl" x="632" y="300">not yet vouched</text>
+  </svg>
+</template>
+<template id="t-commitment">
+  <svg viewBox="0 0 840 320" role="img" aria-label="A timeline: promise made, stake locked, a named judge, and a deadline where the path splits into kept or broken with a dispute window.">
+    <rect width="840" height="320" fill="var(--inset)"/>
+    <line x1="70" y1="170" x2="560" y2="170" stroke="var(--rule)" stroke-width="1.5"/>
+    <circle cx="70" cy="170" r="7" fill="var(--blue)"/>
+    <text class="lbl-strong" x="42" y="205">the promise</text>
+    <rect x="150" y="120" width="86" height="30" rx="4" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+    <text class="lbl-accent" x="163" y="139">stake locked</text>
+    <line x1="193" y1="150" x2="193" y2="170" stroke="var(--ember)" stroke-width="1.25"/>
+    <circle class="pulse" cx="380" cy="90" r="15" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+    <text class="lbl" x="352" y="62">a named judge</text>
+    <line x1="380" y1="105" x2="380" y2="170" stroke="var(--faint)" stroke-width="1" stroke-dasharray="3 4"/>
+    <circle cx="560" cy="170" r="7" fill="var(--heading)"/>
+    <text class="lbl-strong" x="522" y="205">the deadline</text>
+    <path d="M560 170 C620 170 640 110 700 100" stroke="var(--ok)" stroke-width="2" fill="none"/>
+    <path d="M560 170 C620 170 640 230 700 240" stroke="var(--warn)" stroke-width="2" fill="none"/>
+    <text class="lbl" x="560" y="78" fill="var(--ok)">kept · stake returns, with earnings</text>
+    <text class="lbl" x="596" y="270" fill="var(--warn)">broken · the stake is lost</text>
+    <rect x="560" y="140" width="76" height="60" rx="4" fill="none" stroke="var(--faint)" stroke-width="1" stroke-dasharray="3 4"/>
+    <text class="cap" x="548" y="132">DISPUTE WINDOW · AT LEAST A DAY</text>
+  </svg>
+</template>
+<template id="t-hour">
+  <svg viewBox="0 0 840 300" role="img" aria-label="A balance scale in equilibrium: one hour on the left pan, one unit on the right, recorded by a cooperative.">
+    <rect width="840" height="300" fill="var(--inset)"/>
+    <line x1="420" y1="80" x2="420" y2="220" stroke="var(--rule)" stroke-width="2"/>
+    <line x1="330" y1="220" x2="510" y2="220" stroke="var(--rule)" stroke-width="2"/>
+    <line x1="230" y1="80" x2="610" y2="80" stroke="var(--heading)" stroke-width="2"/>
+    <circle cx="420" cy="80" r="5" fill="var(--heading)"/>
+    <line x1="230" y1="80" x2="230" y2="130" stroke="var(--faint)" stroke-width="1.25"/>
+    <path d="M180 130 L280 130" stroke="var(--heading)" stroke-width="1.5"/>
+    <circle class="pulse" cx="230" cy="162" r="24" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <line x1="230" y1="162" x2="230" y2="146" stroke="var(--ember)" stroke-width="1.5"/>
+    <line x1="230" y1="162" x2="242" y2="168" stroke="var(--ember)" stroke-width="1.5"/>
+    <text class="lbl-accent" x="200" y="215">one hour</text>
+    <line x1="610" y1="80" x2="610" y2="130" stroke="var(--faint)" stroke-width="1.25"/>
+    <path d="M560 130 L660 130" stroke="var(--heading)" stroke-width="1.5"/>
+    <rect class="pulse" x="586" y="140" width="48" height="44" rx="4" fill="var(--surface)" stroke="var(--blue)" stroke-width="2"/>
+    <text class="lbl-blue" x="598" y="167">$ / u</text>
+    <text class="lbl-blue" x="580" y="215">one unit</text>
+    <text class="lbl" x="278" y="256">recorded and honored by a cooperative</text>
+  </svg>
+</template>
+<template id="t-triad">
+  <svg viewBox="0 0 840 420" role="img" aria-label="A triangle of security, privacy, and accessibility, each corner warning what its extreme costs, with a movable chosen point inside.">
+    <rect width="840" height="420" fill="var(--inset)"/>
+    <path d="M420 70 L160 330 L680 330 Z" fill="none" stroke="var(--rule)" stroke-width="1.5"/>
+    <circle cx="420" cy="70" r="8" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <circle cx="160" cy="330" r="8" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <circle cx="680" cy="330" r="8" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <text class="lbl-strong" x="384" y="48">SECURITY</text>
+    <text class="lbl-strong" x="120" y="362">PRIVACY</text>
+    <text class="lbl-strong" x="620" y="362">ACCESSIBILITY</text>
+    <text class="cap" x="816" y="92" text-anchor="end" fill="var(--warn)">at the limit: a trust map everyone reads is a surveillance map</text>
+    <text class="cap" x="60" y="308" fill="var(--warn)">at the limit: illegible even to its own community</text>
+    <text class="cap" x="520" y="308" fill="var(--warn)">at the limit: someone else holds your keys</text>
+    <circle class="pulse" cx="430" cy="250" r="10" fill="var(--blue)"/>
+    <text class="lbl-blue" x="330" y="230">each context chooses its balance, knowingly</text>
+  </svg>
+</template>
+<template id="t-transducer">
+  <svg viewBox="0 0 840 300" role="img" aria-label="The full record flows through a transducer into what one person can take in, with receipt lines walking back to the source.">
+    <rect width="840" height="300" fill="var(--inset)"/>
+    <rect x="60" y="70" width="180" height="160" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+    <g stroke="var(--faint)" stroke-width="1.5">
+      <line x1="80" y1="95" x2="220" y2="95"/><line x1="80" y1="112" x2="200" y2="112"/>
+      <line x1="80" y1="129" x2="215" y2="129"/><line x1="80" y1="146" x2="190" y2="146"/>
+      <line x1="80" y1="163" x2="220" y2="163"/><line x1="80" y1="180" x2="205" y2="180"/>
+    </g>
+    <text class="lbl" x="88" y="256">the full record</text>
+    <rect class="pulse" x="340" y="110" width="150" height="80" rx="8" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <text class="lbl-accent" x="368" y="146">transducer</text>
+    <text class="cap" x="356" y="168">explains, never decides</text>
+    <rect x="600" y="85" width="150" height="130" rx="6" fill="var(--raised)" stroke="var(--line)"/>
+    <line x1="620" y1="115" x2="730" y2="115" stroke="var(--heading)" stroke-width="2"/>
+    <line x1="620" y1="140" x2="710" y2="140" stroke="var(--muted)" stroke-width="1.5"/>
+    <line x1="620" y1="160" x2="720" y2="160" stroke="var(--muted)" stroke-width="1.5"/>
+    <text class="lbl" x="592" y="246">what one person can take in</text>
+    <path d="M640 215 C500 265 300 255 150 232" stroke="var(--ember)" stroke-width="1" stroke-dasharray="3 4" fill="none"/>
+    <text class="cap" x="330" y="278" fill="var(--ember-text)">every figure walks back to its source</text>
+  </svg>
+</template>
+<template id="t-scenius">
+  <svg viewBox="0 0 840 440" role="img" aria-label="A dawn horizon; the community and the machine joined in a loop, enclosed by the symbiont, with a rising sun on the horizon.">
+    <rect x="0" y="0" width="840" height="74" fill="var(--dawn-indigo)"/>
+    <rect x="0" y="74" width="840" height="74" fill="var(--dawn-slate)"/>
+    <rect x="0" y="148" width="840" height="74" fill="var(--dawn-lilac)"/>
+    <rect x="0" y="222" width="840" height="66" fill="var(--dawn-rose)"/>
+    <rect x="0" y="288" width="840" height="56" fill="var(--dawn-shell)"/>
+    <rect x="0" y="344" width="840" height="36" fill="var(--dawn-gold)"/>
+    <rect x="0" y="380" width="840" height="60" fill="var(--inset)"/>
+    <line x1="0" y1="380" x2="840" y2="380" stroke="var(--rule)" stroke-width="1.5"/>
+    <circle class="pulse" cx="640" cy="380" r="34" fill="var(--dawn-gold)" stroke="var(--ember)" stroke-width="2.5"/>
+    <circle cx="250" cy="170" r="46" fill="rgba(8,8,10,0.35)" stroke="var(--dawn-gold)" stroke-width="2"/>
+    <circle cx="450" cy="170" r="46" fill="rgba(8,8,10,0.35)" stroke="var(--dawn-gold)" stroke-width="2"/>
+    <path d="M285 135 C330 105 370 105 415 135" stroke="var(--dawn-gold)" stroke-width="2" fill="none"/>
+    <path d="M415 205 C370 235 330 235 285 205" stroke="var(--dawn-gold)" stroke-width="2" fill="none"/>
+    <ellipse cx="350" cy="170" rx="170" ry="105" fill="none" stroke="var(--dawn-shell)" stroke-width="1.25" stroke-dasharray="5 6"/>
+    <text x="250" y="175" text-anchor="middle" font-size="11" fill="var(--dawn-shell)">the community</text>
+    <text x="450" y="175" text-anchor="middle" font-size="11" fill="var(--dawn-shell)">the machine</text>
+    <text x="272" y="52" font-size="11.5" fill="var(--dawn-shell)">THE SYMBIONT · REMOVE EITHER AND THE THING ENDS</text>
+  </svg>
+</template>
+<template id="t-belt">
+  <svg viewBox="0 0 840 240" role="img" aria-label="A timeline of fifteen tick marks: the fifteen meetings, August 2025 to February 2026, from which the system accreted.">
+    <rect width="840" height="240" fill="var(--inset)"/>
+    <line x1="60" y1="120" x2="780" y2="120" stroke="var(--muted)" stroke-width="1.25"/>
+    <g stroke="var(--ember)" stroke-width="2">
+      <line x1="60" y1="113" x2="60" y2="127"/><line x1="111" y1="113" x2="111" y2="127"/>
+      <line x1="163" y1="113" x2="163" y2="127"/><line x1="214" y1="113" x2="214" y2="127"/>
+      <line x1="266" y1="113" x2="266" y2="127"/><line x1="317" y1="113" x2="317" y2="127"/>
+      <line x1="369" y1="113" x2="369" y2="127"/><line x1="420" y1="113" x2="420" y2="127"/>
+      <line x1="471" y1="113" x2="471" y2="127"/><line x1="523" y1="113" x2="523" y2="127"/>
+      <line x1="574" y1="113" x2="574" y2="127"/><line x1="626" y1="113" x2="626" y2="127"/>
+      <line x1="677" y1="113" x2="677" y2="127"/><line x1="729" y1="113" x2="729" y2="127"/>
+      <line x1="780" y1="113" x2="780" y2="127"/>
+    </g>
+    <text class="lbl-accent" x="60" y="90">fifteen meetings · August 2025 to February 2026</text>
+    <text class="cap" x="60" y="160">seventy-nine entries, each carrying its meeting number and date</text>
+    <text class="cap" x="60" y="184" fill="var(--ember-text)">every entry walks back to its meeting</text>
+  </svg>
+</template>
+
+<script>
+(function () {
+  var BODIES = {
+    trust: {
+      tax: 'Terrestrial · relational class · orbit I',
+      title: 'The trust graph',
+      body: 'The web of <em>"I\'ll vouch for her"</em> that every small town already runs on, written down so a community can use it. No center circle and no issuer: standing is the shape of your neighborhood in the web, not a number handed down. The dashed line is the honest edge of the map.',
+      foot: 'FIG. I · FLAT SIBLING §I'
+    },
+    commitment: {
+      tax: 'Ringed world · stake in orbit · orbit II',
+      title: 'The commitment',
+      body: 'A promise with capital staked behind it and a named judge. Keep it and the stake comes back with its earnings; break it and the stake is lost, with at least a day to dispute a wrong call. <em>Plain: a security deposit on your word.</em>',
+      foot: 'FIG. II · FLAT SIBLING §II'
+    },
+    hour: {
+      tax: 'Binary pair · hour ⇌ unit · orbit III',
+      title: 'The human hour',
+      body: 'An hour of one person\'s work counting the same as an hour of another\'s, held alongside the dollar rather than replacing it. The balance only holds because something underneath is willing to keep the record. Whether this touches real books is for the board and counsel.',
+      foot: 'FIG. III · FLAT SIBLING §III'
+    },
+    triad: {
+      tax: 'Trinary system · Lagrange choice point · orbit IV',
+      title: 'The triad',
+      body: 'Security, privacy, accessibility: push any corner to its limit and it consumes the other two. The system\'s job is to make the trade-off <em>visible and consensual</em>. The blue point is not fixed; different circles sit in different places, and the honest design admits it.',
+      foot: 'FIG. IV · FLAT SIBLING §IV'
+    },
+    transducer: {
+      tax: 'Instrument station · high orbit',
+      title: 'The transducer',
+      body: 'Borrowed from cybernetics, which is not robots but <em>steering</em>. A machine that stands between a large record and a human reader and explains instead of decides, every figure walking back to its source. A dashboard that shows its receipts.',
+      foot: 'FIG. V · FLAT SIBLING §V'
+    },
+    scenius: {
+      tax: 'G-class star · the symbiont · system primary',
+      title: 'Dawn: scenius',
+      body: 'What emerges when a community and a machine shape each other in a continuing loop is neither of them alone; remove either and the thing itself ends. Its genius, the kind that lives between people rather than inside one of them, already has a name: <em>scenius</em>. Everything here orbits it.',
+      foot: 'FIG. VI · FLAT SIBLING §VI'
+    },
+    belt: {
+      tax: 'Protoplanetary belt · the Commonplace',
+      title: 'The soil underneath',
+      body: 'The system accreted from this: fifteen conversations, August 2025 to February 2026, in which a coworking space in Boulder talked itself into becoming a cooperative. Seventy-nine entries, each walking back to its meeting. The full book is at <a href="/commonplace/">/commonplace/</a>.',
+      foot: 'FIG. VII · FLAT SIBLING §VII'
+    },
+    saga: {
+      tax: 'Comet family · eccentric orbit · in motion',
+      title: 'The saga',
+      body: 'The filmed mythology the same night produced: raptors who grow feathers only when something aligns, five alignments running inward-out, ending in season zero, an ordinary warm Tuesday in a cozy brick coworking hub. The full reel plays on the <a href="/philosoraptor/1/evening/live/">flat sibling</a>; a comet is seen best from the ground.',
+      foot: 'REEL · FLAT SIBLING §VIII'
+    }
+  };
+  var TEMPLATES = { trust:'t-trust', commitment:'t-commitment', hour:'t-hour', triad:'t-triad',
+    transducer:'t-transducer', scenius:'t-scenius', belt:'t-belt', saga:'t-scenius' };
+  var panel = document.getElementById('panel');
+  var active = null;
+  function open(id) {
+    var d = BODIES[id]; if (!d) return;
+    document.getElementById('panel-tax').textContent = d.tax.toUpperCase();
+    document.getElementById('panel-title').textContent = d.title;
+    document.getElementById('panel-body').innerHTML = d.body;
+    document.getElementById('panel-foot').textContent = d.foot;
+    var fig = document.getElementById('panel-fig');
+    fig.innerHTML = '';
+    var t = document.getElementById(TEMPLATES[id]);
+    if (t) fig.appendChild(t.content.cloneNode(true));
+    panel.classList.add('open');
+    if (active) active.classList.remove('active');
+    active = document.getElementById(id);
+    if (active) active.classList.add('active');
+  }
+  function close() {
+    panel.classList.remove('open');
+    if (active) { active.classList.remove('active'); active = null; }
+  }
+  Object.keys(BODIES).forEach(function (id) {
+    var el = document.getElementById(id); if (!el) return;
+    el.addEventListener('click', function () { open(id); });
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(id); }
+    });
+  });
+  document.getElementById('panel-close').addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  var lines = document.getElementById('toggle-lines');
+  lines.addEventListener('click', function () {
+    var on = document.body.getAttribute('data-lines') === 'on';
+    document.body.setAttribute('data-lines', on ? 'off' : 'on');
+    lines.textContent = 'constellation: ' + (on ? 'off' : 'on');
+    lines.setAttribute('aria-pressed', String(!on));
+  });
+})();
+</script>
+</body>
+</html>
