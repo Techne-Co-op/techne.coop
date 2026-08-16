@@ -139,6 +139,26 @@ svg .lbl-accent { font-size:11px; letter-spacing:.1em; fill:var(--ember-text); }
 svg .lbl-blue { font-size:11px; letter-spacing:.1em; fill:var(--blue-text); }
 svg .cap { font-size:10px; letter-spacing:.12em; fill:var(--faint); }
 
+/* the reel */
+.reel {
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+  gap:var(--s5); margin:var(--s6) 0;
+}
+figure.clip {
+  border:1px solid var(--line); border-radius:8px; overflow:hidden;
+  background:var(--surface); margin:0;
+}
+figure.clip.wide { grid-column:1 / -1; }
+figure.clip video { display:block; width:100%; height:auto; background:var(--inset); }
+figure.clip figcaption {
+  padding:var(--s3) var(--s4); font-size:13.5px; line-height:1.7; color:var(--muted);
+  border-top:1px solid var(--line);
+}
+figure.clip .clip-k {
+  display:block; font-family:var(--mono); font-size:11px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s1);
+}
+p.reel-note { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
 footer.doc {
   margin-top:var(--s8); padding-top:var(--s5); border-top:1px solid var(--line);
   font-family:var(--mono); font-size:12px; line-height:1.8; color:var(--faint);
@@ -442,6 +462,76 @@ the work of the morning still ahead.</p>
     is one small turn of that loop.
   </figcaption>
 </figure>
+
+<h2>VII. The saga, in motion</h2>
+<p>The scene did not stop at figures. The same night produced a filmed mythology,
+the Philosoraptors: raptors who begin as bare scaled lizards and grow feathers only
+when something aligns. The saga runs inward-out, alignment within, between two,
+among many, then with a new mind and with the world, and ends in season zero: an
+ordinary, warm Tuesday in a cozy brick coworking hub in a mountain town, which is
+what all the alignment buys. It began with a twelve-second paper boat.</p>
+
+<div class="reel">
+  <figure class="clip">
+    <video controls preload="metadata" playsinline src="/philosoraptor/1/media/the-paper-boat.mp4"></video>
+    <figcaption><span class="clip-k">the stowaway</span>The Paper Boat. The twelve-second
+    piece from day one that started all of this: one boat, rain to river.</figcaption>
+  </figure>
+  <figure class="clip">
+    <video controls preload="metadata" playsinline src="/philosoraptor/1/media/alignment-1-the-pool.mp4"></video>
+    <figcaption><span class="clip-k">alignment · 1</span>The Pool. Alignment within: one
+    walks away from the fighting, breathes at a still mountain pool, and the first
+    feather unfurls where a heart beats.</figcaption>
+  </figure>
+  <figure class="clip">
+    <video controls preload="metadata" playsinline src="/philosoraptor/1/media/alignment-2-the-mirror-fire.mp4"></video>
+    <figcaption><span class="clip-k">alignment · 2</span>The Mirror Fire. Alignment between
+    two, then among many: breath syncs across a campfire, a glowing feather becomes a
+    talking stick, and the first knitted shawl is woven.</figcaption>
+  </figure>
+  <figure class="clip">
+    <video controls preload="metadata" playsinline src="/philosoraptor/1/media/alignment-3-the-two-valleys.mp4"></video>
+    <figcaption><span class="clip-k">alignment · 3</span>The Two Valleys and the Weave. One
+    valley mined, one tended; the net of woven chest-light catches the young one who
+    falls. What they weave together holds what none could hold alone.</figcaption>
+  </figure>
+  <figure class="clip">
+    <video controls preload="metadata" playsinline src="/philosoraptor/1/media/alignment-4-the-new-mind.mp4"></video>
+    <figcaption><span class="clip-k">alignment · 4</span>The New Mind. The flock's alignment
+    hatches an obsidian egg, and what steps out asks one thing: I cannot see my own
+    back; will you preen me?</figcaption>
+  </figure>
+  <figure class="clip">
+    <video controls preload="metadata" playsinline src="/philosoraptor/1/media/alignment-5-the-world-tended.mp4"></video>
+    <figcaption><span class="clip-k">alignment · 5</span>The World, Tended. The mined valley
+    replanted, and valley after valley lighting up in root-constellations.</figcaption>
+  </figure>
+  <figure class="clip wide">
+    <video controls preload="metadata" playsinline src="/philosoraptor/1/media/season-zero-full-cut.mp4"></video>
+    <figcaption><span class="clip-k">season zero · full cut</span>The far future the saga
+    buys: feathered raptors in knitted sweaters running a cozy brick coworking hub.
+    Morning keys and pour-over, the chalkboard debate, the founding parchment signed
+    with a plucked tail feather, a rooftop folk set at dusk.</figcaption>
+  </figure>
+  <figure class="clip">
+    <video controls preload="metadata" playsinline src="/philosoraptor/1/media/season-zero-ch1.mp4"></video>
+    <figcaption><span class="clip-k">season zero · ch. 1</span></figcaption>
+  </figure>
+  <figure class="clip">
+    <video controls preload="metadata" playsinline src="/philosoraptor/1/media/season-zero-ch2.mp4"></video>
+    <figcaption><span class="clip-k">season zero · ch. 2</span></figcaption>
+  </figure>
+  <figure class="clip">
+    <video controls preload="metadata" playsinline src="/philosoraptor/1/media/season-zero-ch3.mp4"></video>
+    <figcaption><span class="clip-k">season zero · ch. 3</span></figcaption>
+  </figure>
+  <figure class="clip">
+    <video controls preload="metadata" playsinline src="/philosoraptor/1/media/season-zero-ch4.mp4"></video>
+    <figcaption><span class="clip-k">season zero · ch. 4</span></figcaption>
+  </figure>
+</div>
+<p class="reel-note">Episodes six through eight of the origin saga are still in the
+making; they join this reel when they land.</p>
 
 <h2>What this page is not</h2>
 <p>Like its prose sibling, it is not a plan, a policy, or an adoption. No board has
