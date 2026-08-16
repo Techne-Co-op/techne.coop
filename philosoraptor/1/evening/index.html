@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Philosoraptor Summit, first evening: a point-in-time snapshot of a scene thinking out loud about trust, promises, money, and machines, translated into plain terms. RegenHub, LCA.">
+<title>The Evening &middot; Philosoraptor Summit 1 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/philosoraptor/1/evening/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/philosoraptor/1/evening/">
+<meta property="og:title" content="The Evening · Philosoraptor Summit 1 · Techne">
+<meta property="og:description" content="A snapshot of one evening's collective thinking: trust you can see, promises with weight behind them, hours as money, and machines that explain instead of decide.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* ============================================================
+   THE EVENING  --  Philosoraptor Summit 1
+   A point-in-time snapshot of the scene, in the estate's
+   document grammar. Tokens are the techne v4 layer, inlined
+   per the house practice.
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --ok-dim:rgba(106,154,106,0.13);
+  --warn:#C46A6A; --warn-dim:rgba(196,106,106,0.13);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --ok-dim:rgba(74,122,74,0.10);
+  --warn:#A84F4C; --warn-dim:rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition-duration:0ms !important; } }
+html { scroll-behavior:smooth; background:var(--bg); }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--serif); font-size:16px; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+em { font-style:italic; color:var(--heading); }
+strong { font-weight:700; color:var(--heading); }
+main { max-width:860px; margin:0 auto; padding:var(--s8) var(--s5) var(--s8); }
+header.doc { margin-bottom:var(--s7); }
+.kicker {
+  font-family:var(--mono); font-size:12px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s3);
+}
+h1 { font-size:34px; line-height:1.25; color:var(--heading); margin-bottom:var(--s4); }
+.standing {
+  font-family:var(--mono); font-size:12.5px; line-height:1.7; color:var(--muted);
+  border:1px solid var(--line); background:var(--surface);
+  padding:var(--s4) var(--s5); border-radius:6px; margin-top:var(--s5);
+}
+h2 {
+  font-size:22px; color:var(--heading); margin:var(--s7) 0 var(--s4);
+  padding-top:var(--s5); border-top:1px solid var(--line);
+}
+p { margin-bottom:var(--s4); }
+p.lede { font-size:18px; line-height:1.8; color:var(--heading); }
+dl.lexicon { margin:var(--s5) 0; }
+dl.lexicon dt {
+  font-family:var(--mono); font-size:14px; font-weight:500;
+  color:var(--ember-text); margin-top:var(--s5);
+}
+dl.lexicon dd { margin:var(--s2) 0 0 0; }
+dl.lexicon dd .plain { color:var(--muted); font-style:italic; }
+footer.doc {
+  margin-top:var(--s8); padding-top:var(--s5); border-top:1px solid var(--line);
+  font-family:var(--mono); font-size:12px; line-height:1.8; color:var(--faint);
+}
+</style>
+</head>
+<body>
+<main>
+
+<header class="doc">
+  <div class="kicker">Philosoraptor Summit · No. 1 · The Evening</div>
+  <h1>What the room was actually saying</h1>
+  <p class="lede">On an August evening in Boulder, a few people sat in a room with a
+  recorder running and talked for about ninety minutes across two sessions: about trust,
+  promises, money, machines, and what a cooperative might do with all four. This page is
+  a snapshot of that evening, translated into plain terms. It is a record of thinking,
+  not a record of decisions.</p>
+  <div class="standing">
+    STANDING: point-in-time snapshot, recorded August 16, 2026, from two audio
+    transcriptions. Ideas belong to the room, not to any one voice. Nothing on this
+    page has been adopted by RegenHub, LCA or by anyone else. Where an idea would
+    touch the cooperative's actual instruments, that is a matter for its board and
+    counsel, and this page says so.
+  </div>
+</header>
+
+<h2>The heart of it, in one paragraph</h2>
+<p>Every institution you deal with runs on trust you cannot see: the bank trusts you
+because of a credit score you did not write, the platform trusts you because of an
+account it can take away. The evening's shared conviction was that trust could instead
+be something people give each other directly, keep in their own hands, and read for
+themselves: neighbors vouching for neighbors, promises with real weight behind them,
+an hour of one person's work counting the same as an hour of another's. And because
+these systems get technical fast, the room kept returning to one safeguard: the tools
+should explain themselves to ordinary people, in ordinary language, or they will just
+replace one priesthood with another.</p>
+
+<h2>The lexicon of the evening</h2>
+<p>The scene grew its own vocabulary as it went. Here is what the words meant, each
+followed by the plain version.</p>
+
+<dl class="lexicon">
+  <dt>trust graph</dt>
+  <dd>A map of who vouches for whom, built from small signed statements of confidence.
+  <span class="plain">Plain: the web of "I'll vouch for her" that every small town
+  already runs on, written down so a community can actually use it.</span></dd>
+
+  <dt>vouch / attestation</dt>
+  <dd>A recorded, signed statement that one person stands behind another for some
+  skill or role. <span class="plain">Plain: a reference letter, one line long, that
+  cannot be forged.</span></dd>
+
+  <dt>commitment</dt>
+  <dd>A promise with capital staked behind it and a named judge; keep the promise and
+  the stake comes back with its earnings, break it and the stake is lost, with at least
+  a day to dispute a wrong call. <span class="plain">Plain: a security deposit on your
+  word.</span></dd>
+
+  <dt>risk market</dt>
+  <dd>A pool where people who have examined a thing put money behind the claim that it
+  will not fail, and everyone loses together if it does. <span class="plain">Plain:
+  neighbors underwriting each other, built so that nobody profits by watching a
+  disaster come and staying quiet.</span></dd>
+
+  <dt>the human hour</dt>
+  <dd>The idea of using an hour of a person's work as a unit of value alongside the
+  dollar, recorded and honored by a cooperative. <span class="plain">Plain: time
+  banking with a ledger behind it. Whether any of this touches the cooperative's real
+  books is a question for its board and its counsel, not a thing this page can
+  settle.</span></dd>
+
+  <dt>circles</dt>
+  <dd>Small encrypted groups that hold their own shared records, invite people in,
+  and can put people out. <span class="plain">Plain: a locked room for each
+  conversation, with the keys held by the people in it.</span></dd>
+
+  <dt>keys</dt>
+  <dd>The cryptographic pair that lets a person sign things and be verified without
+  asking anyone's permission. <span class="plain">Plain: your own signature and your
+  own front door key, instead of renting both from a platform.</span></dd>
+
+  <dt>transducer</dt>
+  <dd>A borrowed word from cybernetics: an instrument standing between a large record
+  and a human reader, turning the whole into something one person can take in, with
+  every figure walking back to its source. <span class="plain">Plain: a dashboard
+  that shows its receipts.</span></dd>
+
+  <dt>cybernetics</dt>
+  <dd>Not robots: steering. The study of how a thing senses its situation and corrects
+  its course. <span class="plain">Plain: an organization that can read its own record
+  and adjust, the way a helmsman reads the water.</span></dd>
+
+  <dt>symbiont</dt>
+  <dd>A name for what emerges when a human community and a machine intelligence shape
+  each other in a continuing loop, such that removing either would end the thing
+  itself. <span class="plain">Plain: not a tool, not a robot overlord; more like a
+  working partnership that becomes its own creature.</span></dd>
+
+  <dt>scenius</dt>
+  <dd>Brian Eno's word for the genius of a scene: intelligence that lives between
+  people rather than inside one of them. <span class="plain">Plain: what this page is
+  a snapshot of.</span></dd>
+</dl>
+
+<h2>The triad the evening kept circling</h2>
+<p>One tension organized nearly everything said: every one of these systems has to
+balance <strong>security</strong> (can the record be trusted, can promises be
+enforced), <strong>privacy</strong> (who gets to see the web of relationships), and
+<strong>accessibility</strong> (can a person who is not a cryptographer actually use
+it). Push any corner to its limit and it eats the other two. A trust map everyone can
+read is also a surveillance map. A perfectly private system is illegible even to its
+own community. A perfectly easy system usually means someone else is holding your
+keys.</p>
+<p>The evening's answer, stated in the room when a privacy question was pressed, was
+not to pick a corner. It was that <em>the people in each context choose their own
+balance, knowingly</em>, and the system's job is to make the trade-off visible and
+consensual rather than deciding it for everyone. A fuller working map of this triad
+lives with the summit's own notes.</p>
+
+<h2>Art, craft, science</h2>
+<p><strong>The art</strong> was in the images the room reached for: two trees at the
+root of an old story, a seed's lifecycle standing in for the life of an idea, an
+organization as a ship that steers by reading its own wake, new creatures emerging
+from the partnership of people and machines. These are not decoration. A scene thinks
+in pictures before it thinks in specifications.</p>
+<p><strong>The craft</strong> was in the working demonstrations behind the talk:
+a trust network you could click through, promises with stakes and judges and
+challenge windows already running in test environments, a repository presented as a
+living system whose every claim walks back to its source. Craft is where the
+pictures meet the material and the material talks back.</p>
+<p><strong>The science</strong> was in the honest constraints: incentive designs that
+fail if you reward people for hiding what they know, the mathematics of keys and
+proofs, the unglamorous finding repeated all evening that the systems we have, from
+fractional reserves to credit scores, are already stranger than most people suspect,
+and that anything built to replace them must be more legible than what it replaces,
+not less.</p>
+
+<h2>What this page is not</h2>
+<p>It is not a plan, a policy, or an adoption. No board has voted on anything here.
+The cooperative's real instruments live in its
+<a href="/commons/">commons</a> and change only by the acts recorded there. This page
+is the other thing a cooperative needs and rarely keeps: proof that on a particular
+evening, particular people sat together and thought at the edge of what they knew,
+and enjoyed it.</p>
+
+<footer class="doc">
+  PHILOSORAPTOR SUMMIT No. 1 · THE EVENING · recorded August 16, 2026, Boulder,
+  Colorado · composed from two audio transcriptions by Nou, the cooperative's
+  collective-intelligence instrument · a snapshot, not an instrument · RegenHub, LCA
+</footer>
+
+</main>
+</body>
+</html>
