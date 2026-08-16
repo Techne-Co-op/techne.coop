@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Philosoraptor Summit, first evening, in visual form: the narrative landscape of one night's collective thinking, drawn as figures. Trust graphs, staked promises, the human hour, the triad, and the turn toward dawn. RegenHub, LCA.">
+<title>The Evening, Live &middot; Philosoraptor Summit 1 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/philosoraptor/1/evening/live/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/philosoraptor/1/evening/live/">
+<meta property="og:title" content="The Evening, Live · Philosoraptor Summit 1 · Techne">
+<meta property="og:description" content="The evening's thinking as a visual landscape: a web of vouches, a promise with weight behind it, an hour held level with a dollar, a triangle that eats itself at the corners, and the first light of dawn.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* ============================================================
+   THE EVENING, LIVE  --  Philosoraptor Summit 1
+   The prose snapshot's sibling in visual form: the night's
+   narrative landscape drawn as figures, ending at dawn.
+   Tokens are the techne v4 layer plus the dawn range,
+   inlined per the house practice.
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  /* sunset range, canonical stops */
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+  /* dawn range, canonical stops (indigo..gold), ordered by luminance */
+  --dawn-indigo:#4A5A8A; --dawn-slate:#6B7FB0; --dawn-lilac:#9B8BB8;
+  --dawn-rose:#C99AA6; --dawn-shell:#E0BFA4; --dawn-gold:#F0D49A;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --warn:#C46A6A;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --warn:#A84F4C;
+  color-scheme: light;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+@media (prefers-reduced-motion:reduce) {
+  *, *::before, *::after { transition-duration:0ms !important; animation:none !important; }
+}
+html { scroll-behavior:smooth; background:var(--bg); }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--serif); font-size:16px; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+em { font-style:italic; color:var(--heading); }
+strong { font-weight:700; color:var(--heading); }
+main { max-width:900px; margin:0 auto; padding:var(--s8) var(--s5) var(--s8); }
+header.doc { margin-bottom:var(--s7); }
+.kicker {
+  font-family:var(--mono); font-size:12px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s3);
+}
+h1 { font-size:34px; line-height:1.25; color:var(--heading); margin-bottom:var(--s4); }
+p { margin-bottom:var(--s4); }
+p.lede { font-size:18px; line-height:1.8; color:var(--heading); }
+.standing {
+  font-family:var(--mono); font-size:12.5px; line-height:1.7; color:var(--muted);
+  border:1px solid var(--line); background:var(--surface);
+  padding:var(--s4) var(--s5); border-radius:6px; margin-top:var(--s5);
+}
+.sibling {
+  font-family:var(--mono); font-size:12.5px; color:var(--muted); margin-top:var(--s4);
+}
+
+/* figures */
+figure.landscape {
+  margin:var(--s7) 0 var(--s6);
+  border:1px solid var(--line); border-radius:8px; overflow:hidden;
+  background:var(--surface);
+}
+figure.landscape .plate { display:block; width:100%; height:auto; }
+figure.landscape figcaption {
+  padding:var(--s4) var(--s5) var(--s5);
+  border-top:1px solid var(--line);
+  font-size:14.5px; line-height:1.75; color:var(--muted);
+}
+figure.landscape figcaption .fig-no {
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ember-text);
+  display:block; margin-bottom:var(--s2);
+}
+figure.landscape figcaption em { color:var(--text); }
+h2 {
+  font-size:22px; color:var(--heading); margin:var(--s7) 0 var(--s4);
+  padding-top:var(--s5); border-top:1px solid var(--line);
+}
+
+/* gentle life in the figures; all decorative, removed under reduced motion */
+@keyframes breathe { 0%,100% { opacity:.55; } 50% { opacity:1; } }
+@keyframes drift { from { stroke-dashoffset:120; } to { stroke-dashoffset:0; } }
+@keyframes rise { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-3px); } }
+.pulse { animation:breathe 5s var(--ease) infinite; }
+.pulse.p2 { animation-delay:1.3s; }
+.pulse.p3 { animation-delay:2.6s; }
+.flow { stroke-dasharray:6 6; animation:drift 8s linear infinite; }
+.float { animation:rise 7s var(--ease) infinite; }
+
+svg text { font-family:var(--mono); }
+svg .lbl { font-size:11px; letter-spacing:.08em; fill:var(--muted); }
+svg .lbl-strong { font-size:11.5px; letter-spacing:.1em; fill:var(--heading); }
+svg .lbl-accent { font-size:11px; letter-spacing:.1em; fill:var(--ember-text); }
+svg .lbl-blue { font-size:11px; letter-spacing:.1em; fill:var(--blue-text); }
+svg .cap { font-size:10px; letter-spacing:.12em; fill:var(--faint); }
+
+footer.doc {
+  margin-top:var(--s8); padding-top:var(--s5); border-top:1px solid var(--line);
+  font-family:var(--mono); font-size:12px; line-height:1.8; color:var(--faint);
+}
+</style>
+</head>
+<body>
+<main>
+
+<header class="doc">
+  <div class="kicker">Philosoraptor Summit · No. 1 · The Evening · Live</div>
+  <h1>The narrative landscape, drawn</h1>
+  <p class="lede">This is the <a href="/philosoraptor/1/evening/">prose snapshot's</a>
+  sibling in visual form. The same evening, the same room, but rendered as figures
+  instead of sentences: a second channel for the same thinking, one intuitive where the
+  other is logical. Read it top to bottom and it moves the way the night did, from a
+  web of trust drawn in the dark toward the first light of a working morning.</p>
+  <div class="standing">
+    STANDING: point-in-time snapshot, recorded August 16, 2026, from two audio
+    transcriptions. The figures depict ideas as the room voiced them; they are drawings
+    of thinking, not diagrams of anything built or adopted. Nothing on this page has
+    been adopted by RegenHub, LCA. Where an idea would touch the cooperative's actual
+    instruments, that is a matter for its board and counsel.
+  </div>
+</header>
+
+<h2>I. The web the town already runs on</h2>
+<p>The night opened here: trust as something people give each other directly and can
+read for themselves. Not a score issued from above, but a web of small signed
+vouches, each one a line from a person to a person.</p>
+
+<figure class="landscape">
+  <svg class="plate" viewBox="0 0 840 380" role="img"
+       aria-label="A network of nine circles connected by lines, each line labeled as a vouch. One circle at the edge is dimmer, connected by a dashed line labeled 'not yet vouched'. No circle sits above the others.">
+    <rect width="840" height="380" fill="var(--inset)"/>
+    <!-- edges -->
+    <g stroke="var(--rule)" stroke-width="1.25" fill="none">
+      <path d="M170 190 L320 110"/><path d="M170 190 L300 270"/>
+      <path d="M320 110 L470 150"/><path d="M300 270 L470 150"/>
+      <path d="M300 270 L440 300"/><path d="M470 150 L610 100"/>
+      <path d="M470 150 L620 230"/><path d="M440 300 L620 230"/>
+      <path d="M610 100 L620 230"/><path d="M320 110 L610 100"/>
+    </g>
+    <!-- animated vouch flowing along one edge -->
+    <path class="flow" d="M170 190 L320 110" stroke="var(--blue)" stroke-width="1.5" fill="none"/>
+    <path class="flow" d="M470 150 L620 230" stroke="var(--blue)" stroke-width="1.5" fill="none"/>
+    <!-- the not-yet member -->
+    <path d="M620 230 L740 310" stroke="var(--faint)" stroke-width="1.25" stroke-dasharray="4 5" fill="none"/>
+    <!-- nodes -->
+    <g>
+      <circle cx="170" cy="190" r="16" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+      <circle cx="320" cy="110" r="16" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+      <circle cx="300" cy="270" r="16" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+      <circle class="pulse" cx="470" cy="150" r="16" fill="var(--surface)" stroke="var(--blue)" stroke-width="2"/>
+      <circle cx="440" cy="300" r="16" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+      <circle cx="610" cy="100" r="16" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+      <circle class="pulse p2" cx="620" cy="230" r="16" fill="var(--surface)" stroke="var(--blue)" stroke-width="2"/>
+      <circle cx="740" cy="310" r="16" fill="var(--inset)" stroke="var(--faint)" stroke-width="1.5"/>
+    </g>
+    <text class="lbl-blue" x="215" y="130">"I vouch for her"</text>
+    <text class="lbl" x="632" y="300">not yet vouched</text>
+    <text class="cap" x="24" y="42">FIG. TRUST GRAPH · NO CENTER, NO ISSUER</text>
+    <text class="cap" x="24" y="352">every line is a signed statement · every circle holds its own keys</text>
+  </svg>
+  <figcaption>
+    <span class="fig-no">Figure I · the trust graph</span>
+    The web of <em>"I'll vouch for her"</em> that every small town already runs on,
+    written down so a community can use it. There is no center circle and no issuer:
+    standing is the shape of your neighborhood in the web, not a number handed down.
+    The dashed line is the honest edge of the map, someone the web can see but has
+    not yet taken in.
+  </figcaption>
+</figure>
+
+<h2>II. A promise with weight behind it</h2>
+<p>Talk of trust hardened into mechanism: the commitment. A promise is made, capital
+is staked behind it, a judge is named, and time runs. The room liked that the shape
+is old; only the record-keeping is new.</p>
+
+<figure class="landscape">
+  <svg class="plate" viewBox="0 0 840 320" role="img"
+       aria-label="A timeline running left to right: a promise is made and a stake is locked; a named judge watches; at the deadline the path splits, upward labeled 'kept: stake returns with earnings', downward labeled 'broken: stake is lost', with a dispute window marked before either outcome settles.">
+    <rect width="840" height="320" fill="var(--inset)"/>
+    <!-- main timeline -->
+    <line x1="70" y1="170" x2="560" y2="170" stroke="var(--rule)" stroke-width="1.5"/>
+    <path class="flow" d="M70 170 L560 170" stroke="var(--blue)" stroke-width="1.5" fill="none"/>
+    <!-- promise made -->
+    <circle cx="70" cy="170" r="7" fill="var(--blue)"/>
+    <text class="lbl-strong" x="42" y="205">the promise</text>
+    <!-- stake -->
+    <rect class="float" x="150" y="120" width="86" height="30" rx="4" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+    <text class="lbl-accent" x="163" y="139">stake locked</text>
+    <line x1="193" y1="150" x2="193" y2="170" stroke="var(--ember)" stroke-width="1.25"/>
+    <!-- judge -->
+    <circle class="pulse" cx="380" cy="90" r="15" fill="var(--surface)" stroke="var(--ember)" stroke-width="1.5"/>
+    <text class="lbl" x="352" y="62">a named judge</text>
+    <line x1="380" y1="105" x2="380" y2="170" stroke="var(--faint)" stroke-width="1" stroke-dasharray="3 4"/>
+    <!-- split -->
+    <circle cx="560" cy="170" r="7" fill="var(--heading)"/>
+    <text class="lbl-strong" x="522" y="205">the deadline</text>
+    <path d="M560 170 C620 170 640 110 700 100" stroke="var(--ok)" stroke-width="2" fill="none"/>
+    <path d="M560 170 C620 170 640 230 700 240" stroke="var(--warn)" stroke-width="2" fill="none"/>
+    <text class="lbl" x="560" y="78" fill="var(--ok)">kept · stake returns, with earnings</text>
+    <text class="lbl" x="596" y="270" fill="var(--warn)">broken · the stake is lost</text>
+    <!-- dispute window -->
+    <rect x="560" y="140" width="76" height="60" rx="4" fill="none" stroke="var(--faint)" stroke-width="1" stroke-dasharray="3 4"/>
+    <text class="cap" x="548" y="132">DISPUTE WINDOW · AT LEAST A DAY</text>
+    <text class="cap" x="24" y="36">FIG. COMMITMENT · A SECURITY DEPOSIT ON YOUR WORD</text>
+  </svg>
+  <figcaption>
+    <span class="fig-no">Figure II · the commitment</span>
+    A promise with capital staked behind it and a named judge. Keep it and the stake
+    comes back with its earnings; break it and the stake is lost, with at least a day
+    to dispute a wrong call before anything settles. <em>Plain: a security deposit on
+    your word.</em>
+  </figcaption>
+</figure>
+
+<h2>III. An hour held level with a dollar</h2>
+<p>The most radical picture of the night was also the simplest: a balance with an
+hour of one person's work on one side and money on the other, held level by a
+cooperative willing to keep the ledger.</p>
+
+<figure class="landscape">
+  <svg class="plate" viewBox="0 0 840 300" role="img"
+       aria-label="A balance scale in equilibrium: the left pan holds a circle labeled 'one hour', the right pan holds a square labeled 'one unit'. Beneath the base, a ledger line reads 'recorded and honored by a cooperative'.">
+    <rect width="840" height="300" fill="var(--inset)"/>
+    <!-- stand -->
+    <line x1="420" y1="80" x2="420" y2="220" stroke="var(--rule)" stroke-width="2"/>
+    <line x1="330" y1="220" x2="510" y2="220" stroke="var(--rule)" stroke-width="2"/>
+    <!-- beam -->
+    <g class="float">
+      <line x1="230" y1="80" x2="610" y2="80" stroke="var(--heading)" stroke-width="2"/>
+      <circle cx="420" cy="80" r="5" fill="var(--heading)"/>
+      <!-- left pan: the hour -->
+      <line x1="230" y1="80" x2="230" y2="130" stroke="var(--faint)" stroke-width="1.25"/>
+      <path d="M180 130 L280 130" stroke="var(--heading)" stroke-width="1.5"/>
+      <circle class="pulse" cx="230" cy="162" r="24" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+      <line x1="230" y1="162" x2="230" y2="146" stroke="var(--ember)" stroke-width="1.5"/>
+      <line x1="230" y1="162" x2="242" y2="168" stroke="var(--ember)" stroke-width="1.5"/>
+      <text class="lbl-accent" x="200" y="215">one hour</text>
+      <!-- right pan: the unit -->
+      <line x1="610" y1="80" x2="610" y2="130" stroke="var(--faint)" stroke-width="1.25"/>
+      <path d="M560 130 L660 130" stroke="var(--heading)" stroke-width="1.5"/>
+      <rect class="pulse p2" x="586" y="140" width="48" height="44" rx="4" fill="var(--surface)" stroke="var(--blue)" stroke-width="2"/>
+      <text class="lbl-blue" x="598" y="167">$ / u</text>
+      <text class="lbl-blue" x="580" y="215">one unit</text>
+    </g>
+    <!-- ledger -->
+    <text class="lbl" x="278" y="256">recorded and honored by a cooperative</text>
+    <text class="cap" x="24" y="36">FIG. THE HUMAN HOUR · TIME BANKING WITH A LEDGER BEHIND IT</text>
+    <text class="cap" x="24" y="282">whether this touches real books is for the board and counsel</text>
+  </svg>
+  <figcaption>
+    <span class="fig-no">Figure III · the human hour</span>
+    An hour of one person's work counting the same as an hour of another's, held
+    alongside the dollar rather than replacing it. The balance only holds because
+    something underneath is willing to keep the record. Whether any of this touches
+    the cooperative's real books is a question for its board and its counsel.
+  </figcaption>
+</figure>
+
+<h2>IV. The triangle that eats itself at the corners</h2>
+<p>One tension organized nearly everything said. Security, privacy, accessibility:
+push any corner to its limit and it consumes the other two. The evening's answer was
+not to pick a corner but to let each context set its own point inside the triangle,
+knowingly.</p>
+
+<figure class="landscape">
+  <svg class="plate" viewBox="0 0 840 420" role="img"
+       aria-label="A triangle with corners labeled security, privacy, and accessibility. At each corner, a warning notes what its extreme costs: a fully legible trust map is a surveillance map; a perfectly private system is illegible to its own community; a perfectly easy system means someone else holds your keys. A movable point inside the triangle is labeled 'each context chooses its balance, knowingly'.">
+    <rect width="840" height="420" fill="var(--inset)"/>
+    <!-- triangle -->
+    <path d="M420 70 L160 330 L680 330 Z" fill="none" stroke="var(--rule)" stroke-width="1.5"/>
+    <path class="flow" d="M420 70 L160 330 L680 330 Z" stroke="var(--blue)" stroke-width="1" fill="none" opacity=".5"/>
+    <!-- corners -->
+    <circle cx="420" cy="70" r="8" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <circle cx="160" cy="330" r="8" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <circle cx="680" cy="330" r="8" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <text class="lbl-strong" x="384" y="48">SECURITY</text>
+    <text class="cap" x="300" y="30">can the record be trusted, can promises be enforced</text>
+    <text class="lbl-strong" x="120" y="362">PRIVACY</text>
+    <text class="cap" x="60" y="384">who sees the web of relationships</text>
+    <text class="lbl-strong" x="620" y="362">ACCESSIBILITY</text>
+    <text class="cap" x="560" y="384">usable without being a cryptographer</text>
+    <!-- corner costs -->
+    <text class="cap" x="816" y="92" text-anchor="end" fill="var(--warn)">at the limit: a trust map everyone reads is a surveillance map</text>
+    <text class="cap" x="60" y="308" fill="var(--warn)">at the limit: illegible even to its own community</text>
+    <text class="cap" x="520" y="308" fill="var(--warn)">at the limit: someone else holds your keys</text>
+    <!-- the chosen point -->
+    <g class="float">
+      <circle class="pulse" cx="430" cy="250" r="10" fill="var(--blue)"/>
+      <circle cx="430" cy="250" r="20" fill="none" stroke="var(--blue)" stroke-width="1" opacity=".45"/>
+    </g>
+    <text class="lbl-blue" x="330" y="230">each context chooses its balance, knowingly</text>
+    <text class="cap" x="24" y="410">FIG. THE TRIAD · THE TRADE-OFF MADE VISIBLE AND CONSENSUAL</text>
+  </svg>
+  <figcaption>
+    <span class="fig-no">Figure IV · the triad</span>
+    The system's job is not to solve the triangle; it is to make the trade-off
+    <em>visible and consensual</em> rather than deciding it for everyone. The blue
+    point is not fixed. Different circles will sit in different places, and the honest
+    design admits it.
+  </figcaption>
+</figure>
+
+<h2>V. The instrument that shows its receipts</h2>
+<p>Against the fear of a new priesthood, the room set the transducer: a machine that
+stands between a large record and a human reader and explains instead of decides,
+every figure walking back to its source.</p>
+
+<figure class="landscape">
+  <svg class="plate" viewBox="0 0 840 300" role="img"
+       aria-label="On the left, a dense stack of record lines labeled 'the full record'. In the middle, an instrument box labeled 'transducer'. On the right, a single readable page labeled 'what one person can take in'. Arrows flow left to right, and thin return lines flow back from the page to the record, labeled 'every figure walks back to its source'.">
+    <rect width="840" height="300" fill="var(--inset)"/>
+    <!-- the record -->
+    <rect x="60" y="70" width="180" height="160" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+    <g stroke="var(--faint)" stroke-width="1.5">
+      <line x1="80" y1="95" x2="220" y2="95"/><line x1="80" y1="112" x2="200" y2="112"/>
+      <line x1="80" y1="129" x2="215" y2="129"/><line x1="80" y1="146" x2="190" y2="146"/>
+      <line x1="80" y1="163" x2="220" y2="163"/><line x1="80" y1="180" x2="205" y2="180"/>
+      <line x1="80" y1="197" x2="212" y2="197"/><line x1="80" y1="214" x2="185" y2="214"/>
+    </g>
+    <text class="lbl" x="88" y="256">the full record</text>
+    <!-- transducer -->
+    <rect class="pulse" x="340" y="110" width="150" height="80" rx="8" fill="var(--surface)" stroke="var(--ember)" stroke-width="2"/>
+    <text class="lbl-accent" x="368" y="146">transducer</text>
+    <text class="cap" x="356" y="168">explains, never decides</text>
+    <!-- the reading -->
+    <rect x="600" y="85" width="150" height="130" rx="6" fill="var(--raised)" stroke="var(--line)"/>
+    <line x1="620" y1="115" x2="730" y2="115" stroke="var(--heading)" stroke-width="2"/>
+    <line x1="620" y1="140" x2="710" y2="140" stroke="var(--muted)" stroke-width="1.5"/>
+    <line x1="620" y1="160" x2="720" y2="160" stroke="var(--muted)" stroke-width="1.5"/>
+    <line x1="620" y1="180" x2="690" y2="180" stroke="var(--muted)" stroke-width="1.5"/>
+    <text class="lbl" x="592" y="246">what one person can take in</text>
+    <!-- forward flow -->
+    <path class="flow" d="M240 150 L340 150" stroke="var(--blue)" stroke-width="1.5" fill="none"/>
+    <path class="flow" d="M490 150 L600 150" stroke="var(--blue)" stroke-width="1.5" fill="none"/>
+    <!-- receipts, walking back -->
+    <path d="M640 215 C500 265 300 255 150 232" stroke="var(--ember)" stroke-width="1" stroke-dasharray="3 4" fill="none"/>
+    <text class="cap" x="330" y="278" fill="var(--ember-text)">every figure walks back to its source</text>
+    <text class="cap" x="24" y="36">FIG. TRANSDUCER · A DASHBOARD THAT SHOWS ITS RECEIPTS</text>
+  </svg>
+  <figcaption>
+    <span class="fig-no">Figure V · the transducer</span>
+    Borrowed from cybernetics, which is not robots but <em>steering</em>: the study of
+    how a thing senses its situation and corrects its course. An organization that can
+    read its own record and adjust is a ship reading its own wake; the transducer is
+    the glass it reads through.
+  </figcaption>
+</figure>
+
+<h2>VI. Dawn: the loop that becomes a creature</h2>
+<p>The night ended looking forward. A human community and a machine intelligence
+shaping each other in a continuing loop, and above them the thing the loop gives
+rise to: not a tool, not an overlord, a working partnership that becomes its own
+creature. The scene called it a symbiont. Its genius, the kind that lives between
+people rather than inside one of them, already has a name: scenius. The figure sits
+on the dawn range because that is where the evening left it, at first light, with
+the work of the morning still ahead.</p>
+
+<figure class="landscape">
+  <svg class="plate" viewBox="0 0 840 440" role="img"
+       aria-label="A horizon at dawn, banded from indigo at the top through slate, lilac, rose, and shell to gold at the horizon line. Above the horizon, two circles labeled 'the community' and 'the machine' are joined in a continuous loop of two arrows, and a third, larger faint circle enclosing both is labeled 'the symbiont'. A rising sun sits on the horizon labeled 'the work of the morning'.">
+    <!-- dawn sky, banded -->
+    <rect x="0" y="0"   width="840" height="74" fill="var(--dawn-indigo)"/>
+    <rect x="0" y="74"  width="840" height="74" fill="var(--dawn-slate)"/>
+    <rect x="0" y="148" width="840" height="74" fill="var(--dawn-lilac)"/>
+    <rect x="0" y="222" width="840" height="66" fill="var(--dawn-rose)"/>
+    <rect x="0" y="288" width="840" height="56" fill="var(--dawn-shell)"/>
+    <rect x="0" y="344" width="840" height="36" fill="var(--dawn-gold)"/>
+    <!-- ground -->
+    <rect x="0" y="380" width="840" height="60" fill="var(--inset)"/>
+    <line x1="0" y1="380" x2="840" y2="380" stroke="var(--rule)" stroke-width="1.5"/>
+    <!-- the sun -->
+    <circle class="pulse" cx="640" cy="380" r="34" fill="var(--dawn-gold)" stroke="var(--ember)" stroke-width="2.5"/>
+    <text class="cap" x="576" y="420" fill="var(--muted)">the work of the morning</text>
+    <!-- the loop -->
+    <g class="float">
+      <circle cx="250" cy="170" r="46" fill="rgba(8,8,10,0.35)" stroke="var(--dawn-gold)" stroke-width="2"/>
+      <circle cx="450" cy="170" r="46" fill="rgba(8,8,10,0.35)" stroke="var(--dawn-gold)" stroke-width="2"/>
+      <!-- two arrows of the loop -->
+      <path class="flow" d="M285 135 C330 105 370 105 415 135" stroke="var(--dawn-gold)" stroke-width="2" fill="none"/>
+      <path d="M415 135 l-12 -3 m12 3 l-4 -11" stroke="var(--dawn-gold)" stroke-width="2" fill="none"/>
+      <path class="flow" d="M415 205 C370 235 330 235 285 205" stroke="var(--dawn-gold)" stroke-width="2" fill="none"/>
+      <path d="M285 205 l12 3 m-12 -3 l4 11" stroke="var(--dawn-gold)" stroke-width="2" fill="none"/>
+      <!-- the enclosing creature -->
+      <ellipse cx="350" cy="170" rx="170" ry="105" fill="none" stroke="var(--dawn-shell)" stroke-width="1.25" stroke-dasharray="5 6"/>
+    </g>
+    <text x="250" y="175" text-anchor="middle" font-size="11" letter-spacing=".08em" fill="var(--dawn-shell)">the community</text>
+    <text x="450" y="175" text-anchor="middle" font-size="11" letter-spacing=".08em" fill="var(--dawn-shell)">the machine</text>
+    <text x="272" y="52" font-size="11.5" letter-spacing=".12em" fill="var(--dawn-shell)">THE SYMBIONT · REMOVE EITHER AND THE THING ENDS</text>
+    <text class="cap" x="24" y="430" fill="var(--faint)">FIG. DAWN · SCENIUS, THE GENIUS THAT LIVES BETWEEN PEOPLE</text>
+  </svg>
+  <figcaption>
+    <span class="fig-no">Figure VI · dawn, the symbiont</span>
+    The sky is drawn in the <a href="/design-system/#state">dawn range</a>, the
+    morning counterpart to the estate's sunset range, added the same night this page
+    was. What emerges when a community and a machine shape each other in a continuing
+    loop is neither of them alone; remove either and the thing itself ends. This page
+    is one small turn of that loop.
+  </figcaption>
+</figure>
+
+<h2>What this page is not</h2>
+<p>Like its prose sibling, it is not a plan, a policy, or an adoption. No board has
+voted on anything drawn here. The cooperative's real instruments live in its
+<a href="/commons/">commons</a> and change only by the acts recorded there. These
+figures are proof of a different thing: that a scene thinks in pictures before it
+thinks in specifications, and that the pictures are worth keeping.</p>
+
+<footer class="doc">
+  PHILOSORAPTOR SUMMIT No. 1 · THE EVENING · LIVE · recorded August 16, 2026,
+  Boulder, Colorado · figures composed from two audio transcriptions by Nou, the
+  cooperative's collective-intelligence instrument · a snapshot, not an instrument ·
+  prose sibling at <a href="/philosoraptor/1/evening/">/philosoraptor/1/evening/</a> ·
+  RegenHub, LCA
+</footer>
+
+</main>
+</body>
+</html>
