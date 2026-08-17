@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     The Reading Instrument · CUT v0.1 · module specification
+     An instrument that renders the record at human variety: the second
+     transducer, standing where the machine crosses into perception.
+     Drafted by Nou at the steward's direction, August 2026. DRAFTED.
+     Document grammar · Techne v4 token layer
+     aligned to techne.coop/design-system (the live constitution)
+     RegenHub, LCA · Boulder, Colorado
+     ============================================================ -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="TRANSDUCER-A1, an amendment adding the Succession view: the ledger read against its own history, the transition as medium, and dwell as what it makes legible. Drafted. RegenHub, LCA.">
+<title>Amendment One &middot; The Succession View &middot; Techne</title>
+<script src="/assets/topbar.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600&display=swap" rel="stylesheet">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<style>
+
+/* ============================================================
+   Work Standing · STANDING v0.3 · module specification
+   v0.2 re-cut the steward's v0.1 draft of 2026-08-09 into the Ground
+   and Craft register: emissions renumbered 0021 and 0022 (0019 and 0020
+   already held), decisions namespaced STANDING-D1..D5, sources re-read.
+   v0.3, 2026-08-10, answers the steward's challenge to P3: the refusal
+   that no object would ever name a project was the agent's drafting and
+   nobody's decision. P3 now refuses standing at the origin and nothing
+   else, section 4 records the challenge, R1 is re-cut to match, and the
+   object question is staged as STANDING-D6 with no recommendation.
+   The branching maturity model entered into the Common
+   Information System: the venture end constructed, the origin
+   protected, every decision staged for hands
+   Document grammar · Techne v4 token layer
+   aligned to techne.coop/design-system (the live constitution)
+   RegenHub, LCA · Boulder, Colorado · August 2026 · DRAFTED
+   ============================================================ */
+
+:root {
+  --serif:'Libre Baskerville',Georgia,serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872;
+  --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636;
+  --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+}
+[data-tint="gold"]   { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+[data-tint="amber"]  { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+[data-tint="coral"]  { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+[data-tint="rose"]   { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+[data-tint="violet"] { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+[data-tint="blue"]   { --shue:var(--sun-blue);   --shue-t:var(--sun-blue-t); }
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} *{transition:none!important;} }
+body { background:var(--bg); color:var(--text); font-family:var(--serif);
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease); }
+.wrap { max-width:860px; margin:0 auto; padding:var(--s6) var(--s5) var(--s8); }
+
+.topline { display:flex; justify-content:space-between; align-items:center; gap:var(--s3);
+  padding-bottom:var(--s4); border-bottom:1px solid var(--line); margin-bottom:var(--s6); flex-wrap:wrap; }
+.wordmark { font:400 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.06em; }
+.wordmark b { color:var(--heading); font-weight:600; }
+
+h1 { font:400 34px/1.2 var(--serif); color:var(--heading); letter-spacing:-.01em; margin-bottom:var(--s3); }
+.subtitle { font:400 15.5px/1.65 var(--serif); color:var(--muted); max-width:70ch; margin-bottom:var(--s5); }
+
+.chiprow { display:flex; gap:var(--s2); flex-wrap:wrap; margin-bottom:var(--s5); }
+.chip { display:inline-flex; align-items:center; gap:7px; font:500 10.5px/1 var(--mono);
+  letter-spacing:.07em; text-transform:uppercase; padding:6px 10px;
+  border:1px solid var(--line); border-radius:2px; background:var(--surface); color:var(--muted); }
+.chip .dot { width:7px; height:7px; border-radius:50%; background:var(--faint); }
+.chip.filed { color:var(--ok); border-color:var(--ok); } .chip.filed .dot { background:var(--ok); }
+.chip.drafted { color:var(--info); border-color:var(--info); } .chip.drafted .dot { background:var(--info); }
+.chip.open { color:var(--warn); border-color:var(--warn); } .chip.open .dot { background:var(--warn); }
+.chip.anticipated { color:var(--muted); border-style:dashed; } .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+
+.band { display:flex; height:3px; margin-bottom:6px; }
+.band span { flex:1; }
+.band-cap { display:flex; justify-content:space-between; font:400 10px/1.4 var(--mono);
+  color:var(--faint); letter-spacing:.08em; text-transform:uppercase; margin-bottom:var(--s7); }
+
+.sec { margin-bottom:var(--s7); }
+.addr { font:600 11px/1 var(--mono); color:var(--shue-t); letter-spacing:.1em; margin-bottom:var(--s2); }
+.sec h2 { font:400 22px/1.3 var(--serif); color:var(--heading); margin-bottom:var(--s4);
+  padding-bottom:var(--s2); border-bottom:1px solid var(--line); }
+.sec p { font:400 15.5px/1.7 var(--serif); margin-bottom:var(--s4); max-width:72ch; }
+.sec p:last-child { margin-bottom:0; }
+.fn a { font:600 10px/1 var(--mono); color:var(--ember-text); text-decoration:none; }
+.fn a:hover { text-decoration:underline; }
+
+.vfacts { display:grid; grid-template-columns:130px 1fr; gap:6px var(--s4); background:var(--surface);
+  border:1px solid var(--line); border-top:2px solid var(--shue); padding:var(--s4); margin-bottom:var(--s4); }
+.vfacts dt { font:600 10.5px/1.9 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; }
+.vfacts dd { font:400 14.5px/1.6 var(--serif); color:var(--text); }
+.vhead { font:600 12px/1.4 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase;
+  margin:var(--s5) 0 var(--s2); }
+.vhead:first-of-type { margin-top:0; }
+@media (max-width:560px) { .vfacts { grid-template-columns:1fr; gap:2px; } .vfacts dd { margin-bottom:var(--s2); } }
+
+.contract { background:var(--inset); border:1px solid var(--line); padding:var(--s4);
+  margin-bottom:var(--s4); overflow-x:auto; }
+.contract code { font:400 12.5px/1.7 var(--mono); color:var(--heading); white-space:pre; display:block; }
+.contract .cm { color:var(--muted); }
+
+.pk { border:1px solid var(--line); border-left:2px solid var(--shue); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.pk .pkh { font:600 11px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.pk .pkb { font:400 14px/1.6 var(--serif); color:var(--text); margin-bottom:4px; }
+.pk .pkc { font:400 11.5px/1.6 var(--mono); color:var(--muted); }
+
+.dcard { border:1px solid var(--line); border-left:2px solid var(--warn); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.dcard .dh { font:600 11px/1.5 var(--mono); color:var(--warn); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.dcard .db { font:400 14px/1.6 var(--serif); color:var(--text); }
+.dcard .db em { color:var(--heading); }
+
+.inv { border-left:2px solid var(--line); padding-left:var(--s4); margin-bottom:var(--s3); max-width:74ch; }
+.inv p { margin-bottom:0; }
+.inv .it { font-style:italic; color:var(--heading); }
+
+.sources { margin-top:var(--s8); padding-top:var(--s5); border-top:1px solid var(--rule); }
+.sources h2 { font:600 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:var(--s4); }
+.sources ol { list-style:none; counter-reset:src; }
+.sources li { counter-increment:src; position:relative; padding-left:26px; margin-bottom:var(--s3);
+  font:400 13.5px/1.6 var(--serif); color:var(--muted); max-width:78ch; }
+.sources li::before { content:counter(src); position:absolute; left:0; top:1px;
+  font:600 11px/1 var(--mono); color:var(--ember-text); }
+
+footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(--line);
+  font:400 11px/1.8 var(--mono); color:var(--faint); letter-spacing:.04em;
+  display:flex; justify-content:space-between; gap:var(--s3); flex-wrap:wrap; }
+
+.modebtn { font:500 10.5px/1 var(--mono); letter-spacing:.07em; text-transform:uppercase;
+  color:var(--muted); background:none; border:1px solid var(--line); border-radius:2px;
+  padding:6px 11px; cursor:pointer; }
+.modebtn:hover { color:var(--heading); border-color:var(--rule); }
+.lane { border:1px solid var(--line); border-left:2px solid var(--shue); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.lane .lh { font:600 11px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em;
+  text-transform:uppercase; margin-bottom:6px; }
+.lane .seq { font:400 12.5px/1.9 var(--mono); color:var(--text); }
+.lane .seq s { color:var(--faint); text-decoration:none; }
+.lane .lc { font:400 11.5px/1.6 var(--mono); color:var(--muted); margin-top:5px; }
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="topline">
+    <div class="wordmark"><b>Techne</b> &middot; RegenHub, LCA &middot; CIS Common Record Series &middot; Amendment</div>
+    <button class="modebtn" id="modebtn" type="button" aria-label="Switch colour mode">mode</button>
+  </div>
+
+  <h1>The Succession View &middot; TRANSDUCER-A1</h1>
+  <p class="subtitle">Amendment One to TRANSDUCER v0.2. The instrument gains a sixth view whose medium is the <em>transition</em>: one piece changing one mark on one date. The ledger stores only the present, but the record beneath it stores every prior state, so the ledger read against its own history yields what no current-state view can hold &mdash; how long each thing has been where it is.</p>
+
+  <div class="chiprow">
+    <span class="chip drafted"><span class="dot"></span>TRANSDUCER-A1 &middot; Drafted by Nou</span>
+    <span class="chip drafted"><span class="dot"></span>Amends v0.2 &sect;6, &sect;9, &sect;11</span>
+    <span class="chip open"><span class="dot"></span>Decisions TRANSDUCER-D7, D8 &middot; Staged</span>
+    <span class="chip anticipated"><span class="dot"></span>&sect;10 untouched &middot; no election narrowed</span>
+  </div>
+
+  <div class="band" aria-hidden="true">
+    <span style="background:var(--sun-gold)"></span><span style="background:var(--sun-amber)"></span><span style="background:var(--sun-coral)"></span><span style="background:var(--sun-rose)"></span><span style="background:var(--sun-violet)"></span><span style="background:var(--sun-blue)"></span>
+  </div>
+  <div class="band-cap"><span>the grammar the agent may build</span><span>the decisions only people may take</span></div>
+</header>
+
+<section class="sec" id="a1" data-tint="gold">
+  <div class="addr">A1 &sect;1</div>
+  <h2>What this amends</h2>
+  <p>TRANSDUCER v0.2 &sect;6 lists five views, each declaring its medium, the dimension it makes legible, and what it is blind to. Four of the five state their blindness to time in almost the same words: a cross-section is one moment; ripeness says nothing of duration; rhythm counts occasions, not durations. Read together those admissions describe a single missing instrument rather than five separate limits.</p>
+  <p>This amendment adds it. It changes &sect;6 by one entry, &sect;9 by one refusal, and &sect;11 by two pieces. It leaves &sect;10 entirely alone: no decision is taken, and none is narrowed. As with the module it amends, nothing here is true of the cooperative until adoption lands as an event.</p>
+</section>
+
+<section class="sec" id="a2" data-tint="amber">
+  <div class="addr">A1 &sect;2</div>
+  <h2>The medium, and where it was found</h2>
+  <p>The medium is the <em>transition</em>: one piece changing one mark on one date. It is the first medium in the series that the estate does not store. The ledger holds current marks and is edited in place; when a piece ripens, the old mark is overwritten and the fact of the change is not written anywhere.</p>
+  <p>It survives regardless, because the ledger sits inside a record that does not forget. <code>rdm-ledger.yaml</code> carries 128 revisions between 2026-07-10 and 2026-08-17, and reading each revision against the one before it recovers <strong>109 transitions</strong> across 128 pieces. Nothing was instrumented to make this possible; it falls out of the conservation law operating one level down.<sup class="fn"><a href="#s2">2</a></sup></p>
+  <p>That is worth stating plainly because it is the strongest evidence the estate has for its own first principle. An append-only substrate beneath a mutable document means the document&rsquo;s history is recoverable without anyone having planned to recover it. The instrument here does not add memory; it reads memory that was already being kept.</p>
+</section>
+
+<section class="sec" id="a3" data-tint="amber">
+  <div class="addr">A1 &sect;3</div>
+  <h2>The extraction discipline</h2>
+  <p>This section exists because the first construction of the view was wrong, and its wrongness is instructive enough to specify against.</p>
+  <p>A ledger revision is a file state, not an event, so several changes to one piece can land on one day. The obvious tidying is to collapse a day to its final state. Doing so reduced the recovered transitions from 109 to 68 and, in the process, deleted the three most interesting facts in the record: on 2026-07-24 both F-01 and X-02 moved from verified back to in-session and forward again; on 2026-07-17 X-01 stepped from in-review back to anticipated. Read the full history of F-01 and it says: anticipated, in-session, verified, in-session, verified &mdash; a verification withdrawn and re-given inside a single day, which is a person changing their mind on the record.</p>
+  <div class="inv"><p><span class="it">The rule.</span> The derivation preserves every distinct state a piece is observed to hold, including several on one date, in the order observed. It never collapses a day, never orders by mark, and never presents a smoothed path. An instrument that renders the conservation law must not violate it while rendering.<sup class="fn"><a href="#s2">2</a></sup></p></div>
+  <p>The three backward steps are corrections. Under the law that a wrong entry is answered rather than erased, a correction is not an embarrassment to be tidied but the mechanism working. They appear in the view as colour stepping back, and are listed by address and date in the panel beside it.</p>
+</section>
+
+<section class="sec" id="a4" data-tint="coral">
+  <div class="addr">A1 &sect;4</div>
+  <h2>What it makes legible: dwell</h2>
+  <p>Dwell is how long a piece has held its present mark, and it is invisible everywhere else in the instrument. Maturation shows a piece as delivered whether that happened yesterday or five weeks ago, and those are different facts about the same organisation.</p>
+  <p>At the reading, the estate&rsquo;s dwell reads in two layers. Above: ripening is quick where it happens at all, with 35 pieces reaching verified at a median of about two days from first appearance and none longer than a fortnight. Below: <strong>14 pieces have held their first mark since the ledger&rsquo;s first day</strong>, an unbroken band running the full width beneath the churn, and it is composed almost entirely of drafted governing documents and anticipated proofs.</p>
+  <p>The reading that follows is one the amendment states rather than leaves to inference, because it is the same finding the other views reach separately and cannot prove: what moves quickly is what an instrument can do, and what has not moved at all is what waits on a person adopting, attesting, or deciding. The flat layer is not a backlog. It is the boundary between capability and authority, drawn in time.</p>
+</section>
+
+<section class="sec" id="a5" data-tint="coral">
+  <div class="addr">A1 &sect;5</div>
+  <h2>The grain of the record</h2>
+  <p>The view&rsquo;s resolution is the ledger&rsquo;s commit rhythm, not the working day. A mark that flipped twice between two ledger commits is invisible even here, and a piece that ripened on a Tuesday but was written down on a Friday reads as Friday. The record of the record has its own grain, and no reading can be finer than the thing it reads.</p>
+  <p>Two consequences are specified rather than left to be discovered. Dwell figures are floors, not measurements: a piece shown as sitting nine days has sat at least nine days. And the view is honest about its own instrument on the surface, naming the revision count it read, so a viewer can judge the grain for themselves.</p>
+  <p>The durable remedy is not a better parser. It is for the ledger to emit a transition as an event when a mark changes, which would make the medium first-class rather than recovered, and which is a change to the record rather than to this instrument. That is TRANSDUCER-D8.</p>
+</section>
+
+<section class="sec" id="a6" data-tint="rose">
+  <div class="addr">A1 &sect;6</div>
+  <h2>The colour law this view depends on</h2>
+  <p>Since v0.2 the instrument&rsquo;s palette has been put under one law: the sunset ramp signifies marks along the maturation ladder and signifies nothing else, and everything that is not a mark &mdash; file kinds, the two piles, view identity, categorical bars &mdash; draws from a separate materials palette in earth and cool tones. The law was adopted to end a state in which one ramp carried five unrelated meanings across the views.</p>
+  <p>Succession is the reason the law had to hold before this view could exist. It is composed almost entirely of marks over time, and it introduces no colour of its own: the ladder&rsquo;s five hues, ember for drafted, coral for a piece waiting on a named condition. The key strip already standing under the lens rail explains this view without a single addition. A view that needed its own legend would have been evidence the law was not real.</p>
+</section>
+
+<section class="sec" id="a7" data-tint="violet">
+  <div class="addr">A1 &sect;7</div>
+  <h2>Amendment to &sect;6 &middot; the entry</h2>
+  <div class="pk" data-tint="rose"><div class="pkh">05 &middot; Succession &middot; the transition</div><div class="pkb">Every piece drawn as a stripe through time, grouped by bed, coloured by the mark it held on each day, from the ledger&rsquo;s first revision to the reading. Long unbroken bands are dwell; colour stepping rightward is ripening; colour stepping back is a correction, kept visible beside what it corrected. Selecting a stripe gives that piece&rsquo;s full dated history with days counted at each mark.</div><div class="pkc">blind to &middot; anything finer than the ledger&rsquo;s own commit rhythm; and to why a piece waits, which is the ledger&rsquo;s business, not this view&rsquo;s</div></div>
+  <p>With this entry &sect;6 reads six views: one with no medium, and five looking through the file, the record, the passage, the commit, and the transition.</p>
+</section>
+
+<section class="sec" id="a8" data-tint="violet">
+  <div class="addr">A1 &sect;8</div>
+  <h2>Amendment to &sect;9 &middot; one refusal added</h2>
+  <div class="inv"><p><span class="it">R7 &middot; No dwell as deadline.</span> Time in a mark is shown as elapsed days and never as an ageing alarm, a service level, a target, or a colour that turns from acceptable to overdue. There is no threshold at which a piece becomes late, because there is no promise it was late against. This refusal is stricter than R5 and needs to be, since duration is the most readily weaponised figure the instrument produces: a board that learns to read a long band as failure will produce adoptions made to clear the band rather than because the thing is ready.<sup class="fn"><a href="#s5">5</a></sup> The flat layer of &sect;4 is the record of a cooperative refusing to rush its own governance, and the view says so in its own panel.</p></div>
+</section>
+
+<section class="sec" id="a9" data-tint="blue">
+  <div class="addr">A1 &sect;9</div>
+  <h2>Amendment to &sect;11 &middot; two pieces</h2>
+  <p>No emissions, as with the module. Both pieces are repository work.</p>
+  <div class="pk"><div class="pkh">T-09 &middot; the succession derivation</div><div class="pkb">The generator walks every revision of the ledger, recovers each piece&rsquo;s observed states in order under the discipline of &sect;3, and writes them into the data file. Acceptance: the recovered history of three pieces chosen by a person, including one carrying a backward step, matches a hand trace through the record; and the derivation preserves same-day sequences rather than collapsing them, demonstrated against F-01.</div><div class="pkc">condition &middot; T-02 verified</div></div>
+  <div class="pk"><div class="pkh">T-10 &middot; the seam</div><div class="pkb">The view of &sect;7 inside the shell, marks per the colour law of &sect;6, the revision count named on the surface per &sect;5. Acceptance: a reader can find the flat layer without being told it is there, and can say from the panel alone what the backward steps were.</div><div class="pkc">condition &middot; T-09 verified &middot; T-04 verified</div></div>
+  <p>The proof G-I named a passage&rsquo;s stop as the hardest figure on the surface to trace by hand. A dwell figure crossing 128 ledger revisions is harder, and G-I is amended to take the harder one once T-09 is verified.</p>
+</section>
+
+<section class="sec" id="a10" data-tint="blue">
+  <div class="addr">A1 &sect;10</div>
+  <h2>Decisions staged, none taken</h2>
+  <div class="dcard"><div class="dh">TRANSDUCER-D7 &middot; whether dwell stands publicly &middot; the board</div><div class="db">A public seam is a dated, machine-maintained statement of how long the cooperative has taken over each of its own decisions. It is either an unusually honest thing to publish or an invitation to read governance pace as neglect, and the difference lies mostly in whether a reader arrives with R7&rsquo;s framing or their own. The election is narrower than TRANSDUCER-D2 and separate from it: the instrument could stand publicly with this one view held back.</div></div>
+  <div class="dcard"><div class="dh">TRANSDUCER-D8 &middot; whether the ledger emits transitions &middot; the steward, routed to the board as a record change</div><div class="db">Whether a mark change writes an event, making the transition a first-class object rather than one recovered by diffing. It would end the grain problem of &sect;5 and make the medium honest, at the cost of a change to the ledger&rsquo;s own shape and discipline. The amendment observes that the recovered form works today and takes no position: the record&rsquo;s shape is the record&rsquo;s business.</div></div>
+</section>
+
+<div class="sources" id="sources">
+  <h2>Sources</h2>
+  <ol>
+    <li id="s1">TRANSDUCER v0.2, the module this amends: &sect;6 and its five entries with their declared blindness, &sect;9 and its refusals R1&ndash;R6, &sect;11 and pieces T-01 through T-08 with the proof G-I, and &sect;10, whose six decisions this amendment leaves untouched.</li>
+    <li id="s2">The Lexicon at techne.coop/commons/build/lexicon/, v2: the append-only law that the record admits new entries and refuses changes to old ones; the correction as a new entry pointing back at what it corrected, so both stay visible; and the tally as a reading computed over the record rather than stored.</li>
+    <li id="s3">rdm-ledger.yaml and its history in the repository, read 2026-08-17: 128 revisions between 2026-07-10 and 2026-08-17; 109 transitions recovered across 128 pieces; 35 pieces reaching verified at a median near two days; 14 pieces holding their first mark since the ledger&rsquo;s first day; and the three backward steps X-01 on 2026-07-17, X-02 and F-01 on 2026-07-24, the last two within a single day in each case.</li>
+    <li id="s4">The Almanac at techne.coop/commons/build: the mark grammar the ladder renders, the module intake route, and the reconciliation history in which drift between a surface and its ledger was corrected on the record rather than quietly.</li>
+    <li id="s5">The Commonplace Book at techne.coop/commonplace, Movement II: Goodhart&rsquo;s constraint entered as a design principle rather than a caution, and qualification over quantification. The familiar phrasing that a measure ceases to be a good measure once it becomes a target is Strathern (1997); the underlying observation is Goodhart (1975).</li>
+  </ol>
+</div>
+
+<footer>
+  <span>Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street, Boulder</span>
+  <span>Document grammar &middot; Techne v4 &middot; TRANSDUCER-A1 &middot; Drafted &middot; August 2026</span>
+<div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+</div>
+
+<script>
+  document.getElementById('modebtn').addEventListener('click',function(){
+    var h=document.documentElement, n=h.getAttribute('data-mode')==='dark'?'light':'dark';
+    h.setAttribute('data-mode',n);
+    try{localStorage.setItem('techne-mode',n);}catch(e){}
+  });
+</script>
+
+</body>
+</html>
