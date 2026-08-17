@@ -144,10 +144,10 @@
 
 drop policy if exists events_scoped_insert on events;
 
--- Section 7: member-actionable kinds only, and for the two
+-- AM v0.1 §7: member-actionable kinds only, and for the two
 -- families a member acts on from the client, the actor is a
--- member. Every other write path is a definer function or an
--- overseer act.
+-- member (Bylaws v2.1 §2.1). Every other write path is a
+-- definer function or an overseer act. Art. XV untouched.
 create policy events_scoped_insert on events
   for insert with check (
     (actor_agent_id = app_agent_id()
