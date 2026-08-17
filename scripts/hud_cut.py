@@ -1,27 +1,27 @@
 #!/usr/bin/env python3
 """
-hud_cut.py · the transducer's cut · TRANSDUCER v0.2 §5 (drafted, not adopted)
+hud_cut.py · the transducer's cut · TRANSDUCER v0.2 section 5 (drafted, not adopted)
 
-Reads the repository alone and writes one data file, intranet/hud/cut.json.
-The page at /intranet/hud/ renders that file and nothing else. The cut
-carries the commit it was taken at, so every view can show its date.
+Reads the repository alone and rewrites the snapshot block embedded in
+intranet/hud/index.html, so the instrument renders a dated cut of the
+real record rather than a hand-taken copy. The page renders that block
+and nothing else; the cut carries the commit it was taken at.
 
-The walkaway contract (TRANSDUCER §5): the cut is computable from the
-public repository alone, on fresh infrastructure, with no key. Run twice
-against the same commit, the file is byte-identical (keys sorted, no
-timestamps other than the commit's own).
+The walkaway contract (TRANSDUCER section 5): the cut is computable from
+the public repository alone, on fresh infrastructure, with no key. Run
+twice at the same commit, the embedded block is byte-identical (keys
+sorted, no clock consulted; the only dates are the commits' own).
 
-Refusals honoured here, not only on the surface (TRANSDUCER §9):
-  R2  no per-author figures are computed, ever; author names never
-      leave git's output because they are never asked for.
+Refusals honoured here, not only on the surface (TRANSDUCER section 9):
+  R2  no per-author figure is computed, ever; author names never leave
+      git's output because they are never asked for.
   R5  no percentages, no scores; counts and named states only.
   R6  the two-pile taxonomy of the tending view is a frame, not a
-      reading; it is carried under "frame" keys so the surface can
-      attribute it as the instrument's drafting.
+      reading; the surface attributes it as the instrument's drafting.
 
 This script is a drafted artifact of an unadopted module. Its CI wiring
-(T-03) and its ledger graft wait on adoption; running it by hand and
-committing the cut alongside a change is the interim practice.
+(T-03 of the module) and its ledger graft wait on adoption; running it
+by hand and committing the refreshed page is the interim practice.
 """
 
 import json
@@ -29,21 +29,20 @@ import re
 import subprocess
 import sys
 from collections import defaultdict
+from datetime import date
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-OUT = REPO / "intranet" / "hud" / "cut.json"
+PAGE = REPO / "intranet" / "hud" / "index.html"
 
-# The two piles of the tending view. A frame, not a reading: TRANSDUCER-D4
+# The two piles of the tending lens. A frame, not a reading: TRANSDUCER-D4
 # elects whether it survives. Tending = work on the workshop itself;
-# growing = work on what lives in it. Classification is by path prefix.
-TENDING_PREFIXES = (
-    "scripts/", ".github/", "assets/", "supabase/",
-)
+# growing = work on what lives in it. Classification is by path.
+TENDING_PREFIXES = ("scripts/", ".github/", "assets/", "supabase/")
 TENDING_FILES = {
     "AGENTS.md", "README.md", "RUN.md", "CONTRIBUTORS.md",
     "STATUS.md", "index.json", "rdm-ledger.yaml", "CNAME",
-    "favicon.png", "favicon.svg",
+    "favicon.png", "favicon.svg", ".gitignore",
 }
 
 
@@ -54,228 +53,263 @@ def git(*args):
     ).stdout
 
 
-def head_stamp():
-    line = git("log", "-1", "--pretty=%H%x00%cI%x00%s").strip()
-    full, date, subject = line.split("\x00")
-    count = int(git("rev-list", "--count", "HEAD").strip())
-    return {
-        "commit": full[:12],
-        "date": date,
-        "subject": subject,
-        "commit_count": count,
-    }
-
-
-def composition():
-    """Every tracked file: bytes and revision count. Blind to whether
-    any of it is finished, or good."""
-    sizes = {}
+def tracked_files():
+    files = []
     for line in git("ls-tree", "-r", "-l", "HEAD").splitlines():
-        # <mode> <type> <hash> <size>\t<path>
         meta, path = line.split("\t", 1)
         parts = meta.split()
         if parts[1] != "blob":
             continue
-        sizes[path] = int(parts[3])
+        files.append({"path": path, "size": int(parts[3])})
+    files.sort(key=lambda f: (-f["size"], f["path"]))
+    return files
 
-    revisions = defaultdict(int)
-    current = None
-    for line in git("log", "--name-only", "--pretty=format:%x01").splitlines():
-        if line == "\x01" or line == "":
+
+def history():
+    """Commit history without authors: dates, merge-ness, files touched.
+    R2: %an is never in the format string."""
+    out = git("log", "--name-only", "--date-order",
+              "--pretty=format:%x01%H%x00%cI%x00%P")
+    commits = []
+    for entry in out.split("\x01"):
+        lines = entry.splitlines()
+        if not lines or not lines[0].strip():
             continue
-        revisions[line] += 1
-
-    by_dir = defaultdict(lambda: {"files": 0, "bytes": 0, "revisions": 0})
-    for path, size in sizes.items():
-        top = path.split("/", 1)[0] if "/" in path else "(root)"
-        d = by_dir[top]
-        d["files"] += 1
-        d["bytes"] += size
-        d["revisions"] += revisions.get(path, 0)
-
-    most_revised = sorted(
-        ((revisions.get(p, 0), p) for p in sizes),
-        reverse=True,
-    )[:12]
-    heaviest = sorted(((s, p) for p, s in sizes.items()), reverse=True)[:12]
-
-    return {
-        "tracked_files": len(sizes),
-        "tracked_bytes": sum(sizes.values()),
-        "directories": {
-            k: by_dir[k] for k in sorted(by_dir)
-        },
-        "most_revised": [
-            {"path": p, "revisions": n} for n, p in most_revised
-        ],
-        "heaviest": [
-            {"path": p, "bytes": s} for s, p in heaviest
-        ],
-    }
+        head = lines[0].split("\x00")
+        files = [l for l in lines[1:] if l.strip()]
+        commits.append({
+            "date": head[1][:10],
+            "merge": len(head[2].split()) > 1,
+            "files": files,
+        })
+    return commits
 
 
-def maturation():
-    """The ledger read in its own mark grammar. Blind to effort,
-    difficulty, and duration. The ledger is the source and this view
-    yields to it entirely (JC-1)."""
+def ledger_entries():
+    """The ledger read per section, in its own mark grammar (JC-1)."""
     text = (REPO / "rdm-ledger.yaml").read_text()
     entries = []
-    blocks = re.split(r"\n\s+- address: ", text)[1:]
-    for block in blocks:
-        addr = block.split("\n", 1)[0].strip()
-        t = re.search(r"^\s+title: (.+)$", block, re.M)
-        s = re.search(r"^\s+status: (.+)$", block, re.M)
-        if not (t and s):
-            continue
-        title, status = t.group(1).strip(), s.group(1).strip()
+    bed = None
+    for chunk in re.split(r"\n(?=\S|  - address: )", text):
+        pass  # placeholder to keep structure simple below
+    lines = text.splitlines()
+    block = []
+    def flush():
+        if not block:
+            return
+        b = "\n".join(block)
+        a = re.match(r"\s*- address: (\S+)", b)
+        t = re.search(r"^\s+title: (.+)$", b, re.M)
+        s = re.search(r"^\s+status: (.+)$", b, re.M)
+        if not (a and t and s):
+            return
+        intent = ""
+        mi = re.search(r"^\s+intent: >?\s*\n((?:\s{6,}.+\n?)+)", b, re.M)
+        if mi:
+            intent = " ".join(l.strip() for l in mi.group(1).splitlines())
+        else:
+            mi = re.search(r"^\s+intent: (.+)$", b, re.M)
+            if mi:
+                intent = mi.group(1).strip()
+        ready = ""
+        mr = re.search(r"^\s+ready_when: >?\s*\n((?:\s{6,}.+\n?)+)", b, re.M)
+        if mr:
+            ready = " ".join(l.strip() for l in mr.group(1).splitlines())
+        else:
+            mr = re.search(r"^\s+ready_when: (.+)$", b, re.M)
+            if mr:
+                ready = mr.group(1).strip()
+        cites = 0
+        mc = re.search(r"^\s+cites: \[(.*?)\]", b, re.M)
+        if mc and mc.group(1).strip():
+            cites = len([c for c in mc.group(1).split(",") if c.strip()])
+        status = s.group(1).strip()
         if status.startswith("open"):
             mark = status.split("·", 1)[1].strip() if "·" in status else "open"
-            state = "open"
         else:
-            state, mark = status, None
-        entries.append({"address": addr, "title": title,
-                        "state": state, "mark": mark})
-
-    beds = defaultdict(lambda: defaultdict(int))
-    for e in entries:
-        prefix = e["address"].split("-", 1)[0]
-        label = e["mark"] if e["mark"] else e["state"]
-        beds[prefix][label] += 1
-
-    totals = defaultdict(int)
-    for e in entries:
-        totals[e["mark"] if e["mark"] else e["state"]] += 1
-
-    return {
-        "pieces": len(entries),
-        "totals": dict(sorted(totals.items())),
-        "beds": {k: dict(sorted(v.items())) for k, v in sorted(beds.items())},
-        "entries": entries,
-    }
+            mark = status
+        entries.append({
+            "id": a.group(1), "title": t.group(1).strip(),
+            "status": status, "mark": mark, "bed": bed or "unfiled",
+            "intent": intent[:260], "cites": cites, "ready": ready[:160],
+        })
+    for line in lines:
+        m = re.match(r"^(\w[\w-]*):\s*$", line)
+        if m:
+            flush(); block.clear()
+            bed = m.group(1)
+            continue
+        if re.match(r"^  - address: ", line):
+            flush(); block.clear()
+        block.append(line)
+    flush()
+    return entries
 
 
 def journeys():
-    """Each arrival class walking its first sitting, read from the
-    participation stories page. Half this derivation is a promise: it
-    parses an authored page until the journeys register (JOURNEYS J-01)
-    exists (JC-2). Blind to any individual; personas are arrival
-    classes, never members."""
+    """The passage lens, read from the participation stories page until
+    the journeys register (JOURNEYS J-01) exists (JC-2 of the module).
+    Personas are arrival classes, never members."""
     page = REPO / "commons" / "prd" / "stories" / "index.html"
+    steps, personas = {}, []
     if not page.exists():
-        return {"source": None, "classes": []}
+        return {"steps": steps, "personas": personas, "reading": "missing"}
     html = page.read_text()
 
-    classes = []
-    sections = re.split(r'<section class="sec"', html)[1:]
-    for sec in sections:
+    def strip(t):
+        t = re.sub(r"<[^>]+>", " ", t)
+        t = t.replace("&middot;", "·").replace("&amp;", "&")
+        t = t.replace("&rsquo;", "’").replace("&ldquo;", "“")
+        t = t.replace("&rdquo;", "”").replace("&mdash;", ", ")
+        return re.sub(r"\s+", " ", t).strip()
+
+    for sec in re.split(r'<section class="sec"', html)[1:]:
         h2 = re.search(r"<h2>(.*?)</h2>", sec, re.S)
         if not h2:
             continue
-        name = re.sub(r"<[^>]+>", "", h2.group(1))
-        name = re.sub(r"\s+", " ", name).replace("&middot;", "·").strip()
-        sids = re.findall(r'<div class="sid">([^<]+)</div>', sec)
-        chips = re.findall(r'<span class="chip ([a-z]+)"', sec)
-        stops = re.findall(
-            r'<p class="stop"><b>([^<]*)</b>\s*(.*?)</p>', sec, re.S)
-        stop_texts = []
-        for lead, body in stops:
-            t = re.sub(r"<[^>]+>", "", lead + " " + body)
-            t = re.sub(r"\s+", " ", t).strip()
-            stop_texts.append(t[:280] + ("…" if len(t) > 280 else ""))
-        chip_counts = defaultdict(int)
-        for c in chips:
-            chip_counts[c] += 1
-        classes.append({
-            "name": name,
-            "stories": len(sids),
-            "standing": dict(sorted(chip_counts.items())),
-            "stops": stop_texts,
-        })
-
+        sec_name = strip(h2.group(1))
+        for block in re.split(r'<div class="story">', sec)[1:]:
+            sid_m = re.match(r'<div class="sid">([^<]+)</div>', block)
+            sent_m = re.search(r'<div class="sent">(.*?)</div>', block, re.S)
+            prove_m = re.search(r'<b>Proven when</b>(.*?)</div>', block, re.S)
+            chip_m = re.search(
+                r'<span class="chip ([a-z]+)"><span class="dot"></span>(.*?)</span>',
+                block, re.S)
+            surf_m = re.search(r'<span class="surf">(.*?)</span>', block, re.S)
+            if not (sid_m and sent_m and chip_m):
+                continue
+            sid = sid_m.group(1).strip()
+            chip_text = strip(chip_m.group(2))
+            note = chip_text.split("·", 1)[1].strip() if "·" in chip_text else ""
+            steps[sid] = {
+                "id": sid, "sentence": strip(sent_m.group(1)),
+                "proven": strip(prove_m.group(1)) if prove_m else "",
+                "state": chip_m.group(1), "note": note,
+                "surface": strip(surf_m.group(1)) if surf_m else "",
+                "sec": sec_name,
+            }
+        day = re.search(r'<div class="dayone">(.*?)</div>\s*(?:<div class="story">|</section>)', sec, re.S)
+        if day:
+            block = day.group(1)
+            paras = re.findall(r'<p(?: class="(stop)")?>(.*?)</p>', block, re.S)
+            narrative_parts, stop_parts = [], []
+            order = []
+            for cls, body in paras:
+                txt = strip(body)
+                if cls == "stop":
+                    stop_parts.append(txt)
+                else:
+                    narrative_parts.append(txt)
+                for group in re.findall(r"\(([^)]*[A-Z]-\d+[^)]*)\)", body):
+                    for ref in re.findall(r"[A-Z]-\d+", group):
+                        if ref not in order:
+                            order.append(ref)
+            personas.append({
+                "sec": sec_name,
+                "passage": order,
+                "narrative": " ".join(narrative_parts)[:900],
+                "stopnote": " ".join(stop_parts)[:500],
+            })
+    for p in personas:
+        p["passage"] = [r for r in p["passage"] if r in steps]
     return {
-        "source": "commons/prd/stories/index.html",
-        "derivation": "parsed from an authored page; the journeys "
-                      "register this view should read is JOURNEYS J-01, "
-                      "not yet landed",
-        "classes": classes,
+        "steps": steps, "personas": personas,
+        "reading": "commons/prd/stories/ parsed at this cut; the journeys "
+                   "register (JOURNEYS J-01) is the source this lens waits on",
     }
 
 
-def tending():
-    """The rhythm of the work: commits per week, and the two piles.
-    Blind to who did how much, deliberately and permanently (R2):
-    no author is ever read."""
-    weeks = defaultdict(lambda: {"commits": 0, "tending": 0, "growing": 0})
-    entries = git("log", "--name-only", "--pretty=format:%x01%cI").split("\x01")
-    for entry in entries:
-        lines = [l for l in entry.splitlines() if l.strip()]
-        if not lines:
-            continue
-        date = lines[0].strip()
-        files = lines[1:]
-        # ISO week key from the committer date, no clock consulted
-        year, month, day = date[:10].split("-")
-        import datetime
-        wk = datetime.date(int(year), int(month), int(day)).isocalendar()
-        key = f"{wk[0]}-W{wk[1]:02d}"
-        w = weeks[key]
-        w["commits"] += 1
-        is_tending = bool(files) and all(
-            f in TENDING_FILES or f.startswith(TENDING_PREFIXES)
-            for f in files
-        )
-        w["tending" if is_tending else "growing"] += 1
+def stats(files, commits, entries):
+    total_bytes = sum(f["size"] for f in files)
+    ext_count, ext_bytes = defaultdict(int), defaultdict(int)
+    for f in files:
+        name = f["path"].rsplit("/", 1)[-1]
+        ext = name.rsplit(".", 1)[-1] if "." in name else "(none)"
+        ext_count[ext] += 1
+        ext_bytes[ext] += f["size"]
+
+    churn, dir_churn, dow, daily = (defaultdict(int) for _ in range(4))
+    piles_total = {"tend": 0, "grow": 0}
+    piles_dow = defaultdict(lambda: {"tend": 0, "grow": 0})
+    for c in commits:
+        d = date(*map(int, c["date"].split("-")))
+        day_name = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][d.weekday()]
+        dow[day_name] += 1
+        daily[c["date"]] += 1
+        for f in c["files"]:
+            churn[f] += 1
+            top = f.split("/", 1)[0] if "/" in f else "(root)"
+            dir_churn[top] += 1
+            pile = ("tend" if f in TENDING_FILES
+                    or f.startswith(TENDING_PREFIXES) else "grow")
+            piles_total[pile] += 1
+            piles_dow[day_name][pile] += 1
+
+    tracked = {f["path"] for f in files}
+    beds = defaultdict(int)
+    for e in entries:
+        beds[e["bed"]] += 1
+    grounds = sorted({f["path"].split("/", 1)[0]
+                      for f in files if "/" in f["path"]} | {"(root)"})
+
+    dates = sorted(daily)
+    last = dates[-1] if dates else ""
+    last_d = date(*map(int, last.split("-"))) if last else None
+    last7 = sum(n for dstr, n in daily.items()
+                if last_d and (last_d - date(*map(int, dstr.split("-")))).days < 7)
 
     return {
-        "frame": "the two piles, tending the place itself and growing "
-                 "what lives in it, are the instrument's taxonomy, "
-                 "drafted not adopted (TRANSDUCER-D4)",
-        "weeks": {k: weeks[k] for k in sorted(weeks)},
-    }
-
-
-def standing(comp, mat):
-    """The whole cut across as concentric rings. The only view in which
-    the dimensions can contradict one another in a single figure. Blind
-    to change over time; a cross-section is one moment."""
-    gates = [e for e in mat["entries"]
-             if e["address"].startswith("G-") or e["address"] == "G0"]
-    pages = len(git("ls-files", "*.html").split())
-    return {
-        "rings": {
-            "history_commits": None,  # filled from the stamp by main()
-            "documents": sum(1 for e in mat["entries"]
-                             if e["state"] == "drafted"),
-            "pieces": mat["pieces"],
-            "proofs": {
-                "named": len(gates),
-                "attested": sum(1 for e in gates if e["mark"] == "attested"),
-            },
-            "published_pages": pages,
+        "totalBytes": total_bytes,
+        "fileCount": len(files),
+        "ext": sorted(ext_count.items(), key=lambda x: (-x[1], x[0])),
+        "extBytes": dict(ext_bytes),
+        "churn": sorted(((f, n) for f, n in churn.items() if f in tracked),
+                        key=lambda x: (-x[1], x[0]))[:20],
+        "dirChurn": sorted(dir_churn.items(), key=lambda x: (-x[1], x[0])),
+        "dow": dict(dow),
+        "daily": dict(daily),
+        "beds": sorted(beds.items(), key=lambda x: (-x[1], x[0])),
+        "commits": len(commits),
+        "merges": sum(1 for c in commits if c["merge"]),
+        "first": dates[0] if dates else "",
+        "last": last,
+        "last7": last7,
+        "ledgerRevisions": churn.get("rdm-ledger.yaml", 0),
+        "piles": {
+            "total": piles_total,
+            "dow": {k: piles_dow[k] for k in sorted(piles_dow)},
+            "week_ground": grounds,
         },
     }
 
 
 def main():
-    stamp = head_stamp()
-    comp = composition()
-    mat = maturation()
-    st = standing(comp, mat)
-    st["rings"]["history_commits"] = stamp["commit_count"]
-    cut = {
-        "instrument": "the transducer",
-        "module": "TRANSDUCER v0.2 (drafted, not adopted)",
-        "stamp": stamp,
-        "standing": st,
-        "composition": comp,
-        "maturation": mat,
+    head = git("log", "-1", "--pretty=%H%x00%cI").strip().split("\x00")
+    files = tracked_files()
+    commits = history()
+    entries = ledger_entries()
+    snap = {
+        "generated": f"{head[1][:10]} at {head[0][:12]}",
+        "repo": "Techne-Co-op/techne.coop",
+        "branch": "main",
+        "files": files,
+        "ledger": entries,
         "journeys": journeys(),
-        "tending": tending(),
+        "stats": stats(files, commits, entries),
     }
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(cut, indent=1, sort_keys=True,
-                              ensure_ascii=True) + "\n")
-    print(f"cut taken at {stamp['commit']} ({stamp['date']}) -> {OUT.relative_to(REPO)}")
+    payload = json.dumps(snap, sort_keys=True, ensure_ascii=True,
+                         separators=(",", ": "))
+    page = PAGE.read_text()
+    new = re.sub(
+        r'(<script id="snapshot" type="application/json">).*?(</script>)',
+        lambda m: m.group(1) + payload + m.group(2),
+        page, count=1, flags=re.S,
+    )
+    if new == page:
+        print("snapshot block unchanged (same cut)")
+    PAGE.write_text(new)
+    print(f"cut taken at {head[0][:12]} ({head[1]}): "
+          f"{len(files)} files, {len(entries)} pieces, {len(commits)} commits")
 
 
 if __name__ == "__main__":
