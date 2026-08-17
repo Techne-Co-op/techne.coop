@@ -3355,9 +3355,9 @@ guild:
       stages the question as STANDING-D6. H-1 and H-8 were re-cut
       to follow the module rather than lead it.
 
-      Two findings this piece reported against the Authority Map
-      were carried unfixed until 2026-08-17, when both were written
-      onto the map itself at AM v0.1 section 10 with a draft answer
+      Findings this piece reported against the Authority Map were
+      carried unfixed until 2026-08-17, when they were written onto
+      the map itself at AM v0.1 section 10 with a draft answer
       each. First: gatherings_host_write omits app_is_member() from
       its WITH CHECK, so a bound agent with no active membership can
       insert a gathering naming themselves host, against the dash in
@@ -3368,9 +3368,41 @@ guild:
       probe matrix had no persona for an authenticated agent bound
       to no membership, arrival class A-5, so its refusal was
       asserted nowhere. Drafted as a second register, DRAFT_P, in
-      scripts/rls_probe.py behind --drafts, outside CI. Both drafts
-      await the steward, and adoption of the first is his hand on
-      the live database in the 0003 pattern. Nothing is fixed.
+      scripts/rls_probe.py behind --drafts, outside CI.
+
+      Third, the width 0023 named and declined to fix:
+      events_scoped_insert admits any bound agent as actor for the
+      signature, registration, opportunity, and gathering kind
+      families without a membership test, so the applicant refused a
+      gathering row could still write a gathering.scheduled event
+      about a row they never made. Confirmed live in pg_policies the
+      same day, verbatim against what 0002 emits. Before drafting,
+      every writer of an events row was read: all but three are
+      definer functions or definer triggers, which do not consult the
+      policy at all, and pg_proc and pg_class read live confirm they
+      are definers owned by the table owner on a table that does not
+      force row security. The three client call sites write only
+      gathering.* and opportunity.* kinds, and in each the actor must
+      already be a member to have written the row the event concerns,
+      so the narrowing costs no working path. Drafted, not applied,
+      as commons/authority-map/0024_events_scoped_insert_narrowed.sql
+      with seven matching DRAFT_P cells.
+
+      The first and third findings now carry an approved direction.
+      The steward, Todd Youngblood, gave it in Buzz #intranet-dev on
+      2026-08-17 at 19:00:50 UTC, event
+      5964c4ce86f71bac1714f55cc7683f90359a0aed86475181b2b368ce4243334e:
+      narrow events_scoped_insert per kind, and hold the guest
+      posture at read-only. A guest may see some privacy-aware
+      records and may navigate the intranet; a guest performs no
+      CRUD; public events are held on Luma, not in this record. The
+      same message delegated the proceed call, and Nou exercised that
+      delegated call the same day in the same thread. That pair, the
+      delegation and the exercised call, is the authority the drafts
+      cite; there was no board vote and none is claimed. Application
+      to the live database remains Nou's act in the 0003 pattern, and
+      until it happens nothing is fixed. The A-5 persona finding
+      carries no direction yet and stays plainly open.
 
   - address: P-09
     title: The two tracks told apart
