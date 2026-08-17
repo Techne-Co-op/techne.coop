@@ -706,6 +706,45 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     </div>
   </section>
 
+  <!-- §8  --  Orchestrated builds -->
+  <section class="sec" id="s8">
+    <div class="addr">&sect;8</div>
+    <h2>Orchestrated builds</h2>
+    <p class="lead">Added August 2026, at the steward's direction. Some remaining work advances as batches: Nou, the runtime instrument, coordinates fleets of session-scoped build agents and delivers each batch as one pull request. Everything above still binds every agent in the fleet. This section adds only the coordination layer.</p>
+
+    <div class="def">
+      <div class="def-row">
+        <span class="t">Roles unchanged</span>
+        <span class="d">Sub-agents are build agents under &sect;1: capabilities, not authority. Nou orchestrates and reviews but adopts nothing. Merge by an organizer remains the act of adoption, one pull request per batch.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">The batch</span>
+        <span class="d">A batch is a coherent set of pieces that can be judged together. Its pull request opens with a manifest: the pieces advanced by address, the agents that drafted them, what was verified and how, and any stop cards raised. A batch that mixes unrelated concerns is malformed.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">One reader over the union</span>
+        <span class="d">No fan-out ships unreviewed. After parallel drafting, a single fresh-context reviewer reads the union of the batch before the pull request opens. Parallel agents drift independently; only a reader over the whole set catches it.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Stops escalate, never dissolve</span>
+        <span class="d">A sub-agent's stop card goes to the orchestrator; if the orchestrator cannot resolve it inside cited constraints, it goes to the steward with the batch. Orchestration adds speed, not authority: a fleet of agents stopping at a boundary is still the boundary.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Isolation</span>
+        <span class="d">Each batch builds in its own worktree from a clean main. Generated manifests (index.json, STATUS.md) regenerate only in a pristine tree. The validator is green before any pull request opens.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Models</span>
+        <span class="d">Sub-agents run on the strongest available Claude models, chosen by the orchestrator per task. Model choice is an implementation detail under &sect;2; it never changes what an agent may decide.</span>
+      </div>
+    </div>
+
+    <div class="memo">
+      <div class="k">what stays parked</div>
+      <p>Orchestration completes agent-completable work. Pieces held on a board vote, a steward decision, or a second human attestor are not batch candidates; they stay on the Almanac with their blocker named. A faster fleet does not move a human boundary.</p>
+    </div>
+  </section>
+
 </div><!-- /doc-wrap -->
 
 <footer>
