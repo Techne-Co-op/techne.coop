@@ -391,9 +391,10 @@ proofs:
       A figure shown on the instrument equals the figure traced by
       hand from the repository to its source, walked end to end by
       two people and attested as an event. Chosen against the
-      hardest figure on the surface, a passage's stop, which crosses
-      two registers to reach its answer. Addressed G-I because G-T
-      is held by the treasury proof.
+      hardest figure on the surface: named at the module as a
+      passage's stop, amended by TRANSDUCER-A1 to a dwell figure
+      crossing every ledger revision once TR-09 is verified.
+      Addressed G-I because G-T is held by the treasury proof.
     status: anticipated
     cites: [TRANSDUCER]
     ready_when: TR-04 verified; TR-05 verified.
@@ -3725,7 +3726,10 @@ transducer:
       records the steward's act of 2026-08-17.
     note: >
       v0.2 of the steward's intake, drafted by the agent at his
-      direction; supersedes v0.1 per its §13. The drafted artifact
+      direction; supersedes v0.1 per its §13. Adopted by merge
+      2026-08-17. Amendment A1 (the succession view) is drafted at
+      commons/transducer/a1/, amending §6, §9, and §11: pieces TR-09
+      and TR-10, refusal R7, decisions TRANSDUCER-D7 and D8 staged. The drafted artifact
       preceded the graft: the surface and its generator entered at
       /intranet/hud/ in the piece train merged 2026-08-17, so TR-02,
       TR-04, and TR-08 enter this bed already delivered, their
@@ -3855,6 +3859,43 @@ transducer:
       A person who has never seen the estate can, after the walk
       alone, say what each view shows and what it refuses to show;
       the spoken text stays within three minutes read aloud.
+
+  - address: TR-09
+    title: The succession derivation
+    intent: >
+      The generator walks every revision of the ledger, recovers each
+      piece's observed states in order under the discipline of A1
+      section 3, and writes them into the cut. Every distinct state a
+      piece is observed to hold, including several on one date, in
+      the order observed; no day collapsed, no path smoothed, no
+      ordering by mark.
+    status: open · delivered
+    cites: [TR-02, TRANSDUCER]
+    ready_when: TR-02 verified.
+    deliverable: The succession derivation in scripts/hud_cut.py.
+    acceptance: >
+      The recovered history of three pieces chosen by a person,
+      including one carrying a backward step, matches a hand trace
+      through the record; and the derivation preserves same-day
+      sequences rather than collapsing them, demonstrated against
+      F-01.
+
+  - address: TR-10
+    title: The seam
+    intent: >
+      The succession view inside the shell, marks per the colour law
+      of A1 section 6, the revision count named on the surface per A1
+      section 5. Dwell is elapsed days and never an alarm, per R7:
+      no threshold at which a piece becomes late, because there is no
+      promise it was late against.
+    status: open · delivered
+    cites: [TR-09, TR-04, TRANSDUCER]
+    ready_when: TR-09 verified; TR-04 verified.
+    deliverable: The succession lens of intranet/hud/index.html.
+    acceptance: >
+      A reader can find the flat layer without being told it is
+      there, and can say from the panel alone what the backward
+      steps were.
 
 
 horizon:

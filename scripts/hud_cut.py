@@ -219,6 +219,63 @@ def journeys():
     }
 
 
+def parse_marks(text):
+    """Address -> (status, mark) from one ledger revision, by the same
+    light grammar ledger_entries() reads. Order of appearance kept."""
+    out = []
+    cur_addr = None
+    for line in text.splitlines():
+        m = re.match(r"^  - address: (\S+)", line)
+        if m:
+            cur_addr = m.group(1)
+            continue
+        m = re.match(r"^\s+status: (.+)$", line)
+        if m and cur_addr:
+            status = m.group(1).strip()
+            if status.startswith("open"):
+                mark = status.split("\u00b7", 1)[1].strip() if "\u00b7" in status else "open"
+            else:
+                mark = status
+            out.append((cur_addr, status, mark))
+            cur_addr = None
+    return out
+
+
+def succession():
+    """The transition recovered from the ledger's own history
+    (TRANSDUCER-A1 section 2). The extraction discipline of section 3:
+    every distinct state a piece is observed to hold, in the order
+    observed, including several on one date. Never collapse a day,
+    never order by mark, never smooth. Dates are the commits' own;
+    no clock is consulted."""
+    revs = []
+    out = git("log", "--reverse", "--pretty=%H%x00%cs", "--", "rdm-ledger.yaml")
+    for line in out.splitlines():
+        if line.strip():
+            h, d = line.split("\x00")
+            revs.append((h, d))
+    pieces = {}
+    order = []
+    for h, d in revs:
+        try:
+            text = git("show", f"{h}:rdm-ledger.yaml")
+        except subprocess.CalledProcessError:
+            continue
+        for addr, status, mark in parse_marks(text):
+            if addr not in pieces:
+                pieces[addr] = []
+                order.append(addr)
+            hist = pieces[addr]
+            if not hist or hist[-1]["mark"] != mark or hist[-1]["status"] != status:
+                hist.append({"date": d, "status": status, "mark": mark})
+    return {
+        "revisions": len(revs),
+        "first": revs[0][1] if revs else "",
+        "last": revs[-1][1] if revs else "",
+        "pieces": [{"id": a, "states": pieces[a]} for a in order],
+    }
+
+
 def stats(files, commits, entries):
     total_bytes = sum(f["size"] for f in files)
     ext_count, ext_bytes = defaultdict(int), defaultdict(int)
@@ -295,6 +352,7 @@ def main():
         "files": files,
         "ledger": entries,
         "journeys": journeys(),
+        "succession": succession(),
         "stats": stats(files, commits, entries),
     }
     payload = json.dumps(snap, sort_keys=True, ensure_ascii=True,
