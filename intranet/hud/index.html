@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The transducer: the estate's own record rendered at human variety. Five views over one dated cut of the repository, ledger, and participation stories. Drafted instrument of TRANSDUCER v0.2, not adopted. RegenHub, LCA.">
+<meta name="robots" content="noindex, nofollow">
+<title>The Transducer &middot; Intranet &middot; Techne</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* ============================================================
+   THE TRANSDUCER  --  intranet/hud
+   The instrument at the boundary where the record crosses into
+   human perception: five views over one dated cut, every figure
+   traceable to the repository that produced it. Drafted artifact
+   of TRANSDUCER v0.2; the module is not adopted and nothing here
+   is a position of the cooperative. Tokens are the techne v4
+   layer, inlined per the house practice.
+   Refusals carried (TRANSDUCER section 9): read-only, no person
+   rendered, no analytics, no untraceable figure, no score, no
+   unattributed frame.
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --dur: .4s; --ease: cubic-bezier(.4,0,.2,1);
+  --sun-gold: #EAB668; --sun-amber: #E09A52; --sun-coral: #D1755A;
+  --sun-rose: #B45C7C; --sun-violet: #6E5494; --sun-blue: #5476B8;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --ok: #6A9A6A; --info: #6A8AC4; --warn: #C46A6A;
+  --sun-gold-t: #EAB668; --sun-amber-t: #E5A562; --sun-coral-t: #DE8872;
+  --sun-rose-t: #CF7C9A; --sun-violet-t: #9E86C4; --sun-blue-t: #8FAEE0;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --ok: #4A7A4A; --info: #4A6FB0; --warn: #A84F4C;
+  --sun-gold-t: #87621F; --sun-amber-t: #8C581D; --sun-coral-t: #9C4636;
+  --sun-rose-t: #8C3D58; --sun-violet-t: #4C3870; --sun-blue-t: #3A5694;
+  color-scheme: light;
+}
+[data-tint="gold"]   { --shue: var(--sun-gold);   --shue-t: var(--sun-gold-t); }
+[data-tint="amber"]  { --shue: var(--sun-amber);  --shue-t: var(--sun-amber-t); }
+[data-tint="coral"]  { --shue: var(--sun-coral);  --shue-t: var(--sun-coral-t); }
+[data-tint="rose"]   { --shue: var(--sun-rose);   --shue-t: var(--sun-rose-t); }
+[data-tint="violet"] { --shue: var(--sun-violet); --shue-t: var(--sun-violet-t); }
+[data-tint="blue"]   { --shue: var(--sun-blue);   --shue-t: var(--sun-blue-t); }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body { background: var(--bg); color: var(--text); font-family: var(--serif);
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease); }
+.wrap { max-width: 960px; margin: 0 auto; padding: var(--s6) var(--s5) var(--s8); }
+
+.topline { display: flex; justify-content: space-between; align-items: center; gap: var(--s3);
+  padding-bottom: var(--s4); border-bottom: 1px solid var(--line); margin-bottom: var(--s6); flex-wrap: wrap; }
+.wordmark { font: 400 12px/1.4 var(--mono); color: var(--muted); letter-spacing: .06em; }
+.wordmark a { color: var(--muted); text-decoration: none; }
+.wordmark a:hover { color: var(--heading); }
+.wordmark b { color: var(--heading); font-weight: 600; }
+
+h1 { font: 400 32px/1.2 var(--serif); color: var(--heading); letter-spacing: -.01em; margin-bottom: var(--s3); }
+.subtitle { font: 400 15px/1.65 var(--serif); color: var(--muted); max-width: 72ch; margin-bottom: var(--s5); }
+
+.chiprow { display: flex; gap: var(--s2); flex-wrap: wrap; margin-bottom: var(--s4); }
+.chip { display: inline-flex; align-items: center; gap: 7px; font: 500 10.5px/1 var(--mono);
+  letter-spacing: .07em; text-transform: uppercase; padding: 6px 10px;
+  border: 1px solid var(--line); border-radius: 2px; background: var(--surface); color: var(--muted); }
+.chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--faint); }
+.chip.drafted { color: var(--info); border-color: var(--info); } .chip.drafted .dot { background: var(--info); }
+.chip.open { color: var(--warn); border-color: var(--warn); } .chip.open .dot { background: var(--warn); }
+
+.stamp { font: 400 11.5px/1.7 var(--mono); color: var(--faint); letter-spacing: .04em; margin-bottom: var(--s6); }
+.stamp b { color: var(--ember-text); font-weight: 500; }
+
+.viewnav { position: sticky; top: 0; z-index: 5; background: var(--bg);
+  display: flex; gap: var(--s2); flex-wrap: wrap; padding: var(--s3) 0;
+  border-bottom: 1px solid var(--line); margin-bottom: var(--s6); }
+.viewnav a { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; padding: 7px 11px;
+  border: 1px solid var(--line); border-radius: 2px; background: var(--surface); }
+.viewnav a:hover { color: var(--heading); border-color: var(--rule); }
+
+.view { margin-bottom: var(--s8); }
+.vaddr { font: 600 11px/1 var(--mono); color: var(--shue-t); letter-spacing: .1em; margin-bottom: var(--s2); }
+.view h2 { font: 400 22px/1.3 var(--serif); color: var(--heading); margin-bottom: var(--s2); }
+.medium { font: 400 12px/1.6 var(--mono); color: var(--muted); margin-bottom: var(--s3); }
+.blind { font: 400 12px/1.6 var(--mono); color: var(--faint); border-left: 2px solid var(--line);
+  padding-left: var(--s3); margin-bottom: var(--s4); max-width: 70ch; }
+.blind b { color: var(--muted); font-weight: 500; }
+.view p.note { font: 400 14px/1.7 var(--serif); color: var(--text); max-width: 72ch; margin-bottom: var(--s4); }
+
+.frame { border: 1px dashed var(--rule); background: var(--surface); padding: var(--s3) var(--s4);
+  margin: var(--s4) 0; max-width: 76ch; }
+.frame .fh { font: 600 10px/1.5 var(--mono); color: var(--ember-text); letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: 4px; }
+.frame .fb { font: 400 13px/1.6 var(--serif); color: var(--muted); font-style: italic; }
+
+.figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--s3);
+  margin-bottom: var(--s4); }
+.fig { background: var(--surface); border: 1px solid var(--line); border-top: 2px solid var(--shue, var(--line));
+  padding: var(--s3) var(--s4); }
+.fig .n { font: 500 24px/1.2 var(--mono); color: var(--heading); }
+.fig .l { font: 500 10px/1.5 var(--mono); color: var(--muted); letter-spacing: .09em; text-transform: uppercase; margin-top: 3px; }
+.fig .t { font: 400 11px/1.5 var(--mono); color: var(--faint); margin-top: 5px; }
+
+.bars { margin-bottom: var(--s4); max-width: 78ch; }
+.bar { display: grid; grid-template-columns: 170px 1fr 90px; gap: var(--s3); align-items: center;
+  padding: 5px 0; border-bottom: 1px solid var(--line); }
+.bar .k { font: 400 12px/1.4 var(--mono); color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar .track { height: 8px; background: var(--inset); border: 1px solid var(--line); position: relative; }
+.bar .fill { position: absolute; inset: 0 auto 0 0; background: var(--shue, var(--blue)); opacity: .75; }
+.bar .v { font: 400 11px/1.4 var(--mono); color: var(--muted); text-align: right; }
+
+.marklegend { display: flex; gap: var(--s3); flex-wrap: wrap; font: 400 11px/1.6 var(--mono);
+  color: var(--muted); margin-bottom: var(--s3); }
+.marklegend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+
+.bedgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--s3);
+  margin-bottom: var(--s4); }
+.bed { background: var(--surface); border: 1px solid var(--line); padding: var(--s3); }
+.bed .bh { font: 600 11px/1.5 var(--mono); color: var(--heading); letter-spacing: .06em; margin-bottom: 6px;
+  display: flex; justify-content: space-between; }
+.bed .bh .ct { color: var(--faint); font-weight: 400; }
+.bed .strip { display: flex; height: 8px; border: 1px solid var(--line); overflow: hidden; margin-bottom: 6px; }
+.bed .strip span { display: block; }
+.bed .bm { font: 400 10.5px/1.7 var(--mono); color: var(--muted); }
+
+.jcard { border: 1px solid var(--line); border-left: 2px solid var(--shue, var(--line));
+  background: var(--surface); padding: var(--s3) var(--s4); margin-bottom: var(--s3); max-width: 80ch; }
+.jcard .jh { font: 600 12px/1.5 var(--mono); color: var(--heading); margin-bottom: 4px; }
+.jcard .jc { font: 400 11.5px/1.7 var(--mono); color: var(--muted); margin-bottom: 4px; }
+.jcard .stop { font: 400 13px/1.65 var(--serif); color: var(--text); border-left: 2px solid var(--warn);
+  padding-left: var(--s3); margin-top: var(--s2); }
+.jcard .stop b { font-style: italic; font-weight: 400; color: var(--heading); }
+
+.rhythm { display: flex; align-items: flex-end; gap: 6px; height: 140px; margin-bottom: var(--s2);
+  border-bottom: 1px solid var(--rule); padding-bottom: 0; max-width: 78ch; }
+.wk { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; min-width: 24px; }
+.wk .seg { width: 100%; }
+.wk .seg.g { background: var(--shue, var(--blue)); opacity: .75; }
+.wk .seg.t { background: var(--muted); opacity: .6; }
+.wklabels { display: flex; gap: 6px; max-width: 78ch; margin-bottom: var(--s4); }
+.wklabels span { flex: 1; min-width: 24px; font: 400 9.5px/1.4 var(--mono); color: var(--faint);
+  text-align: center; overflow: hidden; }
+
+.rings { display: grid; grid-template-columns: 300px 1fr; gap: var(--s5); align-items: center;
+  margin-bottom: var(--s4); }
+@media (max-width: 640px) { .rings { grid-template-columns: 1fr; } .bar { grid-template-columns: 110px 1fr 70px; } }
+.ringlist { font: 400 13px/2 var(--mono); color: var(--text); }
+.ringlist b { color: var(--heading); font-weight: 600; }
+.ringlist .rl { display: flex; gap: var(--s3); align-items: baseline; }
+.ringlist .rl .sw { flex: none; }
+
+.refusals { border-top: 1px solid var(--rule); padding-top: var(--s5); margin-top: var(--s6); }
+.refusals h2 { font: 600 12px/1.4 var(--mono); color: var(--muted); letter-spacing: .1em;
+  text-transform: uppercase; margin-bottom: var(--s3); }
+.refusals p { font: 400 13px/1.7 var(--serif); color: var(--muted); max-width: 76ch; margin-bottom: var(--s2); }
+.refusals p b { color: var(--text); font-weight: 400; font-style: italic; }
+
+footer { margin-top: var(--s7); padding-top: var(--s4); border-top: 1px solid var(--line);
+  font: 400 11px/1.8 var(--mono); color: var(--faint); letter-spacing: .04em;
+  display: flex; justify-content: space-between; gap: var(--s3); flex-wrap: wrap; }
+.modebtn { font: 500 10.5px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase;
+  color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 2px;
+  padding: 6px 11px; cursor: pointer; }
+.modebtn:hover { color: var(--heading); border-color: var(--rule); }
+.err { font: 400 13px/1.6 var(--mono); color: var(--warn); border: 1px solid var(--warn);
+  padding: var(--s3) var(--s4); max-width: 70ch; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="topline">
+    <div class="wordmark"><b>Techne</b> &middot; <a href="/intranet/">Intranet</a> &middot; The Transducer</div>
+    <button class="modebtn" id="modebtn" type="button" aria-label="Switch colour mode">mode</button>
+  </div>
+
+  <h1>The Transducer</h1>
+  <p class="subtitle">The estate&rsquo;s own record rendered so a person can take it in: five views over one dated cut, every figure computed from the repository and traceable back to it. This is the drafted instrument of TRANSDUCER v0.2. The module is not adopted; nothing on this surface is a position of the cooperative, and the framings it carries are the instrument&rsquo;s reading, marked as such.</p>
+
+  <div class="chiprow">
+    <span class="chip drafted"><span class="dot"></span>TRANSDUCER v0.2 &middot; Drafted by Nou</span>
+    <span class="chip open"><span class="dot"></span>Adoption &middot; Open, the election itself</span>
+    <span class="chip drafted"><span class="dot"></span>Build record only &middot; no operational data</span>
+  </div>
+
+  <p class="stamp" id="stamp">loading the cut&hellip;</p>
+</header>
+
+<nav class="viewnav" aria-label="Views">
+  <a href="#v0">00 &middot; Standing</a>
+  <a href="#v1">01 &middot; Composition</a>
+  <a href="#v2">02 &middot; Maturation</a>
+  <a href="#v3">03 &middot; Journeys</a>
+  <a href="#v4">04 &middot; Tending</a>
+</nav>
+
+<div id="fail" hidden class="err">The cut could not be loaded. The instrument renders intranet/hud/cut.json and nothing else; if that file is missing or unreadable, there is nothing honest to show. Regenerate it with scripts/hud_cut.py.</div>
+
+<main id="views" hidden>
+
+<section class="view" id="v0" data-tint="gold">
+  <div class="vaddr">VIEW 00 &middot; STANDING</div>
+  <h2>The whole, cut across</h2>
+  <p class="medium">no medium &middot; the cross-section, read heart outward</p>
+  <p class="blind"><b>blind to</b> &middot; change over time; a cross-section is one moment</p>
+  <div class="rings">
+    <svg id="ringsvg" viewBox="0 0 300 300" role="img" aria-label="Concentric rings: history at the centre, then documents, pieces, proofs, and the published estate at the rim."></svg>
+    <div class="ringlist" id="ringlist"></div>
+  </div>
+  <p class="note" id="v0note"></p>
+</section>
+
+<section class="view" id="v1" data-tint="blue">
+  <div class="vaddr">VIEW 01 &middot; COMPOSITION</div>
+  <h2>What the body is made of</h2>
+  <p class="medium">medium &middot; the file &middot; every tracked path, sized by weight, counted by revision</p>
+  <p class="blind"><b>blind to</b> &middot; whether any of it is finished, or good</p>
+  <div class="figs" id="compfigs"></div>
+  <div class="bars" id="dirbars"></div>
+  <p class="medium">most revised paths &middot; revisions across the whole history</p>
+  <div class="bars" id="revbars"></div>
+</section>
+
+<section class="view" id="v2" data-tint="violet">
+  <div class="vaddr">VIEW 02 &middot; MATURATION</div>
+  <h2>The ledger, in its own mark grammar</h2>
+  <p class="medium">medium &middot; the record &middot; rdm-ledger.yaml, the source this view yields to entirely</p>
+  <p class="blind"><b>blind to</b> &middot; effort, difficulty, and duration</p>
+  <div class="figs" id="matfigs"></div>
+  <div class="marklegend" id="marklegend"></div>
+  <div class="bedgrid" id="bedgrid"></div>
+</section>
+
+<section class="view" id="v3" data-tint="coral">
+  <div class="vaddr">VIEW 03 &middot; JOURNEYS</div>
+  <h2>Each arrival class, walking its first sitting</h2>
+  <p class="medium">medium &middot; the passage &middot; the participation stories, read from where a person stands</p>
+  <p class="blind"><b>blind to</b> &middot; any individual; personas are arrival classes, never members</p>
+  <p class="note" id="jderiv"></p>
+  <div id="jcards"></div>
+</section>
+
+<section class="view" id="v4" data-tint="amber">
+  <div class="vaddr">VIEW 04 &middot; TENDING</div>
+  <h2>The rhythm of the work</h2>
+  <p class="medium">medium &middot; the commit &middot; when the work happened, week by week</p>
+  <p class="blind"><b>blind to</b> &middot; who did how much, deliberately and permanently; no author is ever read</p>
+  <div class="frame">
+    <div class="fh">the instrument&rsquo;s reading &middot; drafted, not adopted</div>
+    <div class="fb" id="tframe"></div>
+  </div>
+  <div class="rhythm" id="rhythm"></div>
+  <div class="wklabels" id="wklabels"></div>
+  <div class="marklegend"><span><span class="sw" style="background:var(--sun-amber)"></span>growing what lives here</span><span><span class="sw" style="background:var(--muted)"></span>tending the place itself</span></div>
+</section>
+
+</main>
+
+<div class="refusals">
+  <h2>What this surface refuses</h2>
+  <p><b>Read-only, always.</b> Nothing here writes anywhere; selecting and reading produce no event.</p>
+  <p><b>No person is rendered.</b> No individual counts, no per-author figures, no ranking, in any view, ever.</p>
+  <p><b>No analytics on its own readers.</b> The page gathers nothing about who views it.</p>
+  <p><b>No untraceable figure.</b> Every number is computed by scripts/hud_cut.py from the public repository; a reader who distrusts a figure can recompute the cut with no key.</p>
+  <p><b>No score.</b> Counts and named states only; no percentage of completion, no progress bar, no maturity index.</p>
+  <p><b>No unattributed frame.</b> Interpretive sentences are marked as the instrument&rsquo;s reading, never as the cooperative&rsquo;s position.</p>
+</div>
+
+<footer>
+  <span>Techne &middot; RegenHub, LCA &middot; the transducer &middot; build record only</span>
+  <span>TRANSDUCER v0.2 &middot; Drafted &middot; regenerate: python3 scripts/hud_cut.py</span>
+</footer>
+
+</div>
+
+<script>
+document.getElementById('modebtn').addEventListener('click', function () {
+  var h = document.documentElement, n = h.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+  h.setAttribute('data-mode', n);
+  try { localStorage.setItem('techne-mode', n); } catch(e) {}
+});
+
+function el(tag, cls, html) {
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+function fmt(n) { return Number(n).toLocaleString('en-US'); }
+function kb(n) { return n >= 1048576 ? (n/1048576).toFixed(1) + ' MB' : Math.round(n/1024) + ' KB'; }
+
+var MARKS = [
+  ['attested',   'var(--sun-gold)'],
+  ['verified',   'var(--ok)'],
+  ['delivered',  'var(--info)'],
+  ['in-session', 'var(--sun-coral)'],
+  ['drafted',    'var(--sun-violet)'],
+  ['anticipated','var(--faint)']
+];
+function markColor(label) {
+  for (var i = 0; i < MARKS.length; i++) if (MARKS[i][0] === label) return MARKS[i][1];
+  return 'var(--warn)'; /* a named condition, e.g. Q3 */
+}
+
+fetch('cut.json').then(function (r) {
+  if (!r.ok) throw new Error(r.status);
+  return r.json();
+}).then(render).catch(function () {
+  document.getElementById('fail').hidden = false;
+});
+
+function render(cut) {
+  document.getElementById('views').hidden = false;
+  var st = cut.stamp;
+  document.getElementById('stamp').innerHTML =
+    'the cut &middot; taken at commit <b>' + esc(st.commit) + '</b> &middot; ' +
+    esc(st.date) + ' &middot; merge ' + fmt(st.commit_count) +
+    ' &middot; every view below reads this cut and nothing else';
+
+  /* ---- view 00: standing ---- */
+  var r = cut.standing.rings;
+  var ringData = [
+    ['history',   fmt(r.history_commits) + ' commits, the heart', 'var(--sun-gold)'],
+    ['documents', fmt(r.documents) + ' governing documents, all drafted', 'var(--sun-amber)'],
+    ['pieces',    fmt(r.pieces) + ' pieces in the ledger', 'var(--sun-coral)'],
+    ['proofs',    r.proofs.attested + ' of ' + r.proofs.named + ' named proofs attested, the growing edge', 'var(--sun-violet)'],
+    ['estate',    fmt(r.published_pages) + ' published pages at the rim', 'var(--sun-blue)']
+  ];
+  var svg = document.getElementById('ringsvg');
+  var ns = 'http://www.w3.org/2000/svg';
+  for (var i = ringData.length - 1; i >= 0; i--) {
+    var c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', 150); c.setAttribute('cy', 150);
+    c.setAttribute('r', 28 + i * 26);
+    c.setAttribute('fill', 'none');
+    c.setAttribute('stroke', ringData[i][2]);
+    c.setAttribute('stroke-width', 14);
+    c.setAttribute('opacity', '0.7');
+    svg.appendChild(c);
+  }
+  var rl = document.getElementById('ringlist');
+  ringData.forEach(function (d) {
+    rl.appendChild(el('div', 'rl',
+      '<span class="sw" style="background:' + d[2] + '"></span><span><b>' + d[0] + '</b> &middot; ' + d[1] + '</span>'));
+  });
+  document.getElementById('v0note').textContent =
+    'The only view in which the dimensions can contradict one another in a single figure: ' +
+    'a ring of documents entirely drafted sits inside an estate of ' + r.published_pages +
+    ' published pages. The figures are readings; what they mean is yours to decide.';
+
+  /* ---- view 01: composition ---- */
+  var comp = cut.composition;
+  var cf = document.getElementById('compfigs');
+  [[fmt(comp.tracked_files), 'tracked files'], [kb(comp.tracked_bytes), 'tracked weight'],
+   [fmt(st.commit_count), 'commits over it']].forEach(function (f) {
+    cf.appendChild(el('div', 'fig', '<div class="n">' + f[0] + '</div><div class="l">' + f[1] + '</div>'));
+  });
+  var dirs = Object.keys(comp.directories).map(function (k) {
+    return [k, comp.directories[k]];
+  }).sort(function (a, b) { return b[1].bytes - a[1].bytes; });
+  var maxB = dirs.length ? dirs[0][1].bytes : 1;
+  var db = document.getElementById('dirbars');
+  dirs.forEach(function (d) {
+    db.appendChild(el('div', 'bar',
+      '<span class="k">' + esc(d[0]) + '</span>' +
+      '<span class="track"><span class="fill" style="width:' + Math.max(1, Math.round(d[1].bytes / maxB * 100)) + '%"></span></span>' +
+      '<span class="v">' + kb(d[1].bytes) + ' &middot; ' + fmt(d[1].files) + 'f</span>'));
+  });
+  var rv = document.getElementById('revbars');
+  var maxR = comp.most_revised.length ? comp.most_revised[0].revisions : 1;
+  comp.most_revised.forEach(function (f) {
+    rv.appendChild(el('div', 'bar',
+      '<span class="k" title="' + esc(f.path) + '">' + esc(f.path) + '</span>' +
+      '<span class="track"><span class="fill" style="width:' + Math.max(1, Math.round(f.revisions / maxR * 100)) + '%"></span></span>' +
+      '<span class="v">' + fmt(f.revisions) + ' rev</span>'));
+  });
+
+  /* ---- view 02: maturation ---- */
+  var mat = cut.maturation;
+  var mf = document.getElementById('matfigs');
+  mf.appendChild(el('div', 'fig', '<div class="n">' + fmt(mat.pieces) + '</div><div class="l">pieces</div><div class="t">named in the ledger</div>'));
+  Object.keys(mat.totals).forEach(function (k) {
+    mf.appendChild(el('div', 'fig',
+      '<div class="n" style="color:' + markColor(k) + '">' + fmt(mat.totals[k]) + '</div>' +
+      '<div class="l">' + esc(k) + '</div>'));
+  });
+  var ml = document.getElementById('marklegend');
+  MARKS.forEach(function (m) {
+    ml.appendChild(el('span', null, '<span class="sw" style="background:' + m[1] + '"></span>' + m[0]));
+  });
+  ml.appendChild(el('span', null, '<span class="sw" style="background:var(--warn)"></span>a named condition'));
+  var bg = document.getElementById('bedgrid');
+  Object.keys(mat.beds).forEach(function (bed) {
+    var marks = mat.beds[bed];
+    var total = 0, k;
+    for (k in marks) total += marks[k];
+    var strip = '', lines = [];
+    Object.keys(marks).sort().forEach(function (k2) {
+      strip += '<span style="flex:' + marks[k2] + ';background:' + markColor(k2) + ';opacity:.75"></span>';
+      lines.push(marks[k2] + ' ' + esc(k2));
+    });
+    bg.appendChild(el('div', 'bed',
+      '<div class="bh"><span>' + esc(bed) + '</span><span class="ct">' + total + '</span></div>' +
+      '<div class="strip">' + strip + '</div>' +
+      '<div class="bm">' + lines.join(' &middot; ') + '</div>'));
+  });
+
+  /* ---- view 03: journeys ---- */
+  var j = cut.journeys;
+  document.getElementById('jderiv').textContent =
+    'Derivation, stated per JC-2: ' + (j.derivation || 'the journeys register') +
+    '. Source: ' + (j.source || 'none') + '.';
+  var jc = document.getElementById('jcards');
+  (j.classes || []).forEach(function (c) {
+    var standing = Object.keys(c.standing).sort().map(function (k) {
+      return c.standing[k] + ' ' + k;
+    }).join(' &middot; ');
+    var card = el('div', 'jcard',
+      '<div class="jh">' + esc(c.name) + '</div>' +
+      '<div class="jc">' + fmt(c.stories) + ' capability sentences &middot; ' + standing + '</div>');
+    (c.stops || []).forEach(function (s) {
+      card.appendChild(el('div', 'stop', '<b>where it stops</b> &middot; ' + esc(s)));
+    });
+    jc.appendChild(card);
+  });
+
+  /* ---- view 04: tending ---- */
+  var t = cut.tending;
+  document.getElementById('tframe').textContent = t.frame;
+  var weeks = Object.keys(t.weeks).sort();
+  var maxW = 1;
+  weeks.forEach(function (w) { if (t.weeks[w].commits > maxW) maxW = t.weeks[w].commits; });
+  var rh = document.getElementById('rhythm'), wl = document.getElementById('wklabels');
+  weeks.forEach(function (w) {
+    var d = t.weeks[w];
+    var col = el('div', 'wk');
+    col.title = w + ': ' + d.commits + ' commits, ' + d.growing + ' growing, ' + d.tending + ' tending';
+    var g = el('div', 'seg g'); g.style.height = Math.round(d.growing / maxW * 130) + 'px';
+    var td = el('div', 'seg t'); td.style.height = Math.round(d.tending / maxW * 130) + 'px';
+    col.appendChild(td); col.appendChild(g);
+    rh.appendChild(col);
+    wl.appendChild(el('span', null, esc(w.replace('20', ''))));
+  });
+}
+</script>
+
+</body>
+</html>
