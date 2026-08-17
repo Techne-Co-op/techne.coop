@@ -26,6 +26,8 @@
     --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
     --blue:#6A8AC4;--blue-text:#97B5E8;--ember:#C4956A;--ember-text:#D4A57A;
     --ok:#6A9A6A;--info:#6A8AC4;--warn:#C46A6A;
+    --sun-gold-t:#EAB668;--sun-amber-t:#E5A562;--sun-coral-t:#DE8872;
+    --sun-rose-t:#CF7C9A;--sun-violet-t:#9E86C4;--sun-blue-t:#8FAEE0;
   }
   html[data-mode="light"]{
     --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
@@ -33,6 +35,8 @@
     --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
     --blue:#4A6FB0;--blue-text:#39588F;--ember:#8A6A4A;--ember-text:#6F5436;
     --ok:#4A7A4A;--info:#4A6FB0;--warn:#A84F4C;
+    --sun-gold-t:#87621F;--sun-amber-t:#8C581D;--sun-coral-t:#9C4636;
+    --sun-rose-t:#8C3D58;--sun-violet-t:#4C3870;--sun-blue-t:#3A5694;
   }
   *{box-sizing:border-box;margin:0}
   html{color-scheme:dark light;height:100%}
@@ -110,11 +114,14 @@
   .rnode .halo{fill:none;stroke:var(--ember);stroke-dasharray:3 3;stroke-width:1.4;opacity:0}
   .rnode.sel .halo,.rnode:hover .halo{opacity:1}
   .rnode:hover .halo{stroke:var(--rule)}
-  .rnode text{font-family:var(--mono);fill:var(--muted);pointer-events:none}
+  /* the halo carries the label over whatever fill sits under it; 2.5px smears
+     glyphs at the 7-8px sizes the inner rings use, so keep it just under 2 */
+  .rnode text{font-family:var(--mono);fill:var(--heading);pointer-events:none;
+    paint-order:stroke;stroke:var(--bg);stroke-width:1.8px;stroke-linejoin:round}
   .rnode.sel text,.rnode:hover text{fill:var(--heading)}
   .ringrule{fill:none;stroke:var(--line);stroke-width:1;opacity:.55}
   .ringrule.dashed{stroke-dasharray:4 5}
-  .ringname{font-family:var(--mono);fill:var(--faint);letter-spacing:.12em;text-transform:uppercase;pointer-events:none}
+  .ringname{font-family:var(--mono);fill:var(--muted);letter-spacing:.12em;text-transform:uppercase;pointer-events:none}
   .heartc{fill:color-mix(in srgb, var(--ok) 24%, var(--inset));stroke:var(--ok);stroke-width:1}
   .barkword{font-family:var(--serif);font-style:italic;fill:var(--heading);pointer-events:none}
   .edge{fill:none;stroke:var(--bg);stroke-width:1.2}
@@ -191,7 +198,7 @@
   .seq{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
   .seq .st{font:500 10.5px/1 var(--mono);padding:5px 8px;border:1px solid;cursor:pointer;white-space:nowrap}
   .seq .arw{color:var(--faint);font-size:11px}
-  .seq .st.reached{color:var(--sun-gold);border-color:var(--sun-gold)}
+  .seq .st.reached{color:var(--sun-gold-t);border-color:var(--sun-gold-t)}
   .seq .st.stop{color:var(--warn);border-color:var(--warn);border-style:dashed}
   .seq .st.beyond{color:var(--faint);border-color:var(--line);opacity:.6}
   .seq .st:hover{background:var(--raised)}
@@ -199,8 +206,7 @@
   .lane .lc b{color:var(--warn);font-weight:500}
   /* treemap */
   .tm{position:absolute;overflow:hidden;border:1px solid var(--bg);padding:3px 6px;cursor:pointer}
-  .tm span{font:400 10px/1.4 var(--mono);color:var(--bg);opacity:.92;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  html[data-mode="light"] .tm span{color:var(--bg)}
+  .tm span{font:400 10px/1.4 var(--mono);color:var(--tm-ink,var(--heading));display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .tm:hover{outline:2px solid var(--heading);z-index:5}
 
   /* rows */
@@ -212,10 +218,10 @@
   .lrow{grid-template-columns:70px 1fr 62px 96px}
   .crow{grid-template-columns:1fr}
   .tag{font:500 9.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border:1px solid;border-radius:2px;text-align:center}
-  .t-open{color:var(--sun-blue);border-color:var(--sun-blue)}
-  .t-anticipated{color:var(--sun-violet);border-color:var(--sun-violet)}
-  .t-drafted{color:var(--sun-amber);border-color:var(--sun-amber)}
-  .t-filed{color:var(--sun-gold);border-color:var(--sun-gold)}
+  .t-open{color:var(--sun-blue-t);border-color:var(--sun-blue-t)}
+  .t-anticipated{color:var(--sun-violet-t);border-color:var(--sun-violet-t)}
+  .t-drafted{color:var(--sun-amber-t);border-color:var(--sun-amber-t)}
+  .t-filed{color:var(--sun-gold-t);border-color:var(--sun-gold-t)}
   .cites{font:400 10px/1 var(--mono);color:var(--faint);text-align:right}
 
   .subhead{font:600 10.5px/1.5 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
@@ -416,7 +422,7 @@ function viewStanding(c){
     sel('circle',{cx,cy,r:R.heart+5,class:'halo'},g);
     sel('circle',{cx,cy,r:R.heart,class:'heartc'},g);
     const t=sel('text',{x:cx,y:cy+3,'text-anchor':'middle','font-size':Math.max(7.5,R.heart*.2),
-      style:'fill:var(--muted);letter-spacing:.06em'},g);
+      style:'letter-spacing:.06em'},g);
     t.textContent='the log';
   })();
 
@@ -428,11 +434,22 @@ function viewStanding(c){
       const g=node('inst:'+inst.id,'Instrument '+inst.id+', drafted',rings);
       sel('path',{d:sectorPath(cx,cy,R.iIn-3,R.iOut+3,a0,a1),class:'halo'},g);
       sel('path',{d:sectorPath(cx,cy,R.iIn,R.iOut,a0,a1),style:'fill:var(--ember);opacity:.72'},g);
-      const [lx,ly]=PT(cx,cy,(R.iIn+R.iOut)/2,(a0+a1)/2);
-      let deg=((a0+a1)/2)*180/Math.PI; const flip=(deg>90||deg<-90);
-      const t=sel('text',{x:lx,y:ly,'text-anchor':'middle','dominant-baseline':'central',
-        'font-size':Math.max(6,M*.024),transform:`rotate(${flip?deg+180:deg},${lx},${ly})`},g);
-      t.textContent=inst.id.length>9?inst.id.slice(0,8):inst.id;
+      /* the ring is shallow, so a label can only run along its arc. Fourteen
+         sectors at this radius give ~23px each: an abbreviation that short is
+         noise, not a name, and adjacent ones collide into a smear. Draw the
+         label only where the whole id genuinely fits; elsewhere the sector
+         stays anonymous and is named by its aria-label, its tooltip, and the
+         detail panel it opens. */
+      const rm=(R.iIn+R.iOut)/2, am=(a0+a1)/2, [lx,ly]=PT(cx,cy,rm,am);
+      const fs=Math.max(7.5,M*.026);
+      const arc=rm*(a1-a0);
+      sel('title',{},g).textContent=inst.id+' · drafted';
+      if(inst.id.length*fs*.62<=arc*.92){
+        let deg=am*180/Math.PI+90; if(deg>90&&deg<270) deg-=180;
+        const t=sel('text',{x:lx,y:ly,'text-anchor':'middle','dominant-baseline':'central',
+          'font-size':fs,transform:`rotate(${deg},${lx},${ly})`},g);
+        t.textContent=inst.id;
+      }
     });
     const lt=sel('text',{x:cx,y:cy-R.iOut-5,'text-anchor':'middle','font-size':7,class:'ringname'},under);
     lt.textContent='the instruments';
@@ -457,9 +474,11 @@ function viewStanding(c){
       });
       const [lx,ly]=PT(cx,cy,(R.bIn+R.bOut)/2,am);
       let deg=am*180/Math.PI; const flip=(deg>90||deg<-90);
+      const bfs=Math.max(8,M*.03), bdepth=R.bOut-R.bIn-6;
       const t=sel('text',{x:lx,y:ly,'text-anchor':'middle','dominant-baseline':'central',
-        'font-size':Math.max(7,M*.03),transform:`rotate(${flip?deg+180:deg},${lx},${ly})`},g);
-      t.textContent=bed.replace('_','-');
+        'font-size':bfs,transform:`rotate(${flip?deg+180:deg},${lx},${ly})`},g);
+      const bl=bed.replace('_','-'), bmax=Math.max(3,Math.floor(bdepth/(bfs*.62)));
+      t.textContent=bl.length>bmax?bl.slice(0,bmax-1)+'…':bl;
     });
   })();
 
@@ -472,7 +491,7 @@ function viewStanding(c){
       sel('circle',{cx:x,cy:y,r:9,class:'halo'},g);
       sel('circle',{cx:x,cy:y,r:4.6,class:markOf(p)==='attested'?'capA':'capN'},g);
       const [tx,ty]=PT(cx,cy,R.proof+13,a);
-      const t=sel('text',{x:tx,y:ty,'text-anchor':'middle','dominant-baseline':'central','font-size':7},g);
+      const t=sel('text',{x:tx,y:ty,'text-anchor':'middle','dominant-baseline':'central','font-size':8},g);
       t.textContent=p.id;
     });
   })();
@@ -507,7 +526,7 @@ function ringDetail(key){
     d.innerHTML=`<h2>The cross-section</h2>
      <p class="note">The other three views each look <b>through</b> something - the file, the record, the commit - and are blind outside it. This one has no instrument. It is the trunk cut across, so the dimensions can contradict each other in one figure instead of each staying plausible alone. Its ancestry is <em>concentric circles of belonging</em> and <em>pace layering</em>: rings ordered by how slowly they change, growth read as invitation inward.</p>
      <h2 style="margin-top:var(--s5)">Reading the fill</h2>
-     ${LADDER.concat(OFF).map(s=>`<div class="kv"><span style="color:${s.c}">${s.k}</span><b style="font-weight:400;font-size:11px;color:var(--muted)">${s.say}</b></div>`).join('')}
+     ${LADDER.concat(OFF).map(s=>`<div class="kv"><span style="color:${s.t}">${s.k}</span><b style="font-weight:400;font-size:11px;color:var(--muted)">${s.say}</b></div>`).join('')}
      <p class="note">Rings imply the outer grew from the inner. Here that is only half true: the instruments really do change slowest, but <b>/commons/ and /legal/ grew in the same weeks</b>. Radial area also inflates outward, so a proof cap reads heavier than an equal fact at the heart. Read composition within a sector; do not compare across radii.</p>`;
     return;
   }
@@ -528,7 +547,7 @@ function ringDetail(key){
   } else if(key.startsWith('inst:')){
     const i=L.find(x=>x.id===key.slice(5));
     d.innerHTML=`<h2>Instrument &middot; ${esc(i.id)}</h2><h3>${esc(i.title)}</h3>
-     <div class="kv"><span>mark</span><b style="color:var(--ember)">drafted</b></div>
+     <div class="kv"><span>mark</span><b style="color:var(--ember-text)">drafted</b></div>
      <div class="kv"><span>bed</span><b>${esc(i.bed)}</b></div>
      <div class="kv"><span>cites</span><b>${i.cites}</b></div>
      ${i.intent?`<p class="note">${esc(i.intent)}</p>`:''}
@@ -537,12 +556,12 @@ function ringDetail(key){
     const bed=key.slice(4), pieces=L.filter(x=>x.bed===bed);
     const comp=LADDER.concat(OFF).map(s=>[s,pieces.filter(x=>markOf(x)===s.k).length]).filter(x=>x[1]);
     d.innerHTML=`<h2>Bed &middot; ${esc(bed.replace('_','-'))}</h2><h3>${pieces.length} pieces</h3>
-     ${comp.map(([s,n])=>`<div class="kv"><span style="color:${s.c}">${s.k}</span><b>${n}</b></div>`).join('')}
+     ${comp.map(([s,n])=>`<div class="kv"><span style="color:${s.t}">${s.k}</span><b>${n}</b></div>`).join('')}
      <p class="note">A bed is a dependency-ordered sequence of pieces, and the sector shows only how far each came. What it waits on is the piece's own business - open the Maturation view to read the conditions by name.</p>`;
   } else if(key.startsWith('proof:')){
     const p=L.find(x=>x.id===key.slice(6)), m=markOf(p);
     d.innerHTML=`<h2>Proof &middot; ${esc(p.id)}</h2><h3>${esc(p.title)}</h3>
-     <div class="kv"><span>mark</span><b style="color:${m==='attested'?'var(--sun-gold)':'var(--faint)'}">${esc(p.status)}</b></div>
+     <div class="kv"><span>mark</span><b style="color:${m==='attested'?'var(--sun-gold-t)':'var(--faint)'}">${esc(p.status)}</b></div>
      ${p.ready?`<div class="kv"><span>ready when</span><b style="font-weight:400">${esc(p.ready)}</b></div>`:''}
      ${p.intent?`<p class="note">${esc(p.intent)}</p>`:''}
      <p class="note">A proof is not a suite passing. It is a capability demonstrated end to end and attested by two hands as an event. That is why nine of ten stand open on a repository this far built: the missing input is a second person, not more work.</p>`;
@@ -563,7 +582,7 @@ document.addEventListener('keydown',ev=>{
 
 /* ============ 01 · COMPOSITION ============ */
 const RANGE=['var(--sun-blue)','var(--sun-violet)','var(--sun-rose)','var(--sun-coral)','var(--sun-amber)','var(--sun-gold)'];
-const extTint=e=>({html:RANGE[0],sql:RANGE[1],py:RANGE[2],js:RANGE[3],md:RANGE[4],yaml:RANGE[5],yml:RANGE[5],json:RANGE[3],css:RANGE[2],svg:RANGE[1]}[e]||'var(--rule)');
+const extTint=e=>({html:RANGE[0],sql:RANGE[1],py:RANGE[2],js:RANGE[3],md:RANGE[4],yaml:RANGE[5],yml:RANGE[5],json:RANGE[3],css:RANGE[2],svg:RANGE[1],mp4:RANGE[2],png:RANGE[1],jpg:RANGE[1]}[e]||'var(--rule)');
 function viewCode(c){
   const totalMB=(S.totalBytes/1e6).toFixed(2);
   const topExt=S.ext[0], htmlShare=Math.round(100*topExt[1]/S.fileCount);
@@ -578,26 +597,43 @@ function viewCode(c){
   $('#reading').innerHTML=`A body of <b>documents and schema</b>, not application code: ${topExt[1]} HTML pages and ${S.ext.find(e=>e[0]==='sql')[1]} SQL migrations against ${S.ext.find(e=>e[0]==='js')[1]} scripts. Mass and motion sit in different places - the largest file is the ledger, and it is also the most frequently revised, meaning this system spends more energy recording its own state than editing any single page.<span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
   const files=SNAP.files.slice(0,110), W=c.clientWidth||900,H=c.clientHeight||460;
   const total=files.reduce((s,f)=>s+f.size,0);
-  let x=0,y=0,w=W,h=H,i=0;
-  while(i<files.length){
+  /* exact slice-and-dice: each strip takes its true share of what remains,
+     so tiles tile the canvas instead of overrunning it */
+  const HEX={html:'#5476B8',sql:'#6E5494',py:'#D1755A',js:'#D1755A',md:'#E09A52',
+    yaml:'#EAB668',yml:'#EAB668',json:'#D1755A',css:'#D1755A',svg:'#6E5494',
+    mp4:'#D1755A',png:'#6E5494',jpg:'#6E5494'};
+  const bgHex=html.dataset.mode==='light'?[247,245,240]:[15,15,18];
+  let x=0,y=0,w=W,h=H,i=0,rem=total;
+  while(i<files.length&&w>2&&h>2){
     let rf=[],rs=0;
     while(i<files.length&&rf.length<8){rf.push(files[i]);rs+=files[i].size;i++;}
-    const horiz=w>=h, span=horiz?Math.max(60,w*(rs/(total||1))*3):Math.max(40,h*(rs/(total||1))*3);
+    /* cap a strip at a third of the canvas: byte mass stays readable in the
+       tooltip; the layout no longer lets one heavy strip dominate the room */
+    const horiz=w>=h, span=Math.min(horiz?w*(rs/(rem||1)):h*(rs/(rem||1)), (horiz?W:H)*.32);
     let off=0;
     rf.forEach(f=>{
       const p=f.size/rs, el=document.createElement('div'); el.className='tm';
       const e=f.path.split('.').pop().toLowerCase();
-      el.style.background=extTint(e);
-      el.style.opacity=String(0.45+0.5*Math.min(1,(churnOf(f.path)/40)));
-      if(horiz){el.style.left=x+'px';el.style.top=(y+off)+'px';el.style.width=Math.min(span,w)+'px';el.style.height=Math.max(17,h*p)+'px';off+=Math.max(17,h*p);}
-      else{el.style.left=(x+off)+'px';el.style.top=y+'px';el.style.height=Math.min(span,h)+'px';el.style.width=Math.max(40,w*p)+'px';off+=Math.max(40,w*p);}
+      const mix=Math.round(100*(0.45+0.5*Math.min(1,(churnOf(f.path)/40))));
+      el.style.background=`color-mix(in srgb, ${extTint(e)} ${mix}%, var(--bg))`;
+      /* ink follows the tile's effective luminance, not the mode */
+      const th=(HEX[e]||'#3A3A42').replace('#',''), a=mix/100;
+      const rC=parseInt(th.slice(0,2),16)*a+bgHex[0]*(1-a),
+            gC=parseInt(th.slice(2,4),16)*a+bgHex[1]*(1-a),
+            bC=parseInt(th.slice(4,6),16)*a+bgHex[2]*(1-a);
+      const yiq=(rC*299+gC*587+bC*114)/1000;
+      el.style.setProperty('--tm-ink',yiq>=128?'#141418':'#F1EEE8');
+      if(horiz){const ht=Math.min(h-off,Math.max(2,h*p));
+        el.style.left=x+'px';el.style.top=(y+off)+'px';el.style.width=Math.min(span,w)+'px';el.style.height=ht+'px';off+=ht;}
+      else{const wd=Math.min(w-off,Math.max(2,w*p));
+        el.style.left=(x+off)+'px';el.style.top=y+'px';el.style.height=Math.min(span,h)+'px';el.style.width=wd+'px';off+=wd;}
       el.innerHTML='<span>'+esc(f.path.split('/').pop())+'</span>';
       el.title=f.path+' · '+fmtB(f.size)+' · '+churnOf(f.path)+' revisions';
       el.onclick=()=>{detailFile(f);};
       c.appendChild(el);
     });
+    rem-=rs;
     if(horiz){x+=Math.min(span,w);w-=Math.min(span,w);}else{y+=Math.min(span,h);h-=Math.min(span,h);}
-    if(w<70||h<40)break;
   }
   sideComposition();
 }
@@ -626,16 +662,18 @@ function detailFile(f){
    open · (mark) once taken up, where the mark is in-session, delivered (merged
    to main), verified (a person walked its acceptance), attested (a proof under
    two hands), or the condition the piece waits on. */
+/* c fills shapes; t is the text-safe variant, the estate convention defined in
+   the site shell (see index.html and commons/index.html) - never paint text with c */
 const LADDER=[
-  {k:'anticipated', c:'var(--sun-blue)',   say:'before anyone takes it up'},
-  {k:'in-session',  c:'var(--sun-violet)', say:'an agent is working it'},
-  {k:'delivered',   c:'var(--sun-rose)',   say:'merged to main'},
-  {k:'verified',    c:'var(--sun-amber)',  say:'a person walked its acceptance'},
-  {k:'attested',    c:'var(--sun-gold)',   say:'a proof under two hands'}
+  {k:'anticipated', c:'var(--sun-blue)',   t:'var(--sun-blue-t)',   say:'before anyone takes it up'},
+  {k:'in-session',  c:'var(--sun-violet)', t:'var(--sun-violet-t)', say:'an agent is working it'},
+  {k:'delivered',   c:'var(--sun-rose)',   t:'var(--sun-rose-t)',   say:'merged to main'},
+  {k:'verified',    c:'var(--sun-amber)',  t:'var(--sun-amber-t)',  say:'a person walked its acceptance'},
+  {k:'attested',    c:'var(--sun-gold)',   t:'var(--sun-gold-t)',   say:'a proof under two hands'}
 ];
 const OFF=[
-  {k:'drafted',  c:'var(--ember)', say:'an unadopted document - binds nothing'},
-  {k:'waiting',  c:'var(--sun-coral)', say:'open, naming the condition it waits on'}
+  {k:'drafted',  c:'var(--ember)', t:'var(--ember-text)', say:'an unadopted document - binds nothing'},
+  {k:'waiting',  c:'var(--sun-coral)', t:'var(--sun-coral-t)', say:'open, naming the condition it waits on'}
 ];
 const NAMED=new Set(LADDER.map(x=>x.k).concat(['drafted']));
 const markOf=i=> i.status==='drafted' ? 'drafted'
@@ -662,7 +700,7 @@ function viewLedger(c){
   LADDER.concat(OFF).forEach(s=>{
     const n=cnt(s.k); if(!n && s.k==='in-session') return;
     const r=document.createElement('div'); r.className='barline'; r.style.cursor='pointer';
-    r.innerHTML=`<span style="color:${s.c}">${s.k}</span>
+    r.innerHTML=`<span style="color:${s.t}">${s.k}</span>
       <span class="bar" title="${s.say}"><i style="width:${100*n/max}%;background:${s.c}"></i></span>
       <span class="n">${n}</span>`;
     r.onclick=()=>{state.filter=(state.filter&&state.filter.v===s.k)?null:{t:'mark',v:s.k};render();};
@@ -686,20 +724,20 @@ function viewLedger(c){
       const row=document.createElement('div'); row.className='row lrow';
       row.innerHTML=`<span class="id">${esc(i.id)}</span><span class="title">${esc(i.title)}</span>
         <span class="cites">${esc(i.bed)}</span>
-        <span class="tag" style="color:${s?s.c:'var(--muted)'};border-color:${s?s.c:'var(--line)'}">${esc(i.mark)}</span>`;
+        <span class="tag" style="color:${s?s.t:'var(--muted)'};border-color:${s?s.t:'var(--line)'}">${esc(i.mark)}</span>`;
       row.onclick=()=>detailLedger(i);
       rows.appendChild(row);
     });
   wrap.appendChild(rows); c.appendChild(wrap);
   $('#detail').innerHTML=`<h2>The mark grammar</h2>
-   ${LADDER.concat(OFF).map(s=>`<div class="kv"><span style="color:${s.c}">${s.k}</span><b style="font-weight:400;font-size:11px;color:var(--muted)">${s.say}</b></div>`).join('')}
+   ${LADDER.concat(OFF).map(s=>`<div class="kv"><span style="color:${s.t}">${s.k}</span><b style="font-weight:400;font-size:11px;color:var(--muted)">${s.say}</b></div>`).join('')}
    <p class="note">This view reads the estate’s own instrument of self-accounting - <em>qualification over quantification</em>: marks name how far a piece came, and rank nothing. There is no <b>filed</b> mark in force. STATUS.md still prints a <em>filed</em> row at zero, a leftover of the RDM v1 header the ledger superseded - reading it as "nothing finished" gets the record backwards.</p>
    <p class="note">The counts describe the work and are never targets; the estate adopted that constraint at formation.</p>`;
 }
 function detailLedger(i){
   const m=markOf(i), s=LADDER.concat(OFF).find(x=>x.k===m);
   $('#detail').innerHTML=`<h2>Record ${esc(i.id)}</h2><h3>${esc(i.title)}</h3>
-   <div class="kv"><span>mark</span><b style="color:${s?s.c:'var(--heading)'}">${esc(i.status)}</b></div>
+   <div class="kv"><span>mark</span><b style="color:${s?s.t:'var(--heading)'}">${esc(i.status)}</b></div>
    <div class="kv"><span>bed</span><b>${esc(i.bed)}</b></div>
    <div class="kv"><span>cites</span><b>${i.cites}</b></div>
    ${i.ready?`<div class="kv"><span>ready when</span><b style="font-weight:400">${esc(i.ready)}</b></div>`:''}
@@ -750,7 +788,7 @@ function viewJourneys(c){
   });
   wrap.insertAdjacentHTML('beforeend','<div class="subhead">Every step, by section</div>');
   const rows=document.createElement('div'); rows.className='rows';
-  const JTINT={live:'var(--sun-gold)',proposed:'var(--sun-violet)',drafted:'var(--ember)',anticipated:'var(--faint)'};
+  const JTINT={live:'var(--sun-gold-t)',proposed:'var(--sun-violet-t)',drafted:'var(--ember-text)',anticipated:'var(--faint)'};
   let lastSec=null;
   Object.values(steps).forEach(s=>{
     const row=document.createElement('div'); row.className='row lrow';
@@ -769,7 +807,7 @@ function viewJourneys(c){
 }
 function detailStep(s,p){
   if(!s) return;
-  const JT={live:'var(--sun-gold)',proposed:'var(--sun-violet)',drafted:'var(--ember)',anticipated:'var(--faint)'};
+  const JT={live:'var(--sun-gold-t)',proposed:'var(--sun-violet-t)',drafted:'var(--ember-text)',anticipated:'var(--faint)'};
   $('#detail').innerHTML=`<h2>Step ${esc(s.id)}</h2><h3 style="font-size:15px">${esc(s.sentence)}</h3>
    <div class="kv"><span>condition</span><b style="color:${JT[s.state]}">${esc(s.state)}</b></div>
    ${s.note?`<div class="kv"><span>waits on</span><b style="font-weight:400">${esc(s.note)}</b></div>`:''}
@@ -857,6 +895,10 @@ function succColor(m){
   const s=LADDER.concat(OFF).find(x=>x.k===m);
   return s ? s.c : 'var(--sun-coral)';
 }
+function succTextColor(m){
+  const s=LADDER.concat(OFF).find(x=>x.k===m);
+  return s ? s.t : 'var(--sun-coral-t)';
+}
 const dnum=d=>Date.parse(d+'T00:00:00Z')/864e5;
 function succBacksteps(P){
   const out=[];
@@ -932,7 +974,7 @@ function detailSuccession(p,cut){
     const end=i+1<p.states.length?p.states[i+1].date:cut;
     const days=Math.max(Math.round(dnum(end)-dnum(s.date)),0);
     const last=i+1===p.states.length;
-    return `<div class="kv"><span>${s.date} \u00b7 <b style="color:${succColor(succMark(s))};font-weight:500">${esc(s.mark)}</b></span><b style="font-weight:400">${last?'at least ':''}${days} day${days===1?'':'s'}</b></div>`;
+    return `<div class="kv"><span>${s.date} \u00b7 <b style="color:${succTextColor(succMark(s))};font-weight:500">${esc(s.mark)}</b></span><b style="font-weight:400">${last?'at least ':''}${days} day${days===1?'':'s'}</b></div>`;
   }).join('');
   $('#detail').innerHTML=`<h2>Piece ${esc(p.id)}</h2>
    <p class="note">Every distinct state this piece was observed to hold, in the order observed, including several on one date. Days are counted at the ledger\u2019s own grain and are floors.</p>${rows}
