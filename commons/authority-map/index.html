@@ -334,6 +334,26 @@ footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
     </div>
   </section>
 
+  <section class="sec" id="s10">
+    <div class="addr">&sect;10</div>
+    <h2>Two open findings, and the drafts that answer them</h2>
+    <p class="lead">P-08 reported two defects against this map on 2026-08-10 and neither is fixed. They are recorded here rather than in a pull request comment, because a defect that lives only in a merged conversation is a defect the map does not carry. Both answers below are drafts awaiting the steward. Nothing here is applied to the live record, and no cell of &sect;5 has changed.</p>
+
+    <div class="anatomy">
+      <div class="an-row"><span class="f">the finding</span><span class="v"><code>gatherings_host_write</code> omits <code>app_is_member()</code> from its WITH CHECK, so an authenticated agent bound to an <code>agents</code> row but holding no active membership can insert a gathering that names them host. The applicant cell on the gatherings row of &sect;5 is a dash; the policy is wider than the document it distills.</span></div>
+      <div class="an-row"><span class="f">read live</span><span class="v">Confirmed against the deployed database on 2026-08-17 by reading <code>pg_policies</code> for <code>gatherings</code>: the WITH CHECK is <code>((host_agent_id = app_agent_id()) OR app_has_role('steward'::appointment))</code>, the same text <a href="/commons/authority-map/0002_policies.sql"><code>0002_policies.sql</code></a> emits. <code>app_agent_id()</code> resolves the binding and asks nothing about membership state.</span></div>
+      <div class="an-row"><span class="f">the shape it wants</span><span class="v">Already in the emission one family down. <code>opportunities_author_write</code> carries the membership test in its WITH CHECK and not in its USING, so an author keeps the row they own while a non-member creates nothing. The draft brings gatherings to that pattern and changes nothing else, which makes it a narrowing: no cell gains a capability.</span></div>
+      <div class="an-row"><span class="f">the draft</span><span class="v"><a href="/commons/authority-map/0023_gatherings_host_write_bound.sql"><code>0023_gatherings_host_write_bound.sql</code></a>. Not applied, not in the migration chain the probe matrix stands in CI. 0021 and 0022 are reserved by the almanac for V-01 and V-02, so the draft takes 0023. <span class="chip open"><span class="dot"></span>Draft &middot; awaiting the steward</span></span></div>
+      <div class="an-row"><span class="f">not addressed</span><span class="v"><code>sessions_host_write</code> needs no companion change: its subquery against gatherings runs under <code>gatherings_member_read</code>, which already requires membership, so a bound non-member sees no gathering to hang a session on. Left open and named rather than fixed: <code>events_scoped_insert</code> admits any bound agent as actor for the signature, registration, opportunity, and gathering kinds without a membership test. Whether that is the same defect or a deliberate width is a reading of &sect;7, and not an agent's to decide.</span></div>
+    </div>
+
+    <div class="anatomy">
+      <div class="an-row"><span class="f">the second finding</span><span class="v">The &sect;5 matrix has six columns and none of them is the authenticated agent who holds no active membership. The public column is the <code>anon</code> role, which reads nothing; the applicant column presumes both an <code>agents</code> binding and a membership in state applied. A person who signs in before any record exists for them sits between the two, which the participation stories name as arrival class A-5. Its refusal is asserted nowhere, so the probe matrix has been proving a boundary it never tested.</span></div>
+      <div class="an-row"><span class="f">the draft</span><span class="v">Nineteen cells in a second register, <code>DRAFT_P</code>, in <code>scripts/rls_probe.py</code> in the repository, reached with <code>--drafts</code> and not run by CI. Twelve assert that the unbound session reads nothing anywhere; three assert that it writes nothing; four hold the gatherings row against the first finding, one of which fails against the deployed chain on purpose, because a finding stated as an assertion is the only kind that stays fixed. <code>--drafts --no-fix</code> stands the chain as deployed and shows that failure. <span class="chip open"><span class="dot"></span>Draft &middot; awaiting the steward</span></span></div>
+      <div class="an-row"><span class="f">what adoption means</span><span class="v">On the steward's word: 0023 joins the chain in <code>MIGRATIONS</code> and is applied to the live record by his hand, the 0003 pattern; the draft cells join <code>P</code> and become CI; and &sect;5 gains its seventh column, since a persona the probes assert is a persona the matrix owes a row. Until then the map states the gap and claims no fix.</span></div>
+    </div>
+  </section>
+
   <footer>
     <div class="row">
       <span>Authority Map &middot; AM v0.1 &middot; Drafted</span>

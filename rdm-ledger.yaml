@@ -3355,6 +3355,23 @@ guild:
       stages the question as STANDING-D6. H-1 and H-8 were re-cut
       to follow the module rather than lead it.
 
+      Two findings this piece reported against the Authority Map
+      were carried unfixed until 2026-08-17, when both were written
+      onto the map itself at AM v0.1 section 10 with a draft answer
+      each. First: gatherings_host_write omits app_is_member() from
+      its WITH CHECK, so a bound agent with no active membership can
+      insert a gathering naming themselves host, against the dash in
+      the section 5 applicant cell. Confirmed live in pg_policies on
+      ujujwgopdwirebgcpekc the same day. Drafted, not applied, as
+      commons/authority-map/0023_gatherings_host_write_bound.sql;
+      0021 and 0022 are reserved for V-01 and V-02. Second: the
+      probe matrix had no persona for an authenticated agent bound
+      to no membership, arrival class A-5, so its refusal was
+      asserted nowhere. Drafted as a second register, DRAFT_P, in
+      scripts/rls_probe.py behind --drafts, outside CI. Both drafts
+      await the steward, and adoption of the first is his hand on
+      the live database in the 0003 pattern. Nothing is fixed.
+
   - address: P-09
     title: The two tracks told apart
     intent: >

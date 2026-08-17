@@ -24,6 +24,10 @@ Probe discipline:
 
 Runs in CI against the postgres:16 service (PGURL) and locally
 against any empty postgres database.
+
+A second register, DRAFT_P, sits below the CI register and is not
+run by CI. It carries the cells drafted against the two open P-08
+findings and is reached with --drafts. See its header.
 """
 import os
 import subprocess
@@ -532,22 +536,104 @@ probe("direction-steward-relay-ok", "authenticated", STE,
       ("write_ok",), "AGY section 12 R0: the steward relays the agent-side events under the overseer branch")
 
 
-def main():
-    # ---------- stand the environment ----------
-    rc, _, err = psql(BOOTSTRAP)
-    if rc != 0:
-        print(f"bootstrap failed:\n{err}", file=sys.stderr); sys.exit(1)
-    for m in MIGRATIONS:
-        rc, _, err = psql((REPO_ROOT / m).read_text())
-        if rc != 0:
-            print(f"migration {m} failed:\n{err}", file=sys.stderr); sys.exit(1)
-    rc, _, err = psql(SEED)
-    if rc != 0:
-        print(f"seed failed:\n{err}", file=sys.stderr); sys.exit(1)
+# ============================================================
+# DRAFT REGISTER. NOT RUN IN CI. Awaiting steward approval.
+#
+# P-08 reported two findings and neither is fixed on the record:
+# gatherings_host_write omits app_is_member() from its WITH CHECK,
+# and this matrix has no persona for an authenticated agent who
+# holds no active membership, so the A-5 arrival class refusal is
+# asserted nowhere.
+#
+# The cells below answer the second finding and prove the first.
+# They are drafts: the register P above is what CI runs, and
+# nothing here changes it. Run them by hand:
+#
+#   python3 scripts/rls_probe.py --drafts
+#       stands the chain plus the draft migration
+#       commons/authority-map/0023_gatherings_host_write_bound.sql
+#       and asserts the corrected behaviour.
+#
+#   python3 scripts/rls_probe.py --drafts --no-fix
+#       stands the chain as deployed. Every cell holds except
+#       gatherings-applicant-insert-deny, which fails, and that
+#       failure is the finding stated as an assertion.
+#
+# They join P, and 0023 joins MIGRATIONS, when a person adopts
+# the draft. Not before.
+# ============================================================
 
-    # ---------- probe ----------
+UNB_UID = "00000000-0000-4000-8000-000000000909"   # a sign-in bound to no agents row
+
+DRAFT_MIGRATION = "commons/authority-map/0023_gatherings_host_write_bound.sql"
+
+# The unbound persona needs no seed row by definition: it is a
+# session whose auth.uid() matches no agents binding, so
+# app_agent_id() answers null. UNB_UID is that uid.
+DRAFT_SEED = ""
+
+DRAFT_P = []
+
+def draft_probe(pid, role, uid, sql, expect, cite):
+    DRAFT_P.append((pid, role, uid, sql, expect, cite))
+
+# ---- the unbound authenticated persona: a session, no standing ----
+# AM v0.1 section 5 has six columns and none of them is this one.
+# The public column is the anon role, which reads nothing; the
+# applicant column presumes an agents row and a membership in
+# state applied. A person who signs in before any record exists
+# for them sits between the two, and the arrival classes of P-07
+# and P-08 name that state A-5.
+for t in ["agents", "agreements", "memberships", "applications", "events",
+          "gatherings", "sessions", "registrations", "attendance",
+          "opportunities", "responses", "profiles"]:
+    draft_probe(f"unbound-{t}-none", "authenticated", UNB_UID,
+                f"select count(*) from {t}", ("count", 0),
+                "s5: every cell scopes to an agent, and this session binds to none")
+
+draft_probe("unbound-agents-insert-deny", "authenticated", UNB_UID,
+            "insert into agents (kind, display_name) values ('person', 'Probe Unbound') returning 1",
+            ("write_deny",),
+            "s5 agents: no policy admits an insert; binding is the sign-in path's act, not the caller's")
+
+draft_probe("unbound-gathering-insert-deny", "authenticated", UNB_UID,
+            f"insert into gatherings (title, host_agent_id) values ('Probe Unbound Gathering', '{MEM1}') returning 1",
+            ("write_deny",),
+            "s5 gatherings: host W means the host, and an unbound session hosts nothing; 2.1")
+
+draft_probe("unbound-application-insert-deny", "authenticated", UNB_UID,
+            "insert into applications (agent_id, note) values (null, 'probe') returning 1",
+            ("write_deny",),
+            "s6 admission path: the application is the applicant's own statement, which presumes an agent")
+
+# ---- the finding: the applicant who names themselves host ----
+# Passes only with the draft migration applied. Against the
+# deployed chain this cell fails, and that is the finding.
+draft_probe("gatherings-applicant-insert-deny", "authenticated", APP,
+            f"insert into gatherings (title, host_agent_id) values ('Probe Applicant Gathering', '{APP}') returning 1",
+            ("write_deny",),
+            "s5 gatherings/applicant: -; 2.1 the host holds the gathering, and a host is a member")
+
+draft_probe("gatherings-member-insert-ok", "authenticated", MEM1,
+            f"insert into gatherings (title, host_agent_id) values ('Probe Member Gathering', '{MEM1}') returning 1",
+            ("write_ok",),
+            "s5 gatherings/member: host W survives the narrowing; 2.1")
+
+draft_probe("gatherings-steward-insert-ok", "authenticated", STE,
+            f"insert into gatherings (title, host_agent_id) values ('Probe Steward Gathering', '{MEM3}') returning 1",
+            ("write_ok",),
+            "s5 gatherings/steward: W; 2.1 the steward may act as host")
+
+draft_probe("gatherings-host-update-ok", "authenticated", MEM1,
+            f"update gatherings set title = 'Probe Gathering (renamed)' where id = '{GAT}' returning 1",
+            ("write_ok",),
+            "the narrowing sits on WITH CHECK only: the host still keeps the row they own")
+
+
+def run_register(register):
+    """Run one probe register; return the failure list."""
     failures = []
-    for pid, role, uid, sql, expect, cite in P:
+    for pid, role, uid, sql, expect, cite in register:
         rc, lines, err = run_probe(role, uid, sql)
         kind = expect[0]
         if kind == "count":
@@ -569,8 +655,38 @@ def main():
             ok, got = False, f"unknown expectation {kind}"
         if not ok:
             failures.append((pid, cite, got, err.strip().splitlines()[-1:] if err else []))
+    return failures
 
-    print(f"rls-probe: {len(P)} probes, {len(failures)} failure(s)")
+
+def main():
+    drafts = "--drafts" in sys.argv
+    apply_fix = "--no-fix" not in sys.argv
+
+    # ---------- stand the environment ----------
+    rc, _, err = psql(BOOTSTRAP)
+    if rc != 0:
+        print(f"bootstrap failed:\n{err}", file=sys.stderr); sys.exit(1)
+    chain = list(MIGRATIONS)
+    if drafts and apply_fix:
+        chain.append(DRAFT_MIGRATION)
+    for m in chain:
+        rc, _, err = psql((REPO_ROOT / m).read_text())
+        if rc != 0:
+            print(f"migration {m} failed:\n{err}", file=sys.stderr); sys.exit(1)
+    seed = SEED + (DRAFT_SEED if drafts else "")
+    rc, _, err = psql(seed)
+    if rc != 0:
+        print(f"seed failed:\n{err}", file=sys.stderr); sys.exit(1)
+
+    # ---------- probe ----------
+    register = DRAFT_P if drafts else P
+    label = "rls-probe-drafts" if drafts else "rls-probe"
+    if drafts:
+        print(f"{label}: DRAFT register, not the CI matrix; "
+              f"{DRAFT_MIGRATION} {'applied' if apply_fix else 'NOT applied'}")
+    failures = run_register(register)
+
+    print(f"{label}: {len(register)} probes, {len(failures)} failure(s)")
     for pid, cite, got, err in failures:
         print(f"FAIL {pid} [{cite}] {got} {err}")
     sys.exit(1 if failures else 0)
