@@ -20,11 +20,11 @@
 -- agent who is bound to an agents row but holds no active
 -- membership. The policy as emitted by 0002_policies.sql
 -- (commons/authority-map/0002_policies.sql, the gatherings and
--- sessions block) reads:
+-- sessions block, anchored there on Bylaws §2.1) carries the same
+-- clause twice, for all, on gatherings:
 --
---   create policy gatherings_host_write on gatherings
---     for all using (host_agent_id = app_agent_id() or app_has_role('steward'))
---     with check (host_agent_id = app_agent_id() or app_has_role('steward'));
+--     using      (host_agent_id = app_agent_id() or app_has_role('steward'))
+--     with check (host_agent_id = app_agent_id() or app_has_role('steward'))
 --
 -- Read live on 2026-08-17 against project ujujwgopdwirebgcpekc
 -- (pg_policies, tablename = 'gatherings'), the deployed policy is
@@ -43,11 +43,12 @@
 -- calendar to members. The policy is wider than the document.
 --
 -- The house pattern for exactly this shape is already in 0002.
--- opportunities_author_write carries the membership test in its
--- WITH CHECK and not in its USING:
+-- opportunities_author_write, anchored on PRD v0.3 §4 Find,
+-- carries the membership test in its WITH CHECK and not in its
+-- USING:
 --
---   for all using (author_agent_id = app_agent_id())
---   with check (author_agent_id = app_agent_id() and app_is_member())
+--     using      (author_agent_id = app_agent_id())
+--     with check (author_agent_id = app_agent_id() and app_is_member())
 --
 -- This draft brings gatherings to that pattern and changes
 -- nothing else. It is a narrowing: no cell of section 5 gains a
@@ -80,10 +81,11 @@
 
 drop policy if exists gatherings_host_write on gatherings;
 
--- Bylaws section 2.1: the host creates and manages their
--- gathering, and the steward may act as host. A host is a member
--- (AM v0.1 section 5: the applicant cell on gatherings is a
--- dash), so the check that admits new rows says so.
+-- Bylaws §2.1: the host creates and manages their gathering, and
+-- the steward may act as host. A host is a member (AM v0.1 §5:
+-- the applicant cell on gatherings is a dash), so the check that
+-- admits new rows says so. Art. XV is untouched: nothing here
+-- widens the anon column.
 create policy gatherings_host_write on gatherings
   for all
   using (host_agent_id = app_agent_id() or app_has_role('steward'))
