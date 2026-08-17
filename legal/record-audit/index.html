@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+  (function(){
+    var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+    var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+    document.documentElement.setAttribute('data-mode',m);
+  })();
+  </script>
+  <script src="/assets/topbar.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="What two published claims audits of the RegenHub, LCA estate found, what was corrected, what was entered in the correction log, and what still stands because correcting it would take an act no agent can take.">
+  <title>The audit remainder &middot; Techne</title>
+  <link rel="canonical" href="https://techne.coop/legal/record-audit/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://techne.coop/legal/record-audit/">
+  <meta property="og:title" content="The audit remainder · Techne">
+  <meta property="og:description" content="What the claims audits found, what was corrected, and what stands because correcting it would take an act no agent can take.">
+  <meta property="og:site_name" content="Techne">
+  <meta property="og:image" content="https://techne.coop/assets/og-default.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif:'Libre Baskerville',Georgia,serif;
+      --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+      --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+      --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
+    }
+    html[data-mode="dark"] {
+      --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;
+      --line:#2A2A30;--rule:#3A3A42;
+      --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
+      --blue:#6A8AC4;--blue-text:#97B5E8;
+      --ember:#C4956A;--ember-text:#D4A57A;--ember-dim:rgba(196,149,106,0.14);
+      --ok:#6A9A6A;--ok-text:#7DAA7D;
+      --warn:#C46A6A;--warn-text:#D48A8A;
+      color-scheme:dark;
+    }
+    html[data-mode="light"] {
+      --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
+      --line:#D8D3C8;--rule:#9A958A;
+      --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
+      --blue:#4A6FB0;--blue-text:#39588F;
+      --ember:#8A6A4A;--ember-text:#6F5436;--ember-dim:rgba(138,106,74,0.10);
+      --ok:#4A7A4A;--ok-text:#3A6A3A;
+      --warn:#A84F4C;--warn-text:#8F3F3C;
+      color-scheme:light;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0ms!important;}}
+    body{
+      background:var(--bg);color:var(--text);
+      font-family:var(--serif);font-size:17px;line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+      transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);
+    }
+    em{font-style:italic;color:var(--heading);}
+
+    /* Formation note, footer form. The steward directed the notice out of the
+       top banner on 2026-08-12 for the public pages, and on 2026-08-13 for these
+       as well: one form of it, one place. The long form at /legal/#formation
+       still governs. One verbatim copy per page, proved by
+       scripts/notice_audit.py; only the token names differ, because the estate
+       carries two families. */
+    .formation-foot{
+      flex-basis:100%;max-width:96ch;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+    .wrap{max-width:820px;margin:0 auto;padding:0 var(--s5) var(--s8);}
+
+    .page-mast{
+      padding:clamp(56px,8vw,96px) 0 var(--s6);
+      border-bottom:1px solid var(--line);
+      margin-bottom:var(--s6);
+    }
+    .kick{
+      font-family:var(--mono);font-size:11px;text-transform:uppercase;
+      letter-spacing:0.16em;color:var(--ember-text);margin-bottom:var(--s3);
+    }
+    .page-mast h1{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(30px,5vw,44px);line-height:1.15;
+      color:var(--heading);letter-spacing:-0.015em;margin-bottom:var(--s3);
+    }
+    .sub{font-size:18px;line-height:1.65;color:var(--muted);max-width:62ch;}
+
+    .st{
+      display:inline-block;
+      font-family:var(--mono);font-size:9.5px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.14em;
+      padding:3px 8px;border-radius:2px;white-space:nowrap;
+    }
+    .st-open{border:1px solid var(--warn);color:var(--warn-text);}
+    .st-tracked{border:1px solid var(--ember);color:var(--ember-text);}
+    .st-closed{border:1px solid var(--ok);color:var(--ok-text);}
+    .st-reading{border:1px dashed var(--muted);color:var(--muted);}
+
+    section{margin-bottom:var(--s7);}
+    h2{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(20px,3vw,26px);line-height:1.25;
+      color:var(--heading);margin-bottom:var(--s4);
+    }
+    p{margin-bottom:var(--s4);max-width:68ch;}
+    p:last-child{margin-bottom:0;}
+
+    .item{
+      border:1px solid var(--line);border-left:3px solid var(--ember);
+      background:var(--surface);padding:var(--s4) var(--s5);margin-bottom:var(--s4);
+    }
+    .item-head{
+      display:flex;justify-content:space-between;align-items:baseline;
+      gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s2);
+    }
+    .item-title{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--heading);}
+    .item-where{
+      font-family:var(--mono);font-size:11px;color:var(--faint);
+      letter-spacing:0.04em;margin-bottom:var(--s3);
+    }
+    .row{margin-bottom:var(--s3);font-size:15px;line-height:1.65;}
+    .row:last-child{margin-bottom:0;}
+    .row .rk{
+      display:block;font-family:var(--mono);font-size:10px;
+      letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);
+      margin-bottom:2px;
+    }
+    .quote{font-style:italic;color:var(--heading);}
+
+    .note{
+      background:var(--inset);border:1px solid var(--line);
+      padding:var(--s4) var(--s5);margin-top:var(--s5);
+      font-size:15px;line-height:1.65;color:var(--muted);max-width:none;
+    }
+
+    footer{
+      margin-top:var(--s7);padding-top:var(--s4);border-top:1px solid var(--line);
+      font-family:var(--mono);font-size:11px;line-height:1.8;color:var(--faint);
+      letter-spacing:0.04em;
+    }
+    footer a{color:var(--faint);}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="page-mast">
+    <div class="kick">Legal &middot; The audit remainder</div>
+    <h1>The audit remainder</h1>
+    <p class="sub">Two audits of this estate's published claims were carried as issues rather than as edits. The false claims were corrected. What is on this page is the rest: the claims that were left standing, the errors that could not be resolved without a document nobody here holds, and the items whose fix is an act of the board, the steward, or counsel rather than a change to a page. It is here so that what was left standing is left standing on the record.</p>
+  </div>
+
+  <section id="standing">
+    <h2>What this page is, and is not</h2>
+    <p>This is a report by the cooperative's agent about the cooperative's pages. It is not evidence of anything the cooperative did. Where it says an instrument reads a certain way, it names the instrument and the section, and a reader can go and check; where no such reference exists, it says so instead of deciding. Nothing here amends anything, adopts anything, or speaks for the board.</p>
+    <p>Two sources: the legal shelf audit carried at issue #128, prepared 2026-08-13, and the four-part claims audit of roughly eighty findings carried at issue #142, prepared 2026-08-14 over the front page, the participation surfaces, all of <span class="quote">commons</span>, the intranet with accounting and the encyclopedia, and the legal subpages. Neither audit read the executed record, because for most of what they cover there is no executed record to read.</p>
+    <p>Three earlier passes did the correcting the audits could support: pull request #141 corrected the claims that were false; the favicon and shelf-hygiene pass of 2026-08-14 closed the F-5 items of issue #128 and opened <a href="/legal/corrections/#doc-01-09" style="color:var(--ember-text)">DOC-01&middot;09</a> and <a href="/legal/corrections/#doc-01-10" style="color:var(--ember-text)">DOC-01&middot;10</a>; the formation notice now reaches every page in the estate by discovery rather than by a hand-kept list, which closes the largest structural finding of issue #142 without a decision from anyone.</p>
+  </section>
+
+  <section id="corrected">
+    <h2>Corrected in this pass</h2>
+    <p>Four plain errors, each with a reference that settles it, and a fifth that could only be softened. None required a judgment about what the cooperative meant.</p>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">The suspension provision was cited at the wrong section</span>
+        <span class="st st-closed">Corrected</span>
+      </div>
+      <div class="item-where">Summary of changes, BL-02 &middot; resolved against Bylaws v2.1 &sect; 1.8.1</div>
+      <div class="row"><span class="rk">Was</span>Suspension cited as &sect; 1.10.1.</div>
+      <div class="row"><span class="rk">Now</span>&sect; 1.8.1, which is where the published Bylaws carry Suspension, and where the notice, the five business days, the hearing within thirty days, and the written determination that BL-02 describes all appear.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">The intellectual property provision was cited at the tax section</span>
+        <span class="st st-closed">Corrected</span>
+      </div>
+      <div class="item-where">Summary of changes, the intellectual property entry &middot; resolved against Membership Agreement v.2.3 &sect;&sect; 3.3, 3.4</div>
+      <div class="row"><span class="rk">Was</span>Intellectual property cited as &sect; 3.3.</div>
+      <div class="row"><span class="rk">Now</span>&sect; 3.4. In the published agreement &sect; 3.3 is Consent to Tax Treatment; &sect; 3.4 is Intellectual Property, and it carries the definition of Cooperative-Commissioned Work and the ten business day objection window the entry describes.</div>
+      <div class="row"><span class="rk">Not touched</span>The same entry's two recommended additions still read <span class="quote">&sect; 3.3(c)</span> and <span class="quote">&sect; 3.3(d)</span>. Those are quoted from the May 2026 addendum, whose subsection lettering matches no section of the published v.2.3, so they were written against a version this estate does not publish. Correcting them would mean guessing at that version's numbering. Reported below rather than guessed at.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">One page counted the tax vocabulary substitutions two ways</span>
+        <span class="st st-closed">Corrected</span>
+      </div>
+      <div class="item-where">Summary of changes, MA-03 &middot; resolved against the same page's own enumeration</div>
+      <div class="row"><span class="rk">Was</span>The determined-items list said <span class="quote">four mechanical word substitutions</span>; the MA-03 resolution block on the same page said <span class="quote">Seven substitutions executed</span> and then listed seven.</div>
+      <div class="row"><span class="rk">Now</span>Seven, in both places. The enumeration settles it without reference to anything outside the page.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">The encyclopedia named a version of the Bylaws that is not the one it links to</span>
+        <span class="st st-closed">Corrected</span>
+      </div>
+      <div class="item-where">Encyclopedia, governance shelf &middot; resolved against the instrument at /legal/bylaws/</div>
+      <div class="row"><span class="rk">Was</span><span class="quote">Bylaws v.2</span>, linked to the page that publishes Bylaws v2.1.</div>
+      <div class="row"><span class="rk">Now</span>Bylaws v2.1.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head">
+        <span class="item-title">A count of defined terms did not match the terms it named</span>
+        <span class="st st-tracked">Softened, not resolved</span>
+      </div>
+      <div class="item-where">Membership agreement analysis, defined terms &middot; the source it depends on is not on this shelf</div>
+      <div class="row"><span class="rk">Was</span><span class="quote">These six terms</span>, after a parenthetical naming five.</div>
+      <div class="row"><span class="rk">Now</span><span class="quote">These terms</span>. Whether a sixth term was dropped from the parenthetical or the count was simply wrong is answerable only from the Sub K vocabulary workup of June 2026, which is cited on the page as being on file and is published nowhere here. Writing <em>five</em> would have asserted the list is complete, which is the thing that cannot be checked.</div>
+    </div>
+  </section>
+
+  <section id="entered">
+    <h2>Entered in the correction log</h2>
+    <p>Four items are defects in the drafts themselves, or questions about them, and belong in the <a href="/legal/corrections/" style="color:var(--ember-text)">correction log</a> rather than here. Recording a defect takes no authority; closing one of these does.</p>
+    <div class="item">
+      <div class="item-head"><span class="item-title"><a href="/legal/corrections/#doc-01-12" style="color:var(--heading)">DOC-01&middot;12</a> &nbsp;The BL-01 replacement text is published two ways, <em>may</em> against <em>shall</em></span><span class="st st-open">Open</span></div>
+      <div class="row">The one word is the whole of the amendment, and it has IRC &sect; 704(b) consequences. Neither of the two pages is evidence for the other and there is no third copy, so the estate cannot say from its own record which paragraph goes to counsel.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-title"><a href="/legal/corrections/#doc-01-13" style="color:var(--heading)">DOC-01&middot;13</a> &nbsp;The Membership Agreement contradicts the Bylaws on the coworking class</span><span class="st st-open">Open</span></div>
+      <div class="row">DOC-01&middot;09 records the pages contradicting the Bylaws and settles that by precedence. This is an instrument against an instrument, which is the larger defect, and precedence alone does not tell the board which one it meant.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-title"><a href="/legal/corrections/#doc-01-14" style="color:var(--heading)">DOC-01&middot;14</a> &nbsp;Two classes carry the number Three</span><span class="st st-reading">Reading</span></div>
+      <div class="row">Either the numbering repeats deliberately across tracks, in which case the legal index needs one sentence saying so, or the guild class needs its own designation. The steward says which.</div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-title"><a href="/legal/corrections/#doc-01-15" style="color:var(--heading)">DOC-01&middot;15</a> &nbsp;A draft agreement points its signer at the wrong documents</span><span class="st st-open">Open</span></div>
+      <div class="row">Wrong versions, a retired class name, and a domain this estate does not use, in the clause that tells a signer which documents govern. It is instrument text, so it is not edited from here.</div>
+    </div>
+  </section>
+
+  <section id="standing-claims">
+    <h2>What stands, and why</h2>
+    <p>The following were found and are not corrected. Each entry says what would have to happen for it to close. A claim that is left standing with its defect named is a different thing from a claim left standing quietly, and this section is the difference.</p>
+
+    <div class="item">
+      <div class="item-head"><span class="item-title">The Financial Systems Committee is described as an organ with decision rights</span><span class="st st-open">Wants a board act</span></div>
+      <div class="item-where">commons/treasury, commons/treasury/policy, commons/agency, commons/patronage</div>
+      <div class="row">Bylaws &sect; 3.18 lets the Board establish committees. No minute or consent exists for any board meeting, so no committee stands established of record, and the name appears nowhere in the legal shelf. The draft treasury policy gives the committee an operative gate. The estate already records the gap: the <a href="/legal/first-meeting/" style="color:var(--ember-text)">first meeting</a> page carries establishing the committee under &sect; 3.18 as an item for the board, in the same terms. The better fix is the resolution, not a hedge on a page, so the pages are left as they are and the item sits where the board will meet it.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head"><span class="item-title">The standing delegation</span><span class="st st-open">Wants a recorded delegation</span></div>
+      <div class="item-where">commons/treasury/policy, the section 2 table of who may act</div>
+      <div class="row">The phrase <span class="quote">the steward's seat per the standing delegation</span> occurs once in this repository and nothing stands behind it: no resolution, no minute, no instrument. The table is headed in the present tense and also names a treasurer nobody holds. The instrument is a draft that says on its face that nothing in it binds until adopted, and the adoption is the moment the delegation would have to exist. Named here so that the adoption does not carry it through unexamined.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head"><span class="item-title">The counsel memo says <em>ratification</em> where this estate means board adoption</span><span class="st st-open">The steward's call</span></div>
+      <div class="item-where">legal/counsel-memo, seven places</div>
+      <div class="row"><em>Ratified</em> is this estate's defined term for adoption by member vote. No member has been admitted, so no member vote was possible, and every other current surface says verbal board adoption. The memo is a July 1 artifact addressed to counsel. Editing what was asked of counsel after the fact is a different act from correcting a page, and it is not an agent's to take.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head"><span class="item-title">A board memo is cited as the authority for the four-class matrix</span><span class="st st-open">Wants the document</span></div>
+      <div class="item-where">legal/membership-agreement-analysis</div>
+      <div class="row">The page rests the matrix on a board memo of June 2026. That memo appears on no shelf in this estate. Either it is produced and listed, or the page says what it actually rests on.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head"><span class="item-title">Counts of the blocking items disagree across the estate</span><span class="st st-open">Unresolved</span></div>
+      <div class="item-where">legal/summary-of-changes against legal/counsel-memo</div>
+      <div class="row">The summary of changes reviews <span class="quote">the six blocking items and four cross-document conflicts</span>; the counsel memo works from nine. The three surfaces group the same underlying defects differently, and no page states its grouping rule, so the numbers cannot be reconciled from the record. Corrected only where a page contradicts its own enumeration, which was the substitutions count above.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head"><span class="item-title">The participation surfaces are under-hedged rather than false</span><span class="st st-tracked">Left standing deliberately</span></div>
+      <div class="item-where">index.html, participation, participation/detail</div>
+      <div class="row">Twelve claims of this kind were found: both access tracks described as open now; <em>Become a member</em> offered as an action above a line saying none has been admitted; the dues and buy-in tiers presented as settled where Schedule A reserves them to a board resolution; the admission sequence omitting the board acceptance Bylaws &sect;&sect; 1.3.1(e) and 1.3.3 require; settlement described at the full capital account balance where MA &sect; 5.4 says the positive balance less obligations; a guild fee schedule stated flatly for a class whose instrument does not exist; and a surplus sentence no instrument supports. Each is directionally true and each would read as legal throat-clearing on the page a newcomer meets. Where the underlying question is open, this estate's practice is that the correction log entry is the fix until the board and counsel decide, and DOC-01&middot;03 and DOC-01&middot;09 hold that question. The choice to leave them is a choice, so it is listed rather than assumed.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head"><span class="item-title">The build and specification registers carry status marks their subject has not earned</span><span class="st st-tracked">Left standing deliberately</span></div>
+      <div class="item-where">commons/prd/stories, commons/prd, commons/lp, commons/series, commons/vs, commons/index, commons/build and its subpages, commons/patronage/counting-rules, commons/standing, commons/treasury, the intranet, the encyclopedia, the design system</div>
+      <div class="row">Several user stories wear a live mark for legal effects no adopted instrument supplies. A members' ratification gathering of August 14 is named as established fact in five places, after the Almanac recorded that August 14 is no longer a condition for anything. Modules are described as documents the cooperative adopts, with three dated as adopted, where what happened was a build graft and a steward merge. Authority and revenue are anchored in Bylaws articles not in effect and offices nobody holds. The design system's specimen tiles depict an active patron member with a capital account funded since February 2026.</div>
+      <div class="row"><span class="rk">Why standing</span>These are working registers of a build, read by the people doing the build, and the marks mean something inside that context: what a piece will do when its instrument exists. Rewriting them one by one from an audit list would be a large edit to a large surface on an agent's reading of what a chip means, and the estate has a cheaper and more honest instrument for it, which is the status grammar itself. The right fix is a single decision about what a live mark asserts on a page whose subject is unadopted, taken once and applied. That decision is not this page's to take.</div>
+    </div>
+
+    <div class="item">
+      <div class="item-head"><span class="item-title">One likely finding, unconfirmed</span><span class="st st-reading">Not verified</span></div>
+      <div class="item-where">commons/agreements</div>
+      <div class="row">The 2026-08-14 audit read a set of commons pages at grep level rather than closely, and flagged one probable finding it did not confirm: headings reading <span class="quote">Documents that bind you</span> and <span class="quote">These bind you by your membership</span>, against instruments none of which is executed and a membership nobody holds. It is recorded here as unconfirmed because that is what it is.</div>
+    </div>
+  </section>
+
+  <section id="acts">
+    <h2>What is waiting on a person</h2>
+    <p>Seven items on this page close by an act rather than an edit. Gathered here so the list can be read at once.</p>
+    <div class="item">
+        <div class="row"><span class="rk">The board</span>Establish the Financial Systems Committee under &sect; 3.18, or the pages say the name is the organizers' usage and nothing establishes it. Already staged on the first meeting agenda.</div>
+        <div class="row"><span class="rk">The board</span>Record the delegation the draft treasury policy assumes, and elect officers, before that policy is adopted.</div>
+        <div class="row"><span class="rk">The board and counsel</span>Decide which yields on the coworking class, the pages or the Bylaws, per DOC-01&middot;09, which now also settles DOC-01&middot;13 and unlocks the participation copy held behind it.</div>
+        <div class="row"><span class="rk">The steward</span>Say whether class numbers repeat by track, per DOC-01&middot;14.</div>
+        <div class="row"><span class="rk">The steward</span>Decide whether the counsel memo's use of <em>ratification</em> is corrected, given that correcting it changes what counsel was asked.</div>
+        <div class="row"><span class="rk">The steward</span>Designate one of the two published BL-01 texts as the proposal, per DOC-01&middot;12, before the pre-execution set travels.</div>
+        <div class="row"><span class="rk">The steward</span>Decide what a live status mark asserts on a page whose subject is unadopted, once, so the build registers can be conformed to the answer rather than to an audit list.</div>
+    </div>
+    <div class="note">Sources: issue #128 of 2026-08-13, on the legal shelf, and issue #142 of 2026-08-14, holding the remainder of four parallel claims audits. Both were prepared with machine assistance at the steward's direction. This page reports them; it adopts nothing and amends nothing. Where an item says an instrument reads a certain way, the instrument is at <a href="/legal/" style="color:var(--muted)">the legal foundation</a> and is right wherever this page disagrees with it.</div>
+  </section>
+
+  <footer>
+    Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street &middot; Boulder, Colorado<br>
+    The audit remainder &middot; opened 2026-08-17 &middot; <a href="/legal/corrections/">the correction log</a> &middot; <a href="/legal/">back to the legal foundation</a>
+    <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+</div>
+</body>
+</html>
