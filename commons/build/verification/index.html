@@ -129,13 +129,17 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
   color:var(--ember-text);margin-right:10px;white-space:nowrap;
 }
 .formation-foot a{color:var(--ember-text);}
+.ctx { font-size:0.9rem; color:var(--muted); margin-bottom:var(--s2); }
+.steps { margin:0 0 var(--s2) var(--s5); font-size:0.9rem; line-height:1.7; }
+.steps li { margin-bottom:var(--s1); }
+.say { font-size:0.84rem; color:var(--muted); border-top:1px solid var(--line); padding-top:var(--s2); }
 </style>
 </head>
 <body>
 <header class="mast">
   <div class="mast-eyebrow">the verification walk &middot; X-22 &middot; draft</div>
-  <h1>The Human Work Between Delivered and Verified</h1>
-  <p class="mast-dek">Fifty-one pieces of this build are delivered: merged to main, standing, and unwalked. Every one of them waits on the same input, a person walking its acceptance and saying what they saw. Nothing below is blocked on more building. This page organises that human work into five sittings with inline instructions, so a walker needs nothing but this page, a browser, and the pieces themselves. No mark moves because this page exists; each moves when its walk is walked and its resolution recorded.</p>
+  <h1>Walk, Speak, Done</h1>
+  <p class="mast-dek">Fifty-two pieces of this build are delivered and waiting on one thing: a person walking each acceptance and saying what they saw. This page is that walk as a run-book. Four sittings; every card tells you where to go, what to click, and what to say. You record yourself as you walk, the transcript becomes the resolutions, and one pull request per sitting flips the marks. Nothing moves because this page exists; each piece moves when you walk it.</p>
   <div class="mast-meta">
     <span class="chip open"><span class="dot"></span>draft &middot; pending the walks</span>
     <span>cites &middot; ALM v2 &middot; the ledger at main &middot; the Launch-Day Walkthrough (X-21)</span>
@@ -147,375 +151,365 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
 
   <section class="sec">
     <div class="addr">&sect;1</div>
-    <h2>Where the ledger sits</h2>
-    <p class="lead">One hundred and thirty-nine pieces. The counts below are computed from the ledger on main and describe the work; they are never targets.</p>
-    <div class="tally">
-      <div class="cell"><span class="n">34</span><span class="l">verified</span></div>
-      <div class="cell"><span class="n">1</span><span class="l">attested (G0)</span></div>
-      <div class="cell"><span class="n">51</span><span class="l">delivered, unwalked</span></div>
-      <div class="cell"><span class="n">35</span><span class="l">anticipated</span></div>
-      <div class="cell"><span class="n">14</span><span class="l">drafted instruments</span></div>
-      <div class="cell"><span class="n">4</span><span class="l">blocked on decisions</span></div>
-    </div>
-    <p>The gap between built and verified is entirely the fifty-one. The fourteen drafted instruments move by adoption, which is the board&rsquo;s act, not a walk; they are out of scope here. The thirty-five anticipated pieces are unbuilt, and most are gated on decisions or on verifications this page produces; &sect;8 names the gates.</p>
+    <h2>How this works</h2>
+    <p class="lead">You need a browser, a phone for a few cards, and a voice recorder or live transcription. No notes, no forms: you speak the record as you walk, and the transcript is the evidence.</p>
+    <div class="howto"><ol>
+      <li><strong>Start recording.</strong> Say your name, the date, and which sitting you are starting.</li>
+      <li><strong>Take the cards in order.</strong> Each card is: context, numbered steps, then the say line. Do the steps exactly; do not substitute a nearby check for the stated one.</li>
+      <li><strong>Speak one verdict per card.</strong> Always the address first, then <em>holds</em> or <em>fails</em>, then one sentence of what you actually saw. Partial credit does not exist; a card that half-held, failed, and the sentence says which half.</li>
+      <li><strong>Skipping is fine, silently is not.</strong> If you defer a card (a second person is missing, a surface is down), say the address and <em>deferred</em> and why.</li>
+      <li><strong>Send the audio or transcript</strong> to the steward channel. The transcript is turned into per-piece resolution lines under your name and date, and one pull request per sitting flips the marks. You review that PR; the record is yours, not the transcriber&rsquo;s.</li>
+    </ol></div>
+    <p>Two cards defer by design to the <a href="/commons/build/walkthrough/">two-person walkthrough</a> (F-02 wholly, G-04&rsquo;s last clause); their cards say so. Everything else in sittings one through four is walkable alone, today.</p>
   </section>
 
   <section class="sec">
     <div class="addr">&sect;2</div>
-    <h2>How to walk a piece</h2>
-    <p>The method is the same for every card below, and it is deliberately small:</p>
-    <div class="howto"><ol>
-      <li><strong>Open the piece.</strong> The card names where the deliverable lives: a page, a schema, a workflow. Open the real thing, not a screenshot of it.</li>
-      <li><strong>Do what the acceptance sentence says.</strong> The card quotes it. If it says a page reads true against a source, read both. If it says an act lands as an event, perform the act and look for the event. Do not substitute a plausible nearby check for the stated one.</li>
-      <li><strong>Decide: held or failed.</strong> Partial credit does not exist here. If one clause of the acceptance did not hold, the piece failed its walk, and the failure is the finding.</li>
-      <li><strong>Record the resolution.</strong> One or two sentences: who walked it, the date, what was seen. This lands in the ledger as the piece&rsquo;s <code>resolution</code> and the status moves to <em>open &middot; verified</em>. A failed walk lands as a note naming what failed, and the status stays.</li>
-      <li><strong>One pull request per sitting.</strong> The walker&rsquo;s confirmations from a sitting travel together; the PR flips the marks and carries the resolutions.</li>
-    </ol></div>
-    <p>The steward can walk every solo card. One card in sitting two and the attestations in &sect;8 want a second person; the <a href="/commons/build/walkthrough/">Launch-Day Walkthrough</a> is the script for that sitting and this page does not duplicate it.</p>
+    <h2>Where the ledger sits</h2>
+    <p>One hundred and forty pieces: 34 verified, 1 attested (G0), <strong>52 delivered and walkable below</strong>, 35 anticipated, 14 drafted instruments (the board&rsquo;s lane, not this page&rsquo;s), 4 blocked on named decisions. The counts describe the work and are never targets.</p>
   </section>
 
   <section class="sec">
     <div class="addr">&sect;3</div>
-    <h2>Sitting one &middot; the shell walk &middot; 16 pieces</h2>
-    <p class="lead">The public face, one sitting. Every piece here is a page or frame you can open in a browser; most acceptances are read-and-confirm.</p>
-    <div class="piece" id="U-06">
-      <div class="piece-head"><span class="addr-chip">U-06</span><span class="piece-title">The frame on a narrow screen</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">The drawer, its control, and the narrow-screen rules in assets/shell.js; full-width rows at a touch-sized target in place of the wrapped inline list.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">At phone width the page begins under the topbar; the control opens the map and closes it; following a link does not leave it standing open over its destination.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="U-07">
-      <div class="piece-head"><span class="addr-chip">U-07</span><span class="piece-title">The parked door</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">/intranet/share/ carrying the three S-bed sentences, the three-axis line, and the block named with a path to the staged COUNTING-RULES; the See your share group on the shell&#x27;s map.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">A signed-in member finds the Share door on the map; the page names S-01 and S-02, states that the absence is the Board&#x27;s pending act and not an administrator&#x27;s withholding, and links the staged rules. The page retires when S-02 opens the real surface.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="U-08">
-      <div class="piece-head"><span class="addr-chip">U-08</span><span class="piece-title">The pattern library grows</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons.css pattern additions (icons, term hints, disclosure, forms, participation cards, member curve, states); assets/hints.js, dependency free; the design-system reference re-yielded with the Lucide amendment and the new sections.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">The design-system page documents each new pattern with markup; the token audit and style-lint stay green; hints degrade to hover and focus without their script; disclosure is native details; no title attribute carries a definition anywhere the patterns are adopted.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
+    <h2>Sitting one &middot; signed out, one browser &middot; 24 pieces</h2>
+    <p class="lead">Everything here is public. A desktop browser, signed out; two checks also want your phone. Say the address before each verdict.</p>
     <div class="piece" id="U-09">
       <div class="piece-head"><span class="addr-chip">U-09</span><span class="piece-title">The launch page joins the site</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">index.html re-yielded: topbar navigation and footer links, the hero action routed to the join surface, three-ways-in cards linked to the participation surface with Lucide icons in their standing wells, countdown wrapped and aria-treated, faint-token text raised to muted, a skip link, section tints reconciled.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Every section of the site a visitor may need is reachable from the launch page; the primary action lands somewhere real; no horizontal scroll at 320px; the countdown is quiet to a screen reader; style-lint and the token audit green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="U-10">
-      <div class="piece-head"><span class="addr-chip">U-10</span><span class="piece-title">The front door tells the truth</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">/participation/ public surface built on the U-08 participation cards, citing /legal/participation/; /commons/join/ re-yielded as a v4 form with class selection, bound labels, and live status; term hints on the weighted words.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">A visitor can reach class self-selection from the launch page in one step, compare the four classes with their costs, and enroll or apply along the track the framework opens to them; the legal instrument is linked, not reformatted; apply_for_membership is called exactly as before.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="U-11">
-      <div class="piece-head"><span class="addr-chip">U-11</span><span class="piece-title">The member surface speaks one language</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">The five intranet surfaces aligned to v4 (radius, buttons, focus, headings); U-05 leaks removed from member copy; Lucide icons in the shell map and the door cards; aria-current on the active map link; the stale statement link routed to the treasury surface; first-run cards where a newcomer lands.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">No section mark, piece address, migration number, or event identifier renders in member-facing copy; the five surfaces carry one visual grammar; the shell marks the active section for assistive readers; style-lint and the token audit green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="U-12">
-      <div class="piece-head"><span class="addr-chip">U-12</span><span class="piece-title">Two faces, no third</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons.css without the sans token, dash-h and seclabel restated; the design-system page loading and specifying two faces only, its typography specimens corrected.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">No page the system governs loads Inter; commons.css defines two face tokens; the typography section&#x27;s specimens name only the two faces; the token audit&#x27;s font-stack check green. Formation-era commons documents carrying inline copies are named, not silently rewritten, and stand until each page&#x27;s re-emission.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="U-13">
-      <div class="piece-head"><span class="addr-chip">U-13</span><span class="piece-title">One primary navigation for the public face</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">/assets/topbar.js, the shared public topbar; the design-system reference amended with its specification; every public page re-yielded to load it, inline topbars and floating mode toggles retired; the validator extended so every page names exactly one frame, shell or topbar, and no inline topbar returns.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Every HTML page loads exactly one of shell.js or topbar.js; no page carries class topbar, nav-links, or top-nav markup; the bar renders at 48px with the design-system tokens in both modes on every public page; the validator check green in CI.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+      <p class="ctx">The launch page is the site&#x27;s front page and must route a visitor everywhere they may need.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/"><a href="https://techne.coop/">https://techne.coop/</a></a> on a desktop browser, signed out.</li><li>Click the primary hero action. Confirm it lands on the join surface, not a dead anchor.</li><li>Return. Click each of the three ways-in cards; each must land on the participation surface.</li><li>Scroll the whole page. Confirm every section of the site you can think of is reachable from here (topbar plus footer links).</li></ol>
+      <p class="say">Say: <em>&ldquo;U-09 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-09 fails&rdquo;</em> and what broke.</p>
     </div>
     <div class="piece" id="U-14">
       <div class="piece-head"><span class="addr-chip">U-14</span><span class="piece-title">The front door, briefer</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">The hero purpose cut to two sentences, title, countdown, and both actions kept; the year-behind-us and shop-notes sections removed with their styles; the workshop, the three ways in, and the join card kept and renumbered as the page&#x27;s three sections.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">The hero reads in one breath; three sections stand below it; the workshop and ways anchors still resolve for the hero&#x27;s own actions and no other page links the removed content; style-lint and the validator green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+      <p class="ctx">The front door was cut to a hero that reads in one breath plus three sections.</p>
+      <ol class="steps"><li>Stay on <a href="https://techne.coop/"><a href="https://techne.coop/">https://techne.coop/</a></a>. Read the hero aloud; it should be two sentences plus title, countdown, and two actions.</li><li>Count the sections below the hero. There must be exactly three: the workshop, the ways in, the join card.</li><li>Click both hero actions; each must scroll or route somewhere real.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-14 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-14 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="U-15">
-      <div class="piece-head"><span class="addr-chip">U-15</span><span class="piece-title">The intranet walkthrough, answered</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">The sign-in door says Link sent; the duplicate Admissions door merges into the directory; the footer spans the frame; the overview doors follow the map&#x27;s order and the treasury card carries one name; the directory tabs by kind with the profile behind an edit button; gatherings and programs raise their forms in a drawer; the host may archive a gathering (migration 0020, applied live); the agreements shelf reads as a compact index; Your share shows the account&#x27;s shape at zero; the Commonplace Book and the Almanac keep the members&#x27; frame when a member is signed in and render exactly as authored when no one is.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Each walkthrough item is either delivered on the branch or named deferred with its reason in the pull request; style-lint and the validator green; the signed-out record pages render unchanged.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="U-10">
+      <div class="piece-head"><span class="addr-chip">U-10</span><span class="piece-title">The front door tells the truth</span></div>
+      <p class="ctx">A visitor must reach class self-selection in one step and enroll along an open track.</p>
+      <ol class="steps"><li>From <a href="https://techne.coop/"><a href="https://techne.coop/">https://techne.coop/</a></a> click through to <a href="https://techne.coop/participation/"><a href="https://techne.coop/participation/">https://techne.coop/participation/</a></a> (one step from the front page).</li><li>Compare the four classes and their costs on the cards.</li><li>Navigate to <a href="https://techne.coop/commons/join/"><a href="https://techne.coop/commons/join/">https://techne.coop/commons/join/</a></a> and confirm the form offers class selection with labels bound to inputs and a live status line.</li><li>Confirm the legal instrument is linked from the page rather than restated in different words.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-10 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-10 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="U-17">
-      <div class="piece-head"><span class="addr-chip">U-17</span><span class="piece-title">The intranet in the hand</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">The topbar sheds the member chip on a narrow screen and the identity moves to the foot of the map, where there is room for it; the brand drops its suffix under 420. Every field that takes typing reads at 16px, the floor below which mobile browsers zoom the page on focus. Every control a thumb must hit clears 44px: the tabs, the archive verb, the drawer close, sign out, the affiliate select. A closed drawer is hidden rather than parked past the right edge, which both keeps it out of the tab order and stops it widening the page. Grid tracks that could not shrink below their minimum, minmax with a fixed floor, become minmax(min(N, 100%), 1fr) in all six places they appear. The dashboard doors clamp their descriptions to two lines, the Program detail rows stack, the gathering card&#x27;s own words sit inside its padding, and the share page&#x27;s period rows wrap instead of setting a floor no phone can meet.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">At 320 and 390 CSS pixels, signed in, every members&#x27; surface reports zero horizontal scroll and no field below 16px; the desktop rendering is unchanged.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="P-10">
+      <div class="piece-head"><span class="addr-chip">P-10</span><span class="piece-title">The front door reads like a front door</span></div>
+      <p class="ctx">The participation front door should open with an action, not an explanation.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/participation/"><a href="https://techne.coop/participation/">https://techne.coop/participation/</a></a>. The first thing under the masthead must be something you can act on.</li><li>Confirm the four standing questions appear once, in plain words, with statutory terms once beneath them.</li><li>Confirm the class set is rendered once as cards and once in the table, and nowhere else.</li></ol>
+      <p class="say">Say: <em>&ldquo;P-10 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;P-10 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="U-18">
-      <div class="piece-head"><span class="addr-chip">U-18</span><span class="piece-title">The frame that never held</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">assets/shell.css carrying the frame&#x27;s appearance and the @view-transition opt-in, linked in the head of all eleven surfaces the shell frames and ahead of the deferred script; the CSS string removed from assets/shell.js; speculation rules emitted from the shell&#x27;s own manifest at moderate eagerness for signed-in members, deferred while a document is itself being prerendered; scripts/token_audit.py widened to assets/*.css so the move does not carry the frame&#x27;s colours out of coverage; the false claim corrected where the estate made it, in design-system/ and commons/ui/.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">A measured navigation between two members&#x27; surfaces reports a view transition present at pagereveal and no AbortError, where the same measurement before the change reported neither transition nor frame; the hex discipline still runs over the frame&#x27;s colours; and no page states that the frame holds across a navigation, which it does not yet do.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="P-11">
+      <div class="piece-head"><span class="addr-chip">P-11</span><span class="piece-title">The door and the room behind it</span></div>
+      <p class="ctx">The door was split: three sections in front, the rest moved to a detail page.</p>
+      <ol class="steps"><li>On <a href="https://techne.coop/participation/"><a href="https://techne.coop/participation/">https://techne.coop/participation/</a></a> count the sections: three, no table, no timeline, no pathway prose.</li><li>Confirm you can reach an action without scrolling past anything that is not a door.</li><li>Navigate to <a href="https://techne.coop/participation/detail/"><a href="https://techne.coop/participation/detail/">https://techne.coop/participation/detail/</a></a> and spot-check that the moved content (table, pathways, timeline) lives there.</li><li>Check the footer of both pages and of <a href="https://techne.coop/"><a href="https://techne.coop/">https://techne.coop/</a></a> for the one-line formation notice.</li></ol>
+      <p class="say">Say: <em>&ldquo;P-11 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;P-11 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="U-19">
-      <div class="piece-head"><span class="addr-chip">U-19</span><span class="piece-title">The frame before the paint</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">The frame emitted into the markup of every surface the shell frames, the shell reduced to marking the active section and filling the member chip, and the gate proven against a signed-out load.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">A measured navigation reports the topbar and the map captured under their own transition names in both the old and the new document; a signed-out load never paints the map.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="P-09">
+      <div class="piece-head"><span class="addr-chip">P-09</span><span class="piece-title">The two tracks told apart</span></div>
+      <p class="ctx">Public participation content lives in one place; the legal path is only a pointer.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/participation/"><a href="https://techne.coop/participation/">https://techne.coop/participation/</a></a> and then <a href="https://techne.coop/legal/participation/"><a href="https://techne.coop/legal/participation/">https://techne.coop/legal/participation/</a></a>.</li><li>Confirm the legal path renders a pointer back, not a second copy of the content.</li><li>On <a href="https://techne.coop/legal/"><a href="https://techne.coop/legal/">https://techne.coop/legal/</a></a> find the Guild Participation Terms row and confirm it carries a standing mark.</li><li>Confirm nowhere on either page shows a price ladder or numeric progress toward membership.</li></ol>
+      <p class="say">Say: <em>&ldquo;P-09 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;P-09 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="P-12">
+      <div class="piece-head"><span class="addr-chip">P-12</span><span class="piece-title">One notice, one place</span></div>
+      <p class="ctx">One formation notice, one form: a footer line everywhere, no strips.</p>
+      <ol class="steps"><li>Open <a href="https://techne.coop/legal/"><a href="https://techne.coop/legal/">https://techne.coop/legal/</a></a> and two or three pages beneath it (counsel memo, corrections).</li><li>Confirm none carries a formation strip block; each carries the one-line footer notice instead.</li><li>Open <a href="https://techne.coop/legal/#formation"><a href="https://techne.coop/legal/#formation">https://techne.coop/legal/#formation</a></a> and confirm the long-form notice is intact.</li></ol>
+      <p class="say">Say: <em>&ldquo;P-12 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;P-12 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="FORMATION-01">
+      <div class="piece-head"><span class="addr-chip">FORMATION-01</span><span class="piece-title">The site stops saying it is operating</span></div>
+      <p class="ctx">No page may claim the cooperative is operating or its instruments ratified.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/legal/"><a href="https://techne.coop/legal/">https://techne.coop/legal/</a></a>. Confirm the instrument rows carry the drafted mark.</li><li>Open <a href="https://techne.coop/legal/#formation"><a href="https://techne.coop/legal/#formation">https://techne.coop/legal/#formation</a></a> and read the notice; it should state the record's position in the counsel memo's words.</li><li>Spot-check the front page and /commons/ for any sentence claiming the cooperative is operating; there must be none.</li></ol>
+      <p class="say">Say: <em>&ldquo;FORMATION-01 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;FORMATION-01 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="DOC-01">
+      <div class="piece-head"><span class="addr-chip">DOC-01</span><span class="piece-title">The correction log opens</span></div>
+      <p class="ctx">The correction log holds the estate&#x27;s known wrong claims, each with its standing.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/legal/corrections/"><a href="https://techne.coop/legal/corrections/">https://techne.coop/legal/corrections/</a></a>.</li><li>Count the items (eight at drafting). For each, confirm it states what was claimed, what the record holds, and who closes it.</li><li>Confirm no item is marked closed without naming the closing act.</li></ol>
+      <p class="say">Say: <em>&ldquo;DOC-01 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;DOC-01 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="MM-01">
+      <div class="piece-head"><span class="addr-chip">MM-01</span><span class="piece-title">The horizon enters the shelf</span></div>
+      <p class="ctx">The maturity model entered the legal shelf as an unadopted document.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/legal/maturity-model/"><a href="https://techne.coop/legal/maturity-model/">https://techne.coop/legal/maturity-model/</a></a> and then its specification subpage; both must render.</li><li>Return to <a href="https://techne.coop/legal/"><a href="https://techne.coop/legal/">https://techne.coop/legal/</a></a> and find both linked under a note stating they are unadopted.</li></ol>
+      <p class="say">Say: <em>&ldquo;MM-01 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;MM-01 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="U-12">
+      <div class="piece-head"><span class="addr-chip">U-12</span><span class="piece-title">Two faces, no third</span></div>
+      <p class="ctx">The estate speaks two typefaces only: the serif and the mono.</p>
+      <ol class="steps"><li>Open <a href="https://techne.coop/design-system/"><a href="https://techne.coop/design-system/">https://techne.coop/design-system/</a></a> and read the typography section; it must name exactly two faces.</li><li>On any public page, open your browser's devtools font inspector (or squint): no third face, no Inter, anywhere.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-12 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-12 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="U-13">
+      <div class="piece-head"><span class="addr-chip">U-13</span><span class="piece-title">One primary navigation for the public face</span></div>
+      <p class="ctx">Every page carries exactly one primary navigation, the shared public topbar or the member shell.</p>
+      <ol class="steps"><li>Open five public pages of your choice; the same 48px topbar must render on each, in both light and dark.</li><li>Confirm no page shows a second, page-specific nav bar.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-13 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-13 fails&rdquo;</em> and what broke.</p>
     </div>
     <div class="piece" id="U-20">
       <div class="piece-head"><span class="addr-chip">U-20</span><span class="piece-title">The frame measure</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/ui/commons.css defines .wrap-frame with a rem-based cap and continuous gutters via clamp, so the column fills a phone, grows with the window, and stops at a comfortable maximum on a desk without a breakpoint on the way; the SUB-02 consumption card is honoured and the nine surfaces inline the rule verbatim; scripts/measure_audit.py proves the copies still agree, wired into the style-lint step; a page&#x27;s lead prose keeps a 68ch measure so a sentence never runs the full column.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Nine framed surfaces report the identical rendered content column and gutter at 360, 1024, and 1920; no page overflows at any width in the range; the audit refuses a page that reintroduces a pixel cap, proven by a live regression test.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+      <p class="ctx">Nine framed surfaces share one content measure: fills a phone, stops at a readable maximum.</p>
+      <ol class="steps"><li>Open <a href="https://techne.coop/commons/"><a href="https://techne.coop/commons/">https://techne.coop/commons/</a></a> and <a href="https://techne.coop/legal/"><a href="https://techne.coop/legal/">https://techne.coop/legal/</a></a> at a narrow window, a laptop width, and full screen.</li><li>Confirm the text column and gutters look identical across the framed pages at each width, with no horizontal overflow.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-20 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-20 fails&rdquo;</em> and what broke.</p>
     </div>
     <div class="piece" id="U-21">
       <div class="piece-head"><span class="addr-chip">U-21</span><span class="piece-title">The commons page speaks the current book</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/index.html re-cut: the four capabilities named as capabilities with their beds and proofs, each carrying the mark the ledger carries rather than a rounded one; a steered-garden section reading the book against the viable system frame, systems one through five with the algedonic channel and the transducer, each row naming a thing that exists in the record; a section on the intranet as the member&#x27;s half of the same book; the four grafted modules with their adoption dates and the two that are drafted and not adopted; links out to the Almanac, the Lexicon, the launch readiness page, and the module documents, which matter more than usual while the public map is withheld. CSS identifiers are left alone: renames are L-07&#x27;s work and it waits by election. One incidental correction rides along, assets/shell.js calling the Almanac by its retired name, Living roadmap, in the member&#x27;s map.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">No retired register term renders on the page; every status shown matches rdm-ledger.yaml, checked entry by entry; every link resolves to a page in the estate; the page states the cybernetic reading and names the intranet; style-lint, the token audit, the one-navigation check, and the validator green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+      <p class="ctx">The commons page states the four capabilities with the marks the ledger holds, unrounded.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/commons/"><a href="https://techne.coop/commons/">https://techne.coop/commons/</a></a>. Read each capability's mark.</li><li>Open <a href="https://techne.coop/intranet/hud/"><a href="https://techne.coop/intranet/hud/">https://techne.coop/intranet/hud/</a></a> in another tab (Maturation view) or the ledger itself, and spot-check three marks match.</li><li>Click every link on the page; each must resolve inside the estate.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-21 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-21 fails&rdquo;</em> and what broke.</p>
     </div>
     <div class="piece" id="U-22">
       <div class="piece-head"><span class="addr-chip">U-22</span><span class="piece-title">The Commonplace, published</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commonplace/index.html: all seventy-nine entries, five movements, the meeting ledger, and the closing statement of what the book does not hold, carried across without loss and recast into the estate&#x27;s document grammar, techne v4 tokens inlined and the public topbar carried per U-13. The source document&#x27;s own account of its making is kept, including the anonymity of the record and the second-hand standing of the recorded lines. Ahead of the first movement, a standing note the source did not carry: the book governs nothing, the instruments and the record govern, and the lens is the steward&#x27;s reading recorded as his. commons/ index.html gains the section that says where its words came from and a link out, since the operating record and the formation record share a name on purpose and a reader meeting one should be told about the other.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Every entry, movement, ledger row, and closing paragraph of the source present at techne.coop/commonplace, checked by count and by an entry-by-entry read; no claim of authority the source does not make; the page names its own standing and the steward as the author of the lens; /commons/ links to it and says what it is; style-lint, the token audit, the one-navigation check, and the validator green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+      <p class="ctx">The Commonplace: seventy-nine entries carried across without loss.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/commonplace/"><a href="https://techne.coop/commonplace/">https://techne.coop/commonplace/</a></a>.</li><li>Count the movements (five) and spot-read three entries against your memory of the source.</li><li>Confirm the page names its own standing and the steward as author of the lens, and that <a href="https://techne.coop/commons/"><a href="https://techne.coop/commons/">https://techne.coop/commons/</a></a> links to it.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-22 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-22 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="L-01">
+      <div class="piece-head"><span class="addr-chip">L-01</span><span class="piece-title">Lexicon v2</span></div>
+      <p class="ctx">Lexicon v2 defines every working term and answers every retired one.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/commons/build/lexicon/"><a href="https://techne.coop/commons/build/lexicon/">https://techne.coop/commons/build/lexicon/</a></a>.</li><li>Pick five working terms you use weekly (piece, bed, proof, graft, tally); each must have a definition.</li><li>Pick two retired terms (packet, gate in its old sense); the concordance must answer each with its successor.</li></ol>
+      <p class="say">Say: <em>&ldquo;L-01 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;L-01 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="L-02">
+      <div class="piece-head"><span class="addr-chip">L-02</span><span class="piece-title">The Almanac</span></div>
+      <p class="ctx">The Almanac speaks only the current register.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/commons/build/"><a href="https://techne.coop/commons/build/">https://techne.coop/commons/build/</a></a>.</li><li>Scan for retired vocabulary outside quoted history; there should be none. Read three bed narrations aloud as a sample.</li></ol>
+      <p class="say">Say: <em>&ldquo;L-02 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;L-02 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="L-04">
+      <div class="piece-head"><span class="addr-chip">L-04</span><span class="piece-title">The companions</span></div>
+      <p class="ctx">The four companion pages agree with the Almanac word for word on every term.</p>
+      <ol class="steps"><li>Open <a href="https://techne.coop/commons/build/gates/"><a href="https://techne.coop/commons/build/gates/">https://techne.coop/commons/build/gates/</a></a>, /commons/build/run-through/, /commons/build/instructions/, and /commons/build/launch/.</li><li>Pick three terms (proof, bed, mark) and confirm each page uses them exactly as the Almanac defines them.</li></ol>
+      <p class="say">Say: <em>&ldquo;L-04 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;L-04 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="L-05">
+      <div class="piece-head"><span class="addr-chip">L-05</span><span class="piece-title">The series speaks</span></div>
+      <p class="ctx">The governing documents define the terms the pages use, and no page uses an undefined term.</p>
+      <ol class="steps"><li>Open <a href="https://techne.coop/commons/bp/"><a href="https://techne.coop/commons/bp/">https://techne.coop/commons/bp/</a></a>, /commons/vs/, /commons/prd/, and /commons/series/.</li><li>Pick three terms a page leans on and find each defined in the documents. If you meet a term the documents never define, that is the failure.</li></ol>
+      <p class="say">Say: <em>&ldquo;L-05 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;L-05 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="X-14">
+      <div class="piece-head"><span class="addr-chip">X-14</span><span class="piece-title">The build surface agrees</span></div>
+      <p class="ctx">Nothing under /commons/build/ may state a count or standing the ledger contradicts.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/commons/build/"><a href="https://techne.coop/commons/build/">https://techne.coop/commons/build/</a></a>. Note the proofs list and two bed counts.</li><li>Open <a href="https://techne.coop/intranet/hud/"><a href="https://techne.coop/intranet/hud/">https://techne.coop/intranet/hud/</a></a> (Maturation) or STATUS.md at <a href="https://github.com/Techne-Co-op/techne.coop/blob/main/STATUS.md"><a href="https://github.com/Techne-Co-op/techne.coop/blob/main/STATUS.md">https://github.com/Techne-Co-op/techne.coop/blob/main/STATUS.md</a></a> and confirm those numbers agree.</li></ol>
+      <p class="say">Say: <em>&ldquo;X-14 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;X-14 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="X-15">
+      <div class="piece-head"><span class="addr-chip">X-15</span><span class="piece-title">The register bridge</span></div>
+      <p class="ctx">A precise revision: dek, caveat, tab labels, loop headers, four captions, one name, two descriptions; nothing else.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/commons/build/"><a href="https://techne.coop/commons/build/">https://techne.coop/commons/build/</a></a> and read the dek and the caveat under it.</li><li>Confirm the page's framing reads as elected language while every piece card, mark, and count is untouched record. This one rides with X-14's number check; if X-14 held, say so here.</li></ol>
+      <p class="say">Say: <em>&ldquo;X-15 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;X-15 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="X-16">
+      <div class="piece-head"><span class="addr-chip">X-16</span><span class="piece-title">The estate reads true</span></div>
+      <p class="ctx">README, CONTRIBUTORS, and RUN speak the current book.</p>
+      <ol class="steps"><li>Open <a href="https://github.com/Techne-Co-op/techne.coop/blob/main/README.md"><a href="https://github.com/Techne-Co-op/techne.coop/blob/main/README.md">https://github.com/Techne-Co-op/techne.coop/blob/main/README.md</a></a> and <a href="https://github.com/Techne-Co-op/techne.coop/blob/main/CONTRIBUTORS.md"><a href="https://github.com/Techne-Co-op/techne.coop/blob/main/CONTRIBUTORS.md">https://github.com/Techne-Co-op/techne.coop/blob/main/CONTRIBUTORS.md</a></a> and <a href="https://github.com/Techne-Co-op/techne.coop/blob/main/RUN.md"><a href="https://github.com/Techne-Co-op/techne.coop/blob/main/RUN.md">https://github.com/Techne-Co-op/techne.coop/blob/main/RUN.md</a></a>.</li><li>Confirm each cites PRD v0.4, BP v2, VS v2, SER v0.3, ALM v2 where it names the documents, and nothing cites a retired version.</li></ol>
+      <p class="say">Say: <em>&ldquo;X-16 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;X-16 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="P-07">
+      <div class="piece-head"><span class="addr-chip">P-07</span><span class="piece-title">The participation stories</span></div>
+      <p class="ctx">The participation stories carry the 2026-08-09 corrections.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/commons/prd/stories/"><a href="https://techne.coop/commons/prd/stories/">https://techne.coop/commons/prd/stories/</a></a>.</li><li>Find the level machinery and the class personas; each must read as waiting, not as live.</li><li>Find the carrier and the path tally; each must carry its reconciliation note.</li></ol>
+      <p class="say">Say: <em>&ldquo;P-07 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;P-07 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="P-08">
+      <div class="piece-head"><span class="addr-chip">P-08</span><span class="piece-title">The day-one journeys</span></div>
+      <p class="ctx">Every arrival class has a day-one passage whose claims trace to stories or named waiting pieces.</p>
+      <ol class="steps"><li>Stay on <a href="https://techne.coop/commons/prd/stories/"><a href="https://techne.coop/commons/prd/stories/">https://techne.coop/commons/prd/stories/</a></a>. Read one day-one passage end to end.</li><li>For each claim in it, confirm the page either shows the story or names the waiting piece.</li><li>Find the guild hand-off note and the P3 refusal statement; both must be visible to a plain reader.</li></ol>
+      <p class="say">Say: <em>&ldquo;P-08 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;P-08 fails&rdquo;</em> and what broke.</p>
     </div>
   </section>
 
   <section class="sec">
     <div class="addr">&sect;4</div>
-    <h2>Sitting two &middot; the cross-cutting walk &middot; 12 pieces</h2>
-    <p class="lead">The estate's agreements with itself. One piece, X-09's sibling X-21, wants a second person; the rest are solo. Bring the walkthrough script for the two-person beats.</p>
-    <div class="piece" id="DOC-01">
-      <div class="piece-head"><span class="addr-chip">DOC-01</span><span class="piece-title">The correction log opens</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">legal/corrections/index.html carrying eight items with their standing; the roster withdrawn from every public surface; the trade name filing recorded against item 07.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Every item states what was claimed, what the record holds, and who closes it; nothing is closed by preference; style and token suites green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <h2>Sitting two &middot; signed in &middot; 12 pieces</h2>
+    <p class="lead">The members' side. Sign in first at <a href="https://techne.coop/intranet/">https://techne.coop/intranet/</a>. Three pieces here (F-02, G-04's last clause, X-12's live half) need a second person and belong to the walkthrough sitting; the cards say exactly what to defer.</p>
+    <div class="piece" id="U-06">
+      <div class="piece-head"><span class="addr-chip">U-06</span><span class="piece-title">The frame on a narrow screen</span></div>
+      <p class="ctx">The member shell must behave on a phone.</p>
+      <ol class="steps"><li>On your phone, sign in and open <a href="https://techne.coop/intranet/"><a href="https://techne.coop/intranet/">https://techne.coop/intranet/</a></a>.</li><li>Confirm the page starts under the topbar, not beneath an overlap.</li><li>Open the map drawer with its control; close it with the same control.</li><li>Open it again, tap a destination, and confirm the drawer does not remain open over the new page.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-06 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-06 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="FORMATION-01">
-      <div class="piece-head"><span class="addr-chip">FORMATION-01</span><span class="piece-title">The site stops saying it is operating</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">legal/index.html and the two instrument pages carrying the drafted mark; the formation notice published at /legal/#formation and superseding every page; the maturity model&#x27;s standing line corrected.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">No page claims the cooperative is operating or its instruments ratified; the notice states the record&#x27;s own position in the counsel memo&#x27;s words; style and token suites green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="U-07">
+      <div class="piece-head"><span class="addr-chip">U-07</span><span class="piece-title">The parked door</span></div>
+      <p class="ctx">The Share door is parked honestly: it names what is absent and whose act it waits on.</p>
+      <ol class="steps"><li>Signed in, open the map and find the See your share group; click through to <a href="https://techne.coop/intranet/share/"><a href="https://techne.coop/intranet/share/">https://techne.coop/intranet/share/</a></a>.</li><li>Confirm the page names S-01 and S-02, says the absence is the Board's pending act (not an administrator's withholding), and links the staged counting rules.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-07 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-07 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="X-11">
-      <div class="piece-head"><span class="addr-chip">X-11</span><span class="piece-title">The export follows the substrate</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">0014_export_views_refresh.sql; commons/im/0004_export_views.sql added to the rehearsal chain; beat 14.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Adding a column to a base table without refreshing its export view fails CI; the walkaway carries every column the record holds.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="U-11">
+      <div class="piece-head"><span class="addr-chip">U-11</span><span class="piece-title">The member surface speaks one language</span></div>
+      <p class="ctx">Member-facing copy carries no internal address, section mark, or event id.</p>
+      <ol class="steps"><li>Signed in, walk the five intranet surfaces (overview, share, record, treasury, programs).</li><li>Read for leaks: no X-nn or U-nn addresses, no migration numbers, no event hashes in the copy.</li><li>Confirm the five surfaces look like one product: same radius, buttons, focus rings, headings.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-11 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-11 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="X-12">
-      <div class="piece-head"><span class="addr-chip">X-12</span><span class="piece-title">The member&#x27;s rail</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">0015_member_notices.sql (the triggers); the shell&#x27;s notices panel (U-01 extension); 0016_notices_rail_kinds.sql and the notices function&#x27;s member routing (dormant, X-02 sink pattern); replica-mode import (import_cis.py); rehearsal beats 7.3, 7.4, 10.3, 10.4.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">A response or a registration turn lands as an event addressed to the member it concerns and to no one else; the member sees it in the shell without going to look; a restore replays the log without minting new notices.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="U-15">
+      <div class="piece-head"><span class="addr-chip">U-15</span><span class="piece-title">The intranet walkthrough, answered</span></div>
+      <p class="ctx">The intranet walkthrough&#x27;s findings were answered.</p>
+      <ol class="steps"><li>Signed out, request a sign-in link; the door must say Link sent.</li><li>Signed in, confirm there is one directory (no separate Admissions door), the footer spans the frame, and the overview doors follow the map's order.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-15 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-15 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="U-17">
+      <div class="piece-head"><span class="addr-chip">U-17</span><span class="piece-title">The intranet in the hand</span></div>
+      <p class="ctx">Members&#x27; surfaces fit a phone hand.</p>
+      <ol class="steps"><li>On your phone, signed in, visit each members' surface at normal zoom.</li><li>Swipe horizontally on each; nothing may scroll sideways.</li><li>Tap into any input; the text you type must not be smaller than the body text (16px floor: the browser must not zoom in when you focus the field).</li></ol>
+      <p class="say">Say: <em>&ldquo;U-17 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-17 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="U-18">
+      <div class="piece-head"><span class="addr-chip">U-18</span><span class="piece-title">The frame that never held</span></div>
+      <p class="ctx">Navigation between members&#x27; surfaces carries a view transition.</p>
+      <ol class="steps"><li>Signed in on a desktop Chromium browser, navigate between two members' surfaces and watch the topbar: it should persist smoothly rather than flash.</li><li>If you cannot perceive it, this piece's measured evidence is in the PR; say so rather than guessing.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-18 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-18 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="U-19">
+      <div class="piece-head"><span class="addr-chip">U-19</span><span class="piece-title">The frame before the paint</span></div>
+      <p class="ctx">The frame is in the markup before any script runs, and a signed-out load never paints the map.</p>
+      <ol class="steps"><li>Signed in, hard-reload a members' surface: the topbar and map must be present immediately, no flash of frameless content.</li><li>Sign out, load the same URL: the member map must never appear, not even for a frame.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-19 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-19 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="A-02">
+      <div class="piece-head"><span class="addr-chip">A-02</span><span class="piece-title">The desk</span></div>
+      <p class="ctx">The desk: give a Direction, watch its arc, find a refusal&#x27;s rule.</p>
+      <ol class="steps"><li>Signed in, navigate to <a href="https://techne.coop/intranet/direct/"><a href="https://techne.coop/intranet/direct/">https://techne.coop/intranet/direct/</a></a>.</li><li>Give a small real Direction (or read your standing one, d6e22f76) and confirm the page shows its arc from given onward.</li><li>Find where a refusal would cite its rule on the page; confirm the rule text is reachable.</li></ol>
+      <p class="say">Say: <em>&ldquo;A-02 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;A-02 fails&rdquo;</em> and what broke.</p>
     </div>
     <div class="piece" id="X-13">
       <div class="piece-head"><span class="addr-chip">X-13</span><span class="piece-title">The documents agree</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">PATRONAGE v0.2.1: tally surface address follows the built door at /intranet/share/; the adopted posture recorded; the address line closed. TREASURY v0.1.2: the adopted posture recorded; the public name settled as Treasury per the deployed map. PRD v0.3 section 4 and Q6 amended: treasury naming settled, governance named as the one scoped capability without a trajectory. Ledger sections refiled so lane means capability: G-04 to gather, F-05 to find, the U bed to its own shell section. S-01 and S-02 wording reconciled.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Every address, name, and adoption status the three PRDs claim matches the ledger and the deployed map; the validator and the freshness job stay green; each amendment carries its date and its piece address.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+      <p class="ctx">The three module documents agree with the built estate.</p>
+      <ol class="steps"><li>Open <a href="https://techne.coop/commons/patronage/"><a href="https://techne.coop/commons/patronage/">https://techne.coop/commons/patronage/</a></a> and confirm the tally surface address it names is /intranet/share/.</li><li>Open <a href="https://techne.coop/commons/treasury/"><a href="https://techne.coop/commons/treasury/">https://techne.coop/commons/treasury/</a></a> and confirm the public name it uses matches the treasury door's name in the shell.</li><li>Confirm each amendment line carries its date and piece address.</li></ol>
+      <p class="say">Say: <em>&ldquo;X-13 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;X-13 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="X-14">
-      <div class="piece-head"><span class="addr-chip">X-14</span><span class="piece-title">The build surface agrees</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/build/index.html: the AGY document row, the U and A beds narrated for the first time, the tree tab&#x27;s migration chain carried to 0018, the proofs list at eight, the signal panel carrying the first grant and the visibility decision. commons/build/gates/index.html: G-A scored with its five beats and its distinct cast requirement; the attestation template&#x27;s proof list completed with G-T and G-A. commons/build/lexicon/index.html: ten drafted artifacts, nine beds, the module documents, the chain through 0018, the new definer verbs, and the terms Direction, Run, Scope, Estate list, and the provenance pair. commons/build/instructions/index.html: the count paragraph and the bed table corrected, the Shell and Agency rows added, commons/agency/ in the repository layout. commons/build/launch/index.html: the first grant as a board-side row, the visibility decision and the two migrations as steward-side rows, the standing list amended. commons/build/run-through/index.html: an eighth act for Direction, the run sheet carrying A-01 and A-02, the left-standing list carrying the agency conditions.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">No page under /commons/build/ states a count, an enumeration, or a standing that the ledger contradicts. Every bed in the ledger is narrated on the Almanac; every proof is scored in the Proof Book.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="X-12">
+      <div class="piece-head"><span class="addr-chip">X-12</span><span class="piece-title">The member&#x27;s rail</span></div>
+      <p class="ctx">A member&#x27;s rail: events addressed to the member they concern, seen without going to look.</p>
+      <ol class="steps"><li>This one wants two people; it rides with the walkthrough sitting. Solo you can do half:</li><li>Signed in, find the notices panel in the shell and confirm it renders.</li><li>The addressed-event and restore clauses were proven in CI and the walkthrough covers the live half; say which half you walked.</li></ol>
+      <p class="say">Say: <em>&ldquo;X-12 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;X-12 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="X-15">
-      <div class="piece-head"><span class="addr-chip">X-15</span><span class="piece-title">The register bridge</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/build/index.html revised per the adopted specification: the dek, the caveat, the elected tab labels, the loop headers, four captions, one display name, and the two meta descriptions. Nothing else.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Every applied change matches the adopted specification byte for byte; no piece intent, address, status mark, proof, named condition, or generated block altered; style-lint and ledger-validate green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="F-02">
+      <div class="piece-head"><span class="addr-chip">F-02</span><span class="piece-title">Response flow</span></div>
+      <p class="ctx">Respond to a posting and both parties see it. Needs a person who is not the steward.</p>
+      <ol class="steps"><li>Defer to the walkthrough sitting (X-21 script, act three). Do not walk solo; a self-response is excluded by design.</li></ol>
+      <p class="say">Say: <em>&ldquo;F-02 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;F-02 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="X-16">
-      <div class="piece-head"><span class="addr-chip">X-16</span><span class="piece-title">The estate reads true</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">README.md, CONTRIBUTORS.md, and RUN.md revised; current-voice citations across the estate naming PRD v0.4, BP v2, VS v2, SER v0.3, and ALM v2; the instructions census matching the validated state.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">The steward&#x27;s merge; validator and style suites green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="X-17">
-      <div class="piece-head"><span class="addr-chip">X-17</span><span class="piece-title">The second resync</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">The hand-kept cards of commons/build/index.html level with the ledger; every bed section&#x27;s count and cap true on the day of merge. Measured at pickup: fifty of the ledger&#x27;s 113 addresses carried no card, three whole beds among them, L, V, and P; and seven cards carried a mark the ledger contradicts, in both directions, four under-claiming (F-01, F-03, F-04, X-02, all verified on the run-through and still shown in session) and two over-claiming (U-06 and U-07 shown verified while the ledger holds them in session), with G-F shown against a naming question the ledger no longer carries. The scope therefore runs past the cards to the rest of the page&#x27;s hand-kept half, which would otherwise contradict the resync it sits beside: the state note, the signal loop&#x27;s three answers, the estate panel&#x27;s page list and migration chain, the proof list, and the series artifacts. The generated block is not touched.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Address coverage complete and every card&#x27;s mark equal to the ledger&#x27;s, proven by a check that reads both; no count, enumeration, or standing anywhere on the page that the ledger contradicts; validator and style suites green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="X-18">
-      <div class="piece-head"><span class="addr-chip">X-18</span><span class="piece-title">The cards answer to the ledger, the ledger to the repository</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">scripts/almanac_audit.py wired into the style-lint job of verify.yml, its scope named per VS v2 section 9; the third check, reading merged branch names against the ledger; the job&#x27;s checkout deepened, since a shallow clone carries no merge commits to read; and a self-test step that runs before the audit and refuses to let a check quietly stop checking.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Adding an address to the ledger without carding it on the Almanac fails CI; merging a piece without an address fails CI; both proven by a live regression test that runs in the same job; the estate passes as it stands.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="X-19">
-      <div class="piece-head"><span class="addr-chip">X-19</span><span class="piece-title">The ledger answers to the repository</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">Twenty-four marks corrected in rdm-ledger.yaml, addresses minted for FORMATION-01 and DOC-01, their cards and this piece&#x27;s written on the Almanac, the state note rewritten to the day of merge, and the open marks themselves defined in the ledger&#x27;s own header.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Every merged piece carries a mark that says it merged; every merged branch has an address; no piece stands in session that no one is working; the almanac audit green over the new count; validator, style, token, measure, and notice suites green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="X-21">
-      <div class="piece-head"><span class="addr-chip">X-21</span><span class="piece-title">The walkthrough that needs two people</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/build/walkthrough/index.html: the four acts, the cast and the bench, the twenty beats with their evidence labels, the evidence sheet mapping each label to the acceptance clause it answers, and the honest list of what the walk does not close.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Two people who are not the author can walk the script end to end without asking anyone a question, and the evidence folder it leaves answers every acceptance clause it claims to answer.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="G-04">
+      <div class="piece-head"><span class="addr-chip">G-04</span><span class="piece-title">The scheduling act</span></div>
+      <p class="ctx">Schedule a gathering; another member registers. Needs a second member.</p>
+      <ol class="steps"><li>Signed in, open <a href="https://techne.coop/commons/gatherings/"><a href="https://techne.coop/commons/gatherings/">https://techne.coop/commons/gatherings/</a></a> and schedule a real gathering with title and start.</li><li>Confirm it appears on the calendar with you as host, with purpose and place.</li><li>The second clause (another member registers) belongs to the walkthrough sitting; say which clauses you walked.</li></ol>
+      <p class="say">Say: <em>&ldquo;G-04 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;G-04 fails&rdquo;</em> and what broke.</p>
     </div>
   </section>
 
   <section class="sec">
     <div class="addr">&sect;5</div>
-    <h2>Sitting three &middot; the lexicon and the transducer &middot; 12 pieces</h2>
-    <p class="lead">Read the pages against their sources. Each acceptance names the page and what it must agree with.</p>
-    <div class="piece" id="L-01">
-      <div class="piece-head"><span class="addr-chip">L-01</span><span class="piece-title">Lexicon v2</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/build/lexicon/index.html rewritten as Lexicon v2; the L bed and its proof G-L entered in the ledger.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Every working term is defined, every retired term answers through the concordance, and style-lint is green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="L-02">
-      <div class="piece-head"><span class="addr-chip">L-02</span><span class="piece-title">The Almanac</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/build/index.html as the Almanac, ALM v2.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">No retired term appears outside quotation of historical records, and every suite is green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="L-03">
-      <div class="piece-head"><span class="addr-chip">L-03</span><span class="piece-title">The ledger speaks</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">rdm-ledger.yaml and scripts/validate.py, evolved together.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">ledger-validate green and no verified or attested entry differs by one byte.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="L-04">
-      <div class="piece-head"><span class="addr-chip">L-04</span><span class="piece-title">The companions</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/build/gates/, commons/build/run-through/, commons/build/instructions/, and commons/build/launch/ revised.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">The four pages and the Almanac agree word for word on every term.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="L-05">
-      <div class="piece-head"><span class="addr-chip">L-05</span><span class="piece-title">The series speaks</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/bp/, commons/vs/, commons/prd/, commons/series/, the commons/im/ language layer, and AGENTS.md.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">The documents define the terms the pages use and no page uses a term the documents do not define.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="L-06">
-      <div class="piece-head"><span class="addr-chip">L-06</span><span class="piece-title">The modules speak</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/patronage/, commons/treasury/, and commons/agency/ documents revised.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">The steward&#x27;s three merges recorded.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="TR-02">
-      <div class="piece-head"><span class="addr-chip">TR-02</span><span class="piece-title">The generator</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">scripts/hud_cut.py.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Run on fresh infrastructure from the public repository with no key, twice, and the two cuts are byte-identical for the same commit.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="TR-03">
-      <div class="piece-head"><span class="addr-chip">TR-03</span><span class="piece-title">The currency gate</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">.github/workflows/transducer-currency.yml and the --check audit in scripts/hud_cut.py.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">A seeded stale cut fails the suite and a fresh one passes.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
+    <h2>Sitting three &middot; the transducer &middot; 6 pieces</h2>
+    <p class="lead">One surface, six pieces. Start at <a href="https://techne.coop/intranet/hud/">https://techne.coop/intranet/hud/</a> and stay there; two cards send you to the Actions page as a witness.</p>
     <div class="piece" id="TR-04">
       <div class="piece-head"><span class="addr-chip">TR-04</span><span class="piece-title">The surface, deployed</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">intranet/hud/index.html.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">A reader reaches it by URL, and the stamp matches the head of main.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+      <p class="ctx">The transducer is deployed and current.</p>
+      <ol class="steps"><li>Navigate to <a href="https://techne.coop/intranet/hud/"><a href="https://techne.coop/intranet/hud/">https://techne.coop/intranet/hud/</a></a>.</li><li>Read the stamp line (read <date> at <hash>). Open <a href="https://github.com/Techne-Co-op/techne.coop/commits/main"><a href="https://github.com/Techne-Co-op/techne.coop/commits/main">https://github.com/Techne-Co-op/techne.coop/commits/main</a></a> and confirm the hash is the head of main or within a day of it.</li></ol>
+      <p class="say">Say: <em>&ldquo;TR-04 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;TR-04 fails&rdquo;</em> and what broke.</p>
     </div>
     <div class="piece" id="TR-08">
       <div class="piece-head"><span class="addr-chip">TR-08</span><span class="piece-title">The walk</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">The walk, inside intranet/hud/index.html.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">A person who has never seen the estate can, after the walk alone, say what each view shows and what it refuses to show; the spoken text stays within three minutes read aloud.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="TR-09">
-      <div class="piece-head"><span class="addr-chip">TR-09</span><span class="piece-title">The succession derivation</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">The succession derivation in scripts/hud_cut.py.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">The recovered history of three pieces chosen by a person, including one carrying a backward step, matches a hand trace through the record; and the derivation preserves same-day sequences rather than collapsing them, demonstrated against F-01.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+      <p class="ctx">The walk teaches a stranger what each view shows and refuses to show, in under three minutes.</p>
+      <ol class="steps"><li>On <a href="https://techne.coop/intranet/hud/"><a href="https://techne.coop/intranet/hud/">https://techne.coop/intranet/hud/</a></a> click start here and take the walk end to end.</li><li>Time it: the spoken text must stay within three minutes read aloud.</li><li>At the end, say aloud in your own words what each of the six views shows and what it refuses to show. If you cannot, it failed.</li></ol>
+      <p class="say">Say: <em>&ldquo;TR-08 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;TR-08 fails&rdquo;</em> and what broke.</p>
     </div>
     <div class="piece" id="TR-10">
       <div class="piece-head"><span class="addr-chip">TR-10</span><span class="piece-title">The seam</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">The succession lens of intranet/hud/index.html.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">A reader can find the flat layer without being told it is there, and can say from the panel alone what the backward steps were.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+      <p class="ctx">The succession lens exposes the flat layer and the backward steps.</p>
+      <ol class="steps"><li>On the HUD, open the Succession view.</li><li>Without hints, find the flat layer (the strip under the main figure).</li><li>Open one piece's panel and say aloud what its backward steps were, from the panel alone.</li></ol>
+      <p class="say">Say: <em>&ldquo;TR-10 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;TR-10 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="TR-02">
+      <div class="piece-head"><span class="addr-chip">TR-02</span><span class="piece-title">The generator</span></div>
+      <p class="ctx">The generator: two runs on the same commit produce byte-identical cuts.</p>
+      <ol class="steps"><li>Open <a href="https://github.com/Techne-Co-op/techne.coop/actions"><a href="https://github.com/Techne-Co-op/techne.coop/actions">https://github.com/Techne-Co-op/techne.coop/actions</a></a> and find the two most recent transducer cut runs on the same commit, or the TR-02 PR's evidence of the double run.</li><li>Confirm the byte-identical claim is recorded there. This is a witness step, not a rerun; say what you read.</li></ol>
+      <p class="say">Say: <em>&ldquo;TR-02 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;TR-02 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="TR-03">
+      <div class="piece-head"><span class="addr-chip">TR-03</span><span class="piece-title">The currency gate</span></div>
+      <p class="ctx">The currency gate fails a stale cut and passes a fresh one.</p>
+      <ol class="steps"><li>Open <a href="https://github.com/Techne-Co-op/techne.coop/actions"><a href="https://github.com/Techne-Co-op/techne.coop/actions">https://github.com/Techne-Co-op/techne.coop/actions</a></a> and filter for transducer-currency.</li><li>Confirm the latest run is green, and find the seeded-stale regression run (it fails by design) in the workflow's history or the TR-03 PR.</li></ol>
+      <p class="say">Say: <em>&ldquo;TR-03 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;TR-03 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="TR-09">
+      <div class="piece-head"><span class="addr-chip">TR-09</span><span class="piece-title">The succession derivation</span></div>
+      <p class="ctx">The derivation recovers history correctly, including backward steps and same-day sequences.</p>
+      <ol class="steps"><li>On the HUD's Succession view, pick three pieces you remember the history of, one with a backward step (F-01 is the recorded case).</li><li>For each, compare the drawn history against your memory or the ledger's dated notes; they must agree, and same-day steps must not be collapsed.</li></ol>
+      <p class="say">Say: <em>&ldquo;TR-09 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;TR-09 fails&rdquo;</em> and what broke.</p>
     </div>
   </section>
 
   <section class="sec">
     <div class="addr">&sect;6</div>
-    <h2>Sitting four &middot; guild, gather, find, horizon &middot; 9 pieces</h2>
-    <p class="lead">The participation surfaces and the two bed pieces that each want a specific act on a live surface.</p>
-    <div class="piece" id="F-02">
-      <div class="piece-head"><span class="addr-chip">F-02</span><span class="piece-title">Response flow</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">Response capture, scoped visibility.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Respond and see the response; author sees it too.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <h2>Sitting four &middot; the record and its teeth &middot; 10 pieces</h2>
+    <p class="lead">Mostly witness work: these pieces are proven by CI suites and recorded merges, and your walk is confirming the teeth are present and green, then saying so with the run number.</p>
+    <div class="piece" id="L-03">
+      <div class="piece-head"><span class="addr-chip">L-03</span><span class="piece-title">The ledger speaks</span></div>
+      <p class="ctx">The ledger and validator evolved together; verified entries are byte-stable.</p>
+      <ol class="steps"><li>Open <a href="https://github.com/Techne-Co-op/techne.coop/actions"><a href="https://github.com/Techne-Co-op/techne.coop/actions">https://github.com/Techne-Co-op/techne.coop/actions</a></a> and confirm ledger-validate is green on main's latest run.</li><li>That green is the acceptance; say that you saw it and its run number.</li></ol>
+      <p class="say">Say: <em>&ldquo;L-03 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;L-03 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="G-04">
-      <div class="piece-head"><span class="addr-chip">G-04</span><span class="piece-title">The scheduling act</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">0013_gathering_schema.sql (description and location); the scheduling panel on /commons/gatherings/; the gathering.scheduled event.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">A member schedules a gathering with a title and a start, sees it on the calendar as its host with its purpose and its place, and another member can register for it.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="L-06">
+      <div class="piece-head"><span class="addr-chip">L-06</span><span class="piece-title">The modules speak</span></div>
+      <p class="ctx">The three module documents were revised and merged under the steward&#x27;s hand.</p>
+      <ol class="steps"><li>Open <a href="https://github.com/Techne-Co-op/techne.coop/blob/main/commons/patronage/"><a href="https://github.com/Techne-Co-op/techne.coop/blob/main/commons/patronage/">https://github.com/Techne-Co-op/techne.coop/blob/main/commons/patronage/</a></a> and confirm the merge history shows the L-06 revision (or read the L-06 PR).</li><li>The acceptance is the recorded merges; confirm they exist and say so.</li></ol>
+      <p class="say">Say: <em>&ldquo;L-06 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;L-06 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="MM-01">
-      <div class="piece-head"><span class="addr-chip">MM-01</span><span class="piece-title">The horizon enters the shelf</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">legal/maturity-model/, legal/maturity-model/specification/, and the Horizon section of legal/index.html.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Both pages render at their canonical paths; /legal/ links both under a note stating they are unadopted; the validator&#x27;s one navigation check passes on the new pages; style-lint and the token audit are green; the Almanac carries a card for each new address.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="A-01">
+      <div class="piece-head"><span class="addr-chip">A-01</span><span class="piece-title">The direction rail</span></div>
+      <p class="ctx">Directions enter by verb only; refusals cite rules. Proven by the RLS probe matrix.</p>
+      <ol class="steps"><li>Open the A-01 PR or <a href="https://github.com/Techne-Co-op/techne.coop/blob/main/commons/authority-map/0017_direction_rail.sql"><a href="https://github.com/Techne-Co-op/techne.coop/blob/main/commons/authority-map/0017_direction_rail.sql">https://github.com/Techne-Co-op/techne.coop/blob/main/commons/authority-map/0017_direction_rail.sql</a></a> and the probe results.</li><li>Your standing Direction d6e22f76 entered by verb and lives; a bare-table write was refused in the probe record. Confirm both and cite the Direction id aloud.</li></ol>
+      <p class="say">Say: <em>&ldquo;A-01 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;A-01 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="P-07">
-      <div class="piece-head"><span class="addr-chip">P-07</span><span class="piece-title">The participation stories</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/prd/stories/index.html, staged on branch P-07.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Published with the corrections of 2026-08-09 carried: the level machinery and the class personas named as waiting rather than claimed live; the carrier reconciled with the designation contract; the path tally reconciled with the no-targets guard.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="U-08">
+      <div class="piece-head"><span class="addr-chip">U-08</span><span class="piece-title">The pattern library grows</span></div>
+      <p class="ctx">The pattern library: new patterns documented, degrading gracefully.</p>
+      <ol class="steps"><li>Open <a href="https://techne.coop/design-system/"><a href="https://techne.coop/design-system/">https://techne.coop/design-system/</a></a> and find the sections for icons, term hints, disclosure, forms, participation cards, member curve, states; each must show markup.</li><li>On a page using hints, disable JavaScript (or long-press on mobile) and confirm hints still appear on hover/focus; disclosure must be a native details element.</li></ol>
+      <p class="say">Say: <em>&ldquo;U-08 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;U-08 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="P-08">
-      <div class="piece-head"><span class="addr-chip">P-08</span><span class="piece-title">The day-one journeys</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/prd/stories/index.html, revised on branch P-08.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Every arrival class carries a day-one passage whose every claim traces to a story on the page or a named waiting piece; the guild&#x27;s dead hand-off from the participation index is named where a reader can see it; the project section states the P3 refusal and stages the association election; style-lint, the token audit, the measure audit, and the almanac audit green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="X-11">
+      <div class="piece-head"><span class="addr-chip">X-11</span><span class="piece-title">The export follows the substrate</span></div>
+      <p class="ctx">Export views follow the substrate; CI refuses a column left behind.</p>
+      <ol class="steps"><li>Open <a href="https://github.com/Techne-Co-op/techne.coop/actions"><a href="https://github.com/Techne-Co-op/techne.coop/actions">https://github.com/Techne-Co-op/techne.coop/actions</a></a> and confirm db-verify and restore-test are green on main.</li><li>The refusal case was proven by regression when X-11 landed; find that run or the PR note and say what you read.</li></ol>
+      <p class="say">Say: <em>&ldquo;X-11 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;X-11 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="P-09">
-      <div class="piece-head"><span class="addr-chip">P-09</span><span class="piece-title">The two tracks told apart</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">participation/index.html rewritten; legal/participation/ reduced to a pointer; legal/index.html carrying the standing mark, the Guild Participation Terms, and the lens; the lexicon&#x27;s member and participant entries; commons/join/ and the encyclopedia following the vocabulary.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">One page renders class content and the other returns a pointer, with no orphaned link in the repository; the four standing questions answer identically for every class in one place; no vertical price sequence and no numeric progress toward membership anywhere; every instrument named on the site appears once on the legal shelf with both marks; no description on the shelf enumerates classes across both tracks as one range; both surfaces link the Commonplace and neither presents it as governing; style-lint, the token audit, the one-frame check, and the notice audit green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="X-17">
+      <div class="piece-head"><span class="addr-chip">X-17</span><span class="piece-title">The second resync</span></div>
+      <p class="ctx">The Almanac&#x27;s cards were levelled with the ledger.</p>
+      <ol class="steps"><li>This is continuously enforced now by the almanac audit (X-18). Open <a href="https://github.com/Techne-Co-op/techne.coop/actions"><a href="https://github.com/Techne-Co-op/techne.coop/actions">https://github.com/Techne-Co-op/techne.coop/actions</a></a>, latest style-lint run, and confirm it is green.</li><li>Say: the audit that would catch a drifted card is green as of run <n>.</li></ol>
+      <p class="say">Say: <em>&ldquo;X-17 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;X-17 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="P-10">
-      <div class="piece-head"><span class="addr-chip">P-10</span><span class="piece-title">The front door reads like a front door</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">participation/index.html re-cut: the cards first and the table below them, the rings removed, the guild demoted from a card to a note because it is not open, the class numbers off the cards and kept in the table, the curve folded into the section that explains it, and the lens folded into the closing.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">The first thing below the masthead is an action a person can take; the four questions are asked once, in plain words, with the statutory terms given once beneath them; no page section renders the class set more than once besides that table; every inbound anchor still resolves; style-lint, the token audit, the measure audit, and the notice audit green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="X-18">
+      <div class="piece-head"><span class="addr-chip">X-18</span><span class="piece-title">The cards answer to the ledger, the ledger to the repository</span></div>
+      <p class="ctx">The audits have teeth, and the teeth are tested.</p>
+      <ol class="steps"><li>Open <a href="https://github.com/Techne-Co-op/techne.coop/actions"><a href="https://github.com/Techne-Co-op/techne.coop/actions">https://github.com/Techne-Co-op/techne.coop/actions</a></a> latest run: style-lint green includes the almanac audit and its self-test.</li><li>Open scripts/almanac_audit.py at <a href="https://github.com/Techne-Co-op/techne.coop/blob/main/scripts/almanac_audit.py"><a href="https://github.com/Techne-Co-op/techne.coop/blob/main/scripts/almanac_audit.py">https://github.com/Techne-Co-op/techne.coop/blob/main/scripts/almanac_audit.py</a></a> and confirm the self-test exists and CI runs it (verify.yml).</li></ol>
+      <p class="say">Say: <em>&ldquo;X-18 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;X-18 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="P-11">
-      <div class="piece-head"><span class="addr-chip">P-11</span><span class="piece-title">The door and the room behind it</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">participation/index.html cut to three sections; participation/detail/index.html added carrying the rest; the formation notice in footer form on the public pages and in strip form under legal/; scripts/notice_audit.py taught both forms, with coverage and byte-identical prose checked per form.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">The front door holds no table, no pathway prose, and no timeline, and a visitor can reach an action without scrolling past anything that is not a door; every claim removed from it is present on the detail page; both pages and the front page carry the footer notice verbatim; every page under legal/ still carries the strip verbatim; the long form at /legal/#formation is unchanged and still governs; no inbound anchor breaks; style-lint, the token audit, the measure audit, the notice audit, and the almanac audit green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="X-19">
+      <div class="piece-head"><span class="addr-chip">X-19</span><span class="piece-title">The ledger answers to the repository</span></div>
+      <p class="ctx">Twenty-four wrong marks were corrected and the ledger now answers to the repository.</p>
+      <ol class="steps"><li>Open the X-19 PR and read the correction list.</li><li>Confirm the almanac audit's third check (branch names against the ledger) is in CI and green; that check is what keeps X-19 true.</li></ol>
+      <p class="say">Say: <em>&ldquo;X-19 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;X-19 fails&rdquo;</em> and what broke.</p>
     </div>
-    <div class="piece" id="P-12">
-      <div class="piece-head"><span class="addr-chip">P-12</span><span class="piece-title">One notice, one place</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">The formation strip removed from every page under legal/ and the footer line added in its place, in the token family each page defines and at the measure its own footer uses; scripts/notice_audit.py reduced to one form and given a no-survivals check that fails if the retired banner reappears on any page in the repository.</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">No page in the repository contains a formation strip; every page named in the audit carries the footer line with byte-identical prose; each page still renders with its own stylesheet intact, verified by rendering rather than by reading the diff; the long form at /legal/#formation is unchanged; style-lint, the token audit, the measure audit, the notice audit, and the almanac audit green.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
+    <div class="piece" id="X-21">
+      <div class="piece-head"><span class="addr-chip">X-21</span><span class="piece-title">The walkthrough that needs two people</span></div>
+      <p class="ctx">The two-person walkthrough script exists and is walkable without its author.</p>
+      <ol class="steps"><li>Open <a href="https://techne.coop/commons/build/walkthrough/"><a href="https://techne.coop/commons/build/walkthrough/">https://techne.coop/commons/build/walkthrough/</a></a> and read act one fully.</li><li>Judge: could two people who are not the author walk this end to end without asking a question? The full test is the walk itself, which is its own sitting.</li></ol>
+      <p class="say">Say: <em>&ldquo;X-21 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;X-21 fails&rdquo;</em> and what broke.</p>
+    </div>
+    <div class="piece" id="X-22">
+      <div class="piece-head"><span class="addr-chip">X-22</span><span class="piece-title">The verification walk</span></div>
+      <p class="ctx">This page. Its acceptance is that a walker needs nothing the page does not carry.</p>
+      <ol class="steps"><li>At the end of your last sitting, say whether you ever had to ask for an instruction the page did not carry. That answer is this piece's verdict.</li></ol>
+      <p class="say">Say: <em>&ldquo;X-22 holds&rdquo;</em> and one sentence of what you saw, or <em>&ldquo;X-22 fails&rdquo;</em> and what broke.</p>
     </div>
   </section>
 
   <section class="sec">
     <div class="addr">&sect;7</div>
-    <h2>Sitting five &middot; the agency flip &middot; 2 pieces</h2>
-    <p class="lead">A-01 and A-02 are met in substance by the standing Direction d6e22f76; the walk is confirming that citation reads true, then the marks flip by PR.</p>
-    <div class="piece" id="A-01">
-      <div class="piece-head"><span class="addr-chip">A-01</span><span class="piece-title">The direction rail</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">commons/authority-map/0017_direction_rail.sql; probe matrix cells (scripts/rls_probe.py).</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">A member&#x27;s Direction enters by verb and only by verb; refusals cite their rules.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-    <div class="piece" id="A-02">
-      <div class="piece-head"><span class="addr-chip">A-02</span><span class="piece-title">The desk</span></div>
-      <div class="piece-row"><span class="k">where it lives</span><span class="v">/intranet/direct/; the Overview window; the desk&#x27;s definer read (commons/authority-map/0018_direction_desk.sql).</span></div>
-      <div class="piece-row"><span class="k">the walk</span><span class="v">Give a Direction from the desk; watch its arc; find a refusal&#x27;s rule on the page.</span></div>
-      <div class="piece-row rec"><span class="k">if it holds</span><span class="v">record: <em>Verified by [name] [date]: [what was seen, in one or two sentences].</em> If it fails, record what failed instead; a failed walk is a finding, not an embarrassment.</span></div>
-    </div>
-  </section>
-
-  <section class="sec">
-    <div class="addr">&sect;8</div>
     <h2>What the walks unlock, and what they cannot</h2>
-    <p class="lead">Verification is the input two other kinds of movement are waiting on. Neither happens by walking alone.</p>
-    <p><strong>Attestations.</strong> As the sittings above land, six proofs become ready on verifications alone: G-B, G-G, G-F, G-L, G-R and G-I. Each is a two-hands act: a demonstration seen by two people and recorded as an event. Pair them with gatherings where a second person is already in the room; the <a href="/commons/build/walkthrough/">walkthrough script</a> covers the beats that need the second pair of hands.</p>
-    <p><strong>Decisions.</strong> The remaining anticipated work is gated on adoptions and calls that no walk substitutes for. Each gate is named so it can be watched:</p>
+    <p><strong>Attestations.</strong> As the sittings land, six proofs become ready on verifications alone: G-B, G-G, G-F, G-L, G-R and G-I. Each is a two-hands act. Pair them with gatherings where a second person is already in the room; the <a href="/commons/build/walkthrough/">walkthrough script</a> covers those beats.</p>
+    <p><strong>Decisions.</strong> The remaining anticipated work is gated on adoptions and calls that no walk substitutes for:</p>
     <div class="gate"><span class="k">counting rules and PATRONAGE</span>Q3 counting rules recorded and the adoption packet acted on: unlocks the Share bed, S-01 through S-03, then the Share proof.</div>
     <div class="gate"><span class="k">TREASURY-POLICY</span>Adoption unlocks T-01, then T-02 through T-07 in chain, then the Treasury proof.</div>
     <div class="gate"><span class="k">redeemability</span>A board and counsel question; T-05 waits on it and on nothing else.</div>
@@ -528,7 +522,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
 
   <div class="memo">
     <div class="k">the instrument&rsquo;s standing</div>
-    <p>This page is drafted, not adopted, and it binds nothing. It is a reading of the ledger on main, organised for a walker; the ledger is the record and wins every disagreement. When a walk lands, the resolution belongs to the person who walked it, under their own name and date. The page retires when the last delivered piece moves.</p>
+    <p>This page is drafted, not adopted, and it binds nothing. It is a reading of the ledger on main, organised for a walker with a voice recorder; the ledger is the record and wins every disagreement. A verdict spoken on a walk belongs to the person who spoke it, under their own name and date. The page retires when the last delivered piece moves.</p>
   </div>
 
 </div>
