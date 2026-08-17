@@ -3772,11 +3772,17 @@ transducer:
     intent: >
       The generator wired into continuous integration on merge to
       main, with the §5 audit: fail if the embedded cut is older
-      than the commit it sits beside, on the X-10 pattern.
-    status: anticipated
+      than the commit it sits beside, on the X-10 pattern. The
+      gate's own refresh commits are marked and the generator
+      ignores them, and the page's size is recorded net of the cut
+      it carries, so the instrument does not count its own
+      heartbeat and the audit converges.
+    status: open · delivered
     cites: [TR-02, X-10]
     ready_when: TR-02 verified.
-    deliverable: The workflow step and the staleness audit.
+    deliverable: >
+      .github/workflows/transducer-currency.yml and the --check
+      audit in scripts/hud_cut.py.
     acceptance: >
       A seeded stale cut fails the suite and a fresh one passes.
 

@@ -6,8 +6,8 @@ Generated from rdm-ledger.yaml. 139 items total.
 | status | count |
 |--------|-------|
 | drafted | 14 |
-| anticipated | 36 |
-| open | 89 |
+| anticipated | 35 |
+| open | 90 |
 | filed | 0 |
 
 ## Drafted
@@ -73,6 +73,7 @@ Generated from rdm-ledger.yaml. 139 items total.
 - **T-01** open · TREASURY-POLICY -- The Desk and the policy instrument
 - **T-05** open · redeemability -- The redemption path
 - **TR-02** open · delivered -- The generator
+- **TR-03** open · delivered -- The currency gate
 - **TR-04** open · delivered -- The surface, deployed
 - **TR-08** open · delivered -- The walk
 - **TR-09** open · delivered -- The succession derivation
@@ -148,7 +149,6 @@ Generated from rdm-ledger.yaml. 139 items total.
 - **T-06** The balance view
 - **T-07** The statements view
 - **TR-01** The register amendment
-- **TR-03** The currency gate
 - **TR-05** The journeys derivation
 - **TR-06** The gloss binding
 - **TR-07** The attribution pass

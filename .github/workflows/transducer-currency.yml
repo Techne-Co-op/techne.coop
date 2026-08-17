@@ -1,0 +1,49 @@
+# transducer-currency · the currency gate · TR-03
+# TRANSDUCER v0.2 section 5: on every merge to main the generator
+# reads the repository alone and retakes the cut; the page renders
+# that block and nothing else. The cut then carries the last merge
+# by construction, and no one is asked to remember.
+#
+# The gate's own commit is marked "hud: cut retaken" and the
+# generator ignores commits so marked, so the instrument does not
+# count its own heartbeat and the audit converges. paths-ignore
+# keeps the refresh push from re-triggering this workflow.
+#
+# The audit: hud_cut.py --check fails if the embedded cut does not
+# match the record beside it. A seeded stale cut fails the suite;
+# a fresh one passes (TR-03 acceptance).
+name: transducer-currency
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'intranet/hud/index.html'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: transducer-currency
+  cancel-in-progress: false
+jobs:
+  the-cut:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: retake the cut at this merge
+        run: python3 scripts/hud_cut.py
+      - name: commit the refreshed cut, if the record moved
+        run: |
+          if git diff --quiet intranet/hud/index.html; then
+            echo "the cut is already current"
+          else
+            git config user.name "the currency gate"
+            git config user.email "173073083+github-actions[bot]@users.noreply.github.com"
+            git add intranet/hud/index.html
+            git commit -m "hud: cut retaken at $(git rev-parse --short HEAD) (TR-03)"
+            git pull --rebase origin main
+            git push origin main
+          fi
+      - name: the audit · the cut beside this commit is current
+        run: python3 scripts/hud_cut.py --check
