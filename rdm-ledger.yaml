@@ -385,6 +385,25 @@ proofs:
       Entered 2026-08-08 with the L bed on the adoption of Ground and
       Craft, the migration specification of the evolved register.
 
+  - address: G-I
+    title: The transducer proof
+    intent: >
+      A figure shown on the instrument equals the figure traced by
+      hand from the repository to its source, walked end to end by
+      two people and attested as an event. Chosen against the
+      hardest figure on the surface, a passage's stop, which crosses
+      two registers to reach its answer. Addressed G-I because G-T
+      is held by the treasury proof.
+    status: anticipated
+    cites: [TRANSDUCER]
+    ready_when: TR-04 verified; TR-05 verified.
+    gate: Two-party attestation recorded.
+    deliverable: Attestation recorded in rdm-ledger.yaml.
+    acceptance: >
+      The traced figure and the shown figure agree, and the
+      attestation names both hands.
+
+
 belong:
 
   - address: B-01
@@ -3676,6 +3695,167 @@ guild:
       done. The redo matches the strip's own rules and nothing else,
       and every one of the fourteen pages was rendered and checked
       for lost styling.
+
+transducer:
+
+  # The transducer bed. Grafted 2026-08-17 on the steward's word of
+  # the same day; adoption is the merge, per the module intake route
+  # PATRONAGE, TREASURY, AGY, and STANDING each took. The module
+  # document labels its pieces T-01 through T-08 document-locally;
+  # the T prefix is held by the treasury bed, so the Almanac mints
+  # these addresses TR, per the law that only the Almanac mints.
+
+  - address: TRANSDUCER
+    title: The Transducer · Module PRD and Specification
+    intent: >
+      The instrument at the boundary where the record crosses into
+      human perception: the estate's own record rendered at human
+      variety, five views over one dated cut, regenerated on merge
+      rather than remembered. The naming supersedes the register's
+      use of transducer for the tally, by the steward's direction.
+      Six refusals R1 through R6 are the load-bearing part; six
+      elections stand staged as TRANSDUCER-D1 through D6. Eight
+      pieces and one proof; no emission, no schema, no policy.
+    status: drafted
+    cites: [SER, PRD, BP, UI, VS, STANDING, L-01]
+    deliverable: commons/transducer/index.html
+    acceptance: >
+      Published at techne.coop/commons/transducer/. The §11 graft
+      entered in this ledger; adoption is the merge, and the merge
+      records the steward's act of 2026-08-17.
+    note: >
+      v0.2 of the steward's intake, drafted by the agent at his
+      direction; supersedes v0.1 per its §13. The drafted artifact
+      preceded the graft: the surface and its generator entered at
+      /intranet/hud/ in the piece train merged 2026-08-17, so TR-02,
+      TR-04, and TR-08 enter this bed already delivered, their
+      verification still a person's walk.
+
+  - address: TR-01
+    title: The register amendment
+    intent: >
+      Record the §2 supersession in the Lexicon in the form
+      TRANSDUCER-D1 elects, with its date and its reason, leaving
+      the prior sense legible to every document that cites it.
+    status: anticipated
+    cites: [TRANSDUCER, L-01]
+    ready_when: >
+      TRANSDUCER adopted; TRANSDUCER-D1 recorded; the L bed carries
+      it.
+    deliverable: The Lexicon entry amended in the elected form.
+    acceptance: >
+      The Lexicon reads true end to end after the change, and no
+      existing citation is silently altered.
+
+  - address: TR-02
+    title: The generator
+    intent: >
+      A script reading the repository alone and writing one cut: the
+      tree with sizes, the ledger with its marks and beds, the
+      history with its rhythm and the two piles, and the journeys as
+      §6 defines them. No key, no clock, no author read, per R2.
+    status: open · delivered
+    cites: [TRANSDUCER]
+    ready_when: TRANSDUCER adopted.
+    deliverable: scripts/hud_cut.py.
+    acceptance: >
+      Run on fresh infrastructure from the public repository with no
+      key, twice, and the two cuts are byte-identical for the same
+      commit.
+
+  - address: TR-03
+    title: The currency gate
+    intent: >
+      The generator wired into continuous integration on merge to
+      main, with the §5 audit: fail if the embedded cut is older
+      than the commit it sits beside, on the X-10 pattern.
+    status: anticipated
+    cites: [TR-02, X-10]
+    ready_when: TR-02 verified.
+    deliverable: The workflow step and the staleness audit.
+    acceptance: >
+      A seeded stale cut fails the suite and a fresh one passes.
+
+  - address: TR-04
+    title: The surface, deployed
+    intent: >
+      The page standing at its elected address inside the shell,
+      five views, chips per the constitution, the merge stamped on
+      every view. Interim address /intranet/hud/, intranet only and
+      noindex, per the TRANSDUCER-D2 default until the board
+      elects.
+    status: open · delivered
+    cites: [TR-02, TRANSDUCER, UI]
+    ready_when: TR-03 verified; TRANSDUCER-D2 recorded.
+    deliverable: intranet/hud/index.html.
+    acceptance: >
+      A reader reaches it by URL, and the stamp matches the head of
+      main.
+
+  - address: TR-05
+    title: The journeys derivation
+    intent: >
+      View 03 reads the journeys register instead of parsing the
+      stories page, and drops the notice that half its derivation is
+      a promise. The parser is deleted rather than kept as a
+      fallback.
+    status: anticipated
+    cites: [TRANSDUCER]
+    ready_when: >
+      The journeys register verified, JOURNEYS J-02 in the module
+      document's own numbering; that module is not yet grafted and
+      this ledger mints nothing for it here.
+    deliverable: The view re-derived; the parser removed.
+    acceptance: >
+      The stops shown equal those the register's own reader
+      computes.
+
+  - address: TR-06
+    title: The gloss binding
+    intent: >
+      The guest layer's definitions read from the Lexicon as a
+      source rather than carried as a copy, each citing its
+      section.
+    status: anticipated
+    cites: [TR-02, L-01]
+    ready_when: TR-02 verified.
+    deliverable: The generator reading the Lexicon; the copy retired.
+    acceptance: >
+      An edit to a Lexicon entry appears in the instrument on the
+      next merge, with no hand-editing of the instrument.
+
+  - address: TR-07
+    title: The attribution pass
+    intent: >
+      Every interpretive sentence marked as the instrument's reading
+      per §7, or struck, per the recorded election. The interim mark
+      on the drafted artifact prejudges nothing.
+    status: anticipated
+    cites: [TRANSDUCER]
+    ready_when: TRANSDUCER-D4 recorded.
+    deliverable: The surface's interpretive sentences, per the election.
+    acceptance: >
+      A reader can tell, of any sentence on the surface, whether it
+      is computed or framed.
+
+  - address: TR-08
+    title: The walk
+    intent: >
+      The guest layer of §8 as a maintained piece rather than an
+      accident of the artifact: seven cards in the Commonplace
+      register with their entry citations, the docked and draggable
+      card, the target marking graded to the size of the target,
+      and the key pattern, so a presenter can walk a room through
+      it without touching a pointer.
+    status: open · delivered
+    cites: [TR-04, TRANSDUCER]
+    ready_when: TR-04 verified; TRANSDUCER-D5 recorded.
+    deliverable: The walk, inside intranet/hud/index.html.
+    acceptance: >
+      A person who has never seen the estate can, after the walk
+      alone, say what each view shows and what it refuses to show;
+      the spoken text stays within three minutes read aloud.
+
 
 horizon:
 

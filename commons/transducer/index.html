@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     The Reading Instrument · TRANSDUCER v0.2 · module specification
+     An instrument that renders the record at human variety: the second
+     transducer, standing where the machine crosses into perception.
+     Drafted by Nou at the steward's direction, August 2026. DRAFTED.
+     Document grammar · Techne v4 token layer
+     aligned to techne.coop/design-system (the live constitution)
+     RegenHub, LCA · Boulder, Colorado
+     ============================================================ -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="TRANSDUCER v0.2, a module specification for the transducer: the instrument at the boundary where the record crosses into human perception: the estate's own record rendered at human variety. Drafted for adoption. RegenHub, LCA.">
+<title>The Transducer &middot; TRANSDUCER v0.2 &middot; Techne</title>
+<script src="/assets/topbar.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600&display=swap" rel="stylesheet">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<style>
+
+/* ============================================================
+   Work Standing · STANDING v0.3 · module specification
+   v0.2 re-cut the steward's v0.1 draft of 2026-08-09 into the Ground
+   and Craft register: emissions renumbered 0021 and 0022 (0019 and 0020
+   already held), decisions namespaced STANDING-D1..D5, sources re-read.
+   v0.3, 2026-08-10, answers the steward's challenge to P3: the refusal
+   that no object would ever name a project was the agent's drafting and
+   nobody's decision. P3 now refuses standing at the origin and nothing
+   else, section 4 records the challenge, R1 is re-cut to match, and the
+   object question is staged as STANDING-D6 with no recommendation.
+   The branching maturity model entered into the Common
+   Information System: the venture end constructed, the origin
+   protected, every decision staged for hands
+   Document grammar · Techne v4 token layer
+   aligned to techne.coop/design-system (the live constitution)
+   RegenHub, LCA · Boulder, Colorado · August 2026 · DRAFTED
+   ============================================================ */
+
+:root {
+  --serif:'Libre Baskerville',Georgia,serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872;
+  --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636;
+  --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+}
+[data-tint="gold"]   { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+[data-tint="amber"]  { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+[data-tint="coral"]  { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+[data-tint="rose"]   { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+[data-tint="violet"] { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+[data-tint="blue"]   { --shue:var(--sun-blue);   --shue-t:var(--sun-blue-t); }
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} *{transition:none!important;} }
+body { background:var(--bg); color:var(--text); font-family:var(--serif);
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease); }
+.wrap { max-width:860px; margin:0 auto; padding:var(--s6) var(--s5) var(--s8); }
+
+.topline { display:flex; justify-content:space-between; align-items:center; gap:var(--s3);
+  padding-bottom:var(--s4); border-bottom:1px solid var(--line); margin-bottom:var(--s6); flex-wrap:wrap; }
+.wordmark { font:400 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.06em; }
+.wordmark b { color:var(--heading); font-weight:600; }
+
+h1 { font:400 34px/1.2 var(--serif); color:var(--heading); letter-spacing:-.01em; margin-bottom:var(--s3); }
+.subtitle { font:400 15.5px/1.65 var(--serif); color:var(--muted); max-width:70ch; margin-bottom:var(--s5); }
+
+.chiprow { display:flex; gap:var(--s2); flex-wrap:wrap; margin-bottom:var(--s5); }
+.chip { display:inline-flex; align-items:center; gap:7px; font:500 10.5px/1 var(--mono);
+  letter-spacing:.07em; text-transform:uppercase; padding:6px 10px;
+  border:1px solid var(--line); border-radius:2px; background:var(--surface); color:var(--muted); }
+.chip .dot { width:7px; height:7px; border-radius:50%; background:var(--faint); }
+.chip.filed { color:var(--ok); border-color:var(--ok); } .chip.filed .dot { background:var(--ok); }
+.chip.drafted { color:var(--info); border-color:var(--info); } .chip.drafted .dot { background:var(--info); }
+.chip.open { color:var(--warn); border-color:var(--warn); } .chip.open .dot { background:var(--warn); }
+.chip.anticipated { color:var(--muted); border-style:dashed; } .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+
+.band { display:flex; height:3px; margin-bottom:6px; }
+.band span { flex:1; }
+.band-cap { display:flex; justify-content:space-between; font:400 10px/1.4 var(--mono);
+  color:var(--faint); letter-spacing:.08em; text-transform:uppercase; margin-bottom:var(--s7); }
+
+.sec { margin-bottom:var(--s7); }
+.addr { font:600 11px/1 var(--mono); color:var(--shue-t); letter-spacing:.1em; margin-bottom:var(--s2); }
+.sec h2 { font:400 22px/1.3 var(--serif); color:var(--heading); margin-bottom:var(--s4);
+  padding-bottom:var(--s2); border-bottom:1px solid var(--line); }
+.sec p { font:400 15.5px/1.7 var(--serif); margin-bottom:var(--s4); max-width:72ch; }
+.sec p:last-child { margin-bottom:0; }
+.fn a { font:600 10px/1 var(--mono); color:var(--ember-text); text-decoration:none; }
+.fn a:hover { text-decoration:underline; }
+
+.vfacts { display:grid; grid-template-columns:130px 1fr; gap:6px var(--s4); background:var(--surface);
+  border:1px solid var(--line); border-top:2px solid var(--shue); padding:var(--s4); margin-bottom:var(--s4); }
+.vfacts dt { font:600 10.5px/1.9 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; }
+.vfacts dd { font:400 14.5px/1.6 var(--serif); color:var(--text); }
+.vhead { font:600 12px/1.4 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase;
+  margin:var(--s5) 0 var(--s2); }
+.vhead:first-of-type { margin-top:0; }
+@media (max-width:560px) { .vfacts { grid-template-columns:1fr; gap:2px; } .vfacts dd { margin-bottom:var(--s2); } }
+
+.contract { background:var(--inset); border:1px solid var(--line); padding:var(--s4);
+  margin-bottom:var(--s4); overflow-x:auto; }
+.contract code { font:400 12.5px/1.7 var(--mono); color:var(--heading); white-space:pre; display:block; }
+.contract .cm { color:var(--muted); }
+
+.pk { border:1px solid var(--line); border-left:2px solid var(--shue); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.pk .pkh { font:600 11px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.pk .pkb { font:400 14px/1.6 var(--serif); color:var(--text); margin-bottom:4px; }
+.pk .pkc { font:400 11.5px/1.6 var(--mono); color:var(--muted); }
+
+.dcard { border:1px solid var(--line); border-left:2px solid var(--warn); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.dcard .dh { font:600 11px/1.5 var(--mono); color:var(--warn); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.dcard .db { font:400 14px/1.6 var(--serif); color:var(--text); }
+.dcard .db em { color:var(--heading); }
+
+.inv { border-left:2px solid var(--line); padding-left:var(--s4); margin-bottom:var(--s3); max-width:74ch; }
+.inv p { margin-bottom:0; }
+.inv .it { font-style:italic; color:var(--heading); }
+
+.sources { margin-top:var(--s8); padding-top:var(--s5); border-top:1px solid var(--rule); }
+.sources h2 { font:600 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:var(--s4); }
+.sources ol { list-style:none; counter-reset:src; }
+.sources li { counter-increment:src; position:relative; padding-left:26px; margin-bottom:var(--s3);
+  font:400 13.5px/1.6 var(--serif); color:var(--muted); max-width:78ch; }
+.sources li::before { content:counter(src); position:absolute; left:0; top:1px;
+  font:600 11px/1 var(--mono); color:var(--ember-text); }
+
+footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(--line);
+  font:400 11px/1.8 var(--mono); color:var(--faint); letter-spacing:.04em;
+  display:flex; justify-content:space-between; gap:var(--s3); flex-wrap:wrap; }
+
+.modebtn { font:500 10.5px/1 var(--mono); letter-spacing:.07em; text-transform:uppercase;
+  color:var(--muted); background:none; border:1px solid var(--line); border-radius:2px;
+  padding:6px 11px; cursor:pointer; }
+.modebtn:hover { color:var(--heading); border-color:var(--rule); }
+.lane { border:1px solid var(--line); border-left:2px solid var(--shue); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.lane .lh { font:600 11px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em;
+  text-transform:uppercase; margin-bottom:6px; }
+.lane .seq { font:400 12.5px/1.9 var(--mono); color:var(--text); }
+.lane .seq s { color:var(--faint); text-decoration:none; }
+.lane .lc { font:400 11.5px/1.6 var(--mono); color:var(--muted); margin-top:5px; }
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="topline">
+    <div class="wordmark"><b>Techne</b> &middot; RegenHub, LCA &middot; CIS Common Record Series &middot; Module</div>
+    <button class="modebtn" id="modebtn" type="button" aria-label="Switch colour mode">mode</button>
+  </div>
+
+  <h1>The Transducer &middot; TRANSDUCER v0.2</h1>
+  <p class="subtitle">A module specification, drafted for adoption: the estate&rsquo;s own record rendered so a person can take it in. The record already knows its state; what it cannot do is present that state at a size a human reader can hold. This module specifies the instrument that closes the gap, names it a transducer rather than a dashboard, and deploys it, since it presently runs nowhere and reads a snapshot rather than the record. This revision records what the drafted artifact has already done toward its own specification, and what remains gated on adoption.</p>
+
+  <div class="chiprow">
+    <span class="chip drafted"><span class="dot"></span>TRANSDUCER v0.2 &middot; Drafted by Nou</span>
+    <span class="chip drafted"><span class="dot"></span>Supersedes v0.1 &middot; changes in &sect;13</span>
+    <span class="chip open"><span class="dot"></span>Adoption &middot; Open, the election itself</span>
+    <span class="chip open"><span class="dot"></span>Decisions TRANSDUCER-D1&ndash;D6 &middot; Staged</span>
+    <span class="chip anticipated"><span class="dot"></span>Emissions &middot; None, by design</span>
+  </div>
+
+  <div class="band" aria-hidden="true">
+    <span style="background:var(--sun-gold)"></span><span style="background:var(--sun-amber)"></span><span style="background:var(--sun-coral)"></span><span style="background:var(--sun-rose)"></span><span style="background:var(--sun-violet)"></span><span style="background:var(--sun-blue)"></span>
+  </div>
+  <div class="band-cap"><span>the grammar the agent may build</span><span>the decisions only people may take</span></div>
+</header>
+
+<section class="sec" id="s1" data-tint="gold">
+  <div class="addr">TRANSDUCER &sect;1</div>
+  <h2>Purpose and posture</h2>
+  <p>The cooperative keeps an unusually complete record of itself: an append-only event log, a ledger of every named piece with its mark, a lexicon defining each working word, a page of participation promises, and a repository history carrying all of it.<sup class="fn"><a href="#src1">1</a></sup> Read together, that record is a sufficient model of the organisation. Read by a person, in one sitting, it is roughly four hundred commits, a hundred and twenty-five pieces, fifty-seven promises, and nine sections of vocabulary. The model is sufficient and unreadable, and those are not the same problem.</p>
+  <p>This module specifies the instrument that renders it. Nothing in the specification asks the record to simplify itself; the discipline runs the other way, since a summary that cannot be traced back to what produced it is a claim rather than a reading. The instrument computes every figure from the record and keeps the path back to the record open at every point.</p>
+  <p>It exists already, as five views over a snapshot, and it runs on nobody&rsquo;s infrastructure. That is the condition this module means to end. The posture is the standing one: Nou drafts and surfaces; Todd decides; the board adopts. Until adoption lands as an event, everything here is drafted and nothing here is true of the cooperative. The intake route is the one PATRONAGE, TREASURY, AGY, STANDING, and JOURNEYS each took: a module document, an adoption, and a graft into the ledger.<sup class="fn"><a href="#src1">1</a></sup></p>
+</section>
+
+<section class="sec" id="s2" data-tint="gold">
+  <div class="addr">TRANSDUCER &sect;2</div>
+  <h2>The transducer, and what it supersedes</h2>
+  <p>In the viable system tradition a transducer sits at every boundary where a message passes from one part of a system into another, converting it into the language the receiving part can act on.<sup class="fn"><a href="#src11">11</a></sup> Transduction is where variety is gained or lost, which is why the tradition insists transducers be designed deliberately rather than left to arise: an undesigned boundary loses whatever it happens to lose, and nobody notices what was dropped.</p>
+  <p>This instrument is the transducer at the boundary between the record and the people who govern by it. That naming is the steward&rsquo;s direction, recorded here rather than assumed, and it supersedes the register&rsquo;s present use of the word.<sup class="fn"><a href="#src2">2</a></sup> The Lexicon currently applies <em>transducer</em> to the tally. Under this module the tally keeps its meaning entire &mdash; the reading computed over the record each time it is asked for, never stored, always traceable to the events beneath it &mdash; and gives up only the label. The reason is a boundary: a tally converts history into state <em>within</em> the machine&rsquo;s own language, where nothing crosses and no variety is lost to a reader. This instrument converts state into something a person can hold, which is a crossing, and it is the crossing the word is for.</p>
+  <p>The supersession is a register evolution, not an edit, and it takes the form the estate already keeps for such things: history is not editable and cited words keep their wording, so the Lexicon records the change rather than overwriting it.<sup class="fn"><a href="#src2">2</a></sup> Piece T-01 does that work and TRANSDUCER-D1 elects how it is recorded.</p>
+  <p>The theoretical claim the naming rests on is short. A regulator must model the system it regulates.<sup class="fn"><a href="#src5">5</a></sup> The record is that model. But this cooperative reserves every decision to people by invariant, so the regulating is done by humans acting on the model, and a model exceeding a person&rsquo;s capacity to take in is not usable by the party who must act on it. That is a variety problem in the ordinary sense.<sup class="fn"><a href="#src6">6</a></sup> An instrument that attenuates the record for perception while preserving the path back to it is what makes the loop closable by hands. The tradition for that is augmentation rather than automation: the instrument raises the reader&rsquo;s capacity and takes none of the reader&rsquo;s authority.<sup class="fn"><a href="#src7">7</a></sup></p>
+</section>
+
+<section class="sec" id="s3" data-tint="amber">
+  <div class="addr">TRANSDUCER &sect;3</div>
+  <h2>Vocabulary</h2>
+  <div class="inv"><p><span class="it">transducer.</span> The instrument standing where the record crosses into human perception, converting state into something a person can hold without severing the path back. Supersedes the register&rsquo;s prior use of the word for the tally, per &sect;2. One transducer, one boundary; if the estate later needs the word for another crossing, it is qualified rather than reused bare.</p></div>
+  <div class="inv"><p><span class="it">cut.</span> One dated reading of the record, computed whole. Named for the cross-section: the trunk cut across, so layers formed at different speeds are seen together. A cut is honest about its date or it is not a cut.</p></div>
+  <div class="inv"><p><span class="it">view.</span> One way of reading the whole through a single medium. Four of the five look through something &mdash; the file, the record, the passage, the commit &mdash; and are blind outside it. Their blindness is a property, not a defect, and each view states it.</p></div>
+  <div class="inv"><p><span class="it">reading.</span> A sentence the instrument computes and shows. A reading is bound to its figures and its figures to the record. A sentence that cannot be so bound is an interpretation, which &sect;7 treats differently and marks differently.</p></div>
+  <div class="inv"><p><span class="it">the walk.</span> The guest layer: an ordered introduction that highlights the part of the interface it is describing without covering it, so a stranger learns the instrument by seeing it work rather than by reading about it.</p></div>
+</section>
+
+<section class="sec" id="s4" data-tint="amber">
+  <div class="addr">TRANSDUCER &sect;4</div>
+  <h2>The Ground as found, and the recursion it stands at</h2>
+  <p>The instrument exists as a single page of five views, reading a snapshot taken by hand from the repository at 386 commits. Its condition, stated plainly: it is deployed nowhere, it reads a file rather than the record, its currency depends on someone remembering to retake the cut, and one of its five views parses an authored HTML page rather than a register.<sup class="fn"><a href="#src3">3</a></sup> Every one of those is the drift pattern the estate has already had to correct twice on the Almanac itself.<sup class="fn"><a href="#src1">1</a></sup> Since v0.1 the artifact has complied with its own specification where a page can comply alone: interpretive sentences carry attribution marks, the proposed name is carried with its drafted status visible, and the guest layer of &sect;8 is built. What a page cannot do for itself, the generator, the currency gate, and deployment, remains exactly as gated.</p>
+  <p>One distinction must be stated before any claim is made for it. The instrument reads the <em>build</em> record: the repository history, the Almanac ledger, and the participation stories. It does not read the <em>operational</em> record: the events, members, gatherings, and movements the Common Information System governs. These are different recursion levels &mdash; the record of constructing the machine, and the record the machine keeps &mdash; and conflating them would let the instrument appear to show the cooperative when it is showing the cooperative&rsquo;s workshop.</p>
+  <p>The choice is deliberate for v0.1 and it is also the honest one, since the build record is entirely public and the operational record is not. Whether the instrument ever reads the operational record is TRANSDUCER-D3, and it is a permissions question before it is a design question: any such read would need cells in the authority matrix anchored in the Bylaws like every other read.<sup class="fn"><a href="#src1">1</a></sup></p>
+</section>
+
+<section class="sec" id="s5" data-tint="coral">
+  <div class="addr">TRANSDUCER &sect;5</div>
+  <h2>Currency: the cut, regenerated</h2>
+  <p>The central defect is that a dated cut goes stale, and the instrument has been visibly wrong about the record within a day of being built. Streaming is not the remedy and is not proposed: the record moves by merge, not by the second, and an instrument that updates continuously would imply a liveness the work does not have.</p>
+  <p>The remedy is the pattern the estate already runs. STATUS.md is generated from the ledger by the validator and proven current in continuous integration.<sup class="fn"><a href="#src4">4</a></sup> A generator does the same here: on every merge to the main branch, a script reads the repository alone and writes one data file; the page renders that file and nothing else. The cut then carries the date of the last merge by construction, and no one is asked to remember.</p>
+  <div class="contract"><code><span class="cm"># the currency contract</span>
+on merge to main   scripts/cut.py reads the repository and writes
+                   the data file; the page carries no other source
+the stamp          every view shows the merge the cut was taken at
+the gate           the audit fails if the data file is older than
+                   the commit it sits beside
+the walkaway       the cut is computable from the public repository
+                   alone, on fresh infrastructure, with no key
+</code></div>
+  <p>The last line is the one that matters beyond convenience. If the cut can be recomputed from the public repository by anyone, then no figure the instrument shows depends on privileged access, and a reader who distrusts it can rebuild it. That is the same standard the walkaway holds the record itself to.<sup class="fn"><a href="#src2">2</a></sup></p>
+</section>
+
+<section class="sec" id="s6" data-tint="coral">
+  <div class="addr">TRANSDUCER &sect;6</div>
+  <h2>The five views, and what each is blind to</h2>
+  <p>Each view declares its medium, the dimension it makes legible, and what it cannot show. The last of the three is not a caveat appended to the surface; it is rendered beside the view, because a reading instrument that hides its blind spots misleads more efficiently than no instrument at all.</p>
+  <div class="pk" data-tint="gold"><div class="pkh">00 &middot; Standing &middot; no medium</div><div class="pkb">The whole cut across as concentric rings, read heart outward: the history at the centre, the governing documents, the beds as sectors, the proofs at the growing edge, the published estate at the rim. The only view in which the dimensions can contradict one another in a single figure.</div><div class="pkc">blind to &middot; change over time; a cross-section is one moment</div></div>
+  <div class="pk" data-tint="blue"><div class="pkh">01 &middot; Composition &middot; the file</div><div class="pkb">Every file sized by weight and shaded by how often it has been revised. Makes legible what the body is made of and where its mass gathers; settled ground and active tissue rarely coincide.</div><div class="pkc">blind to &middot; whether any of it is finished, or good</div></div>
+  <div class="pk" data-tint="violet"><div class="pkh">02 &middot; Maturation &middot; the record</div><div class="pkb">The ledger read in its own mark grammar: drafted, anticipated, and open with a mark of in-session, delivered, verified, or attested.<sup class="fn"><a href="#src4">4</a></sup> Makes legible ripeness, and holds the distinction that delivery is a merge while verification takes a person.</div><div class="pkc">blind to &middot; effort, difficulty, and duration</div></div>
+  <div class="pk" data-tint="coral"><div class="pkh">03 &middot; Journeys &middot; the passage</div><div class="pkb">Each arrival class walking its first sitting in order, terminating at the stop: the first step not yet reachable, found by walking rather than declared. The only view that reads from outside, from where a person stands.</div><div class="pkc">blind to &middot; any individual; personas are arrival classes, never members</div></div>
+  <div class="pk" data-tint="amber"><div class="pkh">04 &middot; Tending &middot; the commit</div><div class="pkb">The rhythm of the work: when it happened, and the two piles it falls into, tending the place itself and growing what lives in it.</div><div class="pkc">blind to &middot; who did how much, deliberately and permanently</div></div>
+</section>
+
+<section class="sec" id="s7" data-tint="rose">
+  <div class="addr">TRANSDUCER &sect;7</div>
+  <h2>Readings and interpretations, marked apart</h2>
+  <p>Two kinds of sentence appear on the instrument and they must not look alike. A <em>reading</em> is computed and bound to figures that trace to the record: five of six passages stop before their first sitting ends; thirty-four pieces verified against thirty named but not taken up. An <em>interpretation</em> is a frame laid over those figures by whoever built the view: that the split between tending and growing is the useful cut, or that a ring of documents entirely drafted means the instrument waits on people rather than work.</p>
+  <p>The interpretations currently on the surface were the agent&rsquo;s drafting and nobody&rsquo;s decision. Some are load-bearing, and the taxonomy of the two piles is one: it decides what the rhythm view shows, and a different taxonomy would show a different cooperative. Under the standing discipline, an agent may draft and surface a frame; it may not let a frame pass as the record&rsquo;s own voice.<sup class="fn"><a href="#src1">1</a></sup></p>
+  <p>The rule this module proposes: every interpretive sentence is attributed on the surface, in the same way a source is attributed in a document, and TRANSDUCER-D4 elects whether the interpretations survive at all, survive attributed, or are struck in favour of figures alone. Pending that election, the drafted artifact carries an interim form: each interpretive reading bears a small mark, <em>figures computed from the record; the framing is the instrument&rsquo;s reading, drafted not adopted</em>. The mark is the forerunner of piece T-07 and prejudges nothing; TRANSDUCER-D4 may still strike the frames entirely.</p>
+</section>
+
+<section class="sec" id="s8" data-tint="rose">
+  <div class="addr">TRANSDUCER &sect;8</div>
+  <h2>The guest layer, and the fifth principle</h2>
+  <p>The fifth cooperative principle asks two different things: that a co-operative educate and train its members so they can contribute effectively, and that it inform the general public about the nature of co-operation.<sup class="fn"><a href="#src8">8</a></sup> The instrument answers them in three parts. A walk, for a room as much as for a reader: seven cards that introduce the coordination problem, the cybernetic frame, and each of the five views in turn. A gloss on every specialist word, taken verbatim from the Lexicon with its section cited, so the vocabulary is introduced where it is first met rather than assumed.<sup class="fn"><a href="#src2">2</a></sup> And the instrument itself, handled live, as the training.</p>
+  <p>Three properties of the walk are specification, not decoration, because each was reached by correcting a failure. The cards speak in the Commonplace register and close by citing their ancestor entry and its meeting, so the walk teaches the cooperative&rsquo;s ideas in the cooperative&rsquo;s voice rather than a narrator&rsquo;s.<sup class="fn"><a href="#src9">9</a></sup> The card never covers what it describes: it docks into the detail panel&rsquo;s slot, the one surface the walk never points at, and the element under discussion is marked by bands drawn around it, corner brackets on large regions, dimming graded to the size of the target. And the card is an instrument in the small: it can be undocked, dragged, and resized by hand, and driven from keys on the common pattern, siblings for back and next, scroll on the vertical pair, digits to jump, one key to float or dock, so a presenter can walk a room through it without touching a pointer. The spoken text is held near three minutes, which is itself the first card&rsquo;s argument practised: an introduction that spends volunteered attention freely contradicts the principle it opens with.</p>
+  <p>The dependency this creates should be named: the glosses are drawn from the Lexicon, so if a word evolves there and the instrument does not follow, the instrument becomes a stale dictionary. The generator of &sect;5 resolves this by reading the Lexicon as a source rather than carrying a copy, which is piece T-06.</p>
+  <p>The walk speaks to strangers on the cooperative&rsquo;s behalf, and some of what it says is a claim about the cooperative&rsquo;s character rather than a description of a screen &mdash; that it refuses to measure people, and why. Whether the instrument may make such claims unsupervised is TRANSDUCER-D5.</p>
+</section>
+
+<section class="sec" id="s9" data-tint="violet">
+  <div class="addr">TRANSDUCER &sect;9</div>
+  <h2>Joint contracts and refusals</h2>
+  <div class="inv"><p><span class="it">JC-0 &middot; with the Lexicon.</span> This module amends the register: <em>transducer</em> passes from the tally to this instrument, by the steward&rsquo;s direction. The amendment is the Lexicon&rsquo;s to record and the L bed&rsquo;s to carry; this module supplies the wording and claims no authority over the register beyond the direction it was given. Documents already citing the older sense keep their wording, and the Lexicon notes the evolution beside the entry rather than replacing it.<sup class="fn"><a href="#src2">2</a></sup></p></div>
+  <div class="inv"><p><span class="it">JC-1 &middot; with the Almanac.</span> The ledger is the source and the instrument yields to it entirely. Where a view and the ledger disagree, the view is wrong by definition and the audit says so. The instrument never writes to the ledger, proposes no mark, and mints no address.</p></div>
+  <div class="inv"><p><span class="it">JC-2 &middot; with JOURNEYS.</span> View 03 reads the journeys register when it exists. Until piece J-01 lands, it parses the stories page and states on the surface that half its derivation is still a promise.<sup class="fn"><a href="#src3">3</a></sup> No piece here duplicates the register or infers what it would have held.</p></div>
+  <div class="inv"><p><span class="it">JC-3 &middot; with the design constitution.</span> Tokens, typography, chips, and the mode contract come from the live design system, inline per page as the build protocol requires.<sup class="fn"><a href="#src1">1</a></sup> The instrument introduces no colour, no chip state, and no type role of its own.</p></div>
+  <div class="inv"><p><span class="it">JC-4 &middot; with the verification spec.</span> The instrument is checked like any surface: its audit joins the suites, and its proof is listed with the others rather than kept as a special case.<sup class="fn"><a href="#src1">1</a></sup></p></div>
+  <div class="inv"><p><span class="it">JC-5 &middot; with AGY.</span> Construction proceeds under Directions in the mode in force, two hands on every artifact. The instrument gains the agent no reach: it reads public files and writes a page.</p></div>
+  <div class="inv"><p><span class="it">R1 &middot; Read-only, always.</span> The instrument renders and never records. Selecting, walking, filtering, and reading produce no event, write no row, and change nothing. A surface that reads the record must not be a way of writing to it.</p></div>
+  <div class="inv"><p><span class="it">R2 &middot; No person is rendered.</span> No individual counts, no per-author figures, no ranking, no leaderboard, in any view, on any answer to any decision below. The estate entered Goodhart&rsquo;s constraint as a design principle and a monitoring instrument is the artifact that most invites its violation.<sup class="fn"><a href="#src9">9</a></sup></p></div>
+  <div class="inv"><p><span class="it">R3 &middot; No analytics on its own readers.</span> The instrument gathers nothing about who views it: no session tracking, no traversal telemetry, no counting of visits. A surface built to make the cooperative legible to strangers does not make strangers legible to the cooperative.</p></div>
+  <div class="inv"><p><span class="it">R4 &middot; No untraceable figure.</span> Every number shown is computed from the record and reaches its source in the interface. A figure that cannot be followed back is struck rather than footnoted.</p></div>
+  <div class="inv"><p><span class="it">R5 &middot; No score.</span> Reach, mass, marks, and rhythm are counts and named states. No percentage of completion, no funnel, no progress bar, no maturity index, matching the guard the marks already carry and the one STANDING carries against maturity scoring.<sup class="fn"><a href="#src10">10</a></sup></p></div>
+  <div class="inv"><p><span class="it">R6 &middot; No unattributed frame.</span> Interpretive sentences are marked as the instrument&rsquo;s reading, never as the cooperative&rsquo;s position, per &sect;7 and pending TRANSDUCER-D4.</p></div>
+</section>
+
+<section class="sec" id="s10" data-tint="violet">
+  <div class="addr">TRANSDUCER &sect;10</div>
+  <h2>Decisions staged, none taken</h2>
+  <div class="dcard"><div class="dh">TRANSDUCER-D1 &middot; how the supersession is recorded &middot; the steward, with the L bed</div><div class="db">The name is directed and not in question: the instrument is the transducer, superseding the tally&rsquo;s claim on the word. What remains is the form of the record. Three ways are available and the module recommends the third: amend the Lexicon entry with a dated note of the evolution; carry the change only in this module and let the Lexicon follow at its next revision; or open an L piece that records the supersession, its reason, and its date beside the entry, leaving the prior sense legible to documents that cite it. The third costs one piece and keeps the law that cited words keep their wording.<sup class="fn"><a href="#src2">2</a></sup></div></div>
+  <div class="dcard"><div class="dh">TRANSDUCER-D2 &middot; where it stands &middot; the board</div><div class="db">Public beside the Almanac, or intranet only. A public instrument is a permanent, dated, machine-maintained statement of every gap in the estate, updated on every merge without anyone choosing the moment. That is either the strongest thing the cooperative could publish about itself or an exposure, and the same election stands before JOURNEYS and STANDING. Until decided, intranet only.</div></div>
+  <div class="dcard"><div class="dh">TRANSDUCER-D3 &middot; which record it reads &middot; the steward, routed to the board for schema or permissions</div><div class="db">Whether the instrument remains at the build recursion, or later reads the operational record. The second is a permissions question first: every read would need cells in the authority matrix anchored in the Bylaws, and a public surface reading member data is a different object entirely. The module recommends staying at the build recursion for v0.1 and treating any operational read as its own module.</div></div>
+  <div class="dcard"><div class="dh">TRANSDUCER-D4 &middot; the interpretations &middot; the steward</div><div class="db">Whether the framing sentences of &sect;7 survive attributed, are struck in favour of figures alone, or are rewritten by a person and adopted as the cooperative&rsquo;s own reading. The module recommends none of the three: it names the choice because the agent authored the frames and should not also ratify them.</div></div>
+  <div class="dcard"><div class="dh">TRANSDUCER-D5 &middot; the guest layer&rsquo;s voice &middot; the steward</div><div class="db">The walk speaks to strangers on the cooperative&rsquo;s behalf and makes claims about its character, not only its screens. Whether those sentences are the cooperative&rsquo;s words, requiring a person to write and adopt them, or the instrument&rsquo;s description, requiring only accuracy.</div></div>
+  <div class="dcard"><div class="dh">TRANSDUCER-D6 &middot; the artifact&rsquo;s standing &middot; the board</div><div class="db">Whether the instrument is a surface of the commons like any other, or a series artifact with its own document. The distinction matters for the annual cut: a dated reading adopted by the board is a candidate for the public benefit report, and an instrument that could carry that weight has a different lifecycle than a page.</div></div>
+</section>
+
+<section class="sec" id="s11" data-tint="blue">
+  <div class="addr">TRANSDUCER &sect;11</div>
+  <h2>Emissions, verification, and the graft</h2>
+  <p>No emissions. Like JOURNEYS, this is a repository-layer module: no migration, no table, no policy. It reads public files and writes a page. The graft enters a bed of eight pieces and one proof, none of which conditions launch and none of which launch conditions on.</p>
+  <div class="pk"><div class="pkh">T-01 &middot; the register amendment</div><div class="pkb">Record the supersession of &sect;2 in the Lexicon in the form TRANSDUCER-D1 elects, with its date and its reason, leaving the prior sense legible to every document that cites it. Acceptance: the Lexicon reads true end to end after the change, and no existing citation is silently altered.</div><div class="pkc">condition &middot; TRANSDUCER adopted &middot; TRANSDUCER-D1 recorded &middot; the L bed carries it</div></div>
+  <div class="pk"><div class="pkh">T-02 &middot; the generator</div><div class="pkb">A script reading the repository alone and writing one data file: the tree with sizes, the ledger with its marks and beds, the history with its rhythm and the two piles, and the journeys as &sect;6 defines them. Acceptance: run on fresh infrastructure from the public repository with no key, twice, and the two data files are byte-identical for the same commit.</div><div class="pkc">condition &middot; TRANSDUCER adopted (TRANSDUCER-D6)</div></div>
+  <div class="pk"><div class="pkh">T-03 &middot; the currency gate</div><div class="pkb">The generator wired into continuous integration on merge to main, with the audit of &sect;5: fail if the data file is older than the commit beside it. Acceptance: a seeded stale file fails the suite and a fresh one passes.</div><div class="pkc">condition &middot; T-02 verified</div></div>
+  <div class="pk"><div class="pkh">T-04 &middot; the surface, deployed</div><div class="pkb">The page standing at its elected address inside the shell, five views, chips per the constitution, the merge stamped on every view. Acceptance: a reader reaches it by URL, and the stamp matches the head of main.</div><div class="pkc">condition &middot; T-03 verified &middot; TRANSDUCER-D2 recorded</div></div>
+  <div class="pk"><div class="pkh">T-05 &middot; the journeys derivation</div><div class="pkb">View 03 reads the journeys register instead of parsing the stories page, and drops the notice that half its derivation is a promise. Acceptance: the stops shown equal those the register&rsquo;s own reader computes, and the parser is deleted rather than kept as a fallback.</div><div class="pkc">condition &middot; JOURNEYS J-02 verified</div></div>
+  <div class="pk"><div class="pkh">T-06 &middot; the gloss binding</div><div class="pkb">The guest layer&rsquo;s definitions read from the Lexicon as a source rather than carried as a copy, each citing its section. Acceptance: an edit to a Lexicon entry appears in the instrument on the next merge, with no hand-editing of the instrument.</div><div class="pkc">condition &middot; T-02 verified</div></div>
+  <div class="pk"><div class="pkh">T-08 &middot; the walk</div><div class="pkb">The guest layer of &sect;8 as a maintained piece rather than an accident of the artifact: seven cards in the Commonplace register with their entry citations, the docked and draggable card, the target marking, and the key pattern. Acceptance: a person who has never seen the estate can, after the walk alone, say what each view shows and what it refuses to show; and the spoken text stays within three minutes read aloud.</div><div class="pkc">condition &middot; T-04 verified &middot; TRANSDUCER-D5 recorded, since the walk speaks for the cooperative</div></div>
+  <div class="pk"><div class="pkh">T-07 &middot; the attribution pass</div><div class="pkb">Every interpretive sentence marked as the instrument&rsquo;s reading per &sect;7, or struck, per the recorded election. Acceptance: a reader can tell, of any sentence on the surface, whether it is computed or framed.</div><div class="pkc">condition &middot; TRANSDUCER-D4 recorded</div></div>
+  <div class="pk"><div class="pkh">G-I &middot; the transducer proof</div><div class="pkb">A figure shown on the instrument equals the figure traced by hand from the repository to its source, walked end to end by two people and attested as an event. The proof is chosen against the hardest figure on the surface rather than the easiest, and the hardest today is a passage&rsquo;s stop, which crosses two registers to reach its answer.</div><div class="pkc">condition &middot; T-04 verified &middot; T-05 verified &middot; two-party attestation &middot; addressed G-I because G-T is held by the treasury proof</div></div>
+</section>
+
+<section class="sec" id="s12" data-tint="blue">
+  <div class="addr">TRANSDUCER &sect;12</div>
+  <h2>What this proposes, and what it does not decide</h2>
+  <p>It proposes that the estate&rsquo;s record be rendered by an instrument that stands second in a series after the tally, that the rendering be regenerated on every merge rather than remembered, that each view declare what it cannot show, and that no figure appear which cannot be followed back to the record it came from. It proposes six pieces, one proof, and no schema.</p>
+  <p>It decides little. The name is directed and recorded; how the register carries that direction, where the instrument stands, which record it reads, whether the agent&rsquo;s frames survive, whose voice speaks to strangers, and whether the instrument is a page or a series artifact are six elections for hands. Adopting this module is the seventh.</p>
+  <p>One caution belongs at the end rather than buried. The instrument makes the cooperative legible to itself, and legibility is not a neutral good: what is rendered gets attended to, and what is attended to gets optimised.<sup class="fn"><a href="#src9">9</a></sup> The refusals of &sect;9 exist because this artifact, more than any other in the series, is the one that could quietly turn a cooperative into a dashboard of itself. They are the load-bearing part of this document, and they should be the hardest part to amend.</p>
+</section>
+
+<section class="sec" id="s13" data-tint="gold">
+  <div class="addr">TRANSDUCER &sect;13</div>
+  <h2>Changes from v0.1</h2>
+  <p>Recorded rather than overwritten, per the register&rsquo;s conservation law.<sup class="fn"><a href="#src2">2</a></sup> The Ground of &sect;4 is re-read at 386 commits and now names what the drafted artifact has done toward this specification on its own authority: the interim attribution mark of &sect;7, the proposed name carried with drafted status on the surface, and the guest layer rebuilt. &sect;8 is rewritten from experience: the walk&rsquo;s register, its docking rule, and its hand and key control were each reached by correcting a failure in the previous form, and are now specified so the corrections survive the next rebuild. Piece T-08 is added to carry the walk as maintained work, conditioned on TRANSDUCER-D5 because the walk speaks for the cooperative. The decisions of &sect;10 stand unchanged and none has been taken; nothing in this revision narrows an election.</p>
+</section>
+
+<div class="sources" id="sources">
+  <h2>Sources</h2>
+  <ol>
+    <li id="src1">The Almanac at techne.coop/commons/build, read 2026-08-14: the module intake route of document, adoption, and graft, as taken by PATRONAGE, TREASURY, AGY, and STANDING; the reconciliation history in which a surface and its ledger twice disagreed and were corrected on the record; the almanac audit wired into continuous integration with its own self-test; the verification suites and the probe matrix with their authority anchors; the Common Agency mode in force and its two-hands discipline; the build protocol&rsquo;s requirement that tokens are inline per page; and the design system named as the live constitution.</li>
+    <li id="src2">The Lexicon at techne.coop/commons/build/lexicon/, v2: the tally named as the transducer, the reading by which the system knows its own state from its own history, computed and never stored; the ground and craft roots; the walkaway as export, rebuild from the public repository alone, and byte-identical re-export; adoption as the visible human act; and the record that public names are the board&rsquo;s election, as fixed for the participation classes.</li>
+    <li id="src3">Participation Journeys, JOURNEYS v0.1, and the participation stories at techne.coop/commons/prd/stories/, read 2026-08-14: fifty-seven capability sentences in nine sections; the day one passages and their stops; the declaration that story numbers are document-local and that only the Almanac mints addresses; and the register proposed at JOURNEYS J-01 that view 03 waits on.</li>
+    <li id="src4">rdm-ledger.yaml and scripts/validate.py as read 2026-08-14: the mark grammar in the ledger&rsquo;s own header, defining drafted, anticipated, and open with a mark of in-session, delivered, verified, attested, or a named condition; and STATUS.md generated from the ledger and proven current in continuous integration, the pattern &sect;5 follows.</li>
+    <li id="src5">Conant, R. C. and Ashby, W. R. (1970), &ldquo;Every good regulator of a system must be a model of that system&rdquo;, <em>International Journal of Systems Science</em> 1(2), 89&ndash;97.</li>
+    <li id="src6">Ashby, W. R. (1956), <em>An Introduction to Cybernetics</em>, Chapman &amp; Hall: the law of requisite variety, and attenuation as the ordinary remedy where a regulator&rsquo;s channel is narrower than the system&rsquo;s variety.</li>
+    <li id="src7">Engelbart, D. C. (1962), <em>Augmenting Human Intellect: A Conceptual Framework</em>, SRI Summary Report AFOSR-3223: augmentation as raising a person&rsquo;s capacity rather than replacing their judgment.</li>
+    <li id="src8">The International Co-operative Alliance&rsquo;s fifth principle, Education, Training and Information, in the Statement on the Co-operative Identity: education and training for members and representatives so they can contribute effectively, and information for the general public about the nature and benefits of co-operation.</li>
+    <li id="src9">The Commonplace Book at techne.coop/commonplace, Movement II: qualification over quantification, collective identity over individual accounting, and Goodhart&rsquo;s constraint entered as a design principle rather than a caution. The familiar phrasing that a measure ceases to be a good measure once it becomes a target is Strathern (1997); the underlying observation is Goodhart (1975).</li>
+    <li id="src11">Beer, S. (1979), <em>The Heart of Enterprise</em>, and (1972) <em>Brain of the Firm</em>, Wiley: the Viable System Model, in which a transducer sits at each boundary a message crosses and must be designed, since transduction is where variety is gained or lost.</li>
+    <li id="src10">Work Standing, STANDING v0.3, techne.coop/commons/standing/: the module document form this specification follows, and the refusal of maturity scoring that R5 here matches.</li>
+  </ol>
+</div>
+
+<footer>
+  <span>Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street, Boulder</span>
+  <span>Document grammar &middot; Techne v4 &middot; TRANSDUCER v0.2 &middot; Drafted &middot; August 2026 &middot; supersedes v0.1</span>
+<div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+</div>
+
+<script>
+  document.getElementById('modebtn').addEventListener('click',function(){
+    var h=document.documentElement, n=h.getAttribute('data-mode')==='dark'?'light':'dark';
+    h.setAttribute('data-mode',n);
+    try{localStorage.setItem('techne-mode',n);}catch(e){}
+  });
+</script>
+
+</body>
+</html>
