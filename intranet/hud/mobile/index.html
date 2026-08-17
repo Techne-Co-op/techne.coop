@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Transducer &middot; Mobile &middot; Intranet &middot; Techne</title>
+<meta name="description" content="The transducer, refit for a phone: the same five lenses over the same dated cut, with the canvas given the screen and the navigation and detail moved to the edges. Reads its data and logic from /intranet/hud/ at load; nothing is duplicated here. Drafted instrument of TRANSDUCER v0.2, not adopted. RegenHub, LCA.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<script src="/assets/topbar.js" defer></script>
+<style id="mobile-boot">
+  /* Boot styles only. The desktop page's stylesheet is adopted at load;
+     the mobile overrides live in #mobile-overrides below and are moved
+     after the adopted sheet so they win the cascade. */
+  :root{--boot-bg:#0F0F12;--boot-text:#CFCBC4;--boot-line:#2A2A30}
+  @media (prefers-color-scheme: light){:root{--boot-bg:#F7F5F0;--boot-text:#2E2C28;--boot-line:#D8D3C8}}
+  html,body{height:100%;margin:0}
+  body{background:var(--boot-bg);color:var(--boot-text);font:400 15px/1.7 Georgia,serif}
+  #hudboot{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;padding:24px;text-align:center}
+  #hudboot .m{font-family:Consolas,monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.6}
+  #hudboot a{color:inherit}
+</style>
+<style id="mobile-overrides">
+  /* The mobile refit. Everything here overrides the adopted desktop sheet.
+     Principle: the canvas is primary; navigation and detail yield to it. */
+  html,body{height:100dvh}
+  body{display:flex;flex-direction:column;overflow:hidden}
+  #hudroot{flex:1;min-height:0;display:flex;flex-direction:column}
+
+  /* topbar chips: one thin scrolling row, never wrapping into the canvas */
+  #hudroot .hudbar{flex-wrap:nowrap;overflow-x:auto;gap:8px;padding:7px 12px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  #hudroot .hudbar::-webkit-scrollbar{display:none}
+  #hudroot .hudbar .chip{flex:0 0 auto;white-space:nowrap}
+  #hudroot .hudbar .btn{flex:0 0 auto}
+  #hudroot .hudbar .spacer{display:none}
+
+  /* lens rail: a fixed bottom nav, thumb reach, numbers and names only */
+  #hudroot .lenses{position:fixed;left:0;right:0;bottom:0;z-index:60;
+    border-top:1px solid var(--line);border-bottom:0;background:var(--surface);
+    padding-bottom:env(safe-area-inset-bottom);flex-wrap:nowrap}
+  #hudroot .lens{padding:8px 2px 9px;text-align:center;align-items:center;gap:2px;min-width:0}
+  #hudroot .lens .k{font-size:8.5px;letter-spacing:.06em;white-space:nowrap;overflow:hidden;max-width:100%}
+  #hudroot .lens .t{font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  #hudroot .lens .d{display:none}
+  #hudroot .lens[aria-pressed="true"]{box-shadow:inset 0 -2px 0 var(--cis-tint,var(--ember))}
+
+  /* the stage takes everything between the bars; room left for the bottom nav */
+  #hudroot main{flex:1;min-height:0;flex-direction:column;padding-bottom:52px}
+  #hudroot .stage{border-right:0}
+  #hudroot .overview{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  #hudroot .overview::-webkit-scrollbar{display:none}
+  #hudroot .metric{flex:0 0 auto;min-width:104px;padding:7px 12px}
+  #hudroot .metric .v{font-size:18px}
+
+  /* readings collapse to two lines; tap to open */
+  #hudroot .reading,#hudroot .plain{max-height:3.6em;overflow:hidden;cursor:pointer;position:relative}
+  #hudroot .reading.expanded,#hudroot .plain.expanded{max-height:none}
+  #hudroot .reading::after,#hudroot .plain::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.4em;
+    background:linear-gradient(transparent,var(--bg));pointer-events:none}
+  #hudroot .reading.expanded::after,#hudroot .plain.expanded::after{display:none}
+
+  #hudroot .canvas{flex:1;min-height:0}
+  #hudroot .lane{margin:0 12px 10px}
+  #hudroot .rows .row{padding:7px 12px}
+  #hudroot .subhead{margin:16px 12px 10px}
+  #hudroot .barline{grid-template-columns:96px 1fr 46px;padding:4px 12px}
+  #hudroot .spark,#hudroot .caption{padding-left:12px;padding-right:12px}
+  #hudroot .succ-axis{padding-left:calc(86px + 12px + 12px)}
+
+  /* the detail aside becomes a sheet that rises from beneath the nav */
+  #hudroot aside{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:70;width:auto;
+    max-height:62dvh;border-top:1px solid var(--rule);box-shadow:0 -12px 34px rgba(0,0,0,.35);
+    transform:translateY(110%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+    padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+  #hudroot aside.sheet-open{transform:none}
+  #sheettab{position:fixed;right:10px;bottom:calc(58px + env(safe-area-inset-bottom));z-index:65;
+    font:500 10.5px/1 var(--mono,monospace);letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);background:var(--surface);border:1px solid var(--rule);
+    padding:8px 12px;cursor:pointer}
+  #sheettab.sheet-open{color:var(--heading);border-color:var(--ember)}
+
+  /* the walk and glossary fit the phone */
+  .coach{left:8px !important;right:8px !important;width:auto !important;max-width:none !important;max-height:62dvh}
+  .coach.float{resize:none;min-width:0}
+  .coach h3{font-size:21px}
+  .coach p{font-size:15.5px}
+  .glpop{max-width:calc(100vw - 24px)}
+</style>
+</head>
+<body>
+<div id="hudboot">
+  <div class="m">The Transducer &middot; mobile refit</div>
+  <div id="bootmsg">Reading the current cut from <a href="/intranet/hud/">/intranet/hud/</a> &hellip;</div>
+</div>
+<div id="hudroot" hidden></div>
+<button id="sheettab" hidden aria-expanded="false">detail</button>
+
+<script>
+/* The mobile transducer is a refit, not a fork: at load it fetches the
+   desktop page, adopts its stylesheet, markup, data snapshot, and
+   application script verbatim, then applies the overrides above and the
+   small shell below. One source; this page cannot drift from the cut. */
+(async function(){
+  const boot=document.getElementById('hudboot'), root=document.getElementById('hudroot');
+  let doc;
+  try{
+    const res=await fetch('/intranet/hud/',{cache:'no-cache'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    doc=new DOMParser().parseFromString(await res.text(),'text/html');
+    if(!doc.getElementById('snapshot')) throw new Error('no snapshot in the desktop page');
+  }catch(e){
+    document.getElementById('bootmsg').innerHTML=
+      'Could not read the desktop transducer ('+String(e.message).replace(/[<>&]/g,'')+'). '+
+      'Open <a href="/intranet/hud/">the desktop version</a> directly.';
+    return;
+  }
+
+  /* adopt the desktop stylesheet, keeping the mobile overrides last */
+  const overrides=document.getElementById('mobile-overrides');
+  doc.querySelectorAll('head style').forEach(s=>{
+    const st=document.createElement('style'); st.textContent=s.textContent;
+    document.head.insertBefore(st,overrides);
+  });
+
+  /* adopt the markup: everything in the desktop body except its scripts */
+  const frag=document.createDocumentFragment();
+  [...doc.body.children].forEach(el=>{
+    if(el.tagName==='SCRIPT') return;
+    frag.appendChild(document.importNode(el,true));
+  });
+  root.appendChild(frag);
+
+  /* re-create the snapshot, then execute the application script */
+  const snapSrc=doc.getElementById('snapshot');
+  const snap=document.createElement('script');
+  snap.id='snapshot'; snap.type='application/json'; snap.textContent=snapSrc.textContent;
+  root.appendChild(snap);
+  boot.remove(); root.hidden=false;
+  for(const s of doc.body.querySelectorAll('script')){
+    if(s.id==='snapshot'||s.src) continue;
+    const run=document.createElement('script'); run.textContent=s.textContent;
+    root.appendChild(run);
+  }
+
+  /* ---- the mobile shell ---- */
+  const aside=root.querySelector('aside'), tab=document.getElementById('sheettab');
+  tab.hidden=false;
+  const setSheet=(open)=>{
+    aside.classList.toggle('sheet-open',open);
+    tab.classList.toggle('sheet-open',open);
+    tab.setAttribute('aria-expanded',String(open));
+    tab.textContent=open?'close':'detail';
+  };
+  tab.onclick=()=>setSheet(!aside.classList.contains('sheet-open'));
+
+  /* a tap in the canvas that changes the detail raises the sheet;
+     background renders and lens switches leave it down */
+  let lastTap=0;
+  root.querySelector('#canvas').addEventListener('pointerdown',()=>{lastTap=Date.now()},true);
+  new MutationObserver(()=>{
+    if(Date.now()-lastTap<600) setSheet(true);
+  }).observe(aside,{childList:true,subtree:false});
+  root.querySelectorAll('.lens').forEach(b=>b.addEventListener('click',()=>setSheet(false)));
+
+  /* collapsed readings expand on a tap, and reset per lens */
+  ['#reading','#plain'].forEach(sel=>{
+    const el=root.querySelector(sel);
+    el.addEventListener('click',ev=>{
+      if(ev.target.closest('a,.gl,button')) return;
+      el.classList.toggle('expanded');
+    });
+  });
+  root.querySelectorAll('.lens').forEach(b=>b.addEventListener('click',()=>{
+    ['#reading','#plain'].forEach(sel=>root.querySelector(sel).classList.remove('expanded'));
+  }));
+
+  /* the visualizations measure their container; re-render on rotation */
+  let rt;
+  addEventListener('resize',()=>{
+    clearTimeout(rt);
+    rt=setTimeout(()=>{ if(typeof render==='function') render(); },220);
+  });
+})();
+</script>
+</body>
+</html>
