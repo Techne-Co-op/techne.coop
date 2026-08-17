@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The launch-day walkthrough: one scripted sitting for a steward and one other person that produces the evidence five open proofs are waiting on. Draft; nothing is closed until the walk is walked.">
+<title>The Launch-Day Walkthrough &middot; ALM v2 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/build/walkthrough/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/build/walkthrough/">
+<meta property="og:title" content="The Launch-Day Walkthrough · ALM v2 · Techne">
+<meta property="og:description" content="One scripted sitting for two people that produces the evidence five open proofs are waiting on.">
+<meta property="og:site_name" content="Techne">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --ok-dim:rgba(106,154,106,0.13);
+  --warn:#C46A6A; --warn-dim:rgba(196,106,106,0.13);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --ok-dim:rgba(74,122,74,0.10);
+  --warn:#A84F4C; --warn-dim:rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition-duration:0ms !important; } }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--serif); font-size:16px; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+code { font-family:var(--mono); font-size:0.84em; color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
+em { font-style:italic; color:var(--heading); }
+
+/* the primary navigation is the shared public topbar,
+   injected by /assets/topbar.js per U-13 */
+.mast {
+  padding:var(--s7) var(--s5) var(--s6);
+  border-bottom:1px solid var(--rule);
+  max-width:860px; margin:0 auto;
+}
+.mast-eyebrow { font-family:var(--mono); font-size:0.65rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s3); }
+.mast h1 { font-family:var(--serif); font-size:clamp(1.8rem,3.5vw,2.4rem); font-weight:700; color:var(--heading); line-height:1.12; letter-spacing:-0.01em; margin-bottom:var(--s4); }
+.mast-dek { font-size:1.05rem; line-height:1.65; color:var(--text); max-width:62ch; }
+.mast-meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font-family:var(--mono); font-size:0.68rem; color:var(--muted); }
+
+.doc-wrap { max-width:860px; margin:0 auto; padding:0 var(--s5) var(--s8); }
+.sec { padding:var(--s7) 0 0; }
+.sec .addr { font-family:var(--mono); font-size:0.65rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s2); }
+.sec h2 { font-family:var(--serif); font-size:1.45rem; font-weight:700; color:var(--heading); letter-spacing:-0.01em; margin-bottom:var(--s4); padding-left:14px; border-left:3px solid var(--ember); }
+.sec p { margin-bottom:var(--s4); max-width:68ch; }
+.sec p:last-child { margin-bottom:0; }
+.lead { font-size:1.05rem; line-height:1.7; }
+
+.chip {
+  display:inline-flex; align-items:center; gap:5px;
+  font-family:var(--mono); font-size:0.6rem; font-weight:500; letter-spacing:0.05em;
+  padding:3px 7px; border-radius:2px; border:1px solid var(--line);
+  background:var(--surface); white-space:nowrap; vertical-align:middle; color:var(--muted);
+}
+.chip .dot { width:5px; height:5px; border-radius:1px; flex-shrink:0; }
+.chip.ok { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
+.chip.ok .dot { background:var(--ok); }
+.chip.open { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
+.chip.open .dot { background:transparent; border:1px solid var(--warn); }
+.chip.anticipated { color:var(--faint); border-color:var(--line); }
+.chip.anticipated .dot { background:transparent; border:1px solid var(--faint); }
+
+.gate-head { display:flex; align-items:baseline; gap:var(--s3); flex-wrap:wrap; }
+.condition {
+  margin:var(--s4) 0; background:var(--surface);
+  border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s3) var(--s4);
+  font-size:0.88rem; line-height:1.65;
+}
+.condition .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); display:block; margin-bottom:var(--s1); }
+
+.script { margin:var(--s4) 0; counter-reset:beat; }
+.beat { display:grid; grid-template-columns:34px 110px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--line); align-items:baseline; }
+.beat:last-child { border-bottom:0; }
+.beat-n { font-family:var(--mono); font-size:0.68rem; font-weight:600; color:var(--ember-text); text-align:right; padding-top:3px; }
+.beat-who { font-family:var(--mono); font-size:0.68rem; color:var(--muted); padding-top:3px; }
+.beat-body { font-size:0.88rem; line-height:1.65; color:var(--text); }
+.beat-body .sentence { display:block; font-style:italic; color:var(--heading); margin-bottom:var(--s1); }
+.beat-body .observe { display:block; font-family:var(--mono); font-size:0.72rem; color:var(--muted); margin-top:var(--s1); }
+
+.attest {
+  margin:var(--s4) 0; background:var(--inset);
+  border:1px solid var(--line); border-left:2px solid var(--ok); padding:var(--s4);
+}
+.attest .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ok); margin-bottom:var(--s3); }
+.attest p { font-size:0.92rem; font-style:italic; color:var(--heading); margin-bottom:var(--s3); }
+pre.rec {
+  background:var(--inset); border:1px solid var(--line);
+  padding:var(--s4); overflow-x:auto;
+  font-family:var(--mono); font-size:0.74rem; line-height:1.8; color:var(--text);
+  margin:var(--s3) 0 0;
+}
+
+.memo {
+  margin:var(--s7) 0 0; padding:var(--s4) 0;
+  border-top:1px solid var(--rule); border-bottom:4px double var(--heading);
+}
+.memo .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:var(--ember-text); margin-bottom:var(--s2); }
+.memo p { margin:0; font-size:0.94rem; max-width:66ch; }
+
+footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s4) var(--s5) var(--s8); font-family:var(--mono); font-size:0.65rem; color:var(--faint); display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); max-width:860px; margin-left:auto; margin-right:auto; }
+
+@media (max-width:700px) {
+  .beat { grid-template-columns:28px 1fr; }
+  .beat-who { grid-column:2; padding-top:0; }
+  .beat-body { grid-column:2; }
+  .mast h1 { font-size:1.7rem; }
+}
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+  </style>
+</head>
+<body>
+<header class="mast">
+  <div class="mast-eyebrow">the launch-day walkthrough &middot; X-21 &middot; draft</div>
+  <h1>One Sitting, Two People</h1>
+  <p class="mast-dek">Five open items in the ledger are waiting on the same missing thing, and it is not code. Each of them asks for a second human: someone who is not the steward to walk a flow, to register for a gathering, to answer a posting, to countersign what was seen. This page is the single scripted sequence that supplies all of it in one sitting. Two people, their own devices, no agent in the room. Nothing here closes anything: the walk closes it, and only after it is walked and attested.</p>
+  <div class="mast-meta">
+    <span class="chip open"><span class="dot"></span>draft &middot; pending the walk</span>
+    <span>cites &middot; ALM v2 &middot; PRD v0.4 &sect;4 &middot; the Proof Book &middot; the Run-Through</span>
+    <span>RegenHub, LCA &middot; Boulder &middot; August 2026</span>
+  </div>
+</header>
+
+<div class="doc-wrap">
+
+  <section class="sec">
+    <div class="addr">&sect;1</div>
+    <h2>What is waiting, and what it is waiting for</h2>
+    <p class="lead">The build is not the blocker. Each of the five below has its surface live and its machine half proven in CI; each has an acceptance sentence that names, directly or by implication, a person who is not the steward. One person cannot answer their own posting, cannot countersign their own demonstration, and cannot be the other member who registers. The five have therefore sat open together, and they can move together.</p>
+    <div class="condition">
+      <span class="k">F-02 &middot; response flow &middot; open &middot; delivered</span>
+      Acceptance: respond and see the response; the author sees it too. The flow was exercised on the run-through of 2026-07-24 and the live artifact was destroyed the same day by the identity consolidation. A response is a message to an author, so the surface offers no self-response, by design, and no one can regenerate it alone. Supplied by act three.
+    </div>
+    <div class="condition">
+      <span class="k">G-04 &middot; the scheduling act &middot; open &middot; delivered</span>
+      Acceptance: a member schedules a gathering with a title and a start, sees it on the calendar as its host with its purpose and its place, and another member can register for it. The last clause is the second person, stated outright. Supplied by act two.
+    </div>
+    <div class="condition">
+      <span class="k">G-B &middot; the Belong proof &middot; anticipated</span>
+      Acceptance: G-B updated to attested, with B-02, B-04, B-05 verified (they are, 2026-07-12). The proof sentence asks an organizer and a non-organizer member to demonstrate every Belong sentence live, together, because belonging is not self-certified. Supplied by act one.
+    </div>
+    <div class="condition">
+      <span class="k">G-G &middot; the Gather proof &middot; anticipated</span>
+      Acceptance: G-G updated to attested, with G-03 verified (it is, 2026-07-12). Two-party attestation, every Gather sentence demonstrated live, any real gathering serving as the fixture. Supplied by act two.
+    </div>
+    <div class="condition">
+      <span class="k">G-R &middot; the cross-cutting proof &middot; anticipated</span>
+      Acceptance: G-R updated to attested, with X-01 through X-09 verified. All nine now carry the verified mark. What remains is the anchor re-verification pass and the words, and this one is honest about its cast: the Proof Book scores G-R as a steward attestation, not a two-party one. It is in this script because the pass is faster read aloud by two, and because the sitting is where the steward will be. If the walk runs short, G-R is the act that can move to another day without stranding anything.
+    </div>
+    <p>Two of the five, F-02 and G-04, carry the mark <em>delivered</em> rather than <em>verified</em>: their deliverables are on main and their acceptances want a person. Nothing in this page changes a mark. The marks change by commit, after the walk, on the evidence the walk produces.</p>
+  </section>
+
+  <section class="sec">
+    <div class="addr">&sect;2</div>
+    <h2>The cast, the bench, the hour</h2>
+    <p>Two people, in the same room if possible, each on their own device. Nothing here requires an agent, a terminal, or the SQL editor. Every act happens on the pages the members will use.</p>
+    <div class="condition">
+      <span class="k">the steward</span>
+      Signed in as himself on his normal browser, holding the steward grant. He hosts the sitting, witnesses, countersigns, and afterwards records what the walk produced.
+    </div>
+    <div class="condition">
+      <span class="k">the second</span>
+      One person who is not an organizer and has never touched the system, on their own device, with an email address they control that the record has never seen. They drive most of the walk. They should be told beforehand that the system will treat them as a stranger, because it will, and that this is the thing being proven.
+    </div>
+    <div class="condition">
+      <span class="k">the evidence folder</span>
+      One folder, one device, agreed before beat one. Every step below names what to capture and the label to save it under, E-01 upward. A screenshot with no label is an anecdote by the following week.
+    </div>
+    <div class="condition">
+      <span class="k">the hour</span>
+      Budget ninety minutes for the four acts, or an hour if act four moves to another day. The second person is needed for acts one through three only; they may leave after beat 16.
+    </div>
+    <p>One thing to settle before beat one, and it is not the instrument's to settle: whether the second person joins as a real member, whose application the steward admits during act one, or as a named test identity. The record is append-only, so this walk becomes part of the cooperative's first story either way. A real person, plainly named, keeps that story honest.</p>
+  </section>
+
+  <section class="sec">
+    <div class="addr">&sect;3 &middot; G-B &middot; B-02 &middot; B-04 &middot; B-05 &middot; X-02</div>
+    <h2>Act one &middot; the front door</h2>
+    <p>The second person drives every beat. The steward watches and says nothing that helps. The sentence in italics is spoken aloud before the beat, by the person driving it, because a proof is people saying what they are about to show.</p>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">01</div><div class="beat-who">the second</div>
+        <div class="beat-body">
+          <span class="sentence">A member can complete onboarding without a meeting.</span>
+          On their own device, open <code>techne.coop/commons/join</code> and submit the application: real name, the fresh address, a line of intent. The steward does not help, does not point, and does not read over a shoulder.
+          <span class="observe">evidence E-01 &middot; screenshot of the received panel on the second person's screen</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">02</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          <span class="sentence">The admission notice is delivered on the transition to applied.</span>
+          Pick up the phone. The intake notice should already be in the Telegram sink, carrying the applicant's name, the event id, and the address.
+          <span class="observe">evidence E-02 &middot; photograph or screenshot of the notice, timestamp visible</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">03</div><div class="beat-who">the second</div>
+        <div class="beat-body">
+          Request a magic link from any member page and click it. The sign-in with the applied address becomes the agent by itself; nobody types anything into a database.
+          <span class="observe">evidence E-03 &middot; screenshot of the signed-in identity strip carrying their name</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">04</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          Open the directory. The Admissions panel stands at the top with the pending application listed by name and address. Tap Admit. That single act records the state transition and its event together.
+          <span class="observe">evidence E-04 &middot; screenshot of the panel before and after the tap</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">05</div><div class="beat-who">the second</div>
+        <div class="beat-body">
+          <span class="sentence">A member can read every agreement that binds them, with version and standing marked.</span>
+          Open the agreements shelf and read the bylaws entry aloud: title, version, effective date, and their own unsigned chip. Read one line of what it obliges them to.
+          <span class="observe">evidence E-05 &middot; screenshot of the shelf with the unsigned chip visible</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">06</div><div class="beat-who">the second</div>
+        <div class="beat-body">
+          <span class="sentence">A member can sign the membership agreement and see the signature recorded.</span>
+          Sign on the shelf and read the confirmation panel aloud: name, instrument, version, the binding statement. Then attempt to sign the same instrument again and show the refusal.
+          <span class="observe">evidence E-06 &middot; screenshot of the confirmation panel, and of the refused second attempt</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">07</div><div class="beat-who">the second</div>
+        <div class="beat-body">
+          <span class="sentence">A member can appear in the member directory with a profile they control.</span>
+          Find themselves in the directory, edit their display name, reload, show the change held. Then look for an edit path into anyone else's row and report aloud that there is none.
+          <span class="observe">evidence E-07 &middot; screenshot of the edited profile, and of another member's row with no edit control</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">08</div><div class="beat-who">both</div>
+        <div class="beat-body">
+          <span class="sentence">Countersign.</span>
+          The steward states that each sentence was demonstrated by a person with no standing to fake it. Both speak the G-B attestation, written out in <a href="/commons/build/gates/">the Proof Book</a>, and the words are written down as spoken, not from memory afterwards.
+          <span class="observe">evidence E-08 &middot; the attestation text as spoken, typed into the evidence folder with both names and the hour</span>
+        </div>
+      </div>
+    </div>
+    <div class="condition">
+      <span class="k">what act one supplies</span>
+      G-B's whole proof sentence, in the cast it names: beats 5 through 7 are the three Belong sentences, beat 1 is the fourth, and beat 8 is the two-party act that no single person can perform. B-02, B-04, and B-05 stand verified already and are not re-opened here.
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="addr">&sect;4 &middot; G-G &middot; G-04 &middot; G-03</div>
+    <h2>Act two &middot; the calendar, held by a member</h2>
+    <p>The run-through of July seeded its gathering from the SQL editor, because the scheduling surface did not exist yet. It does now, which is the whole of G-04, so this act is walked entirely on the page. The second person schedules; the steward registers. That order is deliberate: G-04's sentence is that <em>any</em> member may hold a gathering and is its host, and a steward doing it proves the weaker claim.</p>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">09</div><div class="beat-who">the second</div>
+        <div class="beat-body">
+          <span class="sentence">A member can host an event under a named agreement or policy.</span>
+          Open the calendar, open Hold a gathering, and fill in all four fields: title, what it is, where to stand, and a start time. Hold it. The gathering appears on the calendar naming them as host.
+          <span class="observe">evidence E-09 &middot; screenshot of the calendar entry showing title, purpose, place, and Hosted by their name</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">10</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          <span class="sentence">Another member can register for it.</span>
+          On his own device, open the same gathering and register. This is the clause of G-04 that no one can walk alone.
+          <span class="observe">evidence E-10 &middot; screenshot of the registered state on the steward's screen, the host's name still reading as the second person</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">11</div><div class="beat-who">the second</div>
+        <div class="beat-body">
+          <span class="sentence">A member can see upcoming events and sessions.</span>
+          Read the session time aloud in their own timezone, then register, cancel, and register again. Say the cycle out loud as it happens. Nothing was asked of anyone and nothing was deleted.
+          <span class="observe">evidence E-11 &middot; screenshots of the three states in order: registered, cancelled, registered</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">12</div><div class="beat-who">the second</div>
+        <div class="beat-body">
+          <span class="sentence">A member can have attendance counted where the record counts it.</span>
+          As host, open the attendance panel, record the steward present, and save. Then the steward attempts to record his own attendance on a gathering he does not host, and shows the refusal.
+          <span class="observe">evidence E-12 &middot; screenshot of the saved attendance, and of the refusal</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">13</div><div class="beat-who">both</div>
+        <div class="beat-body">
+          <span class="sentence">Countersign.</span>
+          Host and registrant speak the G-G attestation together, from the Proof Book, and it is written down as spoken.
+          <span class="observe">evidence E-13 &middot; the attestation text with both names and the hour</span>
+        </div>
+      </div>
+    </div>
+    <div class="condition">
+      <span class="k">a note on the fixture</span>
+      The gathering scheduled at beat 9 is a real one or it is not, and that is the pair's choice. If the sitting itself is scheduled as the gathering, the room is standing inside the record it is reading, which is the observation the Proof Book asks for at its own beat one. If a real gathering already stands on the calendar, it serves as the fixture for G-G and beat 9 still runs on its own, because G-04 needs the scheduling act specifically.
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="addr">&sect;5 &middot; F-02 &middot; F-01 &middot; F-03</div>
+    <h2>Act three &middot; someone answers</h2>
+    <div class="condition">
+      <span class="k">the steward's fork, not the instrument's</span>
+      F-02 has an open question standing on it since 2026-07-24, and this page does not answer it. Either the piece is recorded against the proof rehearsal, which proves the flow and the visibility rule mechanically against three personas including the bystander the live row never tested, or it waits for a real second member to answer a real posting. This act is the second option, made available today rather than at some unnamed later date. If the steward takes the first option, skip beats 14 through 16 and the walk loses nothing else: no other item in this script depends on them. The choice is his, and it is a choice about what counts as evidence, which is not a question an agent may settle.
+    </div>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">14</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          Post an opportunity of his own on the board: kind, title, one line of detail. Say aloud that it is his posting, because the visibility rule about to be proven is stated in terms of the author.
+          <span class="observe">evidence E-14 &middot; screenshot of the posting on the board under the steward's name</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">15</div><div class="beat-who">the second</div>
+        <div class="beat-body">
+          <span class="sentence">A member can answer an open opportunity, visible to its author.</span>
+          Open the board on their own device, find the steward's posting, and respond. Then read their own response back on their own screen.
+          <span class="observe">evidence E-15 &middot; screenshot of the response as the responder sees it</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">16</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          <span class="sentence">The author sees it too.</span>
+          Reload the board and read the response on his own posting, aloud, from his own screen. Both halves of F-02's acceptance are now on record in the same minute, from two devices, by two people.
+          <span class="observe">evidence E-16 &middot; screenshot of the same response as the author sees it, the two screenshots timestamped close together</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">17</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          Resolve the posting with an outcome note, and show it closed to both. F-03 is verified already; this beat exists so the board is not left carrying an open posting that the walk created and nobody owns.
+          <span class="observe">evidence E-17 &middot; screenshot of the closed posting with its outcome</span>
+        </div>
+      </div>
+    </div>
+    <p>The second person may leave here, after a thank you and after being told plainly what is now in the record under their name. What follows is the steward's alone.</p>
+  </section>
+
+  <section class="sec">
+    <div class="addr">&sect;6 &middot; G-R</div>
+    <h2>Act four &middot; the anchors, read against the text</h2>
+    <p>X-01 through X-09 all carry the verified mark, which is G-R's stated acceptance in full. What the Proof Book asks for beyond the mark is one reading pass, and it is the kind of pass that goes badly alone and quickly in company: walk every bylaw anchor cited in the policy layer against the governing text as published at <code>/legal/</code>, confirming each section still says what the policy cites it for. The probe matrix already proves the policies behave as written. This proves they cite what still stands.</p>
+    <div class="script">
+      <div class="beat">
+        <div class="beat-n">18</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          Open the legal index and the policy anchors side by side. For each anchor, read the cited section aloud from the published instrument and say whether the policy's claim on it still holds. A second reader, if one is still in the room, reads the other side.
+          <span class="observe">evidence E-18 &middot; the anchor list with a mark against each, saved as walked</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">19</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          Confirm the record agrees with itself about its own governing text: the legal index and the instruments carrying one mark, which they were aligned to on 2026-07-22. A disagreement found here is a stop, not a footnote, and G-R does not attest over it.
+          <span class="observe">evidence E-19 &middot; a line recording what was found, including nothing</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="beat-n">20</div><div class="beat-who">steward</div>
+        <div class="beat-body">
+          <span class="sentence">Speak the G-R attestation.</span>
+          The words are in the Proof Book. One voice, because this proof is scored for one.
+          <span class="observe">evidence E-20 &middot; the attestation text with the hour</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="addr">&sect;7</div>
+    <h2>After the walk &middot; what is recorded, and by whom</h2>
+    <p>Nobody types SQL during the sitting, and nobody needs to. The walk produces spoken words and captured screens; the record follows afterwards, by the one procedure every proof uses, published at <a href="/commons/build/gates/#final">the Proof Book, &sect;final</a>: the attesting human records the <code>gate.attested</code> event, the ledger flips by commit with a resolution naming the attesting person, the date, and the event id, and the Almanac follows the ledger. That is the steward's act, on his own time, with the evidence folder in front of him.</p>
+    <p>The three attestations this walk can produce are G-B, G-G, and G-R. G-F is not among them and is not in this script: its condition is G-B attested, so it becomes available the moment G-B's event is recorded, on evidence this walk mostly already gathers. G-A is not reachable here at all, by its own design: it asks for a member other than the steward to direct the instrument, and it waits on the first grant besides.</p>
+    <div class="attest">
+      <div class="k">the evidence sheet</div>
+      <pre class="rec">E-01  join received panel            G-B sentence 1, onboarding with no meeting
+E-02  intake notice in hand          X-02 already verified; carried for the story
+E-03  signed-in identity strip       G-B, the binding by first sign-in
+E-04  admissions panel, before/after G-B, the assigned hand
+E-05  agreements shelf, unsigned     G-B sentence 2
+E-06  signature confirmation         G-B sentence 3 + the refused duplicate
+E-07  own profile edited             G-B sentence 4 + no path into another row
+E-08  G-B attestation as spoken      G-B acceptance: two parties, both named
+E-09  calendar entry, all four fields  G-04 clause 1 and 2; G-G sentence 3
+E-10  steward registered, host unchanged  G-04 clause 3, the second person clause
+E-11  registered / cancelled / registered  G-G sentence 2
+E-12  attendance saved + refusal     G-G sentence 4
+E-13  G-G attestation as spoken      G-G acceptance: two parties, both named
+E-14  the steward's posting          F-01 already verified; the fixture for F-02
+E-15  response, as the responder      F-02 acceptance, first half
+E-16  response, as the author         F-02 acceptance, second half
+E-17  posting resolved               housekeeping; F-03 already verified
+E-18  anchor list, walked            G-R, the re-verification pass
+E-19  what the pass found            G-R, the record agreeing with itself
+E-20  G-R attestation as spoken      G-R acceptance</pre>
+    </div>
+    <div class="condition">
+      <span class="k">what this walk does not close</span>
+      G-F, G-S, G-T, G-A: none is in this script. The Share and Treasury proofs wait on board adoptions, and the agency proof waits on a grant and on a member giving the instrument work, which is a different second person doing a different thing. The counting rules, the treasury policy, and the labor schedule are unaffected. And F-02 closes here only if the steward chooses the live option at &sect;5; on the other branch of that fork it closes by his word against the rehearsal, and this page is not that word.
+    </div>
+  </section>
+
+  <div class="memo">
+    <div class="k">why this page is a draft</div>
+    <p>Every mark named here stands exactly where it stood before this page was written. A script is not a proof, the plan of a walk is not the walk, and an instrument that could flip a mark by publishing a page describing how the mark could be earned would be the precise failure this whole estate is built to refuse. The page becomes something else on the day two people sit down with it, and even then it is the people who close the five, not the page.</p>
+  </div>
+
+</div>
+
+<footer>
+  <span>The Launch-Day Walkthrough &middot; ALM v2 &middot; VS v2 &sect;6</span>
+  <span>RegenHub, LCA &middot; Boulder, Colorado &middot; July 2026</span>
+  <span><a href="/commons/build/">The Almanac</a></span>
+  <span><a href="/commons/build/gates/">The Proof Book</a></span>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+</body>
+</html>
