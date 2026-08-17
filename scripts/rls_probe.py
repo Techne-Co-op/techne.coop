@@ -537,35 +537,49 @@ probe("direction-steward-relay-ok", "authenticated", STE,
 
 
 # ============================================================
-# DRAFT REGISTER. NOT RUN IN CI. Awaiting steward approval.
+# DRAFT REGISTER. NOT RUN IN CI. Direction approved, not applied.
 #
-# P-08 reported two findings and neither is fixed on the record:
+# P-08 reported three findings and none is fixed on the record:
 # gatherings_host_write omits app_is_member() from its WITH CHECK,
+# events_scoped_insert omits the same test from its member branch,
 # and this matrix has no persona for an authenticated agent who
 # holds no active membership, so the A-5 arrival class refusal is
 # asserted nowhere.
 #
-# The cells below answer the second finding and prove the first.
+# The cells below answer the third finding and prove the first two.
 # They are drafts: the register P above is what CI runs, and
 # nothing here changes it. Run them by hand:
 #
 #   python3 scripts/rls_probe.py --drafts
-#       stands the chain plus the draft migration
+#       stands the chain plus the draft migrations
 #       commons/authority-map/0023_gatherings_host_write_bound.sql
-#       and asserts the corrected behaviour.
+#       and 0024_events_scoped_insert_narrowed.sql, and asserts
+#       the corrected behaviour.
 #
 #   python3 scripts/rls_probe.py --drafts --no-fix
 #       stands the chain as deployed. Every cell holds except
-#       gatherings-applicant-insert-deny, which fails, and that
-#       failure is the finding stated as an assertion.
+#       gatherings-applicant-insert-deny and the two
+#       events-applicant-*-deny cells, which fail, and those
+#       failures are the findings stated as assertions.
 #
-# They join P, and 0023 joins MIGRATIONS, when a person adopts
-# the draft. Not before.
+# The direction for both narrowings is approved: the steward
+# (Todd Youngblood) gave it in Buzz #intranet-dev on
+# 2026-08-17T19:00:50Z, event
+# 5964c4ce86f71bac1714f55cc7683f90359a0aed86475181b2b368ce4243334e
+# (a guest reads privacy-aware records and navigates, and performs
+# no CRUD; public events live on Luma), and delegated the proceed
+# call, which Nou exercised the same day in the same thread. No
+# board vote is claimed. These cells join P, and 0023 and 0024
+# join MIGRATIONS, when the migrations are applied to the live
+# CIS. Not before.
 # ============================================================
 
 UNB_UID = "00000000-0000-4000-8000-000000000909"   # a sign-in bound to no agents row
 
-DRAFT_MIGRATION = "commons/authority-map/0023_gatherings_host_write_bound.sql"
+DRAFT_MIGRATIONS = [
+    "commons/authority-map/0023_gatherings_host_write_bound.sql",
+    "commons/authority-map/0024_events_scoped_insert_narrowed.sql",
+]
 
 # The unbound persona needs no seed row by definition: it is a
 # session whose auth.uid() matches no agents binding, so
@@ -629,6 +643,54 @@ draft_probe("gatherings-host-update-ok", "authenticated", MEM1,
             ("write_ok",),
             "the narrowing sits on WITH CHECK only: the host still keeps the row they own")
 
+# ---- 0024: the log entry a non-member could write about a row
+#      they could never create ----
+# The two client-written families, gathering.* and opportunity.*,
+# now ask app_is_member(). Passes only with 0024 applied; against
+# the deployed chain the two applicant deny cells fail, and those
+# failures are the finding.
+draft_probe("events-applicant-gathering-insert-deny", "authenticated", APP,
+            f"insert into events (occurred_at, actor_agent_id, kind, agent_id) "
+            f"values (now(), '{APP}', 'gathering.scheduled', '{APP}') returning 1",
+            ("write_deny",),
+            "s5 gatherings/applicant: -; s7 member-actionable kinds means a member acts")
+
+draft_probe("events-applicant-opportunity-insert-deny", "authenticated", APP,
+            f"insert into events (occurred_at, actor_agent_id, kind, agent_id) "
+            f"values (now(), '{APP}', 'opportunity.resolved', '{APP}') returning 1",
+            ("write_deny",),
+            "s5 opportunities/applicant: -; PRD v0.3 s4 Find is a member surface")
+
+draft_probe("events-unbound-gathering-insert-deny", "authenticated", UNB_UID,
+            f"insert into events (occurred_at, actor_agent_id, kind, agent_id) "
+            f"values (now(), '{MEM1}', 'gathering.scheduled', '{MEM1}') returning 1",
+            ("write_deny",),
+            "s7: the recorded actor is the asker, and an unbound session is nobody; Law X")
+
+draft_probe("events-member-gathering-insert-ok", "authenticated", MEM1,
+            f"insert into events (occurred_at, actor_agent_id, kind, agent_id) "
+            f"values (now(), '{MEM1}', 'gathering.scheduled', '{MEM1}') returning 1",
+            ("write_ok",),
+            "s5 events/member: scoped W survives the narrowing; the Gather train writes this")
+
+draft_probe("events-member-opportunity-insert-ok", "authenticated", MEM1,
+            f"insert into events (occurred_at, actor_agent_id, kind, agent_id) "
+            f"values (now(), '{MEM1}', 'opportunity.withdrawn', '{MEM1}') returning 1",
+            ("write_ok",),
+            "s5 events/member: the Find train writes this; PRD v0.3 s4 Find")
+
+draft_probe("events-member-registration-insert-ok", "authenticated", MEM1,
+            f"insert into events (occurred_at, actor_agent_id, kind, agent_id) "
+            f"values (now(), '{MEM1}', 'registration.registered', '{MEM1}') returning 1",
+            ("write_ok",),
+            "the signature and registration branch is untouched: the CI cell still holds")
+
+draft_probe("events-steward-gathering-insert-ok", "authenticated", STE,
+            f"insert into events (occurred_at, actor_agent_id, kind, agent_id) "
+            f"values (now(), '{STE}', 'gathering.scheduled', '{MEM3}') returning 1",
+            ("write_ok",),
+            "s5 events/steward: W; s7 overseer acts, untouched by the narrowing")
+
 
 def run_register(register):
     """Run one probe register; return the failure list."""
@@ -668,7 +730,7 @@ def main():
         print(f"bootstrap failed:\n{err}", file=sys.stderr); sys.exit(1)
     chain = list(MIGRATIONS)
     if drafts and apply_fix:
-        chain.append(DRAFT_MIGRATION)
+        chain.extend(DRAFT_MIGRATIONS)
     for m in chain:
         rc, _, err = psql((REPO_ROOT / m).read_text())
         if rc != 0:
@@ -683,7 +745,8 @@ def main():
     label = "rls-probe-drafts" if drafts else "rls-probe"
     if drafts:
         print(f"{label}: DRAFT register, not the CI matrix; "
-              f"{DRAFT_MIGRATION} {'applied' if apply_fix else 'NOT applied'}")
+              f"{', '.join(DRAFT_MIGRATIONS)} "
+              f"{'applied' if apply_fix else 'NOT applied'}")
     failures = run_register(register)
 
     print(f"{label}: {len(register)} probes, {len(failures)} failure(s)")

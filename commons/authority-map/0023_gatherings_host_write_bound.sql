@@ -1,12 +1,20 @@
 -- ============================================================
 -- 0023_gatherings_host_write_bound.sql
--- DRAFT. NOT APPLIED. Awaiting steward approval.
+-- DRAFT. APPROVED DIRECTION. NOT YET APPLIED.
 --
--- This file is a proposed correction, not an adopted one. It has
--- not been applied to the live CIS (ujujwgopdwirebgcpekc) and it
--- is not in the migration chain that scripts/rls_probe.py stands
--- in CI. Nothing here is true of the record until a person
--- adopts it (BP v2: drafts are drafts until a person adopts them).
+-- The direction is on the record. The steward (Todd Youngblood)
+-- gave it in Buzz #intranet-dev on 2026-08-17T19:00:50Z, event
+-- 5964c4ce86f71bac1714f55cc7683f90359a0aed86475181b2b368ce4243334e,
+-- and the same message delegated the proceed call, which Nou
+-- exercised the same day in the same thread. That pair, the
+-- steward's delegation and Nou's exercised call, is the adoption
+-- authority for this draft's direction. There was no board vote
+-- and this file claims none.
+--
+-- It has still not been applied to the live CIS (ujujwgopdwirebgcpekc)
+-- and it is not in the migration chain that scripts/rls_probe.py
+-- stands in CI. Application is Nou's act, not a build agent's, and
+-- nothing here is true of the record until it happens (BP v2).
 --
 -- 0021 and 0022 are reserved by the almanac for V-01 and V-02
 -- (rdm-ledger.yaml, "Migration 0021 staged with its probe cells"
@@ -73,6 +81,11 @@
 -- opportunity|gathering)\.' without a membership test. Whether
 -- that is the same defect or a deliberate width is a reading of
 -- AM v0.1 section 7, and it is not this draft's to decide.
+--
+-- Since answered by the steward's direction of 2026-08-17 cited
+-- above, which asked for a per-kind narrowing. It is drafted as
+-- 0024_events_scoped_insert_narrowed.sql, a companion to this
+-- file and not a change to it.
 
 -- ---------- the correction ----------
 -- Anchors unchanged: Bylaws v2.1 section 2.1 (the host holds the
