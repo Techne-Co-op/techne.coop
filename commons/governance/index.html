@@ -192,7 +192,8 @@ footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(-
   <div class="chiprow">
     <span class="chip drafted"><span class="dot"></span>GOV v0.1 &middot; Drafted by Nou</span>
     <span class="chip open"><span class="dot"></span>Adoption &middot; Open, no board act taken</span>
-    <span class="chip open"><span class="dot"></span>Decisions GOV-D1&ndash;GOV-D8 &middot; Staged</span>
+    <span class="chip open"><span class="dot"></span>Decisions GOV-D2&ndash;GOV-D8 &middot; Staged</span>
+    <span class="chip drafted"><span class="dot"></span>GOV-D1 &middot; Discharged 2026-08-17</span>
     <span class="chip anticipated"><span class="dot"></span>Bed and addresses &middot; Not minted</span>
   </div>
 
@@ -217,7 +218,8 @@ footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(-
   <div class="addr">GOV &sect;2</div>
   <h2>The model, and what standing it has</h2>
   <p>The scaffolding is <em>governance-model-v4</em>, supplied by the steward from the formation drive on 2026-08-14 and marked on its own face as drafted outside the agency rail.<sup class="fn"><a href="#src1">1</a></sup> Outside the rail means it carries no Direction and no recorded authority: it is a drawing of a design, and this document treats it as one. Nothing in it is adopted, and reading it carefully does not adopt it.</p>
-  <p>One fact about that source has to be stated rather than assumed. <b>The model file itself is not in this repository.</b> What the estate holds is a reading of it, rendered at <a href="/intranet/record/">the record</a>, which carries the two modes, the standing state, five of the model's invariants as impossibilities, and six of its open anchors.<sup class="fn"><a href="#src3">3</a></sup> The issue that requested this module reports twenty-two acts, twenty-four event kinds, eleven invariants, and twelve anchors.<sup class="fn"><a href="#src1">1</a></sup> Every figure in this document that exceeds what the estate holds is therefore reported as a count from the issue and marked as unverifiable here. Bringing the model into the repository, so that a later reader can check this document against its own source, is GOV-D1 and is the cheapest of the eight.</p>
+  <p>When this module was drafted, the model file was not in this repository, and every figure here that exceeded the estate's own reading was reported as a count from the issue and marked unverifiable. <b>That gap is closed.</b> The steward supplied <em>governance-model-v4</em> on 2026-08-17, and it is now committed at <a href="/commons/governance/model-v4/governance-model-v4.html">/commons/governance/model-v4/</a>, byte for byte as received, so that a later reader can check this document against its own source.<sup class="fn"><a href="#src8">8</a></sup> The counts reported from the issue were right: the model carries <b>twenty-two acts, twenty-four event kinds, eleven invariants, and twelve anchors</b>, and it also carries two modes with three transitions, seven instruments across four hands, five seats, and an eight-state motion lifecycle with ten edges. All of those were counted from the file's own declarations rather than from its prose.</p>
+  <p>What the reading held was a subset, and in three places it was a subset that had drifted. The estate's rendering carried seventeen of the twenty-two acts, five of the eleven invariants, and six anchors of which only four are anchors the model actually ships.<sup class="fn"><a href="#src3">3</a></sup> Sections 5, 8 and 10 now carry the model's full set, and the places where the reading and the source disagree are stated in each section rather than quietly corrected. <b>The module remains a draft.</b> Verifying a count is not adopting a design, and GOV-D2 through GOV-D8 stay staged; GOV-D1 is discharged by the act of supply and is marked so in &sect;12.</p>
 </section>
 
 <section class="sec" id="s3" data-tint="amber">
@@ -233,6 +235,7 @@ footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(-
       <tr><td>adopt and stand down</td><td>in session</td><td>between the meetings</td><td>A human act on a drafted minute. The Bylaws supply this moment for membership meetings (&sect;&nbsp;2.10) and not for board meetings, which is the gap &sect;9 carries</td></tr>
     </tbody>
   </table>
+  <div class="inv"><p><span class="it">Against the source: the third edge is a loop, not a return.</span> The model declares three transitions and the first two match this table exactly. The third does not: it runs from <em>between the meetings</em> back to <em>between the meetings</em>, and both acts it is built from, adopting the minutes and standing the body down, are declared as between-the-meetings acts whose precondition is that the meeting has already adjourned.<sup class="fn"><a href="#src8">8</a></sup> Adjourning is what returns the body; adopting and standing down happen after it is back. The row above reads as though the minute were adopted from inside the session, and the correction matters to the schema, because it decides whether an adoption event can carry a meeting that is still open.</p></div>
 </section>
 
 <section class="sec" id="s4" data-tint="amber">
@@ -245,7 +248,7 @@ footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(-
 <section class="sec" id="s5" data-tint="coral">
   <div class="addr">GOV &sect;5</div>
   <h2>The acts and their seats</h2>
-  <p>The matrix below is built from the two modes as the estate renders them, which is the source this repository can check.<sup class="fn"><a href="#src3">3</a></sup> The issue reports the model carrying twenty-two acts; sixteen are recoverable from the estate's reading and are given here. The remainder are not reproduced anywhere in this repository, and the specification cannot responsibly invent them: completing this matrix is conditioned on GOV-D1.</p>
+  <p>The matrix below was built from the two modes as the estate rendered them, and seventeen acts were recoverable that way.<sup class="fn"><a href="#src3">3</a></sup> The model carries <b>twenty-two</b>, which the source now confirms.<sup class="fn"><a href="#src8">8</a></sup> The seventeen stand as drafted, because they are this module's reading of what each act is for; the five the reading did not carry are added in a second table, and the four places where the model's own declaration disagrees with a row above it are stated after both, not merged into them.</p>
   <table class="tbl">
     <thead><tr><th>act</th><th>mode</th><th>seat</th><th>the refusal it carries</th></tr></thead>
     <tbody>
@@ -268,6 +271,22 @@ footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(-
       <tr><td>adjourn</td><td>in session</td><td>the body</td><td>Refused over an open ballot</td></tr>
     </tbody>
   </table>
+  <p>The five below complete the twenty-two. Each is given as the model declares it, with the seats and the mode taken from the file rather than inferred.<sup class="fn"><a href="#src8">8</a></sup></p>
+  <table class="tbl">
+    <thead><tr><th>act</th><th>mode</th><th>seat</th><th>the refusal it carries</th></tr></thead>
+    <tbody>
+      <tr><td>mark another member present</td><td>both</td><td>the secretary</td><td>Any other seat attempting it. The roll is the secretary's hand, and the record names who did the marking, not only who was marked</td></tr>
+      <tr><td>set which body meets next</td><td>between</td><td>the chair or the secretary</td><td>Switching bodies mid-session. Setting the body decides which instruments the coming meeting can reach, visibly, before anyone convenes</td></tr>
+      <tr><td>open discussion</td><td>in session</td><td>the chair</td><td>Opening discussion on an amendment, which goes straight to its ballot</td></tr>
+      <tr><td>stand the body down</td><td>between</td><td>the chair</td><td>Standing down mid-session. Its precondition is that the meeting has adjourned</td></tr>
+      <tr><td>read everything</td><td>both</td><td>every seat, including an observer</td><td>None. Reading is not an act and writes nothing; an observer holds no act, and every refusal they meet is the seat's rather than the surface's</td></tr>
+    </tbody>
+  </table>
+  <p>Four rows in the first table say something the model does not, and the difference in each case is about whose hand holds the act. They are left standing and stated here, because which of the two is right is a bylaws question and not a drafting one.</p>
+  <div class="inv"><p><span class="it">1. Three acts the module gives to the body, the model gives to one seat.</span> <em>Adopt the minutes</em> is the secretary's alone in the model, not the body's by human act; <em>table</em> and <em>adjourn</em> are the chair's alone, not the body's. The module's phrasing is the more conservative reading of the Bylaws and the model's is the more mechanical one, and the two cannot both be built. This bites GOV-D6 directly, since <em>secretary</em> is an office the Bylaws create and <em>chair</em> is not.</p></div>
+  <div class="inv"><p><span class="it">2. Convene is the chair's, by name.</span> The module says <em>those the Bylaws let call the meeting</em>. The model says the chair and refuses any other seat. The Bylaws are the authority here and the model is a drawing, so the row above is not corrected, but a specification cannot carry both.</p></div>
+  <div class="inv"><p><span class="it">3. Two acts the module puts between the meetings are unrestricted in the model.</span> Marking your own presence and noticing a motion are declared in both modes in the model; the table above places them between the meetings. The model's reading is the plausible one, since a member arriving late marks presence in session, and it is stated here rather than silently applied.</p></div>
+  <div class="inv"><p><span class="it">4. Amend refuses one thing, not the other.</span> The module gives the refusal as <em>once the question is put</em>; the model's declared refusal is <em>a second amendment while one stands</em>, with the one-at-a-time rule carried as an invariant. Both are probably true and only one is written down in each place.</p></div>
   <p>Two refusals belong to neither mode and to every act: a body may not switch which body is meeting, and a body may not reach an instrument the other body holds. Both are structural, and &sect;8 asks that both become checks rather than sentences.</p>
 </section>
 
@@ -292,7 +311,7 @@ footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(-
 <section class="sec" id="s8" data-tint="rose">
   <div class="addr">GOV &sect;8</div>
   <h2>The invariants, and which of them become checks</h2>
-  <p>An invariant that is only prose is unaudited. The five the estate carries are stated below as impossibilities, with what it would take to make each mechanical. The issue reports the model holding eleven; the remaining six are not reproduced in this repository and are conditioned on GOV-D1.<sup class="fn"><a href="#src1">1</a>&nbsp;<a href="#src3">3</a></sup></p>
+  <p>An invariant that is only prose is unaudited. The model holds <b>eleven</b>, which the source confirms, and the estate's reading carried five of them.<sup class="fn"><a href="#src8">8</a></sup> The five are stated first, as impossibilities with what it would take to make each mechanical. The six the reading did not carry follow, in the model's own terms and without a proposed check, because proposing one is specification work this module has not done for them.</p>
   <table class="tbl">
     <thead><tr><th>invariant</th><th>what it makes impossible</th><th>how it is checked</th></tr></thead>
     <tbody>
@@ -303,6 +322,19 @@ footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(-
       <tr><td>quorum is a tally</td><td>A stored quorum drifting from who is in the room</td><td>A column scan asserting no stored quorum, in the shape the no-stored-balance assertion already takes<sup class="fn"><a href="#src5">5</a></sup></td></tr>
     </tbody>
   </table>
+  <p>The other six, as the model states them:<sup class="fn"><a href="#src8">8</a></sup></p>
+  <table class="tbl">
+    <thead><tr><th>invariant</th><th>what it makes impossible</th></tr></thead>
+    <tbody>
+      <tr><td>one member, one standing cast</td><td>Accumulating votes by casting repeatedly. A further cast supersedes the previous one rather than adding to it</td></tr>
+      <tr><td>the tally equals the sum of casts</td><td>Writing a settlement whose numbers do not add up. The count is derived from the casts, never stored beside them</td></tr>
+      <tr><td>a body reaches only its own instruments</td><td>A members' meeting adopting board policy, or the reverse. Every instrument names the body that may move it</td></tr>
+      <tr><td>privacy holds substance, never the fact</td><td>An act that leaves no trace because it was sensitive. The fact, the authority, and the hour stay legible</td></tr>
+      <tr><td>no ballot without the chair's hand and quorum</td><td>A vote that opened itself. The floor may call the question; only the chair puts it</td></tr>
+      <tr><td>one question at a time</td><td>Two open votes competing for the same shares. A held amendment ballots before its main motion</td></tr>
+    </tbody>
+  </table>
+  <div class="inv"><p><span class="it">Against the source: two of these are already checks by another name.</span> <em>A body reaches only its own instruments</em> and the switch-of-body refusal are the two structural refusals &sect;5 closes on, so this section asked for them before it knew they were invariants. <em>One member, one standing cast</em> and <em>the tally equals the sum of casts</em> are the same discipline the no-stored-balance assertion already enforces on the treasury side, pointed at ballots; and <em>human adoption</em> in the table above is stated by the model as the secretary's act specifically, not as a person's generically, which is the &sect;5 disagreement arriving here from a second direction.</p></div>
 </section>
 
 <section class="sec" id="s9" data-tint="violet">
@@ -318,7 +350,7 @@ footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(-
 <section class="sec" id="s10" data-tint="violet">
   <div class="addr">GOV &sect;10</div>
   <h2>The anchors register</h2>
-  <p>The model ships its own unanswered questions, classified by how unanswered they are, and that is the property that makes it adoptable in pieces. Carried here with the same standing the corrections log has: an open reading is a record, not a defect to be tidied away. Six are rendered in the estate and are given below; the issue reports twelve in the model, and the other six are conditioned on GOV-D1.<sup class="fn"><a href="#src1">1</a>&nbsp;<a href="#src3">3</a></sup></p>
+  <p>The model ships its own unanswered questions, classified by how unanswered they are, and that is the property that makes it adoptable in pieces. Carried here with the same standing the corrections log has: an open reading is a record, not a defect to be tidied away. The model ships <b>twelve</b>, which the source confirms, in three classes: seven open questions, four not yet specified, and one absent.<sup class="fn"><a href="#src8">8</a></sup> The six below were carried from the estate's reading, and reading them against the source produced the sharpest correction in this document: <b>they are not six of the model's twelve.</b> Four of them are, under other names. <em>Seats are not offices</em> is not an anchor in the model at all; it is this module's own observation, promoted to the register by the reading, and it belongs to &sect;9 rather than here. <em>Execution has no shape</em> is broader than the model's nearest anchor, which asks only how an obligation that outlives the meeting, such as a filing with the State, can be represented. Both are kept, marked as this module's, and eight anchors the reading did not carry are added after them.</p>
   <table class="tbl">
     <thead><tr><th>anchor</th><th>class</th><th>the acts it bites</th></tr></thead>
     <tbody>
@@ -327,7 +359,21 @@ footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(-
       <tr><td>Which majority, of what</td><td>open question</td><td>Every settle. Live at five directors. Held open in the corrections log, not by this module<sup class="fn"><a href="#src7">7</a></sup></td></tr>
       <tr><td>Nobody can answer an interim act</td><td>absent</td><td>Every act recorded under a delegation. The ledger would be readable and not answerable</td></tr>
       <tr><td>There are no grades of audience</td><td>open question</td><td>Every visibility decision. Bylaws &sect;&nbsp;18.1 makes this the board's call and not the drafter's. GOV-D7</td></tr>
-      <tr><td>Presence is required to vote</td><td>not yet specified</td><td>Every cast by a member who cannot attend. A large silence for a cooperative that intends to be distributed</td></tr>
+      <tr><td>Presence is required to vote</td><td>not yet specified</td><td>Every cast by a member who cannot attend. A large silence for a cooperative that intends to be distributed. The model's <em>proxy and absentee voting</em></td></tr>
+    </tbody>
+  </table>
+  <p>The eight the reading did not carry, with the model's classes:<sup class="fn"><a href="#src8">8</a></sup></p>
+  <table class="tbl">
+    <thead><tr><th>anchor</th><th>class</th><th>the acts it bites</th></tr></thead>
+    <tbody>
+      <tr><td>The previous-question machinery</td><td>open question</td><td>Calling the question. Whether it is a signal to the chair or itself a votable motion, and at what threshold</td></tr>
+      <tr><td>Amendment depth</td><td>open question</td><td>Amending. One at a time is modelled; whether an amendment to an amendment is permitted, and how deep, is not decided</td></tr>
+      <tr><td>Whether tabled business returns</td><td>open question</td><td>Tabling. It settles here; whether it should instead suspend and return at the next meeting is a real fork</td></tr>
+      <tr><td>Discussion on an amendment</td><td>open question</td><td>Opening discussion, and amending. An amendment goes from seconded straight to its ballot</td></tr>
+      <tr><td>The act that is not finished by a vote</td><td>open question</td><td>The Articles. A filing with the State outlives the meeting and has no representation. The narrower half of &sect;9's second disagreement</td></tr>
+      <tr><td>The chair's ruling on a point of order</td><td>not yet specified</td><td>Rising to a point of order. The rising is recorded; the ruling that answers it, and any appeal, are not</td></tr>
+      <tr><td>Directing another body</td><td>not yet specified</td><td>The counting rule. A resolution that binds a body to act rather than acting for it does not exist in the model</td></tr>
+      <tr><td>Notice periods</td><td>not yet specified</td><td>Noticing a motion. No interval is modelled between notice and moving, and most bylaws require one</td></tr>
     </tbody>
   </table>
 </section>
@@ -344,7 +390,7 @@ footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(-
 <section class="sec" id="s12" data-tint="blue">
   <div class="addr">GOV &sect;12</div>
   <h2>Decisions staged, none taken</h2>
-  <div class="dcard"><div class="dh">GOV-D1 &middot; the model into the repository &middot; the steward</div><div class="db">Bring <em>governance-model-v4</em> into the estate so that the twenty-two acts, twenty-four kinds, eleven invariants, and twelve anchors can be checked against their source rather than reported from an issue. Until this is done, &sect;5, &sect;8, and &sect;10 are honestly incomplete and say so. This is the cheapest decision here and it gates the quality of the other seven.</div></div>
+  <div class="dcard"><div class="dh">GOV-D1 &middot; the model into the repository &middot; the steward &middot; discharged</div><div class="db">Bring <em>governance-model-v4</em> into the estate so that the twenty-two acts, twenty-four kinds, eleven invariants, and twelve anchors can be checked against their source rather than reported from an issue. <b>Done.</b> The steward supplied the file on 2026-08-17 and it is committed at <a href="/commons/governance/model-v4/governance-model-v4.html">/commons/governance/model-v4/</a>.<sup class="fn"><a href="#src8">8</a></sup> &sect;5, &sect;8, and &sect;10 now carry the model's full sets, and what the estate's reading had got wrong is stated in each of them. This card stays on the page because a discharged decision is a record, not an absence. The remaining seven are untouched by it: knowing what the model says decides nothing about what this cooperative adopts.</div></div>
   <div class="dcard"><div class="dh">GOV-D2 &middot; scope &middot; the board</div><div class="db">Does the module govern both bodies from day one, or the board only until members exist? Board-only-first is the honest answer given &sect;9's first disagreement, with the members' half specified and unwired. The module observes this and does not decide it.</div></div>
   <div class="dcard"><div class="dh">GOV-D3 &middot; the event vocabulary &middot; the board, on a specification</div><div class="db">Which governance kinds enter the record, what payload each carries, which are derived rather than stored, and whether adoption of a minute is an <em>agreement.adopted</em> shaped event or wants its own kind. Kinds are free text in the substrate, so this decision has no migration to stop it and needs a register instead.</div></div>
   <div class="dcard"><div class="dh">GOV-D4 &middot; what a meeting is, in the schema &middot; the board, schema category</div><div class="db">Whether a board meeting becomes a <em>gatherings</em> row so that existing attendance and quorum tallying reach it, gets its own object, or is carried as events alone. This is the one question in the set that is schema rather than vocabulary, which makes it stop-and-ask under the build protocol whatever its answer.</div></div>
@@ -362,19 +408,20 @@ footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(-
   <div class="pk"><div class="pkh">the meeting object</div><div class="pkb">Whatever GOV-D4 decides, emitted as a migration numbered as the chain then stands, with probe cells for each refusal in &sect;5 and each invariant in &sect;8.</div><div class="pkc">condition &middot; GOV-D4 recorded &middot; GOV-D2 scoped</div></div>
   <div class="pk"><div class="pkh">the minute as a projection</div><div class="pkb">A read that renders one meeting's events in order as a draft minute, and an adoption event that fixes it. The read never writes; the adoption is human and is refused without a human actor.</div><div class="pkc">condition &middot; the meeting object verified</div></div>
   <div class="pk"><div class="pkh">the surface</div><div class="pkb">The minute book, the single meeting page with its evidence held plainly apart, and the gap list. The first surface already exists as a reading at <a href="/intranet/record/">the record</a> and would become the wired version of itself.<sup class="fn"><a href="#src3">3</a></sup></div><div class="pkc">condition &middot; the projection verified &middot; GOV-D7 recorded</div></div>
-  <div class="pk"><div class="pkh">the anchors register</div><div class="pkb">&sect;10, as a live register rather than a section: each anchor with its class, the acts it bites, and the decision that would close it.</div><div class="pkc">condition &middot; GOV-D1 recorded</div></div>
+  <div class="pk"><div class="pkh">the anchors register</div><div class="pkb">&sect;10, as a live register rather than a section: each anchor with its class, the acts it bites, and the decision that would close it.</div><div class="pkc">condition &middot; GOV-D1 discharged, and the register drafted from the twelve</div></div>
 </section>
 
 <div class="sources" id="sources">
   <h2>Sources</h2>
   <ol>
-    <li id="src1">Issue #146, <em>A Governance module for the CIS, informed by the governance model v4</em>, and issue #140, <em>The Record: a board protocol that turns a recording into a minute</em>, with its comment of 2026-08-14 refactoring the record into a surface of this module. Read in full 2026-08-17. The counts reported from the model, twenty-two acts, twenty-four event kinds, eleven invariants, twelve anchors, come from #146 and are not independently verifiable in this repository.</li>
+    <li id="src1">Issue #146, <em>A Governance module for the CIS, informed by the governance model v4</em>, and issue #140, <em>The Record: a board protocol that turns a recording into a minute</em>, with its comment of 2026-08-14 refactoring the record into a surface of this module. Read in full 2026-08-17. The counts reported from the model, twenty-two acts, twenty-four event kinds, eleven invariants, twelve anchors, come from #146. Every one of the four was checked against the source on 2026-08-17 and every one was right.</li>
     <li id="src2">The Almanac at /commons/build/ and the build instructions at /commons/build/instructions/, read 2026-08-17: the module intake route taken by PATRONAGE, TREASURY, AGY, and STANDING; the stop-and-ask categories, which put schema, authority, and governance semantics on the far side of the boundary; the batch protocol of &sect;8.</li>
     <li id="src3">/intranet/record/ as published, read 2026-08-17: the two modes and their permits and refusals, from which &sect;5's matrix is built; the standing state of every instrument and its hand; the five invariants as impossibilities; the six anchors of &sect;10 with their classifications.</li>
     <li id="src4">commons/im/0001_substrate.sql as read 2026-08-17: <em>events</em> with its free-text kind, its <em>corrects</em> self-reference and <em>prior</em> column; <em>agreements</em> with code, version, and settlement marks; <em>gatherings</em>, <em>sessions</em>, and <em>attendance</em>, the last keyed to a session and commented against the members' meeting provision.</li>
     <li id="src5">.github/workflows/verify.yml as read 2026-08-17: the append-only assertion that attempts an update and a delete against <em>events</em> and requires refusal; the no-stored-balance column scan, whose shape the quorum assertion in &sect;8 would take; the policy-anchor lint that requires a bylaw citation within three lines of every created policy.</li>
     <li id="src6">Checked rather than assumed, 2026-08-17: a case-insensitive search for motion, ballot, quorum, and minute across commons/im/*.sql and supabase/migrations/*.sql returns nothing. The governance vocabulary is absent from the substrate and from every later migration.</li>
     <li id="src7">/legal/corrections/, DOC-01&middot;08, as published: the June 2026 board actions have no minute, and the simple-majority reading is open, latent at six directors and live at five.</li>
+    <li id="src8"><em>governance-model-v4</em> itself, at <a href="/commons/governance/model-v4/governance-model-v4.html">/commons/governance/model-v4/</a>, read in full 2026-08-17. Supplied by the steward on 2026-08-17 from the formation drive and committed unaltered, byte for byte as received; it is a source artifact rather than a page of this site, and it carries no navigation for that reason. Its own header states that it is a drawing of a design, that nothing in it runs, and that it was drafted outside the agency rail. Every count in this document attributed to it was taken from the file's declarations rather than its prose: twenty-two acts, twenty-four event kinds, eleven invariants, twelve anchors, two modes with three transitions, seven instruments across four hands, five seats, and eight lifecycle states joined by ten edges.</li>
   </ol>
 </div>
 

@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<!-- THE GOVERNANCE MODEL v4 - the system itself, at rest.
+     Everything that ran in the earlier rehearsals is gone: no personas, no
+     seeded meeting, no ticking clock, no drift, no simulated record. Nothing
+     in this file runs. What remains is the model: the two modes and the
+     transitions between them, the standing state and whose hand holds each
+     instrument, every act with its seat and its refusals, the lifecycle a
+     motion passes through, the record's event vocabulary, the invariants,
+     and the open anchors - the questions this design has not answered yet.
+     Three lenses (seat, mode, body) dim what does not match; they never
+     remove it. No data client, no database: this is a drawing of a design.
+     Drafted by Claude at Todd's direction, outside the AGY rail. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The governance model at rest: modes, standing state, acts, lifecycle, events, invariants, and open anchors.">
+<title>The governance model &middot; v4 &middot; Techne</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem('techne-mode');
+      if (!m) m = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-mode', m);
+    } catch(e) {}
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px;
+  --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --blue-dim: rgba(106, 138, 196, 0.14);
+  --ok: #6A9A6A; --warn: #C46A6A;
+  --k-gold:#EAB668; --k-amber:#E5A562; --k-coral:#DE8872;
+  --k-rose:#CF7C9A; --k-violet:#9E86C4; --k-blue:#8FAEE0; --k-green:#7FB08A;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --blue-dim: rgba(74, 111, 176, 0.10);
+  --ok: #4A7A4A; --warn: #A84F4C;
+  --k-gold:#87621F; --k-amber:#8C581D; --k-coral:#9C4636;
+  --k-rose:#8C3D58; --k-violet:#4C3870; --k-blue:#3A5694; --k-green:#2F6B3A;
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--text); font-family: var(--serif);
+  font-size: 16px; line-height: 1.6; display: flex; flex-direction: column;
+  min-height: 100vh; overflow: hidden; }
+button { font-family: inherit; }
+
+.solo-bar { display: flex; align-items: center; justify-content: space-between;
+  height: 48px; padding: 0 20px; border-bottom: 1px solid var(--line);
+  background: var(--surface); flex: none; gap: var(--s3); }
+.solo-word { font-family: var(--mono); font-size: .72rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--heading); white-space: nowrap; }
+.solo-word span { color: var(--faint); }
+.solo-note { font-family: var(--mono); font-size: .66rem; color: var(--faint); }
+.mode-btn { font-family: var(--mono); font-size: .68rem; color: var(--muted);
+  background: none; border: 1px solid var(--line); padding: 6px 12px;
+  cursor: pointer; letter-spacing: .04em; white-space: nowrap; }
+.mode-btn:hover { color: var(--heading); border-color: var(--rule); }
+
+.hud { display: flex; flex: 1; min-height: 0; flex-direction: column; }
+
+.strip { flex: none; display: flex; align-items: center; gap: var(--s3);
+  padding: var(--s2) var(--s5); border-bottom: 1px solid var(--line);
+  background: var(--surface); flex-wrap: wrap; min-height: 46px; }
+.strip .page-label { font-family: var(--mono); font-size: .65rem;
+  letter-spacing: .12em; color: var(--ember); text-transform: uppercase; }
+.strip .grow { flex: 1; }
+.lens-lab { font-family: var(--mono); font-size: .6rem; color: var(--faint);
+  letter-spacing: .1em; display: flex; align-items: center; gap: 5px; }
+.lens-sel { font-family: var(--mono); font-size: .7rem; color: var(--heading);
+  background: var(--inset); border: 1px solid var(--line); padding: 5px 8px; }
+.lens-sel.on { border-color: var(--k-blue); color: var(--k-blue); }
+.mark { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em;
+  text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--line);
+  color: var(--muted); white-space: nowrap; }
+.mark.illustrative { border-color: var(--ember); color: var(--ember-text); }
+.mark.anchor { border-color: var(--warn); color: var(--warn); }
+.mark.still { border-color: var(--k-green); color: var(--k-green); }
+
+.lensbar { flex: none; display: flex; align-items: center; gap: var(--s3);
+  flex-wrap: wrap; font-family: var(--mono); min-height: 40px;
+  padding: var(--s2) var(--s5); border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--k-blue) 7%, var(--surface));
+  box-shadow: inset 3px 0 0 var(--k-blue); }
+.lensbar .lk { font-size: .62rem; color: var(--k-blue); letter-spacing: .12em;
+  text-transform: uppercase; }
+.lensbar .ltext { font-size: .7rem; color: var(--text); }
+.lensbar .ltext b { color: var(--heading); font-weight: 500; }
+.lensbar .clear { font-family: var(--mono); font-size: .64rem; color: var(--muted);
+  background: none; border: 1px solid var(--line); padding: 4px 9px; cursor: pointer; }
+.lensbar .clear:hover { color: var(--heading); border-color: var(--rule); }
+
+.cols { flex: 1; min-height: 0; display: grid; grid-template-columns: 250px 1fr 356px; }
+
+.rail { border-right: 1px solid var(--line); background: var(--surface);
+  overflow-y: auto; padding: var(--s3) 0 var(--s5); }
+.rail-group { padding: var(--s3) var(--s4) 0; }
+.rail-head { display: flex; align-items: center; gap: var(--s2);
+  font-family: var(--mono); font-size: .64rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+  padding-bottom: var(--s2); border-bottom: 1px solid var(--line); margin-bottom: var(--s2); }
+.rail-head .n { margin-left: auto; color: var(--faint); }
+.rail-sub { font-family: var(--mono); font-size: .6rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--faint); margin: var(--s3) 0 var(--s1); }
+.rail-item { display: flex; align-items: center; gap: var(--s2); width: 100%;
+  text-align: left; background: none; border: none; cursor: pointer;
+  font-family: var(--mono); font-size: .72rem; color: var(--text);
+  padding: 5px 6px; line-height: 1.35; border-left: 2px solid transparent; }
+.rail-item:hover { background: var(--raised); }
+.rail-item.sel { border-left-color: var(--ember); background: var(--raised); color: var(--heading); }
+.rail-item.dim { opacity: .34; }
+.rail-item .dot { width: 7px; height: 7px; flex: none; }
+.rail-item .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rail-item .st { margin-left: auto; color: var(--faint); font-size: .6rem; flex: none; }
+
+.sky { position: relative; min-width: 0; min-height: 0;
+  background: radial-gradient(ellipse at 50% 42%, var(--surface) 0%, var(--bg) 68%); }
+.sky svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.layerbar { position: absolute; top: 8px; left: 10px; right: 10px; z-index: 3;
+  display: flex; align-items: center; gap: var(--s2); flex-wrap: wrap;
+  font-family: var(--mono); pointer-events: none; }
+.layerbar > * { pointer-events: auto; }
+.vkey { font-size: .6rem; color: var(--faint); letter-spacing: .06em; }
+.vtab { font-size: .64rem; letter-spacing: .08em; text-transform: uppercase;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  border: 1px solid var(--line); color: var(--muted); padding: 4px 9px; cursor: pointer; }
+.vtab:hover { color: var(--heading); border-color: var(--rule); }
+.vtab.on { color: var(--heading); border-color: var(--vt, var(--ember));
+  box-shadow: inset 0 -2px 0 var(--vt, var(--ember)); }
+.sortrow { position: absolute; top: 40px; left: 10px; z-index: 3; display: flex;
+  align-items: center; gap: var(--s2); font-family: var(--mono); }
+.sortrow .sk { font-size: .6rem; color: var(--faint); letter-spacing: .08em; text-transform: uppercase; }
+.schip { font-size: .62rem; letter-spacing: .06em;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  border: 1px solid var(--line); color: var(--muted); padding: 3px 8px; cursor: pointer; }
+.schip:hover { color: var(--heading); }
+.schip.on { color: var(--ember-text); border-color: var(--ember); }
+.sky .hint { position: absolute; left: 50%; bottom: 6px; transform: translateX(-50%);
+  font-family: var(--mono); font-size: .58rem; letter-spacing: .05em;
+  color: var(--faint); pointer-events: none; white-space: nowrap; }
+
+.node { cursor: pointer; }
+.node.dim { opacity: .17; }
+.node:hover { opacity: 1; }
+.node:focus { outline: none; }
+.node:focus-visible .halo { display: block; }
+.node .halo { display: none; fill: none; stroke: var(--blue); stroke-width: 1.5; }
+.node.sel .halo { display: block; stroke: var(--ember); stroke-dasharray: 3 3; }
+.node text { font-family: var(--mono); fill: var(--muted); pointer-events: none; }
+.node.sel text, .node:focus text, .node:hover text { fill: var(--heading); }
+.lane-label { font-family: var(--mono); fill: var(--muted); letter-spacing: .08em;
+  text-transform: uppercase; pointer-events: none; }
+.axis-text { font-family: var(--mono); fill: var(--faint); pointer-events: none; }
+.edge { stroke: var(--rule); stroke-width: 1; opacity: .5; fill: none; }
+.edge.flow { stroke: var(--k-violet); opacity: .7; }
+.edge.branch { stroke: var(--warn); stroke-dasharray: 3 3; opacity: .6; }
+.edge.mode { stroke: var(--k-rose); stroke-width: 1.4; opacity: .8; }
+.edge-label { font-family: var(--mono); fill: var(--faint); font-size: 7.5px; pointer-events: none; }
+
+.window { border-left: 1px solid var(--line); background: var(--surface);
+  overflow-y: auto; padding: var(--s5); }
+.win-eyebrow { font-family: var(--mono); font-size: .62rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: var(--s2);
+  display: flex; align-items: center; gap: var(--s2); }
+.win-eyebrow .dot { width: 8px; height: 8px; flex: none; }
+.win-title { font-family: var(--serif); font-size: 1.12rem; color: var(--heading);
+  font-weight: 400; line-height: 1.35; margin-bottom: var(--s3); }
+.win-marks { display: flex; gap: var(--s2); flex-wrap: wrap; margin-bottom: var(--s3); }
+.win-body { font-size: .85rem; color: var(--text); line-height: 1.65; }
+.win-body p { margin-bottom: var(--s3); }
+.win-facts { border-top: 1px solid var(--line); margin-top: var(--s3); padding-top: var(--s3); }
+.win-fact { display: flex; gap: var(--s3); font-size: .78rem; padding: 4px 0; }
+.win-fact .k { font-family: var(--mono); font-size: .66rem; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--faint); flex: none; width: 104px; padding-top: 2px; }
+.win-fact .v { color: var(--text); min-width: 0; }
+.win-note { border-left: 3px solid var(--blue); background: var(--blue-dim);
+  padding: var(--s3) var(--s4); font-size: .78rem; color: var(--text);
+  margin-top: var(--s4); line-height: 1.6; }
+.win-note.warn { border-left-color: var(--warn);
+  background: color-mix(in srgb, var(--warn) 10%, transparent); }
+.win-note .nt { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--blue-text); display: block; margin-bottom: var(--s1); }
+.win-note.warn .nt { color: var(--warn); }
+.win-list { margin: 0 0 var(--s3) 0; padding: 0; list-style: none; }
+.win-list li { font-size: .78rem; padding: 3px 0 3px 14px; position: relative; color: var(--text); }
+.win-list li:before { content: ''; position: absolute; left: 0; top: 12px;
+  width: 6px; height: 1px; background: var(--rule); }
+.jump { font-family: var(--mono); font-size: .66rem; color: var(--blue-text);
+  background: none; border: 1px solid var(--line); padding: 4px 8px; cursor: pointer;
+  margin: 0 6px 6px 0; text-align: left; max-width: 100%; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; display: block; width: 100%; }
+.jump:hover { border-color: var(--blue); }
+
+.legend { flex: none; display: flex; align-items: center; gap: var(--s4);
+  padding: var(--s2) var(--s5); border-top: 1px solid var(--line);
+  background: var(--surface); font-family: var(--mono); font-size: .62rem;
+  color: var(--muted); flex-wrap: wrap; min-height: 36px; }
+.leg { display: flex; align-items: center; gap: 5px; }
+.leg svg { width: 12px; height: 12px; }
+.legend .grow { flex: 1; }
+.legend .keys { color: var(--faint); }
+.legend .keys b { color: var(--muted); font-weight: 500; }
+
+@media (max-width: 980px) {
+  body { overflow: auto; }
+  .cols { grid-template-columns: 1fr; grid-template-rows: auto 60vh auto; }
+  .rail { border-right: none; border-bottom: 1px solid var(--line); max-height: 30vh; }
+  .window { border-left: none; border-top: 1px solid var(--line); }
+  .rail-item, .mode-btn, .vtab, .schip, .lens-sel { min-height: 44px; }
+  .strip { position: sticky; top: 0; z-index: 5; }
+  .legend .keys { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="solo-bar">
+  <span class="solo-word">Techne <span>&middot; the governance model &middot; v4</span></span>
+  <span style="display:flex;align-items:center;gap:10px">
+    <span class="solo-note">nothing runs here &middot; no data, no clock, no simulated meeting</span>
+    <button class="mode-btn" id="mode-btn" type="button" aria-label="Switch color mode">mode</button>
+  </span>
+</div>
+
+<main class="hud" aria-label="The governance model at rest: seven layers of design, explorable by lens">
+
+  <div class="strip">
+    <span class="page-label" id="page-label">The model at rest</span>
+    <label class="lens-lab">SEAT
+      <select class="lens-sel" id="seat-lens" aria-label="Dim everything a seat does not hold">
+        <option value="all">every seat</option>
+        <option value="member">a member</option>
+        <option value="chair">the chair</option>
+        <option value="secretary">the secretary</option>
+        <option value="steward">the steward</option>
+        <option value="observer">an observer</option>
+      </select>
+    </label>
+    <label class="lens-lab">MODE
+      <select class="lens-sel" id="mode-lens" aria-label="Dim everything a mode does not permit">
+        <option value="all">both modes</option>
+        <option value="between">between the meetings</option>
+        <option value="session">in session</option>
+      </select>
+    </label>
+    <label class="lens-lab">BODY
+      <select class="lens-sel" id="body-lens" aria-label="Dim instruments another body holds">
+        <option value="all">either body</option>
+        <option value="members">the members</option>
+        <option value="board">the board</option>
+      </select>
+    </label>
+    <span class="grow"></span>
+    <span class="mark still">static &middot; at rest</span>
+    <span class="mark anchor" id="anchor-mark">open anchors &middot; &mdash;</span>
+    <span class="mark illustrative">specified, not wired</span>
+  </div>
+
+  <div class="lensbar" id="lensbar" role="status"></div>
+
+  <div class="cols">
+    <nav class="rail" id="rail" aria-label="The register of the current layer"></nav>
+    <div class="sky" id="sky">
+      <svg id="chart" role="application"
+           aria-label="The model in seven layers: modes, the standing state, the acts, the lifecycle, the events, the invariants, and the open anchors."></svg>
+      <div class="layerbar" id="layerbar" role="tablist" aria-label="Layers"></div>
+      <div class="sortrow" id="sortrow"></div>
+      <div class="hint">A/D layers &middot; W/S walk &middot; shift+W/S sort &middot; esc clears</div>
+    </div>
+    <aside class="window" id="window" aria-live="polite"></aside>
+  </div>
+
+  <div class="legend">
+    <span class="leg"><svg viewBox="0 0 12 12"><rect x="1.5" y="1.5" width="9" height="9" fill="var(--k-coral)"/></svg>an instrument of the state</span>
+    <span class="leg"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="4" fill="var(--k-amber)"/></svg>an act someone holds</span>
+    <span class="leg"><svg viewBox="0 0 12 12"><rect x="2" y="2" width="8" height="8" transform="rotate(45 6 6)" fill="none" stroke="var(--k-violet)" stroke-width="1.6"/></svg>a state a motion passes through</span>
+    <span class="leg"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="4" fill="var(--k-gold)"/></svg>an event the record can hold</span>
+    <span class="leg"><svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="4" fill="none" stroke="var(--warn)" stroke-width="1.4" stroke-dasharray="2 2"/></svg>an open anchor</span>
+    <span class="grow"></span>
+    <span class="keys"><b>A</b>/<b>D</b> layers &middot; <b>W</b>/<b>S</b> walk &middot; <b>esc</b> clear</span>
+  </div>
+
+</main>
+
+<script>
+/* ============================================================
+   THE GOVERNANCE MODEL v4 -- the system itself, at rest.
+
+   The rehearsals are gone. There is no meeting here, no persona
+   taking a turn, no record filling with invented lines, no clock
+   and no ambient drift. Every layer describes the design rather
+   than performing it, and every claim on this surface is a claim
+   about what the wired build is meant to do -- never evidence
+   that it does.
+
+   Seven layers:
+     modes       the two modes and the transitions between them
+     state       the instruments, and whose hand may move each
+     acts        every verb: its seat, its mode, its refusals
+     lifecycle   the states a motion passes through
+     events      the vocabulary the record can hold
+     invariants  what the design makes impossible
+     anchors     the questions this design has not answered
+
+   Three lenses -- seat, mode, body -- dim what does not match.
+   They never remove it: what is dimmed is still there to be
+   read, because a filter that hides is a filter that lies about
+   the shape of the whole.
+   ============================================================ */
+
+const VIEWS = ['modes', 'state', 'acts', 'lifecycle', 'events', 'invariants', 'anchors'];
+const TINTS = { modes: 'var(--k-rose)', state: 'var(--k-coral)', acts: 'var(--k-amber)',
+  lifecycle: 'var(--k-violet)', events: 'var(--k-gold)', invariants: 'var(--k-green)', anchors: 'var(--k-blue)' };
+const SORTS = {
+  modes: [], state: [{ id: 'hand', label: 'whose hand' }, { id: 'name', label: 'name' }],
+  acts: [{ id: 'seat', label: 'seat' }, { id: 'mode', label: 'mode' }, { id: 'name', label: 'name' }],
+  lifecycle: [], events: [{ id: 'domain', label: 'domain' }, { id: 'name', label: 'name' }],
+  invariants: [], anchors: [{ id: 'kind', label: 'kind' }, { id: 'name', label: 'name' }]
+};
+const SEAT_NAMES = { member: 'a member', chair: 'the chair', secretary: 'the secretary',
+  steward: 'the steward', observer: 'an observer' };
+const HANDS = ['members', 'board', 'steward', 'derived'];
+const HAND_SHORT = { members: 'the members', board: 'the board', steward: 'the steward', derived: 'derived' };
+const HAND_LONG = {
+  members: 'the members, assembled in a meeting of the members',
+  board: 'the board, assembled in a meeting of the board',
+  steward: 'the steward, acting within the operating delegation',
+  derived: 'nothing directly \u2014 it follows whatever the bylaws say'
+};
+
+/* ------------------------------------------------------------ the model */
+
+const MODES = [
+  { id: 'between', name: 'Between the meetings', tint: 'var(--k-coral)',
+    line: 'The legal state is set.',
+    body: 'No act on this surface moves an instrument. This is the ordinary condition of a cooperative \u2014 most of its life is lived here, and the design has to make that life legible rather than treating it as a gap between the interesting parts.',
+    permits: ['mark your own presence for the coming meeting', 'set the order of business',
+      'set which body meets next', 'notice a motion', 'record an interim act under delegation',
+      'adopt the minutes of the meeting just closed', 'stand the body down', 'convene, once quorum stands'],
+    refuses: ['move, second, amend, or withdraw', 'call the question or put it', 'cast or settle',
+      'table the business or rise to a point of order', 'anything that would move an instrument by delegation'],
+    reads: 'The standing state, and the interim ledger: every delegated act with its authority, what it touched, and its hour.' },
+  { id: 'session', name: 'In session', tint: 'var(--k-rose)',
+    line: 'The legal state is open \u2014 but only what this body holds.',
+    body: 'A convened body may move its own instruments and no others. A meeting of the members is refused at a board instrument and a meeting of the board is refused at a members\u2019 instrument, and in both cases the refusal names whose hand it is rather than simply failing.',
+    permits: ['the whole floor: move, second, amend, call, put, cast, settle',
+      'point of order', 'table', 'adjourn, never over an open ballot'],
+    refuses: ['recording an interim act \u2014 in session the body acts by motion',
+      'switching which body is meeting', 'reaching an instrument the other body holds'],
+    reads: 'The record as it writes itself: each act lands as an event the moment it happens.' }
+];
+const MODE_EDGES = [
+  { from: 'between', to: 'session', label: 'convene \u00b7 the chair, quorum standing', act: 'convene' },
+  { from: 'session', to: 'between', label: 'adjourn \u00b7 the chair, never over an open ballot', act: 'adjourn' },
+  { from: 'between', to: 'between', label: 'adopt the minutes, then stand down', act: 'standDown' }
+];
+
+const INSTRUMENTS = [
+  { id: 'articles', name: 'Articles of Organization', hand: 'members', kind: 'instrument',
+    marks: 'Effective \u00b7 Amended-and-filed',
+    note: 'The form of the cooperative itself. A meeting alone does not finish the job here: the members act, and then a filing with the State completes it. The model should not pretend a vote is the whole of it.',
+    depends: [], anchors: ['filing'] },
+  { id: 'bylaws', name: 'Bylaws', hand: 'members', kind: 'instrument',
+    marks: 'Drafted \u00b7 Ratified \u00b7 Superseded',
+    note: 'The standing rules: who holds which act, at which threshold, how a meeting is called. Nearly everything else on this surface leans on it, which is why hardening its mark re-verifies every citation that points at it.',
+    depends: [], anchors: ['thresholds'] },
+  { id: 'memagree', name: 'Membership Agreement', hand: 'members', kind: 'instrument',
+    marks: 'Drafted \u00b7 Ratified \u00b7 Superseded',
+    note: 'What a member signs: what a share is, what patronage means, what the cooperative owes back.',
+    depends: ['bylaws'], anchors: [] },
+  { id: 'counting', name: 'Patronage counting rules', hand: 'board', kind: 'policy',
+    marks: 'Drafted \u00b7 Adopted, prospective \u00b7 Superseded',
+    note: 'How contribution is counted and at what rates. The bylaws place this in the board\u2019s hand: a meeting of the members can direct it but cannot adopt it, and the design has to say so out loud rather than quietly permitting it.',
+    depends: ['bylaws'], anchors: ['direct'] },
+  { id: 'delegation', name: 'The operating delegation', hand: 'board', kind: 'delegation',
+    marks: 'Adopted \u00b7 Amended \u00b7 Revoked',
+    note: 'What the steward may do between the meetings, and the ceiling on it. Every interim act cites this or the membership policy for its authority; without it the interim ledger would be a list of things that merely happened.',
+    depends: ['bylaws'], anchors: ['appeal'] },
+  { id: 'roll', name: 'The membership roll', hand: 'board', kind: 'register',
+    marks: 'Standing \u00b7 kept continuously',
+    note: 'Admissions are the board\u2019s hand under the membership policy. The roll changes between meetings, which is exactly why an admission appears in the interim ledger the day it happens instead of waiting to be announced.',
+    depends: ['memagree'], anchors: ['privacy'] },
+  { id: 'quorum', name: 'The quorum rule', hand: 'derived', kind: 'derived',
+    marks: 'Derived \u00b7 read out of the bylaws',
+    note: 'A majority of voting members. No motion reaches it directly: it moves when the bylaws move and not before. Modelling it as derived rather than stored is what keeps the two from drifting apart.',
+    depends: ['bylaws'], anchors: ['thresholds'] }
+];
+
+const ACTS = [
+  { id: 'markSelf', name: 'Mark your own presence', seats: ['member','chair','secretary','steward'], modes: ['between','session'],
+    pre: 'None. A member may always count themselves.', writes: 'attendance.marked',
+    refusals: ['marking someone else \u2014 that is the secretary\u2019s hand'],
+    proves: 'A member marks presence and sees the quorum tally move in the same breath.', anchors: [] },
+  { id: 'markOther', name: 'Mark another member present', seats: ['secretary'], modes: ['between','session'],
+    pre: 'The roll is the secretary\u2019s hand.', writes: 'attendance.marked',
+    refusals: ['any other seat attempting it'],
+    proves: 'The secretary marks a member and the record names who did the marking, not only who was marked.', anchors: [] },
+  { id: 'setAgenda', name: 'Set the order of business', seats: ['chair','secretary'], modes: ['between'],
+    pre: 'Between the meetings only. In session the floor governs its own order.', writes: 'agenda.ordered',
+    refusals: ['a member reordering the docket', 'reordering settled business'],
+    proves: 'The order changes and the change is itself a line in the record, not a silent edit.', anchors: [] },
+  { id: 'setBody', name: 'Set which body meets next', seats: ['chair','secretary'], modes: ['between'],
+    pre: 'Between the meetings only.', writes: 'body.set',
+    refusals: ['switching bodies mid-session'],
+    proves: 'Setting the body changes which instruments the coming meeting can reach, visibly, before anyone convenes.', anchors: [] },
+  { id: 'notice', name: 'Notice a motion', seats: ['member','chair','secretary'], modes: ['between','session'],
+    pre: 'A voting member. If the motion reaches an instrument it inherits that instrument\u2019s hand.', writes: 'motion.noticed',
+    refusals: ['a motion aimed at the derived quorum rule \u2014 nothing reaches it directly'],
+    proves: 'A motion noticed between meetings joins the order of business and carries the hand of what it reaches.', anchors: ['notice'] },
+  { id: 'interim', name: 'Record an interim act', seats: ['steward','secretary'], modes: ['between'],
+    pre: 'Delegated authority, cited on the face of the entry.', writes: 'interim.recorded',
+    refusals: ['any entry aimed at the legal state \u2014 no delegation reaches it', 'recording in session'],
+    proves: 'A delegated act lands with its authority, its hour, and what it touched, readable by the whole member body.', anchors: ['appeal','privacy'] },
+  { id: 'convene', name: 'Convene the body', seats: ['chair'], modes: ['between'],
+    pre: 'Quorum standing, counted from attendance events.', writes: 'meeting.called',
+    refusals: ['convening without quorum', 'any seat but the chair'],
+    proves: 'Convening is what opens the state; the line records the quorum it found, not merely that it convened.', anchors: [] },
+  { id: 'move', name: 'Move the business', seats: ['member','chair','secretary'], modes: ['session'],
+    pre: 'A motion standing at noticed, within this body\u2019s hand.', writes: 'motion.moved',
+    refusals: ['between the meetings \u2014 the state is set', 'a motion this body does not hold'],
+    proves: 'The refusal for an out-of-hand motion names the body that could move it.', anchors: [] },
+  { id: 'second', name: 'Second', seats: ['member','chair','secretary'], modes: ['session'],
+    pre: 'A motion standing moved, by someone other than its mover.', writes: 'motion.seconded',
+    refusals: ['seconding your own motion'], proves: 'A self-second is refused in the words of the rule.', anchors: [] },
+  { id: 'openDisc', name: 'Open discussion', seats: ['chair'], modes: ['session'],
+    pre: 'A seconded main motion.', writes: 'discussion.opened',
+    refusals: ['opening discussion on an amendment \u2014 it goes straight to its ballot'],
+    proves: 'Discussion opens and nothing of what is said enters the record: there is no verb for it.', anchors: ['amendDiscuss'] },
+  { id: 'amend', name: 'Move an amendment', seats: ['member','chair','secretary'], modes: ['session'],
+    pre: 'The main motion standing in discussion, with nothing already held before the floor.', writes: 'motion.moved',
+    refusals: ['a second amendment while one stands'],
+    proves: 'The amendment ballots first; the main motion then resumes, as amended if it carried.', anchors: ['nesting'] },
+  { id: 'callQ', name: 'Call the question', seats: ['member','chair','secretary'], modes: ['session'],
+    pre: 'A motion in discussion.', writes: 'question.called',
+    refusals: ['calling twice'],
+    proves: 'The floor proposes the vote; the chair still puts it. The two are not collapsed into one act.', anchors: ['previousQ'] },
+  { id: 'withdraw', name: 'Withdraw', seats: ['member','chair','secretary'], modes: ['session'],
+    pre: 'You are the mover, and the ballot has not opened.', writes: 'motion.withdrawn',
+    refusals: ['anyone but the mover', 'after the ballot opens'],
+    proves: 'A withdrawn motion settles and stands in the record; withdrawal is not deletion.', anchors: [] },
+  { id: 'table', name: 'Lay it on the table', seats: ['chair'], modes: ['session'],
+    pre: 'The business in discussion, with no amendment held.', writes: 'motion.tabled',
+    refusals: ['tabling over a held amendment'],
+    proves: 'Tabled business settles as tabled and remains legible afterward.', anchors: ['tabled'] },
+  { id: 'pointOrder', name: 'Rise to a point of order', seats: ['member','chair','secretary'], modes: ['session'],
+    pre: 'The body in session.', writes: 'point.order',
+    refusals: ['rising between the meetings'],
+    proves: 'The rising is recorded as an act; what was said is not.', anchors: ['ruling'] },
+  { id: 'putQ', name: 'Put the question', seats: ['chair'], modes: ['session'],
+    pre: 'Quorum standing, no other ballot open, no amendment held before the floor.', writes: 'ballot.opened',
+    refusals: ['a second ballot while one stands', 'without quorum', 'any seat but the chair'],
+    proves: 'No ballot exists that the chair did not open, and none that quorum did not permit.', anchors: ['thresholds'] },
+  { id: 'cast', name: 'Cast', seats: ['member','chair','secretary'], modes: ['session'],
+    pre: 'A voting share, and presence on the floor.', writes: 'vote.cast \u00b7 vote.superseded',
+    refusals: ['a member with no voting share', 'a member not present'],
+    proves: 'Casting again supersedes rather than adds: one member, one standing cast.', anchors: ['proxy'] },
+  { id: 'settle', name: 'Close and settle the ballot', seats: ['chair'], modes: ['session'],
+    pre: 'A ballot standing open.', writes: 'ballot.settled \u00b7 motion.adopted or motion.failed \u00b7 state.moved',
+    refusals: ['settling what was never opened'],
+    proves: 'The settlement carries its conserved tally on its face, and any instrument it reaches hardens in the same act.', anchors: ['thresholds'] },
+  { id: 'adjourn', name: 'Adjourn', seats: ['chair'], modes: ['session'],
+    pre: 'No ballot open.', writes: 'meeting.adjourned',
+    refusals: ['adjourning over an open ballot'],
+    proves: 'Adjournment closes the state again; the mode is visibly back to set.', anchors: [] },
+  { id: 'adoptMin', name: 'Adopt the minutes', seats: ['secretary'], modes: ['between'],
+    pre: 'The meeting adjourned.', writes: 'minutes.adopted',
+    refusals: ['adopting before adjournment', 'any other seat'],
+    proves: 'The projection is a draft until a human hand adopts it. Nothing adopts itself.', anchors: [] },
+  { id: 'standDown', name: 'Stand the body down', seats: ['chair'], modes: ['between'],
+    pre: 'The meeting adjourned.', writes: 'meeting.stoodDown',
+    refusals: ['standing down mid-session'],
+    proves: 'The cycle closes and can begin again with a different body.', anchors: [] },
+  { id: 'observe', name: 'Read everything', seats: ['observer','member','chair','secretary','steward'], modes: ['between','session'],
+    pre: 'None.', writes: 'nothing \u2014 reading is not an act',
+    refusals: ['none: the observer holds no act, and every refusal they meet is the seat\u2019s, not the surface\u2019s'],
+    proves: 'An observer can follow the whole of it and change none of it.', anchors: ['privacy'] }
+];
+
+const LIFECYCLE = [
+  { id: 'noticed', name: 'noticed', x: 0, note: 'On the order of business, carrying the hand of whatever it reaches. It can sit here across several meetings.' },
+  { id: 'moved', name: 'moved', x: 1, note: 'A voting member has put it before the floor. It has a mover, and the mover now holds the withdrawal.' },
+  { id: 'seconded', name: 'seconded', x: 2, note: 'Someone other than the mover has supported it. An amendment goes from here straight to its own ballot.' },
+  { id: 'discussion', name: 'discussion', x: 3, note: 'Open for amendment and for calling the question. Nothing said here enters the record \u2014 there is no event kind for speech.' },
+  { id: 'ballot', name: 'ballot', x: 4, note: 'One at a time, opened by the chair with quorum standing. Casts supersede rather than accumulate.' },
+  { id: 'settled', name: 'settled', x: 5, note: 'Terminal. Adopted, failed, withdrawn or tabled \u2014 all four settle, and all four stand in the record afterward.' },
+  { id: 'withdrawn', name: 'withdrawn', x: 2.5, branch: true, note: 'A settlement, not an erasure. The mover\u2019s act, before the ballot only.' },
+  { id: 'tabled', name: 'tabled', x: 3.5, branch: true, note: 'A settlement by the chair\u2019s hand. Whether tabled business returns on its own is an open anchor.' }
+];
+const LIFE_EDGES = [
+  { from: 'noticed', to: 'moved', label: 'move' },
+  { from: 'moved', to: 'seconded', label: 'second' },
+  { from: 'seconded', to: 'discussion', label: 'open discussion' },
+  { from: 'discussion', to: 'ballot', label: 'put the question' },
+  { from: 'ballot', to: 'settled', label: 'settle' },
+  { from: 'moved', to: 'withdrawn', label: 'withdraw', branch: true },
+  { from: 'discussion', to: 'withdrawn', label: 'withdraw', branch: true },
+  { from: 'discussion', to: 'tabled', label: 'table', branch: true },
+  { from: 'withdrawn', to: 'settled', label: '', branch: true },
+  { from: 'tabled', to: 'settled', label: '', branch: true }
+];
+
+const EVENTS = [
+  { id: 'meeting.noticed', domain: 'meeting', words: 'a meeting was noticed, with its order of business', vis: 'open' },
+  { id: 'meeting.called', domain: 'meeting', words: 'the chair convened the body, and the line carries the quorum it found', vis: 'open' },
+  { id: 'meeting.adjourned', domain: 'meeting', words: 'the chair adjourned', vis: 'open' },
+  { id: 'meeting.stoodDown', domain: 'meeting', words: 'the body stood down; the state is set again', vis: 'open' },
+  { id: 'body.set', domain: 'meeting', words: 'the body meeting next was set', vis: 'open' },
+  { id: 'agenda.ordered', domain: 'meeting', words: 'the order of business changed', vis: 'open' },
+  { id: 'attendance.marked', domain: 'attendance', words: 'a member is present, by their own hand or the secretary\u2019s', vis: 'open' },
+  { id: 'motion.noticed', domain: 'motion', words: 'a motion joined the order of business', vis: 'open' },
+  { id: 'motion.moved', domain: 'motion', words: 'a motion, or an amendment to one, was moved', vis: 'open' },
+  { id: 'motion.seconded', domain: 'motion', words: 'it was seconded', vis: 'open' },
+  { id: 'discussion.opened', domain: 'motion', words: 'discussion opened \u2014 and nothing of it is recorded', vis: 'open' },
+  { id: 'question.called', domain: 'motion', words: 'the question was called from the floor', vis: 'open' },
+  { id: 'point.order', domain: 'motion', words: 'a member rose to a point of order', vis: 'open' },
+  { id: 'motion.withdrawn', domain: 'motion', words: 'the mover withdrew it; it settles and stands', vis: 'open' },
+  { id: 'motion.tabled', domain: 'motion', words: 'it was laid on the table', vis: 'open' },
+  { id: 'ballot.opened', domain: 'ballot', words: 'the ballot opened, carrying its threshold', vis: 'open' },
+  { id: 'vote.cast', domain: 'ballot', words: 'a vote was cast; the count moves, the roll does not show', vis: 'tally only' },
+  { id: 'vote.superseded', domain: 'ballot', words: 'a cast was superseded, leaving one standing', vis: 'tally only' },
+  { id: 'ballot.settled', domain: 'ballot', words: 'the ballot closed with its conserved tally', vis: 'open' },
+  { id: 'motion.adopted', domain: 'ballot', words: 'the motion was adopted', vis: 'open' },
+  { id: 'motion.failed', domain: 'ballot', words: 'the motion failed', vis: 'open' },
+  { id: 'state.moved', domain: 'state', words: 'an instrument\u2019s mark hardened, by the act of an assembled body', vis: 'open' },
+  { id: 'interim.recorded', domain: 'interim', words: 'a delegated act was recorded, with its authority', vis: 'open or held substance' },
+  { id: 'minutes.adopted', domain: 'minutes', words: 'the secretary adopted the minutes', vis: 'open' }
+];
+
+const INVARIANTS = [
+  { id: 'oneShare', name: 'One member, one standing cast',
+    says: 'A voting member holds exactly one share on any question. Casting again supersedes the previous cast rather than adding to it.',
+    impossible: 'Accumulating votes by casting repeatedly.' },
+  { id: 'conservation', name: 'The tally equals the sum of casts',
+    says: 'A settlement carries its arithmetic on its face, and the count is derived from the casts rather than stored beside them.',
+    impossible: 'Writing a settlement whose numbers do not add up.' },
+  { id: 'actsNotUtterances', name: 'The record holds acts, not utterances',
+    says: 'There is no event kind for speech at all. Discussion is opened, and what is said in it never enters the record.',
+    impossible: 'A minute that reports what someone said. The capability is absent, not merely refused.' },
+  { id: 'noDelete', name: 'Nothing deletes',
+    says: 'Withdrawn and tabled are settlements. Every motion that ever stood is still there afterward.',
+    impossible: 'An act whose effect is an absence.' },
+  { id: 'quorumTally', name: 'Quorum is a tally, never a number',
+    says: 'It is counted from attendance events each time it is asked for.',
+    impossible: 'A stored quorum drifting away from who is actually present.' },
+  { id: 'assembledOnly', name: 'The legal state moves only by an assembled body',
+    says: 'No delegation reaches an instrument. The interim ledger\u2019s legal lane carries only movements dated to a meeting.',
+    impossible: 'A quiet change to the bylaws between meetings.' },
+  { id: 'ownHand', name: 'A body reaches only its own instruments',
+    says: 'Every instrument names the body that may move it, and a meeting of the other body is refused by name.',
+    impossible: 'A members\u2019 meeting adopting board policy, or the reverse.' },
+  { id: 'privacySubstance', name: 'Privacy holds substance, never the fact',
+    says: 'Where a matter must be held, the fact that it happened, the authority behind it, and its hour all stay legible.',
+    impossible: 'An act that leaves no trace because it was sensitive.' },
+  { id: 'chairsHand', name: 'No ballot without the chair\u2019s hand and quorum',
+    says: 'The floor may call the question; only the chair puts it, and only with quorum standing.',
+    impossible: 'A vote that opened itself.' },
+  { id: 'oneBallot', name: 'One question at a time',
+    says: 'A second ballot cannot open while one stands, and a held amendment ballots before its main motion.',
+    impossible: 'Two open votes competing for the same shares.' },
+  { id: 'humanAdoption', name: 'The minutes are a projection; adoption is human',
+    says: 'The lines write themselves from the events, and stay a draft until the secretary adopts them.',
+    impossible: 'A record that certifies itself.' }
+];
+
+const ANCHORS = [
+  { id: 'thresholds', name: 'Which majority, of what', kind: 'open question',
+    q: 'Majority of voting members present, or of casts actually made? The two differ the moment anyone abstains, and the bylaws must say which before any threshold on this surface means anything.',
+    bites: ['bylaws', 'quorum', 'putQ', 'settle'] },
+  { id: 'previousQ', name: 'The previous-question machinery', kind: 'open question',
+    q: 'Calling the question is modelled as a signal to the chair. Whether it should itself be a votable motion, and at what threshold, is unresolved.',
+    bites: ['callQ'] },
+  { id: 'nesting', name: 'Amendment depth', kind: 'open question',
+    q: 'One amendment at a time is modelled. Whether an amendment to an amendment is permitted, and how deep, is not decided.',
+    bites: ['amend'] },
+  { id: 'tabled', name: 'Whether tabled business returns', kind: 'open question',
+    q: 'Tabling settles the motion here. Whether it should instead suspend and return automatically at the next meeting is a real fork in the design.',
+    bites: ['table'] },
+  { id: 'proxy', name: 'Proxy and absentee voting', kind: 'not yet specified',
+    q: 'Casting requires presence on the floor. Nothing in the model handles a member who cannot attend, and for a distributed cooperative that is a large silence.',
+    bites: ['cast'] },
+  { id: 'appeal', name: 'Appealing an interim act', kind: 'absent',
+    q: 'A member who disputes something done under delegation has nowhere in this design to say so. The ledger is readable but not answerable.',
+    bites: ['interim', 'delegation'] },
+  { id: 'privacy', name: 'Grades of audience', kind: 'open question',
+    q: 'Privacy is a single hold: substance held, fact open. There are no grades \u2014 nothing for board-only, member-only, or public, and no rule for when a hold expires.',
+    bites: ['interim', 'roll', 'observe'] },
+  { id: 'ruling', name: 'The chair\u2019s ruling on a point of order', kind: 'not yet specified',
+    q: 'The rising is recorded. The ruling that answers it, and any appeal from the ruling, are not modelled.',
+    bites: ['pointOrder'] },
+  { id: 'filing', name: 'The act that is not finished by a vote', kind: 'open question',
+    q: 'The Articles need a filing with the State after the members act. The model has no way to represent an obligation that outlives the meeting.',
+    bites: ['articles'] },
+  { id: 'direct', name: 'Directing another body', kind: 'not yet specified',
+    q: 'The members can direct the board without adopting its policy. That verb \u2014 a resolution that binds a body to act rather than acting for it \u2014 does not exist here.',
+    bites: ['counting'] },
+  { id: 'notice', name: 'Notice periods', kind: 'not yet specified',
+    q: 'A motion can be noticed at any time, with no modelled interval before it can be moved. Most bylaws require one.',
+    bites: ['notice'] },
+  { id: 'amendDiscuss', name: 'Discussion on an amendment', kind: 'open question',
+    q: 'An amendment goes from seconded straight to its ballot. Whether it deserves its own discussion is unresolved.',
+    bites: ['openDisc', 'amend'] }
+];
+
+/* ------------------------------------------------------------ state */
+const S = {
+  view: 'modes', selected: null,
+  lens: { seat: 'all', mode: 'all', body: 'all' },
+  sort: { state: 'hand', acts: 'seat', events: 'domain', anchors: 'kind' },
+  positions: {}, prevPositions: null, tweenStart: 0, anchorsGeo: {},
+  _nodeEls: {}, _prevKeys: new Set()
+};
+
+/* ------------------------------------------------------------ helpers */
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; }
+function esc(s) { return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+function act(id) { return ACTS.find(a => a.id === id); }
+function inst(id) { return INSTRUMENTS.find(i => i.id === id); }
+function anchor(id) { return ANCHORS.find(a => a.id === id); }
+function evt(id) { return EVENTS.find(e => e.id === id); }
+function life(id) { return LIFECYCLE.find(l => l.id === id); }
+function nameOf(key) {
+  const [k, id] = key.split(/:(.+)/);
+  if (k === 'act') return (act(id) || {}).name;
+  if (k === 'inst') return (inst(id) || {}).name;
+  if (k === 'anc') return (anchor(id) || {}).name;
+  if (k === 'evt') return id;
+  if (k === 'life') return (life(id) || {}).name;
+  if (k === 'inv') return (INVARIANTS.find(v => v.id === id) || {}).name;
+  if (k === 'mode') return (MODES.find(m => m.id === id) || {}).name;
+  return id;
+}
+function lensActive() { return S.lens.seat !== 'all' || S.lens.mode !== 'all' || S.lens.body !== 'all'; }
+function dimmed(key) {
+  const [k, id] = key.split(/:(.+)/);
+  const L = S.lens;
+  if (k === 'act') {
+    const a = act(id); if (!a) return false;
+    if (L.seat !== 'all' && !a.seats.includes(L.seat)) return true;
+    if (L.mode !== 'all' && !a.modes.includes(L.mode)) return true;
+    return false;
+  }
+  if (k === 'inst') {
+    const i = inst(id); if (!i) return false;
+    if (L.body !== 'all' && i.hand !== L.body) return true;
+    return false;
+  }
+  if (k === 'mode') { return L.mode !== 'all' && L.mode !== id; }
+  if (k === 'evt') {
+    if (L.seat === 'all' && L.mode === 'all') return false;
+    const writers = ACTS.filter(a => a.writes.includes(id));
+    if (!writers.length) return false;
+    return !writers.some(a => (L.seat === 'all' || a.seats.includes(L.seat)) && (L.mode === 'all' || a.modes.includes(L.mode)));
+  }
+  if (k === 'life') { return S.lens.mode === 'between'; }
+  return false;
+}
+function anchorCount() { return ANCHORS.length; }
+
+/* ------------------------------------------------------------ sorts + walk */
+function sortedInstruments() {
+  const l = INSTRUMENTS.slice();
+  if (S.sort.state === 'name') l.sort((a, b) => a.name.localeCompare(b.name));
+  else l.sort((a, b) => HANDS.indexOf(a.hand) - HANDS.indexOf(b.hand));
+  return l;
+}
+const SEAT_LANES = ['member', 'chair', 'secretary', 'steward'];
+function primarySeat(a) { return SEAT_LANES.find(s => a.seats.includes(s)) || 'member'; }
+function sortedActs() {
+  const l = ACTS.slice();
+  if (S.sort.acts === 'name') l.sort((a, b) => a.name.localeCompare(b.name));
+  else if (S.sort.acts === 'mode') l.sort((a, b) => a.modes.join().localeCompare(b.modes.join()) || a.name.localeCompare(b.name));
+  else l.sort((a, b) => SEAT_LANES.indexOf(primarySeat(a)) - SEAT_LANES.indexOf(primarySeat(b)));
+  return l;
+}
+const EVT_DOMAINS = ['meeting', 'attendance', 'motion', 'ballot', 'state', 'interim', 'minutes'];
+function sortedEvents() {
+  const l = EVENTS.slice();
+  if (S.sort.events === 'name') l.sort((a, b) => a.id.localeCompare(b.id));
+  else l.sort((a, b) => EVT_DOMAINS.indexOf(a.domain) - EVT_DOMAINS.indexOf(b.domain));
+  return l;
+}
+const ANC_KINDS = ['open question', 'not yet specified', 'absent'];
+function sortedAnchors() {
+  const l = ANCHORS.slice();
+  if (S.sort.anchors === 'name') l.sort((a, b) => a.name.localeCompare(b.name));
+  else l.sort((a, b) => ANC_KINDS.indexOf(a.kind) - ANC_KINDS.indexOf(b.kind));
+  return l;
+}
+function walkOrder() {
+  if (S.view === 'modes') return ['mode:between', 'act:convene', 'act:adjourn', 'mode:session'];
+  if (S.view === 'state') return sortedInstruments().map(i => 'inst:' + i.id);
+  if (S.view === 'acts') return sortedActs().map(a => 'act:' + a.id);
+  if (S.view === 'lifecycle') return LIFECYCLE.map(l => 'life:' + l.id);
+  if (S.view === 'events') return sortedEvents().map(e => 'evt:' + e.id);
+  if (S.view === 'invariants') return INVARIANTS.map(v => 'inv:' + v.id);
+  return sortedAnchors().map(a => 'anc:' + a.id);
+}
+
+/* ------------------------------------------------------------ layout */
+function layout(w, h) {
+  const old = S.positions;
+  S.positions = {}; S.anchorsGeo = {};
+  const top = 76, bottom = h - 34, cx = w/2;
+
+  if (S.view === 'modes') {
+    /* a diptych, plain: two rooms, one wall, two gates */
+    const roomW = Math.min((w - 200)/2, 360), roomH = Math.min(bottom - top - 90, 280);
+    const roomY = top + 60, gap = 110;
+    S.anchorsGeo.rooms = {
+      between: { x: cx - gap/2 - roomW, y: roomY, w: roomW, h: roomH },
+      session: { x: cx + gap/2, y: roomY, w: roomW, h: roomH },
+      thresholdX: cx, roomY, roomH
+    };
+    S.positions['mode:between'] = { x: cx - gap/2 - roomW/2, y: roomY + roomH/2 };
+    S.positions['mode:session'] = { x: cx + gap/2 + roomW/2, y: roomY + roomH/2 };
+    S.positions['cross:convene'] = { x: cx, y: roomY + roomH*0.34 };
+    S.positions['cross:adjourn'] = { x: cx, y: roomY + roomH*0.66 };
+  }
+  if (S.view === 'state') {
+    const laneW = Math.min((w - 90) / HANDS.length, 214);
+    HANDS.forEach((g, i) => {
+      const lx = cx + (i - (HANDS.length - 1)/2) * laneW;
+      S.anchorsGeo['hlane:' + g] = { x: lx, y: top + 44 };
+      sortedInstruments().filter(x => x.hand === g).forEach((x, j) => {
+        S.positions['inst:' + x.id] = { x: lx, y: top + 96 + j*76, labelDy: 22 };
+      });
+    });
+  }
+  if (S.view === 'acts') {
+    const laneW = Math.min((w - 80) / SEAT_LANES.length, 216);
+    SEAT_LANES.forEach((g, i) => {
+      const lx = cx + (i - (SEAT_LANES.length - 1)/2) * laneW;
+      S.anchorsGeo['alane:' + g] = { x: lx, y: top + 40 };
+      sortedActs().filter(a => primarySeat(a) === g).forEach((a, j) => {
+        S.positions['act:' + a.id] = { x: lx, y: top + 84 + j*44, labelDy: 16 };
+      });
+    });
+  }
+  if (S.view === 'lifecycle') {
+    const span = Math.min(w - 180, 780), x0 = cx - span/2, step = span/5;
+    const mainY = top + (bottom-top)*0.36, branchY = mainY + 130;
+    LIFECYCLE.forEach(l => {
+      S.positions['life:' + l.id] = { x: x0 + l.x*step, y: l.branch ? branchY : mainY,
+        labelDy: l.branch ? 22 : -18 };
+    });
+  }
+  if (S.view === 'events') {
+    const list = sortedEvents(), perCol = Math.ceil(list.length / 3);
+    const colW = Math.min((w - 120)/3, 300);
+    list.forEach((e, i) => {
+      const c = Math.floor(i/perCol), r = i % perCol;
+      S.positions['evt:' + e.id] = { x: cx + (c - 1)*colW - colW*0.18, y: top + 56 + r*30, left: true };
+    });
+  }
+  if (S.view === 'invariants') {
+    const perCol = Math.ceil(INVARIANTS.length / 2), colW = Math.min((w - 140)/2, 380);
+    INVARIANTS.forEach((v, i) => {
+      const c = Math.floor(i/perCol), r = i % perCol;
+      S.positions['inv:' + v.id] = { x: cx + (c - 0.5)*colW - colW*0.34, y: top + 60 + r*44, left: true };
+    });
+  }
+  if (S.view === 'anchors') {
+    const list = sortedAnchors(), perCol = Math.ceil(list.length / 2), colW = Math.min((w - 140)/2, 380);
+    list.forEach((a, i) => {
+      const c = Math.floor(i/perCol), r = i % perCol;
+      S.positions['anc:' + a.id] = { x: cx + (c - 0.5)*colW - colW*0.34, y: top + 62 + r*42, left: true };
+    });
+  }
+  S.prevPositions = old && Object.keys(old).length ? old : null;
+  S.tweenStart = performance.now();
+}
+
+/* ------------------------------------------------------------ render */
+function render() {
+  const svg = document.getElementById('chart'), skyEl = document.getElementById('sky');
+  const w = skyEl.clientWidth, h = skyEl.clientHeight;
+  if (!w || !h) return;
+  svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+  svg.innerHTML = '';
+  layout(w, h);
+  const under = el('g', {}, svg), nodes = el('g', {}, svg);
+  S._nodeEls = {};
+
+  if (S.view === 'modes') renderModes(under, nodes, w, h);
+  if (S.view === 'state') renderState(under, nodes, w, h);
+  if (S.view === 'acts') renderActs(under, nodes, w, h);
+  if (S.view === 'lifecycle') renderLifecycle(under, nodes, w, h);
+  if (S.view === 'events') renderEvents(under, nodes, w, h);
+  if (S.view === 'invariants') renderInvariants(under, nodes, w, h);
+  if (S.view === 'anchors') renderAnchors(under, nodes, w, h);
+
+  S._prevKeys = new Set(Object.keys(S._nodeEls));
+  renderLayerbar(); renderRail(); renderStrip(); renderLensbar();
+  if (S.selected && !S._nodeEls[S.selected]) S.selected = null;
+  if (S.selected) markSelection(S.selected); else renderWindow(null);
+  tweenIn();
+}
+
+function node(parent, key, x, y, label) {
+  const g = el('g', { class: 'node' + (dimmed(key) ? ' dim' : ''),
+    transform: 'translate(' + x + ',' + y + ')', tabindex: 0, role: 'button',
+    'aria-label': label }, parent);
+  g.addEventListener('click', () => selectKey(key, true));
+  g.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); selectKey(key, true); } });
+  S._nodeEls[key] = g;
+  return g;
+}
+
+function renderModes(under, nodes, w, h) {
+  /* the diptych, plain. Two rooms, one shared wall, two gates.
+     Everything else -- what each mode permits, refuses, and lets
+     the members read -- lives in the card, one click away. */
+  const R = S.anchorsGeo.rooms;
+  const CROSSINGS = [
+    { id: 'convene', dir: 1, line: 'convene' },
+    { id: 'adjourn', dir: -1, line: 'adjourn' }
+  ];
+
+  MODES.forEach(m => {
+    const r = R[m.id], solid = m.id === 'between';
+    el('rect', { x: r.x, y: r.y, width: r.w, height: r.h, rx: 2,
+      fill: 'none', stroke: m.tint, 'stroke-width': 1.3,
+      'stroke-dasharray': solid ? '' : '6 4', opacity: .85 }, under);
+  });
+
+  el('line', { x1: R.thresholdX, y1: R.roomY, x2: R.thresholdX, y2: R.roomY + R.roomH,
+    stroke: 'var(--rule)', 'stroke-width': 1.2, opacity: .6 }, under);
+
+  MODES.forEach(m => {
+    const p = S.positions['mode:' + m.id], r = R[m.id];
+    const g = node(nodes, 'mode:' + m.id, p.x, p.y, m.name + '. ' + m.line);
+    el('rect', { x: -r.w/2 + 14, y: -40, width: r.w - 28, height: 80, class: 'halo' }, g);
+    el('circle', { r: 6, cy: -26, fill: m.tint, opacity: .9 }, g);
+    const t = el('text', { y: 0, 'text-anchor': 'middle', 'font-size': 11, fill: 'var(--heading)' }, g);
+    t.textContent = m.name;
+    const s = el('text', { y: 20, 'text-anchor': 'middle', 'font-size': 8, class: 'axis-text' }, g);
+    s.textContent = m.line;
+  });
+
+  CROSSINGS.forEach(cr => {
+    const p = S.positions['cross:' + cr.id]; if (!p) return;
+    const a = act(cr.id);
+    el('line', { x1: R.thresholdX, y1: p.y - 22, x2: R.thresholdX, y2: p.y + 22,
+      stroke: 'var(--bg)', 'stroke-width': 5 }, under);
+    const dx = cr.dir * 30;
+    el('line', { x1: p.x - dx, y1: p.y, x2: p.x + dx, y2: p.y, class: 'edge mode' }, under);
+    el('path', { d: 'M ' + (p.x + dx) + ' ' + p.y + ' l ' + (-cr.dir*7) + ' -4 l 0 8 z',
+      fill: 'var(--k-rose)', opacity: .85 }, under);
+    const g = node(nodes, 'act:' + cr.id, p.x, p.y, a ? (a.name + '. ' + a.pre) : cr.line);
+    el('circle', { r: 15, class: 'halo' }, g);
+    el('circle', { r: 5, fill: 'var(--k-amber)', opacity: .95 }, g);
+    const t = el('text', { y: -12, 'text-anchor': 'middle', 'font-size': 8.5 }, g);
+    t.textContent = cr.line;
+  });
+
+  const foot = el('text', { x: w/2, y: h - 30, 'text-anchor': 'middle', 'font-size': 8.5, class: 'axis-text' }, under);
+  foot.textContent = 'a solid wall holds the state still \u00b7 a dashed wall is a room where it can move \u00b7 both gates are the chair\u2019s hand';
+}
+
+function renderState(under, nodes, w, h) {
+  HANDS.forEach(g => {
+    const an = S.anchorsGeo['hlane:' + g]; if (!an) return;
+    const t = el('text', { x: an.x, y: an.y, 'text-anchor': 'middle', 'font-size': 9, class: 'lane-label' }, under);
+    t.textContent = HAND_SHORT[g];
+    const s = el('text', { x: an.x, y: an.y + 14, 'text-anchor': 'middle', 'font-size': 7.5, class: 'axis-text' }, under);
+    s.textContent = g === 'derived' ? 'no motion reaches it' : 'moves only in a meeting of ' + HAND_SHORT[g];
+  });
+  sortedInstruments().forEach(i => {
+    const key = 'inst:' + i.id, p = S.positions[key]; if (!p) return;
+    const g = node(nodes, key, p.x, p.y, i.name + ', held by ' + HAND_SHORT[i.hand]);
+    el('circle', { r: 18, class: 'halo' }, g);
+    el('rect', { x: -9, y: -9, width: 18, height: 18, fill: i.hand === 'derived' ? 'none' : 'var(--k-coral)',
+      stroke: 'var(--k-coral)', 'stroke-width': 1.5, opacity: i.hand === 'derived' ? .5 : .9 }, g);
+    if (i.anchors.length) el('circle', { r: 15, fill: 'none', stroke: 'var(--warn)', 'stroke-width': .9, 'stroke-dasharray': '2 2', opacity: .7 }, g);
+    const t = el('text', { y: p.labelDy, 'text-anchor': 'middle', 'font-size': 8 }, g);
+    t.textContent = i.name.length > 27 ? i.name.slice(0, 26) + '\u2026' : i.name;
+    const m = el('text', { y: p.labelDy + 11, 'text-anchor': 'middle', 'font-size': 7.5, class: 'axis-text' }, g);
+    m.textContent = i.marks.split(' \u00b7 ')[0] + ' \u2026';
+  });
+  const foot = el('text', { x: w/2, y: h - 30, 'text-anchor': 'middle', 'font-size': 8.5, class: 'axis-text' }, under);
+  foot.textContent = 'these are the kinds of instrument and the marks each can wear \u00b7 no instance values, because none are wired';
+}
+
+function renderActs(under, nodes, w, h) {
+  SEAT_LANES.forEach(g => {
+    const an = S.anchorsGeo['alane:' + g]; if (!an) return;
+    const t = el('text', { x: an.x, y: an.y, 'text-anchor': 'middle', 'font-size': 9, class: 'lane-label' }, under);
+    t.textContent = SEAT_NAMES[g];
+    const n = ACTS.filter(a => primarySeat(a) === g).length;
+    const s = el('text', { x: an.x, y: an.y + 13, 'text-anchor': 'middle', 'font-size': 7.5, class: 'axis-text' }, under);
+    s.textContent = n + ' acts';
+  });
+  sortedActs().forEach(a => {
+    const key = 'act:' + a.id, p = S.positions[key]; if (!p) return;
+    const g = node(nodes, key, p.x, p.y, a.name + ', held by ' + a.seats.map(s => SEAT_NAMES[s]).join(', '));
+    el('circle', { r: 13, class: 'halo' }, g);
+    const both = a.modes.length > 1;
+    el('circle', { r: 6, fill: both ? 'var(--k-amber)' : 'none', stroke: 'var(--k-amber)',
+      'stroke-width': 1.4, opacity: .9 }, g);
+    if (a.anchors.length) el('circle', { r: 10, fill: 'none', stroke: 'var(--warn)', 'stroke-width': .8, 'stroke-dasharray': '2 2', opacity: .65 }, g);
+    const t = el('text', { y: p.labelDy, 'text-anchor': 'middle', 'font-size': 7.5 }, g);
+    t.textContent = a.name.length > 30 ? a.name.slice(0, 29) + '\u2026' : a.name;
+  });
+  const foot = el('text', { x: w/2, y: h - 30, 'text-anchor': 'middle', 'font-size': 8.5, class: 'axis-text' }, under);
+  foot.textContent = 'filled: available in both modes \u00b7 hollow: one mode only \u00b7 dashed ring: an open anchor touches it';
+}
+
+function renderLifecycle(under, nodes, w, h) {
+  LIFE_EDGES.forEach(e => {
+    const p1 = S.positions['life:' + e.from], p2 = S.positions['life:' + e.to];
+    if (!p1 || !p2) return;
+    if (p1.y === p2.y) el('line', { x1: p1.x + 13, y1: p1.y, x2: p2.x - 13, y2: p2.y, class: 'edge' + (e.branch ? ' branch' : ' flow') }, under);
+    else el('path', { d: 'M ' + p1.x + ' ' + (p1.y + 12) + ' Q ' + p1.x + ' ' + ((p1.y+p2.y)/2) + ' ' + p2.x + ' ' + (p2.y - 12), class: 'edge' + (e.branch ? ' branch' : ' flow') }, under);
+    if (e.label) {
+      const t = el('text', { x: (p1.x + p2.x)/2, y: (p1.y + p2.y)/2 - (p1.y === p2.y ? 7 : 0), 'text-anchor': 'middle', class: 'edge-label' }, under);
+      t.textContent = e.label;
+    }
+  });
+  LIFECYCLE.forEach(l => {
+    const key = 'life:' + l.id, p = S.positions[key]; if (!p) return;
+    const g = node(nodes, key, p.x, p.y, 'a motion at ' + l.name);
+    el('circle', { r: 17, class: 'halo' }, g);
+    el('rect', { x: -8, y: -8, width: 16, height: 16, transform: 'rotate(45)',
+      fill: l.id === 'settled' ? 'var(--k-violet)' : 'none', stroke: l.branch ? 'var(--warn)' : 'var(--k-violet)',
+      'stroke-width': 1.5, opacity: .9 }, g);
+    const t = el('text', { y: p.labelDy, 'text-anchor': 'middle', 'font-size': 9 }, g);
+    t.textContent = l.name;
+  });
+  const foot = el('text', { x: w/2, y: h - 30, 'text-anchor': 'middle', 'font-size': 8.5, class: 'axis-text' }, under);
+  foot.textContent = 'the branch states are settlements too \u00b7 all four ways out of the floor leave the motion standing in the record';
+}
+
+function renderEvents(under, nodes, w, h) {
+  const head = el('text', { x: w/2, y: 40, 'text-anchor': 'middle', 'font-size': 9, class: 'axis-text' }, under);
+  head.textContent = 'the whole vocabulary the record can hold \u00b7 ' + EVENTS.length + ' kinds, and no kind for speech';
+  sortedEvents().forEach(e => {
+    const key = 'evt:' + e.id, p = S.positions[key]; if (!p) return;
+    const g = node(nodes, key, p.x, p.y, 'event kind ' + e.id);
+    el('circle', { r: 9, class: 'halo' }, g);
+    el('circle', { r: 3.5, fill: 'var(--k-gold)', opacity: .85 }, g);
+    const t = el('text', { x: 12, y: 3, 'font-size': 8 }, g);
+    t.textContent = e.id;
+  });
+}
+
+function renderInvariants(under, nodes, w, h) {
+  const head = el('text', { x: w/2, y: 40, 'text-anchor': 'middle', 'font-size': 9, class: 'axis-text' }, under);
+  head.textContent = 'what the design makes impossible \u00b7 each one is a thing the wired build must be unable to do';
+  INVARIANTS.forEach(v => {
+    const key = 'inv:' + v.id, p = S.positions[key]; if (!p) return;
+    const g = node(nodes, key, p.x, p.y, 'invariant: ' + v.name);
+    el('circle', { r: 10, class: 'halo' }, g);
+    el('circle', { r: 5, fill: 'var(--k-green)', opacity: .85 }, g);
+    const t = el('text', { x: 14, y: 3, 'font-size': 8.5 }, g);
+    t.textContent = v.name;
+  });
+}
+
+function renderAnchors(under, nodes, w, h) {
+  const head = el('text', { x: w/2, y: 40, 'text-anchor': 'middle', 'font-size': 9, class: 'axis-text' }, under);
+  head.textContent = 'the questions this design has not answered \u00b7 ' + ANCHORS.length + ' of them, named rather than papered over';
+  sortedAnchors().forEach(a => {
+    const key = 'anc:' + a.id, p = S.positions[key]; if (!p) return;
+    const g = node(nodes, key, p.x, p.y, a.kind + ': ' + a.name);
+    el('circle', { r: 10, class: 'halo' }, g);
+    if (a.kind === 'absent') el('circle', { r: 5, fill: 'var(--warn)', opacity: .8 }, g);
+    else el('circle', { r: 5, fill: 'none', stroke: a.kind === 'open question' ? 'var(--k-blue)' : 'var(--warn)',
+      'stroke-width': 1.4, 'stroke-dasharray': '2 2', opacity: .9 }, g);
+    const t = el('text', { x: 14, y: 3, 'font-size': 8.5 }, g);
+    t.textContent = a.name;
+    const s = el('text', { x: 14, y: 13, 'font-size': 7, class: 'axis-text' }, g);
+    s.textContent = a.kind;
+  });
+}
+
+/* a single settle-in transition when a layer changes; nothing moves after it */
+function tweenIn() {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced || !S.prevPositions) return;
+  const t0 = performance.now(), DUR = 380;
+  const from = S.prevPositions;
+  function step(now) {
+    const k = Math.min(1, (now - t0)/DUR), e = k < .5 ? 2*k*k : 1 - Math.pow(-2*k + 2, 2)/2;
+    for (const key in S._nodeEls) {
+      const p = S.positions[key]; if (!p) continue;
+      const o = from[key];
+      const fx = o ? o.x : p.x, fy = o ? o.y : p.y + 18;
+      S._nodeEls[key].setAttribute('transform', 'translate(' + (fx + (p.x - fx)*e) + ',' + (fy + (p.y - fy)*e) + ')');
+    }
+    if (k < 1) requestAnimationFrame(step); else S.prevPositions = null;
+  }
+  requestAnimationFrame(step);
+}
+
+/* ------------------------------------------------------------ bars + rail */
+function renderLayerbar() {
+  const bar = document.getElementById('layerbar');
+  bar.innerHTML = '<span class="vkey">A \u25c2</span>' + VIEWS.map(v =>
+    '<button class="vtab' + (S.view === v ? ' on' : '') + '" role="tab" aria-selected="' + (S.view === v)
+    + '" data-view="' + v + '" style="--vt:' + TINTS[v] + '">' + v + '</button>').join('')
+    + '<span class="vkey">\u25b8 D</span>';
+  bar.querySelectorAll('.vtab').forEach(b => b.addEventListener('click', () => setView(b.getAttribute('data-view'))));
+  const sr = document.getElementById('sortrow');
+  const opts = SORTS[S.view];
+  if (!opts || opts.length < 2) { sr.innerHTML = ''; return; }
+  sr.innerHTML = '<span class="sk">sort</span>' + opts.map(o =>
+    '<button class="schip' + (S.sort[S.view] === o.id ? ' on' : '') + '" data-sort="' + o.id
+    + '" aria-pressed="' + (S.sort[S.view] === o.id) + '">' + o.label + '</button>').join('')
+    + '<span class="sk">shift+W/S</span>';
+  sr.querySelectorAll('.schip').forEach(b => b.addEventListener('click', () => { S.sort[S.view] = b.getAttribute('data-sort'); render(); }));
+}
+function setView(v) { if (!VIEWS.includes(v) || v === S.view) return; S.view = v; render(); }
+function stepView(d) { const i = VIEWS.indexOf(S.view); setView(VIEWS[(i + d + VIEWS.length) % VIEWS.length]); }
+function stepSort(d) { const o = (SORTS[S.view] || []).map(x => x.id); if (o.length < 2) return;
+  const i = o.indexOf(S.sort[S.view]); S.sort[S.view] = o[(i + d + o.length) % o.length]; render(); }
+function stepWalk(d) { const order = walkOrder(); if (!order.length) return;
+  let i = order.indexOf(S.selected);
+  i = i < 0 ? (d > 0 ? 0 : order.length - 1) : (i + d + order.length) % order.length;
+  selectKey(order[i], true); }
+
+function railRow(key, dotStyle, name, right) {
+  return '<button class="rail-item' + (dimmed(key) ? ' dim' : '') + '" data-key="' + key + '">'
+    + '<span class="dot" style="' + dotStyle + '"></span>'
+    + '<span class="nm">' + esc(name) + '</span>'
+    + (right ? '<span class="st">' + esc(right) + '</span>' : '') + '</button>';
+}
+function renderRail() {
+  const rail = document.getElementById('rail');
+  let html = '<div class="rail-group"><div class="rail-head" style="color:' + TINTS[S.view] + '">'
+    + S.view + '<span class="n">' + walkOrder().length + '</span></div>';
+  if (S.view === 'modes') {
+    html += '<div class="rail-sub">the rooms</div>';
+    MODES.forEach(m => { html += railRow('mode:' + m.id, 'background:' + m.tint, m.name, ''); });
+    html += '<div class="rail-sub">the gates</div>';
+    ['convene','adjourn'].forEach(id => {
+      const a = act(id); html += railRow('act:' + id, 'background:var(--k-amber)', a.name, 'the chair');
+    });
+  }
+  if (S.view === 'state') { let last = null;
+    sortedInstruments().forEach(i => {
+      if (S.sort.state === 'hand' && i.hand !== last) { last = i.hand; html += '<div class="rail-sub">' + HAND_SHORT[i.hand] + '</div>'; }
+      html += railRow('inst:' + i.id, 'background:var(--k-coral)' + (i.hand === 'derived' ? ';opacity:.5' : ''), i.name, i.kind);
+    }); }
+  if (S.view === 'acts') { let last = null;
+    sortedActs().forEach(a => {
+      if (S.sort.acts === 'seat' && primarySeat(a) !== last) { last = primarySeat(a); html += '<div class="rail-sub">' + SEAT_NAMES[last] + '</div>'; }
+      html += railRow('act:' + a.id, 'background:var(--k-amber)', a.name, a.modes.length > 1 ? 'both' : a.modes[0]);
+    }); }
+  if (S.view === 'lifecycle') LIFECYCLE.forEach(l => { html += railRow('life:' + l.id, 'background:var(--k-violet)' + (l.branch ? ';opacity:.5' : ''), l.name, l.branch ? 'branch' : ''); });
+  if (S.view === 'events') { let last = null;
+    sortedEvents().forEach(e => {
+      if (S.sort.events === 'domain' && e.domain !== last) { last = e.domain; html += '<div class="rail-sub">' + last + '</div>'; }
+      html += railRow('evt:' + e.id, 'background:var(--k-gold)', e.id, '');
+    }); }
+  if (S.view === 'invariants') INVARIANTS.forEach(v => { html += railRow('inv:' + v.id, 'background:var(--k-green)', v.name, ''); });
+  if (S.view === 'anchors') { let last = null;
+    sortedAnchors().forEach(a => {
+      if (S.sort.anchors === 'kind' && a.kind !== last) { last = a.kind; html += '<div class="rail-sub">' + last + '</div>'; }
+      html += railRow('anc:' + a.id, a.kind === 'absent' ? 'background:var(--warn)' : 'background:transparent;border:1.3px dashed var(--k-blue)', a.name, '');
+    }); }
+  html += '</div>';
+  rail.innerHTML = html;
+  rail.querySelectorAll('.rail-item').forEach(b => b.addEventListener('click', () => selectKey(b.getAttribute('data-key'), true)));
+}
+function renderStrip() {
+  document.getElementById('page-label').textContent = 'The model at rest \u00b7 ' + S.view;
+  document.getElementById('anchor-mark').textContent = 'open anchors \u00b7 ' + anchorCount();
+  ['seat','mode','body'].forEach(k => {
+    const s = document.getElementById(k + '-lens');
+    s.value = S.lens[k];
+    s.className = 'lens-sel' + (S.lens[k] !== 'all' ? ' on' : '');
+  });
+}
+function renderLensbar() {
+  const b = document.getElementById('lensbar');
+  if (!lensActive()) {
+    b.innerHTML = '<span class="lk">lens</span><span class="ltext">Nothing is dimmed. Set a <b>seat</b> to see only what that seat may do, a <b>mode</b> to see what is possible between meetings or in session, a <b>body</b> to see which instruments a meeting can reach.</span>';
+    return;
+  }
+  const parts = [];
+  if (S.lens.seat !== 'all') parts.push('the acts held by <b>' + SEAT_NAMES[S.lens.seat] + '</b>');
+  if (S.lens.mode !== 'all') parts.push('what is possible <b>' + (S.lens.mode === 'between' ? 'between the meetings' : 'in session') + '</b>');
+  if (S.lens.body !== 'all') parts.push('the instruments <b>' + HAND_SHORT[S.lens.body] + '</b> hold');
+  const n = walkOrder().filter(k => dimmed(k)).length;
+  b.innerHTML = '<span class="lk">lens</span><span class="ltext">Showing ' + parts.join(', and ')
+    + '. ' + n + ' of ' + walkOrder().length + ' dimmed on this layer \u2014 dimmed, not removed: what a lens leaves out is still readable.</span>'
+    + '<button class="clear" id="lens-clear">clear the lens</button>';
+  document.getElementById('lens-clear').onclick = () => { S.lens = { seat: 'all', mode: 'all', body: 'all' }; render(); };
+}
+
+/* ------------------------------------------------------------ the window */
+function fact(k, v) { return (v == null || v === '') ? '' :
+  '<div class="win-fact"><span class="k">' + k + '</span><span class="v">' + v + '</span></div>'; }
+function list(items) { return '<ul class="win-list">' + items.map(i => '<li>' + esc(i) + '</li>').join('') + '</ul>'; }
+function jumps(keys) { return keys.map(k => '<button class="jump" data-jump="' + k + '">' + esc(nameOf(k)) + '</button>').join(''); }
+function wireJumps(w) {
+  w.querySelectorAll('[data-jump]').forEach(b => b.addEventListener('click', () => {
+    const key = b.getAttribute('data-jump'), k = key.split(':')[0];
+    const v = { mode: 'modes', inst: 'state', act: 'acts', life: 'lifecycle', evt: 'events', inv: 'invariants', anc: 'anchors' }[k];
+    if (v && v !== S.view) { S.view = v; S.selected = key; render(); } else selectKey(key, true);
+  }));
+}
+
+function renderWindow(key) {
+  const w = document.getElementById('window');
+  if (!key) {
+    w.innerHTML = '<div class="win-eyebrow"><span class="dot" style="background:' + TINTS[S.view] + '"></span>the model, at rest</div>'
+      + '<div class="win-title">A drawing of a design, not a demonstration of one</div>'
+      + '<div class="win-body">'
+      + '<p>Nothing on this surface runs. There is no meeting in progress, no persona taking a turn, no record filling with invented lines, no clock. Every layer describes what the system is meant to be; none of it is evidence that anything works, because nothing here is wired to anything.</p>'
+      + '<p>The seven layers move outward from the largest distinction to the smallest: the <em>two modes</em> and how a body crosses between them; the <em>standing state</em> and whose hand holds each instrument; the <em>acts</em>, each with its seat, its mode and the refusals attached to it; the <em>lifecycle</em> a motion passes through; the <em>events</em> the record can hold; the <em>invariants</em> \u2014 what the design makes impossible; and the <em>anchors</em>, the questions it has not answered.</p>'
+      + '<p>The three lenses in the strip dim what does not match. They never remove it. A filter that hides changes your sense of how big the whole is, and that seemed the wrong thing for a surface whose job is to show you a shape.</p></div>'
+      + '<div class="win-note"><span class="nt">whose frame this is</span>'
+      + 'The organizing categories here are mine, not inherited from any standard: splitting <em>acts</em> from <em>events</em> assumes the record stores what was done rather than what was decided, and splitting <em>invariants</em> from <em>anchors</em> assumes a settled thing and an open thing are different in kind. Both are choices. Ordinary parliamentary practice would organize this by meeting order instead \u2014 call to order, old business, new business \u2014 and would surface different gaps than the ones on the anchors layer.'
+      + '</div>';
+    return;
+  }
+  const idx = key.indexOf(':'), kind = key.slice(0, idx), id = key.slice(idx + 1);
+
+  if (kind === 'mode') {
+    const m = MODES.find(x => x.id === id);
+    const acts = ACTS.filter(a => a.modes.includes(m.id));
+    w.innerHTML = '<div class="win-eyebrow"><span class="dot" style="background:' + m.tint + '"></span>one of the two modes</div>'
+      + '<div class="win-title">' + esc(m.name) + '</div>'
+      + '<div class="win-marks"><span class="mark">' + esc(m.line) + '</span></div>'
+      + '<div class="win-body"><p>' + esc(m.body) + '</p></div>'
+      + '<div class="win-facts">'
+      + fact('permits', list(m.permits))
+      + fact('refuses', list(m.refuses))
+      + fact('what members read', esc(m.reads))
+      + fact('acts here', jumps(acts.map(a => 'act:' + a.id)))
+      + '</div>';
+    wireJumps(w); return;
+  }
+  if (kind === 'inst') {
+    const i = inst(id);
+    const reaching = ACTS.filter(a => a.id === 'notice' || a.id === 'settle');
+    w.innerHTML = '<div class="win-eyebrow"><span class="dot" style="background:var(--k-coral)"></span>the standing state</div>'
+      + '<div class="win-title">' + esc(i.name) + '</div>'
+      + '<div class="win-marks"><span class="mark">' + esc(i.kind) + '</span><span class="mark">unset \u00b7 nothing is wired</span></div>'
+      + '<div class="win-body"><p>' + esc(i.note) + '</p></div>'
+      + '<div class="win-facts">'
+      + fact('whose hand', esc(HAND_LONG[i.hand]))
+      + fact('marks it wears', esc(i.marks))
+      + fact('leans on', i.depends.length ? jumps(i.depends.map(d => 'inst:' + d)) : 'nothing else here')
+      + fact('depended on by', (() => { const d = INSTRUMENTS.filter(x => x.depends.includes(i.id));
+          return d.length ? jumps(d.map(x => 'inst:' + x.id)) : 'nothing else here'; })())
+      + fact('open anchors', i.anchors.length ? jumps(i.anchors.map(a => 'anc:' + a)) : 'none recorded')
+      + '</div>'
+      + (i.hand === 'derived' ? '<div class="win-note"><span class="nt">why derived</span>Storing this as its own value would let it drift away from the bylaws it is supposed to express. Reading it out of the bylaws each time is slower and always right.</div>' : '');
+    wireJumps(w); return;
+  }
+  if (kind === 'act') {
+    const a = act(id);
+    const ev = a.writes.split(' \u00b7 ').map(x => x.trim()).filter(x => evt(x));
+    w.innerHTML = '<div class="win-eyebrow"><span class="dot" style="background:var(--k-amber)"></span>an act</div>'
+      + '<div class="win-title">' + esc(a.name) + '</div>'
+      + '<div class="win-marks">' + a.seats.map(s => '<span class="mark">' + SEAT_NAMES[s] + '</span>').join('')
+      + a.modes.map(m => '<span class="mark">' + (m === 'between' ? 'between meetings' : 'in session') + '</span>').join('') + '</div>'
+      + '<div class="win-facts">'
+      + fact('precondition', esc(a.pre))
+      + fact('writes', ev.length ? jumps(ev.map(e => 'evt:' + e)) : esc(a.writes))
+      + fact('refused when', list(a.refusals))
+      + fact('proves when', esc(a.proves))
+      + fact('open anchors', a.anchors.length ? jumps(a.anchors.map(x => 'anc:' + x)) : 'none recorded')
+      + '</div>'
+      + '<div class="win-note"><span class="nt">on refusals</span>Every refusal here is meant to be spoken in the words of its rule rather than returned as a failure. A refusal that explains itself teaches the governance; one that does not teaches only that the software said no.</div>';
+    wireJumps(w); return;
+  }
+  if (kind === 'life') {
+    const l = life(id);
+    const outs = LIFE_EDGES.filter(e => e.from === l.id), ins = LIFE_EDGES.filter(e => e.to === l.id);
+    w.innerHTML = '<div class="win-eyebrow"><span class="dot" style="background:var(--k-violet)"></span>a state a motion passes through</div>'
+      + '<div class="win-title">' + esc(l.name) + '</div>'
+      + '<div class="win-marks"><span class="mark">' + (l.branch ? 'a settlement, off the main path' : 'on the main path') + '</span></div>'
+      + '<div class="win-body"><p>' + esc(l.note) + '</p></div>'
+      + '<div class="win-facts">'
+      + fact('arrives by', ins.length ? list(ins.map(e => (e.label || 'settling') + ' \u00b7 from ' + e.from)) : 'being noticed')
+      + fact('leaves by', outs.length ? list(outs.map(e => (e.label || 'settling') + ' \u00b7 to ' + e.to)) : 'nothing \u2014 it is terminal')
+      + '</div>';
+    wireJumps(w); return;
+  }
+  if (kind === 'evt') {
+    const e = evt(id);
+    const writers = ACTS.filter(a => a.writes.includes(e.id));
+    w.innerHTML = '<div class="win-eyebrow"><span class="dot" style="background:var(--k-gold)"></span>an event kind \u00b7 ' + esc(e.domain) + '</div>'
+      + '<div class="win-title" style="font-family:var(--mono);font-size:.95rem">' + esc(e.id) + '</div>'
+      + '<div class="win-marks"><span class="mark">' + esc(e.vis) + '</span></div>'
+      + '<div class="win-body"><p>The minutes project it as: ' + esc(e.words) + '.</p></div>'
+      + '<div class="win-facts">'
+      + fact('written by', writers.length ? jumps(writers.map(a => 'act:' + a.id)) : 'the record itself')
+      + fact('visibility', esc(e.vis))
+      + '</div>';
+    wireJumps(w); return;
+  }
+  if (kind === 'inv') {
+    const v = INVARIANTS.find(x => x.id === id);
+    w.innerHTML = '<div class="win-eyebrow"><span class="dot" style="background:var(--k-green)"></span>an invariant</div>'
+      + '<div class="win-title">' + esc(v.name) + '</div>'
+      + '<div class="win-body"><p>' + esc(v.says) + '</p></div>'
+      + '<div class="win-facts">' + fact('makes impossible', esc(v.impossible)) + '</div>'
+      + '<div class="win-note"><span class="nt">the strongest form</span>An invariant held by absence of capability is stronger than one held by a check. Where the design can remove the verb entirely rather than guard it, it should.</div>';
+    return;
+  }
+  if (kind === 'anc') {
+    const a = anchor(id);
+    const keys = a.bites.map(b => inst(b) ? 'inst:' + b : (act(b) ? 'act:' + b : null)).filter(Boolean);
+    w.innerHTML = '<div class="win-eyebrow"><span class="dot" style="background:var(--k-blue)"></span>an open anchor</div>'
+      + '<div class="win-title">' + esc(a.name) + '</div>'
+      + '<div class="win-marks"><span class="mark anchor">' + esc(a.kind) + '</span></div>'
+      + '<div class="win-body"><p>' + esc(a.q) + '</p></div>'
+      + '<div class="win-facts">' + fact('where it bites', keys.length ? jumps(keys) : 'across the model') + '</div>'
+      + '<div class="win-note warn"><span class="nt">why it is named</span>An anchor left visible is a decision deferred on purpose. The alternative is a default that quietly becomes the rule because nobody noticed it was chosen \u2014 which is how software ends up governing the cooperative instead of the other way around.</div>';
+    wireJumps(w); return;
+  }
+}
+
+/* ------------------------------------------------------------ selection + keys */
+function markSelection(key) {
+  document.querySelectorAll('.node.sel').forEach(n => n.classList.remove('sel'));
+  document.querySelectorAll('.rail-item.sel').forEach(n => n.classList.remove('sel'));
+  const g = S._nodeEls[key]; if (g) g.classList.add('sel');
+  const li = document.querySelector('.rail-item[data-key="' + (window.CSS && CSS.escape ? CSS.escape(key) : key) + '"]');
+  if (li) { li.classList.add('sel'); li.scrollIntoView({ block: 'nearest' }); }
+  renderWindow(key);
+}
+function selectKey(key, focus) {
+  S.selected = key;
+  if (key == null) { document.querySelectorAll('.node.sel,.rail-item.sel').forEach(n => n.classList.remove('sel')); renderWindow(null); return; }
+  markSelection(key);
+  const g = S._nodeEls[key]; if (g && focus) g.focus({ preventScroll: true });
+}
+document.addEventListener('keydown', ev => {
+  if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+  const tag = (document.activeElement && document.activeElement.tagName) || '';
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+    if (ev.key === 'Escape') document.activeElement.blur();
+    return;
+  }
+  const k = ev.key.toLowerCase();
+  if (k === 'a') { ev.preventDefault(); stepView(-1); }
+  else if (k === 'd') { ev.preventDefault(); stepView(1); }
+  else if (k === 'w') { ev.preventDefault(); ev.shiftKey ? stepSort(-1) : stepWalk(-1); }
+  else if (k === 's') { ev.preventDefault(); ev.shiftKey ? stepSort(1) : stepWalk(1); }
+  else if (ev.key === 'Escape' && S.selected) selectKey(null, false);
+});
+
+/* ------------------------------------------------------------ boot */
+['seat','mode','body'].forEach(k => {
+  document.getElementById(k + '-lens').addEventListener('change', ev => { S.lens[k] = ev.target.value; render(); });
+});
+document.getElementById('mode-btn').addEventListener('click', () => {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-mode', next);
+  try { localStorage.setItem('techne-mode', next); } catch (e) {}
+});
+let rT; window.addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(render, 150); });
+render();
+</script>
+</body>
+</html>

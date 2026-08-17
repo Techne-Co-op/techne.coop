@@ -361,13 +361,28 @@ def check_one_navigation(packets):
     One page may carry both (U-15): a record page the members' map points
     at declares shell.js data-public, so it renders exactly as authored to
     the public and gains the members' frame to a member. Only one bar is
-    ever on screen; shell.js retires the public topbar when it takes over."""
+    ever on screen; shell.js retires the public topbar when it takes over.
+
+    Verbatim source artifacts are exempt by exact path. A document supplied
+    from outside and committed so a page can be checked against its source is
+    held byte for byte; adding the house frame to one would edit the evidence.
+    The same reasoning already exempts legal/ from the em dash rule and the
+    counsel memo from the vocabulary quarantine: an instrument carried
+    verbatim is not an authored page of this site. Each exemption is named
+    here, one path at a time, and nothing is exempt by pattern."""
     import re as _re
+    verbatim = {
+        # governance-model-v4, supplied by the steward on 2026-08-17 and
+        # committed unaltered so GOV can be read against its own source.
+        "commons/governance/model-v4/governance-model-v4.html",
+    }
     shell_re = _re.compile(r'<script[^>]+src="/assets/shell\.js"')
     public_re = _re.compile(r'<script[^>]+src="/assets/shell\.js"[^>]*\sdata-public')
     topbar_re = _re.compile(r'<script[^>]+src="/assets/topbar\.js"')
     inline_re = _re.compile(r'class="topbar"|class="nav-links"|class="top-nav"')
     for rel in html_pages():
+        if rel in verbatim:
+            continue
         p = REPO_ROOT / rel
         text = p.read_text(encoding="utf-8", errors="replace")
         has_shell = bool(shell_re.search(text))
