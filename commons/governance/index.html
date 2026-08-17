@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>Governance &middot; GOV v0.1 &middot; Module PRD and Specification &middot; RegenHub, LCA</title>
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* ============================================================
+   Work Standing · STANDING v0.3 · module specification
+   v0.2 re-cut the steward's v0.1 draft of 2026-08-09 into the Ground
+   and Craft register: emissions renumbered 0021 and 0022 (0019 and 0020
+   already held), decisions namespaced STANDING-D1..D5, sources re-read.
+   v0.3, 2026-08-10, answers the steward's challenge to P3: the refusal
+   that no object would ever name a project was the agent's drafting and
+   nobody's decision. P3 now refuses standing at the origin and nothing
+   else, section 4 records the challenge, R1 is re-cut to match, and the
+   object question is staged as STANDING-D6 with no recommendation.
+   The branching maturity model entered into the Common
+   Information System: the venture end constructed, the origin
+   protected, every decision staged for hands
+   Document grammar · Techne v4 token layer
+   aligned to techne.coop/design-system (the live constitution)
+   RegenHub, LCA · Boulder, Colorado · August 2026 · DRAFTED
+   ============================================================ */
+
+:root {
+  --serif:'Libre Baskerville',Georgia,serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872;
+  --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636;
+  --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+}
+[data-tint="gold"]   { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+[data-tint="amber"]  { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+[data-tint="coral"]  { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+[data-tint="rose"]   { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+[data-tint="violet"] { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+[data-tint="blue"]   { --shue:var(--sun-blue);   --shue-t:var(--sun-blue-t); }
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} *{transition:none!important;} }
+body { background:var(--bg); color:var(--text); font-family:var(--serif);
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease); }
+.wrap { max-width:860px; margin:0 auto; padding:var(--s6) var(--s5) var(--s8); }
+
+.topline { display:flex; justify-content:space-between; align-items:center; gap:var(--s3);
+  padding-bottom:var(--s4); border-bottom:1px solid var(--line); margin-bottom:var(--s6); flex-wrap:wrap; }
+.wordmark { font:400 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.06em; }
+.wordmark b { color:var(--heading); font-weight:600; }
+
+h1 { font:400 34px/1.2 var(--serif); color:var(--heading); letter-spacing:-.01em; margin-bottom:var(--s3); }
+.subtitle { font:400 15.5px/1.65 var(--serif); color:var(--muted); max-width:70ch; margin-bottom:var(--s5); }
+
+.chiprow { display:flex; gap:var(--s2); flex-wrap:wrap; margin-bottom:var(--s5); }
+.chip { display:inline-flex; align-items:center; gap:7px; font:500 10.5px/1 var(--mono);
+  letter-spacing:.07em; text-transform:uppercase; padding:6px 10px;
+  border:1px solid var(--line); border-radius:2px; background:var(--surface); color:var(--muted); }
+.chip .dot { width:7px; height:7px; border-radius:50%; background:var(--faint); }
+.chip.filed { color:var(--ok); border-color:var(--ok); } .chip.filed .dot { background:var(--ok); }
+.chip.drafted { color:var(--info); border-color:var(--info); } .chip.drafted .dot { background:var(--info); }
+.chip.open { color:var(--warn); border-color:var(--warn); } .chip.open .dot { background:var(--warn); }
+.chip.anticipated { color:var(--muted); border-style:dashed; } .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+
+.band { display:flex; height:3px; margin-bottom:6px; }
+.band span { flex:1; }
+.band-cap { display:flex; justify-content:space-between; font:400 10px/1.4 var(--mono);
+  color:var(--faint); letter-spacing:.08em; text-transform:uppercase; margin-bottom:var(--s7); }
+
+.sec { margin-bottom:var(--s7); }
+.addr { font:600 11px/1 var(--mono); color:var(--shue-t); letter-spacing:.1em; margin-bottom:var(--s2); }
+.sec h2 { font:400 22px/1.3 var(--serif); color:var(--heading); margin-bottom:var(--s4);
+  padding-bottom:var(--s2); border-bottom:1px solid var(--line); }
+.sec p { font:400 15.5px/1.7 var(--serif); margin-bottom:var(--s4); max-width:72ch; }
+.sec p:last-child { margin-bottom:0; }
+.fn a { font:600 10px/1 var(--mono); color:var(--ember-text); text-decoration:none; }
+.fn a:hover { text-decoration:underline; }
+
+.vfacts { display:grid; grid-template-columns:130px 1fr; gap:6px var(--s4); background:var(--surface);
+  border:1px solid var(--line); border-top:2px solid var(--shue); padding:var(--s4); margin-bottom:var(--s4); }
+.vfacts dt { font:600 10.5px/1.9 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; }
+.vfacts dd { font:400 14.5px/1.6 var(--serif); color:var(--text); }
+.vhead { font:600 12px/1.4 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase;
+  margin:var(--s5) 0 var(--s2); }
+.vhead:first-of-type { margin-top:0; }
+@media (max-width:560px) { .vfacts { grid-template-columns:1fr; gap:2px; } .vfacts dd { margin-bottom:var(--s2); } }
+
+.contract { background:var(--inset); border:1px solid var(--line); padding:var(--s4);
+  margin-bottom:var(--s4); overflow-x:auto; }
+.contract code { font:400 12.5px/1.7 var(--mono); color:var(--heading); white-space:pre; display:block; }
+.contract .cm { color:var(--muted); }
+
+.pk { border:1px solid var(--line); border-left:2px solid var(--shue); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.pk .pkh { font:600 11px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.pk .pkb { font:400 14px/1.6 var(--serif); color:var(--text); margin-bottom:4px; }
+.pk .pkc { font:400 11.5px/1.6 var(--mono); color:var(--muted); }
+
+.dcard { border:1px solid var(--line); border-left:2px solid var(--warn); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.dcard .dh { font:600 11px/1.5 var(--mono); color:var(--warn); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.dcard .db { font:400 14px/1.6 var(--serif); color:var(--text); }
+.dcard .db em { color:var(--heading); }
+
+.inv { border-left:2px solid var(--line); padding-left:var(--s4); margin-bottom:var(--s3); max-width:74ch; }
+.inv p { margin-bottom:0; }
+.inv .it { font-style:italic; color:var(--heading); }
+
+.sources { margin-top:var(--s8); padding-top:var(--s5); border-top:1px solid var(--rule); }
+.sources h2 { font:600 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:var(--s4); }
+.sources ol { list-style:none; counter-reset:src; }
+.sources li { counter-increment:src; position:relative; padding-left:26px; margin-bottom:var(--s3);
+  font:400 13.5px/1.6 var(--serif); color:var(--muted); max-width:78ch; }
+.sources li::before { content:counter(src); position:absolute; left:0; top:1px;
+  font:600 11px/1 var(--mono); color:var(--ember-text); }
+
+footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(--line);
+  font:400 11px/1.8 var(--mono); color:var(--faint); letter-spacing:.04em;
+  display:flex; justify-content:space-between; gap:var(--s3); flex-wrap:wrap; }
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+.tbl { width:100%; border-collapse:collapse; margin:var(--s4) 0 var(--s5); background:var(--surface);
+  border:1px solid var(--line); }
+.tbl th { font:600 10.5px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase;
+  text-align:left; padding:var(--s3); border-bottom:1px solid var(--rule); vertical-align:top; }
+.tbl td { font:400 13.5px/1.6 var(--serif); color:var(--text); padding:var(--s3);
+  border-bottom:1px solid var(--line); vertical-align:top; }
+.tbl tr:last-child td { border-bottom:none; }
+.tbl td:first-child { font-family:var(--mono); font-size:12px; color:var(--heading); }
+@media (max-width:640px) { .tbl, .tbl tbody, .tbl tr, .tbl td { display:block; width:100%; }
+  .tbl thead { display:none; }
+  .tbl tr { border-bottom:1px solid var(--rule); }
+  .tbl td { border-bottom:none; padding:4px var(--s3); } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="topline">
+    <div class="wordmark"><b>Techne</b> &middot; RegenHub, LCA &middot; CIS Common Record Series &middot; Module</div>
+  </div>
+
+  <h1>Governance &middot; GOV v0.1</h1>
+  <p class="subtitle">A module specification, drafted for review: the machinery by which this cooperative's bodies act, and by which a minute becomes a projection of acts rather than an account of a room. It reads a governance model supplied by the steward, which is a drawing and carries no authority, and it states what a specification would have to decide before anything is built. Every unresolved question in the model is carried forward as an unresolved question here, classified rather than answered. Nothing in this document is adopted, and the bed it proposes has not been entered in the ledger.</p>
+
+  <div class="chiprow">
+    <span class="chip drafted"><span class="dot"></span>GOV v0.1 &middot; Drafted by Nou</span>
+    <span class="chip open"><span class="dot"></span>Adoption &middot; Open, no board act taken</span>
+    <span class="chip open"><span class="dot"></span>Decisions GOV-D1&ndash;GOV-D8 &middot; Staged</span>
+    <span class="chip anticipated"><span class="dot"></span>Bed and addresses &middot; Not minted</span>
+  </div>
+
+  <div class="band" aria-hidden="true">
+    <span style="background:var(--sun-gold)"></span><span style="background:var(--sun-amber)"></span><span style="background:var(--sun-coral)"></span><span style="background:var(--sun-rose)"></span><span style="background:var(--sun-violet)"></span><span style="background:var(--sun-blue)"></span>
+  </div>
+  <div class="band-cap"><span>what a specification may settle</span><span>what only an assembled body may</span></div>
+</header>
+
+<section class="sec" id="s1" data-tint="gold">
+  <div class="addr">GOV &sect;1</div>
+  <h2>Purpose and posture</h2>
+  <p>This module would give the cooperative's own governance a body in the record: the modes a body is in, the instruments it may reach, the acts it may take, and the minute those acts project into. It follows the intake route the commons already has, the one PATRONAGE, TREASURY, AGY, and STANDING each took: a module document, a board adoption, and a graft into the ledger.<sup class="fn"><a href="#src2">2</a></sup> This document is the first of those three and none of the others.</p>
+  <p>The posture is unchanged and load-bearing here in a way it is not everywhere else. Nou drafts; people decide. A module that describes how a board acts must never be a module by which a board acts, and &sect;11 states that as a schema fact rather than a promise.</p>
+  <dl class="vfacts">
+    <dt>Nou may draft</dt><dd>This specification, the acts matrix, the anchors register, migration contracts held behind their conditions, and the surfaces that read the record</dd>
+    <dt>Only hands may</dt><dd>Adopt this module; take GOV-D1 through GOV-D8; mint the bed and its addresses; convene, move, second, or settle anything; adopt a minute</dd>
+  </dl>
+</section>
+
+<section class="sec" id="s2" data-tint="gold">
+  <div class="addr">GOV &sect;2</div>
+  <h2>The model, and what standing it has</h2>
+  <p>The scaffolding is <em>governance-model-v4</em>, supplied by the steward from the formation drive on 2026-08-14 and marked on its own face as drafted outside the agency rail.<sup class="fn"><a href="#src1">1</a></sup> Outside the rail means it carries no Direction and no recorded authority: it is a drawing of a design, and this document treats it as one. Nothing in it is adopted, and reading it carefully does not adopt it.</p>
+  <p>One fact about that source has to be stated rather than assumed. <b>The model file itself is not in this repository.</b> What the estate holds is a reading of it, rendered at <a href="/intranet/record/">the record</a>, which carries the two modes, the standing state, five of the model's invariants as impossibilities, and six of its open anchors.<sup class="fn"><a href="#src3">3</a></sup> The issue that requested this module reports twenty-two acts, twenty-four event kinds, eleven invariants, and twelve anchors.<sup class="fn"><a href="#src1">1</a></sup> Every figure in this document that exceeds what the estate holds is therefore reported as a count from the issue and marked as unverifiable here. Bringing the model into the repository, so that a later reader can check this document against its own source, is GOV-D1 and is the cheapest of the eight.</p>
+</section>
+
+<section class="sec" id="s3" data-tint="amber">
+  <div class="addr">GOV &sect;3</div>
+  <h2>The two modes and the three edges</h2>
+  <p>A body is in one of two conditions and spends almost all of its life in the first. <em>Between the meetings</em>, the legal state is set and no act moves an instrument. <em>In session</em>, the legal state is open, but only for what the body meeting actually holds. Three edges join them: convene, adjourn, and the compound one where the body adopts the minutes of the meeting just closed and stands down.<sup class="fn"><a href="#src3">3</a></sup></p>
+  <p>The shape worth preserving is that each mode carries an explicit list of what it refuses, and a refusal names whose hand the act belongs to rather than simply failing. A member of this cooperative who is told <em>no</em> should learn from the refusal who could say yes. That is a specification requirement, not a copy preference, and it is why &sect;5 renders the matrix as acts against seats rather than as a permission list.</p>
+  <table class="tbl">
+    <thead><tr><th>edge</th><th>from</th><th>to</th><th>what it requires</th></tr></thead>
+    <tbody>
+      <tr><td>convene</td><td>between the meetings</td><td>in session</td><td>Quorum standing at the moment it is asked for, counted from attendance, never stored (Bylaws &sect;&nbsp;3.13)</td></tr>
+      <tr><td>adjourn</td><td>in session</td><td>between the meetings</td><td>No open ballot. A body may not adjourn out from under a question it has put</td></tr>
+      <tr><td>adopt and stand down</td><td>in session</td><td>between the meetings</td><td>A human act on a drafted minute. The Bylaws supply this moment for membership meetings (&sect;&nbsp;2.10) and not for board meetings, which is the gap &sect;9 carries</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="sec" id="s4" data-tint="amber">
+  <div class="addr">GOV &sect;4</div>
+  <h2>The instruments and the hands that hold them</h2>
+  <p>The model's central discipline is that every instrument is held by exactly one hand, and a body reaches only its own. The estate already renders this state, instrument by instrument, with the mark each carries today.<sup class="fn"><a href="#src3">3</a></sup> This module does not restate that table; it cites it, and it adds the one observation the specification needs: <b>every instrument in the members' hand is presently unreachable</b>, because no member has been admitted. A governance module that can only describe a working cooperative cannot describe this one in the year it is being formed, and &sect;9 makes that the first of the four disagreements.</p>
+  <p>One derived case is worth naming here because it constrains the schema. The quorum rule is reached by nothing directly: it moves when the Bylaws move, and it is counted from who is present each time it is asked for. So quorum is a tally and never a column, in the same way and for the same reason that the substrate stores no balance.<sup class="fn"><a href="#src4">4</a></sup></p>
+</section>
+
+<section class="sec" id="s5" data-tint="coral">
+  <div class="addr">GOV &sect;5</div>
+  <h2>The acts and their seats</h2>
+  <p>The matrix below is built from the two modes as the estate renders them, which is the source this repository can check.<sup class="fn"><a href="#src3">3</a></sup> The issue reports the model carrying twenty-two acts; sixteen are recoverable from the estate's reading and are given here. The remainder are not reproduced anywhere in this repository, and the specification cannot responsibly invent them: completing this matrix is conditioned on GOV-D1.</p>
+  <table class="tbl">
+    <thead><tr><th>act</th><th>mode</th><th>seat</th><th>the refusal it carries</th></tr></thead>
+    <tbody>
+      <tr><td>mark presence</td><td>between</td><td>any director or member of the body</td><td>Presence is not a vote and confers nothing</td></tr>
+      <tr><td>set the order of business</td><td>between</td><td>the presiding officer</td><td>Refused in session; a body in session changes its order by motion</td></tr>
+      <tr><td>notice a motion</td><td>between</td><td>any director or member of the body</td><td>Noticing is not moving; nothing is before the body until it is moved</td></tr>
+      <tr><td>record an interim act</td><td>between</td><td>a delegation holder</td><td>Refused in session, where a body acts by motion. Refused entirely where no delegation exists, which is the state today</td></tr>
+      <tr><td>adopt the minutes just closed</td><td>between</td><td>the body, by human act</td><td>Never automatic; a projection does not adopt itself</td></tr>
+      <tr><td>convene</td><td>between</td><td>those the Bylaws let call the meeting</td><td>Refused without quorum standing at the moment it is asked</td></tr>
+      <tr><td>move</td><td>in session</td><td>a member of the body</td><td>Refused between the meetings</td></tr>
+      <tr><td>second</td><td>in session</td><td>a member of the body other than the mover</td><td>Refused between the meetings</td></tr>
+      <tr><td>amend</td><td>in session</td><td>a member of the body</td><td>Refused once the question is put</td></tr>
+      <tr><td>withdraw</td><td>in session</td><td>the mover</td><td>A settlement, not an erasure; the motion that stood is still there</td></tr>
+      <tr><td>call the question</td><td>in session</td><td>a member of the body</td><td>Refused between the meetings</td></tr>
+      <tr><td>put the question</td><td>in session</td><td>the presiding officer</td><td>Refused where the motion is unseconded or already settled</td></tr>
+      <tr><td>cast</td><td>in session</td><td>each member of the body, once</td><td>Refused twice on one question; refused by anyone not seated in this body</td></tr>
+      <tr><td>settle</td><td>in session</td><td>the presiding officer, on the tally</td><td>Refused before every entitled cast is in or declined</td></tr>
+      <tr><td>point of order</td><td>in session</td><td>any member of the body</td><td>Interrupts, decides nothing</td></tr>
+      <tr><td>table</td><td>in session</td><td>the body</td><td>A settlement, not an erasure</td></tr>
+      <tr><td>adjourn</td><td>in session</td><td>the body</td><td>Refused over an open ballot</td></tr>
+    </tbody>
+  </table>
+  <p>Two refusals belong to neither mode and to every act: a body may not switch which body is meeting, and a body may not reach an instrument the other body holds. Both are structural, and &sect;8 asks that both become checks rather than sentences.</p>
+</section>
+
+<section class="sec" id="s6" data-tint="coral">
+  <div class="addr">GOV &sect;6</div>
+  <h2>The motion lifecycle</h2>
+  <p>Noticed, moved, seconded, discussion, ballot, settled, with withdrawn and tabled as branches that settle rather than erase.<sup class="fn"><a href="#src1">1</a></sup> The discipline is the one the estate already applies to contributions and to the event log: a correction is a further act citing the earlier one, never a mutation of it.<sup class="fn"><a href="#src4">4</a></sup> The substrate enforces that today for events, and the invariant suite proves it by attempting an update and a delete and requiring both to be refused.<sup class="fn"><a href="#src5">5</a></sup></p>
+  <p>Discussion is a state, not a content. It has a beginning and an end and nothing inside it. That is the whole of &sect;8's first invariant, and it is why a recording has nowhere to be filed: not a rule against transcripts, an absence of any place to put one.</p>
+</section>
+
+<section class="sec" id="s7" data-tint="rose">
+  <div class="addr">GOV &sect;7</div>
+  <h2>The event vocabulary against the substrate</h2>
+  <p>The substrate is closer than it looks and further than it sounds. <code style="font-family:var(--mono);font-size:13px">events</code>, <code style="font-family:var(--mono);font-size:13px">agreements</code>, <code style="font-family:var(--mono);font-size:13px">gatherings</code>, <code style="font-family:var(--mono);font-size:13px">sessions</code>, and <code style="font-family:var(--mono);font-size:13px">attendance</code> all exist and are applied. <b>No motion, ballot, quorum, or minute vocabulary exists anywhere in the migration chain</b>, in this repository's substrate or in its later migrations; that was checked rather than assumed.<sup class="fn"><a href="#src4">4</a>&nbsp;<a href="#src6">6</a></sup> So this is new construction landing on tables that exist, not a retrofit.</p>
+  <p>Three facts about those tables shape the specification more than any preference could:</p>
+  <div class="inv"><p><span class="it">Event kinds are free text.</span> The <code style="font-family:var(--mono);font-size:13px">kind</code> column is <code style="font-family:var(--mono);font-size:13px">text not null</code> with examples in its comment, not an enum. A governance vocabulary costs no schema change to introduce, which means the vocabulary is a documentation and validation decision rather than a migration decision, and it can go wrong quietly. GOV-D3 asks for the register that prevents that.</p></div>
+  <div class="inv"><p><span class="it">Corrections already have a home.</span> <code style="font-family:var(--mono);font-size:13px">corrects uuid references events(id)</code> is in the applied substrate, and <code style="font-family:var(--mono);font-size:13px">prior jsonb</code> holds the prior value where a governed record changed. The no-delete discipline the model asks for is not a thing to build; it is a thing to use.</p></div>
+  <div class="inv"><p><span class="it">Attendance is not attached to a meeting.</span> <code style="font-family:var(--mono);font-size:13px">attendance</code> references <code style="font-family:var(--mono);font-size:13px">sessions</code>, which references <code style="font-family:var(--mono);font-size:13px">gatherings</code>, and its comment cites the members' meeting provision. A board meeting is not a gathering in the sense that table means, so quorum cannot be tallied from it without a decision about whether a board meeting becomes a gathering row, gets its own object, or is carried as events alone. That is GOV-D4, and it is the one schema question in the set.</p></div>
+  <p>What a minute is, in this shape, follows: not a row, but a read over the events of one meeting, rendered in order, which stays a draft until an adoption event concerning it stands in the record. Whether that adoption is an <em>agreement.adopted</em> shaped event or wants its own kind is part of GOV-D3 and is deliberately not settled here.</p>
+</section>
+
+<section class="sec" id="s8" data-tint="rose">
+  <div class="addr">GOV &sect;8</div>
+  <h2>The invariants, and which of them become checks</h2>
+  <p>An invariant that is only prose is unaudited. The five the estate carries are stated below as impossibilities, with what it would take to make each mechanical. The issue reports the model holding eleven; the remaining six are not reproduced in this repository and are conditioned on GOV-D1.<sup class="fn"><a href="#src1">1</a>&nbsp;<a href="#src3">3</a></sup></p>
+  <table class="tbl">
+    <thead><tr><th>invariant</th><th>what it makes impossible</th><th>how it is checked</th></tr></thead>
+    <tbody>
+      <tr><td>acts, not utterances</td><td>A minute that reports what someone said</td><td>A schema absence: no event kind and no column carries speech. Checkable as an assertion that none exists, which is the strongest form, since it fails the moment someone adds one</td></tr>
+      <tr><td>human adoption</td><td>A record that certifies itself</td><td>An adoption event whose actor is a person, asserted by a probe that attempts an adoption with no human actor and requires refusal</td></tr>
+      <tr><td>no delete</td><td>An act whose effect is an absence</td><td>Already proven for events by the applied append-only trigger and the invariant suite; extends to the governance kinds for free</td></tr>
+      <tr><td>assembled only</td><td>A quiet change to the instruments between meetings</td><td>A probe attempting to move an instrument from the between mode and requiring refusal. Contradicted in one live case: see &sect;9</td></tr>
+      <tr><td>quorum is a tally</td><td>A stored quorum drifting from who is in the room</td><td>A column scan asserting no stored quorum, in the shape the no-stored-balance assertion already takes<sup class="fn"><a href="#src5">5</a></sup></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="sec" id="s9" data-tint="violet">
+  <div class="addr">GOV &sect;9</div>
+  <h2>Four places where the model and this cooperative do not agree</h2>
+  <p>These are the specification's real work. Each is specific, each is checkable, and none of them is resolved by drafting harder.</p>
+  <div class="inv"><p><span class="it">1. The model cannot draw a cooperative with no members.</span> The Articles, the Bylaws, and the Membership Agreement all sit in the members' hand, and nobody has been admitted. Every act in that hand is unreachable, so the model as drawn describes a cooperative this one is not yet. The module must be able to render the actual state: zero members, six directors, one vacant seat, instruments drafted and unexecuted.<sup class="fn"><a href="#src3">3</a></sup> Board-only-first, with the members' half specified and unwired, is the honest scope, and it is GOV-D2.</p></div>
+  <div class="inv"><p><span class="it">2. Assembled-only refuses the act that would make the Bylaws effective.</span> The path counsel describes is that counsel supplies an effective date and the Secretary signs Schedule A. A signature is not an assembled-body act. The model gestures at this as a filing problem, an obligation that outlives the meeting, but the difficulty is upstream of filing: the record has no notion of <em>execution</em> or <em>attestation</em> distinct from adoption, and it needs one before it can describe anything this cooperative does this year.<sup class="fn"><a href="#src3">3</a></sup> GOV-D5.</p></div>
+  <div class="inv"><p><span class="it">3. Seats and offices are different sets.</span> The model's hands are members, board, steward, and derived. The Bylaws create a President, a Secretary, and a Treasurer, each with duties attached to particular instruments, and the Secretary's signature is load-bearing. <em>Steward</em> is not an office in the Bylaws at all; it is a delegation holder. Which vocabulary an act cites is undecided, and an act that cites the wrong one is unenforceable against the instrument that actually assigns the duty. GOV-D6.</p></div>
+  <div class="inv"><p><span class="it">4. The threshold question is already live one level up.</span> The model asks whether a majority means a majority of those present or of the casts actually made. The estate has the board-side version of exactly this open in the corrections log: the Bylaws say a simple majority of <em>all Directors</em>, and whether that counts against the authorised number or against those in office is latent at six directors and live at five.<sup class="fn"><a href="#src7">7</a></sup> The module should not invent an answer. It should make the question a first-class object, which is what the anchors in &sect;10 already are.</p></div>
+</section>
+
+<section class="sec" id="s10" data-tint="violet">
+  <div class="addr">GOV &sect;10</div>
+  <h2>The anchors register</h2>
+  <p>The model ships its own unanswered questions, classified by how unanswered they are, and that is the property that makes it adoptable in pieces. Carried here with the same standing the corrections log has: an open reading is a record, not a defect to be tidied away. Six are rendered in the estate and are given below; the issue reports twelve in the model, and the other six are conditioned on GOV-D1.<sup class="fn"><a href="#src1">1</a>&nbsp;<a href="#src3">3</a></sup></p>
+  <table class="tbl">
+    <thead><tr><th>anchor</th><th>class</th><th>the acts it bites</th></tr></thead>
+    <tbody>
+      <tr><td>Execution has no shape</td><td>absent</td><td>Everything that would make the Bylaws effective. Named in &sect;9 as the second disagreement and staged as GOV-D5</td></tr>
+      <tr><td>Seats are not offices</td><td>open question</td><td>Every act that cites a duty the Bylaws assign to an office. GOV-D6</td></tr>
+      <tr><td>Which majority, of what</td><td>open question</td><td>Every settle. Live at five directors. Held open in the corrections log, not by this module<sup class="fn"><a href="#src7">7</a></sup></td></tr>
+      <tr><td>Nobody can answer an interim act</td><td>absent</td><td>Every act recorded under a delegation. The ledger would be readable and not answerable</td></tr>
+      <tr><td>There are no grades of audience</td><td>open question</td><td>Every visibility decision. Bylaws &sect;&nbsp;18.1 makes this the board's call and not the drafter's. GOV-D7</td></tr>
+      <tr><td>Presence is required to vote</td><td>not yet specified</td><td>Every cast by a member who cannot attend. A large silence for a cooperative that intends to be distributed</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="sec" id="s11" data-tint="blue">
+  <div class="addr">GOV &sect;11</div>
+  <h2>What this module refuses to build</h2>
+  <div class="inv"><p><span class="it">R1 &middot; No path by which an agent moves an instrument.</span> Not this module, not an automation, not Nou. Stated as a schema fact and proven as one: the acts of &sect;5 require a human actor, and a probe attempting each of them with a non-human actor must be refused. This is the governance twin of the treasury rule that no instrument, agent, or automation holds a key or initiates a movement.</p></div>
+  <div class="inv"><p><span class="it">R2 &middot; No storage of speech.</span> No recording, transcript, or summary enters the record as a governance artifact, and no column exists that one could be put in. If the cooperative retains recordings, they are evidence held elsewhere under a retention rule the board sets, and the surface that shows one shows its standing beside it.</p></div>
+  <div class="inv"><p><span class="it">R3 &middot; No retroactive minute.</span> The module never manufactures a minute for a meeting that had none. Meetings with no minute are displayed as gaps, and only the body can close one by adopting a minute. The June 2026 board actions are on that list on day one.<sup class="fn"><a href="#src7">7</a></sup></p></div>
+  <div class="inv"><p><span class="it">R4 &middot; No promotion by inference.</span> A draft minute never becomes an adopted one by the passage of time, by nobody objecting, or by any derived condition. Adoption is an event with a human actor or it has not happened.</p></div>
+</section>
+
+<section class="sec" id="s12" data-tint="blue">
+  <div class="addr">GOV &sect;12</div>
+  <h2>Decisions staged, none taken</h2>
+  <div class="dcard"><div class="dh">GOV-D1 &middot; the model into the repository &middot; the steward</div><div class="db">Bring <em>governance-model-v4</em> into the estate so that the twenty-two acts, twenty-four kinds, eleven invariants, and twelve anchors can be checked against their source rather than reported from an issue. Until this is done, &sect;5, &sect;8, and &sect;10 are honestly incomplete and say so. This is the cheapest decision here and it gates the quality of the other seven.</div></div>
+  <div class="dcard"><div class="dh">GOV-D2 &middot; scope &middot; the board</div><div class="db">Does the module govern both bodies from day one, or the board only until members exist? Board-only-first is the honest answer given &sect;9's first disagreement, with the members' half specified and unwired. The module observes this and does not decide it.</div></div>
+  <div class="dcard"><div class="dh">GOV-D3 &middot; the event vocabulary &middot; the board, on a specification</div><div class="db">Which governance kinds enter the record, what payload each carries, which are derived rather than stored, and whether adoption of a minute is an <em>agreement.adopted</em> shaped event or wants its own kind. Kinds are free text in the substrate, so this decision has no migration to stop it and needs a register instead.</div></div>
+  <div class="dcard"><div class="dh">GOV-D4 &middot; what a meeting is, in the schema &middot; the board, schema category</div><div class="db">Whether a board meeting becomes a <em>gatherings</em> row so that existing attendance and quorum tallying reach it, gets its own object, or is carried as events alone. This is the one question in the set that is schema rather than vocabulary, which makes it stop-and-ask under the build protocol whatever its answer.</div></div>
+  <div class="dcard"><div class="dh">GOV-D5 &middot; execution as distinct from adoption &middot; the board, with counsel</div><div class="db">The record needs a notion of execution or attestation that is not an assembled-body act, because the act that makes the Bylaws effective is a signature. Counsel's view governs what it may be called and what it must carry.</div></div>
+  <div class="dcard"><div class="dh">GOV-D6 &middot; seats against offices &middot; the board</div><div class="db">Which vocabulary an act cites, and how a seat maps to the offices the Bylaws create. <em>Steward</em> is a delegation holder and not an office, and the mapping has to say so.</div></div>
+  <div class="dcard"><div class="dh">GOV-D7 &middot; visibility &middot; the board</div><div class="db">The model's three values, open, tally only, and held substance, against this estate's row-level policies, plus the model's own note that there are no grades of audience and no rule for when a hold expires. Bylaws &sect;&nbsp;18.1 makes this the board's call. The policies follow the decision; they do not anticipate it.</div></div>
+  <div class="dcard"><div class="dh">GOV-D8 &middot; the bed and its addresses &middot; the steward, with the Almanac</div><div class="db">The issue suggests a GOV bed with pieces G-01 and up, and notes that <em>G</em> is already the gates bed. Nothing has been entered in the ledger by this document, deliberately: minting an address is a ledger act and this module has no authority to take one. A prefix that does not collide, and the entry itself, are the steward's.</div></div>
+</section>
+
+<section class="sec" id="s13" data-tint="blue">
+  <div class="addr">GOV &sect;13</div>
+  <h2>What would be built, once it may be</h2>
+  <p>Sketched as pieces so the shape is legible, and deliberately unaddressed: no code is minted here, and none of these is claimable until GOV-D8 mints the bed. Each condition names a decision above rather than a date.</p>
+  <div class="pk"><div class="pkh">the vocabulary register</div><div class="pkb">The governance event kinds, each with its payload contract and its visibility mark, published as a register with the standing the corrections log has. No migration; kinds are free text, so the register is the control.</div><div class="pkc">condition &middot; GOV-D3 recorded</div></div>
+  <div class="pk"><div class="pkh">the meeting object</div><div class="pkb">Whatever GOV-D4 decides, emitted as a migration numbered as the chain then stands, with probe cells for each refusal in &sect;5 and each invariant in &sect;8.</div><div class="pkc">condition &middot; GOV-D4 recorded &middot; GOV-D2 scoped</div></div>
+  <div class="pk"><div class="pkh">the minute as a projection</div><div class="pkb">A read that renders one meeting's events in order as a draft minute, and an adoption event that fixes it. The read never writes; the adoption is human and is refused without a human actor.</div><div class="pkc">condition &middot; the meeting object verified</div></div>
+  <div class="pk"><div class="pkh">the surface</div><div class="pkb">The minute book, the single meeting page with its evidence held plainly apart, and the gap list. The first surface already exists as a reading at <a href="/intranet/record/">the record</a> and would become the wired version of itself.<sup class="fn"><a href="#src3">3</a></sup></div><div class="pkc">condition &middot; the projection verified &middot; GOV-D7 recorded</div></div>
+  <div class="pk"><div class="pkh">the anchors register</div><div class="pkb">&sect;10, as a live register rather than a section: each anchor with its class, the acts it bites, and the decision that would close it.</div><div class="pkc">condition &middot; GOV-D1 recorded</div></div>
+</section>
+
+<div class="sources" id="sources">
+  <h2>Sources</h2>
+  <ol>
+    <li id="src1">Issue #146, <em>A Governance module for the CIS, informed by the governance model v4</em>, and issue #140, <em>The Record: a board protocol that turns a recording into a minute</em>, with its comment of 2026-08-14 refactoring the record into a surface of this module. Read in full 2026-08-17. The counts reported from the model, twenty-two acts, twenty-four event kinds, eleven invariants, twelve anchors, come from #146 and are not independently verifiable in this repository.</li>
+    <li id="src2">The Almanac at /commons/build/ and the build instructions at /commons/build/instructions/, read 2026-08-17: the module intake route taken by PATRONAGE, TREASURY, AGY, and STANDING; the stop-and-ask categories, which put schema, authority, and governance semantics on the far side of the boundary; the batch protocol of &sect;8.</li>
+    <li id="src3">/intranet/record/ as published, read 2026-08-17: the two modes and their permits and refusals, from which &sect;5's matrix is built; the standing state of every instrument and its hand; the five invariants as impossibilities; the six anchors of &sect;10 with their classifications.</li>
+    <li id="src4">commons/im/0001_substrate.sql as read 2026-08-17: <em>events</em> with its free-text kind, its <em>corrects</em> self-reference and <em>prior</em> column; <em>agreements</em> with code, version, and settlement marks; <em>gatherings</em>, <em>sessions</em>, and <em>attendance</em>, the last keyed to a session and commented against the members' meeting provision.</li>
+    <li id="src5">.github/workflows/verify.yml as read 2026-08-17: the append-only assertion that attempts an update and a delete against <em>events</em> and requires refusal; the no-stored-balance column scan, whose shape the quorum assertion in &sect;8 would take; the policy-anchor lint that requires a bylaw citation within three lines of every created policy.</li>
+    <li id="src6">Checked rather than assumed, 2026-08-17: a case-insensitive search for motion, ballot, quorum, and minute across commons/im/*.sql and supabase/migrations/*.sql returns nothing. The governance vocabulary is absent from the substrate and from every later migration.</li>
+    <li id="src7">/legal/corrections/, DOC-01&middot;08, as published: the June 2026 board actions have no minute, and the simple-majority reading is open, latent at six directors and live at five.</li>
+  </ol>
+</div>
+
+<footer>
+  <span>Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street, Boulder</span>
+  <span>Document grammar &middot; Techne v4 &middot; GOV v0.1 &middot; Drafted &middot; August 2026</span>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+</div>
+
+</body>
+</html>
