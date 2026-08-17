@@ -66,6 +66,41 @@ errors = []
 warnings = []
 
 
+def html_pages():
+    """The repository's HTML pages, as tracked paths.
+
+    X-04 enumerates by walking the tree so exhaustiveness holds by
+    construction, and a bare walk was right while the tree held only the
+    repository. It stopped being right once local work parked sibling
+    checkouts inside it: git worktrees under .wt/ put several hundred
+    copies of every page on the walk, and a manifest regenerated in that
+    tree claims pages the repository does not have. Asking git for the
+    tracked pages keeps the guarantee, since a page added by a pull
+    request is committed before CI reads it, and makes the manifest a
+    claim about the repository rather than about one working directory.
+
+    Falls back to the walk, minus dot-directories, where git is not
+    available to answer.
+    """
+    import subprocess
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(REPO_ROOT), "ls-files", "-z", "*.html"],
+            capture_output=True, check=True,
+        ).stdout.decode()
+        tracked = sorted(p for p in out.split("\0") if p)
+        if tracked:
+            return tracked
+        warn("git reported no tracked HTML pages; falling back to the tree walk")
+    except (OSError, subprocess.CalledProcessError):
+        warn("git could not enumerate tracked pages; falling back to the tree walk")
+    return sorted(
+        str(p.relative_to(REPO_ROOT))
+        for p in REPO_ROOT.rglob("*.html")
+        if not any(part.startswith(".") for part in p.relative_to(REPO_ROOT).parts)
+    )
+
+
 def err(msg):
     errors.append(msg)
     print(f"ERROR: {msg}", file=sys.stderr)
@@ -301,7 +336,7 @@ def generate_index_json(packets):
     import json
     index_path = REPO_ROOT / "index.json"
 
-    html_files = sorted(str(p.relative_to(REPO_ROOT)) for p in REPO_ROOT.rglob("*.html"))
+    html_files = html_pages()
     index = {
         "generated": "scripts/validate.py",
         "series": "RDM v1",
@@ -332,8 +367,8 @@ def check_one_navigation(packets):
     public_re = _re.compile(r'<script[^>]+src="/assets/shell\.js"[^>]*\sdata-public')
     topbar_re = _re.compile(r'<script[^>]+src="/assets/topbar\.js"')
     inline_re = _re.compile(r'class="topbar"|class="nav-links"|class="top-nav"')
-    for p in sorted(REPO_ROOT.rglob("*.html")):
-        rel = str(p.relative_to(REPO_ROOT))
+    for rel in html_pages():
+        p = REPO_ROOT / rel
         text = p.read_text(encoding="utf-8", errors="replace")
         has_shell = bool(shell_re.search(text))
         has_topbar = bool(topbar_re.search(text))

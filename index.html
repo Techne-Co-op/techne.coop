@@ -503,11 +503,18 @@ footer { padding: 52px 0 60px; border-top: 1px solid var(--line); }
   .cd-colon { font-size: clamp(24px, 2.8vw, 31px); }
   .cd-cap { margin-top: 6px; }
 }
+/* Measured at 613px of viewport height, the shortest tier's own floor:
+   the buttons ended 2px under the fold at 800 wide and 10px under at
+   1280, because the tier was tuned to clear at 700 and not below it.
+   Twelve pixels come out of the two gaps that carry the least meaning,
+   the one under the purpose line and the one under the countdown, and
+   the row clears at both widths with room instead of by arithmetic.
+   Measured at 500, 600, 720, 800, and 1280 wide; see the pull request. */
 @media (max-height: 720px) {
   .hero h1 { font-size: clamp(30px, 3.6vw, 40px); margin-bottom: 14px; }
   .hero h1 .alt { font-size: clamp(18px, 1.8vw, 21px); margin-top: 8px; }
-  .hero .purpose { font-size: 18px; line-height: 1.5; margin-bottom: 20px; }
-  .cd { gap: 7px; margin-bottom: 20px; padding: 14px 26px; }
+  .hero .purpose { font-size: 18px; line-height: 1.5; margin-bottom: 14px; }
+  .cd { gap: 7px; margin-bottom: 14px; padding: 14px 26px; }
   .cd-num { font-size: clamp(26px, 2.8vw, 32px); }
   .cd-colon { font-size: 24px; }
   .btn { padding: 14px 26px; }

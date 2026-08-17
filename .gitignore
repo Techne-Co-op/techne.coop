@@ -2,3 +2,11 @@
 __pycache__/
 *.pyc
 supabase/.temp
+
+# Git worktrees parked inside the checkout. Section 8 has each batch build in
+# its own worktree from a clean main, and the convenient place to put one is
+# beside the repository it came from. Untracked, they showed as several hundred
+# phantom pages in git status and on the manifest walk. Ignoring them keeps the
+# working tree readable; scripts/validate.py enumerates tracked pages so the
+# manifest is safe either way.
+.wt/
