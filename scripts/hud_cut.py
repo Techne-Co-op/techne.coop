@@ -35,6 +35,14 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 PAGE = REPO / "intranet" / "hud" / "index.html"
 
+# The currency gate's own commits (TR-03) are the instrument's
+# heartbeat, not the record's work: the generator ignores them, and
+# normalises the page's own size to its size net of the cut it
+# carries, so a cut committed at commit M and re-read at the refresh
+# commit R computes byte-identically. Without both, the instrument
+# counting its own heartbeat would never converge.
+REFRESH_MARK = "hud: cut retaken"
+
 # The two piles of the tending lens. A frame, not a reading: TRANSDUCER-D4
 # elects whether it survives. Tending = work on the workshop itself;
 # growing = work on what lives in it. Classification is by path.
@@ -60,7 +68,14 @@ def tracked_files():
         parts = meta.split()
         if parts[1] != "blob":
             continue
-        files.append({"path": path, "size": int(parts[3])})
+        size = int(parts[3])
+        if path == "intranet/hud/index.html":
+            blob = git("show", f"HEAD:{path}")
+            m = re.search(r'(<script id="snapshot" type="application/json">)(.*?)(</script>)',
+                          blob, re.S)
+            if m:
+                size = len(blob.encode()) - len(m.group(2).encode())
+        files.append({"path": path, "size": size})
     files.sort(key=lambda f: (-f["size"], f["path"]))
     return files
 
@@ -69,13 +84,15 @@ def history():
     """Commit history without authors: dates, merge-ness, files touched.
     R2: %an is never in the format string."""
     out = git("log", "--name-only", "--date-order",
-              "--pretty=format:%x01%H%x00%cI%x00%P")
+              "--pretty=format:%x01%H%x00%cI%x00%P%x00%s")
     commits = []
     for entry in out.split("\x01"):
         lines = entry.splitlines()
         if not lines or not lines[0].strip():
             continue
         head = lines[0].split("\x00")
+        if head[3].startswith(REFRESH_MARK):
+            continue
         files = [l for l in lines[1:] if l.strip()]
         commits.append({
             "date": head[1][:10],
@@ -341,7 +358,12 @@ def stats(files, commits, entries):
 
 
 def main():
-    head = git("log", "-1", "--pretty=%H%x00%cI").strip().split("\x00")
+    head = ""
+    for line in git("log", "--pretty=%H%x00%cI%x00%s").splitlines():
+        h, ci, subj = line.split("\x00")
+        if not subj.startswith(REFRESH_MARK):
+            head = [h, ci]
+            break
     files = tracked_files()
     commits = history()
     entries = ledger_entries()
@@ -358,6 +380,15 @@ def main():
     payload = json.dumps(snap, sort_keys=True, ensure_ascii=True,
                          separators=(",", ": "))
     page = PAGE.read_text()
+    if "--check" in sys.argv:
+        m = re.search(r'<script id="snapshot" type="application/json">(.*?)</script>',
+                      page, re.S)
+        if m and m.group(1) == payload:
+            print(f"current: the cut matches the record at {head[0][:12]}")
+            return 0
+        print(f"STALE: the embedded cut does not match the record at "
+              f"{head[0][:12]}; run scripts/hud_cut.py and commit (TR-03)")
+        return 1
     new = re.sub(
         r'(<script id="snapshot" type="application/json">).*?(</script>)',
         lambda m: m.group(1) + payload + m.group(2),
