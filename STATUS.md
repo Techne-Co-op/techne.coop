@@ -5,9 +5,9 @@ Generated from rdm-ledger.yaml. 143 items total.
 
 | status | count |
 |--------|-------|
-| drafted | 17 |
+| drafted | 14 |
 | anticipated | 35 |
-| open | 91 |
+| open | 94 |
 | filed | 0 |
 
 ## Drafted
@@ -24,9 +24,6 @@ Generated from rdm-ledger.yaml. 143 items total.
 - **STANDING** Work Standing · Module PRD and Specification -- The branching maturity model as record: the origin conferring no standing, Progr
 - **TRANSDUCER** The Transducer · Module PRD and Specification -- The instrument at the boundary where the record crosses into human perception: t
 - **TREASURY** Treasury · Module PRD and Specification -- The movement layer over Stripe, Mercury, and Xero; governed movements as events;
-- **U-23** The front door after the doors opened -- The launch passed and the hero still counted toward it, zeros forever under a la
-- **U-24** The sunset written down, and the desert register -- The rebuilt front door of U-23 used the sunset range well, and nothing said what
-- **U-25** The estate after the doors, and the incised register -- The launch passed, the front door was recut, and the design system learned to sa
 - **UI** Tokens and Patterns -- Design tokens and patterns aligned to techne.coop/design-system. Yields commons.
 - **VS** Verification Spec -- Five suites and six proofs. Yields verify.yml.
 
@@ -102,6 +99,9 @@ Generated from rdm-ledger.yaml. 143 items total.
 - **U-20** open · delivered -- The frame measure
 - **U-21** open · delivered -- The commons page speaks the current book
 - **U-22** open · delivered -- The Commonplace, published
+- **U-23** open · delivered -- The front door after the doors opened
+- **U-24** open · delivered -- The sunset written down, and the desert register
+- **U-25** open · delivered -- The estate after the doors, and the incised register
 - **X-01** open · verified -- Error boundary and observability
 - **X-02** open · verified -- Notices v1
 - **X-03** open · verified -- Export paths
