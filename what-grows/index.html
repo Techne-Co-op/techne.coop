@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The ecological grammar of what takes shape at Techne: seeds, ventures, and programs. What the soil metaphor means, and why this page names categories today rather than a portfolio.">
+<title>What Grows &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/what-grows/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/what-grows/">
+<meta property="og:title" content="What Grows · Techne">
+<meta property="og:description" content="Seeds, ventures, and programs: the ecological grammar of what takes shape at Techne, and what the soil metaphor means.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<script src="/assets/sky.js" defer></script>
+<style>
+/* ============================================================
+   TOKENS  --  techne v5, carried unchanged into the v6 draft
+   this page uses the incised register (v6 addendum, drafted):
+   the glyph device, the sky that computes, and the colophon.
+   The rules live at /design-system/.
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #FCFBF8;
+
+  /* sunset range  --  atmospheric per section */
+  --sun-gold: #EAB668; --sun-amber: #E09A52; --sun-coral: #D1755A;
+  --sun-rose: #B45C7C; --sun-violet: #6E5494; --sun-blue: #5476B8;
+
+  /* the sky that computes (v6, drafted): see /assets/sky.js */
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+  --sky-glow: .55;
+}
+html[data-sky="day"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-amber) 26%, var(--sun-gold) 50%,
+    var(--sun-amber) 74%, var(--sun-blue));
+  --sky-glow: .38;
+}
+html[data-sky="sunset"] { --sky-glow: .8; }
+html[data-sky="sunrise"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-violet), var(--sun-rose) 28%, var(--sun-gold) 50%,
+    var(--sun-amber) 72%, var(--sun-rose));
+  --sky-glow: .62;
+}
+html[data-sky="night"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet) 30%, var(--sun-blue) 50%,
+    var(--sun-violet) 70%, var(--sun-blue));
+  --sky-glow: .5;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --blue-dim: rgba(106, 138, 196, 0.14);
+  --ember-dim: rgba(196, 149, 106, 0.14);
+  --ok: #6A9A6A; --ok-dim: rgba(106, 154, 106, 0.14);
+  --info: #6A8AC4; --info-dim: rgba(106, 138, 196, 0.14);
+  --warn: #C46A6A; --warn-dim: rgba(196, 106, 106, 0.14);
+  --sun-gold-t: #EAB668; --sun-amber-t: #E5A562; --sun-coral-t: #DE8872;
+  --sun-rose-t: #CF7C9A; --sun-violet-t: #9E86C4; --sun-blue-t: #8FAEE0;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --blue-dim: rgba(74, 111, 176, 0.10);
+  --ember-dim: rgba(138, 106, 74, 0.10);
+  --ok: #4A7A4A; --ok-dim: rgba(74, 122, 74, 0.10);
+  --info: #4A6FB0; --info-dim: rgba(74, 111, 176, 0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168, 79, 76, 0.10);
+  --sun-gold-t: #87621F; --sun-amber-t: #8C581D; --sun-coral-t: #9C4636;
+  --sun-rose-t: #8C3D58; --sun-violet-t: #4C3870; --sun-blue-t: #3A5694;
+  color-scheme: light;
+}
+
+/* SECTION TINTS  --  each section places itself on the descent */
+[data-tint="gold"]   { --section-tint: var(--sun-gold-t); }
+[data-tint="amber"]  { --section-tint: var(--sun-amber-t); }
+[data-tint="coral"]  { --section-tint: var(--sun-coral-t); }
+[data-tint="rose"]   { --section-tint: var(--sun-rose-t); }
+[data-tint="violet"] { --section-tint: var(--sun-violet-t); }
+[data-tint="blue"]   { --section-tint: var(--sun-blue-t); }
+
+/* ============================================================
+   BASE  --  document grammar, v5 measures
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0ms !important; animation: none !important; } }
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--serif);
+  font-size: 18px; line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.mono { font-family: var(--mono); }
+em { font-style: italic; color: var(--heading); }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  font-family: var(--mono); font-size: 13px;
+  background: var(--surface); color: var(--blue-text);
+  border: 1px solid var(--blue); padding: 10px 16px;
+}
+.skip:focus { left: 12px; top: 12px; }
+
+/* the document measure: 760-920px per the design-system grammar */
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 clamp(var(--s5), 5vw, var(--s7)); }
+
+a { color: var(--blue-text); text-decoration: none; border-bottom: 1px solid var(--line); transition: border-color var(--micro) var(--ease); }
+a:hover { border-color: var(--blue); }
+
+/* ============================================================
+   THE GLYPH DEVICE  --  v6 addendum, drafted.
+   This page's device is the seed: what grows.
+   ============================================================ */
+.device svg {
+  width: 46px; height: 46px;
+  stroke: var(--ember); fill: none;
+  display: block; margin: 0 auto;
+}
+.device.small svg { width: 28px; height: 28px; }
+
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+.masthead {
+  position: relative; text-align: center;
+  padding: clamp(88px, 11vw, 148px) 0 clamp(64px, 8vw, 96px);
+}
+.masthead::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--sky-line);
+  opacity: var(--sky-glow);
+  transition: opacity var(--dur) var(--ease);
+}
+.masthead .device { margin-bottom: 26px; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ember-text);
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.eyebrow .num { font-weight: 500; color: var(--section-tint, var(--ember-text)); }
+.eyebrow .sep { width: 5px; height: 5px; background: var(--section-tint, var(--ember)); }
+.accent-rule {
+  display: block; width: 96px; height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--section-tint, var(--ember)) 24%,
+    var(--section-tint, var(--ember)) 76%,
+    transparent);
+  margin: 24px auto 28px;
+}
+.masthead h1 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(36px, 5vw, 52px); line-height: 1.14;
+  letter-spacing: -0.018em; color: var(--heading);
+  margin: 0 auto 22px; max-width: 22ch;
+}
+.masthead .lede {
+  font-size: clamp(18px, 2vw, 21px); line-height: 1.65;
+  color: var(--muted); max-width: 56ch; margin: 0 auto;
+}
+
+/* ============================================================
+   SECTIONS  --  the descent, gold first (v5)
+   ============================================================ */
+section.page, section.band { padding: clamp(72px, 9vw, 120px) 0; }
+section.page { background: var(--bg); }
+section.band { background: var(--inset); }
+section[data-tint] { position: relative; }
+section[data-tint]::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg,
+    transparent 4%,
+    color-mix(in srgb, var(--section-tint) 50%, transparent) 50%,
+    transparent 96%);
+}
+section.band[data-tint] { background: color-mix(in srgb, var(--inset) 96%, var(--section-tint)); }
+
+.section-head { max-width: 820px; margin: 0 auto clamp(40px, 5vw, 56px); text-align: center; }
+.section-title {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(28px, 3.6vw, 38px);
+  color: var(--heading); letter-spacing: -0.015em; line-height: 1.2;
+  margin: 0 auto 18px; max-width: 26ch;
+}
+.prose { max-width: 68ch; margin: 0 auto; }
+.prose p { margin-bottom: 22px; }
+.prose p:last-child { margin-bottom: 0; }
+.prose .aside {
+  font-family: var(--mono); font-size: 13px; line-height: 1.85;
+  color: var(--muted); border-top: 1px solid var(--line);
+  padding-top: 16px; margin-top: 28px;
+}
+
+/* the grammar: three forms of growth */
+.forms { max-width: 68ch; margin: 28px auto 0; display: grid; gap: 18px; }
+.form-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-left: 2px solid var(--section-tint, var(--ember));
+  padding: 24px 28px;
+}
+.form-card .k {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--section-tint, var(--ember-text));
+  margin-bottom: 8px;
+}
+.form-card h3 {
+  font-family: var(--serif); font-weight: 700; font-size: 21px;
+  color: var(--heading); margin-bottom: 10px;
+}
+.form-card p { font-size: 17px; line-height: 1.7; }
+
+/* the empty bed: named categories, honest absence */
+.beds { max-width: 68ch; margin: 28px auto 0; display: grid; gap: 14px; }
+.bed {
+  border: 1px dashed var(--rule); padding: 20px 24px;
+  display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
+}
+.bed .k {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--section-tint, var(--ember-text));
+}
+.bed .state {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15px; color: var(--muted);
+}
+
+/* ============================================================
+   COLOPHON  --  v6 addendum, drafted
+   ============================================================ */
+.colophon {
+  text-align: center;
+  padding: clamp(72px, 9vw, 112px) 0 clamp(48px, 6vw, 64px);
+}
+.colophon .device { margin-bottom: 18px; }
+.colophon .device svg { stroke: var(--ember); opacity: .85; }
+.colophon .c-rule {
+  display: block; width: 72px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ember) 30%, var(--ember) 70%, transparent);
+  margin: 0 auto 18px;
+}
+.colophon .addr {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--ember-text);
+}
+.colophon .made {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15px; color: var(--muted); margin-top: 10px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer { background: var(--inset); padding: 44px 0 52px; position: relative; }
+footer::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: var(--sky-line);
+  opacity: calc(var(--sky-glow) * 0.72);
+  transform: scaleX(-1);
+}
+.foot-line {
+  font-family: var(--mono); font-size: 14px; line-height: 2;
+  color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 28px;
+}
+.foot-line a { color: var(--muted); }
+.foot-line a:hover { color: var(--blue-text); }
+
+    /* Formation note, footer form (P-11). One verbatim copy per page,
+       proved by scripts/notice_audit.py. */
+    .formation-foot{
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+      max-width:96ch;
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<main id="main">
+
+<!-- ===== MASTHEAD · the seed, the page's device ===== -->
+<header class="masthead">
+  <div class="wrap">
+    <div class="device" aria-hidden="true">
+      <svg viewBox="0 0 48 48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M24 9 C32.5 19 33 29 24 39 C15 29 15.5 19 24 9 Z"/>
+        <path d="M24 21 V31"/>
+      </svg>
+    </div>
+    <div class="eyebrow"><span class="mono">what grows</span><span class="sep"></span><span>the ecological grammar</span></div>
+    <span class="accent-rule"></span>
+    <h1>Seeds, ventures, and programs.</h1>
+    <p class="lede">The cooperative keeps an ecological grammar for what takes shape in it. This page names the forms. It will fill with the things themselves as they grow.</p>
+  </div>
+</header>
+
+<!-- ===== 01 · THE GRAMMAR (page · gold) ===== -->
+<section class="page" data-tint="gold" id="grammar">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">01</span><span class="sep"></span><span>The grammar</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">Three forms, told apart by hands and habitat.</h2>
+    </div>
+    <div class="prose">
+      <p>The grammar already runs through the estate: the front page keeps it, and the Almanac builds by it. What tells the forms apart is not size or ambition but commitment: how many hands are on the thing, and whose care keeps it alive.</p>
+    </div>
+    <div class="forms">
+      <div class="form-card">
+        <div class="k">Seed</div>
+        <h3>One contributor's tending</h3>
+        <p>An idea planted in the common ground and tended by the person who brought it. Most things start here, and many rightly end here; a seed asks nothing of the cooperative but soil.</p>
+      </div>
+      <div class="form-card">
+        <div class="k">Venture</div>
+        <h3>Two or more hands committed</h3>
+        <p>A seed that has recruited care beyond its planter: two or more hands committed to it, working as one effort. A venture has its own name, its own pace, and its own relationship to the cooperative that holds the ground under it.</p>
+      </div>
+      <div class="form-card">
+        <div class="k">Program</div>
+        <h3>A habitat the cooperative sustains</h3>
+        <p>A living structure the whole cooperative keeps: not one project's effort but a habitat other work depends on, sustained deliberately, the way a garden keeps its beds and paths.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 · THE SOIL (band · amber) ===== -->
+<section class="band" data-tint="amber" id="soil">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">02</span><span class="sep"></span><span>The soil</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">What the metaphor is actually for.</h2>
+    </div>
+    <div class="prose">
+      <p>The soil metaphor is the oldest piece of the cooperative's vocabulary, and it was chosen to settle a real question: is the cooperative a productive enterprise that signs contracts and delivers work, or something more like infrastructure? The answer that held was soil, the substrate that creates conditions for growth. The value appears in what gets built on top.</p>
+      <p>The metaphor did practical work the day it arrived. If the cooperative is soil, it does not need to account for every member's minute-by-minute contribution; it tracks its relationship to the ventures and projects that grow in it, and an entire class of accounting anxiety dissolved. The cooperative layer stays deliberately thin: it provides conditions for ideas and collaborations to thrive rather than asserting control conditions upon them.</p>
+      <p class="aside">The metaphor entered in Meeting 3 of the formation series, September 12, 2025, and its full account is kept in <a href="/commonplace/">the Commonplace</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 · THE BEDS (page · coral) ===== -->
+<section class="page" data-tint="coral" id="beds">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">03</span><span class="sep"></span><span>The beds</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">Categories today. A garden in time.</h2>
+    </div>
+    <div class="prose">
+      <p>This page is honest about its own season. Today it names the forms of growth; it does not yet present a portfolio, because presenting one is a decision about what is ready to be named in public, and that decision belongs to the people doing the work. As seeds are planted, ventures commit, and programs take root, this page will fill, each thing appearing when its makers say it is ready.</p>
+    </div>
+    <div class="beds">
+      <div class="bed"><span class="k">Seeds</span><span class="state">planted and tended; named here when their planters choose.</span></div>
+      <div class="bed"><span class="k">Ventures</span><span class="state">forming; named here when their hands are ready.</span></div>
+      <div class="bed"><span class="k">Programs</span><span class="state">the first habitats are being kept; named here as the cooperative adopts them.</span></div>
+    </div>
+    <div class="prose">
+      <p class="aside">What grows out of the ground is the room's to announce; what the ground is doing is on the record now, in <a href="/commons/build/">the Almanac</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COLOPHON (v6, drafted) ===== -->
+<div class="colophon">
+  <div class="wrap">
+    <div class="device small" aria-hidden="true">
+      <svg viewBox="0 0 48 48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M24 9 C32.5 19 33 29 24 39 C15 29 15.5 19 24 9 Z"/>
+        <path d="M24 21 V31"/>
+      </svg>
+    </div>
+    <span class="c-rule"></span>
+    <div class="addr">U-25 &middot; drafted</div>
+    <div class="made">Built from the formation record, August 2026. Merge is the act of adoption.</div>
+  </div>
+</div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-line">
+      <a href="/">Techne</a>
+      <a href="/about/">About</a>
+      <a href="/community-of-practice/">The community of practice</a>
+      <a href="/journal/">The journal</a>
+      <a href="/commons/build/">The Almanac</a>
+    </div>
+    <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+  </div>
+</footer>
+
+</body>
+</html>

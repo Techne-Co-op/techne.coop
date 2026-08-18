@@ -50,8 +50,18 @@
      footer, and the formation notice, which every page carries
      and which points at /legal/#formation. Removing a link from
      the map does not remove it from the estate: fifty-five
-     pages link into /legal/ in their prose. */
+     pages link into /legal/ in their prose.
+
+     About added with the U-25 packet (drafted; merge is the
+     act of adoption). The bar is for the ways into the
+     cooperative, per the steward's 2026-08-14 reading, and
+     What is this? is the way in a stranger takes first: the
+     one question every arriving reader carries. One link,
+     first position, and the sitemap's other new surfaces
+     (/community-of-practice/, /what-grows/, /journal/) stay
+     off the bar, reached from About and the page footers. */
   var LINKS = [
+    { href: '/about/', label: 'About' },
     { href: '/participation/', label: 'Participation' },
     { href: '/commons/', label: 'The commons' },
     { href: '/intranet/', label: 'Intranet' }
