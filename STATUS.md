@@ -5,9 +5,9 @@ Generated from rdm-ledger.yaml. 145 items total.
 
 | status | count |
 |--------|-------|
-| drafted | 16 |
+| drafted | 14 |
 | anticipated | 35 |
-| open | 94 |
+| open | 96 |
 | filed | 0 |
 
 ## Drafted
@@ -24,8 +24,6 @@ Generated from rdm-ledger.yaml. 145 items total.
 - **STANDING** Work Standing · Module PRD and Specification -- The branching maturity model as record: the origin conferring no standing, Progr
 - **TRANSDUCER** The Transducer · Module PRD and Specification -- The instrument at the boundary where the record crosses into human perception: t
 - **TREASURY** Treasury · Module PRD and Specification -- The movement layer over Stripe, Mercury, and Xero; governed movements as events;
-- **U-26** The register deepened, and the lexicon's marks -- The steward reviewed the merged register and liked the symbol set's direction, a
-- **U-27** The estate on the register -- The steward asked for the whole sitemap read against the design system and the s
 - **UI** Tokens and Patterns -- Design tokens and patterns aligned to techne.coop/design-system. Yields commons.
 - **VS** Verification Spec -- Five suites and six proofs. Yields verify.yml.
 
@@ -104,6 +102,8 @@ Generated from rdm-ledger.yaml. 145 items total.
 - **U-23** open · delivered -- The front door after the doors opened
 - **U-24** open · delivered -- The sunset written down, and the desert register
 - **U-25** open · delivered -- The estate after the doors, and the incised register
+- **U-26** open · delivered -- The register deepened, and the lexicon's marks
+- **U-27** open · delivered -- The estate on the register
 - **X-01** open · verified -- Error boundary and observability
 - **X-02** open · verified -- Notices v1
 - **X-03** open · verified -- Export paths
