@@ -162,7 +162,26 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       color:var(--ember-text);margin-right:10px;white-space:nowrap;
     }
     .formation-foot a{color:var(--ember-text);}
-  </style>
+  
+/* U-27: the sweep horizon, applied softly (v5). The six-stop range
+   as one hairline at the masthead's foot, and its mirror at the
+   footer's head where the page carries a footer. Decorative only:
+   stop values verbatim from commons.css; no control colored, no
+   copy touched. */
+:root{
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+  --sky-line:linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+}
+.mast{position:relative;}
+.mast::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:var(--sky-line);opacity:.45;}
+footer{position:relative;}
+footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--sky-line);opacity:.32;transform:scaleX(-1);}
+</style>
 </head>
 <body>
 

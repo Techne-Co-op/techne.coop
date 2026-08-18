@@ -63,7 +63,7 @@
   var LINKS = [
     { href: '/about/', label: 'About' },
     { href: '/participation/', label: 'Participation' },
-    { href: '/commons/', label: 'The commons' },
+    { href: '/commons/', label: 'Commons' },
     { href: '/intranet/', label: 'Intranet' }
   ];
 
