@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="What Techne is, what it believes, how it is held, and where it comes from. A cooperative of many crafts in Boulder, shown in formation rather than described from outside.">
+<title>About &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/about/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/about/">
+<meta property="og:title" content="About · Techne">
+<meta property="og:description" content="What Techne is, what it believes, how it is held, and where it comes from. A cooperative of many crafts in Boulder, shown in formation.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<script src="/assets/sky.js" defer></script>
+<style>
+/* ============================================================
+   TOKENS  --  techne v5, carried unchanged into the v6 draft
+   this page uses the incised register (v6 addendum, drafted):
+   the glyph device, the sky that computes, and the colophon.
+   The rules live at /design-system/.
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #FCFBF8;
+
+  /* sunset range  --  atmospheric per section */
+  --sun-gold: #EAB668; --sun-amber: #E09A52; --sun-coral: #D1755A;
+  --sun-rose: #B45C7C; --sun-violet: #6E5494; --sun-blue: #5476B8;
+
+  /* the sky that computes (v6, drafted): the sweep is a custom
+     property so /assets/sky.js can shift its emphasis by writing
+     one attribute. Scripting off, nothing matches, and the page
+     keeps the standing descent. Tokens only; no new color. */
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+  --sky-glow: .55;
+}
+html[data-sky="day"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-amber) 26%, var(--sun-gold) 50%,
+    var(--sun-amber) 74%, var(--sun-blue));
+  --sky-glow: .38;
+}
+html[data-sky="sunset"] { --sky-glow: .8; }
+html[data-sky="sunrise"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-violet), var(--sun-rose) 28%, var(--sun-gold) 50%,
+    var(--sun-amber) 72%, var(--sun-rose));
+  --sky-glow: .62;
+}
+html[data-sky="night"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet) 30%, var(--sun-blue) 50%,
+    var(--sun-violet) 70%, var(--sun-blue));
+  --sky-glow: .5;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --blue-dim: rgba(106, 138, 196, 0.14);
+  --ember-dim: rgba(196, 149, 106, 0.14);
+  --ok: #6A9A6A; --ok-dim: rgba(106, 154, 106, 0.14);
+  --info: #6A8AC4; --info-dim: rgba(106, 138, 196, 0.14);
+  --warn: #C46A6A; --warn-dim: rgba(196, 106, 106, 0.14);
+  --sun-gold-t: #EAB668; --sun-amber-t: #E5A562; --sun-coral-t: #DE8872;
+  --sun-rose-t: #CF7C9A; --sun-violet-t: #9E86C4; --sun-blue-t: #8FAEE0;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --blue-dim: rgba(74, 111, 176, 0.10);
+  --ember-dim: rgba(138, 106, 74, 0.10);
+  --ok: #4A7A4A; --ok-dim: rgba(74, 122, 74, 0.10);
+  --info: #4A6FB0; --info-dim: rgba(74, 111, 176, 0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168, 79, 76, 0.10);
+  --sun-gold-t: #87621F; --sun-amber-t: #8C581D; --sun-coral-t: #9C4636;
+  --sun-rose-t: #8C3D58; --sun-violet-t: #4C3870; --sun-blue-t: #3A5694;
+  color-scheme: light;
+}
+
+/* SECTION TINTS  --  each section places itself on the descent */
+[data-tint="gold"]   { --section-tint: var(--sun-gold-t); }
+[data-tint="amber"]  { --section-tint: var(--sun-amber-t); }
+[data-tint="coral"]  { --section-tint: var(--sun-coral-t); }
+[data-tint="rose"]   { --section-tint: var(--sun-rose-t); }
+[data-tint="violet"] { --section-tint: var(--sun-violet-t); }
+[data-tint="blue"]   { --section-tint: var(--sun-blue-t); }
+
+/* ============================================================
+   BASE  --  document grammar, v5 measures
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0ms !important; animation: none !important; } }
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--serif);
+  font-size: 18px; line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.mono { font-family: var(--mono); }
+em { font-style: italic; color: var(--heading); }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  font-family: var(--mono); font-size: 13px;
+  background: var(--surface); color: var(--blue-text);
+  border: 1px solid var(--blue); padding: 10px 16px;
+}
+.skip:focus { left: 12px; top: 12px; }
+
+/* the document measure: 760-920px per the design-system grammar */
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 clamp(var(--s5), 5vw, var(--s7)); }
+
+a { color: var(--blue-text); text-decoration: none; border-bottom: 1px solid var(--line); transition: border-color var(--micro) var(--ease); }
+a:hover { border-color: var(--blue); }
+
+/* ============================================================
+   THE GLYPH DEVICE  --  v6 addendum, drafted. One incised mark
+   per page, single stroke, no fill, the way a commonplace
+   manuscript carries a device. This page's device is the hand.
+   ============================================================ */
+.device svg {
+  width: 46px; height: 46px;
+  stroke: var(--ember); fill: none;
+  display: block; margin: 0 auto;
+}
+.device.small svg { width: 28px; height: 28px; }
+
+/* ============================================================
+   MASTHEAD  --  the page opens on the whole evening (v5), and
+   the sky may set the sweep's emphasis (v6, drafted)
+   ============================================================ */
+.masthead {
+  position: relative; text-align: center;
+  padding: clamp(88px, 11vw, 148px) 0 clamp(64px, 8vw, 96px);
+}
+.masthead::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--sky-line);
+  opacity: var(--sky-glow);
+  transition: opacity var(--dur) var(--ease);
+}
+.masthead .device { margin-bottom: 26px; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ember-text);
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.eyebrow .num { font-weight: 500; color: var(--section-tint, var(--ember-text)); }
+.eyebrow .sep { width: 5px; height: 5px; background: var(--section-tint, var(--ember)); }
+.accent-rule {
+  display: block; width: 96px; height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--section-tint, var(--ember)) 24%,
+    var(--section-tint, var(--ember)) 76%,
+    transparent);
+  margin: 24px auto 28px;
+}
+.masthead h1 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(36px, 5vw, 52px); line-height: 1.14;
+  letter-spacing: -0.018em; color: var(--heading);
+  margin: 0 auto 22px; max-width: 22ch;
+}
+.masthead .lede {
+  font-size: clamp(18px, 2vw, 21px); line-height: 1.65;
+  color: var(--muted); max-width: 56ch; margin: 0 auto;
+}
+
+/* ============================================================
+   SECTIONS  --  the descent, gold first (v5)
+   ============================================================ */
+section.page, section.band { padding: clamp(72px, 9vw, 120px) 0; }
+section.page { background: var(--bg); }
+section.band { background: var(--inset); }
+section[data-tint] { position: relative; }
+section[data-tint]::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg,
+    transparent 4%,
+    color-mix(in srgb, var(--section-tint) 50%, transparent) 50%,
+    transparent 96%);
+}
+section.band[data-tint] { background: color-mix(in srgb, var(--inset) 96%, var(--section-tint)); }
+
+.section-head { max-width: 820px; margin: 0 auto clamp(40px, 5vw, 56px); text-align: center; }
+.section-title {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(28px, 3.6vw, 38px);
+  color: var(--heading); letter-spacing: -0.015em; line-height: 1.2;
+  margin: 0 auto 18px; max-width: 26ch;
+}
+.prose { max-width: 68ch; margin: 0 auto; }
+.prose p { margin-bottom: 22px; }
+.prose p:last-child { margin-bottom: 0; }
+.prose .aside {
+  font-family: var(--mono); font-size: 13px; line-height: 1.85;
+  color: var(--muted); border-top: 1px solid var(--line);
+  padding-top: 16px; margin-top: 28px;
+}
+
+/* the principles list */
+.principles { max-width: 68ch; margin: 28px auto 0; list-style: none; counter-reset: ica; }
+.principles li {
+  counter-increment: ica;
+  padding: 14px 0 14px 52px; position: relative;
+  border-top: 1px solid var(--line);
+}
+.principles li:last-child { border-bottom: 1px solid var(--line); }
+.principles li::before {
+  content: counter(ica);
+  position: absolute; left: 8px; top: 15px;
+  font-family: var(--mono); font-size: 13px; font-weight: 500;
+  color: var(--section-tint, var(--ember-text));
+}
+.principles b { font-family: var(--serif); color: var(--heading); font-weight: 700; }
+
+/* the tending list: roles, never names */
+.tends { max-width: 68ch; margin: 28px auto 0; display: grid; gap: 18px; }
+.tend {
+  background: var(--surface); border: 1px solid var(--line);
+  border-left: 2px solid var(--section-tint, var(--ember));
+  padding: 22px 26px;
+}
+.tend .role {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--section-tint, var(--ember-text));
+  margin-bottom: 8px;
+}
+.tend p { font-size: 17px; line-height: 1.7; }
+
+/* lineage entries */
+.lineage { max-width: 68ch; margin: 28px auto 0; }
+.lineage .entry { border-top: 1px solid var(--line); padding: 22px 0; }
+.lineage .entry:last-child { border-bottom: 1px solid var(--line); }
+.lineage h3 {
+  font-family: var(--serif); font-weight: 700; font-size: 20px;
+  color: var(--heading); margin-bottom: 10px;
+}
+.lineage p { font-size: 17px; line-height: 1.7; }
+
+/* ============================================================
+   COLOPHON  --  v6 addendum, drafted: the page ends by signing
+   itself. Address, status, one line of its making.
+   ============================================================ */
+.colophon {
+  text-align: center;
+  padding: clamp(72px, 9vw, 112px) 0 clamp(48px, 6vw, 64px);
+}
+.colophon .device { margin-bottom: 18px; }
+.colophon .device svg { stroke: var(--ember); opacity: .85; }
+.colophon .c-rule {
+  display: block; width: 72px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ember) 30%, var(--ember) 70%, transparent);
+  margin: 0 auto 18px;
+}
+.colophon .addr {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--ember-text);
+}
+.colophon .made {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15px; color: var(--muted); margin-top: 10px;
+}
+
+/* ============================================================
+   FOOTER  --  the sweep mirrored at last light (v5)
+   ============================================================ */
+footer { background: var(--inset); padding: 44px 0 52px; position: relative; }
+footer::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: var(--sky-line);
+  opacity: calc(var(--sky-glow) * 0.72);
+  transform: scaleX(-1);
+}
+.foot-line {
+  font-family: var(--mono); font-size: 14px; line-height: 2;
+  color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 28px;
+}
+.foot-line a { color: var(--muted); }
+.foot-line a:hover { color: var(--blue-text); }
+
+    /* Formation note, footer form (P-11). One verbatim copy per page,
+       proved by scripts/notice_audit.py. */
+    .formation-foot{
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+      max-width:96ch;
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<main id="main">
+
+<!-- ===== MASTHEAD · the hand, the page's device ===== -->
+<header class="masthead">
+  <div class="wrap">
+    <div class="device" aria-hidden="true">
+      <svg viewBox="0 0 48 48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 30 a10 10 0 0 0 20 0"/>
+        <path d="M16 30 V20"/>
+        <path d="M20 30 V15"/>
+        <path d="M24 30 V13"/>
+        <path d="M28 30 V15"/>
+        <path d="M32 30 V21"/>
+      </svg>
+    </div>
+    <div class="eyebrow"><span class="mono">about</span><span class="sep"></span><span>what this place is</span></div>
+    <span class="accent-rule"></span>
+    <h1>A cooperative of many crafts, and how it came to be one.</h1>
+    <p class="lede">What Techne is, what it believes, how it is legally held, who tends it, and the older lineage it works inside. Everything here is on the record, and the record is public.</p>
+  </div>
+</header>
+
+<!-- ===== 01 · WHAT THIS IS (page · gold) ===== -->
+<section class="page" data-tint="gold" id="what">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">01</span><span class="sep"></span><span>What this is</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">A coworking space that talked itself into a cooperative.</h2>
+    </div>
+    <div class="prose">
+      <p>Techne began as a room in downtown Boulder where people of different crafts worked side by side. The room worked, and the people in it started asking why: what made the work here feel different, and what would it take to own that difference together rather than rent it from anyone. Answering took fifteen formation meetings, from August 8, 2025 to February 6, 2026, and the answer was a cooperative.</p>
+      <p>On February 6, 2026 the Articles of Organization were filed with the Colorado Secretary of State, document number 20261163853. On August 14, 2026 the doors opened publicly, and the cooperative held its first board operations in front of the room. Between and around those dates runs a written record: the meetings, the drafts, the decisions, and the building of this site itself, published while it happens.</p>
+      <p>A community of practice, held in common. Soil, not a firm. The front page carries the words the room uses for itself; this page carries the plainer facts underneath them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 · WHAT WE BELIEVE (band · amber) ===== -->
+<section class="band" data-tint="amber" id="believe">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">02</span><span class="sep"></span><span>What we believe</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">The seven cooperative principles.</h2>
+    </div>
+    <div class="prose">
+      <p>The drafted Bylaws subscribe to the seven International Cooperative Alliance cooperative principles, in their recital, by name. The Bylaws are in review with cooperative counsel and are not executed, so this is a statement of what the draft holds, not of what has been adopted; the principles themselves are more than a century of cooperative practice, and they are why a cooperative rather than any other shape.</p>
+    </div>
+    <ol class="principles">
+      <li><b>Voluntary and Open Membership.</b> Open to those able to contribute or patronize and willing to accept the responsibilities, without discrimination.</li>
+      <li><b>Democratic Member Control.</b> Controlled by the members, who actively set policy and make decisions.</li>
+      <li><b>Members' Economic Participation.</b> Benefit follows contribution and patronage rather than capital invested.</li>
+      <li><b>Autonomy and Independence.</b> A self-help organization controlled by its members, on terms that keep it so.</li>
+      <li><b>Education, Training, and Information.</b> The cooperative teaches its members and informs the public about what cooperation is.</li>
+      <li><b>Cooperation among Cooperatives.</b> Cooperatives strengthen one another by working together.</li>
+      <li><b>Concern for Community.</b> Working for the sustainable development of communities, local and beyond.</li>
+    </ol>
+    <div class="prose">
+      <p class="aside">The recital's full text is in the drafted <a href="/legal/bylaws/">Bylaws</a>, which remain in review and unexecuted. The summaries above are this page's paraphrase; the instrument's wording governs the instrument.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 · HOW IT IS HELD (page · coral) ===== -->
+<section class="page" data-tint="coral" id="held">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">03</span><span class="sep"></span><span>How it is held</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">A limited cooperative association, for public benefit.</h2>
+    </div>
+    <div class="prose">
+      <p>The legal entity is <em>RegenHub LCA</em>, a Colorado limited cooperative association organized as a public benefit entity. Among its stated public benefits is cultivating <em>scenius</em>: the collective intelligence that emerges from a community, named in the room's own vocabulary and written into the filing.</p>
+      <p><em>Techne</em> is the studio name, the name of the practice this cooperative holds in common, and <em>techne.coop</em> is the registered trade name it works under in public. One entity, one practice, one door: the legal container and the community it holds are deliberately distinct, and the container is kept thin so the work stays with the people doing it.</p>
+      <p>The governing instruments, the Bylaws and the Membership Agreement, are drafted and in review with cooperative counsel; neither is executed, and no member has been admitted yet. The <a href="/legal/">legal record</a> holds the instruments and says plainly what is settled and what is not.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 · WHO TENDS IT (band · rose) ===== -->
+<section class="band" data-tint="rose" id="tends">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">04</span><span class="sep"></span><span>Who tends it</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">Roles, held by people.</h2>
+    </div>
+    <div class="prose">
+      <p>The record names offices; the people holding them are met in the room, not on this page. What the cooperative has, today, is this:</p>
+    </div>
+    <div class="tends">
+      <div class="tend">
+        <div class="role">A steward of ventures and operations</div>
+        <p>The hands-on tending of the cooperative's daily work: the space, the systems, the build of this record, and the care of what grows here between decisions.</p>
+      </div>
+      <div class="tend">
+        <div class="role">A board of directors</div>
+        <p>Seated in June 2026, when the formation-era organizers gave way to a board. The board carries the cooperative's governance until members are admitted and can carry it further.</p>
+      </div>
+      <div class="tend">
+        <div class="role">Officers of the cooperative</div>
+        <p>Elected by the board on August 14, 2026, at the launch gathering, in front of the room: a president, a secretary, and a treasurer. The election is in the meeting record.</p>
+      </div>
+    </div>
+    <div class="prose">
+      <p class="aside">Membership is intended to open now that the doors are; until the instruments are executed, no one holds membership, and the roles above are the whole of the structure. The <a href="/participation/">ways in</a> describe how a person steps toward it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 · LINEAGE (page · violet) ===== -->
+<section class="page" data-tint="violet" id="lineage">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">05</span><span class="sep"></span><span>Lineage</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">Ancient meets today.</h2>
+    </div>
+    <div class="prose">
+      <p>Nothing here is new, and that is the point. The cooperative works inside lineages much older than itself, and it says so.</p>
+    </div>
+    <div class="lineage">
+      <div class="entry">
+        <h3>Techn&#275;</h3>
+        <p>The Greek word underneath the name: craft, art, skill, technique. Not technology in the narrowed modern sense, but the whole practice of making things well, with the knowledge that lives in the hands. The cooperative takes the old word seriously: the craft of code and the craft of neighboring are the same kind of thing, and both demand care.</p>
+      </div>
+      <div class="entry">
+        <h3>The commonplace book</h3>
+        <p>An old habit of readers and makers: copy out the lines worth keeping, arrange them so they can find each other, and let the collection become a mind's working record. This estate keeps the habit twice over, in <a href="/commonplace/">the formation record</a> of what was said then and in <a href="/commons/">the operating record</a> of what is true now.</p>
+      </div>
+      <div class="entry">
+        <h3>Intelligence amplification</h3>
+        <p>The mid-century thread from Vannevar Bush's memex to Douglas Engelbart's augmentation of human intellect: the conviction that the right instruments make a group of people durably smarter, and that building those instruments is a craft in its own right. The cooperative builds its tools in that spirit, for itself first, as augmentation rather than automation.</p>
+      </div>
+      <div class="entry">
+        <h3>The cooperative movement</h3>
+        <p>The oldest lineage of the four in organizational form: people who need the same things owning the means of them together. The seven principles above are its distilled practice, and a limited cooperative association is simply its current Colorado vessel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COLOPHON (v6, drafted) ===== -->
+<div class="colophon">
+  <div class="wrap">
+    <div class="device small" aria-hidden="true">
+      <svg viewBox="0 0 48 48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 30 a10 10 0 0 0 20 0"/>
+        <path d="M16 30 V20"/>
+        <path d="M20 30 V15"/>
+        <path d="M24 30 V13"/>
+        <path d="M28 30 V15"/>
+        <path d="M32 30 V21"/>
+      </svg>
+    </div>
+    <span class="c-rule"></span>
+    <div class="addr">U-25 &middot; drafted</div>
+    <div class="made">Built from the formation record, August 2026. Merge is the act of adoption.</div>
+  </div>
+</div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-line">
+      <a href="/">Techne</a>
+      <a href="/community-of-practice/">The community of practice</a>
+      <a href="/what-grows/">What grows</a>
+      <a href="/journal/">The journal</a>
+      <a href="/legal/">Legal instruments</a>
+    </div>
+    <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+  </div>
+</footer>
+
+</body>
+</html>
