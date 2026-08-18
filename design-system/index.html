@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="Techne Design System  --  palette and component reference for techne.coop. v4 palette: warm parchment ground, blue primary accent, ember secondary, three earth states, sunset range.">
+<meta name="description" content="Techne Design System  --  palette and component reference for techne.coop. v5: warm parchment ground, blue primary accent, ember secondary, three earth states, sunset range, the desert register.">
 <title>Palette Reference &middot; Techne</title>
 <link rel="canonical" href="https://techne.coop/design-system/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://techne.coop/design-system/">
 <meta property="og:title" content="Palette Reference · Techne">
-<meta property="og:description" content="Techne Design System  --  palette and component reference for techne.coop. v4: blue primary, ember secondary, sunset range.">
+<meta property="og:description" content="Techne Design System  --  palette and component reference for techne.coop. v5: blue primary, ember secondary, sunset range, the desert register.">
 <meta property="og:site_name" content="Techne">
 <meta property="og:image" content="https://techne.coop/assets/og-default.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -270,7 +270,7 @@
   <header class="mast">
     <div class="kick">Techne &middot; Design System</div>
     <h1>Palette &amp; Component Reference</h1>
-    <p>Working reference for the Techne design system, updated to the <em>v4</em> palette. <em>Blue</em> is the primary accent, the color of what a reader does; <em>ember</em> is the secondary, the cooperative's own mark on structure. Both are held against a warm parchment ground through dark and light modes, with a <em>sunset</em> range reserved for section atmosphere and data, and a <em>dawn</em> range as its morning counterpart. Toggle modes with the control in the top-right; it follows your device setting by default.</p>
+    <p>Working reference for the Techne design system, at <em>v5</em>. The v4 palette holds unchanged: <em>blue</em> is the primary accent, the color of what a reader does; <em>ember</em> is the secondary, the cooperative's own mark on structure. Both are held against a warm parchment ground through dark and light modes, with a <em>sunset</em> range reserved for section atmosphere and data, and a <em>dawn</em> range as its morning counterpart. What v5 adds is not color but usage: the <em>desert register</em>, the written grammar of how the sunset range appears on a page, and the <em>display measure</em>, which retires the front page's private width. Toggle modes with the control in the top-right; it follows your device setting by default.</p>
     <div class="band">
       <span style="background:var(--sun-blue)"></span>
       <span style="background:var(--sun-violet)"></span>
@@ -367,6 +367,92 @@
       <div class="s"><div class="c" style="background:var(--dawn-gold)"></div><div class="n">gold</div></div>
     </div>
     <p class="note">Canonical stops: <code>--dawn-indigo #4A5A8A</code> &middot; <code>--dawn-slate #6B7FB0</code> &middot; <code>--dawn-lilac #9B8BB8</code> &middot; <code>--dawn-rose #C99AA6</code> &middot; <code>--dawn-shell #E0BFA4</code> &middot; <code>--dawn-gold #F0D49A</code>. Mode-invariant, defined in <code>:root</code> alongside the sunset stops. Read together the two ranges bracket the day: sunset for the record of what happened, dawn for what is beginning.</p>
+  </section>
+
+  <!-- V5: THE DESERT REGISTER -->
+  <section class="sec" id="desert">
+    <h2>v5 &middot; The Desert Register</h2>
+    <p class="lead">v5 changes no token value. It writes down how the sunset range is used, because the front page had begun to use it well and nothing said what well meant. The register is Southwestern desert held to a minimalist discipline: horizon lines, mesa geometry carried by gradients, sand-warm neutrals the ground already has. Never pictorial. No cactus, no pottery, no glyph of a landscape: the desert enters as light and line or it does not enter.</p>
+
+    <div class="subhead">The horizon line</div>
+    <p class="note">The register's one instrument. A rule is not a bar edge to edge; it is a hairline that holds at its center and fades at both ends, the way a mesa rim loses its edge against the sky. Three placements are in force on the front page: the <b>accent rule</b> under a section eyebrow, two pixels in the section's own stop, fading at both ends; the <b>section horizon</b>, one pixel at the top of every tinted section, its stop at half strength, fading toward the margins; and the <b>sweep horizon</b>, the full six-stop range as one hairline, at the hero's foot and mirrored at the footer's head. The page opens on the whole evening, walks it stop by stop, and closes on it.</p>
+    <pre class="code"><span class="c1">/* accent rule: solid at center, gone at the ends */</span>
+background: linear-gradient(90deg, transparent,
+  var(--section-tint) <span class="c2">24%</span>, var(--section-tint) <span class="c2">76%</span>, transparent);
+
+<span class="c1">/* section horizon: the stop at half strength, fading out */</span>
+background: linear-gradient(90deg, transparent <span class="c2">4%</span>,
+  color-mix(in srgb, var(--section-tint) <span class="c2">50%</span>, transparent) <span class="c2">50%</span>,
+  transparent <span class="c2">96%</span>);</pre>
+
+    <div class="subhead">The descent</div>
+    <p class="note">A page that tints its sections walks the sweep in order, warm to cool, gold first and violet or blue last: the sun going down as the reader goes down. Sections take their stop with <code>data-tint</code>, and the stop resolves to the mode's text-safe variant (<code>--sun-*-t</code>) wherever it colors type. One stop per section; a section does not borrow its neighbor's color.</p>
+
+    <div class="subhead">The wash</div>
+    <p class="note">A tinted band section may carry its stop mixed into the ground at four percent or less: <code>color-mix(in srgb, var(--inset) 96%, var(--section-tint))</code>. Below notice, sand-warm, and honest in both modes because it is mixed from tokens rather than pinned to a hex. Atmosphere stops there: the sunset range still never colors a control, never carries the sign of a number, and never tints body copy.</p>
+
+    <div class="subhead">The display measure</div>
+    <p class="note"><b>Register.</b> The estate held two measures, the document grammar at 760&ndash;920px and the frame measure capped at <code>70rem</code>, and the front page carried a third, a 1140px container with viewport-fraction gutters, that nothing else used. v5 folds the display surface onto the frame cap: <code>max-width: 70rem</code>, gutters at <code>clamp(var(--s5), 5vw, var(--s7))</code> so they move through the spacing tokens rather than as a raw fraction of the window. A display page keeps its own interior prose measures in <code>ch</code>, as the front page does at <code>58ch</code> for a lede. Two caps, not three; the front page reconciled per the U-24 packet, 2026-08-18.</p>
+
+    <div class="subhead">Guidance, not mandate</div>
+    <p class="note">The register informs future pages <em>softly</em>. It is the grammar a new public display surface should reach for first, and the reading against which a review asks why not; it is not a retroactive requirement, and no existing page is out of compliance for lacking a horizon line. Pages adopt the register at their own re-emission, the same way the estate has always moved: existing surfaces stand until each one's own recut.</p>
+  </section>
+
+  <!-- PROPOSAL: NAMED SUNSET PALETTES -->
+  <section class="sec" id="palettes">
+    <h2>Proposal &middot; Two Named Sunset Palettes</h2>
+    <div class="chiprow"><span class="chip info"><span class="dot"></span>proposal &middot; drafted, not adopted</span></div>
+    <p class="lead">A proposal staged with the U-24 packet: two complete sunset palettes as distinct artistic directions, either able to stand where the standing range stands. Neither is in force anywhere. Adoption is a steward's decision, and until it comes the v4 sunset range above remains the only range a page may use.</p>
+
+    <div class="subhead">Vermilion Hour &middot; the warm direction</div>
+    <p class="note">The last hour over red rock: iron and vermilion out of the cliff face, ember and amber in the air, gold at the rim, and one bruised violet where the shadow already is. Warmer and deeper than the standing range, which reads as sky; this one reads as stone holding the day's heat.</p>
+    <div class="ramp">
+      <div class="s"><div class="c" style="background:#6E4E88"></div><div class="n">dusk</div></div>
+      <div class="s"><div class="c" style="background:#A04A48"></div><div class="n">iron</div></div>
+      <div class="s"><div class="c" style="background:#C25B3F"></div><div class="n">vermilion</div></div>
+      <div class="s"><div class="c" style="background:#D97E48"></div><div class="n">ember</div></div>
+      <div class="s"><div class="c" style="background:#E8A45C"></div><div class="n">amber</div></div>
+      <div class="s"><div class="c" style="background:#F2C878"></div><div class="n">gold</div></div>
+    </div>
+    <table class="dt">
+      <thead><tr><th>token</th><th>canonical</th><th>dark -t</th><th>light -t</th><th>worst contrast</th></tr></thead>
+      <tbody>
+        <tr><td class="tok"><span class="sw" style="background:#6E4E88"></span>--verm-dusk</td><td>#6E4E88</td><td>#A98CCB</td><td>#5A3F76</td><td>6.27 / 7.07</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#A04A48"></span>--verm-iron</td><td>#A04A48</td><td>#D18B89</td><td>#8F3E3C</td><td>6.67 / 5.83</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#C25B3F"></span>--verm-vermilion</td><td>#C25B3F</td><td>#E08D74</td><td>#96422C</td><td>7.07 / 5.47</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#D97E48"></span>--verm-ember</td><td>#D97E48</td><td>#E8A170</td><td>#8F5426</td><td>8.38 / 4.92</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#E8A45C"></span>--verm-amber</td><td>#E8A45C</td><td>#ECB278</td><td>#855417</td><td>9.62 / 5.20</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#F2C878"></span>--verm-gold</td><td>#F2C878</td><td>#F2C878</td><td>#7A5A12</td><td>11.43 / 5.16</td></tr>
+      </tbody>
+    </table>
+
+    <div class="subhead">Juniper Twilight &middot; the cool direction</div>
+    <p class="note">The high desert after the color leaves the sky: cold night blue, slate, one green the landscape actually holds &mdash; juniper on the far slope &mdash; then lilac gray, shell, and the pale gold of the afterglow. Cooler and quieter than the standing range; it reads as air, altitude, and the first cold hour.</p>
+    <div class="ramp">
+      <div class="s"><div class="c" style="background:#46567E"></div><div class="n">night</div></div>
+      <div class="s"><div class="c" style="background:#64789E"></div><div class="n">slate</div></div>
+      <div class="s"><div class="c" style="background:#6E8C80"></div><div class="n">juniper</div></div>
+      <div class="s"><div class="c" style="background:#988FB4"></div><div class="n">lilac</div></div>
+      <div class="s"><div class="c" style="background:#C4AD9A"></div><div class="n">shell</div></div>
+      <div class="s"><div class="c" style="background:#E4CD9C"></div><div class="n">pale gold</div></div>
+    </div>
+    <table class="dt">
+      <thead><tr><th>token</th><th>canonical</th><th>dark -t</th><th>light -t</th><th>worst contrast</th></tr></thead>
+      <tbody>
+        <tr><td class="tok"><span class="sw" style="background:#46567E"></span>--jun-night</td><td>#46567E</td><td>#8FA3CE</td><td>#3C4A70</td><td>7.12 / 7.08</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#64789E"></span>--jun-slate</td><td>#64789E</td><td>#93A9D0</td><td>#465A85</td><td>7.58 / 5.56</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#6E8C80"></span>--jun-juniper</td><td>#6E8C80</td><td>#8FB2A4</td><td>#3F5C50</td><td>7.79 / 5.96</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#988FB4"></span>--jun-lilac</td><td>#988FB4</td><td>#AFA6CC</td><td>#5C5478</td><td>7.86 / 5.69</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#C4AD9A"></span>--jun-shell</td><td>#C4AD9A</td><td>#C4AD9A</td><td>#6E5A44</td><td>8.41 / 5.31</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#E4CD9C"></span>--jun-pale-gold</td><td>#E4CD9C</td><td>#E4CD9C</td><td>#6E5C24</td><td>11.60 / 5.29</td></tr>
+      </tbody>
+    </table>
+
+    <div class="subhead">The contrast record</div>
+    <p class="note">Every text-safe (<code>-t</code>) value above was checked as WCAG 2.1 relative-luminance contrast against all three grounds of its mode (<code>--bg</code>, <code>--inset</code>, <code>--surface</code>), by script, 2026-08-18. All twenty-four pass AA for body text: the worst pair on the board is Vermilion Hour's light-mode <code>--verm-ember-t</code> at 4.92:1 against <code>--inset</code>, above the 4.5:1 floor. Both canonical ramps are ordered by luminance, so a sequential scale degrades to grayscale and reads for colorblind viewers, the same discipline the standing range keeps. Canonical stops are for atmosphere and data; only a <code>-t</code> value may color type.</p>
+
+    <div class="subhead">The selection seam &middot; specified, not built</div>
+    <p class="note">If a palette is ever adopted as a choice rather than a replacement, the seam mirrors the mode toggle exactly. A key <code>techne-palette</code> in <code>localStorage</code>, values <code>vermilion</code> or <code>juniper</code>, unset meaning the standing range; a boot script beside the mode script sets <code>data-palette</code> on the document before first paint, and CSS remaps the six <code>--sun-*</code> and six <code>--sun-*-t</code> custom properties under <code>html[data-palette="..."]</code>, so every page written against the token names inherits the choice with no markup change. The alternative seam is the clock: resolve the palette from the local hour, Juniper Twilight through the night and toward dawn, Vermilion Hour through the evening, the standing range through the day, with the stored key always winning over the clock. Either seam is one script and one attribute; neither adds a dependency. Building one is a separate piece with its own address, and naming a palette in public is the steward's call, not this page's.</p>
   </section>
 
   <!-- SITE NAVIGATION -->
@@ -736,8 +822,8 @@
   <footer>
     <div class="row">
       <span>Techne Design System</span>
-      <span>palette updated to v4</span>
-      <span>blue primary &middot; ember secondary &middot; sunset range</span>
+      <span>updated to v5</span>
+      <span>blue primary &middot; ember secondary &middot; sunset range &middot; the desert register</span>
       <span>techne.coop/design-system</span>
       <span>RegenHub, LCA &middot; Boulder, Colorado</span>
     </div>
