@@ -103,12 +103,12 @@ html[data-mode="light"] {
 }
 
 /* SECTION TINTS  --  each entry places itself on the descent */
-[data-tint="gold"]   { --section-tint: var(--sun-gold-t); }
-[data-tint="amber"]  { --section-tint: var(--sun-amber-t); }
-[data-tint="coral"]  { --section-tint: var(--sun-coral-t); }
-[data-tint="rose"]   { --section-tint: var(--sun-rose-t); }
-[data-tint="violet"] { --section-tint: var(--sun-violet-t); }
-[data-tint="blue"]   { --section-tint: var(--sun-blue-t); }
+[data-tint="gold"]   { --section-tint: var(--sun-gold-t);   --section-stop: var(--sun-gold); }
+[data-tint="amber"]  { --section-tint: var(--sun-amber-t);  --section-stop: var(--sun-amber); }
+[data-tint="coral"]  { --section-tint: var(--sun-coral-t);  --section-stop: var(--sun-coral); }
+[data-tint="rose"]   { --section-tint: var(--sun-rose-t);   --section-stop: var(--sun-rose); }
+[data-tint="violet"] { --section-tint: var(--sun-violet-t); --section-stop: var(--sun-violet); }
+[data-tint="blue"]   { --section-tint: var(--sun-blue-t);   --section-stop: var(--sun-blue); }
 
 /* ============================================================
    BASE  --  document grammar, v5 measures
@@ -173,6 +173,9 @@ a:hover { border-color: var(--blue); }
   display: inline-flex; align-items: center; gap: 14px;
 }
 .eyebrow .sep { width: 5px; height: 5px; background: var(--section-tint, var(--ember)); }
+/* the eyebrow speaks in its section's stop rather than the global
+   ember (U-26, drafted); the masthead, untinted, keeps ember */
+section[data-tint] .eyebrow, article[data-tint] .eyebrow { color: var(--section-tint); }
 .accent-rule {
   display: block; width: 96px; height: 2px;
   background: linear-gradient(90deg,
@@ -226,6 +229,18 @@ a:hover { border-color: var(--blue); }
     color-mix(in srgb, var(--section-tint) 50%, transparent) 50%,
     transparent 96%);
 }
+/* the seam (U-26, drafted): each entry opens on a shallow pool of its
+   stop under the hairline, gone before the text begins; its strength
+   follows the computed sky. AA-verified by script in both modes. */
+.entry::after {
+  content: ""; position: absolute; top: 0; left: 0; right: 0;
+  height: clamp(28px, 4vw, 40px);
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--section-stop) 18%, transparent),
+    transparent);
+  opacity: calc(var(--sky-glow, .55) * .6);
+}
 .entry .when {
   font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--section-tint, var(--ember-text));
@@ -240,8 +255,10 @@ a:hover { border-color: var(--blue); }
 .entry p { margin-bottom: 20px; }
 .entry blockquote {
   font-style: italic; color: var(--heading);
+  background: color-mix(in srgb, var(--surface) 95%, var(--section-stop, var(--ember)));
+  border: 1px solid var(--line);
   border-left: 2px solid var(--section-tint, var(--ember));
-  padding: 4px 0 4px 22px; margin: 26px 0;
+  padding: 18px 24px; margin: 26px 0;
   font-size: 19px; line-height: 1.65;
 }
 .entry blockquote .q-note {

@@ -27,6 +27,7 @@
   })();
 </script>
 <script src="/assets/topbar.js" defer></script>
+<script src="/assets/sky.js" defer></script>
 <style>
 /* ============================================================
    TOKENS  --  techne v5
@@ -44,6 +45,34 @@
   /* sunset range  --  atmospheric per section */
   --sun-gold: #EAB668; --sun-amber: #E09A52; --sun-coral: #D1755A;
   --sun-rose: #B45C7C; --sun-violet: #6E5494; --sun-blue: #5476B8;
+
+  /* the sky that computes (v6, drafted): the sweep is a custom
+     property so /assets/sky.js can shift its emphasis by writing
+     one attribute. Scripting off, nothing matches, and the page
+     keeps the standing descent. Tokens only; no new color. */
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+  --sky-glow: .55;
+}
+html[data-sky="day"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-amber) 26%, var(--sun-gold) 50%,
+    var(--sun-amber) 74%, var(--sun-blue));
+  --sky-glow: .38;
+}
+html[data-sky="sunset"] { --sky-glow: .8; }
+html[data-sky="sunrise"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-violet), var(--sun-rose) 28%, var(--sun-gold) 50%,
+    var(--sun-amber) 72%, var(--sun-rose));
+  --sky-glow: .62;
+}
+html[data-sky="night"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet) 30%, var(--sun-blue) 50%,
+    var(--sun-violet) 70%, var(--sun-blue));
+  --sky-glow: .5;
 }
 html[data-mode="dark"] {
   --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
@@ -76,13 +105,15 @@ html[data-mode="light"] {
   color-scheme: light;
 }
 
-/* SECTION TINTS  --  each section places itself on the sunset sweep */
-[data-tint="gold"]   { --section-tint: var(--sun-gold-t); }
-[data-tint="amber"]  { --section-tint: var(--sun-amber-t); }
-[data-tint="coral"]  { --section-tint: var(--sun-coral-t); }
-[data-tint="rose"]   { --section-tint: var(--sun-rose-t); }
-[data-tint="violet"] { --section-tint: var(--sun-violet-t); }
-[data-tint="blue"]   { --section-tint: var(--sun-blue-t); }
+/* SECTION TINTS  --  each section places itself on the sunset sweep.
+   The -t variant colors type; the canonical stop carries atmosphere
+   (washes, seams, watermarks) per the U-26 deepening, drafted. */
+[data-tint="gold"]   { --section-tint: var(--sun-gold-t);   --section-stop: var(--sun-gold); }
+[data-tint="amber"]  { --section-tint: var(--sun-amber-t);  --section-stop: var(--sun-amber); }
+[data-tint="coral"]  { --section-tint: var(--sun-coral-t);  --section-stop: var(--sun-coral); }
+[data-tint="rose"]   { --section-tint: var(--sun-rose-t);   --section-stop: var(--sun-rose); }
+[data-tint="violet"] { --section-tint: var(--sun-violet-t); --section-stop: var(--sun-violet); }
+[data-tint="blue"]   { --section-tint: var(--sun-blue-t);   --section-stop: var(--sun-blue); }
 
 /* ============================================================
    BASE
@@ -135,12 +166,17 @@ section.band { background: var(--inset); }
 section.join-section { background: var(--bg); }
 footer { background: var(--inset); }
 
-/* the desert register (v5): each tinted section opens on a horizon
-   line, a hairline in its own stop that fades at both ends the way a
-   mesa rim loses its edge against the sky. The band sections also take
-   a wash of their stop mixed faintly into the ground, sand-warm and
-   below notice. Atmosphere only: no control and no body copy changes
-   color for it. */
+/* the desert register (v5), deepened per the U-26 packet (drafted):
+   each tinted section opens on a horizon line, a hairline in its own
+   stop that fades at both ends the way a mesa rim loses its edge
+   against the sky. Every tinted section now takes a perceptible wash
+   of its canonical stop mixed into the ground, band sections deeper
+   than page sections, so scrolling the page is walking the sunset
+   sweep rather than glimpsing it. Under the hairline sits the seam,
+   a shallow band of the stop pooling at the horizon and fading before
+   the text begins; its strength follows the computed sky. Atmosphere
+   only: no control changes color for it, no body copy sits inside the
+   seam, and every mix is AA-verified by script against both modes. */
 section[data-tint] { position: relative; }
 section[data-tint]::before {
   content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
@@ -149,7 +185,40 @@ section[data-tint]::before {
     color-mix(in srgb, var(--section-tint) 50%, transparent) 50%,
     transparent 96%);
 }
-section.band[data-tint] { background: color-mix(in srgb, var(--inset) 96%, var(--section-tint)); }
+section[data-tint]::after {
+  content: ""; position: absolute; top: 0; left: 0; right: 0;
+  height: clamp(40px, 6vw, 64px);
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--section-stop) 20%, transparent),
+    transparent);
+  opacity: calc(var(--sky-glow, .55) * .6);
+}
+section.page[data-tint] { background: color-mix(in srgb, var(--bg) 95%, var(--section-stop)); }
+section.band[data-tint] { background: color-mix(in srgb, var(--inset) 92%, var(--section-stop)); }
+section.join-section[data-tint] { background: color-mix(in srgb, var(--bg) 95%, var(--section-stop)); }
+
+/* the watermark (U-26, drafted): a section may carry its glyph once
+   more, large, half-visible, clipped at the section's edge, in the
+   canonical stop at far-below-notice opacity. It sits behind the
+   content and never behind a column of body text. */
+section.has-mark { overflow: hidden; isolation: isolate; }
+.mark-watermark {
+  position: absolute; z-index: -1;
+  right: clamp(-160px, -8vw, -60px); top: clamp(24px, 5vw, 72px);
+  width: clamp(320px, 38vw, 520px); height: auto;
+  stroke: var(--section-stop, var(--ember)); fill: none;
+  opacity: .07;
+  pointer-events: none;
+}
+html[data-mode="light"] .mark-watermark { opacity: .1; }
+
+/* the section device (U-26, drafted): a section whose meaning has
+   earned a glyph carries it small above its eyebrow, in the stop */
+.section-glyph svg {
+  width: 30px; height: 30px; display: block; margin: 0 auto 16px;
+  stroke: var(--section-tint, var(--ember)); fill: none;
+}
 
 /* ============================================================
    SECTION HEAD pattern: eyebrow + stub rule + title + lede
@@ -168,6 +237,9 @@ section.band[data-tint] { background: color-mix(in srgb, var(--inset) 96%, var(-
   color: var(--ember-text);
   display: inline-flex; align-items: center; gap: 14px;
 }
+/* the eyebrow speaks in its section's stop rather than the global
+   ember (U-26, drafted); the hero, untinted, keeps ember */
+section[data-tint] .eyebrow { color: var(--section-tint); }
 .eyebrow .num {
   font-weight: 500;
   color: var(--section-tint, var(--ember-text));
@@ -233,10 +305,9 @@ section.band[data-tint] { background: color-mix(in srgb, var(--inset) 96%, var(-
    with its mirror. */
 .hero::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
-  background: linear-gradient(90deg,
-    var(--sun-blue), var(--sun-violet), var(--sun-rose),
-    var(--sun-coral), var(--sun-amber), var(--sun-gold));
-  opacity: .55;
+  background: var(--sky-line);
+  opacity: var(--sky-glow);
+  transition: opacity var(--dur) var(--ease);
 }
 .hero-inner { max-width: 920px; width: 100%; }
 .hero .eyebrow { margin-bottom: 18px; }
@@ -373,18 +444,31 @@ section.band[data-tint] { background: color-mix(in srgb, var(--inset) 96%, var(-
 .cards-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
 .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
 
+/* cards carry their section's stop (U-26, drafted): a faint wash of
+   the canonical stop in the ground, a tinted top edge that deepens on
+   hover, and the icon well in the stop. Type keeps the -t variant. */
 .cardx {
-  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 95%, var(--section-stop, var(--ember)));
   border: 1px solid var(--line);
+  border-top: 2px solid color-mix(in srgb, var(--section-stop, var(--ember)) 45%, var(--line));
   padding: 40px 36px;
   display: block; color: inherit; text-decoration: none;
-  transition: border-color var(--micro) var(--ease), transform var(--micro) var(--ease);
+  transition: border-color var(--micro) var(--ease), transform var(--micro) var(--ease),
+              background-color var(--micro) var(--ease);
 }
-.cardx:hover { border-color: var(--section-tint, var(--ember)); transform: translateY(-2px); }
+.cardx:hover {
+  border-color: var(--section-tint, var(--ember));
+  border-top-color: var(--section-stop, var(--ember));
+  transform: translateY(-2px);
+}
+/* only a link card deepens its wash on hover: the quote cards of the
+   ground section carry muted type whose AA margin the deeper wash
+   would spend (verified by script; see /design-system/) */
+a.cardx:hover { background: color-mix(in srgb, var(--surface) 92%, var(--section-stop, var(--ember))); }
 a.cardx:hover .step-act { color: var(--section-tint, var(--ember-text)); }
 .cardx .ico {
   width: 52px; height: 52px;
-  background: color-mix(in srgb, var(--section-tint, var(--ember)) 12%, transparent);
+  background: color-mix(in srgb, var(--section-stop, var(--ember)) 16%, transparent);
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 24px;
 }
@@ -441,7 +525,7 @@ a.cardx:hover .step-act { color: var(--section-tint, var(--ember-text)); }
    JOIN  --  Section 04 with BLUE top accent (focus action)
    ============================================================ */
 .join-card {
-  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 95%, var(--section-stop, var(--ember)));
   border: 1px solid var(--line);
   border-top: 4px solid var(--blue);
   padding: clamp(56px, 8vw, 96px) clamp(32px, 5vw, 72px);
@@ -478,10 +562,9 @@ a.cardx:hover .step-act { color: var(--section-tint, var(--ember-text)); }
 footer { padding: 52px 0 60px; position: relative; }
 footer::before {
   content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg,
-    var(--sun-gold), var(--sun-amber), var(--sun-coral),
-    var(--sun-rose), var(--sun-violet), var(--sun-blue));
-  opacity: .4;
+  background: var(--sky-line);
+  opacity: calc(var(--sky-glow) * 0.72);
+  transform: scaleX(-1);
 }
 
 .foot-grid {
@@ -517,13 +600,20 @@ footer::before {
    ============================================================ */
 .grows { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
 .grow {
-  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 95%, var(--section-stop, var(--ember)));
   border: 1px solid var(--line);
+  border-top: 2px solid color-mix(in srgb, var(--section-stop, var(--ember)) 45%, var(--line));
   padding: 34px 30px;
   display: flex; flex-direction: column;
-  transition: border-color var(--micro) var(--ease), transform var(--micro) var(--ease);
+  transition: border-color var(--micro) var(--ease), transform var(--micro) var(--ease),
+              background-color var(--micro) var(--ease);
 }
-.grow:hover { border-color: color-mix(in srgb, var(--section-tint, var(--rule)) 45%, var(--rule)); transform: translateY(-2px); }
+.grow:hover {
+  border-color: color-mix(in srgb, var(--section-tint, var(--rule)) 45%, var(--rule));
+  border-top-color: var(--section-stop, var(--ember));
+  background: color-mix(in srgb, var(--surface) 92%, var(--section-stop, var(--ember)));
+  transform: translateY(-2px);
+}
 .grow .tag {
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--section-tint, var(--ember-text));
@@ -682,9 +772,16 @@ footer::before {
 </section>
 
 <!-- ===== SECTION 02 · THE WORKSHOP (band · amber) ===== -->
-<section class="band" data-tint="amber" id="grows">
+<!-- the spiral, assigned per U-26 (drafted): the upward spiral is the
+     workshop chain's own name for itself  --  each feeds the next  --
+     and the section now carries the mark, small at its head and once
+     more as a clipped watermark. Source: upward spirals, Meetings 1,
+     4, 5, in the Commonplace. -->
+<section class="band has-mark" data-tint="amber" id="grows">
+  <svg class="mark-watermark" viewBox="0 0 48 48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 24 a2 2 0 0 1 2 2 a4 4 0 0 1 -4 4 a6 6 0 0 1 -6 -6 a8 8 0 0 1 8 -8 a10 10 0 0 1 10 10 a12 12 0 0 1 -12 12"/></svg>
   <div class="wrap">
     <div class="section-head">
+      <div class="section-glyph" aria-hidden="true"><svg viewBox="0 0 48 48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 24 a2 2 0 0 1 2 2 a4 4 0 0 1 -4 4 a6 6 0 0 1 -6 -6 a8 8 0 0 1 8 -8 a10 10 0 0 1 10 10 a12 12 0 0 1 -12 12"/></svg></div>
       <div class="eyebrow"><span class="num">02</span><span class="sep"></span><span>The workshop</span></div>
       <span class="accent-rule"></span>
       <h2 class="section-title">Four things take shape here, and each feeds the next.</h2>
