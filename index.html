@@ -29,8 +29,10 @@
 <script src="/assets/topbar.js" defer></script>
 <style>
 /* ============================================================
-   TOKENS  --  techne v4
+   TOKENS  --  techne v5
    warm-neutral ground, BLUE primary, EMBER secondary, sunset atmosphere
+   v5 changes no token value; it writes down the sunset register
+   this page uses. The rules live at /design-system/.
    ============================================================ */
 :root {
   --serif: 'Libre Baskerville', Georgia, serif;
@@ -117,7 +119,13 @@ svg.lucide { width: 17px; height: 17px; flex: none; }
 /* ============================================================
    LAYOUT  --  alternating sections
    ============================================================ */
-.wrap { max-width: 1140px; margin: 0 auto; padding: 0 6vw; }
+/* the display measure (v5). The document grammar reads at 760-920px
+   and the frame measure caps at 70rem; this page carried a third cap,
+   1140px, that nothing else on the estate used. v5 folds the display
+   surface onto the frame cap: 70rem, with gutters in the spacing
+   tokens rather than a raw viewport fraction, so the estate holds two
+   caps instead of three. Decision recorded at /design-system/. */
+.wrap { max-width: 70rem; margin: 0 auto; padding: 0 clamp(var(--s5), 5vw, var(--s7)); }
 
 section.page, section.band, section.join-section {
   padding: clamp(96px, 12vw, 168px) 0;
@@ -126,6 +134,22 @@ section.page { background: var(--bg); }
 section.band { background: var(--inset); }
 section.join-section { background: var(--bg); }
 footer { background: var(--inset); }
+
+/* the desert register (v5): each tinted section opens on a horizon
+   line, a hairline in its own stop that fades at both ends the way a
+   mesa rim loses its edge against the sky. The band sections also take
+   a wash of their stop mixed faintly into the ground, sand-warm and
+   below notice. Atmosphere only: no control and no body copy changes
+   color for it. */
+section[data-tint] { position: relative; }
+section[data-tint]::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg,
+    transparent 4%,
+    color-mix(in srgb, var(--section-tint) 50%, transparent) 50%,
+    transparent 96%);
+}
+section.band[data-tint] { background: color-mix(in srgb, var(--inset) 96%, var(--section-tint)); }
 
 /* ============================================================
    SECTION HEAD pattern: eyebrow + stub rule + title + lede
@@ -153,10 +177,16 @@ footer { background: var(--inset); }
   background: var(--section-tint, var(--ember));
 }
 
+/* the accent rule is a horizon line too: solid at its center, gone at
+   its ends (v5) */
 .accent-rule {
   display: block;
-  width: 72px; height: 2px;
-  background: var(--section-tint, var(--ember));
+  width: 96px; height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--section-tint, var(--ember)) 24%,
+    var(--section-tint, var(--ember)) 76%,
+    transparent);
   margin: 24px auto 32px;
 }
 
@@ -194,8 +224,19 @@ footer { background: var(--inset); }
   display: flex; flex-direction: column;
   justify-content: center; align-items: center;
   text-align: center;
-  padding: clamp(32px, 4vh, 56px) 6vw;
+  padding: clamp(32px, 4vh, 56px) clamp(var(--s5), 5vw, var(--s7));
   background: var(--bg);
+  position: relative;
+}
+/* the whole sweep as one hairline at the hero's foot: the horizon the
+   page then descends, gold first, violet last (v5). The footer closes
+   with its mirror. */
+.hero::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+  opacity: .55;
 }
 .hero-inner { max-width: 920px; width: 100%; }
 .hero .eyebrow { margin-bottom: 18px; }
@@ -339,15 +380,15 @@ footer { background: var(--inset); }
   display: block; color: inherit; text-decoration: none;
   transition: border-color var(--micro) var(--ease), transform var(--micro) var(--ease);
 }
-.cardx:hover { border-color: var(--ember); transform: translateY(-2px); }
-a.cardx:hover .step-act { color: var(--ember-text); }
+.cardx:hover { border-color: var(--section-tint, var(--ember)); transform: translateY(-2px); }
+a.cardx:hover .step-act { color: var(--section-tint, var(--ember-text)); }
 .cardx .ico {
   width: 52px; height: 52px;
-  background: var(--ember-dim);
+  background: color-mix(in srgb, var(--section-tint, var(--ember)) 12%, transparent);
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 24px;
 }
-.cardx .ico svg { width: 26px; height: 26px; stroke: var(--ember-text); }
+.cardx .ico svg { width: 26px; height: 26px; stroke: var(--section-tint, var(--ember-text)); }
 .cardx h3 {
   font-family: var(--serif); font-weight: 700;
   font-size: 25px; line-height: 1.25;
@@ -360,7 +401,7 @@ a.cardx:hover .step-act { color: var(--ember-text); }
 .cardx .tier {
   font-family: var(--mono);
   font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--ember-text);
+  color: var(--section-tint, var(--ember-text));
   margin-bottom: 18px;
 }
 .cardx .step-act {
@@ -431,7 +472,17 @@ a.cardx:hover .step-act { color: var(--ember-text); }
 /* ============================================================
    FOOTER
    ============================================================ */
-footer { padding: 52px 0 60px; border-top: 1px solid var(--line); }
+/* the footer's one sunset mark (v5): the sweep again, mirrored from
+   the hero's horizon, gold back to blue, at last-light opacity. The
+   page opens on the whole evening and closes on it. */
+footer { padding: 52px 0 60px; position: relative; }
+footer::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg,
+    var(--sun-gold), var(--sun-amber), var(--sun-coral),
+    var(--sun-rose), var(--sun-violet), var(--sun-blue));
+  opacity: .4;
+}
 
 .foot-grid {
   display: flex; justify-content: space-between;
@@ -472,10 +523,10 @@ footer { padding: 52px 0 60px; border-top: 1px solid var(--line); }
   display: flex; flex-direction: column;
   transition: border-color var(--micro) var(--ease), transform var(--micro) var(--ease);
 }
-.grow:hover { border-color: var(--rule); transform: translateY(-2px); }
+.grow:hover { border-color: color-mix(in srgb, var(--section-tint, var(--rule)) 45%, var(--rule)); transform: translateY(-2px); }
 .grow .tag {
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--ember-text);
+  text-transform: uppercase; color: var(--section-tint, var(--ember-text));
   margin-bottom: 14px;
 }
 .grow h3 {
@@ -541,8 +592,6 @@ footer { padding: 52px 0 60px; border-top: 1px solid var(--line); }
 }
 @media (max-width: 600px) {
   body { font-size: 18px; }
-  .wrap { padding: 0 5vw; }
-  .hero { padding-left: 5vw; padding-right: 5vw; }
   .cards-4 { gap: 18px; }
   .cards-3 { gap: 18px; }
   .cardx { padding: 32px 26px; }
