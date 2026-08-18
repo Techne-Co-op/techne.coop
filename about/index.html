@@ -105,13 +105,15 @@ html[data-mode="light"] {
   color-scheme: light;
 }
 
-/* SECTION TINTS  --  each section places itself on the descent */
-[data-tint="gold"]   { --section-tint: var(--sun-gold-t); }
-[data-tint="amber"]  { --section-tint: var(--sun-amber-t); }
-[data-tint="coral"]  { --section-tint: var(--sun-coral-t); }
-[data-tint="rose"]   { --section-tint: var(--sun-rose-t); }
-[data-tint="violet"] { --section-tint: var(--sun-violet-t); }
-[data-tint="blue"]   { --section-tint: var(--sun-blue-t); }
+/* SECTION TINTS  --  each section places itself on the descent.
+   The -t variant colors type; the canonical stop carries atmosphere
+   (washes, seams, watermarks) per the U-26 deepening, drafted. */
+[data-tint="gold"]   { --section-tint: var(--sun-gold-t);   --section-stop: var(--sun-gold); }
+[data-tint="amber"]  { --section-tint: var(--sun-amber-t);  --section-stop: var(--sun-amber); }
+[data-tint="coral"]  { --section-tint: var(--sun-coral-t);  --section-stop: var(--sun-coral); }
+[data-tint="rose"]   { --section-tint: var(--sun-rose-t);   --section-stop: var(--sun-rose); }
+[data-tint="violet"] { --section-tint: var(--sun-violet-t); --section-stop: var(--sun-violet); }
+[data-tint="blue"]   { --section-tint: var(--sun-blue-t);   --section-stop: var(--sun-blue); }
 
 /* ============================================================
    BASE  --  document grammar, v5 measures
@@ -179,6 +181,9 @@ a:hover { border-color: var(--blue); }
 }
 .eyebrow .num { font-weight: 500; color: var(--section-tint, var(--ember-text)); }
 .eyebrow .sep { width: 5px; height: 5px; background: var(--section-tint, var(--ember)); }
+/* the eyebrow speaks in its section's stop rather than the global
+   ember (U-26, drafted); the masthead, untinted, keeps ember */
+section[data-tint] .eyebrow, article[data-tint] .eyebrow { color: var(--section-tint); }
 .accent-rule {
   display: block; width: 96px; height: 2px;
   background: linear-gradient(90deg,
@@ -213,7 +218,22 @@ section[data-tint]::before {
     color-mix(in srgb, var(--section-tint) 50%, transparent) 50%,
     transparent 96%);
 }
-section.band[data-tint] { background: color-mix(in srgb, var(--inset) 96%, var(--section-tint)); }
+/* the wash, deepened, and the seam (U-26, drafted): every tinted
+   section takes a perceptible wash of its canonical stop, and a
+   shallow band of the stop pools under the hairline, fading before
+   the text begins; the seam's strength follows the computed sky.
+   AA-verified by script against both modes. */
+section[data-tint]::after {
+  content: ""; position: absolute; top: 0; left: 0; right: 0;
+  height: clamp(36px, 5vw, 56px);
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--section-stop) 20%, transparent),
+    transparent);
+  opacity: calc(var(--sky-glow, .55) * .6);
+}
+section.page[data-tint] { background: color-mix(in srgb, var(--bg) 95%, var(--section-stop)); }
+section.band[data-tint] { background: color-mix(in srgb, var(--inset) 92%, var(--section-stop)); }
 
 .section-head { max-width: 820px; margin: 0 auto clamp(40px, 5vw, 56px); text-align: center; }
 .section-title {
@@ -250,7 +270,8 @@ section.band[data-tint] { background: color-mix(in srgb, var(--inset) 96%, var(-
 /* the tending list: roles, never names */
 .tends { max-width: 68ch; margin: 28px auto 0; display: grid; gap: 18px; }
 .tend {
-  background: var(--surface); border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 95%, var(--section-stop, var(--ember)));
+  border: 1px solid var(--line);
   border-left: 2px solid var(--section-tint, var(--ember));
   padding: 22px 26px;
 }
@@ -263,7 +284,7 @@ section.band[data-tint] { background: color-mix(in srgb, var(--inset) 96%, var(-
 
 /* lineage entries */
 .lineage { max-width: 68ch; margin: 28px auto 0; }
-.lineage .entry { border-top: 1px solid var(--line); padding: 22px 0; }
+.lineage .entry { border-top: 1px solid color-mix(in srgb, var(--section-stop, var(--line)) 30%, var(--line)); padding: 22px 0; }
 .lineage .entry:last-child { border-bottom: 1px solid var(--line); }
 .lineage h3 {
   font-family: var(--serif); font-weight: 700; font-size: 20px;
