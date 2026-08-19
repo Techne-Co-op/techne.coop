@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>The Treasurer's Handbook &middot; Documentation &middot; Techne</title>
+<meta name="description" content="A full technical orientation to the treasury, accounting, and finance work of the techne.coop build, addressed to the incoming treasurer: what is adopted, what is draft, the rails, the ledger, and the duties.">
+<meta name="robots" content="noindex,nofollow">
+<script>
+ (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+ var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+ document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+ :root{
+ --serif:'Libre Baskerville',Georgia,serif; --sans:Inter,'Helvetica Neue',Arial,sans-serif; --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+ }
+ [data-mode="dark"]{
+ --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+ --line:#2A2A30; --rule:#3A3A42;
+ --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+ --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+ --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+ }
+ [data-mode="light"]{
+ --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+ --line:#D8D3C8; --rule:#9A958A;
+ --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+ --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+ --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+ }
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{background:var(--bg); color:var(--text); font:400 15px/1.7 var(--serif)}
+ .wrap{max-width:880px; margin:0 auto; padding:0 22px 60px}
+ a{color:var(--blue-text); text-decoration:none}
+ a:hover{text-decoration:underline}
+ em{color:var(--heading)}
+ .mono{font-family:var(--mono)}
+ :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+ .crumb-bar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+ .crumb-bar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+ .crumb-bar .bc a{color:var(--ember-text)}
+
+ .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
+ .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+ .mast .dek{font:400 16.5px/1.65 var(--serif); max-width:64ch}
+ .statusline{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 6px}
+ .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+ .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+ .chip.info{color:var(--info); border-color:var(--info)} .chip.info::before{background:var(--info)}
+ .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:var(--warn)}
+ .citesline{font:400 11.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin:18px 0 38px}
+ .citesline b{color:var(--ember-text); font-weight:500}
+
+ .sec{margin:0 0 40px}
+ .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+ .sec-num{font:500 11px var(--mono); border-left:3px solid var(--ember); padding:2px 0 2px 9px; color:var(--ember); flex:none}
+ .sec-head h2{font:400 21px/1.3 var(--serif); color:var(--heading)}
+ .sec-head .sub{font:400 12px var(--mono); color:var(--muted); margin-left:auto; text-align:right}
+ .sec p{margin:0 0 14px; max-width:68ch}
+ .sec p:last-child{margin-bottom:0}
+
+ table{width:100%; border-collapse:collapse; font:400 12.5px/1.6 var(--sans); margin:0 0 16px}
+ th{font:600 10.5px var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--surface)}
+ td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+ td.mono{font:400 11.5px var(--mono); color:var(--ember-text); white-space:nowrap}
+ tr:hover td{background:var(--surface)}
+
+ pre{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; overflow-x:auto; font:400 11.5px/1.65 var(--mono); color:var(--text); margin:0 0 16px}
+ pre .c{color:var(--faint)}
+ pre .k{color:var(--ember-text)}
+
+ .box{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; margin:0 0 14px}
+ .box .bk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:7px}
+ .box p{font-size:13.5px; max-width:66ch}
+ .box.decide{border-left:3px solid var(--ember)}
+ .box.limit{border-left:3px solid var(--warn)}
+
+ .foot{border-top:1px solid var(--line); margin-top:48px; padding-top:16px}
+ .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint)}
+ @media (max-width:700px){ .mast h1{font-size:27px} table{font-size:11.5px} }
+ @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+
+ /* Diagrams: hand-authored inline SVG, token discipline throughout.
+    Strokes and fills reference the mode tokens; labels ride the mono stack. */
+ .diagram{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:14px 10px; margin:0 0 16px; overflow-x:auto}
+ .diagram svg{display:block; margin:0 auto; max-width:100%; height:auto}
+ .diagram .cap{font:400 11px/1.7 var(--mono); color:var(--muted); text-align:center; margin-top:8px}
+ svg text{font-family:'IBM Plex Mono','SFMono-Regular',Consolas,monospace}
+ svg .lbl{fill:var(--text); font-size:11px}
+ svg .lbl-h{fill:var(--heading); font-size:11.5px; font-weight:500}
+ svg .lbl-m{fill:var(--muted); font-size:10px}
+ svg .lbl-e{fill:var(--ember-text); font-size:10.5px}
+ svg .lbl-b{fill:var(--blue-text); font-size:10.5px}
+ svg .bx{fill:var(--surface); stroke:var(--rule); stroke-width:1}
+ svg .bx-e{fill:var(--surface); stroke:var(--ember); stroke-width:1}
+ svg .bx-b{fill:var(--surface); stroke:var(--blue); stroke-width:1}
+ svg .ln{stroke:var(--rule); stroke-width:1; fill:none}
+ svg .ln-e{stroke:var(--ember); stroke-width:1; fill:none}
+ svg .ln-b{stroke:var(--blue); stroke-width:1; fill:none}
+ svg .ah{fill:var(--rule)}
+ svg .ah-e{fill:var(--ember)}
+ svg .ah-b{fill:var(--blue)}
+ svg .band{fill:var(--inset); stroke:var(--rule); stroke-width:1}
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+/* U-27: the sweep horizon, applied softly (v5). The six-stop range
+   as one hairline at the masthead's foot, and its mirror at the
+   footer's head where the page carries a footer. Decorative only:
+   stop values verbatim from commons.css; no control colored, no
+   copy touched. */
+:root{
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+  --sky-line:linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+}
+.mast{position:relative;}
+.mast::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:var(--sky-line);opacity:.45;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumb-bar">
+ <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; <a href="/commons/treasury/">Treasury module</a> &middot; documentation</span>
+</div>
+
+<div class="mast">
+ <div class="kicker">TREASURY-HANDBOOK v1 &middot; documentation &middot; the treasurer's orientation</div>
+ <h1>The Treasurer's Handbook<br>A Technical Orientation to the Money Work</h1>
+ <p class="dek">Everything the incoming treasurer needs to know about the treasury, accounting, and finance work of this build, in one place: what stands adopted and what is only drafted, how money enters and leaves, which rails are connected and what they may do, what the ledger already records, and which decisions only the board can close. This page documents the record; it adopts nothing, decides nothing, and is right only insofar as the instruments it cites are right. A condensed two-page version stands at <a href="/commons/treasury/handbook/brief/">the Treasurer's Brief</a>.</p>
+ <div class="statusline">
+ <span class="chip info">Documentation &middot; drafted 2026-08-19</span>
+ <span class="chip warn">describes the record &middot; adopts nothing</span>
+ </div>
+</div>
+
+<div class="citesline">
+ <b>cites</b> &middot; TREASURY v0.1.5 &sect;4 &sect;5 &sect;6 &sect;8 &sect;9a &sect;14 &middot; TREASURY-POLICY v1.1 (draft) &middot; COUNTING-RULES v1 (draft) &sect;3 &sect;8 &middot; PATRONAGE v0.3 &sect;7 &middot; rdm-ledger.yaml, the Treasury bed T-01 through T-07 and G-T &middot; 0019_treasury_statements.sql &middot; scripts/treasury_statements.py
+ <br><b>companions</b> &middot; <a href="/commons/treasury/handbook/brief/">the Brief</a> &middot; <a href="/commons/treasury/">the Treasury module PRD</a> &middot; <a href="/commons/treasury/policy/">the draft Treasury Policy</a> &middot; <a href="/commons/patronage/counting-rules/">the draft Counting Rules</a> &middot; <a href="/commons/patronage/">the Patronage module</a>
+</div>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;1</span><h2>What is adopted and what is not</h2><span class="sub">the most important thing on this page</span></div>
+ <p>Read this table before anything else, because it is the ground truth of your seat. Almost everything below describes a <em>shape</em> the board has accepted and <em>figures</em> the board has not. Nothing in this handbook, and nothing in the drafts it cites, authorizes a movement of money by itself.</p>
+ <table>
+ <tr><th>instrument</th><th>standing</th><th>what that means</th></tr>
+ <tr><td class="mono">TREASURY v0.1.5</td><td>adopted as shape by merge, 2026-07-22</td><td>the module specification stands; every threshold and figure within it remains the board's to adopt</td></tr>
+ <tr><td class="mono">TREASURY-POLICY v1.1</td><td>draft &middot; staged to the FSC and board</td><td>the signature discipline, bands, and standing purposes; nothing adopted, no band in force</td></tr>
+ <tr><td class="mono">COUNTING-RULES v1</td><td>draft &middot; staged to board with tax counsel</td><td>the six Primitives and their valuations; prospective only when adopted</td></tr>
+ <tr><td class="mono">PATRONAGE v0.3</td><td>adopted as shape by merge, 2026-07-22</td><td>the meaning layer stands as specification; the Share pieces are blocked on Q3, redeemability</td></tr>
+ </table>
+ <div class="box limit"><span class="bk">honest limit</span><p>Until the board adopts TREASURY-POLICY, there is no band, no standing purpose, and no pre-authorized anything. Every disbursement question is a board question in practice, and the draft bands in &sect;4 below are the drafter's cut, useful as orientation and binding on no one.</p></div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;2</span><h2>Movement and meaning</h2><span class="sub">the core principle, TREASURY &sect;4</span></div>
+ <p>The whole design rests on one separation, stated in TREASURY &sect;4: <em>"treasury records movement; patronage records meaning; neither substitutes for the other, and the pairing of the two is the trustworthy fact."</em> A member's cash contribution is two events in two layers: a treasury fact that dollars arrived with a bank reference, and a patronage fact that a capital account was credited under a policy version, each carrying the other's id. When the layers disagree, that disagreement is a feature: a movement with no meaning, or a meaning with no movement, is exactly what the reconciliation tally exists to surface.</p>
+ <div class="diagram">
+ <svg viewBox="0 0 720 220" role="img" aria-label="Two-layer diagram: the treasury layer records movement, the patronage layer records meaning, and the pairing of the two is the trustworthy fact.">
+  <rect class="band" x="20" y="20" width="680" height="70" rx="3"/>
+  <text class="lbl-e" x="36" y="42">TREASURY &middot; the movement layer</text>
+  <rect class="bx-e" x="36" y="52" width="180" height="28" rx="2"/>
+  <text class="lbl" x="52" y="70">money.received</text>
+  <rect class="bx-e" x="250" y="52" width="210" height="28" rx="2"/>
+  <text class="lbl" x="266" y="70">disbursement.executed</text>
+  <rect class="bx-e" x="494" y="52" width="190" height="28" rx="2"/>
+  <text class="lbl" x="510" y="70">treasury.reconciled</text>
+  <rect class="band" x="20" y="130" width="680" height="70" rx="3"/>
+  <text class="lbl-b" x="36" y="152">PATRONAGE &middot; the meaning layer</text>
+  <rect class="bx-b" x="36" y="162" width="180" height="28" rx="2"/>
+  <text class="lbl" x="52" y="180">capital.contribution</text>
+  <rect class="bx-b" x="250" y="162" width="210" height="28" rx="2"/>
+  <text class="lbl" x="266" y="180">capital.distribution</text>
+  <rect class="bx-b" x="494" y="162" width="190" height="28" rx="2"/>
+  <text class="lbl" x="510" y="180">the capital tally</text>
+  <line class="ln" x1="126" y1="80" x2="126" y2="162"/>
+  <line class="ln" x1="355" y1="80" x2="355" y2="162"/>
+  <text class="lbl-m" x="136" y="115">pairing: each event</text>
+  <text class="lbl-m" x="136" y="127">carries the other's id</text>
+  <text class="lbl-m" x="365" y="115">a commitment settles</text>
+  <text class="lbl-m" x="365" y="127">only by pairing</text>
+ </svg>
+ <div class="cap">movement and meaning &middot; two layers, one log &middot; the pairing is the trustworthy fact (TREASURY &sect;4)</div>
+ </div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;3</span><h2>The money loop</h2><span class="sub">rails, reads, statements, log, tally</span></div>
+ <p>Money moves on external rails; the record reads them; humans move the money. The rails connected as of 2026-08-04 are Stripe at intake, Mercury as bank custody, Xero as the book of account, and a Safe onchain, every connection <em>read-only</em>. The statements runner reads all four, renders monthly statements into the statements store at the member cut, and writes nothing to the event log. The governed movements themselves, once the treasury verbs migrate, land as events in the append-only log, and the state anyone trusts is a fold over those events: state = fold(events).</p>
+ <div class="diagram">
+ <svg viewBox="0 0 720 320" role="img" aria-label="The money loop: Stripe, Mercury, Xero, and a Safe are read read-only into the statements store, which renders member-cut and steward-cut statements; treasury events flow into the append-only log whose fold is the tally.">
+  <rect class="bx" x="20" y="20" width="120" height="30" rx="2"/><text class="lbl" x="36" y="39">Stripe</text>
+  <rect class="bx" x="20" y="60" width="120" height="30" rx="2"/><text class="lbl" x="36" y="79">Mercury</text>
+  <rect class="bx" x="20" y="100" width="120" height="30" rx="2"/><text class="lbl" x="36" y="119">Xero</text>
+  <rect class="bx" x="20" y="140" width="120" height="30" rx="2"/><text class="lbl" x="36" y="159">Safe</text>
+  <text class="lbl-m" x="20" y="192">the rails &middot; connected</text>
+  <text class="lbl-m" x="20" y="204">2026-08-04</text>
+  <line class="ln" x1="140" y1="35" x2="250" y2="90"/>
+  <line class="ln" x1="140" y1="75" x2="250" y2="92"/>
+  <line class="ln" x1="140" y1="115" x2="250" y2="96"/>
+  <line class="ln" x1="140" y1="155" x2="250" y2="100"/>
+  <text class="lbl-m" x="152" y="66">read-only reads</text>
+  <rect class="bx-e" x="250" y="75" width="200" height="40" rx="2"/>
+  <text class="lbl" x="266" y="93">treasury_statements</text>
+  <text class="lbl-m" x="266" y="106">the statements store (0019)</text>
+  <line class="ln-e" x1="450" y1="88" x2="540" y2="60"/><polygon class="ah-e" points="540,60 531,60 536,67"/>
+  <line class="ln-e" x1="450" y1="102" x2="540" y2="130"/><polygon class="ah-e" points="540,130 531,130 536,123"/>
+  <rect class="bx" x="545" y="42" width="155" height="30" rx="2"/><text class="lbl" x="558" y="61">member cut</text>
+  <rect class="bx" x="545" y="118" width="155" height="30" rx="2"/><text class="lbl" x="558" y="137">steward cut</text>
+  <text class="lbl-m" x="545" y="86">aggregates only &middot; no names</text>
+  <rect class="bx-b" x="20" y="235" width="300" height="30" rx="2"/>
+  <text class="lbl" x="34" y="254">money.received &middot; disbursement.*</text>
+  <rect class="bx-b" x="20" y="273" width="300" height="30" rx="2"/>
+  <text class="lbl" x="34" y="292">treasury.reconciled &middot; gap_resolved</text>
+  <line class="ln-b" x1="320" y1="268" x2="410" y2="268"/><polygon class="ah-b" points="410,268 401,264 401,272"/>
+  <rect class="bx-b" x="410" y="250" width="160" height="36" rx="2"/>
+  <text class="lbl" x="424" y="266">append-only log</text>
+  <text class="lbl-m" x="424" y="280">events, never mutated</text>
+  <line class="ln-b" x1="570" y1="268" x2="640" y2="268"/><polygon class="ah-b" points="640,268 631,264 631,272"/>
+  <rect class="bx-b" x="640" y="250" width="60" height="36" rx="2"/>
+  <text class="lbl" x="652" y="272">tally</text>
+  <text class="lbl-m" x="20" y="225">the governed movements &middot; verbs anticipated, none yet migrated</text>
+  <text class="lbl-m" x="410" y="302">state = fold(events)</text>
+ </svg>
+ <div class="cap">the money loop &middot; reads above, record below &middot; no system moves money; humans execute at the bank</div>
+ </div>
+ <p>Hold the boundary firmly: <em>execution is manual at the bank</em>. No system holds a key or initiates a movement; the record describes movement and humans execute it. The draft policy pins this in its payload as <span class="mono">execution="manual_at_bank"</span>, and TREASURY defers programmatic initiation to a proposal that does not exist.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;4</span><h2>The signature discipline</h2><span class="sub">TREASURY-POLICY v1.1, draft</span></div>
+ <p>The draft policy, staged to the FSC and board and adopted by nobody, sets a floor of two distinct human acts on every disbursement, and bands by amount above it. The roles: <em>propose</em> is the treasurer or the steward; <em>approve</em> is a director or officer, never the proposer; <em>execute</em> is the treasurer or a named director; <em>attest</em> is the treasurer. Standing purposes, inside band 1 limits: a dues refund; a documented reimbursement against a receipt; a tax-covering allocation distribution.</p>
+ <table>
+ <tr><th>band</th><th>amount</th><th>requires</th></tr>
+ <tr><td class="mono">band 1 &middot; standing</td><td>up to $250, a standing purpose</td><td>proposer + one approver</td></tr>
+ <tr><td class="mono">band 2</td><td>up to $2,500</td><td>proposer + one approver</td></tr>
+ <tr><td class="mono">band 3</td><td>up to $10,000</td><td>proposer + two distinct approvers</td></tr>
+ <tr><td class="mono">band 4</td><td>above $10,000, or any flagged purpose</td><td>recorded board resolution, then treasurer execution</td></tr>
+ </table>
+ <div class="diagram">
+ <svg viewBox="0 0 720 240" role="img" aria-label="The band ladder: four bands rising from 250 dollars to above 10,000 dollars, each requiring more approvals, band 4 requiring a board resolution.">
+  <rect class="bx" x="40" y="180" width="150" height="36" rx="2"/>
+  <text class="lbl-h" x="54" y="197">band 1</text>
+  <text class="lbl-m" x="54" y="210">to $250 &middot; standing</text>
+  <text class="lbl-e" x="200" y="203">1 approver</text>
+  <rect class="bx" x="130" y="130" width="150" height="36" rx="2"/>
+  <text class="lbl-h" x="144" y="147">band 2</text>
+  <text class="lbl-m" x="144" y="160">to $2,500</text>
+  <text class="lbl-e" x="290" y="153">1 approver</text>
+  <rect class="bx" x="220" y="80" width="150" height="36" rx="2"/>
+  <text class="lbl-h" x="234" y="97">band 3</text>
+  <text class="lbl-m" x="234" y="110">to $10,000</text>
+  <text class="lbl-e" x="380" y="103">2 distinct approvers</text>
+  <rect class="bx-e" x="310" y="30" width="180" height="36" rx="2"/>
+  <text class="lbl-h" x="324" y="47">band 4</text>
+  <text class="lbl-m" x="324" y="60">above $10,000 &middot; flagged</text>
+  <text class="lbl-e" x="500" y="46">board resolution,</text>
+  <text class="lbl-e" x="500" y="60">then treasurer executes</text>
+  <line class="ln" x1="40" y1="222" x2="700" y2="222"/>
+  <text class="lbl-m" x="40" y="236">floor: two distinct human acts &middot; proposer never approves &middot; refusal is a recorded act</text>
+ </svg>
+ <div class="cap">the band ladder &middot; drafter's cut, TREASURY-POLICY &sect;3 &middot; every figure open to the FSC's revision, none in force</div>
+ </div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;5</span><h2>The six Primitives</h2><span class="sub">COUNTING-RULES v1, draft</span></div>
+ <p>The counting rules, staged to the board with tax counsel, define a closed set of six Contribution Primitives, prospective only. Declaring and confirming are two hands: a Contribution is declared by the contributor and confirmed by a distinct hand, and confirming non-program Contributions is the treasurer's (COUNTING-RULES &sect;3).</p>
+ <table>
+ <tr><th>primitive</th><th>valuation</th></tr>
+ <tr><td class="mono">HOURS</td><td>the LABOR-SCHEDULE tier rate in force (see &sect;6 below: the rates do not exist in the record)</td></tr>
+ <tr><td class="mono">REVENUE</td><td>10% drafter's cut</td></tr>
+ <tr><td class="mono">CASH</td><td>face value</td></tr>
+ <tr><td class="mono">OUTPUT</td><td>the Program policy's unit</td></tr>
+ <tr><td class="mono">PRESENCE</td><td>$15.00 per occurrence, capped at 26 per year</td></tr>
+ <tr><td class="mono">PROPERTY</td><td>documented fair market value; board resolution above $2,500</td></tr>
+ </table>
+ <p>Two payments are explicitly outside the set: the $100 membership share and the $100 annual dues. Neither is a Contribution.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;6</span><h2>The LABOR-SCHEDULE hole</h2><span class="sub">know this before your first HOURS confirmation</span></div>
+ <div class="box limit"><span class="bk">the hole, plainly</span><p>HOURS valuation cites LABOR-SCHEDULE &sect;6 tier rates, and those rates exist nowhere in the estate. PATRONAGE &sect;7 says they are "understood to have been settled in June 2026, not in the record." COUNTING-RULES &sect;8 leaves the decision open: the rates arrive from the Plan. As of this writing, nothing but a human memory can check the four tiers. This gates the first HOURS Contribution and the Share bed. The steward's call of 2026-08-13: benchmark against public wage data rather than reconstruct the June figures. Until an adopted LABOR-SCHEDULE entry exists, do not confirm an HOURS Contribution, because there is no rate in the record to confirm it against.</p></div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;7</span><h2>The ledger truth</h2><span class="sub">the Treasury bed, rdm-ledger.yaml lines 909-992</span></div>
+ <p>The build ledger holds the Treasury bed as seven pieces and a gate. Statuses as recorded:</p>
+ <table>
+ <tr><th>address</th><th>piece</th><th>status</th></tr>
+ <tr><td class="mono">T-01</td><td>the Desk and the policy instrument</td><td>open &middot; TREASURY-POLICY; completes on adoption</td></tr>
+ <tr><td class="mono">T-02</td><td>the intake rail</td><td>anticipated</td></tr>
+ <tr><td class="mono">T-03</td><td>the reconciliation tally</td><td>anticipated</td></tr>
+ <tr><td class="mono">T-04</td><td>disbursement execution</td><td>anticipated</td></tr>
+ <tr><td class="mono">T-05</td><td>the redemption path</td><td>open &middot; redeemability (Q3)</td></tr>
+ <tr><td class="mono">T-06</td><td>the balance view</td><td>anticipated</td></tr>
+ <tr><td class="mono">T-07</td><td>the statements view</td><td>anticipated &middot; rail credentials provisioned 2026-08-04; 0019_treasury_statements applied live; runner at scripts/treasury_statements.py; statements May through July 2026 rendered at the member cut, provisional until a window attests</td></tr>
+ </table>
+ <p>The gate, G-T, is anticipated and ready when T-04 verifies: <em>"A movement shown settled equals a movement traced by hand, proposal to approvals to bank line to journal, and the window attests with nothing unexplained."</em> That sentence is the standard your attestations will be measured against.</p>
+ <p>The event kinds the module will write (TREASURY &sect;5): money.received; disbursement.proposed, approved, executed, refused; share.issued and share.redeemed; treasury.reconciled; treasury.gap_resolved. None has migrated yet: 000N_treasury_verbs.sql and 000N_treasury_folds.sql remain anticipated.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;8</span><h2>The rails, as connected</h2><span class="sub">real, 2026-08-04, all read-only</span></div>
+ <table>
+ <tr><th>rail</th><th>role</th><th>connection</th></tr>
+ <tr><td class="mono">Mercury</td><td>bank custody</td><td>read token, IP-whitelisted to the operations host; verified by GET /api/v1/accounts</td></tr>
+ <tr><td class="mono">Stripe</td><td>intake</td><td>restricted read-only key over balance, transactions, charges, payouts, invoices, and kin</td></tr>
+ <tr><td class="mono">Xero</td><td>book of account</td><td>custom connection app techne-commons-read, client_credentials, 30-minute tokens fetched per use, read-only scopes including P&amp;L, balance sheet, and bank summary reports; authorised user boulder.regenhub@gmail.com</td></tr>
+ <tr><td class="mono">Safe</td><td>onchain holdings</td><td>named among the rails the statements runner reads</td></tr>
+ </table>
+ <div class="box"><span class="bk">standing note &middot; Xero reconciliation</span><p>The Xero bank feed ending 1253 is unreconciled as of this writing. The May through July statements were rendered over that state, and a rerun is owed when reconciliation completes.</p></div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;9</span><h2>The statements store</h2><span class="sub">0019_treasury_statements.sql, applied live</span></div>
+ <p>One table, treasury_statements: a month column, text and unique in the form YYYY-MM, and a payload column, jsonb. Statements are <em>outside observations, not log facts</em>: rendering one writes nothing to events. The member cut carries no member names, no member ids, and no per-member amounts, with small-cohort withholding guarding the seam between aggregate and identity. Select is admitted by RLS to every authenticated member; writes travel only through the management channel under steward custody. Three monthly statements, May through July 2026, are rendered and live, each provisional until a reconciliation window attests its month.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;10</span><h2>Open accounting, real and theoretical</h2><span class="sub">the trajectory, honestly labeled</span></div>
+ <p>The build's trajectory is open accounting: books legible to members and, in time, to the public the cooperative claims to benefit, balanced against member privacy by design rather than by discretion. Keep the two columns distinct.</p>
+ <p><em>Real, in the record now:</em> the read-only rails of &sect;8; monthly member-cut statements; the append-only event log with its tally, state = fold(events); the two-hands rule, proposer never approver; attested reconciliation windows as the standard (G-T); and the discipline that every figure cites its instrument, event, or read.</p>
+ <p><em>Theoretical, staged or anticipated:</em> the four-band signature discipline, in force only on adoption; the two-layer movement-and-meaning pairing, live once patronage events land; capital accounts in the Subchapter K sense, IRC 704(b) context, where the 40/30/20/10 allocation formula remains the FSC's to finalize and the weights live in the Plan, not in COUNTING-RULES; and public-facing cuts beyond the member cut, a future board decision under the open benefit report.</p>
+ <p><em>Privacy design:</em> the cut discipline, member cut against steward cut; aggregates only; small-cohort withholding; no per-member amounts on shared surfaces; drafts noindexed.</p>
+ <div class="box decide"><span class="bk">the tax boundary</span><p>The tax character of intake, dues versus capital versus program payment, is routed to a CPA and tax counsel (TREASURY &sect;14). No CPA is engaged yet. A counsel memo is staged at /accounting/counsel-memo/. Do not resolve tax character questions from this page or any page; route them.</p></div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;11</span><h2>The treasurer's duties</h2><span class="sub">as the record defines them</span></div>
+ <table>
+ <tr><th>duty</th><th>ground</th></tr>
+ <tr><td>propose disbursements</td><td class="mono">TREASURY-POLICY &sect;2 (draft)</td></tr>
+ <tr><td>execute within bands, once the policy adopts</td><td class="mono">TREASURY-POLICY &sect;3 (draft)</td></tr>
+ <tr><td>attest reconciliation windows</td><td class="mono">TREASURY &sect;8; G-T</td></tr>
+ <tr><td>confirm non-program Contributions</td><td class="mono">COUNTING-RULES &sect;3 (draft)</td></tr>
+ <tr><td>custody of the statements runner output</td><td class="mono">TREASURY &sect;9a; 0019</td></tr>
+ </table>
+ <p>And one clock: the treasury committee has 90 days from the first member sign-up to land four things, of which the record shows COUNTING-RULES staged, LABOR-SCHEDULE the hole of &sect;6, TREASURY-POLICY parked in draft, and the payout, cash-out, and reinvestment schedule not yet started.</p>
+ <p><em>What waits on the board, and only the board:</em> TREASURY-POLICY adoption; COUNTING-RULES adoption; the Q3 redeemability question; the LABOR-SCHEDULE entry; and the treasurer election formalities themselves.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;12</span><h2>Live financial facts</h2><span class="sub">as of 2026-08-19</span></div>
+ <p>Thirty-eight invoices stand outstanding at $11,095.75, of which $6,047.51 is at 61 or more days. The Xero bank feed ending 1253 is unreconciled. The May through July 2026 statements are live at the member cut, provisional until a window attests. These figures date fast; the statements store, not this page, is where to look tomorrow.</p>
+</section>
+
+<div class="foot">
+ <p class="tail">TREASURY-HANDBOOK v1 &middot; The Treasurer's Handbook &middot; documentation, adopts nothing &middot; describes TREASURY v0.1.5, TREASURY-POLICY v1.1 (draft), COUNTING-RULES v1 (draft), PATRONAGE v0.3 &middot; Nou drafts; Todd decides; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-08-19</p>
+</div>
+
+</div>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</body>
+</html>
