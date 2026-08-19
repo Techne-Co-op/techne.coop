@@ -599,6 +599,66 @@ belong:
       month, not a semantic version. Migration applied to the live CIS on the
       steward's adoption of the pull request, then Belong re-walked.
 
+  - address: B-08
+    title: Comment and countersign
+    intent: >
+      The agreements bed gains two acts. A member may leave a recorded remark
+      on a versioned instrument, in their own name, never edited and withdrawn
+      only by a citing row. A signature may carry the date the signer attests
+      to and the capacity they sign in, distinct from the moment the record was
+      written.
+    status: drafted
+    cites: [IM, AM, PRD, B-03, B-04, B-07]
+    ready_when: >
+      B-07 verified. Asked by Todd Youngblood in the cooperatives channel
+      2026-08-19, alongside entering the Gitcoin statement of work on the
+      shelf: an agreement that is negotiated rather than adopted needs a place
+      for what was said about it and a date the parties name.
+    deliverable: >
+      commons/authority-map/0025_agreement_comments_and_dated_signing.sql
+      (the agreement_comments table with reply and withdrawal citations held to
+      one instrument by trigger, RLS granting read to active members, directors
+      and officers and insert only in the caller's own name with no update
+      policy at all, the comment_on_agreement definer function parallel in
+      shape to sign_agreement and acknowledge_agreement, signatures gaining
+      signed_on and capacity, sign_agreement extended with two defaulted
+      parameters so every existing caller keeps its behaviour exactly, and the
+      SOW-GITCOIN-2 seed row) and the spec at
+      commons/agreements/comment-and-countersign/.
+    acceptance: >
+      A member opens an instrument on the shelf, reads every remark on that
+      version oldest first with its author and date, leaves one and sees the
+      agreement.commented event, withdraws their own and sees the original
+      still standing marked withdrawn, and cannot withdraw anyone else's. A
+      signature made with a date records signed_on distinct from signed_at,
+      carries its capacity in the event payload, and a date ahead of the record
+      is refused. The Gitcoin statement of work appears as in negotiation with
+      no signing act offered.
+    stop:
+      standing_in: B-08, the seed row for the Gitcoin statement of work
+      found: >
+        The statement of work is drafted, unpresented to the counterparty, and
+        the estate is public. Publishing its terms would disclose a transaction
+        still in negotiation.
+      question: >
+        May the SOW text be published on the estate, or does the shelf hold
+        only its name and standing until it has travelled?
+      default: >
+        Name and standing only. The row carries no uri and no body text. The
+        text follows when the counterparty has seen it and the steward says it
+        may.
+    note: >
+      Drafted, not applied. Schema is a stop-card matter under BP, and no live
+      schema change is made without a named human; the migration waits on the
+      steward's adoption. The seed row is the whole of what the estate says
+      about the Gitcoin sponsorship: its name, that it is a contract, and that
+      it is anticipated. Left open deliberately: the authority map's matrix at
+      AM section 5 gains no row for agreement_comments here, because the matrix
+      documents policy in force and this policy is not. The row is owed when
+      the migration is applied. The shelf surface at /commons/agreements/ is
+      likewise unchanged; the reading and writing of remarks is the surface
+      half of this piece and waits on the same adoption.
+
 gather:
 
   - address: G-01
