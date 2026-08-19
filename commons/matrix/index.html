@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>Extraction and Commoning &middot; Module PRD and Specification &middot; Techne</title>
+<meta name="description" content="A proposed module: the extraction-to-commoning axis, the three axes and sixty-three cells, seven marks as rule conditions, the typed vouch edge, fold semantics, decay, and the query rules that make a score impossible.">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#C4A96A; --amber:#C4956A; --coral:#C47A6A; --rose:#B46A8A; --twilight:#6A8AC4;
+    --serif:'Libre Baskerville',Georgia,serif; --sans:Inter,'Helvetica Neue',Arial,sans-serif; --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+  }
+  [data-mode="dark"]{
+    --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+    --line:#2A2A30; --rule:#3A3A42;
+    --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+    --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+    --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  }
+  [data-mode="light"]{
+    --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+    --line:#D8D3C8; --rule:#9A958A;
+    --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+    --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+    --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg); color:var(--text); font:400 15px/1.7 var(--serif)}
+  .wrap{max-width:880px; margin:0 auto; padding:0 22px 60px}
+  a{color:var(--blue-text); text-decoration:none}
+  a:hover{text-decoration:underline}
+  em{color:var(--heading)}
+  sup{font:500 10px/1 var(--mono); color:var(--blue-text)}
+  :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+  .mono{font-family:var(--mono)}
+
+  .crumb-bar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+  .crumb-bar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+  .crumb-bar .bc a{color:var(--ember-text)}
+
+  .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
+  .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+  .mast .dek{font:400 16.5px/1.65 var(--serif); max-width:64ch}
+  .statusline{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:16px 0 6px}
+  .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+  .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+  .chip.ok{color:var(--ok); border-color:var(--ok)} .chip.ok::before{background:var(--ok)}
+  .chip.info{color:var(--info); border-color:var(--info)} .chip.info::before{background:var(--info)}
+  .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:var(--warn)}
+  .chip.neutral::before{background:transparent; border:1px solid var(--muted)}
+  .citesline{font:400 11.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin:18px 0 38px}
+  .citesline b{color:var(--ember-text); font-weight:500}
+
+  .sec{margin:0 0 40px}
+  .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+  .sec-num{font:500 11px var(--mono); border-left:3px solid var(--rule); padding:2px 0 2px 9px; color:var(--muted); flex:none}
+  .sec-head[data-tint="gold"] .sec-num{border-color:var(--gold); color:var(--gold)}
+  .sec-head[data-tint="amber"] .sec-num{border-color:var(--amber); color:var(--amber)}
+  .sec-head[data-tint="coral"] .sec-num{border-color:var(--coral); color:var(--coral)}
+  .sec-head[data-tint="rose"] .sec-num{border-color:var(--rose); color:var(--rose)}
+  .sec-head[data-tint="twilight"] .sec-num{border-color:var(--twilight); color:var(--twilight)}
+  .sec-head h2{font:400 21px/1.3 var(--serif); color:var(--heading)}
+  .sec-head .sub{font:400 12px var(--mono); color:var(--muted); margin-left:auto; text-align:right}
+  .sec p{margin:0 0 14px; max-width:68ch}
+  .sec p:last-child{margin-bottom:0}
+
+  .box{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; margin:0 0 14px; max-width:100%}
+  .box .bk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:7px}
+  .box p{font-size:13.5px; max-width:66ch}
+  .box.decide{border-left:3px solid var(--ember)}
+
+  table{width:100%; border-collapse:collapse; font:400 12.5px/1.6 var(--sans); margin:0 0 16px}
+  th{font:600 10.5px var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--surface)}
+  td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+  td.mono, .addr{font:400 11.5px var(--mono); color:var(--ember-text); white-space:nowrap}
+  tr:hover td{background:var(--surface)}
+
+  pre{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; overflow-x:auto; font:400 11.5px/1.65 var(--mono); color:var(--text); margin:0 0 16px}
+  pre .c{color:var(--faint)}
+  pre .k{color:var(--ember-text)}
+
+  ol.plain{margin:0 0 14px 20px; max-width:68ch}
+  ol.plain li{margin-bottom:8px}
+
+  .foot{border-top:1px solid var(--line); margin-top:48px; padding-top:16px}
+  .foot h3{font:500 11px var(--mono); text-transform:uppercase; letter-spacing:.06em; color:var(--ember-text); margin-bottom:10px}
+  .foot ol{margin:0 0 22px 18px; font:400 12px/1.8 var(--sans); color:var(--muted)}
+  .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint)}
+
+  @media (max-width:700px){
+    .mast h1{font-size:27px}
+    .sec-head{flex-wrap:wrap}
+    .sec-head .sub{margin-left:0; text-align:left; width:100%}
+    table{font-size:11.5px}
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+  
+/* U-27: the sweep horizon, applied softly (v5). The six-stop range
+   as one hairline at the masthead's foot, and its mirror at the
+   footer's head where the page carries a footer. Decorative only:
+   stop values verbatim from commons.css; no control colored, no
+   copy touched. */
+:root{
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+  --sky-line:linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+}
+.mast{position:relative;}
+.mast::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:var(--sky-line);opacity:.45;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumb-bar">
+  <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; Common Record Series &middot; proposed module document</span>
+</div>
+
+<div class="mast">
+  <div class="kicker">MATRIX v0.1 &middot; module specification &middot; the shape of a relation, recorded</div>
+  <h1>Extraction and Commoning<br>A Proposed Module PRD and Specification</h1>
+  <p class="dek">A proposal, open to discussion and revision, for an instrument that lets the record say what kind of relation an event was. The register can already say who someone is and what stakes a thing carries. It cannot say whether the rules over a resource are held by the people who bear the consequences or held above them, and that distinction is the whole difference between a cooperative and a landlord. This document states the frame: three axes, sixty-three cells, seven marks written as rule conditions anyone can check, a typed vouch edge, a fold, a decay, and a query surface built so that no number about a person can ever come out of it. Nothing here is adopted. Merging this document would adopt the shape of the frame and nothing else.</p>
+  <div class="statusline">
+    <span class="chip neutral">MATRIX v0.1 &middot; drafted by Nou &middot; unadopted</span>
+    <span class="chip warn">no board act taken &middot; none sought by this document</span>
+    <span class="chip info">stage 1 of five &middot; the frame only</span>
+    <span class="chip neutral">yields &middot; anticipated &middot; M-01 through M-05</span>
+    <span class="chip ok">no score, no ranking, no schema change in v1</span>
+  </div>
+</div>
+
+<div class="citesline">
+  <b>cites</b> &middot; <a href="/commons/series/">SER</a> &middot; <a href="/commons/prd/">PRD v0.4</a> &middot; <a href="/commons/bp/">BP v2</a> &middot; <a href="/commons/im/">IM v0.1</a> Laws I, II, IV, VII, X &middot; <a href="/commons/vs/">VS v2</a> &middot; <a href="/commons/build/lexicon/">Lexicon v2</a>, the stakes register and the Ground and Craft roots &middot; <a href="/commonplace/">the Commonplace</a>, Movement II &middot; <a href="/community-of-practice/">community of practice</a> &middot; <a href="/commons/transducer/">TRANSDUCER v0.2</a> &middot; <a href="/commons/patronage/">PATRONAGE v0.3</a> as the intake precedent
+  <br><b>outside the estate</b> &middot; Ostrom, <em>Beyond Markets and States</em>, Nobel lecture 2009, design principles 1A through 8; Ostrom, Background on the IAD Framework, <em>Policy Studies Journal</em> 39(1), 2011, pp. 19&ndash;20, for the seven rule types; Hopper, Future Possibilities, NSA, 19 August 1982, released 26 August 2024. Carried as cited in the drafting brief and <b>not independently re-verified</b> against the originals
+  <br><b>naming</b> &middot; axis X is <em>extraction to commoning</em>, decided by the steward 2026-08-19. The drafting brief argued for keeping the word predation; the steward decided otherwise and this document uses the decided name throughout
+  <br><b>address</b> &middot; MATRIX proposed, not minted. Only the Almanac mints, and the merge is the minting
+</div>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;1</span><h2>Position and voice</h2><span class="sub">what this document is, and is not</span></div>
+  <p>This is a proposal and it should read like one. Nothing below is adopted, no board has acted on it, and this document seeks no board act. It is stage 1 of the five stages in &sect;15, and stage 1 is deliberately the smallest thing that can be built: a frame written down, so that a person can adopt it or refuse it before anything reads a real event through it. Where the document uses the language of specification, fields, enums, invariants, that precision is in service of discussion, not in place of it.</p>
+  <p>The posture is the standing one, and Law X holds here as everywhere: the instrument drafts, surfaces, and proposes; deciding, signing, and adopting sit with people.<sup>5</sup> The intake route is the one PATRONAGE, TREASURY, AGY, STANDING, and TRANSDUCER each took: a module document, an adoption, and a graft into the ledger.<sup>6</sup> If this document merges, what merges is the shape of a frame. No edge is written by the merge, no event type enters the Ground, and no conduct of any person is coded by it.</p>
+  <p>One dependency is stated at the front rather than buried, because it bears on whether the instrument should be built at all. &sect;3 names the guild as one of two users, and the guild framework is <em>drafted and unadopted</em>: the Participation Framework amendment is not adopted, the Guild Participation Terms are unwritten, and the ledger carries GUILD at <span class="mono">status: drafted</span>.<sup>7</sup> The steward reports that the guild framework was surfaced at the LCA board meeting of 2026-08-19 and met with forward excitement. That is a verbal report of a reception, and this document records it as exactly that. It is not an adoption, it is not minuted here, and nothing in this document may be read as though the guild floor were in place.</p>
+  <div class="box decide"><span class="bk">the sequencing risk, named &middot; not mitigated</span><p>If the guild adopts this instrument as its substitute for proximity while its own framework is unadopted, the instrument becomes load bearing under an unbuilt floor. Two honest routes: close the guild gap first, or state plainly, wherever the matrix is described, that it is not yet doing that job. This document takes the second route for now, and &sect;16 routes the choice to the steward.</p></div>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;2</span><h2>What the register cannot presently say</h2><span class="sub">the problem, in three parts</span></div>
+  <p><b>It cannot describe the quality of a relation.</b> The register has words for who someone is, the positions <span class="mono">member &middot; participant &middot; steward &middot; organizer &middot; overseer &middot; host &middot; author &middot; countersigner</span>, and words for what stakes a thing carries, <span class="mono">play &middot; practice &middot; work</span>.<sup>2</sup> It has no vocabulary for the shape of the relation itself: whether the rules over a resource are held by the people who bear the consequences or held above them. There is currently no way to say that about a specific event.</p>
+  <p><b>It cannot carry proximity.</b> The community of practice page states that belonging grows with skill and that proximity does most of it.<sup>3</sup> The guild is by design a virtual layer with no shared building, so proximity cannot do the work that page assigns it, and nothing else currently does that work either.</p>
+  <p><b>And it must never compute a score about a person.</b> The Commonplace already settled this: reputation is a score others compute about you, while trust is a relation you are inside of.<sup>4</sup> Any design producing a number per person is out of scope by construction, not by preference. &sect;12 states that as a set of hard boundaries and &sect;10 makes it structural rather than aspirational.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;3</span><h2>Who it serves</h2><span class="sub">two Programs, two uses</span></div>
+  <p><b>RegenHub.xyz, workspace operations.</b> The stated policy is concentric circles of belonging, where growth means inviting people inward rather than policing the edge, and the Commonplace already insists on a class matrix rather than a class ladder.<sup>4</sup> The instrument is how the space reads its own culture: it makes <em>inward</em> legible without ranking anyone.</p>
+  <p><b>techne.coop, the craft guild.</b> The network of self organizing communities of practice, where the question is how scenius travels beyond one building. A typed relation graph carries what a room carries: knowing who has done what near you, and at what weight. Subject to the dependency in &sect;1, which is not resolved.</p>
+  <p>Two use cases are in scope for a first build, and only two.</p>
+  <table>
+    <tr><th>use case</th><th>the question asked</th><th>the answer returned</th></tr>
+    <tr><td class="mono">UC-1</td><td>For the space at a given resource, at work stakes, what marks do the recorded events sit at?</td><td>A set of events with marks and citations. Not a verdict, and not about a person. Where recorded practice sits at mark 2 or 3 while the description says mark 7, the gap is the finding, and it is a finding about an arrangement.</td></tr>
+    <tr><td class="mono">UC-2</td><td>Who has done what, at what weight, in what domain, near a resource I care about?</td><td>A set of directional, cited, dated relations. Never a leaderboard, and there is nothing to be top of.</td></tr>
+  </table>
+  <div class="box"><span class="bk">an open precondition &middot; unverified</span><p>An attestation network for RegenHub already exists on chain, deployed and then deliberately hidden, with its own EAS schema and two trusted seeds, in the production network configuration of the TrustGraph project. <em>Why</em> it was hidden could not be verified from the repository, and this document does not guess. The steward points to omniharmonic as knowing more. Someone should ask before the cooperative designs around it or against it, since duplicating an existing deployment would be worse than joining it. &sect;13 carries this as a precondition on any bridge work.</p></div>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;4</span><h2>The three axes</h2><span class="sub">sixty-three cells, no new vocabulary</span></div>
+  <p>A <em>cell</em> is a coordinate of three values: <span class="mono">(mark, entity, stakes)</span>. Seven marks by three entities by three stakes is sixty-three cells. All three axes are already in the register, which is the argument for the instrument being a shape rather than a vocabulary: it adds no terms.</p>
+  <p><b>Axis X, extraction to commoning.</b> Seven marks, set out in &sect;5. The criterion is a single question asked of a relation: <em>who holds the rules, relative to who bears the consequences?</em> The axis measures rule holding, not money. Exchange sits mid scale at 4, neither sin nor virtue. Extraction is not the presence of a price; it is the unilateral holding of rules.</p>
+  <p><b>Axis Y, resources, events, agents.</b> Already the cooperative's, a formation meeting term. It is not merely a filter: it is what makes axis X observable, since the X position of a relation is visible only in an <em>event</em>, exercised over a <em>resource</em>, by an <em>agent</em>.</p>
+  <table>
+    <tr><th>value</th><th>what it names</th><th>examples</th></tr>
+    <tr><td class="mono">resource</td><td>what the rules are held over</td><td>a space, a treasury account, a repository, an hour, a dataset, the register itself</td></tr>
+    <tr><td class="mono">event</td><td>the exercise; the only thing the instrument ever reads</td><td>everything is an event, every number is a tally, per Law II<sup>1</sup></td></tr>
+    <tr><td class="mono">agent</td><td>who exercised, and in what position</td><td>the existing positions, which are what Ostrom would call position rules</td></tr>
+  </table>
+  <p><b>Axis Z, stakes.</b> <span class="mono">play &middot; practice &middot; work</span>, already defined and published in Lexicon v2: something for its own sake, something to get better at together, something with stakes and obligations.<sup>2</sup> One rule is normative and everything in &sect;10 exists to enforce it: <em>trust earned at work and trust earned at play are different substances and are never summed.</em></p>
+  <p>A cell reads as a sentence, and the canonical rendering is the reading rule for every surface this instrument ever gets:</p>
+  <pre><span class="c">-- the cell sentence</span>
+a <span class="k">{entity}</span> event, at <span class="k">{stakes}</span> stakes, at mark <span class="k">{n} {mark_name}</span>
+
+<span class="c">-- worked</span>
+a treasury event, at work stakes, at mark 6 stewardship</pre>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;5</span><h2>The seven marks</h2><span class="sub">rule conditions, not adjectives</span></div>
+  <p>Each mark is a condition over rule types, so that two people reading the same event record can locate their disagreement rather than trade impressions. The rule vocabulary underneath, boundary, position, choice, aggregation, information, payoff, and scope, is the IAD framework's seven rule types. Mark 7 restates Ostrom's design principles 3, 4A and 4B, 5 and 6; mark 1 is their negation.</p>
+  <table>
+    <tr><th>mark</th><th>name</th><th>rule condition</th></tr>
+    <tr><td class="mono">1</td><td class="mono">seizure</td><td>Actor sets boundary and payoff rules unilaterally; affected parties have no exit and no voice</td></tr>
+    <tr><td class="mono">2</td><td class="mono">enclosure</td><td>Boundary rules held unilaterally, but exit exists</td></tr>
+    <tr><td class="mono">3</td><td class="mono">rent</td><td>Payoff rules held unilaterally; access is priced by the holder</td></tr>
+    <tr><td class="mono">4</td><td class="mono">exchange</td><td>Rules symmetric at the moment of trade, and nowhere else</td></tr>
+    <tr><td class="mono">5</td><td class="mono">reciprocity</td><td>Repeated, unpriced, obligation carried forward but unrecorded</td></tr>
+    <tr><td class="mono">6</td><td class="mono">stewardship</td><td>Choice and information rules held by those affected; payoff rules still held above them</td></tr>
+    <tr><td class="mono">7</td><td class="mono">commoning</td><td>Collective choice arrangements: those affected are authorized to make and modify the rules; monitoring is by accountable users; sanctions graduated; conflict resolution local, fast, cheap</td></tr>
+  </table>
+  <div class="box decide"><span class="bk">ordinal, not interval &middot; normative</span><p>The distance from 2 to 3 is not comparable to the distance from 6 to 7. Arithmetic on mark values is undefined behaviour. An implementation must not average, sum, or difference them, and &sect;10 refuses queries that would.</p></div>
+  <p>To assign a mark, answer in order and stop at the first condition that holds:</p>
+  <ol class="plain">
+    <li>Are boundary <em>and</em> payoff rules set unilaterally by the actor, with no exit and no voice for the affected? Then <span class="mono">1 seizure</span>.</li>
+    <li>Are boundary rules held unilaterally, but exit exists? Then <span class="mono">2 enclosure</span>.</li>
+    <li>Are payoff rules held unilaterally, with access priced by the holder? Then <span class="mono">3 rent</span>.</li>
+    <li>Are rules symmetric at the moment of trade and nowhere else? Then <span class="mono">4 exchange</span>.</li>
+    <li>Is the exchange repeated and unpriced, with obligation carried forward but unrecorded? Then <span class="mono">5 reciprocity</span>.</li>
+    <li>Are choice and information rules held by those affected, while payoff rules are still held above them? Then <span class="mono">6 stewardship</span>.</li>
+    <li>Are the affected authorized to make and modify the rules, with monitoring by accountable users, graduated sanctions, and local, fast, cheap conflict resolution? Then <span class="mono">7 commoning</span>.</li>
+  </ol>
+  <p>If no condition holds, the event is <em>uncodable</em> and is recorded as such rather than forced. A coder records which rule type they could not determine, so the uncodable set is itself a reading of where the arrangement is unclear. Per &sect;12, the agent does not run this procedure over any real person's conduct before the frame is adopted by people.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;6</span><h2>The typed vouch</h2><span class="sub">the record schema</span></div>
+  <p>A vouch is an edge, and this instrument types the edge. Untyped, a vouch is a popularity score with cryptography on it. Typed by cell it reads as a sentence with receipts: <em>A vouches for B &middot; resource: the treasury &middot; stakes: work &middot; mark 6 &middot; citing event id</em>. Types below are given abstractly; a concrete encoding is a later decision and &sect;16 holds it open.</p>
+  <table>
+    <tr><th>field</th><th>type</th><th>required</th><th>notes</th></tr>
+    <tr><td class="mono">edge_id</td><td>content addressed identifier</td><td>yes</td><td>Derived from the canonical serialization. Not sequential.</td></tr>
+    <tr><td class="mono">kind</td><td class="mono">vouch | revoke | renew | dispute</td><td>yes</td><td>The event type. Lifecycle in &sect;7.</td></tr>
+    <tr><td class="mono">voucher</td><td>agent reference</td><td>yes</td><td>Who is accountable for the vouch. Never anonymous.</td></tr>
+    <tr><td class="mono">subject</td><td>agent reference</td><td>yes</td><td>Distinct from voucher; a self vouch is invalid.</td></tr>
+    <tr><td class="mono">cell.mark</td><td>integer 1 to 7</td><td>yes</td><td>Ordinal. Arithmetic undefined.</td></tr>
+    <tr><td class="mono">cell.entity</td><td class="mono">resource | event | agent</td><td>yes</td><td>Axis Y.</td></tr>
+    <tr><td class="mono">cell.stakes</td><td class="mono">play | practice | work</td><td>yes</td><td>Axis Z.</td></tr>
+    <tr><td class="mono">resource_ref</td><td>resource reference</td><td>yes</td><td>What the rules were held over.</td></tr>
+    <tr><td class="mono">cites</td><td>array of event ids, at least one</td><td>yes</td><td>The citable events grounding the claim. An edge that cannot produce its citation is not readable as an edge.</td></tr>
+    <tr><td class="mono">asserted_at</td><td>timestamp, UTC</td><td>yes</td><td>When the voucher asserted it.</td></tr>
+    <tr><td class="mono">observed_window</td><td>pair of timestamps</td><td>no</td><td>The period of conduct the vouch is about, when it differs from the assertion.</td></tr>
+    <tr><td class="mono">note</td><td>short free text, bounded</td><td>no</td><td>A human sentence. Never parsed for meaning.</td></tr>
+    <tr><td class="mono">targets</td><td>edge identifier</td><td>conditional</td><td>Required for revoke, renew, dispute.</td></tr>
+    <tr><td class="mono">reason</td><td>short free text</td><td>conditional</td><td>Required for revoke and dispute.</td></tr>
+    <tr><td class="mono">visibility</td><td class="mono">public | circle | private</td><td>yes</td><td>Default undecided. A steward decision, held open at &sect;16.</td></tr>
+    <tr><td class="mono">circle_ref</td><td>circle reference</td><td>conditional</td><td>Required when visibility is circle.</td></tr>
+    <tr><td class="mono">signature</td><td>signature over the canonical serialization</td><td>yes</td><td>By the voucher. Makes the edge unforgeable and the voucher accountable.</td></tr>
+    <tr><td class="mono">schema_version</td><td>string</td><td>yes</td><td>Envelope version, so the fold replays under the rules in force when the record was written. Cite as you enforce, Law IV.<sup>1</sup></td></tr>
+  </table>
+  <p>Rejected at write time: voucher equal to subject; empty citations; a mark outside 1 to 7 or not an integer; a revoke, renew, or dispute without a target; a revoke or renew whose target was written by a different voucher, since only the voucher may revoke or renew their own edge while anyone accountable may dispute; a bad signature.</p>
+  <div class="box decide"><span class="bk">what the record deliberately does not carry</span><p>No weight. No confidence. No numeric strength of any kind. This is the single most important line in the schema. The closest existing thing in the field, the production TrustGraph attestation schema, is literally a comment string and one unsigned integer confidence clamped to a hundred. The cell <em>is</em> the typing; a scalar beside it would be immediately summable and would recreate the score the whole instrument exists to refuse.</p></div>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;7</span><h2>Fold semantics</h2><span class="sub">state is a tally, never a row</span></div>
+  <p>State at any time is the fold of the events. Standing is recomputed from the log, never stored, which is Law VII applied to trust rather than to money.<sup>1</sup> It can therefore go down, and there is no row anyone can quietly edit. Six rules, all normative.</p>
+  <ol class="plain">
+    <li><b>Append only.</b> The log is never mutated in place. There is no update and no delete.</li>
+    <li><b>Revocation is an event, not a deletion.</b> A revoke appends a record targeting the edge. The original stays in the log, readable, with its revocation attached. History is not editable, which is the one law that already bounds the Lexicon bed.</li>
+    <li><b>No last write wins.</b> Successive vouches from the same voucher to the same subject in the same cell accumulate as distinct edges; they do not overwrite. This is a deliberate divergence from TrustGraph, whose graph builder sorts attestations ascending so newer ones override the prior edge between a pair. Overwrite destroys the history of a relation, which is the part worth keeping.</li>
+    <li><b>Derived state is disposable.</b> Any materialized view must be reproducible by refolding the log from genesis. Deleting it and refolding reproduces it exactly.</li>
+    <li><b>The fold is per cell.</b> Folding produces, for each cell, a set of live edges with their citations, ages, and revocation status. It does not produce a number, per cell or otherwise.</li>
+    <li><b>Version pinning.</b> The fold reads the schema version per record and applies the rules in force when that record was written. Changing fold rules must not silently rewrite history.</li>
+  </ol>
+  <p>Lifecycle. <span class="mono">vouch</span> creates. <span class="mono">renew</span> by the same voucher resets the decay clock and appends. <span class="mono">revoke</span> by the same voucher marks the edge withdrawn from the current reading, from the revocation instant forward; a fold at an earlier time still sees it live, which is correct, because it was. <span class="mono">dispute</span> by any accountable party attaches a contest without withdrawing it, and a disputed edge reads as disputed. Disputes are not resolved by the system. Conflict resolution is local, fast, and cheap, which is the mark 7 condition itself.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;8</span><h2>Decay</h2><span class="sub">age is visible, and never arithmetic</span></div>
+  <p>Decay is a feature, and Hopper supplies the mechanism: she put a counter on every record, printed everything untouched after six months, and an entire file fell out, kept online for prestige rather than need.</p>
+  <ol class="plain">
+    <li>Every edge carries a <em>last touched</em> instant, being the later of its own assertion and the assertion of the most recent renewal or citing reference to it.</li>
+    <li>An edge not cited or renewed within the <em>decay horizon</em> is a claim about the past and reads on its face as one. Proposed default horizon: one year, adjustable per cell, and work may want a shorter horizon than play.</li>
+    <li><b>Decay is presentational, never arithmetic.</b> An aged edge is labelled and sorted differently. It is not multiplied by a coefficient, because there is no number to multiply. TrustGraph's decay is applied over hops from a trusted seed, which is graph distance decay rather than time decay, and no implemented time decay was found there at all.</li>
+    <li>Decay never deletes. An aged edge stays in the log forever, per &sect;7 rule 2.</li>
+  </ol>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;9</span><h2>Architecture posture</h2><span class="sub">many small instruments</span></div>
+  <p><b>Do not grow a bigger ox.</b> The wrong build is one trust score, one central table, one authority computing everyone's standing. The right build is many small typed instruments whose readings compose. Circles holding their own records with their own keys is the system of computers answer applied to trust.</p>
+  <p><b>Overhead.</b> A single central trust authority spends most of its capacity adjudicating itself; Hopper's example was a machine with two thirds of its memory in pure overhead. Cell local edges have almost no overhead, because nothing needs global agreement.</p>
+  <p><b>Information flow first, instrument second.</b> Design from what the cooperative actually needs to decide, which is who can hold a key, who can sign, and who can be invited inward, and select the instrument afterward. Not the reverse. The consequence for implementation: there is no requirement for a single global store. Per circle logs that federate by citation are the intended shape, and a global index, if one ever exists, is a convenience over logs that remain authoritative where they are held.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;10</span><h2>Query rules</h2><span class="sub">the whole safety model</span></div>
+  <p>Three rules. They are not conventions, and an implementation that enforces them by documentation rather than by refusal has not implemented them.</p>
+  <table>
+    <tr><th>rule</th><th>statement</th><th>why</th></tr>
+    <tr><td class="mono">Q1</td><td><b>Cell local.</b> A query names a cell, or a set of cells enumerated explicitly. Results are the live edges in those cells with their citations.</td><td>I trust you at play with a repository carries no weight in hold the treasury. Most reputation systems fail exactly at this leak.</td></tr>
+    <tr><td class="mono">Q2</td><td><b>Directional.</b> Every result preserves voucher and subject orientation. Edges are never netted, never symmetrized, never treated as undirected.</td><td>A relation has a direction, and netting invents a mutuality nobody asserted.</td></tr>
+    <tr><td class="mono">Q3</td><td><b>Never summed across stakes, and never across marks.</b> A request that would sum across stakes is refused, and the refusal cites this rule. The same holds across marks, since marks are ordinal.</td><td>Trust at work and trust at play are different substances, and a sum over an ordinal scale is not a quantity.</td></tr>
+  </table>
+  <p>Corollary, and it is the load-bearing one: <em>there is no query that takes an agent and returns a number.</em> That is not a missing feature, it is &sect;12 made structural.</p>
+  <p>Permitted result shapes: a set of edges; a count of edges within one cell, presented with those edges and never alone; a chronology of edges; the marks recorded against one resource over time. A count of edges is not a trust value, and any surface presenting one shows the underlying edges beside it, so that a count can never be mistaken for a score.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;11</span><h2>How anyone would check it</h2><span class="sub">acceptance a person can walk</span></div>
+  <table>
+    <tr><th>criterion</th><th>the check</th></tr>
+    <tr><td class="mono">S1 &middot; auditable marks</td><td>Two people, reading the same record against &sect;5 independently, land on the same mark, or land apart and can say which rule condition they disagreed about. Disagreement becomes locatable rather than a clash of impressions.</td></tr>
+    <tr><td class="mono">S2 &middot; no score exists</td><td>There is no query, view, export, or endpoint returning a number about a person. Testable by inspection of the query surface.</td></tr>
+    <tr><td class="mono">S3 &middot; every edge has receipts</td><td>Every edge cites an event, names an accountable voucher, and states a cell.</td></tr>
+    <tr><td class="mono">S4 &middot; recompute, do not store</td><td>Deleting the derived state and refolding the log reproduces it exactly.</td></tr>
+    <tr><td class="mono">S5 &middot; cell locality holds</td><td>A query for one cell demonstrably ignores edges in other cells, tested with a fixture where a heavy play cell would dominate if it leaked.</td></tr>
+    <tr><td class="mono">S6 &middot; age is visible</td><td>An edge nobody has cited or renewed within the horizon reads on its face as a claim about the past.</td></tr>
+    <tr><td class="mono">S7 &middot; a person can be told what is recorded</td><td>Because standing is only ever a tally of cited events, a participant can ask what is recorded about them and get a complete, finite, cited answer.</td></tr>
+  </table>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;12</span><h2>Non goals</h2><span class="sub">hard boundaries, not deprioritized features</span></div>
+  <p>A build that crosses one of these is the wrong build, not an early version of the right one.</p>
+  <ol class="plain">
+    <li><b>No global score.</b> No scalar per person, per agent, or per address. No PageRank, no aggregate confidence, no percentile.</li>
+    <li><b>No ranking of people.</b> No ordering, no tiers, no threshold that gates a person. TrustGraph ships exactly such a gate, a validated threshold at seventy-five. The cooperative does not want that object.</li>
+    <li><b>No capital collateralization of the commoning end.</b> Nothing on axis X above exchange may require money at stake to be recorded or believed. A lien is an exchange cell instrument, and collateralizing a reciprocity or commoning relation misdescribes it. &sect;13 makes this a ceiling rather than a preference.</li>
+    <li><b>No summing across cells.</b> The query layer makes cross cell summation unavailable, not merely discouraged.</li>
+    <li><b>No agent authored behavioural coding in v1.</b> The agent does not read past events and assign marks to real people's conduct until the frame is adopted by people. It is stage 4 of five in &sect;15 and it is last on purpose.</li>
+    <li><b>No new infrastructure in v1.</b> All three axes are already in the register and the Ground already holds events and tallies.<sup>1</sup></li>
+  </ol>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;13</span><h2>Interoperability</h2><span class="sub">two bridges, neither on the critical path</span></div>
+  <p>Both verdicts below are taken in force from the grounding research of 2026-08-19 and are not re-derived here. Neither integration is on the critical path; both are stage 5 in &sect;15 and both are bridges rather than native fits, since neither external project speaks Nostr, decentralized identifiers, or verifiable credentials, and both are EVM native. Both also carry a bus factor of one and share a social cluster, so a dependency on either is a dependency on one person's continued attention. That research is not in the estate and is cited as outside it.</p>
+
+  <h3 class="mono" style="font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; margin:0 0 8px">13.1 &middot; TrustGraph &middot; bridge at the attestation layer only</h3>
+  <p><b>The verdict as given:</b> interoperate at the EAS layer, do not adopt the scoring layer. What may be used is the attestation substrate underneath: records that are directional, signed, revocable, timestamped, schema typed, landing in an append only on chain log, and carrying a reference field that can point at another record.</p>
+  <table>
+    <tr><th>our field</th><th>the attestation carrier</th></tr>
+    <tr><td class="mono">voucher</td><td>attester address</td></tr>
+    <tr><td class="mono">subject</td><td>recipient address</td></tr>
+    <tr><td class="mono">cites</td><td>the reference field, the natural place to hang a cited event id</td></tr>
+    <tr><td class="mono">cell.*</td><td>the schema identifier: either one schema per cell type, or one schema with an explicit cell field</td></tr>
+    <tr><td class="mono">asserted_at</td><td>attestation timestamp</td></tr>
+    <tr><td>revocation</td><td>the revocation time, with our own revoke record remaining authoritative</td></tr>
+    <tr><td>decay horizon</td><td><b>not</b> the expiration time. Expiry deletes from the reading; decay does not (&sect;8)</td></tr>
+  </table>
+  <p><b>What must not be used:</b> the trust graph component and the PageRank package, entirely. The product there is a global scalar score per address; the seeded PageRank sums and propagates trust across every edge regardless of what the edge was about, so work and play get summed, against &sect;10 Q3; there is a threshold gate on people, against &sect;12; the fold is overwrite rather than accumulation, against &sect;7 rule 3; the trusted seed mechanism is a central trust authority by design, against &sect;9; and there is no temporal decay. Read only reuse of the indexer's generic typed and tagged event envelope is fine, since that is a real append only surface.</p>
+  <div class="box decide"><span class="bk">precondition &middot; unresolved</span><p>The hidden RegenHub network of &sect;3 is a precondition on any of this. Ask the network owners first. Publishing edges to a public chain is also a visibility decision with no undo, it interacts directly with the undecided default in &sect;6, and it requires a human decision before any write.</p></div>
+
+  <h3 class="mono" style="font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; margin:18px 0 8px">13.2 &middot; Commitments &middot; interoperate as arbiter, at mark 4 and below only</h3>
+  <p><b>The verdict as given:</b> interoperate, specifically as an arbiter, and only for the exchange-and-below end of the X axis; do not adopt it as the substrate for the trust graph. The arbiter there is any address: a person, a multisig, a governance vote, an oracle, a verifiable software service, a quorum panel, or a hybrid court. An outside system interoperates by being named as arbiter and calling initiate forfeit or release. That abstraction is genuinely polycentric, and a Techne instrument could act as one without asking permission.</p>
+  <div class="box decide"><span class="bk">the mark ceiling &middot; normative</span><p>A commitment turns a promise into a lien, and a lien is an exchange cell instrument. A Techne arbiter role may therefore be bound only to relations at <b>mark 4 exchange and below</b>. Binding a mark 5, 6, or 7 relation to encumbered capital would misdescribe the relation, and it is non goal 3 in &sect;12.</p></div>
+  <p>The binding mechanism is a metadata reference plus a hash, immutable and set once at creation, the hash taken over the exact posted bytes with no canonicalization and verified by the indexer. That gives a clean way to bind a commitment to a specific event id from our log inside a schema version envelope. One divergence to work around: that project's indexer read model is current state, with status transitions applied as updates on lifecycle events, which is against &sect;7. It is an indexer choice rather than a protocol constraint, and the way around it is to fold from the chain events rather than from the indexer's rows.</p>
+  <p><b>Maturity gate, stated as a hard condition.</b> Three weeks old at the time of grounding, one author, unaudited as far as the grounding could tell, and no live deployment address could be verified. Do not put real capital behind it. The first experiment is a read side one: an instrument that reads our cell typed edge log and is <em>named</em> as arbiter, so that a breach detected in the relation graph could trigger a bounded, pre agreed consequence. Named, watched, and not funded.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;14</span><h2>Risks</h2><span class="sub">priced, not solved</span></div>
+  <table>
+    <tr><th>risk</th><th>what is done about it</th></tr>
+    <tr><td><b>Goodhart.</b> A measure that becomes a target stops measuring.</td><td>It cannot be defeated, only priced. The price is cost of forgery: an edge requires a citable event, a named voucher accountable for having vouched, and a stakes level. Faking mark 7 at work costs real behaviour over real time. Residual risk stands, and stands on the instrument's own face.</td></tr>
+    <tr><td><b>Surveillance.</b> A system that reads events over resources is mechanically a monitoring system.</td><td>Three structural mitigations. It reads exercises of rules over resources, never people. Cell local edges need no global agreement and therefore no central observer. And no coding of real people's conduct before the frame is adopted, per &sect;12 non goal 5. Unresolved: whether edges are public by default, circle scoped, or per cell. This document does not decide it.</td></tr>
+    <tr><td><b>Self dealing vouches.</b> Reciprocal or ring vouching to manufacture standing.</td><td>Partial only. Edges are directional and never netted; the citation requirement means a ring must also manufacture events; vouches carry the voucher's name, so a pattern is readable by a person. <b>Deliberately not mitigated by algorithm</b>, because every algorithmic mitigation known here, seed sets, damping, thresholds, reintroduces either a central trust authority or a score, and both are non goals.</td></tr>
+    <tr><td><b>Premature load bearing.</b> The guild gap of &sect;1.</td><td>Not mitigated. Named, routed to the steward at &sect;16, and stated wherever the instrument is described.</td></tr>
+    <tr><td><b>Accusation risk from naming.</b> Even renamed to extraction, a mark of 1 or 2 on a live arrangement will read as an accusation the first time it lands.</td><td>Reduced, not eliminated: the axis describes arrangements rather than people, and the mark definitions are rule conditions anyone can check and contest.</td></tr>
+    <tr><td><b>Concentration risk in the neighbours.</b></td><td>Named in &sect;13 and not otherwise addressed. Both external candidates have a bus factor of one.</td></tr>
+  </table>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;15</span><h2>The staged build order, and the graft</h2><span class="sub">readiness is the schedule</span></div>
+  <p>Each stage gates the next. Nothing here is scheduled, per the ledger's own header: no dates, readiness is the schedule. This document is stage 1 and proposes the other four as anticipated pieces beneath it.</p>
+  <table>
+    <tr><th>stage</th><th>address</th><th>what it is</th><th>gate to the next</th></tr>
+    <tr><td>1</td><td class="mono">M-01</td><td>The frame as a piece: this document at its address, in its bed.</td><td>A person adopts the frame.</td></tr>
+    <tr><td>2</td><td class="mono">M-02</td><td>The typed vouch as an event type: append only edge citing an event, a cell, and a voucher.</td><td>Edges can be written and refolded; S4 demonstrated.</td></tr>
+    <tr><td>3</td><td class="mono">M-03</td><td>A transducer over it: a view reading the graph as edges rather than scores, showing its receipts.</td><td>People are reading real edges and the reading is useful.</td></tr>
+    <tr><td>4</td><td class="mono">M-04</td><td>Coding actual behaviour: reading past events against the marks. Last on purpose.</td><td>Nothing. It is the end of the sequence.</td></tr>
+    <tr><td>5</td><td class="mono">M-05</td><td>External bridges, optional and separable: the attestation bridge and the arbiter role of &sect;13.</td><td>Not on the critical path. Waits on stages 1 and 2 and on a human decision about publishing edges.</td></tr>
+  </table>
+  <p>The graft this document proposes to the Almanac ledger, entered whole so the proposal can be read as a diff rather than described:</p>
+  <pre><span class="c"># a new top-level bed, after horizon</span>
+<span class="k">matrix:</span>
+
+  <span class="k">- address: MATRIX</span>
+  title: Extraction and Commoning &middot; Module PRD and Specification
+  status: drafted
+  cites: [SER, PRD, BP, IM, VS, L-01, TRANSDUCER]
+  deliverable: commons/matrix/index.html
+
+  <span class="k">- address: M-01 .. M-05</span>   <span class="c"># the five stages above, status: anticipated</span>
+  <span class="c"># each carrying ready_when, per the bed convention</span></pre>
+  <p>Stage 3 says a transducer, and TRANSDUCER v0.2 already has the shape for it.<sup>6</sup> The current state of that instrument has <b>not</b> been verified by this document; M-03's readiness names the check rather than assuming it.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;16</span><h2>What this does not settle</h2><span class="sub">routed, not decided</span></div>
+  <table>
+    <tr><th>open item</th><th>bears on</th><th>routed to</th></tr>
+    <tr><td>Edge visibility default: public, circle scoped, or per cell</td><td>&sect;6, &sect;13, and the whole surveillance mitigation in &sect;14</td><td>the steward, before any edge is written</td></tr>
+    <tr><td>Whether to contact the owners of the hidden RegenHub attestation network before designing further; the steward points to omniharmonic as knowing more</td><td>&sect;3, &sect;13.1; a precondition on any bridge</td><td>the steward, then the network owners</td></tr>
+    <tr><td>Whether the guild gap closes before this instrument is described as the guild's substitute for proximity</td><td>&sect;1, &sect;3, &sect;14</td><td>the steward and the board</td></tr>
+    <tr><td>Concrete encoding, storage engine, and signature scheme</td><td>&sect;6; a stage 2 decision</td><td>deferred to M-02</td></tr>
+    <tr><td>Per cell decay horizons beyond the proposed one year default</td><td>&sect;8</td><td>deferred to M-02</td></tr>
+    <tr><td>Who may dispute, precisely, and what accountability attaches to a dispute</td><td>&sect;7 lifecycle</td><td>deferred to M-02</td></tr>
+    <tr><td>Whether and how circle held logs federate and index</td><td>&sect;9</td><td>deferred to M-02</td></tr>
+    <tr><td>The bed letter and the addresses. Proposed here as the matrix bed, MATRIX, and M-01 through M-05; mine to propose, not to mint</td><td>&sect;15</td><td>the steward, at the graft</td></tr>
+  </table>
+  <p>This document proposes a shape and nothing more. It does not adopt itself, it does not write an edge, it does not code anyone's conduct, and it does not make the guild's floor any more built than it is. It is a proposal drawn concretely enough that a person has something specific to question, amend, or refuse, which is the only way a shape like this should ever harden into a system.</p>
+</section>
+
+<div class="foot">
+  <h3>Sources</h3>
+  <ol>
+    <li>IM v0.1, the eleven laws: Law II, every relationship is an event; Law IV, cite as you enforce; Law VII, no stored balance, state is a tally; Law X, the instrument drafts and people decide. Carried one line each at <a href="/commons/im/">the Information Model</a>.</li>
+    <li>Lexicon v2, the canonical register at <a href="/commons/build/lexicon/">commons/build/lexicon</a>: the stakes <em>play</em>, <em>practice</em>, and <em>work</em>, and the positions this document reads as position rules.</li>
+    <li><a href="/community-of-practice/">Community of practice</a>: belonging grows with skill, and proximity does most of it.</li>
+    <li><a href="/commonplace/">The Commonplace</a>, Movement II: reputation is a score others compute about you, while trust is a relation you are inside of; a class matrix, not a class ladder; and Goodhart's Law, already named there.</li>
+    <li><a href="/commons/bp/">BP v2</a> and <a href="/commons/prd/">PRD v0.4</a>: the operating contract, the stop-and-ask categories this document observes, and the principle that no surface renders a comparative figure of persons.</li>
+    <li><a href="/commons/patronage/">PATRONAGE v0.3</a> and <a href="/commons/transducer/">TRANSDUCER v0.2</a>: the module intake route this document follows, and the instrument stage 3 would extend.</li>
+    <li><a href="/commons/build/">The Almanac</a>, address GUILD at <span class="mono">status: drafted</span>: the Participation Framework amendment unadopted and the Guild Participation Terms unwritten, which is the dependency &sect;1 states.</li>
+    <li>Grounding research on trustgraph.network and commitments.xyz, 2026-08-19, held outside the estate. The verdicts of &sect;13 are taken from it in force. The academic sources of &sect;5 and &sect;8, Ostrom 2009 and 2011 and Hopper 1982, are carried as cited in the drafting brief and have not been independently re-verified against the originals.</li>
+  </ol>
+  <p class="tail">MATRIX v0.1 &middot; Extraction and Commoning &middot; Module PRD and Specification &middot; drafted, unadopted, and not a governing instrument &middot; the axis is named extraction to commoning by the steward's decision of 2026-08-19 &middot; yields, anticipated, M-01 through M-05 and the &sect;15 graft as proposed &middot; Nou drafts; Todd decides; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-08-19</p>
+</div>
+
+</div>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</body>
+</html>
