@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+  (function(){
+    var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+    var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+    document.documentElement.setAttribute('data-mode',m);
+  })();
+  </script>
+  <script src="/assets/topbar.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="The privacy policy of RegenHub, LCA, a Colorado limited cooperative association operating as Techne: what this site collects, how it is used, and the terms governing text messaging, including that mobile numbers and SMS consent are never sold, rented, or shared for marketing.">
+  <title>Privacy policy &middot; Techne</title>
+  <link rel="canonical" href="https://techne.coop/legal/privacy/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://techne.coop/legal/privacy/">
+  <meta property="og:title" content="Privacy policy · Techne">
+  <meta property="og:description" content="What RegenHub, LCA collects, how it is used, and the terms governing text messaging.">
+  <meta property="og:site_name" content="Techne">
+  <meta property="og:image" content="https://techne.coop/assets/og-default.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif:'Libre Baskerville',Georgia,serif;
+      --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+      --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+      --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
+    }
+    html[data-mode="dark"] {
+      --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;
+      --line:#2A2A30;--rule:#3A3A42;
+      --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
+      --blue:#6A8AC4;--blue-text:#97B5E8;
+      --ember:#C4956A;--ember-text:#D4A57A;--ember-dim:rgba(196,149,106,0.14);
+      --ok:#6A9A6A;--ok-text:#7DAA7D;
+      --warn:#C46A6A;--warn-text:#D48A8A;
+      color-scheme:dark;
+    }
+    html[data-mode="light"] {
+      --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
+      --line:#D8D3C8;--rule:#9A958A;
+      --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
+      --blue:#4A6FB0;--blue-text:#39588F;
+      --ember:#8A6A4A;--ember-text:#6F5436;--ember-dim:rgba(138,106,74,0.10);
+      --ok:#4A7A4A;--ok-text:#3A6A3A;
+      --warn:#A84F4C;--warn-text:#8F3F3C;
+      color-scheme:light;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0ms!important;}}
+    body{
+      background:var(--bg);color:var(--text);
+      font-family:var(--serif);font-size:17px;line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+      transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);
+    }
+    em{font-style:italic;color:var(--heading);}
+
+    /* Formation note, footer form. One verbatim copy per page, proved by
+       scripts/notice_audit.py; only the token names differ, because the estate
+       carries two families. The long form at /legal/#formation still governs. */
+    .formation-foot{
+      flex-basis:100%;max-width:96ch;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+    .wrap{max-width:820px;margin:0 auto;padding:0 var(--s5) var(--s8);}
+
+    .page-mast{
+      padding:clamp(56px,8vw,96px) 0 var(--s6);
+      border-bottom:1px solid var(--line);
+      margin-bottom:var(--s6);
+    }
+    .kick{
+      font-family:var(--mono);font-size:11px;text-transform:uppercase;
+      letter-spacing:0.16em;color:var(--ember-text);margin-bottom:var(--s3);
+    }
+    .page-mast h1{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(30px,5vw,44px);line-height:1.15;
+      color:var(--heading);letter-spacing:-0.015em;margin-bottom:var(--s3);
+    }
+    .sub{font-size:18px;line-height:1.65;color:var(--muted);max-width:62ch;}
+    .dateline{
+      font-family:var(--mono);font-size:11px;letter-spacing:0.08em;
+      color:var(--faint);margin-top:var(--s4);
+    }
+
+    section{margin-bottom:var(--s7);}
+    h2{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(20px,3vw,26px);line-height:1.25;
+      color:var(--heading);margin-bottom:var(--s4);
+    }
+    h3{
+      font-family:var(--mono);font-size:11px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.14em;color:var(--faint);
+      margin-bottom:var(--s2);margin-top:var(--s5);
+    }
+    p{margin-bottom:var(--s4);max-width:68ch;}
+    p:last-child{margin-bottom:0;}
+    ul{margin:0 0 var(--s4) var(--s5);max-width:68ch;}
+    li{margin-bottom:var(--s2);}
+    a{color:var(--ember-text);}
+
+    .item{
+      border:1px solid var(--line);border-left:3px solid var(--ember);
+      background:var(--surface);padding:var(--s4) var(--s5);margin-bottom:var(--s4);
+    }
+    .item-title{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--heading);margin-bottom:var(--s2);}
+    .row{margin-bottom:var(--s3);font-size:15px;line-height:1.65;}
+    .row:last-child{margin-bottom:0;}
+    .row .rk{
+      display:block;font-family:var(--mono);font-size:10px;
+      letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);
+      margin-bottom:2px;
+    }
+
+    .note{
+      background:var(--inset);border:1px solid var(--line);
+      padding:var(--s4) var(--s5);margin-top:var(--s5);
+      font-size:15px;line-height:1.65;color:var(--muted);max-width:none;
+    }
+
+    footer{
+      margin-top:var(--s7);padding-top:var(--s4);border-top:1px solid var(--line);
+      font-family:var(--mono);font-size:11px;line-height:1.8;color:var(--faint);
+      letter-spacing:0.04em;
+    }
+    footer a{color:var(--faint);}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="page-mast">
+    <div class="kick">Legal &middot; Site policy</div>
+    <h1>Privacy policy</h1>
+    <p class="sub">What this cooperative collects from the people who use techne.coop, what it does with it, and what it will not do with it. Plainly: an account email, whatever a member chooses to put in their own profile, a phone number only if a member binds one, and the record of that member's own participation. Nothing here is sold, rented, or handed to anyone else for their marketing.</p>
+    <p class="dateline">Effective August 19, 2026 &middot; Describes current practice &middot; RegenHub, LCA</p>
+  </div>
+
+  <section id="who">
+    <h2>Who this policy is for and who it binds</h2>
+    <p>The entity behind this website is <strong>RegenHub, LCA</strong>, a Colorado limited cooperative association formed February 6, 2026 by filing Articles of Organization with the Colorado Secretary of State, document 20261163853. On August 12, 2026 the association filed a Statement of Trade Name of a Reporting Entity with the Colorado Secretary of State, document 20268011137, under C.R.S. &sect;&sect; 7-71-103 and 7-71-107. The registered trade name is <em>techne.coop</em>, and this site presents itself as <em>Techne</em>. The true name of the entity remains RegenHub, LCA, and RegenHub, LCA is who this policy binds.</p>
+    <p>The website is techne.coop. This policy covers that website and the member-facing services reached through it. It does not cover any other site linked from here, which carries its own terms.</p>
+  </section>
+
+  <section id="collect">
+    <h2>What we collect</h2>
+    <p>Only what a person gives us or what their own use of the service produces. There is no purchase of data about anyone from anybody.</p>
+    <ul>
+      <li><strong>Account email.</strong> An email address is required to hold an account, because it is how an account is identified and how account notices reach the person who holds it.</li>
+      <li><strong>Profile fields the member supplies.</strong> A display name, and whatever else a member chooses to write about themselves. Every field of this kind is the member's to fill, leave blank, edit, or empty later.</li>
+      <li><strong>A phone number, only when a member binds one.</strong> A phone number is collected only if a member voluntarily binds a number to their own profile. It is not asked for at signup and no part of the service is withheld for want of one. The terms governing it are in the text messaging section below.</li>
+      <li><strong>Records of the member's own participation.</strong> What a member did here: what they posted, joined, contributed, or was credited for. A cooperative is an account of participation, so those records are the substance of the service rather than a byproduct of it.</li>
+      <li><strong>Ordinary technical records.</strong> The logs a web service and its hosting providers keep in order to run and secure the service, such as request logs and error reports.</li>
+    </ul>
+  </section>
+
+  <section id="use">
+    <h2>How it is used</h2>
+    <ul>
+      <li>To operate accounts: to sign a member in, to identify them to other members as they have chosen to be identified, and to keep the record of their participation.</li>
+      <li>To send account notices the member is due or has asked for.</li>
+      <li>To answer a member when they write to us, including by text if they texted us.</li>
+      <li>To keep the service working and secure, and to diagnose faults.</li>
+      <li>To meet the cooperative's obligations under law and under its own governing instruments, including the records a cooperative must keep about its members.</li>
+    </ul>
+    <p>Service providers who process data on the cooperative's behalf, such as hosting, email delivery, and messaging carriers, receive only what they need to perform that function and may use it for nothing else.</p>
+  </section>
+
+  <section id="never">
+    <h2>What we do not do</h2>
+    <div class="item">
+      <div class="item-title">We do not sell you or rent you out</div>
+      <div class="row">We do not sell or rent personal information. We do not share personal information with third parties for those third parties' own marketing purposes. We do not trade member lists. There is no advertising network on this site collecting a profile of a visitor for someone else.</div>
+      <div class="row"><span class="rk">And specifically</span>Mobile phone numbers and SMS opt-in consent are never sold, rented, or shared with third parties or affiliates for marketing purposes.</div>
+    </div>
+    <p>Personal information is disclosed outside the cooperative only in three circumstances: to the service providers described above, acting on our instructions; when the member asks us to; and when the law requires it of us.</p>
+  </section>
+
+  <section id="sms">
+    <h2>Text messaging (SMS)</h2>
+    <p>These are the terms that govern text messaging in this service. They are stated here so that they govern from the moment the feature exists rather than being written after the fact.</p>
+
+    <h3>How a number is collected</h3>
+    <p>A phone number enters this service in exactly one way: a member voluntarily binds a number to their own profile and confirms it by entering a one-time code sent to that number. No number is collected from any other source, and no member can bind a number to anyone's account but their own. A member may unbind their number at any time, which removes it from the profile.</p>
+
+    <h3>What messages are sent</h3>
+    <p>Text messages are sent only in reply to a message the member sent us, or as account notifications the member has opted into. There are no promotional or marketing text campaigns. Message frequency varies, because messages follow what a member does rather than a schedule.</p>
+
+    <h3>Cost, help, and stopping</h3>
+    <ul>
+      <li>Message and data rates may apply, at the rates set by the member's own mobile carrier.</li>
+      <li>Message frequency varies.</li>
+      <li>Reply <strong>STOP</strong> to any message to opt out. This ends the messages and unbinds the number from the profile.</li>
+      <li>Reply <strong>HELP</strong> for help. A member can also reach us at the address in the contact section below.</li>
+      <li>Carriers are not liable for delayed or undelivered messages.</li>
+    </ul>
+
+    <h3>The one thing we will never do with a number</h3>
+    <p>Mobile phone numbers and SMS opt-in consent are never sold, rented, or shared with third parties or affiliates for marketing purposes. A number is used to carry the messages described above and for nothing else. Messaging carriers and the messaging platform that delivers the traffic handle the number solely to deliver those messages.</p>
+
+    <div class="note">Status of this section: the phone-binding flow described here is not yet built. This section states the policy that governs the service, and it is published in advance of the feature so that no number can be collected under any looser terms than these. When the flow ships, it ships to this policy.</div>
+  </section>
+
+  <section id="control">
+    <h2>What a member can do about it</h2>
+    <ul>
+      <li>See and edit the profile fields they supplied.</li>
+      <li>Unbind a phone number, by replying STOP or from the profile once that control exists.</li>
+      <li>Ask for a copy of the personal information held about them.</li>
+      <li>Ask for correction of anything inaccurate.</li>
+      <li>Close an account and ask for deletion of personal information. The cooperative may retain what its governing instruments or the law require it to keep, and will say what that is when asked.</li>
+    </ul>
+    <p>Requests of this kind go to the contact address below.</p>
+  </section>
+
+  <section id="children">
+    <h2>Children</h2>
+    <p>This service is not directed to children under 13, and accounts are not knowingly created for them. If we learn that we hold personal information from a child under 13, we delete it.</p>
+  </section>
+
+  <section id="changes">
+    <h2>Changes to this policy</h2>
+    <p>If this policy changes, the changed page carries a new effective date, and the change is visible in the public history of this site, which is a public repository. A change that materially affects text messaging will be described to members holding a bound number before it takes effect.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <!-- TODO: placeholder contact address. The estate publishes no privacy contact
+         address on any public page; notices@techne.coop appears only as an outbound
+         sender in supabase/functions/notices/. Confirm or replace this address with
+         the steward before this page is cited to a carrier reviewer. -->
+    <p>Questions about this policy, or a request under the section above, go to <a href="mailto:privacy@techne.coop">privacy@techne.coop</a>.</p>
+    <p>No physical mailing address is published here. The cooperative's premises are not settled, and this estate does not publish a claim it cannot stand behind on the day it is read.</p>
+  </section>
+
+  <section id="status">
+    <h2>Status</h2>
+    <div class="note">RegenHub, LCA is a cooperative in formation. Its governing instruments are drafted and not yet executed, and no member has been admitted. This policy is therefore a description of current practice and of the terms the cooperative holds itself to now, adopted as the operating policy of the website. It is not one of the governing instruments, and nothing in it amends or interprets any of them. Where this page and an instrument disagree, the instrument governs. The instruments and their statuses are on the <a href="/legal/">legal foundation</a>.</div>
+  </section>
+
+  <footer>
+    Techne &middot; RegenHub, LCA &middot; Colorado limited cooperative association &middot; SOS No. 20261163853<br>
+    Privacy policy &middot; effective 2026-08-19 &middot; <a href="/legal/">back to the legal foundation</a>
+    <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+</div>
+</body>
+</html>
