@@ -107,6 +107,8 @@ alter table agreement_comments enable row level security;
 -- entitled to read what binds them and what was said about it before it bound
 -- them (bylaws section 1.2.9). Directors and officers read regardless of
 -- membership state.
+-- §1.2.9, §2.8: a member reads what binds them and what was said about it; the
+-- row is its own evidence. Art. XVI.
 create policy agreement_comments_read on agreement_comments
   for select using (
     app_has_role('director')
@@ -118,6 +120,7 @@ create policy agreement_comments_read on agreement_comments
   );
 
 -- Who writes one. A member speaks in their own name and nobody else's.
+-- §1.2.9: the member records their own remark, nobody else's. Art. XVI.
 create policy agreement_comments_self_insert on agreement_comments
   for insert with check (agent_id = app_agent_id());
 
