@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>Internal Publishing &middot; Proposed Module PRD &middot; Techne</title>
+<meta name="description" content="A proposed module for member-authored writing published inside the cooperative and read by named peers before it stands: the entry, the reading, the standing, and the companion register beside the Almanac.">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#C4A96A; --amber:#C4956A; --coral:#C47A6A; --rose:#B46A8A; --twilight:#6A8AC4;
+    --serif:'Libre Baskerville',Georgia,serif; --sans:Inter,'Helvetica Neue',Arial,sans-serif; --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+  }
+  [data-mode="dark"]{
+    --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+    --line:#2A2A30; --rule:#3A3A42;
+    --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+    --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+    --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  }
+  [data-mode="light"]{
+    --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+    --line:#D8D3C8; --rule:#9A958A;
+    --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+    --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+    --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg); color:var(--text); font:400 15px/1.7 var(--serif)}
+  .wrap{max-width:880px; margin:0 auto; padding:0 22px 60px}
+  a{color:var(--blue-text); text-decoration:none}
+  a:hover{text-decoration:underline}
+  em{color:var(--heading)}
+  sup{font:500 10px/1 var(--mono); color:var(--blue-text)}
+  :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+  .mono{font-family:var(--mono)}
+
+  .crumb-bar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+  .crumb-bar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+  .crumb-bar .bc a{color:var(--ember-text)}
+
+  .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
+  .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+  .mast .dek{font:400 16.5px/1.65 var(--serif); max-width:64ch}
+  .statusline{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:16px 0 6px}
+  .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+  .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+  .chip.ok{color:var(--ok); border-color:var(--ok)} .chip.ok::before{background:var(--ok)}
+  .chip.info{color:var(--info); border-color:var(--info)} .chip.info::before{background:var(--info)}
+  .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:var(--warn)}
+  .chip.neutral::before{background:transparent; border:1px solid var(--muted)}
+  .citesline{font:400 11.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin:18px 0 38px}
+  .citesline b{color:var(--ember-text); font-weight:500}
+
+  .sec{margin:0 0 40px}
+  .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+  .sec-num{font:500 11px var(--mono); border-left:3px solid var(--rule); padding:2px 0 2px 9px; color:var(--muted); flex:none}
+  .sec-head[data-tint="gold"] .sec-num{border-color:var(--gold); color:var(--gold)}
+  .sec-head[data-tint="amber"] .sec-num{border-color:var(--amber); color:var(--amber)}
+  .sec-head[data-tint="coral"] .sec-num{border-color:var(--coral); color:var(--coral)}
+  .sec-head[data-tint="rose"] .sec-num{border-color:var(--rose); color:var(--rose)}
+  .sec-head[data-tint="twilight"] .sec-num{border-color:var(--twilight); color:var(--twilight)}
+  .sec-head h2{font:400 21px/1.3 var(--serif); color:var(--heading)}
+  .sec-head .sub{font:400 12px var(--mono); color:var(--muted); margin-left:auto; text-align:right}
+  .sec p{margin:0 0 14px; max-width:68ch}
+  .sec p:last-child{margin-bottom:0}
+
+  .box{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; margin:0 0 14px; max-width:100%}
+  .box .bk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:7px}
+  .box p{font-size:13.5px; max-width:66ch}
+  .box.decide{border-left:3px solid var(--ember)}
+
+  table{width:100%; border-collapse:collapse; font:400 12.5px/1.6 var(--sans); margin:0 0 16px}
+  th{font:600 10.5px var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--surface)}
+  td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+  td.mono, .addr{font:400 11.5px var(--mono); color:var(--ember-text); white-space:nowrap}
+  tr:hover td{background:var(--surface)}
+
+  pre{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; overflow-x:auto; font:400 11.5px/1.65 var(--mono); color:var(--text); margin:0 0 16px}
+  pre .c{color:var(--faint)}
+  pre .k{color:var(--ember-text)}
+
+  ol.plain{margin:0 0 14px 20px; max-width:68ch}
+  ol.plain li{margin-bottom:8px}
+
+  .foot{border-top:1px solid var(--line); margin-top:48px; padding-top:16px}
+  .foot h3{font:500 11px var(--mono); text-transform:uppercase; letter-spacing:.06em; color:var(--ember-text); margin-bottom:10px}
+  .foot ol{margin:0 0 22px 18px; font:400 12px/1.8 var(--sans); color:var(--muted)}
+  .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint)}
+
+  @media (max-width:700px){
+    .mast h1{font-size:27px}
+    .sec-head{flex-wrap:wrap}
+    .sec-head .sub{margin-left:0; text-align:left; width:100%}
+    table{font-size:11.5px}
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+  
+/* U-27: the sweep horizon, applied softly (v5). The six-stop range
+   as one hairline at the masthead's foot, and its mirror at the
+   footer's head where the page carries a footer. Decorative only:
+   stop values verbatim from commons.css; no control colored, no
+   copy touched. */
+:root{
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+  --sky-line:linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+}
+.mast{position:relative;}
+.mast::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:var(--sky-line);opacity:.45;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumb-bar">
+  <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; Common Record Series &middot; proposed module document</span>
+</div>
+
+<div class="mast">
+  <div class="kicker">PUB v0.1 &middot; a proposal &middot; the member's own writing, read before it stands</div>
+  <h1>Internal Publishing<br>A Proposed Module PRD and Specification</h1>
+  <p class="dek">A proposal, open to discussion and revision, for the module that would let any member publish writing inside the cooperative: an entry, authored and signed, read by named peers, standing by its own event, and listed in a register that sits beside the Almanac rather than inside it. The cooperative already keeps a register of work. It keeps no register of thinking, and the thinking is where the work comes from. Nothing here is adopted, and nothing here is the board's word; it is a shape drawn concretely enough to be argued with.</p>
+  <div class="statusline">
+    <span class="chip info">Proposal &middot; Drafted</span>
+    <span class="chip neutral">open to discussion &middot; nothing herein adopted</span>
+    <span class="chip neutral">no piece bed until adoption &middot; graft carried in &sect;9</span>
+    <span class="chip warn">three questions block the schema &middot; &sect;8</span>
+  </div>
+</div>
+
+<div class="citesline">
+  <b>cites</b> &middot; SER &middot; PRD v0.4 &middot; BP v2 &middot; IM v0.1 Laws II, IV, X &middot; AM v0.1 &sect;5 &middot; the shell and the gate as built, U-01 through U-04 &middot; the public journal at /journal/ as built, U-25 &middot; the P-08 findings and the policies applied 2026-08-17
+  <br><b>v0.1</b> &middot; drafted on the steward's ask, 2026-08-19: an internal journal publishing system within the intranet, extending the Almanac, with a peer reading before publication
+  <br><b>address</b> &middot; PUB is offered, not taken; JOURNAL and PRESS are the named alternatives. The address adopts when Todd says so.
+</div>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;1</span><h2>Position and voice</h2><span class="sub">what this document is, and is not</span></div>
+  <p>This is a proposal, and it should read like one. It sits in the series where PATRONAGE, TREASURY, and AGY sit: a module document, drafted before any piece enters the ledger, adopted only by merge, binding nothing until then. Where it uses the language of specification, that precision is in service of discussion. Every should below is offered and any of them can be argued down.</p>
+  <p>One thing it is not: a governance surface. Nothing published under this module binds anyone, decides anything, or speaks for the cooperative. A member's entry is that member's writing, and the module's first duty is to make that unmistakable on the surface itself.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;2</span><h2>The estate as found</h2><span class="sub">what exists, and what the new thing is not</span></div>
+  <p>Four kinds of published surface already stand, and the proposal is a fifth. The public journal at <a href="/journal/">/journal/</a> carries field notes in one voice, signed by the record-keeper, explicitly non-governing, and readable by anyone. The Almanac at <a href="/commons/build/">/commons/build/</a> carries pieces of work, one row each, its status marks carried in the ledger and its counts written by the validator. The authored documents beside it, the launch reading and the verification walk, are about the build rather than of it. The members' record at /intranet/record/ shows the cooperative's own acts to those signed in.</p>
+  <p>What has no home is the thing a member writes that is neither a field note in the house voice, nor a piece of work, nor an act of the cooperative: an argument, a reading, a piece of thinking offered to the membership under the member's own name. That is what this module would carry, and stating what it is not belongs on the surface rather than in this document, because a member who opens an internally published essay must not be able to mistake it for an instrument.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="gold"><span class="sec-num">&sect;3</span><h2>Vocabulary</h2><span class="sub">four terms, defined once</span></div>
+  <p>An <em>Entry</em> is a piece of writing by one member, under that member's name, with a title, a body, and a standing. A <em>Reading</em> is a named peer's recorded act of having read an entry and found it fit to publish under its author's name. A <em>Standing</em> is where an entry has got to, carried by events and never by a field that someone edits. The <em>Register</em> is the generated list of entries, which sits beside the Almanac and is not part of it, because an entry is a publication and a piece is a unit of work, and conflating them would corrupt both counts.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;4</span><h2>A reading is not an endorsement</h2><span class="sub">the load-bearing distinction, faced first</span></div>
+  <p>The whole design turns on this and it should be settled before anything else is argued. A peer who reads an entry attests to two things: that they read it, and that it is fit to be published under its author's name. They do not attest that it is right, that they agree with it, or that the cooperative holds its position. A reviewer who disagrees with an entry entirely may still record a reading, and should.</p>
+  <p>This is what keeps the module from becoming a censor. A review that gates truth turns the reviewers into an editorial board with power over what members may say to each other, which is a governance function nobody has granted and this document does not propose. A review that attests to a reading gives an author a guarantee they cannot get alone, that someone competent has actually read the thing before it stands, and gives a reader the same guarantee in reverse. The sentence belongs printed in plain words on the reading form, not buried in a specification.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="amber"><span class="sec-num">&sect;5</span><h2>The standing of an entry</h2><span class="sub">four states, each move an event</span></div>
+  <p>An entry is <em>drafted</em> while its author is writing it and only its author can see it. It moves to <em>in reading</em> when its author submits it, which is the act that makes it visible to the readers named on it. It moves to <em>published</em> when the readings required by the instrument have been recorded, or to <em>withdrawn</em> at any point by its author, which is a right the author never loses. Withdrawal hides the entry from the register and destroys nothing.</p>
+  <p>Every move lands as an event, per Law II. The standing is derived from those events rather than stored as a mutable field, so the question of what an entry's standing was on a given date is answerable, which is the same discipline the rest of the record already keeps.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;6</span><h2>Publication does not mutate the draft</h2><span class="sub">versions, not edits</span></div>
+  <p>Publishing writes an event; it does not stamp a row and move on. A revision after publication is a new version carrying its own events and its own readings, and the earlier version remains readable with the readings it actually had. What was published, when, and who read it first survives every later edit.</p>
+  <p>This costs a little complexity and buys the one thing an internal publication is for. An entry that can be silently rewritten after its readers signed off is worth less than an unread draft, because it carries a warrant that no longer describes the text under it.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="coral"><span class="sec-num">&sect;7</span><h2>How many readings, and by whom</h2><span class="sub">a parameter of the instrument, not a number in code</span></div>
+  <p>The count required to publish is a value the instrument carries and the surface reads from the record, in the same way the tally reads its parameters from the counting rules rather than from any number in a source file. The drafter's cut, offered for argument, is two.</p>
+  <p>Readers are named rather than queued. An author invites them, and a steward may assign one where an author asks for help finding a reader. Nothing here proposes an automatic assignment: a reading is a relationship between two members, and the system's job is to record it, not to allocate it.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;8</span><h2>Three questions this document cannot answer</h2><span class="sub">routed, with drafter's cuts offered</span></div>
+  <p>These block the schema rather than the design, and they are the same class as the extended Program question parked since launch day, for the same reason: each sets a visibility function, and an instrument that guesses at a visibility function is an instrument teaching the record to lie.</p>
+  <div class="dec">
+    <div class="head"><span>question</span><span>drafter's cut, offered</span><span>whose</span></div>
+    <div class="row">
+      <span class="q"><b>Who may publish?</b> Every member, only patron members, or members and designated Programs? The community-of-practice class discussed on 2026-08-19 makes this live rather than theoretical: an outer-membrane member at ten dollars a month and a patron member may not be meant to hold the same pen.</span>
+      <span class="o">every member of any class may publish; the class shows on the entry</span>
+      <span class="s">the board</span>
+    </div>
+    <div class="row">
+      <span class="q"><b>Who may read?</b> All signed-in members, the author's Program, or a cut that opens to the public after an interval? An internal journal that quietly becomes public later is a trap for its authors; one that can never surface is a silo.</span>
+      <span class="o">all signed-in members; public only by the author's own later act</span>
+      <span class="s">the board</span>
+    </div>
+    <div class="row">
+      <span class="q"><b>Who may read as a peer, and may an author decline to be read?</b> If a reading is required to publish, the reading is power. If it is optional, it is a badge. Both are defensible and they are different systems.</span>
+      <span class="o">required to publish; any member may serve as a reader</span>
+      <span class="s">the board</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="rose"><span class="sec-num">&sect;9</span><h2>What it would cost, and what it would yield</h2><span class="sub">the graft, anticipated</span></div>
+  <p>A schema change: entries, versions, and readings, with the verbs that move standing, and the policies over all of them. That means a migration and a policy pass, and given the P-08 findings closed in the live record on 2026-08-17, an audit of the applied policies for any new member-writable table is not optional. That audit, not the surfaces, is the majority of the honest work.</p>
+  <p>The surfaces are three: a writing and submitting surface in the intranet, a reading surface for a named peer, and the register. The register is generated from the record in the same manner as the Almanac's counts, never hand-kept, so that it cannot drift from what the record says.</p>
+  <p>The graft, anticipated on adoption and not before, would be a bed of pieces in the ledger with the module yielding, anticipated, 000N_publishing_verbs.sql. No address is minted by this document. Minting is an act of adoption and adoption is the merge.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;10</span><h2>The recommendation: run it by hand first</h2><span class="sub">what the drafter would actually do</span></div>
+  <p>The questions in &sect;8 block the stored system. They do not block the practice, and the practice is the part nobody has tested. A member writes an entry, sends it to two people, and records what comes back by hand. If it turns out to be worth having, the software is a migration and this document is its specification. If it turns out that nobody wants to be read before they speak, the cooperative has lost a file and no schema.</p>
+  <p>There is a candidate already: the steward's own working note of 2026-08-19 on the naming of a foundation, which is an entry in everything but standing. Authored, signed, dated, non-governing, and wanting a reader. Beginning there would also answer a question this document is careful not to assume, which is whether members want their thinking published to each other at all, or whether the wish for it belongs mostly to the person who asked for the system.</p>
+</section>
+
+<!-- ================================================== -->
+<section class="sec">
+  <div class="sec-head" data-tint="twilight"><span class="sec-num">&sect;11</span><h2>What this proposes, and what it does not decide</h2><span class="sub">status honesty</span></div>
+  <p>This document proposes a shape and nothing more. It opens no surface, applies no migration, and changes no deployed policy. It mints no address and adds no piece to the ledger; the graft enters on adoption or not at all. It does not decide who may publish, who may read, or whether a reading may be declined; those are routed in &sect;8 with the drafter's cuts offered so that there is something specific to refuse. And it does not claim that the cooperative needs it. It claims that the cooperative keeps a careful register of its work and no register at all of its thinking, and that the second absence is worth a conversation.</p>
+</section>
+
+<div class="foot">
+  <h3>Sources</h3>
+  <ol>
+    <li>BP v2: one piece per branch, merge as adoption, stop cards, the stop-and-ask categories.</li>
+    <li>IM v0.1: Law II, every relationship is an event; Law IV, cite as you enforce; Law X, the instrument drafts and proposes, and deciding sits with people.</li>
+    <li>AM v0.1 &sect;5 and the policies applied 2026-08-17 under the P-08 findings: the standard any new member-writable table is held to.</li>
+    <li>U-01 through U-04 as built: the shell, the session, the gate; every intranet surface knows who is present.</li>
+    <li>U-25 as built: the public journal at /journal/, one voice, non-governing, and the standing note that says so first.</li>
+    <li>The LCA meeting of 2026-08-19: the community-of-practice membership class, which makes &sect;8's first question live.</li>
+  </ol>
+  <p class="tail">PUB v0.1 &middot; Internal Publishing &middot; A Proposed Module PRD and Specification &middot; Drafted, open to discussion, nothing herein adopted &middot; cites the series &middot; yields, anticipated, 000N_publishing_verbs.sql and the &sect;9 graft &middot; Nou drafts; Todd decides; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-08-19</p>
+</div>
+
+</div>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</body>
+</html>
