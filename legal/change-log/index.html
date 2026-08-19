@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>The pre-ratification change log &middot; Legal Documents &middot; RegenHub, LCA</title>
+<meta name="description" content="Draft, unadopted. The continuation of the Bylaws and Membership Agreement changes indexes for the pre-ratification period: what is stale in them, and the seed entries staged for the board.">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* ============================================================
+   Work Standing · STANDING v0.3 · module specification
+   v0.2 re-cut the steward's v0.1 draft of 2026-08-09 into the Ground
+   and Craft register: emissions renumbered 0021 and 0022 (0019 and 0020
+   already held), decisions namespaced STANDING-D1..D5, sources re-read.
+   v0.3, 2026-08-10, answers the steward's challenge to P3: the refusal
+   that no object would ever name a project was the agent's drafting and
+   nobody's decision. P3 now refuses standing at the origin and nothing
+   else, section 4 records the challenge, R1 is re-cut to match, and the
+   object question is staged as STANDING-D6 with no recommendation.
+   The branching maturity model entered into the Common
+   Information System: the venture end constructed, the origin
+   protected, every decision staged for hands
+   Document grammar · Techne v4 token layer
+   aligned to techne.coop/design-system (the live constitution)
+   RegenHub, LCA · Boulder, Colorado · August 2026 · DRAFTED
+   ============================================================ */
+
+:root {
+  --serif:'Libre Baskerville',Georgia,serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872;
+  --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636;
+  --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+}
+[data-tint="gold"]   { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+[data-tint="amber"]  { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+[data-tint="coral"]  { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+[data-tint="rose"]   { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+[data-tint="violet"] { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+[data-tint="blue"]   { --shue:var(--sun-blue);   --shue-t:var(--sun-blue-t); }
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} *{transition:none!important;} }
+body { background:var(--bg); color:var(--text); font-family:var(--serif);
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease); }
+.wrap { max-width:860px; margin:0 auto; padding:var(--s6) var(--s5) var(--s8); }
+
+.topline { display:flex; justify-content:space-between; align-items:center; gap:var(--s3);
+  padding-bottom:var(--s4); border-bottom:1px solid var(--line); margin-bottom:var(--s6); flex-wrap:wrap; }
+.wordmark { font:400 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.06em; }
+.wordmark b { color:var(--heading); font-weight:600; }
+
+h1 { font:400 34px/1.2 var(--serif); color:var(--heading); letter-spacing:-.01em; margin-bottom:var(--s3); }
+.subtitle { font:400 15.5px/1.65 var(--serif); color:var(--muted); max-width:70ch; margin-bottom:var(--s5); }
+
+.chiprow { display:flex; gap:var(--s2); flex-wrap:wrap; margin-bottom:var(--s5); }
+.chip { display:inline-flex; align-items:center; gap:7px; font:500 10.5px/1 var(--mono);
+  letter-spacing:.07em; text-transform:uppercase; padding:6px 10px;
+  border:1px solid var(--line); border-radius:2px; background:var(--surface); color:var(--muted); }
+.chip .dot { width:7px; height:7px; border-radius:50%; background:var(--faint); }
+.chip.filed { color:var(--ok); border-color:var(--ok); } .chip.filed .dot { background:var(--ok); }
+.chip.drafted { color:var(--info); border-color:var(--info); } .chip.drafted .dot { background:var(--info); }
+.chip.open { color:var(--warn); border-color:var(--warn); } .chip.open .dot { background:var(--warn); }
+.chip.anticipated { color:var(--muted); border-style:dashed; } .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+
+.band { display:flex; height:3px; margin-bottom:6px; }
+.band span { flex:1; }
+.band-cap { display:flex; justify-content:space-between; font:400 10px/1.4 var(--mono);
+  color:var(--faint); letter-spacing:.08em; text-transform:uppercase; margin-bottom:var(--s7); }
+
+.sec { margin-bottom:var(--s7); }
+.addr { font:600 11px/1 var(--mono); color:var(--shue-t); letter-spacing:.1em; margin-bottom:var(--s2); }
+.sec h2 { font:400 22px/1.3 var(--serif); color:var(--heading); margin-bottom:var(--s4);
+  padding-bottom:var(--s2); border-bottom:1px solid var(--line); }
+.sec p { font:400 15.5px/1.7 var(--serif); margin-bottom:var(--s4); max-width:72ch; }
+.sec p:last-child { margin-bottom:0; }
+.fn a { font:600 10px/1 var(--mono); color:var(--ember-text); text-decoration:none; }
+.fn a:hover { text-decoration:underline; }
+
+.vfacts { display:grid; grid-template-columns:130px 1fr; gap:6px var(--s4); background:var(--surface);
+  border:1px solid var(--line); border-top:2px solid var(--shue); padding:var(--s4); margin-bottom:var(--s4); }
+.vfacts dt { font:600 10.5px/1.9 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; }
+.vfacts dd { font:400 14.5px/1.6 var(--serif); color:var(--text); }
+.vhead { font:600 12px/1.4 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase;
+  margin:var(--s5) 0 var(--s2); }
+.vhead:first-of-type { margin-top:0; }
+@media (max-width:560px) { .vfacts { grid-template-columns:1fr; gap:2px; } .vfacts dd { margin-bottom:var(--s2); } }
+
+.contract { background:var(--inset); border:1px solid var(--line); padding:var(--s4);
+  margin-bottom:var(--s4); overflow-x:auto; }
+.contract code { font:400 12.5px/1.7 var(--mono); color:var(--heading); white-space:pre; display:block; }
+.contract .cm { color:var(--muted); }
+
+.pk { border:1px solid var(--line); border-left:2px solid var(--shue); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.pk .pkh { font:600 11px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.pk .pkb { font:400 14px/1.6 var(--serif); color:var(--text); margin-bottom:4px; }
+.pk .pkc { font:400 11.5px/1.6 var(--mono); color:var(--muted); }
+
+.dcard { border:1px solid var(--line); border-left:2px solid var(--warn); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.dcard .dh { font:600 11px/1.5 var(--mono); color:var(--warn); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.dcard .db { font:400 14px/1.6 var(--serif); color:var(--text); }
+.dcard .db em { color:var(--heading); }
+
+.inv { border-left:2px solid var(--line); padding-left:var(--s4); margin-bottom:var(--s3); max-width:74ch; }
+.inv p { margin-bottom:0; }
+.inv .it { font-style:italic; color:var(--heading); }
+
+.sources { margin-top:var(--s8); padding-top:var(--s5); border-top:1px solid var(--rule); }
+.sources h2 { font:600 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:var(--s4); }
+.sources ol { list-style:none; counter-reset:src; }
+.sources li { counter-increment:src; position:relative; padding-left:26px; margin-bottom:var(--s3);
+  font:400 13.5px/1.6 var(--serif); color:var(--muted); max-width:78ch; }
+.sources li::before { content:counter(src); position:absolute; left:0; top:1px;
+  font:600 11px/1 var(--mono); color:var(--ember-text); }
+
+footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(--line);
+  font:400 11px/1.8 var(--mono); color:var(--faint); letter-spacing:.04em;
+  display:flex; justify-content:space-between; gap:var(--s3); flex-wrap:wrap; }
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+.tbl { width:100%; border-collapse:collapse; margin:var(--s4) 0 var(--s5); background:var(--surface);
+  border:1px solid var(--line); }
+.tbl th { font:600 10.5px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase;
+  text-align:left; padding:var(--s3); border-bottom:1px solid var(--rule); vertical-align:top; }
+.tbl td { font:400 13.5px/1.6 var(--serif); color:var(--text); padding:var(--s3);
+  border-bottom:1px solid var(--line); vertical-align:top; }
+.tbl tr:last-child td { border-bottom:none; }
+.tbl td:first-child { font-family:var(--mono); font-size:12px; color:var(--heading); }
+@media (max-width:640px) { .tbl, .tbl tbody, .tbl tr, .tbl td { display:block; width:100%; }
+  .tbl thead { display:none; }
+  .tbl tr { border-bottom:1px solid var(--rule); }
+  .tbl td { border-bottom:none; padding:4px var(--s3); } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="topline">
+    <div class="wordmark"><b>Techne</b> &middot; RegenHub, LCA &middot; Legal Documents &middot; Board packet, August 19, 2026</div>
+  </div>
+
+  <h1>The pre-ratification change log</h1>
+  <p class="subtitle">A draft instrument, unadopted. It continues the two changes indexes this estate already publishes rather than restating them, records what the audit of 2026-08-19 found stale in them, and carries three seed entries staged for the board. Entering a row here changes nothing: only the board act a row refers to can change an instrument, and only a minute evidences that act.</p>
+
+  <div class="chiprow">
+    <span class="chip open"><span class="dot"></span>DRAFT &middot; unadopted &middot; nothing in force</span>
+    <span class="chip drafted"><span class="dot"></span>Drafted by Nou &middot; 2026-08-19</span>
+    <span class="chip open"><span class="dot"></span>No board act taken</span>
+
+  </div>
+
+  <div class="band" aria-hidden="true">
+    <span style="background:var(--sun-gold)"></span><span style="background:var(--sun-amber)"></span><span style="background:var(--sun-coral)"></span><span style="background:var(--sun-rose)"></span><span style="background:var(--sun-violet)"></span><span style="background:var(--sun-blue)"></span>
+  </div>
+  <div class="band-cap"><span>what the indexes already record</span><span>what this log would carry forward</span></div>
+</header>
+
+
+<section class="sec" data-tint="gold">
+  <div class="addr">&sect;0</div>
+  <h2>What this page is, and what it is not</h2>
+  <div class="dcard"><div class="dh">standing</div><div class="db">This log is a <em>draft instrument</em>. Neither it nor any entry in it has been adopted. Entering a row here changes no instrument: only the board act a row refers to can do that, and only a minute evidences that act. Prepared at the commission of Todd Youngblood, Ventures and Operations Steward, for the board meeting of August 19, 2026. Establishing it is moved as Motion 3(c) of the <a href="/legal/board-memo-2026-08-19/">board memo</a>.</div></div>
+  <p>The steward's direction was to create and deploy a change log, informed by the log on techne.institute, audited and updated. This page is the continuation of a record that already exists in two places, and the first thing it owes the reader is an accurate account of where that record already lives.</p>
+</section>
+
+<section class="sec" data-tint="gold">
+  <div class="addr">&sect;1</div>
+  <h2>What already exists, audited 2026-08-19</h2>
+  <p>The change record exists in this estate and on techne.institute both. A working draft of this instrument said no change log page existed anywhere in the techne.coop repository; that was wrong, and it is corrected here rather than carried forward. This estate publishes both indexes:</p>
+  <table class="tbl">
+    <thead><tr><th>page</th><th>what it holds</th></tr></thead>
+    <tbody>
+      <tr><td><a href="/legal/bylaws-analysis/changes/">/legal/bylaws-analysis/changes/</a></td><td>Bylaws Proposed Changes Index. Counsel Analysis issues BL-01 through BL-08; research addendum items BL-A01 through BL-A07 (May 2026). Changes from Bylaws v.1 to v.2</td></tr>
+      <tr><td><a href="/legal/membership-agreement-analysis/changes/">/legal/membership-agreement-analysis/changes/</a></td><td>Membership Agreement Proposed Changes Index. Counsel Analysis issues MA-01 through MA-07; addendum items MA-A01 through MA-A04, plus a cross-document conflicts section pairing MA items with BL items</td></tr>
+      <tr><td>techne.institute/legal/bylaws-analysis/changes/ and /legal/membership-agreement-modifications/changes/</td><td>The same two indexes, published on the older estate. Fetched 2026-08-19, HTTP 200</td></tr>
+    </tbody>
+  </table>
+  <p><b>This log does not restate those entries.</b> Duplicating the record would be worse than not writing it: two copies of BL-01 drift, and a reader cannot tell which one a motion cited. The two indexes remain the record of v.1 to v.2 and are linked from every entry that touches them. This page carries the series forward from where they end.</p>
+</section>
+
+<section class="sec" data-tint="amber">
+  <div class="addr">&sect;2</div>
+  <h2>The structure this log adopts, unchanged from the indexes</h2>
+  <p>Each index is a table of entries with four columns: ID, Title, Section, Nature, where Nature draws from a fixed vocabulary (Blocking, High priority, Advisable, Clarifying, Extends, New, Affirmed, Diverges). Each ID anchors a detail block below the table carrying a Problem statement and a Proposed change with the from-text and the to-text. Cross-references are inline links by ID. This log keeps that shape so an entry reads the same wherever it sits.</p>
+  <div class="vhead">Added for the pre-ratification period</div>
+  <div class="pk"><div class="pkh">append only</div><div class="pkb">A wrong entry is superseded by a new entry saying so. Nothing here is edited away.</div></div>
+  <div class="pk"><div class="pkh">three fields on every detail block</div><div class="pkb"><b>Directed by</b>, <b>Authority</b>, and <b>Evidence</b>. An entry whose only evidence is a page this estate wrote about itself is marked UNEVIDENCED until a minute or a signed record exists.</div></div>
+  <div class="pk"><div class="pkh">identifiers continue the existing series</div><div class="pkb">BL-nn for the Bylaws, MA-nn for the Membership Agreement, and a new series where an instrument needs one: PF-nn for the Participation Framework, GT-nn for the Guild Participation Terms, LOG-nn for this log. The indexes end at BL-A07 and MA-A04, so numbered entries here begin at <b>BL-09</b> and <b>MA-08</b>.</div></div>
+</section>
+
+<section class="sec" data-tint="coral">
+  <div class="addr">&sect;3</div>
+  <h2>What the audit found stale or missing in the indexes</h2>
+  <p>Reported, not corrected. Correcting an index is itself a change, and it belongs in a row here once someone with standing directs it.</p>
+  <table class="tbl">
+    <thead><tr><th>finding</th><th>detail</th></tr></thead>
+    <tbody>
+      <tr><td>proposals already executed are not marked</td><td>The indexes record proposals against v.1, but the published v.2 text already carries several of them: the BL-02 notice-and-hearing language, the BL-06 three-year redemption window, and the BL-08 conflict hierarchy and citation fix in the Preamble. No entry says so</td></tr>
+      <tr><td>section numbers are v.1 numbers</td><td>v.2 renumbers, so a reader following an index into the current text can land in the wrong section</td></tr>
+      <tr><td>MA-A05 is referenced and unindexed</td><td>The techne.institute legal index says Issue 3, the Subchapter K vocabulary item, was resolved in MA-A05. The Membership Agreement changes index lists no MA-A05</td></tr>
+      <tr><td>nothing after May 2026 is indexed</td><td>The v.2 to v.2.1 conformity fixes described on the summary page (June 2026: the Subchapter K vocabulary substitutions across MA sections 2.4, 3.3, 5.4, 9.5; the MA 5.4 capital-account cross-reference; the quorum fix) have no IDs. The June 24, 2026 board actions on rates and class structure are not logged</td></tr>
+      <tr><td>a referenced page is missing</td><td>techne.institute/legal/hub-membership-agreement/ returned 404 on 2026-08-19 while the index describes the instrument. This estate carries the same gap under the name Hub Participation Agreement</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="sec" data-tint="rose">
+  <div class="addr">&sect;4</div>
+  <h2>Seed entries, each a draft until the board acts and the minute exists</h2>
+  <table class="tbl">
+    <thead><tr><th>ID</th><th>title</th><th>section</th><th>nature</th></tr></thead>
+    <tbody>
+      <tr><td>BL-09</td><td>Community Participant is called "a member" (extends BL-A04)</td><td>1.1(c)</td><td>Blocking</td></tr>
+      <tr><td>MA-08</td><td>Placeholder: v.2 to v.2.1 conformity fixes to be indexed</td><td>multiple</td><td>Housekeeping</td></tr>
+      <tr><td>LOG-01</td><td>Establish this log at techne.coop/legal/change-log/</td><td>new instrument</td><td>New</td></tr>
+    </tbody>
+  </table>
+
+  <div class="pk" id="bl-09"><div class="pkh">BL-09 &middot; draft Bylaws 1.1(c) &middot; Blocking &middot; extends <a href="/legal/bylaws-analysis/changes/#bl-a04">BL-A04</a></div>
+  <div class="pkb"><b>Problem.</b> Section 1.1(c) defines a Community Participant as "A member with access to the Cooperative's programming and community events," which collides with the guild instruments and with the statute's admission definition at C.R.S. section 7-58-102(13). From-text verified 2026-08-19 against the published Bylaws v.2 page on techne.institute; the recorder should confirm against whichever text the board treats as the current draft before any vote.<br><br>
+  <b>Proposed.</b> Revise to "A participant with access to the Cooperative's programming and community events. A Community Participant is not admitted as a member of the Cooperative within the meaning of C.R.S. section 7-58-102(13)," continuing as set out in full at <a href="/legal/bylaws-revision-1/">Pre-Ratification Revision No. 1</a>.</div>
+  <div class="pkc">Directed by: Todd Youngblood, steward, 2026-08-19 16:13 UTC; drafted by Nou. Authority: C.R.S. sections 7-58-304(1) and 7-58-401(1), on the premise that the Bylaws are unratified, pending board recital. Evidence: DRAFT, awaiting the minute. The steward's statement is a lead until minuted</div></div>
+
+  <div class="pk" id="ma-08"><div class="pkh">MA-08 &middot; Membership Agreement v.2 to v.2.1 &middot; Housekeeping</div>
+  <div class="pkb"><b>Problem.</b> The June 2026 conformity fixes were executed without indexed entries (section 3 above).<br><br><b>Proposed.</b> Index them retroactively as MA-08 sub-entries when the recorder reconciles the v.2 and v.2.1 texts.</div>
+  <div class="pkc">Directed by: unattributed on the published pages. Authority: pre-adoption drafting. Evidence: UNEVIDENCED. The only source is a page this estate wrote about its own drafting</div></div>
+
+  <div class="pk" id="log-01"><div class="pkh">LOG-01 &middot; this log &middot; New</div>
+  <div class="pkb"><b>Proposed.</b> Establish this log at techne.coop/legal/change-log/, continuing the two changes indexes rather than restating them.</div>
+  <div class="pkc">Directed by: Todd Youngblood, steward, 2026-08-19. Authority: board resolution, Motion 3(c) of the memo of 2026-08-19. Evidence: DRAFT, awaiting the minute</div></div>
+</section>
+
+<section class="sec" data-tint="violet">
+  <div class="addr">&sect;5</div>
+  <h2>Standing note on the ratification record</h2>
+  <p>The June versus July ratification conflict, logged as the open reading at <a href="/legal/corrections/#doc-01-08">DOC-01&middot;08</a>, is answered, if the steward's statement of 2026-08-19 holds, by the finding that no final ratification has occurred at all. The published record is split on it. The techne.institute legal index says of Bylaws v.2: "Ratified by board vote, June 2026. Legally in effect." The techne.institute summary page says: "The Bylaws and Membership Agreement are v.2.1 drafts, not yet ratified, not yet binding on any member." Both fetched 2026-08-19. Both are pages this estate published about its own work, so neither is evidence of what the board did.</p>
+  <p>This estate's own legal shelf takes neither side: it carries the Bylaws as Drafted and states that the accounts of the mid-2026 verbal board action do not agree and that no minute supplies any of them. That is the honest position and this log does not disturb it. The answer enters the evidence chain only when a board minute recites it. Until then, every entry that depends on the Bylaws being a draft carries that dependency on its face, and whichever way the recital settles it, the page that loses must be corrected and the correction logged here.</p>
+</section>
+
+
+<footer>
+  <span>Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street, Boulder</span>
+  <span>Document grammar &middot; Techne v4 &middot; Pre-ratification change log &middot; DRAFT &middot; August 2026</span>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+</div>
+
+</body>
+</html>
