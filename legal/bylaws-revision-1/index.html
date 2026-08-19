@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>Pre-Ratification Revision No. 1 to the draft Bylaws &middot; Legal Documents &middot; RegenHub, LCA</title>
+<meta name="description" content="Draft, unadopted. A proposed revision to draft Bylaws section 1.1(c), so a Community Participant is a participant and not "a member," conditioned on a board finding that the Bylaws remain a draft.">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* ============================================================
+   Work Standing · STANDING v0.3 · module specification
+   v0.2 re-cut the steward's v0.1 draft of 2026-08-09 into the Ground
+   and Craft register: emissions renumbered 0021 and 0022 (0019 and 0020
+   already held), decisions namespaced STANDING-D1..D5, sources re-read.
+   v0.3, 2026-08-10, answers the steward's challenge to P3: the refusal
+   that no object would ever name a project was the agent's drafting and
+   nobody's decision. P3 now refuses standing at the origin and nothing
+   else, section 4 records the challenge, R1 is re-cut to match, and the
+   object question is staged as STANDING-D6 with no recommendation.
+   The branching maturity model entered into the Common
+   Information System: the venture end constructed, the origin
+   protected, every decision staged for hands
+   Document grammar · Techne v4 token layer
+   aligned to techne.coop/design-system (the live constitution)
+   RegenHub, LCA · Boulder, Colorado · August 2026 · DRAFTED
+   ============================================================ */
+
+:root {
+  --serif:'Libre Baskerville',Georgia,serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872;
+  --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636;
+  --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+}
+[data-tint="gold"]   { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+[data-tint="amber"]  { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+[data-tint="coral"]  { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+[data-tint="rose"]   { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+[data-tint="violet"] { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+[data-tint="blue"]   { --shue:var(--sun-blue);   --shue-t:var(--sun-blue-t); }
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} *{transition:none!important;} }
+body { background:var(--bg); color:var(--text); font-family:var(--serif);
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease); }
+.wrap { max-width:860px; margin:0 auto; padding:var(--s6) var(--s5) var(--s8); }
+
+.topline { display:flex; justify-content:space-between; align-items:center; gap:var(--s3);
+  padding-bottom:var(--s4); border-bottom:1px solid var(--line); margin-bottom:var(--s6); flex-wrap:wrap; }
+.wordmark { font:400 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.06em; }
+.wordmark b { color:var(--heading); font-weight:600; }
+
+h1 { font:400 34px/1.2 var(--serif); color:var(--heading); letter-spacing:-.01em; margin-bottom:var(--s3); }
+.subtitle { font:400 15.5px/1.65 var(--serif); color:var(--muted); max-width:70ch; margin-bottom:var(--s5); }
+
+.chiprow { display:flex; gap:var(--s2); flex-wrap:wrap; margin-bottom:var(--s5); }
+.chip { display:inline-flex; align-items:center; gap:7px; font:500 10.5px/1 var(--mono);
+  letter-spacing:.07em; text-transform:uppercase; padding:6px 10px;
+  border:1px solid var(--line); border-radius:2px; background:var(--surface); color:var(--muted); }
+.chip .dot { width:7px; height:7px; border-radius:50%; background:var(--faint); }
+.chip.filed { color:var(--ok); border-color:var(--ok); } .chip.filed .dot { background:var(--ok); }
+.chip.drafted { color:var(--info); border-color:var(--info); } .chip.drafted .dot { background:var(--info); }
+.chip.open { color:var(--warn); border-color:var(--warn); } .chip.open .dot { background:var(--warn); }
+.chip.anticipated { color:var(--muted); border-style:dashed; } .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+
+.band { display:flex; height:3px; margin-bottom:6px; }
+.band span { flex:1; }
+.band-cap { display:flex; justify-content:space-between; font:400 10px/1.4 var(--mono);
+  color:var(--faint); letter-spacing:.08em; text-transform:uppercase; margin-bottom:var(--s7); }
+
+.sec { margin-bottom:var(--s7); }
+.addr { font:600 11px/1 var(--mono); color:var(--shue-t); letter-spacing:.1em; margin-bottom:var(--s2); }
+.sec h2 { font:400 22px/1.3 var(--serif); color:var(--heading); margin-bottom:var(--s4);
+  padding-bottom:var(--s2); border-bottom:1px solid var(--line); }
+.sec p { font:400 15.5px/1.7 var(--serif); margin-bottom:var(--s4); max-width:72ch; }
+.sec p:last-child { margin-bottom:0; }
+.fn a { font:600 10px/1 var(--mono); color:var(--ember-text); text-decoration:none; }
+.fn a:hover { text-decoration:underline; }
+
+.vfacts { display:grid; grid-template-columns:130px 1fr; gap:6px var(--s4); background:var(--surface);
+  border:1px solid var(--line); border-top:2px solid var(--shue); padding:var(--s4); margin-bottom:var(--s4); }
+.vfacts dt { font:600 10.5px/1.9 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; }
+.vfacts dd { font:400 14.5px/1.6 var(--serif); color:var(--text); }
+.vhead { font:600 12px/1.4 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase;
+  margin:var(--s5) 0 var(--s2); }
+.vhead:first-of-type { margin-top:0; }
+@media (max-width:560px) { .vfacts { grid-template-columns:1fr; gap:2px; } .vfacts dd { margin-bottom:var(--s2); } }
+
+.contract { background:var(--inset); border:1px solid var(--line); padding:var(--s4);
+  margin-bottom:var(--s4); overflow-x:auto; }
+.contract code { font:400 12.5px/1.7 var(--mono); color:var(--heading); white-space:pre; display:block; }
+.contract .cm { color:var(--muted); }
+
+.pk { border:1px solid var(--line); border-left:2px solid var(--shue); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.pk .pkh { font:600 11px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.pk .pkb { font:400 14px/1.6 var(--serif); color:var(--text); margin-bottom:4px; }
+.pk .pkc { font:400 11.5px/1.6 var(--mono); color:var(--muted); }
+
+.dcard { border:1px solid var(--line); border-left:2px solid var(--warn); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.dcard .dh { font:600 11px/1.5 var(--mono); color:var(--warn); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.dcard .db { font:400 14px/1.6 var(--serif); color:var(--text); }
+.dcard .db em { color:var(--heading); }
+
+.inv { border-left:2px solid var(--line); padding-left:var(--s4); margin-bottom:var(--s3); max-width:74ch; }
+.inv p { margin-bottom:0; }
+.inv .it { font-style:italic; color:var(--heading); }
+
+.sources { margin-top:var(--s8); padding-top:var(--s5); border-top:1px solid var(--rule); }
+.sources h2 { font:600 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:var(--s4); }
+.sources ol { list-style:none; counter-reset:src; }
+.sources li { counter-increment:src; position:relative; padding-left:26px; margin-bottom:var(--s3);
+  font:400 13.5px/1.6 var(--serif); color:var(--muted); max-width:78ch; }
+.sources li::before { content:counter(src); position:absolute; left:0; top:1px;
+  font:600 11px/1 var(--mono); color:var(--ember-text); }
+
+footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(--line);
+  font:400 11px/1.8 var(--mono); color:var(--faint); letter-spacing:.04em;
+  display:flex; justify-content:space-between; gap:var(--s3); flex-wrap:wrap; }
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+.tbl { width:100%; border-collapse:collapse; margin:var(--s4) 0 var(--s5); background:var(--surface);
+  border:1px solid var(--line); }
+.tbl th { font:600 10.5px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase;
+  text-align:left; padding:var(--s3); border-bottom:1px solid var(--rule); vertical-align:top; }
+.tbl td { font:400 13.5px/1.6 var(--serif); color:var(--text); padding:var(--s3);
+  border-bottom:1px solid var(--line); vertical-align:top; }
+.tbl tr:last-child td { border-bottom:none; }
+.tbl td:first-child { font-family:var(--mono); font-size:12px; color:var(--heading); }
+@media (max-width:640px) { .tbl, .tbl tbody, .tbl tr, .tbl td { display:block; width:100%; }
+  .tbl thead { display:none; }
+  .tbl tr { border-bottom:1px solid var(--rule); }
+  .tbl td { border-bottom:none; padding:4px var(--s3); } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="topline">
+    <div class="wordmark"><b>Techne</b> &middot; RegenHub, LCA &middot; Legal Documents &middot; Board packet, August 19, 2026</div>
+  </div>
+
+  <h1>Pre-Ratification Revision No. 1 to the draft Bylaws</h1>
+  <p class="subtitle">Section 1.1(c), and the word "member." A draft revision to a draft instrument: nothing here is adopted or in force. It works only on a premise the board has not yet recited, and it says so on its face, with the fallback written out for the case where the premise fails.</p>
+
+  <div class="chiprow">
+    <span class="chip open"><span class="dot"></span>DRAFT &middot; unadopted &middot; nothing in force</span>
+    <span class="chip drafted"><span class="dot"></span>Drafted by Nou &middot; 2026-08-19</span>
+    <span class="chip open"><span class="dot"></span>No board act taken</span>
+
+  </div>
+
+  <div class="band" aria-hidden="true">
+    <span style="background:var(--sun-gold)"></span><span style="background:var(--sun-amber)"></span><span style="background:var(--sun-coral)"></span><span style="background:var(--sun-rose)"></span><span style="background:var(--sun-violet)"></span><span style="background:var(--sun-blue)"></span>
+  </div>
+  <div class="band-cap"><span>the premise, and what would evidence it</span><span>the one definition this would change</span></div>
+</header>
+
+
+<section class="sec" data-tint="gold">
+  <div class="addr">&sect;0</div>
+  <h2>Standing</h2>
+  <div class="dcard"><div class="dh">a draft revision to a draft instrument</div><div class="db">Nothing here is adopted or in force. Prepared at the commission of Todd Youngblood, Ventures and Operations Steward, for the board meeting of August 19, 2026. Drafting is not adoption. This instrument does not amend the Bylaws: it proposes a revision to a draft, and it works only if the board first recites that the Bylaws remain a draft.</div></div>
+</section>
+
+<section class="sec" data-tint="gold">
+  <div class="addr">Part A</div>
+  <h2>Premise, and the evidence it rests on</h2>
+  <p><b>A.1</b> This instrument exists because of a statement the steward supplied on the record in direct message on 2026-08-19 at 16:13 UTC: "The verbal ratification of the bylaws in June was not final ratification and still requires board approval. We have the authority, and can still make changes to the Bylaws and Member Agreements before final approval and vote, as long as it is tracked in the techne.coop change log."</p>
+  <p><b>A.2 That statement is a lead, not a record.</b> By the house rule, a steward's verbal report does not itself evidence a corporate fact. What would evidence it: the minute of the June meeting showing ratification was not moved or not carried, or a board minute of today's meeting reciting, as a finding, that the Bylaws remain a draft pending final board approval. The board is asked to make that recital today, Motion 3 of <a href="/legal/board-memo-2026-08-19/">the memo</a>. If the recital is made and minuted, the premise holds. If the June minute surfaces and shows final ratification occurred, this instrument fails and Part D applies.</p>
+  <p><b>A.3</b> If the premise holds, the June versus July ratification conflict at <a href="/legal/corrections/#doc-01-08">DOC-01&middot;08</a> dissolves: there was no final ratification in June because final ratification has not happened at all. The conflict is not resolved by preference; it is resolved by the steward's account if and only if the board minutes it.</p>
+  <p><b>A.4 The published record is split on the premise.</b> Fetched 2026-08-19: the techne.institute legal index describes Bylaws v.2 as "Ratified by board vote, June 2026. Legally in effect," which contradicts the steward. The techne.institute summary page says the opposite and corroborates him: "The Bylaws and Membership Agreement are v.2.1 drafts, not yet ratified, not yet binding on any member." Both pages are this estate's own publications, so neither is evidence of what the board did. This estate's own legal shelf takes neither side and says no minute supplies the meeting. The contradiction is reported to the board; the recital, minuted, is what settles it. Whichever way it settles, the losing page must be conformed afterward and the correction logged in the <a href="/legal/change-log/">change log</a>.</p>
+</section>
+
+<section class="sec" data-tint="amber">
+  <div class="addr">Part B</div>
+  <h2>Authority, cited to statute text read 2026-08-19</h2>
+  <table class="tbl">
+    <thead><tr><th>provision</th><th>what it supplies</th></tr></thead>
+    <tbody>
+      <tr><td>C.R.S. 7-58-304(1)</td><td>After formation the initial directors "shall hold an organizational meeting to adopt initial bylaws and carry on any other business necessary or proper to complete the organization of the association." If the Bylaws are not finally approved, revising the draft before adoption is that business</td></tr>
+      <tr><td>C.R.S. 7-58-401(1)</td><td>"In addition, the initial board of directors may amend the bylaws of an association under section 7-58-304." The statute gives the initial board a bylaws amendment power that does not run through the member vote of 7-58-405(2). No member has been admitted, and the directors in office are the initial directors</td></tr>
+      <tr><td>Article XII and 7-58-405(2)</td><td>Both govern instruments that are in force. A document not yet finally approved is revised, not amended; its own amendment clause is not yet operative against it</td></tr>
+    </tbody>
+  </table>
+  <div class="dcard"><div class="dh">contradiction reported, not resolved</div><div class="db">If the Bylaws were already adopted, so the premise fails, Article XII demands member ratification while C.R.S. 7-58-401(1) gives the initial board statutory amendment power anyway. Whether an adopted Article XII can restrict that statutory power, and whether 7-58-405(5)(e), the member vote where an amendment modifies the terms for admission of new members, would reach this change, are counsel's questions. This instrument does not rely on winning either.</div></div>
+</section>
+
+<section class="sec" data-tint="coral">
+  <div class="addr">Part C</div>
+  <h2>The revision</h2>
+  <p><b>C.1 The defect.</b> Draft Bylaws v2.1, Article I, section 1.1(c) defines the Community Participant class as "A member with access to the Cooperative's programming and community events. Community Participants may participate in governance as determined by the Board." From-text verified 2026-08-19 against the published Bylaws v.2 page, which carries this wording verbatim; the recorder should still confirm against whichever text the board treats as the current draft before the vote. The word "member" collides with the formation notice (no member admitted), with the <a href="/legal/guild-participation-terms/">Guild Participation Terms</a>, and with <a href="/legal/participation-framework-amendment/">Amendment No. 1</a>. At law, C.R.S. 7-58-502(1)(a) says a person becomes a member as provided in the articles or bylaws, so a bylaw that calls the class "a member" is not a loose word but a possible admission provision. This was already identified in the May 2026 research addendum as <a href="/legal/bylaws-analysis/changes/#bl-a04">BL-A04</a>.</p>
+  <p><b>C.2 Operative text, proposed.</b> RESOLVED, that the draft Bylaws are revised before final approval as follows, and that the revision be recorded as change <a href="/legal/change-log/#bl-09">BL-09</a> in the pre-ratification change log:</p>
+  <div class="inv"><p><span class="it">from</span><br>A member with access to the Cooperative's programming and community events. Community Participants may participate in governance as determined by the Board.</p></div>
+  <div class="inv"><p><span class="it">to</span><br>A participant with access to the Cooperative's programming and community events. A Community Participant is not admitted as a member of the Cooperative within the meaning of C.R.S. section 7-58-102(13), makes no contribution, and holds no member's interest, unless and until separately admitted to a membership class under these Bylaws. Community Participants may take part in community processes as determined by the Board.</p></div>
+  <p><b>C.3 Scope discipline.</b> This revision changes one definition and nothing else. Adjacent questions it deliberately does not touch, each flagged for counsel: the phrase "participate in governance" in the original text, replaced above with "take part in community processes," since the governance wording is itself member-flavored; Schedule A's row for Class Three, whose framing presumes membership vocabulary; Article I's own title if it reads "Membership"; and the Coworking class contradiction at sections 1.1(b) and 1.4, which is not this instrument's business.</p>
+  <p><b>C.4 Effect on the guild instruments.</b> With this revision, the counsel flag in Amendment No. 1 narrows from a live collision to a conformity check, and the guild sits inside a class whose definition agrees with the instruments that create the guild.</p>
+  <p><b>C.5 Alternative disposition, reported.</b> The estate's own summary page recommends a stronger cure for BL-A04: remove the Community Participant class from the Bylaws entirely and run community access as a non-member program under a separate agreement. That alternative is coherent and counsel may prefer it, but it is not moved today, because the guild instruments in this packet are drafted into Class Three and depend on the class existing. This revision takes the minimal step that removes the legal risk while preserving the class the packet builds on. If the board prefers removal, table this revision and recommission the packet.</p>
+</section>
+
+<section class="sec" data-tint="violet">
+  <div class="addr">Part D</div>
+  <h2>Fallback if the premise fails</h2>
+  <p>If the Bylaws are found to have been finally ratified, in June or at any time before this vote, this revision is void as a pre-ratification revision, and the board should treat it as a proposed Bylaws amendment requiring the Article XII and C.R.S. 7-58-405(2) process once members exist, unless counsel concludes the initial board's power under 7-58-401(1) suffices. The guild instruments do not depend on this revision: Amendment No. 1 and the Terms stand on their own dual footing either way.</p>
+  <div class="contract"><code><span class="cm">-- ADOPTION BLOCK. Completed by the recorder, not before the vote.</span>
+
+The Board of Directors of RegenHub, LCA, at a meeting with quorum
+under Bylaws 3.13 on ____________, having first recited as a finding
+that the Bylaws remain a draft pending final board approval:
+revision adopted ____ in favor, ____ against, ____ abstaining,
+and recorded as change BL-09 in the pre-ratification change log.</code></div>
+</section>
+
+
+<footer>
+  <span>Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street, Boulder</span>
+  <span>Document grammar &middot; Techne v4 &middot; Pre-Ratification Revision No. 1 &middot; DRAFT &middot; August 2026</span>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+</div>
+
+</body>
+</html>

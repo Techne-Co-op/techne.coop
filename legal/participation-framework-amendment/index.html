@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>Amendment No. 1 to the Participation Framework &middot; Legal Documents &middot; RegenHub, LCA</title>
+<meta name="description" content="Draft, unadopted. The proposed amendment establishing the Guild Participant level within Class Three, drafted additively and with a dual footing.">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* ============================================================
+   Work Standing · STANDING v0.3 · module specification
+   v0.2 re-cut the steward's v0.1 draft of 2026-08-09 into the Ground
+   and Craft register: emissions renumbered 0021 and 0022 (0019 and 0020
+   already held), decisions namespaced STANDING-D1..D5, sources re-read.
+   v0.3, 2026-08-10, answers the steward's challenge to P3: the refusal
+   that no object would ever name a project was the agent's drafting and
+   nobody's decision. P3 now refuses standing at the origin and nothing
+   else, section 4 records the challenge, R1 is re-cut to match, and the
+   object question is staged as STANDING-D6 with no recommendation.
+   The branching maturity model entered into the Common
+   Information System: the venture end constructed, the origin
+   protected, every decision staged for hands
+   Document grammar · Techne v4 token layer
+   aligned to techne.coop/design-system (the live constitution)
+   RegenHub, LCA · Boulder, Colorado · August 2026 · DRAFTED
+   ============================================================ */
+
+:root {
+  --serif:'Libre Baskerville',Georgia,serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872;
+  --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636;
+  --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+}
+[data-tint="gold"]   { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+[data-tint="amber"]  { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+[data-tint="coral"]  { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+[data-tint="rose"]   { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+[data-tint="violet"] { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+[data-tint="blue"]   { --shue:var(--sun-blue);   --shue-t:var(--sun-blue-t); }
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} *{transition:none!important;} }
+body { background:var(--bg); color:var(--text); font-family:var(--serif);
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease); }
+.wrap { max-width:860px; margin:0 auto; padding:var(--s6) var(--s5) var(--s8); }
+
+.topline { display:flex; justify-content:space-between; align-items:center; gap:var(--s3);
+  padding-bottom:var(--s4); border-bottom:1px solid var(--line); margin-bottom:var(--s6); flex-wrap:wrap; }
+.wordmark { font:400 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.06em; }
+.wordmark b { color:var(--heading); font-weight:600; }
+
+h1 { font:400 34px/1.2 var(--serif); color:var(--heading); letter-spacing:-.01em; margin-bottom:var(--s3); }
+.subtitle { font:400 15.5px/1.65 var(--serif); color:var(--muted); max-width:70ch; margin-bottom:var(--s5); }
+
+.chiprow { display:flex; gap:var(--s2); flex-wrap:wrap; margin-bottom:var(--s5); }
+.chip { display:inline-flex; align-items:center; gap:7px; font:500 10.5px/1 var(--mono);
+  letter-spacing:.07em; text-transform:uppercase; padding:6px 10px;
+  border:1px solid var(--line); border-radius:2px; background:var(--surface); color:var(--muted); }
+.chip .dot { width:7px; height:7px; border-radius:50%; background:var(--faint); }
+.chip.filed { color:var(--ok); border-color:var(--ok); } .chip.filed .dot { background:var(--ok); }
+.chip.drafted { color:var(--info); border-color:var(--info); } .chip.drafted .dot { background:var(--info); }
+.chip.open { color:var(--warn); border-color:var(--warn); } .chip.open .dot { background:var(--warn); }
+.chip.anticipated { color:var(--muted); border-style:dashed; } .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+
+.band { display:flex; height:3px; margin-bottom:6px; }
+.band span { flex:1; }
+.band-cap { display:flex; justify-content:space-between; font:400 10px/1.4 var(--mono);
+  color:var(--faint); letter-spacing:.08em; text-transform:uppercase; margin-bottom:var(--s7); }
+
+.sec { margin-bottom:var(--s7); }
+.addr { font:600 11px/1 var(--mono); color:var(--shue-t); letter-spacing:.1em; margin-bottom:var(--s2); }
+.sec h2 { font:400 22px/1.3 var(--serif); color:var(--heading); margin-bottom:var(--s4);
+  padding-bottom:var(--s2); border-bottom:1px solid var(--line); }
+.sec p { font:400 15.5px/1.7 var(--serif); margin-bottom:var(--s4); max-width:72ch; }
+.sec p:last-child { margin-bottom:0; }
+.fn a { font:600 10px/1 var(--mono); color:var(--ember-text); text-decoration:none; }
+.fn a:hover { text-decoration:underline; }
+
+.vfacts { display:grid; grid-template-columns:130px 1fr; gap:6px var(--s4); background:var(--surface);
+  border:1px solid var(--line); border-top:2px solid var(--shue); padding:var(--s4); margin-bottom:var(--s4); }
+.vfacts dt { font:600 10.5px/1.9 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; }
+.vfacts dd { font:400 14.5px/1.6 var(--serif); color:var(--text); }
+.vhead { font:600 12px/1.4 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase;
+  margin:var(--s5) 0 var(--s2); }
+.vhead:first-of-type { margin-top:0; }
+@media (max-width:560px) { .vfacts { grid-template-columns:1fr; gap:2px; } .vfacts dd { margin-bottom:var(--s2); } }
+
+.contract { background:var(--inset); border:1px solid var(--line); padding:var(--s4);
+  margin-bottom:var(--s4); overflow-x:auto; }
+.contract code { font:400 12.5px/1.7 var(--mono); color:var(--heading); white-space:pre; display:block; }
+.contract .cm { color:var(--muted); }
+
+.pk { border:1px solid var(--line); border-left:2px solid var(--shue); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.pk .pkh { font:600 11px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.pk .pkb { font:400 14px/1.6 var(--serif); color:var(--text); margin-bottom:4px; }
+.pk .pkc { font:400 11.5px/1.6 var(--mono); color:var(--muted); }
+
+.dcard { border:1px solid var(--line); border-left:2px solid var(--warn); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.dcard .dh { font:600 11px/1.5 var(--mono); color:var(--warn); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.dcard .db { font:400 14px/1.6 var(--serif); color:var(--text); }
+.dcard .db em { color:var(--heading); }
+
+.inv { border-left:2px solid var(--line); padding-left:var(--s4); margin-bottom:var(--s3); max-width:74ch; }
+.inv p { margin-bottom:0; }
+.inv .it { font-style:italic; color:var(--heading); }
+
+.sources { margin-top:var(--s8); padding-top:var(--s5); border-top:1px solid var(--rule); }
+.sources h2 { font:600 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:var(--s4); }
+.sources ol { list-style:none; counter-reset:src; }
+.sources li { counter-increment:src; position:relative; padding-left:26px; margin-bottom:var(--s3);
+  font:400 13.5px/1.6 var(--serif); color:var(--muted); max-width:78ch; }
+.sources li::before { content:counter(src); position:absolute; left:0; top:1px;
+  font:600 11px/1 var(--mono); color:var(--ember-text); }
+
+footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(--line);
+  font:400 11px/1.8 var(--mono); color:var(--faint); letter-spacing:.04em;
+  display:flex; justify-content:space-between; gap:var(--s3); flex-wrap:wrap; }
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+.tbl { width:100%; border-collapse:collapse; margin:var(--s4) 0 var(--s5); background:var(--surface);
+  border:1px solid var(--line); }
+.tbl th { font:600 10.5px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase;
+  text-align:left; padding:var(--s3); border-bottom:1px solid var(--rule); vertical-align:top; }
+.tbl td { font:400 13.5px/1.6 var(--serif); color:var(--text); padding:var(--s3);
+  border-bottom:1px solid var(--line); vertical-align:top; }
+.tbl tr:last-child td { border-bottom:none; }
+.tbl td:first-child { font-family:var(--mono); font-size:12px; color:var(--heading); }
+@media (max-width:640px) { .tbl, .tbl tbody, .tbl tr, .tbl td { display:block; width:100%; }
+  .tbl thead { display:none; }
+  .tbl tr { border-bottom:1px solid var(--rule); }
+  .tbl td { border-bottom:none; padding:4px var(--s3); } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="topline">
+    <div class="wordmark"><b>Techne</b> &middot; RegenHub, LCA &middot; Legal Documents &middot; Board packet, August 19, 2026</div>
+  </div>
+
+  <h1>Amendment No. 1 to the Participation Framework</h1>
+  <p class="subtitle">Establishment of the Guild Participant level. A draft instrument awaiting board action: nothing in it is adopted or in force. Drafted additively, so it changes no existing sentence of the Framework, and on a dual footing, so one vote adopts it whether or not the Framework itself was ever adopted.</p>
+
+  <div class="chiprow">
+    <span class="chip open"><span class="dot"></span>DRAFT &middot; unadopted &middot; nothing in force</span>
+    <span class="chip drafted"><span class="dot"></span>Drafted by Nou &middot; 2026-08-19</span>
+    <span class="chip open"><span class="dot"></span>No board act taken</span>
+
+  </div>
+
+  <div class="band" aria-hidden="true">
+    <span style="background:var(--sun-gold)"></span><span style="background:var(--sun-amber)"></span><span style="background:var(--sun-coral)"></span><span style="background:var(--sun-rose)"></span><span style="background:var(--sun-violet)"></span><span style="background:var(--sun-blue)"></span>
+  </div>
+  <div class="band-cap"><span>what the Bylaws already reserve to the Board</span><span>what one vote would establish</span></div>
+</header>
+
+
+<section class="sec" data-tint="gold">
+  <div class="addr">&sect;0</div>
+  <h2>Standing</h2>
+  <div class="dcard"><div class="dh">draft instrument &middot; nothing adopted</div><div class="db">This is a draft awaiting board action. Nothing in it is adopted or in force. Prepared at the commission of Todd Youngblood, Ventures and Operations Steward, for the board meeting of August 19, 2026. Drafting is not adoption: the ledger's own rule for packet GUILD is that nothing is adopted by drafting.</div></div>
+</section>
+
+<section class="sec" data-tint="gold">
+  <div class="addr">A.1</div>
+  <h2>What this instrument amends, and the honest limits of that</h2>
+  <p>This instrument amends the <b>Participation Framework</b>, the Layer 3 patronage instrument described on <a href="/legal/">the legal shelf</a> as governing how members participate in cooperative Programs and how contributions accrue recognition.</p>
+  <p><b>Disclosure the drafter owes the board.</b> The Framework's text is not published on techne.coop, the shelf says so expressly, and it was not found anywhere in the repository. Its adoption status is contested in the record: the legal shelf lists it as Drafted; the ledger, packet U-10, calls it the ratified Participation Framework; the GUILD module description has it adopted by board resolution on June 24, 2026. June 24, 2026 is also the date whose summary notes contradict themselves about whether Bylaws ratification occurred (<a href="/legal/corrections/#doc-01-08">DOC-01&middot;08</a>). The drafter therefore cannot quote the text this amendment changes, and no quotation appears below. This amendment is drafted <b>additively</b>: it adds a new section and changes no existing sentence.</p>
+  <p><b>Fallback construction.</b> Because the Framework's status is uncertain, this instrument is drafted to operate on either footing. If the Framework stands adopted, this is Amendment No. 1 to it, adding the section in Part B. If the Framework is not adopted, this stands alone as a resolution of the Board of Directors establishing the Guild Participant level and its terms, under the authority the Bylaws already reserve to the Board. Either way the operative text is the same and one board vote adopts it.</p>
+</section>
+
+<section class="sec" data-tint="amber">
+  <div class="addr">A.4</div>
+  <h2>Authority relied on, cited to text actually read</h2>
+  <table class="tbl">
+    <thead><tr><th>source</th><th>what it supplies</th></tr></thead>
+    <tbody>
+      <tr><td>Bylaws 1.1(c)</td><td>Establishes the Community Participant class: "A member with access to the Cooperative's programming and community events. Community Participants may participate in governance as determined by the Board"</td></tr>
+      <tr><td>Bylaws Schedule A</td><td>For the Community Participant class, share price and dues are "Set by Board resolution upon establishment of the class," and "Classes without an executed membership agreement carry no financial terms until the Board establishes them by resolution." The resolution this amendment asks for is the act Schedule A anticipates. A prior working draft cited this language to 1.1(c); that was a miscitation</td></tr>
+      <tr><td>Bylaws 3.13</td><td>A simple majority of all Directors is a quorum, and a simple majority of those present at a properly noticed meeting with quorum is the act of the Board</td></tr>
+      <tr><td>C.R.S. 7-58-305(2)</td><td>Bylaws "may contain any other provision for managing and regulating the affairs of the association." A board policy instrument operating under an express reservation in the Bylaws is ordinary management of affairs. Verified against statute text 2026-08-19</td></tr>
+    </tbody>
+  </table>
+  <p><b>What this amendment deliberately is not.</b> It is not an amendment to the Bylaws or the Articles of Organization and does not depend on one. It changes no membership class, admits no member, and alters no term for admission. Class Three already exists in Bylaws 1.1(c), and Schedule A already delegates the class's financial terms to Board resolution. The Bylaws-side fix is moved separately as <a href="/legal/bylaws-revision-1/">Pre-Ratification Revision No. 1</a>, so this instrument works whether or not that premise holds.</p>
+  <p><b>Adoption mechanism.</b> Because the Framework's own amendment clause cannot be read, the drafter cannot certify what it requires. The mechanism used here is the most conservative one available in the instruments that can be read: a resolution at a properly noticed Board meeting with quorum of four of six Directors and a simple majority of those present (Bylaws 3.13), or unanimous written consent of all six Directors filed with the minutes (Bylaws 3.15). If the Framework surfaces and its amendment clause demands more, the board should re-adopt under that clause, and counsel should confirm.</p>
+</section>
+
+<section class="sec" data-tint="coral">
+  <div class="addr">Part B</div>
+  <h2>Operative text, proposed</h2>
+  <p>RESOLVED, that the Participation Framework is amended by adding the following as a new section, numbered by the Secretary to follow the Framework's last section, and that, if and to the extent the Participation Framework is found not to have been adopted, the following stands as a policy resolution of the Board with the same force:</p>
+
+  <div class="inv"><p><span class="it">1. Establishment.</span> There is established within Class Three (Community Participant, Bylaws 1.1(c)) a participation level called the Guild Participant level (working name; the public name is election GUILD-D5). The guild is the virtual way into the Techne craft-guild Program: a network of self-organizing communities of practice, open to participation from anywhere without presence in Boulder.</p></div>
+  <div class="inv"><p><span class="it">2. Not admission to membership.</span> Enrollment as a Guild Participant is a contractual program relationship and is not admission to membership in the Cooperative. A Guild Participant is not admitted as a patron member or investor member within the meaning of C.R.S. section 7-58-102(13), makes no contribution within the meaning of C.R.S. section 7-58-102(5), purchases no share of stock under Bylaws 1.2.4, executes no Membership Agreement, holds no member's interest, no capital account, no governance rights, and no financial rights (C.R.S. section 7-58-102(9), (10)). The Cooperative shall not allocate profits or losses to, or make distributions to, Guild Participants as such, and shall not adopt the non-member allocation option of C.R.S. section 7-58-305(1)(f) for the guild.</p></div>
+  <div class="inv"><p><span class="it">3. Dues.</span> Guild dues are payable monthly at one of four tiers, self-chosen by the Participant: ten dollars ($10), twenty five dollars ($25), one hundred dollars ($100), or two hundred dollars ($200) per month, as published at techne.coop/participation. Every tier opens the same doors; no tier purchases governance, priority, or standing over any other Participant. Dues are dues, never capital, at any tier: no payment under this level is a capital contribution, opens a capital account, or is credited toward any membership share.</p></div>
+  <div class="inv"><p><span class="it">4. Terms.</span> The rights and obligations of Guild Participants are stated in the <a href="/legal/guild-participation-terms/">Guild Participation Terms</a>, adopted by Board resolution and versioned on the legal shelf. The Terms may not contradict this section; where they do, this section controls.</p></div>
+  <div class="inv"><p><span class="it">5. Pathway.</span> Continuous guild participation in good standing counts toward eligibility for invitation to Cooperative Member (Class One) on the same footing as presence at the hub, per the invitation pathway in the Terms. Nothing in this section or the Terms creates a right to membership; membership arrives only by invitation, Board acceptance, execution of the Membership Agreement, and payment of the membership share.</p></div>
+  <div class="inv"><p><span class="it">6. Elections recorded at adoption.</span> The Board records with this amendment: GUILD-D2, the invitation count (two drafted; three available); GUILD-D5, the public name of the level.</p></div>
+
+  <div class="contract"><code><span class="cm">-- ADOPTION BLOCK. Completed by the recorder, not before the vote.</span>
+
+Adopted by the Board of Directors of RegenHub, LCA on ____________,
+at a meeting with quorum under Bylaws 3.13 / by unanimous written
+consent under Bylaws 3.15 (strike one),
+____ in favor, ____ against, ____ abstaining.
+GUILD-D2 recorded as: ____   GUILD-D5 recorded as: ____________</code></div>
+</section>
+
+<section class="sec" data-tint="blue">
+  <div class="addr">Part C</div>
+  <h2>Matters flagged for counsel, not resolved here</h2>
+  <div class="dcard"><div class="dh">1 &middot; the word "member" in Bylaws 1.1(c)</div><div class="db">The Bylaws call a Community Participant "a member." This amendment establishes the guild inside that class while providing that a Guild Participant is not admitted as a member under C.R.S. section 7-58-102(13). Colorado's definition controls what membership means at law, and 7-58-502(1)(a) says a person becomes a member as provided in the articles or bylaws. A root fix is in the same packet: <a href="/legal/bylaws-revision-1/">Pre-Ratification Revision No. 1</a>. If it is adopted, this flag narrows to a conformity check. If not, the guild's protection remains that no admission act, no stock purchase, and no contribution occurs; counsel should confirm that suffices.</div></div>
+  <div class="dcard"><div class="dh">2 &middot; securities characterization</div><div class="db">Dues buy program access and services with no profit share, no distribution, and no expectation of return from the efforts of others; the design intent is that no tier is a security or an investment contract. That conclusion is counsel's to give, not the drafter's.</div></div>
+  <div class="dcard"><div class="dh">3 &middot; the Framework's own amendment clause</div><div class="db">Unread, because the text could not be found. If the Framework surfaces with a stricter clause, re-adoption under it.</div></div>
+  <div class="dcard"><div class="dh">4 &middot; organizational-window authority</div><div class="db">C.R.S. section 7-58-304 against Bylaws Article XII before any member exists, should the board ever want a true Bylaws amendment.</div></div>
+  <div class="dcard"><div class="dh">5 &middot; tax treatment of dues revenue</div><div class="db">The counting rules mark adjacent questions as being for tax counsel. No CPA or tax counsel is engaged.</div></div>
+</section>
+
+
+<footer>
+  <span>Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street, Boulder</span>
+  <span>Document grammar &middot; Techne v4 &middot; Participation Framework Amendment No. 1 &middot; DRAFT &middot; August 2026</span>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+</div>
+
+</body>
+</html>

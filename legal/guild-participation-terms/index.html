@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>Guild Participation Terms &middot; Legal Documents &middot; RegenHub, LCA</title>
+<meta name="description" content="Draft, unadopted. The proposed terms of the Guild Participant level: four monthly tiers, dues never capital, and the ninety day invitation pathway to patron membership.">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* ============================================================
+   Work Standing · STANDING v0.3 · module specification
+   v0.2 re-cut the steward's v0.1 draft of 2026-08-09 into the Ground
+   and Craft register: emissions renumbered 0021 and 0022 (0019 and 0020
+   already held), decisions namespaced STANDING-D1..D5, sources re-read.
+   v0.3, 2026-08-10, answers the steward's challenge to P3: the refusal
+   that no object would ever name a project was the agent's drafting and
+   nobody's decision. P3 now refuses standing at the origin and nothing
+   else, section 4 records the challenge, R1 is re-cut to match, and the
+   object question is staged as STANDING-D6 with no recommendation.
+   The branching maturity model entered into the Common
+   Information System: the venture end constructed, the origin
+   protected, every decision staged for hands
+   Document grammar · Techne v4 token layer
+   aligned to techne.coop/design-system (the live constitution)
+   RegenHub, LCA · Boulder, Colorado · August 2026 · DRAFTED
+   ============================================================ */
+
+:root {
+  --serif:'Libre Baskerville',Georgia,serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872;
+  --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636;
+  --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+}
+[data-tint="gold"]   { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+[data-tint="amber"]  { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+[data-tint="coral"]  { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+[data-tint="rose"]   { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+[data-tint="violet"] { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+[data-tint="blue"]   { --shue:var(--sun-blue);   --shue-t:var(--sun-blue-t); }
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto;} *{transition:none!important;} }
+body { background:var(--bg); color:var(--text); font-family:var(--serif);
+  transition:background var(--dur) var(--ease), color var(--dur) var(--ease); }
+.wrap { max-width:860px; margin:0 auto; padding:var(--s6) var(--s5) var(--s8); }
+
+.topline { display:flex; justify-content:space-between; align-items:center; gap:var(--s3);
+  padding-bottom:var(--s4); border-bottom:1px solid var(--line); margin-bottom:var(--s6); flex-wrap:wrap; }
+.wordmark { font:400 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.06em; }
+.wordmark b { color:var(--heading); font-weight:600; }
+
+h1 { font:400 34px/1.2 var(--serif); color:var(--heading); letter-spacing:-.01em; margin-bottom:var(--s3); }
+.subtitle { font:400 15.5px/1.65 var(--serif); color:var(--muted); max-width:70ch; margin-bottom:var(--s5); }
+
+.chiprow { display:flex; gap:var(--s2); flex-wrap:wrap; margin-bottom:var(--s5); }
+.chip { display:inline-flex; align-items:center; gap:7px; font:500 10.5px/1 var(--mono);
+  letter-spacing:.07em; text-transform:uppercase; padding:6px 10px;
+  border:1px solid var(--line); border-radius:2px; background:var(--surface); color:var(--muted); }
+.chip .dot { width:7px; height:7px; border-radius:50%; background:var(--faint); }
+.chip.filed { color:var(--ok); border-color:var(--ok); } .chip.filed .dot { background:var(--ok); }
+.chip.drafted { color:var(--info); border-color:var(--info); } .chip.drafted .dot { background:var(--info); }
+.chip.open { color:var(--warn); border-color:var(--warn); } .chip.open .dot { background:var(--warn); }
+.chip.anticipated { color:var(--muted); border-style:dashed; } .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+
+.band { display:flex; height:3px; margin-bottom:6px; }
+.band span { flex:1; }
+.band-cap { display:flex; justify-content:space-between; font:400 10px/1.4 var(--mono);
+  color:var(--faint); letter-spacing:.08em; text-transform:uppercase; margin-bottom:var(--s7); }
+
+.sec { margin-bottom:var(--s7); }
+.addr { font:600 11px/1 var(--mono); color:var(--shue-t); letter-spacing:.1em; margin-bottom:var(--s2); }
+.sec h2 { font:400 22px/1.3 var(--serif); color:var(--heading); margin-bottom:var(--s4);
+  padding-bottom:var(--s2); border-bottom:1px solid var(--line); }
+.sec p { font:400 15.5px/1.7 var(--serif); margin-bottom:var(--s4); max-width:72ch; }
+.sec p:last-child { margin-bottom:0; }
+.fn a { font:600 10px/1 var(--mono); color:var(--ember-text); text-decoration:none; }
+.fn a:hover { text-decoration:underline; }
+
+.vfacts { display:grid; grid-template-columns:130px 1fr; gap:6px var(--s4); background:var(--surface);
+  border:1px solid var(--line); border-top:2px solid var(--shue); padding:var(--s4); margin-bottom:var(--s4); }
+.vfacts dt { font:600 10.5px/1.9 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; }
+.vfacts dd { font:400 14.5px/1.6 var(--serif); color:var(--text); }
+.vhead { font:600 12px/1.4 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase;
+  margin:var(--s5) 0 var(--s2); }
+.vhead:first-of-type { margin-top:0; }
+@media (max-width:560px) { .vfacts { grid-template-columns:1fr; gap:2px; } .vfacts dd { margin-bottom:var(--s2); } }
+
+.contract { background:var(--inset); border:1px solid var(--line); padding:var(--s4);
+  margin-bottom:var(--s4); overflow-x:auto; }
+.contract code { font:400 12.5px/1.7 var(--mono); color:var(--heading); white-space:pre; display:block; }
+.contract .cm { color:var(--muted); }
+
+.pk { border:1px solid var(--line); border-left:2px solid var(--shue); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.pk .pkh { font:600 11px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.pk .pkb { font:400 14px/1.6 var(--serif); color:var(--text); margin-bottom:4px; }
+.pk .pkc { font:400 11.5px/1.6 var(--mono); color:var(--muted); }
+
+.dcard { border:1px solid var(--line); border-left:2px solid var(--warn); background:var(--surface);
+  padding:var(--s3) var(--s4); margin-bottom:var(--s3); max-width:78ch; }
+.dcard .dh { font:600 11px/1.5 var(--mono); color:var(--warn); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.dcard .db { font:400 14px/1.6 var(--serif); color:var(--text); }
+.dcard .db em { color:var(--heading); }
+
+.inv { border-left:2px solid var(--line); padding-left:var(--s4); margin-bottom:var(--s3); max-width:74ch; }
+.inv p { margin-bottom:0; }
+.inv .it { font-style:italic; color:var(--heading); }
+
+.sources { margin-top:var(--s8); padding-top:var(--s5); border-top:1px solid var(--rule); }
+.sources h2 { font:600 12px/1.4 var(--mono); color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:var(--s4); }
+.sources ol { list-style:none; counter-reset:src; }
+.sources li { counter-increment:src; position:relative; padding-left:26px; margin-bottom:var(--s3);
+  font:400 13.5px/1.6 var(--serif); color:var(--muted); max-width:78ch; }
+.sources li::before { content:counter(src); position:absolute; left:0; top:1px;
+  font:600 11px/1 var(--mono); color:var(--ember-text); }
+
+footer { margin-top:var(--s7); padding-top:var(--s4); border-top:1px solid var(--line);
+  font:400 11px/1.8 var(--mono); color:var(--faint); letter-spacing:.04em;
+  display:flex; justify-content:space-between; gap:var(--s3); flex-wrap:wrap; }
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+.tbl { width:100%; border-collapse:collapse; margin:var(--s4) 0 var(--s5); background:var(--surface);
+  border:1px solid var(--line); }
+.tbl th { font:600 10.5px/1.5 var(--mono); color:var(--shue-t); letter-spacing:.08em; text-transform:uppercase;
+  text-align:left; padding:var(--s3); border-bottom:1px solid var(--rule); vertical-align:top; }
+.tbl td { font:400 13.5px/1.6 var(--serif); color:var(--text); padding:var(--s3);
+  border-bottom:1px solid var(--line); vertical-align:top; }
+.tbl tr:last-child td { border-bottom:none; }
+.tbl td:first-child { font-family:var(--mono); font-size:12px; color:var(--heading); }
+@media (max-width:640px) { .tbl, .tbl tbody, .tbl tr, .tbl td { display:block; width:100%; }
+  .tbl thead { display:none; }
+  .tbl tr { border-bottom:1px solid var(--rule); }
+  .tbl td { border-bottom:none; padding:4px var(--s3); } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="topline">
+    <div class="wordmark"><b>Techne</b> &middot; RegenHub, LCA &middot; Legal Documents &middot; Board packet, August 19, 2026</div>
+  </div>
+
+  <h1>Guild Participation Terms</h1>
+  <p class="subtitle">A draft instrument awaiting board adoption. No body has adopted it, no one can sign it, and nothing in it is in force. It states what a Guild Participant would get and would owe, that signing it would not make anyone a member, and how time in the guild would count toward an invitation to the patron class.</p>
+
+  <div class="chiprow">
+    <span class="chip open"><span class="dot"></span>DRAFT &middot; unadopted &middot; nothing in force</span>
+    <span class="chip drafted"><span class="dot"></span>Drafted by Nou &middot; 2026-08-19</span>
+    <span class="chip open"><span class="dot"></span>No board act taken</span>
+
+  </div>
+
+  <div class="band" aria-hidden="true">
+    <span style="background:var(--sun-gold)"></span><span style="background:var(--sun-amber)"></span><span style="background:var(--sun-coral)"></span><span style="background:var(--sun-rose)"></span><span style="background:var(--sun-violet)"></span><span style="background:var(--sun-blue)"></span>
+  </div>
+  <div class="band-cap"><span>what the shelf records as anticipated</span><span>what one vote would put in force</span></div>
+</header>
+
+
+<section class="sec" data-tint="gold">
+  <div class="addr">&sect;0</div>
+  <h2>Standing</h2>
+  <div class="dcard"><div class="dh">draft instrument &middot; nobody can sign this</div><div class="db">This instrument is a draft awaiting board adoption. No body has adopted it, no one can sign it, and nothing in it is in force. Drafted at the commission of Todd Youngblood, Ventures and Operations Steward, for consideration at the board meeting of August 19, 2026. The legal shelf presently lists these Terms as Anticipated; this is the first text that exists, and it is a draft.</div></div>
+  <p>Recorded for the packet: the steward stated on 2026-08-19 at 16:13 UTC that the June verbal ratification of the Bylaws was not final. The Bylaws citations below are therefore to the current draft, Bylaws v2.1, and a companion instrument, <a href="/legal/bylaws-revision-1/">Pre-Ratification Revision No. 1</a>, proposes revising draft Bylaws 1.1(c) so the class these Terms sit inside is defined as a participant class rather than "a member." These Terms do not depend on that revision: section 1.1 states the non-membership rule in its own words.</p>
+</section>
+
+<section class="sec" data-tint="gold">
+  <div class="addr">&sect;R</div>
+  <h2>Recitals</h2>
+  <p><b>A.</b> RegenHub, LCA (the "Cooperative") was formed under the Colorado Uniform Limited Cooperative Association Act, C.R.S. Title 7, Article 58, filed February 6, 2026, and operates the Techne craft-guild Program: a network of self-organizing communities of practice.</p>
+  <p><b>B.</b> The Cooperative's public participation surface has described a virtual guild as being built and not open, and the legal shelf records these Guild Participation Terms as anticipated and unwritten. This document is the instrument that closes that gap, once adopted.</p>
+  <p><b>C.</b> Bylaws v2.1, Article I, section 1.1(c), as published at <a href="/legal/bylaws/">/legal/bylaws/</a>, establishes the Community Participant class (Class Three); Bylaws Schedule A provides that the financial terms of that class are "Set by Board resolution upon establishment of the class" and that classes without an executed membership agreement "carry no financial terms until the Board establishes them by resolution." These Terms are the terms that resolution sets, together with <a href="/legal/participation-framework-amendment/">Amendment No. 1 to the Participation Framework</a>, in the same board packet. The formation notice states that the governing instruments are drafted and not yet executed and that no member has been admitted; these Terms are conditioned on that foundation completing.</p>
+</section>
+
+<section class="sec" data-tint="amber">
+  <div class="addr">&sect;1</div>
+  <h2>What this agreement is, and is not</h2>
+  <p><b>1.1</b> This is a participation agreement between the Cooperative and the person who signs it (the "Guild Participant"). It is not a membership instrument. Signing it does not make the Participant a member of RegenHub, LCA within the meaning of C.R.S. section 7-58-102(13), is not a contribution within the meaning of C.R.S. section 7-58-102(5), and confers no vote, no capital account, no member's interest, and no share of what the Cooperative earns.</p>
+  <p><b>1.2</b> Where these Terms and the Bylaws or Articles differ, the Bylaws and Articles control. Where any page of techne.coop and this instrument differ, this instrument controls once adopted; until then the formation notice controls everything.</p>
+</section>
+
+<section class="sec" data-tint="amber">
+  <div class="addr">&sect;2</div>
+  <h2>The guild</h2>
+  <p><b>2.1</b> The guild is the virtual way into the Techne community of practice: participation from anywhere, without presence in Boulder. It carries the directory, the gatherings, access to the courses and the public record, and standing in the community of practice described at <a href="/community-of-practice/">techne.coop/community-of-practice</a>.</p>
+  <p><b>2.2</b> The guild is organized as self-organizing communities of practice. Guild Participants may convene practice groups within the guild; convening confers no authority over the Cooperative.</p>
+</section>
+
+<section class="sec" data-tint="coral">
+  <div class="addr">&sect;3</div>
+  <h2>Dues: four tiers</h2>
+  <p><b>3.1</b> Dues are payable monthly at one of four tiers, self-chosen by the Participant at enrollment: ten dollars ($10), twenty five dollars ($25), one hundred dollars ($100), or two hundred dollars ($200) per month. These are the four amounts published on the participation page; instrument and page state the same term.</p>
+  <p><b>3.2</b> A Participant may move between tiers prospectively at any time on notice to the Cooperative. Every tier opens the same doors. No tier purchases governance, priority, or standing over any other Participant.</p>
+  <p><b>3.3</b> Dues are dues, never capital, at any tier. No portion of any payment under these Terms is a capital contribution, opens a capital account, entitles the Participant to any allocation or distribution, or is credited toward the membership share described in section 5.</p>
+  <p><b>3.4</b> A Participant whose dues lapse remains in good standing for a grace period of sixty (60) days, after which participation lapses without penalty and may be resumed by re-enrollment.</p>
+</section>
+
+<section class="sec" data-tint="coral">
+  <div class="addr">&sect;4</div>
+  <h2>Standing and withdrawal</h2>
+  <p><b>4.1</b> Enrollment is open: no invitation and no buy-in. A Participant may withdraw on reasonable notice with no exit obligation.</p>
+  <p><b>4.2</b> The Cooperative may suspend or end a participation for conduct that harms the community, on notice and with a stated reason.</p>
+</section>
+
+<section class="sec" data-tint="rose">
+  <div class="addr">&sect;5</div>
+  <h2>The pathway to patron membership</h2>
+  <p><b>5.1</b> Time in the guild counts toward an invitation to Cooperative Member (Class One, the patron and voting class) the same way time at a desk does. After ninety (90) days of continuous participation in good standing, a Guild Participant becomes invitable.</p>
+  <p><b>5.2</b> An invitation arises when two (2) Cooperative Members have each recorded an invitation for the Participant. <em>Board election GUILD-D2: two is the drafted count; the board may set three.</em></p>
+  <p><b>5.3</b> On invitation and board acceptance, the applicant executes the Membership Agreement, pays the one-time membership share of $100, which opens a capital account, and pays annual dues of $100, per Bylaws Schedule A as published for Class One. Guild dues paid under section 3 are not credited against the share or the membership dues.</p>
+  <p><b>5.4</b> Membership arrives only this way: by invitation, by acceptance, and by execution. No duration of guild participation and no amount of dues creates a right to membership.</p>
+</section>
+
+<section class="sec" data-tint="violet">
+  <div class="addr">&sect;6</div>
+  <h2>Effect, amendment, and adoption</h2>
+  <p><b>6.1</b> These Terms take effect only on board adoption, together with <a href="/legal/participation-framework-amendment/">Amendment No. 1 to the Participation Framework</a> establishing the Guild Participant level. Adoption of these Terms alone does not open the guild.</p>
+  <p><b>6.2</b> Amendments are prospective only: a new version and a new adoption.</p>
+  <div class="contract"><code><span class="cm">-- ADOPTION BLOCK. Completed by the recorder, not before the vote.</span>
+
+Adopted by the Board of Directors of RegenHub, LCA on ____________,
+by resolution ____________,
+____ in favor, ____ against, ____ abstaining.</code></div>
+</section>
+
+<section class="sec" data-tint="blue">
+  <div class="addr">&sect;7</div>
+  <h2>Open elections for the board, not the drafter's calls</h2>
+  <div class="dcard"><div class="dh">GUILD-D2 &middot; invitation count</div><div class="db">Two or three, at section 5.2.</div></div>
+  <div class="dcard"><div class="dh">GUILD-D5 &middot; the public name of the level</div><div class="db">"Guild Participant" is the working name.</div></div>
+  <div class="dcard"><div class="dh">grace period length</div><div class="db">Section 3.4. Sixty days is the drafter's cut, not a decision.</div></div>
+  <div class="dcard"><div class="dh">sequencing</div><div class="db">Whether guild adoption waits on execution of the foundation instruments, which the formation notice records as not yet executed.</div></div>
+  <p>Resolved and no longer before the board: the dues presentation. The steward decided on 2026-08-19 that dues are the four published tiers, not a continuous scale, and section 3 now matches the participation page exactly.</p>
+  <div class="inv"><p><span class="it">Implementation note, not part of the instrument.</span> Enrollment at four fixed monthly tiers implies four recurring billing products plus tier-change handling. That is implementation for a person with payment authority after adoption. Nothing in this instrument creates or authorizes any payment configuration, and the drafting agent has no authority over money.</p></div>
+</section>
+
+
+<footer>
+  <span>Techne &middot; RegenHub, LCA &middot; 1515 Walnut Street, Boulder</span>
+  <span>Document grammar &middot; Techne v4 &middot; Guild Participation Terms &middot; DRAFT &middot; August 2026</span>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+</div>
+
+</body>
+</html>
