@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Transducer &middot; Intranet &middot; Techne</title>
-<meta name="description" content="The transducer: the estate's own record rendered at human variety. Five lenses over one dated cut of the repository, ledger, and participation stories. Drafted instrument of TRANSDUCER v0.2, not adopted. RegenHub, LCA.">
+<meta name="description" content="The transducer: the estate's own record rendered at human variety. Six lenses over one dated cut of the repository, ledger, and participation stories, ordered by legibility to the member body and opening on the journeys landscape. Drafted instrument of TRANSDUCER v0.2, not adopted. RegenHub, LCA.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
@@ -189,7 +189,23 @@
     border-bottom:1px solid var(--line);background:var(--bg);flex:0 0 auto}
   .plain b{color:var(--heading);font-weight:400;font-style:italic}
   .framemark{display:block;font:400 9.5px/1.6 var(--mono);letter-spacing:.06em;color:var(--faint);margin-top:4px}
+  /* journeys: where you stand, then the passages as lanes */
+  .stands{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--line);background:var(--surface);
+    position:sticky;top:0;z-index:5}
+  .stand{flex:1 1 150px;text-align:left;background:transparent;border:0;border-right:1px solid var(--line);
+    padding:9px var(--s4) 10px;cursor:pointer;display:flex;flex-direction:column;gap:3px;min-width:0}
+  .stand:last-child{border-right:0}
+  .stand .sk{font:500 9.5px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+  .stand .sn{font:400 14px/1.25 var(--serif);color:var(--heading)}
+  .stand .sr{font:400 10.5px/1.5 var(--mono);color:var(--muted)}
+  .stand:hover{background:var(--raised)}
+  .stand[aria-pressed="true"]{background:var(--bg);box-shadow:inset 0 2px 0 var(--sun-coral)}
+  .stand[aria-pressed="true"] .sk{color:var(--sun-coral)}
+  .stand.cross{border-left:1px dashed var(--rule)}
+  .standnote{font:400 10.5px/1.6 var(--mono);color:var(--faint);padding:6px var(--s5) 0}
   /* journeys: passages as lanes */
+  .lane.focus{border-left-width:4px;background:var(--raised)}
+  .lane.dim{opacity:.45}
   .lane{border:1px solid var(--line);border-left:2px solid var(--sun-coral);background:var(--surface);
     padding:10px var(--s4);margin:0 var(--s5) var(--s3);max-width:none}
   .lane .lh{font:500 10.5px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;
@@ -264,29 +280,29 @@
 <div class="band" id="band"></div>
 
 <div class="lenses" role="tablist">
-  <button class="lens" data-view="standing" aria-pressed="true">
-    <span class="k">00 &middot; no instrument</span><span class="t">Standing</span>
-    <span class="d">the record cut across the grain, read heart outward</span>
+  <button class="lens" data-view="journeys" aria-pressed="true">
+    <span class="k">00 &middot; where you stand</span><span class="t">Journeys</span>
+    <span class="d">the landscape as a person walks it, from the stranger at the door to the patron member</span>
   </button>
-  <button class="lens" data-view="code" aria-pressed="false">
-    <span class="k">01 &middot; the file</span><span class="t">Composition</span>
-    <span class="d">what the body is made of, and where its mass gathers</span>
+  <button class="lens" data-view="standing" aria-pressed="false">
+    <span class="k">01 &middot; the whole</span><span class="t">Standing</span>
+    <span class="d">the cooperative in one cross-section, read heart outward</span>
   </button>
   <button class="lens" data-view="ledger" aria-pressed="false">
-    <span class="k">02 &middot; the record</span><span class="t">Maturation</span>
-    <span class="d">work moving open, anticipated, drafted, filed</span>
+    <span class="k">02 &middot; the work</span><span class="t">Maturation</span>
+    <span class="d">every named piece, and how far each has come</span>
   </button>
   <button class="lens" data-view="hands" aria-pressed="false">
-    <span class="k">03 &middot; the commit</span><span class="t">Tending</span>
-    <span class="d">the rhythm of the work and the two piles it falls into &middot; described, never scored</span>
-  </button>
-  <button class="lens" data-view="journeys" aria-pressed="false">
-    <span class="k">04 &middot; the passage</span><span class="t">Journeys</span>
-    <span class="d">how far a person of each class gets, and where the sequence stops</span>
+    <span class="k">03 &middot; the rhythm</span><span class="t">Tending</span>
+    <span class="d">when the work happens and the two piles it falls into &middot; described, never scored</span>
   </button>
   <button class="lens" data-view="succession" aria-pressed="false">
-    <span class="k">05 &middot; the transition</span><span class="t">Succession</span>
+    <span class="k">04 &middot; the history</span><span class="t">Succession</span>
     <span class="d">how long each thing has been where it is &middot; colour stepping back is a correction, kept visible</span>
+  </button>
+  <button class="lens" data-view="code" aria-pressed="false">
+    <span class="k">05 &middot; the material</span><span class="t">Composition</span>
+    <span class="d">the files the whole is made of, and where its mass gathers</span>
   </button>
 </div>
 
@@ -311,7 +327,7 @@
 <script>
 const $=s=>document.querySelector(s);
 const SNAP=JSON.parse($('#snapshot').textContent), S=SNAP.stats;
-const state={view:'standing',filter:null,ring:null};
+const state={view:'journeys',filter:null,ring:null,persona:null};
 const TINT={standing:'var(--sun-gold)',code:'var(--sun-blue)',ledger:'var(--sun-violet)',journeys:'var(--sun-coral)',hands:'var(--sun-amber)',succession:'var(--sun-rose)'};
 
 /* mode: follow the device, allow override - as the estate's shell does */
@@ -336,7 +352,7 @@ $('#gen').textContent=SNAP.generated;
 
 document.querySelectorAll('.lens').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.lens').forEach(x=>x.setAttribute('aria-pressed','false'));
-  b.setAttribute('aria-pressed','true'); state.view=b.dataset.view; state.filter=null; state.ring=null; render();
+  b.setAttribute('aria-pressed','true'); state.view=b.dataset.view; state.filter=null; state.ring=null; state.persona=null; render();
 });
 
 const fmtB=n=>n>1e6?(n/1e6).toFixed(2)+' MB':n>1e3?(n/1e3).toFixed(1)+' kB':n+' B';
@@ -357,7 +373,7 @@ function render(){
 }
 
 
-/* ============ 00 · STANDING · the cross-section ============
+/* ============ 01 · STANDING · the whole ============
    Not a fourth instrument. The three lenses each look THROUGH a
    medium - the file, the record, the commit - and are blind outside
    it. This one has no medium: it is the trunk cut across, so the
@@ -580,7 +596,7 @@ document.addEventListener('keydown',ev=>{
   } else if(ev.key==='Escape'&&state.ring) pick(null);
 });
 
-/* ============ 01 · COMPOSITION ============ */
+/* ============ 05 · COMPOSITION · the material ============ */
 const RANGE=['var(--sun-blue)','var(--sun-violet)','var(--sun-rose)','var(--sun-coral)','var(--sun-amber)','var(--sun-gold)'];
 const extTint=e=>({html:RANGE[0],sql:RANGE[1],py:RANGE[2],js:RANGE[3],md:RANGE[4],yaml:RANGE[5],yml:RANGE[5],json:RANGE[3],css:RANGE[2],svg:RANGE[1],mp4:RANGE[2],png:RANGE[1],jpg:RANGE[1]}[e]||'var(--rule)');
 function viewCode(c){
@@ -656,7 +672,7 @@ function detailFile(f){
    <p class="note"><a href="https://github.com/${SNAP.repo}/blob/${SNAP.branch}/${encodeURI(f.path)}" target="_blank" rel="noopener">Open on GitHub</a></p>`;
 }
 
-/* ============ 02 · MATURATION ============ */
+/* ============ 02 · MATURATION · the work ============ */
 /* The ledger's own mark grammar, per rdm-ledger.yaml's header (X-19, 2026-08-13):
    drafted = an unadopted document · anticipated = before anyone takes it up ·
    open · (mark) once taken up, where the mark is in-session, delivered (merged
@@ -745,7 +761,7 @@ function detailLedger(i){
 }
 
 
-/* ============ 04 · JOURNEYS · the passage ============
+/* ============ 00 · JOURNEYS · where you stand ============
    Built to JOURNEYS v0.1 (drafted, not adopted). The register it
    specifies does not exist yet, so this view reads the stories
    page as found and derives only what can honestly be derived
@@ -759,37 +775,73 @@ function viewJourneys(c){
   const all=Object.values(steps);
   const cnt=s=>all.filter(x=>x.state===s).length;
   const reach=p=>{ let n=0; for(const id of p.passage){ if(steps[id]&&steps[id].state==='live') n++; else break; } return n; };
+
+  /* An arrival class is a passage that walks at least one of its own
+     section's steps. A passage made entirely of other sections' steps
+     is a reading across the classes, not a way in; H is the case. The
+     split is derived here rather than typed, and the order is the
+     stories page's own order, which runs from the stranger at the door
+     inward to the patron member. It is a landscape, never a ladder. */
+  const letter=p=>(p.sec.split(' \u00b7 ')[0]||'').trim();
+  const own=p=>p.passage.some(id=>steps[id]&&letter({sec:steps[id].sec})===letter(p));
+  const arrivals=ps.filter(own), crossings=ps.filter(p=>!own(p));
+  const name=p=>{const seg=p.sec.split(' \u00b7 '); return (seg[1]||p.sec).trim();};
+  const cls=p=>{const seg=p.sec.split(' \u00b7 '); return seg.slice(2).join(' \u00b7 ').trim();};
   const stopped=ps.filter(p=>reach(p)<p.passage.length).length;
+
   metrics([
-    {l:'passages',v:ps.length,q:'arrival classes with a first sitting'},
+    {l:'ways in',v:arrivals.length,q:'arrival classes, stranger to patron member'},
     {l:'steps',v:all.length,q:'capability sentences, nine sections'},
     {l:'reachable',v:cnt('live'),q:'shown working on a surface today'},
     {l:'proposed',v:cnt('proposed'),q:'waiting on a board adoption'},
     {l:'unbuilt',v:cnt('drafted')+cnt('anticipated'),q:'drafted or not yet taken up'},
     {l:'passages that stop',v:stopped+' of '+ps.length,q:'before their first sitting ends'}
   ]);
-  $('#reading').innerHTML=`A journey is not a story. A story is one sentence, a promise the cooperative makes; a <b>passage</b> is the ordered walk a person of one class takes in a first sitting, and it ends where it ends. The stop below is not written down anywhere: it is found by walking each passage until a step is not yet reachable, which means it moves on its own as pieces are verified. <b>${stopped} of ${ps.length} passages stop before their first sitting is over.</b><span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
 
-  const wrap=document.createElement('div'); wrap.style.paddingTop='var(--s3)';
+  $('#reading').innerHTML=`This is the landscape as a person walks it. Find yourself in the row below: each one is a way into this cooperative, in the order the participation record puts them, from the stranger at the door to the patron member. Choosing one does not filter the record away, it puts your walk in front. Underneath, a <b>passage</b> is the ordered walk you would take in a first sitting, and it ends where it ends. The stop is nowhere written down: it is found by walking each passage until a step is not yet reachable, so it moves on its own as pieces are verified. <b>${stopped} of ${ps.length} passages stop before their first sitting is over.</b><span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
+
+  const wrap=document.createElement('div');
+
+  /* where you stand */
+  const stands=document.createElement('div'); stands.className='stands';
+  const card=(p,isCross)=>{
+    const r=reach(p), b=document.createElement('button');
+    b.className='stand'+(isCross?' cross':'');
+    b.setAttribute('aria-pressed', state.persona===p.sec?'true':'false');
+    b.innerHTML=`<span class="sk">${esc(isCross?'across the classes':(cls(p)||'no class yet'))}</span>
+      <span class="sn">${esc(name(p))}</span>
+      <span class="sr">reaches ${r} of ${p.passage.length} steps</span>`;
+    b.onclick=()=>{ state.persona = state.persona===p.sec?null:p.sec; render();
+      if(state.persona){ const l=document.querySelector('.lane.focus'); if(l) l.scrollIntoView({block:'nearest'}); } };
+    return b;
+  };
+  arrivals.forEach(p=>stands.appendChild(card(p,false)));
+  crossings.forEach(p=>stands.appendChild(card(p,true)));
+  wrap.appendChild(stands);
+  wrap.insertAdjacentHTML('beforeend','<div class="standnote">The order is the participation record\u2019s order, not a ranking; the classes are not in a race, and a way in is not a rung. The last card, set apart, is a reading that crosses the classes rather than a way in.</div>');
+
+  const lanes=document.createElement('div'); lanes.style.paddingTop='var(--s3)';
   ps.forEach(p=>{
     const r=reach(p), stopId=r<p.passage.length?p.passage[r]:null;
-    const lane=document.createElement('div'); lane.className='lane';
+    const lane=document.createElement('div');
+    lane.className='lane'+(state.persona===p.sec?' focus':(state.persona?' dim':''));
     const seq=p.passage.map((id,i)=>{
-      const cls=i<r?'reached':(i===r?'stop':'beyond');
-      return `<span class="st ${cls}" data-id="${id}">${id}</span>`;
+      const cl=i<r?'reached':(i===r?'stop':'beyond');
+      return `<span class="st ${cl}" data-id="${id}">${id}</span>`;
     }).join('<span class="arw">&rarr;</span>');
     lane.innerHTML=`<div class="lh"><span>${esc(p.sec)}</span><em>reach ${r} of ${p.passage.length}</em></div>
       <div class="seq">${seq}</div>
       ${stopId?`<div class="lc">stops at <b>${stopId}</b> &middot; ${esc(steps[stopId].note||steps[stopId].state)}</div>`
               :`<div class="lc">the first sitting completes</div>`}`;
-    lane.querySelectorAll('.st').forEach(el=>el.onclick=()=>detailStep(steps[el.dataset.id],p));
-    lane.onclick=e=>{ if(!e.target.closest('.st')) detailPersona(p,r); };
-    wrap.appendChild(lane);
+    lane.querySelectorAll('.st').forEach(el=>el.onclick=e=>{ e.stopPropagation(); detailStep(steps[el.dataset.id],p); });
+    lane.onclick=()=>{ state.persona = state.persona===p.sec?null:p.sec; render(); };
+    lanes.appendChild(lane);
   });
+  wrap.appendChild(lanes);
+
   wrap.insertAdjacentHTML('beforeend','<div class="subhead">Every step, by section</div>');
   const rows=document.createElement('div'); rows.className='rows';
   const JTINT={live:'var(--sun-gold-t)',proposed:'var(--sun-violet-t)',drafted:'var(--ember-text)',anticipated:'var(--faint)'};
-  let lastSec=null;
   Object.values(steps).forEach(s=>{
     const row=document.createElement('div'); row.className='row lrow';
     row.innerHTML=`<span class="id">${esc(s.id)}</span><span class="title">${esc(s.sentence)}</span>
@@ -799,11 +851,16 @@ function viewJourneys(c){
     rows.appendChild(row);
   });
   wrap.appendChild(rows); c.appendChild(wrap);
-  $('#detail').innerHTML=`<h2>Reading a passage</h2>
+
+  const chosen=ps.find(p=>p.sec===state.persona);
+  if(chosen){ detailPersona(chosen,reach(chosen)); return; }
+  $('#detail').innerHTML=`<h2>Finding yourself here</h2>
+   <p class="note">The row across the top is every way into this cooperative. Pick the one you arrived by, and its walk comes forward while the others stay visible behind it. If none of them is you yet, the first card is: the stranger at the door.</p>
+   <h2 style="margin-top:var(--s5)">Reading a passage</h2>
    <p class="note">Each lane is one arrival class walking its first sitting in order. A gold step is reachable today. The dashed step is the <b>stop</b>: the first thing that does not yet work, with what it waits on beside it. Steps past the stop are shown faint because a person never reaches them in that sitting.</p>
    <h2 style="margin-top:var(--s5)">What is computed, and what is not</h2>
-   <p class="note">The stop is computed here, by walking. The condition of each step is <em>not</em>: it is still hand-typed on the stories page, because the register that would derive it from the ledger is piece J-01 and does not exist. JOURNEYS v0.1 is drafted and unadopted, so this view shows the shape the module proposes while being honest that half the derivation is still a promise.</p>
-   <p class="note">Reach is a count of steps and never a score. Lanes are ordered as the participation index orders arrival classes, never by how far they run: the classes are not in a race.</p>`;
+   <p class="note">The stop is computed here, by walking. So is the split between a way in and a reading across the classes: a passage that walks none of its own section\u2019s steps is the latter. The condition of each step is <em>not</em> computed: it is still hand-typed on the stories page, because the register that would derive it from the ledger is piece J-01 and does not exist. JOURNEYS v0.1 is drafted and unadopted, so this view shows the shape the module proposes while being honest that half the derivation is still a promise.</p>
+   <p class="note">Reach is a count of steps and never a score. The order of the classes is the participation record\u2019s order, never how far each one runs.</p>`;
 }
 function detailStep(s,p){
   if(!s) return;
@@ -824,7 +881,7 @@ function detailPersona(p,r){
    ${p.stopnote?`<p class="note" style="border-left:2px solid var(--warn);padding-left:var(--s3)">${esc(p.stopnote)}</p>`:''}`;
 }
 
-/* ============ 03 · TENDING ============
+/* ============ 03 · TENDING · the rhythm ============
    Reformed against Movement II of the Commonplace. No person is
    counted here: qualification over quantification, collective
    identity over individual accounting, trust rather than
@@ -879,7 +936,7 @@ function viewHands(c){
    <p class="note">Deliberately: who typed what, how much each hand produced, and any figure that could become a ladder. Qualification over quantification \u2014 the gap this view lives in is the one Movement II names, between wanting gifts seen and refusing to have them priced.</p>`;
 }
 
-/* ============ 05 · SUCCESSION · the transition ============
+/* ============ 04 · SUCCESSION · the history ============
    TRANSDUCER-A1 (drafted, not adopted). The medium is the transition:
    one piece changing one mark on one date, recovered by reading every
    revision of the ledger against the one before. The extraction
@@ -1077,7 +1134,7 @@ const PLAIN={
  standing:'<b>What you are looking at:</b> one cooperative\u2019s work cut across like a tree stump, so the layers that change slowly and the layers that change fast can be seen at once.',
  code:'<b>What you are looking at:</b> every file in the project as a rectangle, sized by how big it is and shaded by how often it has been changed.',
  ledger:'<b>What you are looking at:</b> the cooperative\u2019s own list of work it has named, sorted by how far each piece has come toward being finished and checked by a person.',
- journeys:'<b>What you are looking at:</b> what a person of each kind can do here, in the order they would do it, and the exact point where the sequence stops.',
+ journeys:'<b>What you are looking at:</b> every way into this place, from someone who has just arrived to a full member, and for each one what they can actually do today, in order, up to the exact point where it stops working.',
  hands:'<b>What you are looking at:</b> the rhythm of the work over time. Nobody is counted or ranked here, on purpose.',
  succession:'<b>What you are looking at:</b> every named piece of work as a stripe through time, coloured by the state it was in on each day. Long unbroken bands have simply stayed where they are; that is a fact, not a failure.'
 };
@@ -1093,40 +1150,40 @@ const PLAIN={
    region to introduce it destroys the very structure being shown.
    ------------------------------------------------------------ */
 const WALK=[
- {v:'standing',t:null,h:'Volunteered attention',
+ {v:'journeys',t:null,h:'Volunteered attention',
   b:['A cooperative runs on attention people give freely, and it coordinates through meetings, minutes, and memory. The formation record names the trouble plainly: the place ran collectively, but the picture of it lived in whoever was in the room.',
      'An information system helps in one way. It keeps the record where anyone can read it without asking anyone, so volunteered attention goes to deciding rather than reconstructing.'],
   c:'Two practical drivers &middot; Meeting 1'},
 
- {v:'standing',t:null,h:'A tool alongside, not in place of',
+ {v:'journeys',t:null,h:'A tool alongside, not in place of',
   b:['Cybernetics is an old word for the study of steering: how a thing senses its own state and adjusts. A cooperative reading its own record and correcting course is that loop, with people in it.',
      'The record has grown too large for one person to hold, so an instrument stands between record and reader: the <em>transducer</em>. It turns the whole into something a person can take in, and every figure walks back to its source. A tool in place of a person automates; a tool alongside them augments. This one decides nothing.'],
   c:'Augmentation over automation &middot; Meeting 15'},
 
- {v:'standing',t:'.disc',lens:'00 \u00b7 the whole',h:'Standing',
-  b:['The cooperative cut across the grain, read the way a stump is read: history at the heart, then the governing documents, then the beds of work, then the proofs, then the public site at the rim.',
+ {v:'journeys',t:'.stands',lens:'00 · where you stand',h:'Journeys',
+  b:['Start with yourself. Each card is a way into this cooperative, in the participation record&rsquo;s own order, from the stranger at the door to the patron member. Pick the one you arrived by and your walk comes forward; the others stay visible behind it.',
+     'The lanes below are those walks in order. The dashed step is where the walk stops today, and what it waits on. Nobody typed the stops in; they are found against the record, and move on their own as pieces finish.'],
+  c:'Concentric circles of belonging &middot; Meeting 4. Lanes are kinds of arrival, never people.'},
+
+ {v:'standing',t:'.disc',lens:'01 · the whole',h:'Standing',
+  b:['Now the same place from above: the cooperative cut across the grain, read the way a stump is read. History at the heart, then the governing documents, then the beds of work, then the proofs, then the public site at the rim.',
      'One look answers what is solid, what is waiting, and where the organisation is still becoming itself.'],
   c:'One dated moment. A cross-section cannot show time.'},
 
- {v:'code',t:'.canvas',lens:'01 \u00b7 the files',h:'Composition',
-  b:['Everything written, as rectangles: bigger is larger, darker is revised more often.',
-     'The formation record settled early that this place is soil rather than firm. So mass that sits quiet is substrate, not neglect; the small dark blocks are where attention keeps returning.'],
-  c:'Soil, not firm &middot; Meeting 3. Size is not merit.'},
-
- {v:'ledger',t:'#ladder',lens:'02 \u00b7 the ledger',h:'Maturation',
+ {v:'ledger',t:'#ladder',lens:'02 · the work',h:'Maturation',
   b:['Every named piece of work, marked by how far it came: not yet taken up, delivered, verified.',
      'The marks qualify; they do not rank. Delivered means the machinery is satisfied. Verified means a person walked it and found it true. A cooperative answers to people, so a person is the bar.'],
   c:'Qualification over quantification &middot; Meeting 1'},
 
- {v:'hands',t:'#overview',lens:'03 \u00b7 the rhythm',h:'Tending',
+ {v:'hands',t:'#overview',lens:'03 · the rhythm',h:'Tending',
   b:['When the work happened, and which of two piles it fell into: helping the place be itself, or growing what lives within it. Both belong.',
      'What is missing is deliberate. No counts per person, no ranking, because when a measure becomes a target it ceases to be a good measure. The rhythm of the whole is shown, and no one is scored.'],
   c:'The two piles &middot; Meeting 4. Goodhart&rsquo;s Law &middot; Meeting 3.'},
 
- {v:'journeys',t:'.canvas',lens:'04 \u00b7 the passages',h:'Journeys',
-  b:['Each lane is one kind of arrival walking a first visit in order. The dashed step is where the walk stops today, and what it waits on. Nobody typed the stops in; they are found against the record, and move on their own as pieces finish.',
-     'The picture underneath is the formation record&rsquo;s picture of belonging: rings, not a wall. Growth means inviting people inward, not policing the edge.'],
-  c:'Concentric circles of belonging &middot; Meeting 4. Lanes are kinds of arrival, never people.'}
+ {v:'code',t:'.canvas',lens:'05 · the material',h:'Composition',
+  b:['Last, and last on purpose: everything written, as rectangles. Bigger is larger, darker is revised more often. This is the layer a builder reads, and you can leave without it.',
+     'The formation record settled early that this place is soil rather than firm. So mass that sits quiet is substrate, not neglect; the small dark blocks are where attention keeps returning.'],
+  c:'Soil, not firm &middot; Meeting 3. Size is not merit.'}
 ];
 let step=0, walking=false;
 
