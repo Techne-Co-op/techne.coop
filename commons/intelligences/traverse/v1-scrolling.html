@@ -1,288 +1,255 @@
-<!doctype html>
-<html lang="en" data-mode="dark">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Traverse · an instrument of seventeen questions</title>
-<meta name="description" content="A HUD over the role catalog: enter as a title, watch it dissolve into one lit cell of seventeen, traverse the dark by way of colleagues, read the thin ground, and compose the shape no title names.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>The Traverse &middot; Techne</title>
+<meta name="description" content="Enter as the title you were given. See what it perceives, what it cannot, and how a person moves beyond it.">
 <script>
-(function(){var m="dark";try{m=localStorage.getItem("techne-mode")||
- (matchMedia("(prefers-color-scheme: light)").matches?"light":"dark")}catch(e){}
- try{var h=new URLSearchParams(location.hash.replace(/^#/,""));
- if(h.get("mode")==="light"||h.get("mode")==="dark")m=h.get("mode")}catch(e){}
- document.documentElement.setAttribute("data-mode",m)})();
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var h=/[#&]mode=(dark|light)/.exec(location.hash);
+  var m=(h&&h[1])||s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
 </script>
 <style>
-/* tokens, verbatim from commons.css v4 (the live constitution is techne.coop/design-system) */
-:root {
-  --serif:"Libre Baskerville",Georgia,serif;
-  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+/* TECHNE v4 token layer, inlined per page. Font files are not bundled here:
+   the named faces fall through to their system stacks so the page works from file://. */
+:root{
+  color-scheme:dark light;
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
-  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
-  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
-  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+  --face-doc:"Libre Baskerville",Georgia,serif;
+  --face-ui:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --face-display:Georgia,"Libre Baskerville",serif;
+  --micro:.16s; --dur:.4s;
+  --tap:44px;
 }
-html[data-mode="dark"] {
+html[data-mode="dark"]{
   --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
   --line:#2A2A30; --rule:#3A3A42;
-  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
   --blue:#6A8AC4; --blue-text:#97B5E8;
   --ember:#C4956A; --ember-text:#D4A57A;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
   --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
-  --heat-1:#6E5494; --heat-2:#B45C7C; --heat-3:#D1755A; --heat-4:#E09A52; --heat-5:#EAB668;
-  --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872;
-  --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+  --sun-gold:#D9B45C; --sun-amber:#C98A52; --sun-coral:#C4776A;
+  --sun-rose:#B06E92; --sun-violet:#8A6AC4; --sun-blue:#6A8AC4;
 }
-html[data-mode="light"] {
+html[data-mode="light"]{
   --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
   --line:#D8D3C8; --rule:#9A958A;
-  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
   --blue:#4A6FB0; --blue-text:#39588F;
   --ember:#8A6A4A; --ember-text:#6F5436;
-  --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
-  --heat-1:#EAB668; --heat-2:#E09A52; --heat-3:#D1755A; --heat-4:#B45C7C; --heat-5:#6E5494;
-  --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636;
-  --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#a84f4c;
+  --sun-gold:#8A6A2E; --sun-amber:#8A5A2E; --sun-coral:#9A4A3E;
+  --sun-rose:#8A3E6A; --sun-violet:#5A3E8A; --sun-blue:#4A6FB0;
 }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text); font-family:var(--face-doc);
+  font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+a{color:var(--blue-text); text-decoration:underline; text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+button{font:inherit; color:inherit; background:none; border:none; padding:0; cursor:pointer}
 
-*{box-sizing:border-box;margin:0}
-html,body{height:100%;overflow:hidden}
-html{color-scheme:dark light}
-body{background:var(--bg);color:var(--text);font:400 14px/1.6 var(--serif);
-  display:flex;flex-direction:column;
-  transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease)}
-.mono{font-family:var(--mono)} .num{font-variant-numeric:tabular-nums}
-button{font:inherit}
-:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.catbar{
+  position:sticky; top:0; z-index:30; min-height:48px;
+  display:flex; align-items:center; justify-content:space-between; gap:var(--s4);
+  padding:0 var(--s5);
+  background:var(--bg); border-bottom:1px solid var(--line);
+}
+.wordmark{font-family:var(--face-ui); font-size:12px; letter-spacing:.12em; color:var(--heading)}
+.wordmark span{color:var(--muted)}
+.modetoggle{
+  font-family:var(--face-ui); font-size:14px; line-height:1;
+  border:1px solid var(--line); border-radius:2px; color:var(--muted);
+  min-width:var(--tap); min-height:36px;
+}
+.modetoggle:hover{color:var(--text); border-color:var(--rule)}
 
-/* hudbar, after the estate's instrument register */
-.hudbar{display:flex;align-items:center;gap:var(--s4);padding:8px var(--s5);
-  border-bottom:1px solid var(--line);background:var(--surface);flex:0 0 auto}
-.hudbar .mark{font:500 .78rem/1 var(--mono);color:var(--ember-text);letter-spacing:.06em;text-transform:uppercase}
-.hudbar .sub{font:400 11px/1.4 var(--mono);color:var(--faint)}
-.chip{display:inline-flex;align-items:center;gap:6px;font:500 10.5px/1 var(--mono);padding:5px 9px;
-  border:1px solid var(--line);border-radius:2px;background:var(--surface);letter-spacing:.02em;color:var(--muted)}
-.chip b{color:var(--heading);font-weight:500}
-.chip .dot{width:6px;height:6px;background:var(--ember)}
-.btn{font:500 11px/1 var(--mono);color:var(--muted);background:transparent;border:1px solid var(--line);
-  border-radius:2px;padding:0 12px;height:26px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
-  transition:color var(--micro) var(--ease),border-color var(--micro) var(--ease)}
-.btn:hover{color:var(--ember-text);border-color:var(--ember)}
-.spacer{margin-left:auto}
+.wrap{max-width:1080px; margin-inline:auto; padding:var(--s5) clamp(var(--s4),4vw,var(--s6)) var(--s8)}
+.mast{padding-bottom:var(--s4); border-bottom:1px solid var(--rule); margin-bottom:var(--s6)}
+.kick{font-family:var(--face-ui); font-size:10px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--faint); margin:0 0 var(--s2)}
+.mast h1{font-family:var(--face-display); font-weight:400; font-size:1.55rem; line-height:1.15; color:var(--heading); margin:0; letter-spacing:-.01em}
+.mast .sub{margin:var(--s3) 0 0; color:var(--muted); max-width:62ch}
 
-/* the sunset band: six seasons, one rhythm, drawn once */
-.band{display:flex;gap:0;height:6px;border-bottom:1px solid var(--line);flex:0 0 auto}
-.band span{flex:1}
+.mv{margin-top:var(--s7); scroll-margin-top:64px}
+.mv > h2{
+  font-family:var(--face-ui); font-size:11px; font-weight:500; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ember-text); margin:0 0 var(--s2);
+  display:flex; align-items:baseline; gap:var(--s3);
+}
+.mv > h2 .n{color:var(--faint)}
+.mv > .lede{margin:0 0 var(--s4); color:var(--muted); max-width:64ch}
+.gate{color:var(--faint); font-family:var(--face-ui); font-size:12px; letter-spacing:.06em; border:1px dashed var(--line); border-radius:2px; padding:var(--s4); margin:0}
 
-/* lens rail: the five movements as instrument states */
-.lenses{display:flex;gap:0;flex:0 0 auto;border-bottom:1px solid var(--line);background:var(--bg)}
-.lens{flex:1;text-align:left;background:transparent;border:0;border-right:1px solid var(--line);
-  padding:8px var(--s4);cursor:pointer;color:var(--muted);display:flex;flex-direction:column;gap:2px;min-width:0}
-.lens:last-child{border-right:0}
-.lens .k{font:500 9.5px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-.lens .t{font:400 14px/1.2 var(--serif);color:var(--heading);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lens .d{font:400 10.5px/1.4 var(--mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lens[aria-pressed="true"]{background:var(--surface)}
-.lens[aria-pressed="true"] .k{color:var(--lens-tint,var(--ember))}
-.lens[aria-pressed="true"]{box-shadow:inset 0 2px 0 var(--lens-tint,var(--ember))}
+/* movement 1: role entry */
+.rolepick{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:var(--s2) var(--s4); margin:0; padding:0; list-style:none}
+.rp-cluster{font-family:var(--face-ui); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); grid-column:1/-1; margin-top:var(--s3); border-bottom:1px solid var(--line); padding-bottom:var(--s1)}
+.rp-cluster:first-child{margin-top:0}
+.rolebtn{
+  text-align:left; font-family:var(--face-ui); font-size:12.5px; line-height:1.35;
+  padding:7px 9px; border:1px solid transparent; border-radius:2px; color:var(--text);
+  min-height:34px;
+}
+.rolebtn:hover{background:var(--surface); border-color:var(--line)}
+.rolebtn[aria-pressed="true"]{background:var(--surface); border-color:var(--ember); color:var(--heading)}
 
-/* the three panes; only panes scroll, the frame never does */
-main{flex:1;min-height:0;display:flex;gap:0}
-.rail{width:clamp(200px,17vw,248px);flex:0 0 auto;overflow:auto;border-right:1px solid var(--line);
-  background:var(--surface);padding:var(--s3) 0}
-.canvas{flex:1;min-width:0;overflow:auto;position:relative;background:var(--bg);
-  display:flex;flex-direction:column}
-.aside{width:clamp(280px,24vw,352px);flex:0 0 auto;overflow:auto;border-left:1px solid var(--line);
-  background:var(--surface);padding:var(--s4) var(--s5)}
+.lenscard{margin-top:var(--s5); border:1px solid var(--rule); border-radius:2px; background:var(--surface)}
+.lenscard .hd{padding:var(--s4) var(--s5); border-bottom:1px solid var(--line); display:flex; justify-content:space-between; gap:var(--s4); flex-wrap:wrap; align-items:baseline}
+.lenscard .hd h3{margin:0; font-family:var(--face-display); font-weight:400; font-size:1.25rem; color:var(--heading)}
+.lenscard .hd .cl{font-family:var(--face-ui); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint)}
+.lenscard .bd{padding:var(--s4) var(--s5) var(--s5)}
+.holds{font-family:var(--face-ui); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin:0 0 var(--s1)}
+.homeq{font-size:1.05rem; color:var(--heading); margin:0 0 var(--s2); font-style:italic}
+.fraction{font-family:var(--face-ui); font-size:11px; color:var(--muted); letter-spacing:.04em}
+.limitbox{
+  margin-top:var(--s4); padding:var(--s3) var(--s4);
+  border-left:3px solid var(--warn); background:var(--inset); border-radius:0 2px 2px 0;
+}
+.limitbox .lab{font-family:var(--face-ui); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--warn); margin:0 0 var(--s1)}
+.limitbox p{margin:0; color:var(--text)}
 
-/* the desert enters as light and line: a horizon at the canvas foot */
-.horizon{position:absolute;left:0;right:0;bottom:0;height:120px;pointer-events:none;opacity:.5}
-.canvas > *{position:relative}
+/* the seventeen-cell field, shared by movements 1 and 2 */
+.field{display:grid; grid-template-columns:repeat(17,1fr); gap:3px; margin-top:var(--s4)}
+@media(max-width:760px){ .field{grid-template-columns:repeat(9,1fr)} }
+.cell{
+  position:relative; border:1px solid var(--line); border-radius:2px;
+  background:var(--inset); min-height:74px; padding:6px 5px 5px;
+  display:flex; flex-direction:column; justify-content:space-between; gap:4px;
+  font-family:var(--face-ui);
+}
+.cell .nm{font-size:9.5px; letter-spacing:.04em; color:var(--faint); writing-mode:vertical-rl; transform:rotate(180deg); line-height:1; min-height:52px}
+.cell .mk{font-size:9px; color:var(--faint); line-height:1}
+.cell.lit{background:var(--surface); border-color:var(--rule)}
+.cell.lit .nm{color:var(--heading)}
+.cell.home{border-color:var(--ember); box-shadow:inset 0 0 0 1px var(--ember)}
+.cell.home .mk{color:var(--ember-text)}
+.cell.also .mk{color:var(--blue-text)}
+.cell.goal{border-color:var(--blue); box-shadow:inset 0 0 0 1px var(--blue)}
+.fieldkey{display:flex; gap:var(--s4); flex-wrap:wrap; margin-top:var(--s2); font-family:var(--face-ui); font-size:10px; letter-spacing:.08em; color:var(--muted)}
+.fieldkey .k{display:inline-flex; align-items:center; gap:6px}
+.fieldkey .sw{width:10px; height:10px; border:1px solid var(--rule); border-radius:2px; background:var(--inset)}
+.fieldkey .sw.home{border-color:var(--ember); background:var(--surface)}
+.fieldkey .sw.also{border-color:var(--rule); background:var(--surface)}
+.fieldkey .sw.goal{border-color:var(--blue); background:var(--inset)}
 
-.railhead{font:600 10px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);
-  padding:6px var(--s4);border-bottom:1px solid var(--line);margin-bottom:4px;position:sticky;top:-12px;background:var(--surface);z-index:2}
-.clhead{font:500 9.5px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ember-text);
-  padding:8px var(--s4) 3px}
-.rolebtn{display:block;width:100%;text-align:left;background:transparent;border:0;border-left:2px solid transparent;
-  padding:4px var(--s4);cursor:pointer;font:400 12.5px/1.45 var(--serif);color:var(--text)}
-.rolebtn:hover{background:var(--raised);border-left-color:var(--rule)}
-.rolebtn[aria-pressed="true"]{background:var(--raised);border-left-color:var(--ember);color:var(--heading)}
-.rolebtn .hm{display:block;font:400 9.5px/1.4 var(--mono);color:var(--faint)}
+.darklist{margin:var(--s4) 0 0; padding:0; list-style:none; columns:2; column-gap:var(--s6)}
+@media(max-width:760px){ .darklist{columns:1} }
+.darklist li{break-inside:avoid; margin:0 0 var(--s3); padding-left:var(--s3); border-left:2px solid var(--line)}
+.darklist .dn{font-family:var(--face-ui); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); display:block}
+.darklist .dq{color:var(--faint); font-style:italic; font-size:14px}
 
-.goalbtn{display:flex;justify-content:space-between;align-items:baseline;gap:8px;width:100%;text-align:left;
-  background:transparent;border:0;border-left:2px solid transparent;padding:5px var(--s4);cursor:pointer;
-  font:400 12.5px/1.4 var(--serif);color:var(--text)}
-.goalbtn:hover:not(:disabled){background:var(--raised);border-left-color:var(--rule)}
-.goalbtn[aria-pressed="true"]{background:var(--raised);border-left-color:var(--ember);color:var(--heading)}
-.goalbtn:disabled{color:var(--faint);cursor:default}
-.goalbtn .st{font:500 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);flex-shrink:0}
-.goalbtn[aria-pressed="true"] .st{color:var(--ember-text)}
+/* movement 3: traverse */
+.goalpick{display:flex; flex-wrap:wrap; gap:var(--s2); margin-top:var(--s3)}
+.goalbtn{
+  font-family:var(--face-ui); font-size:11.5px; letter-spacing:.04em;
+  border:1px solid var(--line); border-radius:2px; padding:6px 10px; color:var(--text); min-height:32px;
+}
+.goalbtn:hover{border-color:var(--rule); background:var(--surface)}
+.goalbtn[aria-pressed="true"]{border-color:var(--blue); color:var(--heading); background:var(--surface)}
+.goalbtn:disabled{color:var(--faint); border-color:var(--line); cursor:default; text-decoration:line-through}
+.pathout{margin-top:var(--s5)}
+.hop{border:1px solid var(--line); border-left:3px solid var(--blue); border-radius:2px; background:var(--surface); padding:var(--s3) var(--s4); margin-top:var(--s3)}
+.hop .via{font-family:var(--face-ui); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--blue-text); margin:0 0 2px}
+.hop .who{margin:0; color:var(--heading); font-size:15px}
+.hop .why{margin:2px 0 0; color:var(--muted); font-size:13.5px}
+.arrive{border-left-color:var(--ok)}
+.arrive .via{color:var(--ok)}
+.pathnote{margin-top:var(--s3); color:var(--muted); font-size:13.5px; max-width:64ch}
 
-.pick{display:flex;align-items:baseline;gap:8px;padding:4px var(--s4);cursor:pointer;
-  font:400 12.5px/1.5 var(--serif);color:var(--text)}
-.pick:hover{background:var(--raised)}
-.pick input{accent-color:var(--ember);margin:0;flex-shrink:0;position:relative;top:2px}
-.pick .pf{font:400 9px/1.4 var(--mono);color:var(--faint);margin-left:auto;text-transform:uppercase;letter-spacing:.06em}
+/* movement 4: unstaffed */
+.unrow{border:1px solid var(--line); border-radius:2px; background:var(--surface); padding:var(--s4) var(--s5); margin-top:var(--s3)}
+.unrow h3{margin:0; font-family:var(--face-display); font-weight:400; font-size:1.1rem; color:var(--heading)}
+.unrow .uq{margin:2px 0 var(--s2); font-style:italic; color:var(--muted)}
+.unrow .who{font-family:var(--face-ui); font-size:11px; letter-spacing:.05em; color:var(--faint); margin:0 0 var(--s2)}
+.pathology{padding:var(--s2) var(--s3); background:var(--inset); border-left:3px solid var(--warn); border-radius:0 2px 2px 0}
+.pathology .pn{font-family:var(--face-ui); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--warn); margin:0 0 2px}
+.pathology p{margin:0; font-size:13.5px; color:var(--text)}
 
-.barline{display:grid;grid-template-columns:92px 1fr 26px;gap:8px;align-items:center;padding:3px var(--s4);
-  font:400 10.5px/1.5 var(--mono);color:var(--muted)}
-.barline.thin{color:var(--heading)}
-.barline .bar{height:8px;background:var(--inset);border:1px solid var(--line)}
-.barline .bar i{display:block;height:100%;background:var(--ember);opacity:.8}
-.barline.thin .bar i{background:var(--warn)}
-.barline .n{text-align:right;color:var(--heading);font-variant-numeric:tabular-nums}
-.barline .lab{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.railnote{font:400 10.5px/1.6 var(--mono);color:var(--faint);padding:8px var(--s4)}
-
-/* overview strip on the canvas */
-.overview{display:flex;gap:0;border-bottom:1px solid var(--line);flex:0 0 auto;background:var(--surface)}
-.metric{flex:1;min-width:0;padding:7px var(--s4);border-right:1px solid var(--line)}
-.metric:last-child{border-right:0}
-.metric .l{font:500 9px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.metric .v{font:400 19px/1.25 var(--serif);color:var(--heading);font-variant-numeric:tabular-nums;white-space:nowrap}
-.metric .v small{font:400 11px/1 var(--mono);color:var(--muted)}
-.reading{padding:7px var(--s5);border-bottom:1px solid var(--line);flex:0 0 auto;
-  font:400 12.5px/1.6 var(--serif);color:var(--text);background:var(--bg)}
-.reading b{color:var(--heading);font-weight:700}
-.stagebody{flex:1;min-height:0;overflow:auto;padding:var(--s4) var(--s5) 128px}
-
-/* the field of seventeen */
-.field{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:6px}
-.cell{border:1px solid var(--line);border-left:3px solid var(--line);border-radius:2px;background:var(--surface);
-  padding:7px 10px 6px;min-height:58px;display:flex;flex-direction:column;justify-content:space-between;gap:2px;
-  transition:opacity var(--dur) var(--ease),border-color var(--dur) var(--ease)}
-.cell .nm{font:400 13px/1.3 var(--serif);color:var(--heading)}
-.cell .fm{font:400 8.5px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
-.cell .mk{font:500 9px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
-.cell.dark{background:var(--inset)}
-.cell.dark .nm{color:var(--muted)}
-.cell.home{border-left-color:var(--sun-gold);background:color-mix(in srgb,var(--sun-gold) 9%,var(--surface))}
-.cell.home .mk{color:var(--sun-gold-t)}
-.cell.also{border-left-color:var(--sun-coral);background:color-mix(in srgb,var(--sun-coral) 6%,var(--surface))}
-.cell.also .mk{color:var(--sun-coral-t)}
-.cell.goal{border-left-color:var(--sun-violet);border-style:dashed;background:color-mix(in srgb,var(--sun-violet) 8%,var(--surface))}
-.cell.goal .mk{color:var(--sun-violet-t)}
-.fieldkey{display:flex;gap:var(--s4);flex-wrap:wrap;font:400 10px/1.6 var(--mono);color:var(--muted);margin-top:var(--s3)}
-.fieldkey .sw{display:inline-block;width:9px;height:9px;border:1px solid var(--line);vertical-align:baseline;margin-right:5px}
-.fieldkey .sw.home{background:var(--sun-gold)}
-.fieldkey .sw.also{background:var(--sun-coral)}
-.fieldkey .sw.goal{background:var(--sun-violet)}
-.fieldkey .sw.dark{background:var(--inset)}
-
-/* the traverse chain */
-.chain{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin-top:var(--s4)}
-.hop{border:1px solid var(--line);border-top:2px solid var(--rule);border-radius:2px;background:var(--surface);
-  padding:9px var(--s4);min-width:170px;max-width:250px;flex:0 1 auto}
-.hop .who{font:400 15px/1.3 var(--serif);color:var(--heading)}
-.hop .via{font:500 9px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
-.hop .why{font:400 10.5px/1.55 var(--mono);color:var(--muted);margin-top:4px}
-.hop.start{border-top-color:var(--sun-gold)}
-.hop.arrive{border-top-color:var(--sun-violet);background:color-mix(in srgb,var(--sun-violet) 7%,var(--surface))}
-.hop.arrive .via{color:var(--sun-violet-t)}
-.edgecell{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 4px;min-width:96px;flex:0 1 auto}
-.edgecell .lbl{font:500 9px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ember-text);
-  text-align:center;margin-bottom:2px;max-width:130px}
-.edgecell svg{display:block;width:100%;height:12px;overflow:visible}
-.edgecell line{stroke:var(--ember);stroke-width:1.2}
-.edgecell path{fill:var(--ember)}
-
-/* thin ground cards */
-.thingrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--s3);margin-top:var(--s3)}
-.unrow{border:1px solid var(--line);border-left:3px solid var(--warn);border-radius:2px;background:var(--surface);
-  padding:10px var(--s4)}
-.unrow h3{font:400 16px/1.3 var(--serif);color:var(--heading)}
-.unrow .uq{font:400 11px/1.55 var(--mono);color:var(--muted);margin:3px 0 6px}
-.unrow .who{font:500 9.5px/1.5 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ember-text)}
-.unrow .pn{font:500 10px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--warn);
-  margin-top:7px;padding-top:6px;border-top:1px solid var(--line)}
-.unrow .pb{font:400 12px/1.6 var(--serif);color:var(--text)}
-
-/* compose */
-.verdict{border:1px solid var(--line);border-left:3px solid var(--ember);border-radius:2px;background:var(--surface);
-  padding:10px var(--s4);margin-bottom:var(--s4)}
-.verdict .big{font:400 17px/1.4 var(--serif);color:var(--heading)}
-.verdict p{font:400 12.5px/1.65 var(--serif);color:var(--text);margin-top:4px}
-table.near{width:100%;border-collapse:collapse;font:400 11.5px/1.55 var(--mono)}
-table.near th{font:500 9.5px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);
-  text-align:left;padding:5px 8px;border-bottom:1px solid var(--rule)}
-table.near td{padding:6px 8px;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
-table.near td.rn{font-family:var(--serif);font-size:13px;color:var(--heading)}
-table.near td.miss{color:var(--warn)}
-table.near td.frac{color:var(--heading);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-
-/* aside readout */
-.aside h2{font:600 10px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
-  padding-bottom:5px;border-bottom:1px solid var(--line);margin-bottom:var(--s3)}
-.aside h3{font:400 19px/1.25 var(--serif);color:var(--heading);margin-bottom:var(--s1)}
-.aside .clname{font:500 10px/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ember-text);margin-bottom:var(--s3)}
-.aside p{font:400 12.5px/1.7 var(--serif);color:var(--text);margin-bottom:var(--s3)}
-.aside p.q{font-style:italic;color:var(--heading)}
-.kv{display:flex;justify-content:space-between;gap:var(--s3);padding:5px 0;border-bottom:1px solid var(--line);
-  font:400 11px/1.5 var(--mono)}
-.kv span{color:var(--muted)} .kv b{color:var(--heading);font-weight:500;text-align:right}
-.limitbox{border-left:2px solid var(--warn);padding:var(--s2) var(--s3);background:var(--inset);margin-top:var(--s3)}
-.limitbox .lab{font:500 9.5px/1.6 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--warn)}
-.limitbox p{font:400 12px/1.65 var(--serif);color:var(--text);margin:2px 0 0}
-.darklist{list-style:none;margin-top:var(--s2)}
-.darklist li{padding:6px 0;border-bottom:1px solid var(--line)}
-.darklist .dn{display:block;font:400 13px/1.4 var(--serif);color:var(--heading)}
-.darklist .dq{display:block;font:400 10.5px/1.55 var(--mono);color:var(--muted)}
-.gate{font:400 12.5px/1.7 var(--serif);color:var(--muted);border:1px dashed var(--rule);border-radius:2px;
-  padding:var(--s3) var(--s4)}
-.footnote{font:400 10px/1.6 var(--mono);color:var(--faint);margin-top:var(--s4);padding-top:var(--s2);border-top:1px solid var(--line)}
+/* movement 5: compose */
+.pickfield{display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:var(--s2); margin-top:var(--s3)}
+.pk{
+  display:flex; align-items:flex-start; gap:8px; border:1px solid var(--line); border-radius:2px;
+  padding:8px 10px; background:var(--inset); cursor:pointer; min-height:var(--tap);
+}
+.pk:hover{border-color:var(--rule)}
+.pk input{margin:3px 0 0; accent-color:var(--ember)}
+.pk .pn{font-family:var(--face-ui); font-size:12px; color:var(--text); line-height:1.3}
+.pk .pf{display:block; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); margin-top:2px}
+.pk:has(input:checked){background:var(--surface); border-color:var(--ember)}
+.pk:has(input:checked) .pn{color:var(--heading)}
+.composeout{margin-top:var(--s5)}
+.composeout .verdict{border:1px solid var(--rule); border-radius:2px; background:var(--surface); padding:var(--s4) var(--s5)}
+.composeout .verdict p{margin:0}
+.composeout .verdict .big{font-family:var(--face-display); font-size:1.15rem; color:var(--heading)}
+.near{margin-top:var(--s4); border-collapse:collapse; width:100%; font-size:13.5px}
+.near th{font-family:var(--face-ui); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); text-align:left; padding:6px 10px 6px 0; border-bottom:1px solid var(--rule); font-weight:500}
+.near td{padding:8px 10px 8px 0; border-bottom:1px solid var(--line); vertical-align:top}
+.near .rn{color:var(--heading)}
+.near .miss{color:var(--warn)}
+.near .extra{color:var(--ok)}
+.near .frac{font-family:var(--face-ui); font-size:11px; color:var(--muted); white-space:nowrap}
+.smallnote{font-family:var(--face-ui); font-size:10.5px; letter-spacing:.05em; color:var(--faint); margin-top:var(--s4)}
+.visually-hidden{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
 </style>
 </head>
 <body>
+<header class="catbar">
+  <div class="wordmark">TECHNE <span>&middot; commons &middot; the traverse</span></div>
+  <button class="modetoggle" id="modetoggle" aria-label="Toggle color mode">&#9680;</button>
+</header>
 
-<div class="hudbar">
-  <span class="mark">The Traverse</span>
-  <span class="sub">seventeen questions over fifty-four titles · an instrument, not a document</span>
-  <span class="chip" id="chip-role"><span class="dot"></span><span>title <b>none</b></span></span>
-  <span class="chip" id="chip-lit"><span>lit <b class="num">0 / 17</b></span></span>
-  <span class="spacer"></span>
-  <span class="sub" aria-hidden="true">keys 1 to 5 switch lenses</span>
-  <button class="btn" id="modetoggle" aria-label="Toggle dark or light mode">mode</button>
-</div>
+<main class="wrap">
+  <div class="mast">
+    <p class="kick">A second lens on the Catalog of Living Intelligences</p>
+    <h1>The Traverse</h1>
+    <p class="sub">A corporate title names one question out of seventeen and calls it a career.
+    This page starts from the title you were given, shows exactly what it perceives and what it cannot,
+    and then walks you out of it. Nothing here writes to any record.</p>
+  </div>
 
-<div class="band" aria-hidden="true">
-  <span style="background:var(--sun-gold)"></span><span style="background:var(--sun-amber)"></span>
-  <span style="background:var(--sun-coral)"></span><span style="background:var(--sun-rose)"></span>
-  <span style="background:var(--sun-violet)"></span><span style="background:var(--sun-blue)"></span>
-</div>
-
-<div class="lenses" role="tablist" aria-label="The five movements">
-  <button class="lens" role="tab" data-lens="1" style="--lens-tint:var(--sun-gold)">
-    <span class="k">i · enter</span><span class="t">Enter as a title</span><span class="d">one cell of seventeen lights</span></button>
-  <button class="lens" role="tab" data-lens="2" style="--lens-tint:var(--sun-amber)">
-    <span class="k">ii · dissolve</span><span class="t">Dissolve</span><span class="d">the dark field is the point</span></button>
-  <button class="lens" role="tab" data-lens="3" style="--lens-tint:var(--sun-coral)">
-    <span class="k">iii · traverse</span><span class="t">Traverse</span><span class="d">reach the dark through colleagues</span></button>
-  <button class="lens" role="tab" data-lens="4" style="--lens-tint:var(--sun-rose)">
-    <span class="k">iv · thin ground</span><span class="t">Thin ground</span><span class="d">where one departure goes dark</span></button>
-  <button class="lens" role="tab" data-lens="5" style="--lens-tint:var(--sun-violet)">
-    <span class="k">v · compose</span><span class="t">Compose</span><span class="d">drop the title, keep the shape</span></button>
-</div>
-
-<main>
-  <nav class="rail" id="rail" aria-label="Selection rail"></nav>
-  <section class="canvas" id="canvas-pane" aria-live="polite">
-    <svg class="horizon" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="mesa" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="var(--sun-rose)" stop-opacity=".14"/>
-          <stop offset="1" stop-color="var(--sun-blue)" stop-opacity=".05"/>
-        </linearGradient>
-      </defs>
-      <path d="M0,64 L180,64 L215,38 L305,38 L338,64 L640,64 L676,48 L790,48 L822,64 L1200,64 L1200,120 L0,120 Z" fill="url(#mesa)"/>
-      <line x1="0" y1="64" x2="1200" y2="64" stroke="var(--ember)" stroke-opacity=".35" stroke-width="1"/>
-    </svg>
-    <div class="overview" id="overview"></div>
-    <div class="reading" id="reading"></div>
-    <div class="stagebody" id="stage"></div>
+  <section class="mv" id="mv1" aria-labelledby="h1a">
+    <h2 id="h1a"><span class="n">i</span> Enter as a title</h2>
+    <p class="lede">Pick the role you hold, or the one you were last hired as. The catalog knows fifty-four.</p>
+    <div id="rolepick"></div>
+    <div id="lenscard"></div>
   </section>
-  <aside class="aside" id="aside" aria-live="polite"></aside>
+
+  <section class="mv" id="mv2" aria-labelledby="h2a">
+    <h2 id="h2a"><span class="n">ii</span> Dissolve</h2>
+    <p class="lede">The title decomposes into intelligences: one held as home, a few reached into.
+    The rest of the field goes dark. The dark is not empty, it is specific: each unlit cell is a question
+    this title has no standing to answer.</p>
+    <div id="dissolve"></div>
+  </section>
+
+  <section class="mv" id="mv3" aria-labelledby="h3a">
+    <h2 id="h3a"><span class="n">iii</span> Traverse</h2>
+    <p class="lede">Roles are not boxes, they are edges. Any title that shares one of your lit intelligences
+    is one step away, and its reach becomes borrowable. Choose a dark intelligence and see the shortest
+    path from where you stand to someone who holds it as home.</p>
+    <div id="traverse"></div>
+  </section>
+
+  <section class="mv" id="mv4" aria-labelledby="h4a">
+    <h2 id="h4a"><span class="n">iv</span> The thin ground</h2>
+    <p class="lede" id="unstaffed-lede"></p>
+    <div id="unstaffed"></div>
+  </section>
+
+  <section class="mv" id="mv5" aria-labelledby="h5a">
+    <h2 id="h5a"><span class="n">v</span> Compose</h2>
+    <p class="lede">Now drop the title. Select the intelligences you actually carry, whatever your
+    contract says, and see whether any role in the catalog names that shape. Usually none does.
+    That gap is not a defect in you, it is the resolution limit of titles.</p>
+    <div id="compose"></div>
+  </section>
+
+  <p class="smallnote">Vocabulary is the Catalog of Living Intelligences, techne.coop/commons/intelligences.
+  Selections persist in this browser only.</p>
 </main>
 
 <script>
@@ -635,27 +602,102 @@ function sharedIntel(a,b){
   return litOf(b).filter(x=>sa.has(x));
 }
 
-/* HOMES is computed above, live from the role data */
-
-/* ---------------- state, read-only toward the world ---------------- */
-let state = {lens:1, role:null, goal:null, pick:[]};
+/* ---------------- state ---------------- */
+const KEY = "techne:the-traverse:v1";
+let state = {role:null, goal:null, pick:[]};
+try{ const s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s==="object") state = Object.assign(state,s); }catch(e){}
+/* hash overrides, for deep links: #role=product-manager&goal=conscience&pick=voice,tending */
 (function(){
   const h = new URLSearchParams(location.hash.replace(/^#/,""));
   if(h.get("role") && roleOf(h.get("role"))) state.role = h.get("role");
   if(h.get("goal") && intel(h.get("goal"))) state.goal = h.get("goal");
   if(h.get("pick")) state.pick = h.get("pick").split(",").filter(id=>intel(id));
-  if(h.get("lens")) { const n = +h.get("lens"); if(n>=1 && n<=5) state.lens = n; }
-  else if(state.pick.length) state.lens = 5;
-  else if(state.goal) state.lens = 3;
 })();
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
 
 const $ = s=>document.querySelector(s);
-const $$ = s=>document.querySelectorAll(s);
 const esc = s=>String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const names = ids=>ids.map(id=>intel(id).name).join(", ");
 
-/* ---------------- movement 3: shortest chain, verbatim from v1 ---------------- */
+/* ---------------- movement 1: enter ---------------- */
+function renderRolePick(){
+  const el = $("#rolepick");
+  let html = '<ul class="rolepick">';
+  CLUSTERS.forEach(cl=>{
+    html += `<li class="rp-cluster">${esc(cl.name)}</li>`;
+    R.filter(r=>r.cluster===cl.id).forEach(r=>{
+      const on = state.role===r.id;
+      html += `<li><button class="rolebtn" data-role="${r.id}" aria-pressed="${on}">${esc(r.name)}</button></li>`;
+    });
+  });
+  html += "</ul>";
+  el.innerHTML = html;
+  el.querySelectorAll(".rolebtn").forEach(b=>b.addEventListener("click",()=>{
+    state.role = b.dataset.role; state.goal = null; save(); renderAll();
+    $("#lenscard").scrollIntoView({behavior:"smooth", block:"nearest"});
+  }));
+}
+
+function renderLens(){
+  const el = $("#lenscard");
+  if(!state.role){ el.innerHTML = '<p class="gate">No title chosen yet. The lens cannot narrow until it exists.</p>'; return; }
+  const r = roleOf(state.role);
+  const h = intel(r.home);
+  const cl = CLUSTERS.find(c=>c.id===r.cluster);
+  el.innerHTML = `
+  <div class="lenscard">
+    <div class="hd">
+      <h3>${esc(r.name)}</h3>
+      <span class="cl">${esc(cl.name)}</span>
+    </div>
+    <div class="bd">
+      <p class="holds">Accountable for one question</p>
+      <p class="homeq">${esc(h.question)}</p>
+      <p class="fraction">${esc(h.name)}, 1 of 17. The other sixteen questions exist whether or not this title can see them.</p>
+      <div class="field" role="img" aria-label="Seventeen intelligences; only ${esc(h.name)} is held by this title.">
+        ${C.map(c=>{
+          const isHome = c.id===r.home;
+          return `<div class="cell${isHome?" lit home":""}"><span class="nm">${esc(c.name)}</span><span class="mk">${isHome?"home":"&nbsp;"}</span></div>`;
+        }).join("")}
+      </div>
+      <div class="limitbox">
+        <p class="lab">What this title does not carry</p>
+        <p>${esc(r.limit)}</p>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---------------- movement 2: dissolve ---------------- */
+function renderDissolve(){
+  const el = $("#dissolve");
+  if(!state.role){ el.innerHTML = '<p class="gate">Enter as a title above and it will decompose here.</p>'; return; }
+  const r = roleOf(state.role);
+  const lit = new Set(litOf(r));
+  const dark = C.filter(c=>!lit.has(c.id));
+  el.innerHTML = `
+    <div class="field" role="img" aria-label="${esc(r.name)}: ${lit.size} of 17 intelligences lit, ${dark.length} dark.">
+      ${C.map(c=>{
+        const isHome = c.id===r.home, isAlso = lit.has(c.id)&&!isHome;
+        return `<div class="cell${isHome?" lit home":isAlso?" lit also":""}">
+          <span class="nm">${esc(c.name)}</span>
+          <span class="mk">${isHome?"home":isAlso?"reach":"dark"}</span></div>`;
+      }).join("")}
+    </div>
+    <div class="fieldkey">
+      <span class="k"><span class="sw home"></span> home, held</span>
+      <span class="k"><span class="sw also"></span> reach, borrowed</span>
+      <span class="k"><span class="sw"></span> dark, unperceived</span>
+    </div>
+    <p class="pathnote">${esc(r.name)} lights ${lit.size} of 17. The remaining ${dark.length} are not absences of skill,
+    they are questions this title is structurally not asked. Named:</p>
+    <ul class="darklist">
+      ${dark.map(c=>`<li><span class="dn">${esc(c.name)}</span><span class="dq">${esc(c.question)}</span></li>`).join("")}
+    </ul>`;
+}
+
+/* ---------------- movement 3: traverse ---------------- */
 function shortestPath(fromRoleId, goalIntelId){
+  /* BFS over roles; arrival = any role whose home is the goal */
   const start = roleOf(fromRoleId);
   if(litOf(start).includes(goalIntelId)) return {already:true};
   const prev = {}; const via = {};
@@ -679,276 +721,150 @@ function shortestPath(fromRoleId, goalIntelId){
   return {unreachable:true};
 }
 
-/* ---------------- shared pieces ---------------- */
-function fieldHTML(r, goalId){
-  const lit = r ? new Set(litOf(r)) : new Set();
-  const homeOnly = state.lens===1;
-  return `<div class="field" role="img" aria-label="${r?esc(r.name)+": "+(homeOnly?1:lit.size)+" of 17 intelligences lit.":"Seventeen intelligences, none lit."}">` +
-    C.map(c=>{
-      const isHome = r && c.id===r.home;
-      const isAlso = !homeOnly && r && lit.has(c.id) && !isHome;
-      const isGoal = goalId===c.id;
-      const cls = isHome?"home":isAlso?"also":isGoal?"goal":"dark";
-      const mk = isHome?"home":isAlso?"reach":isGoal?"sought":"dark";
-      return `<div class="cell ${cls}">
-        <span class="nm">${esc(c.name)}</span>
-        <span class="fm">${esc(famOf(c.family).name)}</span>
-        <span class="mk">${mk}</span></div>`;
-    }).join("") + "</div>";
-}
-function fieldKey(withGoal){
-  return `<div class="fieldkey">
-    <span><span class="sw home"></span>home, held</span>
-    <span><span class="sw also"></span>reach, borrowed</span>
-    ${withGoal?'<span><span class="sw goal"></span>sought</span>':""}
-    <span><span class="sw dark"></span>dark, unperceived</span>
-  </div>`;
-}
-function roleRail(){
-  let html = '<div class="railhead">54 titles · choose one</div>';
-  CLUSTERS.forEach(cl=>{
-    html += `<div class="clhead">${esc(cl.name)}</div>`;
-    R.filter(r=>r.cluster===cl.id).forEach(r=>{
-      html += `<button class="rolebtn" data-role="${r.id}" aria-pressed="${state.role===r.id}">
-        ${esc(r.name)}<span class="hm">home: ${esc(intel(r.home).name)}</span></button>`;
-    });
+function renderTraverse(){
+  const el = $("#traverse");
+  if(!state.role){ el.innerHTML = '<p class="gate">The graph needs a starting node. Enter as a title above.</p>'; return; }
+  const r = roleOf(state.role);
+  const lit = new Set(litOf(r));
+  let html = `<p class="pathnote">From ${esc(r.name)}, choose a question you currently cannot see:</p>
+  <div class="goalpick" role="group" aria-label="Choose a dark intelligence to traverse toward">`;
+  C.forEach(c=>{
+    const isLit = lit.has(c.id);
+    html += `<button class="goalbtn" data-goal="${c.id}" aria-pressed="${state.goal===c.id}"
+      ${isLit?"disabled title=\"Already lit for this title\"":""}>${esc(c.name)}</button>`;
   });
-  return html;
-}
-function metric(l,v){ return `<div class="metric"><div class="l">${l}</div><div class="v num">${v}</div></div>`; }
-
-/* ---------------- render per lens ---------------- */
-function render(){
-  $$(".lens").forEach(b=>b.setAttribute("aria-pressed", String(+b.dataset.lens===state.lens)));
-  const r = state.role ? roleOf(state.role) : null;
-  $("#chip-role").innerHTML = `<span class="dot"></span><span>title <b>${r?esc(r.name):"none"}</b></span>`;
-  $("#chip-lit").innerHTML = `<span>lit <b class="num">${r?litOf(r).length:0} / 17</b></span>`;
-  const rail = $("#rail"), stage = $("#stage"), aside = $("#aside"),
-        ov = $("#overview"), rd = $("#reading");
-
-  if(state.lens===1){
-    rail.innerHTML = roleRail();
-    ov.innerHTML = metric("titles in catalog","54") + metric("questions that exist","17")
-      + metric("this title is asked", r?"1":"0") + metric("it is not asked", r?"16":"17");
-    if(!r){
-      rd.innerHTML = "Pick a title on the left. The lens cannot narrow until it exists.";
-      stage.innerHTML = fieldHTML(null);
-      aside.innerHTML = '<h2>i · enter</h2><p class="gate">No title chosen yet. Fifty-four wait in the rail. Each one will light exactly one cell.</p>';
-    } else {
-      const h = intel(r.home);
-      rd.innerHTML = `<b>${esc(r.name)}</b> is accountable for one question: <b>${esc(h.name)}</b>. The other sixteen exist whether or not this title can see them.`;
-      stage.innerHTML = fieldHTML(r) + fieldKey(false);
-      aside.innerHTML = `<h2>i · enter as a title</h2>
-        <h3>${esc(r.name)}</h3>
-        <div class="clname">${esc(CLUSTERS.find(c=>c.id===r.cluster).name)}</div>
-        <div class="kv"><span>home</span><b>${esc(h.name)}</b></div>
-        <div class="kv"><span>family</span><b>${esc(famOf(h.family).name)}</b></div>
-        <div class="kv"><span>fraction held</span><b>1 / 17</b></div>
-        <p class="q" style="margin-top:var(--s3)">${esc(h.question)}</p>
-        <div class="limitbox"><div class="lab">what this title does not carry</div><p>${esc(r.limit)}</p></div>
-        <p class="footnote">Press 2 to dissolve the title into everything it reaches, and everything it cannot.</p>`;
-    }
-  }
-
-  if(state.lens===2){
-    rail.innerHTML = roleRail();
-    const lit = r? litOf(r) : [];
-    const dark = r? C.filter(c=>!lit.includes(c.id)) : C;
-    ov.innerHTML = metric("home, held", r?1:0) + metric("reach, borrowed", r?lit.length-1:0)
-      + metric("dark, unperceived", dark.length) + metric("of","17");
-    if(!r){
-      rd.innerHTML = "Enter as a title first, in lens i or on the left, and it will decompose here.";
-      stage.innerHTML = fieldHTML(null);
-      aside.innerHTML = '<h2>ii · dissolve</h2><p class="gate">Nothing to dissolve yet.</p>';
-    } else {
-      rd.innerHTML = `<b>${esc(r.name)}</b> lights ${lit.length} of 17. The dark cells are not absences of skill, they are questions this title is structurally not asked.`;
-      stage.innerHTML = fieldHTML(r) + fieldKey(false);
-      aside.innerHTML = `<h2>ii · the dark field, named</h2>
-        <h3>${dark.length} questions unasked</h3>
-        <ul class="darklist">${dark.map(c=>`<li><span class="dn">${esc(c.name)}</span><span class="dq">${esc(c.question)}</span></li>`).join("")}</ul>
-        <p class="footnote">Press 3 to traverse toward one of them.</p>`;
-    }
-  }
-
-  if(state.lens===3){
-    const lit = r? new Set(litOf(r)) : new Set();
-    let rh = '<div class="railhead">choose a dark question</div>';
-    if(!r) rh += '<div class="railnote">Enter as a title first (lens i).</div>';
-    else C.forEach(c=>{
-      const isLit = lit.has(c.id);
-      rh += `<button class="goalbtn" data-goal="${c.id}" aria-pressed="${state.goal===c.id}" ${isLit?'disabled':''}>
-        <span>${esc(c.name)}</span><span class="st">${isLit?"lit":state.goal===c.id?"sought":"dark"}</span></button>`;
-    });
-    rail.innerHTML = rh;
-    const res = (r && state.goal && !lit.has(state.goal)) ? shortestPath(r.id, state.goal) : null;
-    const steps = res && res.path ? res.path.length : null;
-    ov.innerHTML = metric("edges in the graph","shared questions") + metric("starting node", r?esc(r.name):"none")
-      + metric("sought", state.goal&&!(r&&lit.has(state.goal))?esc(intel(state.goal).name):"none")
-      + metric("steps", steps!==null?steps:"·");
-    if(!r){
-      rd.innerHTML = "The graph needs a starting node. Enter as a title in lens i.";
-      stage.innerHTML = ""; aside.innerHTML = '<h2>iii · traverse</h2><p class="gate">No starting node.</p>';
-    } else if(!state.goal || lit.has(state.goal)){
-      rd.innerHTML = `From <b>${esc(r.name)}</b>, choose a question you currently cannot see, on the left. The instrument will find the shortest chain of colleagues that reaches it.`;
-      stage.innerHTML = fieldHTML(r) + fieldKey(false);
-      aside.innerHTML = `<h2>iii · traverse</h2><p>Two titles connect where their lit intelligences intersect. A dark question is reached by walking those edges until you stand beside someone whose home it is.</p><p class="gate">Pick a dark cell in the rail to draw the chain.</p>`;
-    } else {
-      const goal = intel(state.goal);
-      if(res.unreachable){
-        rd.innerHTML = `No path: no title in the catalog can lend you <b>${esc(goal.name)}</b>. It can only be carried on purpose. See lens iv.`;
-        stage.innerHTML = fieldHTML(r, state.goal) + fieldKey(true);
-        aside.innerHTML = `<h2>iii · traverse</h2><p class="q">${esc(goal.question)}</p><p>Unreachable from ${esc(r.name)} along shared questions.</p>`;
-      } else {
-        rd.innerHTML = `<b>${steps===1?"One conversation":steps+" steps"}</b> between ${esc(r.name)} and ${esc(goal.name)}. The lane is not a wall, it is ${steps===1?"a single shared question":"a short chain of shared questions"}. Titles isolate only when nobody walks the edges.`;
-        const arrow = `<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="6" x2="92" y2="6"/><path d="M92,1.5 L100,6 L92,10.5 Z"/></svg>`;
-        let chain = `<div class="hop start"><div class="via">you stand here</div><div class="who">${esc(r.name)}</div><div class="why">lit: ${esc(names(litOf(r)))}</div></div>`;
-        res.path.forEach((h,i)=>{
-          const hr = roleOf(h.role); const last = i===res.path.length-1;
-          chain += `<div class="edgecell"><div class="lbl">shared: ${esc(names(h.via))}</div>${arrow}</div>`;
-          chain += `<div class="hop${last?" arrive":""}"><div class="via">${last?"arrives at "+esc(goal.name):"one step"}</div><div class="who">${esc(hr.name)}</div><div class="why">${last?"holds "+esc(goal.name)+" as home":"borrow its reach: "+esc(names(litOf(hr)))}</div></div>`;
-        });
-        stage.innerHTML = `<div class="chain" role="list" aria-label="Chain of colleague roles from ${esc(r.name)} to ${esc(goal.name)}">${chain}</div>`
-          + `<div style="margin-top:var(--s5)">${fieldHTML(r, state.goal)}${fieldKey(true)}</div>`;
-        aside.innerHTML = `<h2>iii · what is reached</h2>
-          <h3>${esc(goal.name)}</h3>
-          <div class="clname">${esc(famOf(goal.family).name)}</div>
-          <p class="q">${esc(goal.question)}</p>
-          <div class="kv"><span>steps</span><b>${steps}</b></div>
-          <div class="kv"><span>arrives at</span><b>${esc(roleOf(res.path[res.path.length-1].role).name)}</b></div>
-          <p style="margin-top:var(--s3)">Each edge is a real conversation two colleagues can already have, labelled by the question they both hold. The traverse costs nothing but walking it.</p>
-          <p class="footnote">This is the liberation mechanic: the title stays narrow, the person does not have to.</p>`;
-      }
-    }
-  }
-
-  if(state.lens===4){
-    const counts = C.map(c=>({c, n:HOMES[c.id].length})).sort((a,b)=>a.n-b.n || a.c.name.localeCompare(b.c.name));
-    const unhomed = counts.filter(x=>x.n===0);
-    const minHome = Math.min(...counts.map(x=>x.n));
-    const maxHome = Math.max(...counts.map(x=>x.n));
-    const thin = counts.filter(x=>x.n===minHome);
-    let rh = '<div class="railhead">homes per question, live</div>';
-    counts.forEach(x=>{
-      rh += `<div class="barline${x.n===minHome?" thin":""}"><span class="lab">${esc(x.c.name)}</span><span class="bar"><i style="width:${Math.round(100*x.n/maxHome)}%"></i></span><span class="n">${x.n}</span></div>`;
-    });
-    rh += '<div class="railnote">Computed from the catalog at render, not asserted. Counts of titles naming each question as home.</div>';
-    rail.innerHTML = rh;
-    ov.innerHTML = metric("questions unstaffed", unhomed.length) + metric("thin minimum", minHome+" of 54")
-      + metric("questions at the minimum", thin.length) + metric("deepest ground", maxHome);
-    if(unhomed.length){
-      rd.innerHTML = "Computed from the catalog: these questions are named as home by <b>no title at all</b>. No hire covers them.";
-      stage.innerHTML = `<div class="thingrid">${unhomed.map(x=>unRow(x.c,"No title names this home.")).join("")}</div>`;
-    } else {
-      rd.innerHTML = `Every question is home to at least one title, so nothing is formally unstaffed. But the ground is thin: <b>${thin.length} questions</b> rest on only <b>${minHome} titles</b> each. Lose those hires and the question goes dark for the whole body of work.`;
-      stage.innerHTML = `<div class="thingrid">${thin.map(x=>{
-        const holders = HOMES[x.c.id].map(id=>roleOf(id).name).join(" and ");
-        return unRow(x.c, "held as home only by "+holders);
-      }).join("")}</div>`;
-    }
-    aside.innerHTML = `<h2>iv · thin ground</h2>
-      <p>The bars on the left are recomputed from the role data every render. If the catalog changes, this lens follows it without being edited.</p>
-      <p>A question at the minimum is one departure away from being carried by a single person, and two away from silence. Each fails in a known way: the pathology named on its card.</p>
-      <p class="footnote">The staffing chart shows people. This lens shows what the people were quietly standing on.</p>`;
-  }
-
-  if(state.lens===5){
-    let rh = '<div class="railhead">what do you actually carry</div>';
-    C.forEach(c=>{
-      rh += `<label class="pick"><input type="checkbox" data-pick="${c.id}" ${state.pick.includes(c.id)?"checked":""}>
-        <span>${esc(c.name)}</span><span class="pf">${esc(famOf(c.family).name)}</span></label>`;
-    });
-    rh += '<div class="railnote">No title required. Select the questions you find yourself answering.</div>';
-    rail.innerHTML = rh;
-    const mine = new Set(state.pick);
-    const exact = R.filter(x=>{ const s = litOf(x); return s.length===mine.size && s.every(id=>mine.has(id)); });
-    ov.innerHTML = metric("carried", state.pick.length+" / 17") + metric("titles checked","54")
-      + metric("exact matches", state.pick.length?exact.length:"·")
-      + metric("named by a title", state.pick.length? (exact.length?"yes":"no") : "·");
-    if(state.pick.length===0){
-      rd.innerHTML = "Select what you carry, on the left. The catalog will answer with what it can and cannot name.";
-      stage.innerHTML = ""; aside.innerHTML = '<h2>v · compose</h2><p class="gate">Nothing selected yet. This lens starts from the person, not the title.</p>';
-    } else {
-      const scored = R.map(x=>{
-        const s = new Set(litOf(x));
-        const overlap = state.pick.filter(id=>s.has(id));
-        const miss = state.pick.filter(id=>!s.has(id));
-        return {r:x, overlap, miss};
-      }).filter(x=>x.overlap.length>0)
-        .sort((a,b)=> b.overlap.length-a.overlap.length || a.miss.length-b.miss.length || litOf(a.r).length-litOf(b.r).length)
-        .slice(0,6);
-      const nm = names(state.pick);
-      let verdict;
-      if(exact.length){
-        verdict = `<div class="verdict"><p class="big">${exact.map(e=>esc(e.name)).join(", ")} names exactly this shape.</p>
-          <p>Rare. Most compositions exceed every title; yours happens to have one.</p></div>`;
-        rd.innerHTML = `A title exists for this composition: <b>${esc(exact.map(e=>e.name).join(", "))}</b>.`;
-      } else {
-        verdict = `<div class="verdict"><p class="big">No title in the catalog names this composition.</p>
-          <p>You carry ${esc(nm)}. Fifty-four roles were checked; none holds that set. The shape you actually work in has no job description, which says something about job descriptions and nothing against you.</p></div>`;
-        rd.innerHTML = `You carry <b>${state.pick.length}</b> questions. No single title holds that set; the nearest are ranked below by overlap.`;
-      }
-      stage.innerHTML = verdict + `<table class="near">
-        <caption class="visually-hidden">Nearest titles by overlap with your composition</caption>
-        <thead><tr><th scope="col">nearest title</th><th scope="col">shares</th><th scope="col">cannot see of yours</th><th scope="col">overlap</th></tr></thead>
-        <tbody>${scored.map(x=>`<tr>
-          <td class="rn">${esc(x.r.name)}</td>
-          <td>${esc(names(x.overlap))}</td>
-          <td class="miss">${x.miss.length?esc(names(x.miss)):"nothing, but it also carries more than you selected"}</td>
-          <td class="frac">${x.overlap.length} / ${state.pick.length}</td></tr>`).join("")}
-        </tbody></table>`;
-      aside.innerHTML = `<h2>v · compose</h2>
-        <h3>${esc(nm)}</h3>
-        <p>The first four lenses started from a title and worked outward. This one starts from the person. The catalog can only answer with its titles, and the honest answer is usually that none of them is you.</p>
-        <p class="footnote">Change the selection at any time; nothing here is written anywhere.</p>`;
-    }
-  }
-
-  wire();
+  html += "</div><div class='pathout' id='pathout' aria-live='polite'></div>";
+  el.innerHTML = html;
+  el.querySelectorAll(".goalbtn:not(:disabled)").forEach(b=>b.addEventListener("click",()=>{
+    state.goal = b.dataset.goal; save(); renderTraverse();
+  }));
+  if(!state.goal || lit.has(state.goal)) return;
+  const goal = intel(state.goal);
+  const res = shortestPath(r.id, state.goal);
+  const out = $("#pathout");
+  if(res.unreachable){ out.innerHTML = `<p class="pathnote">No path: no title in the catalog can lend you ${esc(goal.name)}. It can only be carried on purpose. See movement iv.</p>`; return; }
+  let hops = `<div class="hop"><p class="via">You stand here</p><p class="who">${esc(r.name)}</p><p class="why">Lit: ${litOf(r).map(id=>intel(id).name).join(", ")}</p></div>`;
+  res.path.forEach((h,i)=>{
+    const hr = roleOf(h.role);
+    const last = i===res.path.length-1;
+    hops += `<div class="hop${last?" arrive":""}">
+      <p class="via">${last?"arrives at "+esc(goal.name)+", via shared":"one step, via shared"} ${h.via.map(id=>esc(intel(id).name)).join(" and ")}</p>
+      <p class="who">${esc(hr.name)}</p>
+      <p class="why">${last?`Holds ${esc(goal.name)} as home: <em>${esc(goal.question)}</em>`:`Borrow its reach: ${litOf(hr).map(id=>esc(intel(id).name)).join(", ")}`}</p>
+    </div>`;
+  });
+  const steps = res.path.length;
+  hops += `<p class="pathnote">${steps===1?"One conversation":steps+" steps"}. The lane between you and ${esc(goal.name)}
+  is not a wall, it is ${steps===1?"a single shared question":"a short chain of shared questions"}. Titles isolate only
+  when nobody walks the edges.</p>`;
+  out.innerHTML = hops;
 }
 
+/* ---------------- movement 4: computed thin ground ---------------- */
+function renderUnstaffed(){
+  const unhomed = C.filter(c=>HOMES[c.id].length===0);
+  const lede = $("#unstaffed-lede");
+  const el = $("#unstaffed");
+  if(unhomed.length){
+    lede.textContent = "Computed from the catalog: these intelligences are named as home by no title at all. No hire covers them. They are carried only by a person electing to carry them.";
+    el.innerHTML = unhomed.map(c=>unRow(c, "No title names this home.")).join("");
+    return;
+  }
+  const minHome = Math.min(...C.map(c=>HOMES[c.id].length));
+  const thin = C.filter(c=>HOMES[c.id].length===minHome);
+  lede.textContent = "Computed from the catalog: every one of the seventeen questions is named as home by at least one title, so nothing here is formally unstaffed. But the ground is thin. These are the questions held by the fewest titles, " + minHome + " of 54 each. Lose those hires and the question goes dark for the whole body of work. Each one fails in a known way:";
+  el.innerHTML = thin.map(c=>{
+    const holders = HOMES[c.id].map(id=>roleOf(id).name).join(" and ");
+    return unRow(c, "Held as home only by " + holders + ".");
+  }).join("");
+}
 function unRow(c, who){
-  return `<div class="unrow"><h3>${esc(c.name)}</h3>
+  return `<div class="unrow">
+    <h3>${esc(c.name)}</h3>
     <p class="uq">${esc(c.question)}</p>
     <p class="who">${esc(who)}</p>
-    <p class="pn">when unheld: ${esc(c.pathology.name)}</p>
-    <p class="pb">${esc(c.pathology.body)}</p></div>`;
+    <div class="pathology">
+      <p class="pn">When unheld: ${esc(c.pathology.name)}</p>
+      <p>${esc(c.pathology.body)}</p>
+    </div>
+  </div>`;
 }
 
-/* ---------------- wiring ---------------- */
-function wire(){
-  $$(".rolebtn").forEach(b=>b.onclick = ()=>{ state.role = b.dataset.role; state.goal = null; render(); });
-  $$(".goalbtn:not(:disabled)").forEach(b=>b.onclick = ()=>{ state.goal = b.dataset.goal; render(); });
-  $$("input[data-pick]").forEach(i=>i.onchange = ()=>{
+/* ---------------- movement 5: compose ---------------- */
+function renderCompose(){
+  const el = $("#compose");
+  let html = `<div class="pickfield">` + C.map(c=>`
+    <label class="pk">
+      <input type="checkbox" data-pick="${c.id}" ${state.pick.includes(c.id)?"checked":""}>
+      <span class="pn">${esc(c.name)}<span class="pf">${esc(famOf(c.family).name)}</span></span>
+    </label>`).join("") + `</div><div class="composeout" id="composeout" aria-live="polite"></div>`;
+  el.innerHTML = html;
+  el.querySelectorAll("input[data-pick]").forEach(i=>i.addEventListener("change",()=>{
     const id = i.dataset.pick;
     state.pick = i.checked ? [...new Set([...state.pick,id])] : state.pick.filter(x=>x!==id);
-    render();
-  });
+    save(); renderComposeOut();
+  }));
+  renderComposeOut();
 }
-$$(".lens").forEach(b=>b.addEventListener("click",()=>{ state.lens = +b.dataset.lens; render(); }));
-document.addEventListener("keydown",e=>{
-  if(e.target.matches("input,textarea")) return;
-  if(e.key>="1" && e.key<="5"){ state.lens = +e.key; render(); }
-});
+function renderComposeOut(){
+  const out = $("#composeout");
+  if(state.pick.length===0){ out.innerHTML = '<p class="gate">Select what you carry. The catalog will answer with what it can and cannot name.</p>'; return; }
+  const mine = new Set(state.pick);
+  const exact = R.filter(r=>{
+    const s = litOf(r);
+    return s.length===mine.size && s.every(id=>mine.has(id));
+  });
+  const scored = R.map(r=>{
+    const s = new Set(litOf(r));
+    const overlap = state.pick.filter(id=>s.has(id));
+    const miss = state.pick.filter(id=>!s.has(id));
+    return {r, overlap, miss};
+  }).filter(x=>x.overlap.length>0)
+    .sort((a,b)=> b.overlap.length-a.overlap.length || a.miss.length-b.miss.length || litOf(a.r).length-litOf(b.r).length)
+    .slice(0,6);
+  const names = state.pick.map(id=>intel(id).name).join(", ");
+  let html = `<div class="verdict">`;
+  if(exact.length){
+    html += `<p class="big">${exact.map(e=>esc(e.r?e.r.name:e.name)).join(", ")} names exactly this shape.</p>
+    <p>Rare. Most compositions exceed every title; yours happens to have one.</p>`;
+  } else {
+    html += `<p class="big">No title in the catalog names this composition.</p>
+    <p>You carry ${esc(names)}. Fifty-four roles were checked; none holds that set. The shape you actually work in
+    has no job description, which says something about job descriptions and nothing against you.</p>`;
+  }
+  html += `</div>
+  <table class="near">
+    <caption class="visually-hidden">Nearest titles by overlap with your composition</caption>
+    <thead><tr><th scope="col">Nearest title</th><th scope="col">Shares</th><th scope="col">Cannot see of yours</th><th scope="col">Overlap</th></tr></thead>
+    <tbody>
+    ${scored.map(x=>`<tr>
+      <td class="rn">${esc(x.r.name)}</td>
+      <td>${x.overlap.map(id=>esc(intel(id).name)).join(", ")}</td>
+      <td class="miss">${x.miss.length?x.miss.map(id=>esc(intel(id).name)).join(", "):"nothing, but it also carries more than you selected"}</td>
+      <td class="frac">${x.overlap.length} / ${state.pick.length}</td>
+    </tr>`).join("")}
+    </tbody>
+  </table>`;
+  out.innerHTML = html;
+}
+
+/* ---------------- mode toggle ---------------- */
 $("#modetoggle").addEventListener("click",()=>{
   const cur = document.documentElement.getAttribute("data-mode");
   const nxt = cur==="dark"?"light":"dark";
   document.documentElement.setAttribute("data-mode",nxt);
   try{ localStorage.setItem("techne-mode",nxt); }catch(e){}
 });
-render();
-/* headless verification probe: #...&probe=1 appends measured scroll numbers to the DOM. Inert otherwise. */
+
+function renderAll(){
+  renderRolePick(); renderLens(); renderDissolve(); renderTraverse(); renderUnstaffed(); renderCompose();
+}
+renderAll();
+/* deep links land on the movement they describe */
 (function(){
   const h = new URLSearchParams(location.hash.replace(/^#/,""));
-  if(h.get("probe")!=="1") return;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    const d = document.documentElement;
-    const el = document.createElement("div");
-    el.id = "probe-out";
-    el.textContent = `PROBE sh=${d.scrollHeight} ih=${innerHeight} sw=${d.scrollWidth} iw=${innerWidth} noscroll=${d.scrollHeight<=innerHeight && d.scrollWidth<=innerWidth}`;
-    el.style.cssText = "position:fixed;left:-9999px;top:0";
-    document.body.appendChild(el);
-    document.title = el.textContent;
-  }));
+  const target = h.get("pick") ? "#mv5" : h.get("goal") ? "#mv3" : null;
+  if(target) document.querySelector(target).scrollIntoView();
 })();
 </script>
 </body>
