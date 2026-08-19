@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>The Five Minute Briefing &middot; Documentation &middot; Techne</title>
+<meta name="description" content="The spoken form of the Treasurer's Handbook: a five minute status report on the treasury, written to be read aloud at a meeting for the record. It adopts nothing.">
+<meta name="robots" content="noindex,nofollow">
+<script>
+ (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+ var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+ document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+ :root{
+ --serif:'Libre Baskerville',Georgia,serif; --sans:Inter,'Helvetica Neue',Arial,sans-serif; --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+ }
+ [data-mode="dark"]{
+ --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+ --line:#2A2A30; --rule:#3A3A42;
+ --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+ --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+ --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+ }
+ [data-mode="light"]{
+ --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+ --line:#D8D3C8; --rule:#9A958A;
+ --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+ --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+ --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+ }
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{background:var(--bg); color:var(--text); font:400 15px/1.7 var(--serif)}
+ .wrap{max-width:880px; margin:0 auto; padding:0 22px 60px}
+ a{color:var(--blue-text); text-decoration:none}
+ a:hover{text-decoration:underline}
+ em{color:var(--heading)}
+ .mono{font-family:var(--mono)}
+ :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+ .crumb-bar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+ .crumb-bar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+ .crumb-bar .bc a{color:var(--ember-text)}
+
+ .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
+ .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+ .mast .dek{font:400 16.5px/1.65 var(--serif); max-width:64ch}
+ .statusline{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 6px}
+ .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+ .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+ .chip.info{color:var(--info); border-color:var(--info)} .chip.info::before{background:var(--info)}
+ .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:var(--warn)}
+ .citesline{font:400 11.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin:18px 0 38px}
+ .citesline b{color:var(--ember-text); font-weight:500}
+
+ .sec{margin:0 0 40px}
+ .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+ .sec-num{font:500 11px var(--mono); border-left:3px solid var(--ember); padding:2px 0 2px 9px; color:var(--ember); flex:none}
+ .sec-head h2{font:400 21px/1.3 var(--serif); color:var(--heading)}
+ .sec-head .sub{font:400 12px var(--mono); color:var(--muted); margin-left:auto; text-align:right}
+ .sec p{margin:0 0 14px; max-width:68ch}
+ .sec p:last-child{margin-bottom:0}
+
+ table{width:100%; border-collapse:collapse; font:400 12.5px/1.6 var(--sans); margin:0 0 16px}
+ th{font:600 10.5px var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--surface)}
+ td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+ td.mono{font:400 11.5px var(--mono); color:var(--ember-text); white-space:nowrap}
+ tr:hover td{background:var(--surface)}
+
+ pre{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; overflow-x:auto; font:400 11.5px/1.65 var(--mono); color:var(--text); margin:0 0 16px}
+ pre .c{color:var(--faint)}
+ pre .k{color:var(--ember-text)}
+
+ .box{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; margin:0 0 14px}
+ .box .bk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:7px}
+ .box p{font-size:13.5px; max-width:66ch}
+ .box.decide{border-left:3px solid var(--ember)}
+ .box.limit{border-left:3px solid var(--warn)}
+
+ .foot{border-top:1px solid var(--line); margin-top:48px; padding-top:16px}
+ .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint)}
+ @media (max-width:700px){ .mast h1{font-size:27px} table{font-size:11.5px} }
+ @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+
+ /* Diagrams: hand-authored inline SVG, token discipline throughout.
+    Strokes and fills reference the mode tokens; labels ride the mono stack. */
+ .diagram{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:14px 10px; margin:0 0 16px; overflow-x:auto}
+ .diagram svg{display:block; margin:0 auto; max-width:100%; height:auto}
+ .diagram .cap{font:400 11px/1.7 var(--mono); color:var(--muted); text-align:center; margin-top:8px}
+ svg text{font-family:'IBM Plex Mono','SFMono-Regular',Consolas,monospace}
+ svg .lbl{fill:var(--text); font-size:11px}
+ svg .lbl-h{fill:var(--heading); font-size:11.5px; font-weight:500}
+ svg .lbl-m{fill:var(--muted); font-size:10px}
+ svg .lbl-e{fill:var(--ember-text); font-size:10.5px}
+ svg .lbl-b{fill:var(--blue-text); font-size:10.5px}
+ svg .bx{fill:var(--surface); stroke:var(--rule); stroke-width:1}
+ svg .bx-e{fill:var(--surface); stroke:var(--ember); stroke-width:1}
+ svg .bx-b{fill:var(--surface); stroke:var(--blue); stroke-width:1}
+ svg .ln{stroke:var(--rule); stroke-width:1; fill:none}
+ svg .ln-e{stroke:var(--ember); stroke-width:1; fill:none}
+ svg .ln-b{stroke:var(--blue); stroke-width:1; fill:none}
+ svg .ah{fill:var(--rule)}
+ svg .ah-e{fill:var(--ember)}
+ svg .ah-b{fill:var(--blue)}
+ svg .band{fill:var(--inset); stroke:var(--rule); stroke-width:1}
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+/* U-27: the sweep horizon, applied softly (v5). The six-stop range
+   as one hairline at the masthead's foot, and its mirror at the
+   footer's head where the page carries a footer. Decorative only:
+   stop values verbatim from commons.css; no control colored, no
+   copy touched. */
+:root{
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+  --sky-line:linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+}
+.mast{position:relative;}
+.mast::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:var(--sky-line);opacity:.45;}
+
+ /* The spoken setting. This page is read aloud from a podium, so the
+    body type is larger and the measure narrower than the Handbook's:
+    the eye leaves the line and must find it again. */
+ .sec p{font-size:17px;line-height:1.85;max-width:60ch}
+ .mast h1{font:400 38px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+ .speak p{font-size:17px;line-height:1.85;max-width:60ch}
+ .speak .box p{font-size:15px;line-height:1.8}
+ .timing{font:400 11px var(--mono); color:var(--muted); text-align:right; white-space:nowrap}
+ @media (max-width:700px){ .mast h1{font-size:29px} .sec p,.speak p{font-size:15.5px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumb-bar">
+ <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; <a href="/commons/treasury/">Treasury module</a> &middot; <a href="/commons/treasury/handbook/">Handbook</a> &middot; documentation</span>
+</div>
+
+<div class="mast">
+ <div class="kicker">TREASURY-BRIEFING v1 &middot; documentation &middot; written to be read aloud</div>
+ <h1>The Five Minute Briefing</h1>
+ <p class="dek">Written to be read aloud in about five minutes, by someone with no prior knowledge of this work, to a room with none either. Short sentences, plain words, no shorthand. The Handbook holds the detail; this holds the story.</p>
+ <div class="statusline">
+ <span class="chip info">Documentation &middot; drafted 2026-08-19</span>
+ <span class="chip warn">a status report &middot; adopts nothing</span>
+ </div>
+</div>
+
+<div class="citesline">
+ <b>cites</b> &middot; TREASURY-HANDBOOK v1 &middot; TREASURY-BRIEF v1 &middot; TREASURY v0.1.5 &middot; TREASURY-POLICY v1.1 (draft) &middot; COUNTING-RULES v1 (draft)
+ <br><b>companions</b> &middot; <a href="/commons/treasury/handbook/">the Handbook</a> &middot; <a href="/commons/treasury/handbook/brief/">the Brief</a>
+</div>
+
+<section class="sec speak">
+ <div class="sec-head"><span class="sec-num">&sect;1</span><h2>What this is about</h2><span class="sub timing">about 30 seconds</span></div>
+ <p>Say it plainly:</p>
+ <p>RegenHub has money coming in and money going out, and it has almost no adopted rules about how that money moves. That is the honest starting point. What follows is where the money actually sits today, what the machine can and cannot do with it, what we have written down, and the four things only this board can settle.</p>
+ <p>Nothing here asks you to decide anything today. It is a status report for the record.</p>
+</section>
+<section class="sec speak">
+ <div class="sec-head"><span class="sec-num">&sect;2</span><h2>Where the money actually is</h2><span class="sub timing">about 45 seconds</span></div>
+ <p>The cooperative's money lives in four places.</p>
+ <p>Stripe takes payments in. Mercury is the bank account. Xero is the set of books, the accounting record. And a Safe holds a small amount onchain.</p>
+ <p>Since the fourth of August, a computer here has been able to read all four. Read is the whole of it. Every one of those connections is read-only, deliberately. The system can tell you what the balance is. It cannot move a dollar of it.</p>
+ <p>That is the most important sentence in this briefing, so it is worth repeating in the plainest terms: <strong>no software we run can spend the cooperative's money.</strong> Every payment is made by a person, by hand, at the bank. That is a design decision, not a limitation we are waiting to remove.</p>
+</section>
+<section class="sec speak">
+ <div class="sec-head"><span class="sec-num">&sect;3</span><h2>What anyone can see</h2><span class="sub timing">about 40 seconds</span></div>
+ <p>Once a month the system reads those four places and writes a statement. Three of those exist so far, for May, June, and July.</p>
+ <p>Members see totals. They do not see each other. No names, no member identifiers, no per-person amounts, and where a group is small enough that a total would identify someone, the total is withheld. That is the privacy floor, and it holds by construction rather than by anyone's good manners.</p>
+ <p>Call those statements provisional. A statement becomes trustworthy when a human has checked it against the bank line by line and signed off on the month. Nobody has done that yet for any month. One bank feed in Xero, the account ending in one two five three, is still unreconciled.</p>
+</section>
+<section class="sec speak">
+ <div class="sec-head"><span class="sec-num">&sect;4</span><h2>What is decided, and what only looks decided</h2><span class="sub timing">about 50 seconds</span></div>
+ <p>This is where it matters that a secretary is reading it.</p>
+ <p>Two documents were adopted in July, and what was adopted was their <strong>shape</strong>, not their <strong>numbers</strong>. The board accepted how the treasury and the contribution system are built. Every threshold, every rate, every dollar figure inside them is still the board's to adopt, and none of it has been.</p>
+ <p>So when you hear that the cooperative has a spending policy: it does not. It has a draft.</p>
+ <p>The draft proposes a floor, which is that every payment out takes two different people. One proposes it, another approves it, and they can never be the same person. Above that floor it proposes four tiers by size. Small routine payments, up to two hundred and fifty dollars, take one approver. Up to twenty-five hundred, one approver. Up to ten thousand, two. Above ten thousand, the board itself passes a resolution and then the treasurer executes it.</p>
+ <p>Those numbers are a drafter's proposal. Not one of them is in force.</p>
+</section>
+<section class="sec speak">
+ <div class="sec-head"><span class="sec-num">&sect;5</span><h2>How contributions get counted</h2><span class="sub timing">about 45 seconds</span></div>
+ <p>The second draft is about counting what members contribute. It recognizes six kinds and no others: hours worked, a share of revenue, cash, delivered output, showing up, and property.</p>
+ <p>Two rules matter to this room. First, no contribution counts because someone says so. It is declared by the contributor and confirmed by a different person. Second, the rules only ever count forward from the day they are adopted, never backward.</p>
+ <p>There is a consequence in that second rule worth saying out loud. Every hour any of us has worked since February is real, and under these rules it is uncounted. That is not an oversight; it is what prospective means. If the board wants formation work recognized, that is a separate decision and it has not been made.</p>
+</section>
+<section class="sec speak">
+ <div class="sec-head"><span class="sec-num">&sect;6</span><h2>The one hole</h2><span class="sub timing">about 35 seconds</span></div>
+ <p>Hours are supposed to be valued at a tier rate, from a document called the Labor Schedule.</p>
+ <p>That document does not exist. The rates are understood to have been settled in June, and they are not in the record anywhere. Nothing but somebody's memory can tell us what they are.</p>
+ <p>Until they are written down and adopted, no hour can be honestly confirmed, because there is no rate to confirm it against. The steward's direction is to benchmark against public wage data rather than try to reconstruct the June conversation. That is the single largest gap in the money system.</p>
+</section>
+<section class="sec speak">
+ <div class="sec-head"><span class="sec-num">&sect;7</span><h2>The money itself</h2><span class="sub timing">about 15 seconds</span></div>
+ <p>As of today: thirty-eight invoices are outstanding, totaling eleven thousand ninety-five dollars and seventy-five cents. Of that, six thousand forty-seven dollars and fifty-one cents has been owed for more than sixty days.</p>
+ <p>That is real money and it is aging.</p>
+</section>
+<section class="sec speak">
+ <div class="sec-head"><span class="sec-num">&sect;8</span><h2>What we need from the board</h2><span class="sub timing">about 45 seconds</span></div>
+ <p>Four things, and only this board can do them.</p>
+ <p>One, adopt the treasury policy, which puts the two-person rule and the tiers into force.</p>
+ <p>Two, adopt the counting rules, which starts the clock on counting contributions.</p>
+ <p>Three, settle the labor rates, so hours can be counted at all.</p>
+ <p>Four, answer whether a member's share can be redeemed, and on what terms. That question is blocking a whole section of the build.</p>
+ <p>There is also a clock. The treasury committee has ninety days from the first member signing up to land four documents. Two are drafted, one is the hole described a minute ago, and the fourth, the schedule for payouts and cash-outs, has not been started.</p>
+</section>
+<section class="sec speak">
+ <div class="sec-head"><span class="sec-num">&sect;9</span><h2>Where the detail lives</h2><span class="sub timing">about 20 seconds</span></div>
+ <p>Everything said here is written up at greater length, with the citations, at techne dot coop, under commons, treasury, handbook. A two-page version sits beside it. This briefing is the spoken form and carries no authority the underlying documents do not already have.</p>
+</section>
+<section class="sec speak">
+ <div class="sec-head"><span class="sec-num">close</span><h2>Closing line for the record</h2><span class="sub timing">about 10 seconds</span></div>
+ <div class="box decide"><span class="bk">for the minute</span><p>For the minute: this was a status report. No motion was put, and nothing in it was adopted by its being read.</p></div>
+</section>
+
+<div class="foot">
+ <p class="tail">TREASURY-BRIEFING v1 &middot; The Five Minute Briefing &middot; documentation, adopts nothing &middot; the spoken form of TREASURY-HANDBOOK v1 &middot; Nou drafts; Todd decides; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-08-19</p>
+</div>
+
+</div>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</body>
+</html>
