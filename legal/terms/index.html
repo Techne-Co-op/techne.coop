@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  <script>
+  (function(){
+    var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+    var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+    document.documentElement.setAttribute('data-mode',m);
+  })();
+  </script>
+  <script src="/assets/topbar.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="The terms of service of RegenHub, LCA, a Colorado limited cooperative association operating as Techne: who these terms bind, what may and may not be done with this site, who owns what is posted here, and the limits of what the cooperative warrants.">
+  <title>Terms of service &middot; Techne</title>
+  <link rel="canonical" href="https://techne.coop/legal/terms/">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://techne.coop/legal/terms/">
+  <meta property="og:title" content="Terms of service · Techne">
+  <meta property="og:description" content="The operating terms of techne.coop: who they bind, what they permit, and what they do not warrant.">
+  <meta property="og:site_name" content="Techne">
+  <meta property="og:image" content="https://techne.coop/assets/og-default.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif:'Libre Baskerville',Georgia,serif;
+      --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+      --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
+      --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
+    }
+    html[data-mode="dark"] {
+      --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;
+      --line:#2A2A30;--rule:#3A3A42;
+      --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
+      --blue:#6A8AC4;--blue-text:#97B5E8;
+      --ember:#C4956A;--ember-text:#D4A57A;--ember-dim:rgba(196,149,106,0.14);
+      --ok:#6A9A6A;--ok-text:#7DAA7D;
+      --warn:#C46A6A;--warn-text:#D48A8A;
+      color-scheme:dark;
+    }
+    html[data-mode="light"] {
+      --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
+      --line:#D8D3C8;--rule:#9A958A;
+      --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
+      --blue:#4A6FB0;--blue-text:#39588F;
+      --ember:#8A6A4A;--ember-text:#6F5436;--ember-dim:rgba(138,106,74,0.10);
+      --ok:#4A7A4A;--ok-text:#3A6A3A;
+      --warn:#A84F4C;--warn-text:#8F3F3C;
+      color-scheme:light;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:0ms!important;}}
+    body{
+      background:var(--bg);color:var(--text);
+      font-family:var(--serif);font-size:17px;line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+      transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);
+    }
+    em{font-style:italic;color:var(--heading);}
+
+    /* Formation note, footer form. One verbatim copy per page, proved by
+       scripts/notice_audit.py; only the token names differ, because the estate
+       carries two families. The long form at /legal/#formation still governs. */
+    .formation-foot{
+      flex-basis:100%;max-width:96ch;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+    .wrap{max-width:820px;margin:0 auto;padding:0 var(--s5) var(--s8);}
+
+    .page-mast{
+      padding:clamp(56px,8vw,96px) 0 var(--s6);
+      border-bottom:1px solid var(--line);
+      margin-bottom:var(--s6);
+    }
+    .kick{
+      font-family:var(--mono);font-size:11px;text-transform:uppercase;
+      letter-spacing:0.16em;color:var(--ember-text);margin-bottom:var(--s3);
+    }
+    .page-mast h1{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(30px,5vw,44px);line-height:1.15;
+      color:var(--heading);letter-spacing:-0.015em;margin-bottom:var(--s3);
+    }
+    .sub{font-size:18px;line-height:1.65;color:var(--muted);max-width:62ch;}
+    .dateline{
+      font-family:var(--mono);font-size:11px;letter-spacing:0.08em;
+      color:var(--faint);margin-top:var(--s4);
+    }
+
+    section{margin-bottom:var(--s7);}
+    h2{
+      font-family:var(--serif);font-weight:700;
+      font-size:clamp(20px,3vw,26px);line-height:1.25;
+      color:var(--heading);margin-bottom:var(--s4);
+    }
+    h3{
+      font-family:var(--mono);font-size:11px;font-weight:500;
+      text-transform:uppercase;letter-spacing:0.14em;color:var(--faint);
+      margin-bottom:var(--s2);margin-top:var(--s5);
+    }
+    p{margin-bottom:var(--s4);max-width:68ch;}
+    p:last-child{margin-bottom:0;}
+    ul{margin:0 0 var(--s4) var(--s5);max-width:68ch;}
+    li{margin-bottom:var(--s2);}
+    a{color:var(--ember-text);}
+
+    .item{
+      border:1px solid var(--line);border-left:3px solid var(--ember);
+      background:var(--surface);padding:var(--s4) var(--s5);margin-bottom:var(--s4);
+    }
+    .item-title{font-family:var(--serif);font-weight:700;font-size:17px;color:var(--heading);margin-bottom:var(--s2);}
+    .row{margin-bottom:var(--s3);font-size:15px;line-height:1.65;}
+    .row:last-child{margin-bottom:0;}
+    .row .rk{
+      display:block;font-family:var(--mono);font-size:10px;
+      letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);
+      margin-bottom:2px;
+    }
+
+    .note{
+      background:var(--inset);border:1px solid var(--line);
+      padding:var(--s4) var(--s5);margin-top:var(--s5);
+      font-size:15px;line-height:1.65;color:var(--muted);max-width:none;
+    }
+
+    footer{
+      margin-top:var(--s7);padding-top:var(--s4);border-top:1px solid var(--line);
+      font-family:var(--mono);font-size:11px;line-height:1.8;color:var(--faint);
+      letter-spacing:0.04em;
+    }
+    footer a{color:var(--faint);}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="page-mast">
+    <div class="kick">Legal &middot; Site policy</div>
+    <h1>Terms of service</h1>
+    <p class="sub">The operating terms of this website and the services reached through it. Plainly: use the site, read what is here, take a copy for yourself, and do not abuse the service or the people in it. What you write here stays yours. What the cooperative publishes is licensed for reuse. Nothing here is a warranty, and nothing here makes anyone a member.</p>
+    <p class="dateline">Effective August 19, 2026 &middot; Describes current practice &middot; RegenHub, LCA</p>
+  </div>
+
+  <section id="who">
+    <h2>Who these terms bind</h2>
+    <p>These Terms of Service govern use of the website at <strong>techne.coop</strong> and any related services provided by <strong>RegenHub, LCA</strong>, a Colorado limited cooperative association formed February 6, 2026 by filing Articles of Organization with the Colorado Secretary of State, document 20261163853. On August 12, 2026 the association filed a Statement of Trade Name of a Reporting Entity, document 20268011137, under C.R.S. &sect;&sect; 7-71-103 and 7-71-107. The registered trade name is <em>techne.coop</em>, and this site presents itself as <em>Techne</em>. The true name of the entity remains RegenHub, LCA, and RegenHub, LCA is who these terms bind.</p>
+    <p>By accessing techne.coop you agree to abide by these terms and to comply with applicable law. If you do not agree with them, do not use this site or the services provided through it.</p>
+    <p>The cooperative may review and amend these terms. When it does, this page is updated and carries a new effective date, and the change is visible in the public history of this site, which is a public repository. Changes take effect from the date of publication.</p>
+  </section>
+
+  <section id="not">
+    <h2>What these terms are not</h2>
+    <div class="item">
+      <div class="item-title">Not membership, not governance, not advice</div>
+      <div class="row"><span class="rk">Not membership</span>Using this site does not make anyone a member of the cooperative and creates no patronage, no equity, no vote, and no claim on any allocation. Membership arises only under the cooperative's governing instruments, by the acts those instruments require.</div>
+      <div class="row"><span class="rk">Not an instrument</span>This page is an operating policy of the website. It is not one of the governing instruments and it neither amends nor interprets any of them. Where this page and an instrument disagree, the instrument governs.</div>
+      <div class="row"><span class="rk">Not advice</span>Nothing published here is legal, tax, financial, or professional advice, including the analyses and memoranda published for member education. They are the cooperative's working documents, not counsel to a reader.</div>
+    </div>
+  </section>
+
+  <section id="limits">
+    <h2>Limitations of use</h2>
+    <p>By using this website you warrant, on behalf of yourself and any party you represent, that you will not:</p>
+    <ul>
+      <li>use this website or its associated services in a way that abuses, disrupts, or degrades our networks or any other service the cooperative provides, including automated access at a rate that burdens the service;</li>
+      <li>use this website or its associated services to transmit or publish harassing, indecent, obscene, fraudulent, or unlawful material;</li>
+      <li>use this website or its associated services in violation of applicable law or regulation;</li>
+      <li>use this website in connection with unauthorized advertising or unsolicited bulk messaging;</li>
+      <li>harvest, collect, or gather the personal information of other users without their consent, including scraping member profiles or contact details;</li>
+      <li>impersonate another person, or bind to your account a phone number, email address, or identifier that is not yours;</li>
+      <li>attempt to gain access to any account, record, or system you are not authorized to reach, or to circumvent the authorization rules that govern who may read or write what; or</li>
+      <li>use this website or its associated services in a way that infringes the privacy, intellectual property, or other rights of third parties.</li>
+    </ul>
+    <p>The clauses a template would put here forbidding you to copy, modify, or reverse engineer the materials on this site are deliberately absent. This estate is a public repository under an open license, and the license below says what you may do with it.</p>
+  </section>
+
+  <section id="ip">
+    <h2>What the cooperative publishes, and what you may do with it</h2>
+    <p>The materials on this website are owned by or licensed to RegenHub, LCA and are protected by applicable copyright and trademark law.</p>
+    <p>Except where a page says otherwise, the written material published on this site is offered under a <strong>Creative Commons Attribution-ShareAlike 4.0 International</strong> license: copy it, adapt it, and redistribute it, including commercially, so long as you credit the cooperative and license what you build from it on the same terms. That is a grant of a license and not a transfer of title.</p>
+    <p>Three things sit outside that grant. The cooperative's names, trade name, and marks are not licensed by it, and using the material does not permit anyone to present themselves as the cooperative or as speaking for it. Third-party material reproduced here under its own terms carries those terms. And the source code of this site carries whatever license its repository states, which governs the code independently of this page.</p>
+    <p>A license terminates automatically if its terms are violated.</p>
+  </section>
+
+  <section id="ugc">
+    <h2>What you post stays yours</h2>
+    <p>You retain ownership of the content you submit for publication here. The cooperative does not claim ownership of it. It does need a license in order to show it.</p>
+    <p>When you post, upload, share, or otherwise transmit content covered by intellectual property rights, you grant the cooperative a non-exclusive, royalty-free, worldwide license to use, store, reproduce, publicly display, translate, and adapt that content for the purpose of operating and presenting this service, consistent with the <a href="/legal/privacy/">privacy policy</a> and with the privacy preferences you have set.</p>
+    <p>That license ends when you delete the content or your account, with two exceptions that no deletion can reach: material you contributed to the cooperative's public record, such as a document, minute, or ledger entry that other decisions now rest on, remains part of that record, because a record that can be withdrawn is not a record; and copies already distributed under the open license above remain licensed in the hands of whoever received them.</p>
+    <p>You give the cooperative permission to use the display name and identifying information associated with your account in the ways your privacy preferences and the privacy policy allow.</p>
+    <p>You are responsible for what you post, and you warrant that you have the right to post it.</p>
+  </section>
+
+  <section id="accounts">
+    <h2>Accounts</h2>
+    <ul>
+      <li>An account is held by one person, who is responsible for what is done with it. Keep your credentials to yourself.</li>
+      <li>Tell us promptly if you believe your account has been reached by someone else.</li>
+      <li>You may close your account at any time. What happens to your personal information then is described in the <a href="/legal/privacy/">privacy policy</a>.</li>
+      <li>An account may be suspended or terminated for breach of these terms, as described under termination below.</li>
+    </ul>
+  </section>
+
+  <section id="services">
+    <h2>Paid and metered services</h2>
+    <p>Where the cooperative offers a paid or metered service, the terms of that service, including its price, what it entitles the holder to, and how it may be cancelled, are published on the page for that service and form part of these terms for anyone who buys it. No such service is offered as of the effective date of this page, and none becomes available by mention here. Where a price is published, the published rate governs, and no rate is charged that is not published.</p>
+  </section>
+
+  <section id="sms">
+    <h2>Text messaging</h2>
+    <p>The terms governing text messaging, including how a number is bound, what messages are sent, that message and data rates may apply, that STOP unbinds a number, and that mobile numbers and SMS consent are never sold, rented, or shared with third parties or affiliates for marketing, are in the <a href="/legal/privacy/#sms">text messaging section of the privacy policy</a> and are incorporated into these terms.</p>
+  </section>
+
+  <section id="agents">
+    <h2>Automated agents</h2>
+    <p>Some of what this service does, and some of what is published here, is produced by software agents acting for the cooperative. Their output can be wrong. An answer from an agent is not a statement of the cooperative's position, not a record of any act the cooperative took, and not a warranty of anything. Where an agent's answer and the record disagree, the record governs, and a correction to the record is the remedy.</p>
+  </section>
+
+  <section id="liability">
+    <h2>Liability</h2>
+    <p>This website and the materials on it are provided on an 'as is' basis. To the extent permitted by law, RegenHub, LCA makes no warranties, express or implied, and disclaims all warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, non-infringement of intellectual property, or other violation of rights.</p>
+    <p>In no event shall RegenHub, LCA or its suppliers be liable for any consequential loss suffered or incurred by you or any third party arising from the use of, or inability to use, this website or its materials, even if the cooperative or an authorized representative has been notified, orally or in writing, of the possibility of such damage.</p>
+    <p>In this agreement, 'consequential loss' includes any consequential loss, indirect loss, real or anticipated loss of profit, loss of benefit, loss of revenue, loss of business, loss of goodwill, loss of opportunity, loss of savings, loss of reputation, loss of use, and loss or corruption of data, whether under statute, contract, equity, tort including negligence, indemnity, or otherwise.</p>
+    <p>Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.</p>
+  </section>
+
+  <section id="accuracy">
+    <h2>Accuracy of materials</h2>
+    <p>The materials on this website are not comprehensive and are published for general information. Much of this estate is drafts, working analysis, and documents published in advance of adoption, each labeled with its status. A page carrying a draft label records no act of the cooperative. RegenHub, LCA makes no representation concerning the accuracy, likely results, or reliability of the materials here or of anything linked from here.</p>
+    <p>Where this site is found to be wrong, the correction is published in the <a href="/legal/corrections/">corrections log</a> rather than made silently.</p>
+  </section>
+
+  <section id="links">
+    <h2>Links</h2>
+    <p>RegenHub, LCA has not reviewed every site linked from this one and is not responsible for the contents of any linked site. A link does not imply endorsement, approval, or control. Use of any linked site is at your own risk.</p>
+  </section>
+
+  <section id="terminate">
+    <h2>Right to terminate</h2>
+    <p>The cooperative may suspend or terminate your right to use this website, and terminate these terms, upon written notice to you for any breach of these terms. Termination of site access is not a membership act: the rights of a member, and the grounds and process for affecting them, are governed by the cooperative's instruments and not by this page.</p>
+  </section>
+
+  <section id="severance">
+    <h2>Severance</h2>
+    <p>Any term of these Terms of Service which is wholly or partially void or unenforceable is severed to the extent that it is void or unenforceable. The validity of the remainder is not affected.</p>
+  </section>
+
+  <section id="law">
+    <h2>Governing law</h2>
+    <p>These Terms of Service are governed by and construed in accordance with the laws of the State of Colorado, where the cooperative is formed. You submit to the exclusive jurisdiction of the courts of the State of Colorado.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <!-- TODO: placeholder contact address, same open question as the privacy page.
+         The estate publishes no legal contact address on any public page. Confirm or
+         replace with the steward before this page is cited to a carrier reviewer. -->
+    <p>Questions about these terms go to <a href="mailto:legal@techne.coop">legal@techne.coop</a>. Privacy requests go to the address in the <a href="/legal/privacy/#contact">privacy policy</a>.</p>
+    <p>No physical mailing address is published here. The cooperative's premises are not settled, and this estate does not publish a claim it cannot stand behind on the day it is read.</p>
+  </section>
+
+  <section id="status">
+    <h2>Status</h2>
+    <div class="note">RegenHub, LCA is a cooperative in formation. Its governing instruments are drafted and not yet executed, and no member has been admitted. These terms are therefore a description of the operating terms the cooperative holds itself to now, adopted as the operating policy of the website. They are not one of the governing instruments, and nothing in them amends or interprets any of them. Where this page and an instrument disagree, the instrument governs. The instruments and their statuses are on the <a href="/legal/">legal foundation</a>.</div>
+  </section>
+
+  <footer>
+    Techne &middot; RegenHub, LCA &middot; Colorado limited cooperative association &middot; SOS No. 20261163853<br>
+    Terms of service &middot; effective 2026-08-19 &middot; <a href="/legal/">back to the legal foundation</a>
+    <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+</div>
+</body>
+</html>
