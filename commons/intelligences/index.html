@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+
+<title>Catalog of Living Intelligences &middot; Techne</title>
+<script src="/assets/topbar.js" defer></script>
+<meta name="description" content="Seventeen questions a body of work needs someone to carry, and the common roles that carry them. Read heart-outward against the season, marked question by question.">
+<link rel="canonical" href="https://techne.coop/commons/intelligences/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/intelligences/">
+<meta property="og:title" content="Catalog of Living Intelligences · Techne">
+<meta property="og:description" content="Seventeen questions a body of work needs someone to carry, and the common roles that carry them.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='3' fill='%23C4956A'/%3E%3Crect x='7' y='7' width='8' height='8' rx='1' fill='%23F7F5F0' opacity='0.88'/%3E%3Crect x='17' y='7' width='8' height='8' rx='1' fill='%23F7F5F0' opacity='0.88'/%3E%3Crect x='7' y='17' width='8' height='8' rx='1' fill='%23F7F5F0' opacity='0.88'/%3E%3Crect x='17' y='17' width='8' height='8' rx='1' fill='%23F7F5F0' opacity='0.38'/%3E%3C/svg%3E">
+
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TECHNE v4 TOKEN LAYER · governed by techne.coop/design-system
+   emission: inlined per page, sanctioned under UI v1 §9
+   ============================================================ */
+:root{
+  color-scheme:dark light;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --face-doc:"Libre Baskerville",Georgia,serif;
+  --face-ui:"IBM Plex Mono",ui-monospace,monospace;
+  --face-display:Georgia,"Libre Baskerville",serif;
+  --micro:.16s; --dur:.4s;
+  --tap:44px;                 /* minimum touch target */
+  --sat:env(safe-area-inset-top,0px);
+  --sab:env(safe-area-inset-bottom,0px);
+  --sal:env(safe-area-inset-left,0px);
+  --sar:env(safe-area-inset-right,0px);
+}
+@supports (height:100dvh){ :root{ --vh:1dvh } }
+@supports not (height:100dvh){ :root{ --vh:1vh } }
+html[data-mode="dark"]{
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --sun-gold:#D9B45C; --sun-amber:#C98A52; --sun-coral:#C4776A;
+  --sun-rose:#B06E92; --sun-violet:#8A6AC4; --sun-blue:#6A8AC4;
+}
+html[data-mode="light"]{
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#a84f4c;
+  --sun-gold:#8A6A2E; --sun-amber:#8A5A2E; --sun-coral:#9A4A3E;
+  --sun-rose:#8A3E6A; --sun-violet:#5A3E8A; --sun-blue:#4A6FB0;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text); font-family:var(--face-doc);
+  font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  overscroll-behavior-y:none;
+}
+body.locked{overflow:hidden}
+button,input,a{touch-action:manipulation}
+a{color:var(--blue-text); text-decoration:underline; text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+.catbar{
+  position:sticky; top:0; z-index:30; min-height:48px;
+  display:flex; align-items:center; justify-content:space-between; gap:var(--s4);
+  padding:var(--sat) calc(var(--s5) + var(--sar)) 0 calc(var(--s5) + var(--sal));
+  background:var(--bg); border-bottom:1px solid var(--line);
+}
+@media(max-width:640px){ .catbar{padding-inline:calc(var(--s4) + var(--sal)) calc(var(--s4) + var(--sar))} }
+.wordmark{font-family:var(--face-ui); font-size:12px; letter-spacing:.12em; color:var(--heading)}
+.wordmark span{color:var(--muted)}
+.tb-right{display:flex; align-items:center; gap:var(--s2)}
+.modetoggle{
+  font-family:var(--face-ui); font-size:14px; line-height:1; background:transparent;
+  border:1px solid var(--line); border-radius:2px; color:var(--muted);
+  min-width:var(--tap); min-height:36px; cursor:pointer;
+}
+@media(pointer:coarse){ .modetoggle{min-height:var(--tap)} }
+.modetoggle:hover{color:var(--text); border-color:var(--rule)}
+
+.wrap-hud{
+  width:100%; max-width:1600px; margin-inline:auto;
+  padding-block:clamp(var(--s4),2vw,var(--s5)) calc(clamp(var(--s4),2vw,var(--s5)) + var(--sab));
+  padding-inline:calc(clamp(var(--s3),3vw,var(--s6)) + var(--sal)) calc(clamp(var(--s3),3vw,var(--s6)) + var(--sar));
+}
+
+.mast{display:flex; justify-content:space-between; align-items:flex-end; gap:var(--s4); flex-wrap:wrap; padding-bottom:var(--s4); border-bottom:1px solid var(--rule)}
+.kick{font-family:var(--face-ui); font-size:10px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--faint); margin:0 0 var(--s2)}
+.mast h1{font-family:var(--face-display); font-weight:400; font-size:1.55rem; line-height:1.15; color:var(--heading); margin:0; letter-spacing:-.01em}
+.meta{font-family:var(--face-ui); font-size:10px; letter-spacing:.08em; color:var(--faint); display:flex; flex-wrap:wrap; gap:var(--s3); align-items:center}
+
+.chip{display:inline-flex; align-items:center; gap:6px; font-family:var(--face-ui); font-size:10px; letter-spacing:.1em; text-transform:lowercase; border:1px solid var(--line); border-radius:2px; padding:2px 7px; color:var(--muted); white-space:nowrap}
+.chip::before{content:""; width:6px; height:6px; background:currentColor; flex:0 0 auto}
+.chip.ratified{color:var(--ok); border-color:color-mix(in srgb,var(--ok) 40%,var(--line))}
+.chip.drafted{color:var(--info); border-color:color-mix(in srgb,var(--info) 40%,var(--line))}
+.chip.open{color:var(--warn); border-color:color-mix(in srgb,var(--warn) 40%,var(--line))}
+.chip.anticipated{color:var(--faint)}
+.chip.role{color:var(--ember-text); border-color:color-mix(in srgb,var(--ember) 40%,var(--line))}
+
+/* ---------- stack ---------- */
+.stack{display:flex; flex-direction:column; gap:var(--s3); margin-top:var(--s4)}
+.stage{background:var(--inset); border:1px solid var(--line); position:relative}
+.stage-disc{min-height:calc(60 * var(--vh)); display:grid; grid-template-columns:minmax(0,1fr) 314px}
+@media(max-width:1000px){
+  /* controls before the picture: the rail leads on a small screen */
+  .stage-disc{grid-template-columns:1fr; min-height:0; display:flex; flex-direction:column-reverse}
+}
+.addr{font-family:var(--face-ui); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); margin:0; position:absolute; top:var(--s3); left:var(--s4); z-index:3; max-width:60%}
+@media(max-width:1000px){.addr{position:static; max-width:none; padding:var(--s3) var(--s4) 0; font-size:9px}}
+.discwell{display:flex; align-items:center; justify-content:center; padding:var(--s5); min-width:0}
+.discwell svg{width:100%; height:auto; max-height:calc(60 * var(--vh) - var(--s6)); display:block}
+@media(max-width:1000px){
+  .discwell{padding:var(--s4) var(--s3) var(--s5)}
+  .discwell svg{max-height:min(92vw, calc(70 * var(--vh)))}
+}
+/* phone landscape: the disc must not eat the fold */
+@media(max-height:520px) and (orientation:landscape){
+  .stage-disc{min-height:0}
+  .discwell svg{max-height:calc(84 * var(--vh))}
+}
+.svgt{font-family:var(--face-ui); letter-spacing:.08em}
+.heartname{font-family:var(--face-doc); font-weight:700}
+.sector-hit{cursor:pointer}
+
+.discside{border-left:1px solid var(--line); padding:var(--s6) var(--s4) var(--s4); display:flex; flex-direction:column; gap:var(--s4); overflow-y:auto; overscroll-behavior:contain}
+@media(max-width:1000px){
+  .discside{border-left:0; border-bottom:1px solid var(--line); padding:var(--s4); overflow:visible}
+  /* seasons run across, not down, when width is cheap and height is not */
+  .seasonpick{flex-direction:row; flex-wrap:wrap}
+  .seasonpick button{flex:1 1 auto; min-width:calc(33% - var(--s1)); min-height:var(--tap); justify-content:center}
+}
+
+/* layer switch */
+.layerswitch{display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line); border-radius:2px; overflow:hidden}
+.layerswitch button{
+  font-family:var(--face-ui); font-size:10px; letter-spacing:.14em; text-transform:lowercase;
+  background:transparent; border:0; color:var(--muted); padding:9px 6px; cursor:pointer;
+  transition:color var(--micro),background var(--micro); min-height:38px;
+}
+@media(pointer:coarse){ .layerswitch button{min-height:var(--tap); font-size:11px} }
+.layerswitch button + button{border-left:1px solid var(--line)}
+.layerswitch button[aria-pressed="true"]{color:var(--blue-text); background:var(--raised)}
+
+.field label{display:block; font-family:var(--face-ui); font-size:10px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:var(--s2)}
+.field input{width:100%; background:var(--surface); color:var(--text); border:1px solid var(--line); border-radius:2px; font-family:var(--face-doc); font-size:16px; padding:10px; min-height:var(--tap)}
+.field input:focus{outline:none; border-color:var(--blue)}
+.field input::placeholder{color:var(--faint)}
+.seasonpick{display:flex; flex-direction:column; gap:var(--s1)}
+.seasonpick button{display:flex; align-items:center; gap:var(--s2); text-align:left; font-family:var(--face-ui); font-size:10.5px; letter-spacing:.08em; text-transform:lowercase; background:transparent; color:var(--muted); border:1px solid var(--line); border-radius:2px; padding:7px 10px; cursor:pointer; transition:color var(--micro),border-color var(--micro)}
+.seasonpick button:hover{color:var(--text); border-color:var(--rule)}
+.seasonpick button[aria-pressed="true"]{color:var(--blue-text); border-color:var(--blue)}
+.seasonpick .sw{width:8px; height:8px; flex:0 0 auto}
+.seasonpick .num{color:var(--faint); width:14px}
+.seasonpick button[aria-pressed="true"] .num{color:var(--blue)}
+.seasongloss{font-family:var(--face-doc); font-style:italic; font-size:.78rem; color:var(--muted); margin:var(--s2) 0 0}
+
+.verdict{font-family:var(--face-doc); font-size:.95rem; line-height:1.5; color:var(--heading); margin:0}
+.verdict b{font-weight:700}
+.verdictsub{color:var(--muted); font-size:.8rem; margin:var(--s2) 0 0}
+.sidecount{font-family:var(--face-ui); font-size:10px; letter-spacing:.08em; color:var(--faint); display:flex; gap:var(--s3); flex-wrap:wrap}
+.sidecount b{color:var(--text); font-weight:400; font-variant-numeric:tabular-nums}
+
+.controls{display:flex; gap:var(--s1); flex-wrap:wrap; align-items:center}
+.btn{font-family:var(--face-ui); font-size:10px; letter-spacing:.1em; text-transform:lowercase; background:transparent; border:1px solid var(--line); border-radius:2px; color:var(--text); padding:8px 11px; cursor:pointer; transition:border-color var(--micro),color var(--micro); min-height:36px}
+@media(pointer:coarse){ .btn{min-height:var(--tap); font-size:11px; padding-inline:var(--s4)} }
+.btn:hover{border-color:var(--rule)}
+.btn.primary{color:var(--blue-text); border-color:var(--blue)}
+.btn.secondary{color:var(--ember-text); border-color:var(--ember)}
+.form-status{font-family:var(--face-ui); font-size:10px; letter-spacing:.08em; color:var(--muted); min-height:1em}
+.form-status.ok{color:var(--ok)}
+.form-status.err{color:var(--warn)}
+.archive{display:flex; gap:var(--s1); flex-wrap:wrap; align-items:center}
+.archive .lbl{font-family:var(--face-ui); font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint)}
+.archive .chipbtn{font-family:var(--face-ui); font-size:10px; letter-spacing:.06em; background:transparent; border:1px solid var(--line); border-radius:2px; color:var(--muted); padding:5px 8px; cursor:pointer; min-height:32px}
+@media(pointer:coarse){ .archive .chipbtn{min-height:var(--tap); padding-inline:var(--s3)} }
+.archive .chipbtn:hover{color:var(--text); border-color:var(--rule)}
+
+/* ---------- lower pane ---------- */
+.stage-grid{height:calc(40 * var(--vh)); min-height:280px; display:flex; flex-direction:column}
+@media(max-width:1000px){.stage-grid{height:auto; max-height:none}}
+.gridhead{display:flex; justify-content:space-between; align-items:center; gap:var(--s4); padding:var(--s2) var(--s4); border-bottom:1px solid var(--line); flex-wrap:wrap}
+.gridhead .t{font-family:var(--face-ui); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+.gridhead .hint{font-family:var(--face-doc); font-style:italic; font-size:.75rem; color:var(--faint)}
+.scroller{overflow:auto; flex:1; min-height:0; overscroll-behavior:contain; -webkit-overflow-scrolling:touch}
+@media(max-width:1000px){.scroller{max-height:calc(58 * var(--vh))}}
+/* an edge shadow so a horizontally scrollable table announces itself */
+.scrollwrap{position:relative; flex:1; min-height:0; display:flex}
+.scrollwrap::after{
+  content:""; position:absolute; top:0; right:0; bottom:0; width:26px; pointer-events:none;
+  background:linear-gradient(to right, transparent, var(--inset)); opacity:0; transition:opacity var(--micro);
+}
+.scrollwrap.more::after{opacity:1}
+
+/* phenology */
+.chart{min-width:940px; --rail:288px}
+.axis{display:grid; grid-template-columns:var(--rail) repeat(6,minmax(84px,1fr)); align-items:end; padding:var(--s2) 0; border-bottom:1px solid var(--rule); position:sticky; top:0; background:var(--inset); z-index:6}
+.axis .corner{font-family:var(--face-ui); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); padding-left:34px}
+.axis .col{padding:0 var(--s2); border-left:1px solid var(--line); display:flex; align-items:baseline; gap:6px}
+.axis .col .n{font-family:var(--face-ui); font-size:10px; letter-spacing:.1em; color:var(--faint)}
+.axis .col .s{font-family:var(--face-doc); font-size:.92rem; color:var(--muted); line-height:1.2}
+.axis .col.now{background:var(--raised)}
+.axis .col.now .s{color:var(--heading)}
+.famrow{display:grid; grid-template-columns:var(--rail) repeat(6,minmax(84px,1fr)); margin-top:var(--s2)}
+.famrow .lbl{font-family:var(--face-ui); font-size:10px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--ember-text); padding-left:34px; display:flex; align-items:center; gap:var(--s2)}
+.famrow .lbl::after{content:""; flex:1; height:1px; background:var(--line)}
+.famrow .sp{grid-column:2/-1}
+.row{display:grid; grid-template-columns:var(--rail) repeat(6,minmax(84px,1fr))}
+.rail{display:flex; align-items:center; gap:var(--s2); padding:5px var(--s2) 5px 0; position:sticky; left:0; z-index:4; background:var(--inset)}
+.axis .corner{position:sticky; left:0; z-index:7; background:var(--inset)}
+.famrow .lbl{position:sticky; left:0; z-index:4; background:var(--inset)}
+.bud{
+  flex:0 0 auto; width:18px; height:18px; padding:0; cursor:pointer; background:transparent;
+  border:1px solid var(--rule); border-radius:2px; position:relative; transition:border-color var(--micro);
+}
+/* visual stays 18px; the hit area meets the 44px floor */
+.bud::before{content:""; position:absolute; left:50%; top:50%; width:var(--tap); height:var(--tap); transform:translate(-50%,-50%)}
+.bud:hover{border-color:var(--muted)}
+.bud::after{content:""; position:absolute; inset:4px; background:var(--blue); opacity:0; transition:opacity var(--micro)}
+.row.held .bud{border-color:var(--blue)}
+.row.held .bud::after{opacity:1}
+.rowname{text-align:left; background:none; border:0; padding:0; cursor:pointer; font-family:var(--face-doc); font-size:.95rem; color:var(--text); line-height:1.2; max-width:238px; display:flex; flex-direction:column; gap:2px; align-items:flex-start}
+.rowname .in{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%}
+.rowname:hover .in{color:var(--heading)}
+.rowname .cn{
+  font-family:var(--face-ui); font-size:10.5px; letter-spacing:.05em; text-transform:lowercase;
+  color:var(--faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; line-height:1.3;
+}
+.rowname .cn b{font-weight:500; color:var(--ok)}
+.rowname .cn i{font-style:normal; color:var(--rt2,var(--faint))}
+.peren{font-family:var(--face-ui); font-size:9px; color:var(--ember-text); margin-left:5px}
+.cell{position:relative; display:flex; align-items:center; padding:0 var(--s2); border-left:1px solid var(--line)}
+.cell.nowcol{background:var(--raised)}
+.band{width:100%}
+.band.lead{height:10px}
+.band.support{height:4px}
+.band.rest{height:1px; background:var(--faint) !important; opacity:.4}
+
+/* roster browser */
+.roster{padding:var(--s3) var(--s4) var(--s5); min-width:660px}
+.rosterbar{display:flex; align-items:center; gap:var(--s3); flex-wrap:wrap; margin-bottom:var(--s3)}
+.groupswitch{display:inline-flex; border:1px solid var(--line); border-radius:2px; overflow:hidden}
+.groupswitch button{font-family:var(--face-ui); font-size:9.5px; letter-spacing:.12em; text-transform:lowercase; background:transparent; border:0; color:var(--muted); padding:6px 10px; cursor:pointer; min-height:36px}
+@media(pointer:coarse){ .groupswitch button{min-height:var(--tap); font-size:11px} }
+.groupswitch button + button{border-left:1px solid var(--line)}
+.groupswitch button[aria-pressed="true"]{color:var(--blue-text); background:var(--raised)}
+.rosterbar .lg{display:flex; gap:var(--s3); flex-wrap:wrap; font-family:var(--face-ui); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); align-items:center}
+.rosterbar .lg i{display:inline-block; width:9px; height:9px; margin-right:5px; vertical-align:-1px}
+
+.clusterrow{margin-top:var(--s4)}
+.clusterrow:first-of-type{margin-top:0}
+.clusterlbl{font-family:var(--face-ui); font-size:8.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--ember-text); display:flex; align-items:center; gap:var(--s2); margin-bottom:var(--s2)}
+.clusterlbl::after{content:""; flex:1; height:1px; background:var(--line)}
+
+/* intelligence-grouped header */
+.intlbl{display:flex; align-items:center; gap:var(--s3); margin-bottom:var(--s2); flex-wrap:wrap; padding-left:var(--s2); border-left:3px solid var(--gt,var(--line))}
+.intlbl .nm{font-family:var(--face-doc); font-weight:700; font-size:.86rem; color:var(--heading)}
+.intlbl .q{font-family:var(--face-doc); font-style:italic; font-size:.76rem; color:var(--muted)}
+.intlbl .arc{display:flex; gap:2px; align-items:center; height:14px}
+
+.rolechips{display:flex; flex-wrap:wrap; gap:var(--s2)}
+.rolechip{
+  display:inline-flex; align-items:stretch; border:1px solid var(--line); border-radius:2px;
+  overflow:hidden; background:transparent; border-left:3px solid var(--rt,var(--faint));
+}
+.rolechip.on{border-color:var(--ok); border-left-color:var(--rt,var(--ok))}
+.rolechip.sel{border-color:var(--blue); border-left-color:var(--rt,var(--blue))}
+.rolechip .mk{width:20px; flex:0 0 auto; background:transparent; border:0; border-right:1px solid var(--line); cursor:pointer; position:relative; padding:0; min-height:38px}
+@media(pointer:coarse){ .rolechip .mk{width:30px; min-height:var(--tap)} }
+.rolechip .mk::after{content:""; position:absolute; inset:6px; background:var(--ok); opacity:0; transition:opacity var(--micro)}
+.rolechip.on .mk::after{opacity:1}
+.rolechip .mk:hover{background:var(--raised)}
+.rolechip .nm{background:transparent; border:0; cursor:pointer; padding:6px 10px 6px 9px; display:flex; flex-direction:column; gap:3px; align-items:flex-start; text-align:left; min-height:38px; justify-content:center}
+@media(pointer:coarse){ .rolechip .nm{min-height:var(--tap)} }
+.rolechip .nm .rn{font-family:var(--face-doc); font-size:.8rem; color:var(--text); white-space:nowrap; line-height:1.15}
+.rolechip .nm:hover .rn{color:var(--heading)}
+.rolechip.sel .nm .rn{color:var(--blue-text)}
+.rolechip .nm .hm{font-family:var(--face-ui); font-size:8px; letter-spacing:.1em; text-transform:uppercase; color:var(--rt,var(--faint)); white-space:nowrap}
+
+/* micro arc: the home intelligence's shape across the six seasons */
+.marc{display:flex; gap:2px; align-items:center; height:12px}
+.marc i{display:block; width:6px; border-radius:0}
+.marc i.lead{height:11px}
+.marc i.support{height:5px}
+.marc i.rest{height:1px}
+.marc.lg i{width:9px; height:auto}
+.marc.lg i.lead{height:13px}
+.marc.lg i.support{height:6px}
+.marc.lg i.rest{height:1px}
+.marc i.nowsn{outline:1px solid var(--heading); outline-offset:1px}
+
+/* ---------- drawer ---------- */
+.scrim{position:fixed; inset:0; background:rgba(8,8,10,.66); opacity:0; pointer-events:none; transition:opacity var(--dur); z-index:40}
+html[data-mode="light"] .scrim{background:rgba(26,26,31,.42)}
+.scrim.on{opacity:1; pointer-events:auto}
+.drawer{
+  position:fixed; top:0; right:0; bottom:0; width:min(560px,100%); z-index:41;
+  background:var(--surface); border-left:1px solid var(--rule);
+  transform:translateX(100%); transition:transform var(--dur);
+  overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch;
+  padding:var(--s6) calc(var(--s6) + var(--sar)) calc(var(--s8) + var(--sab)) var(--s6);
+}
+.drawer.on{transform:none}
+.sheetgrab{display:none}
+/* on a phone a side drawer is a reach problem: use a bottom sheet */
+@media(max-width:700px){
+  .drawer{
+    top:auto; left:0; right:0; bottom:0; width:100%;
+    height:min(88 * var(--vh), 100%);
+    border-left:0; border-top:1px solid var(--rule);
+    transform:translateY(100%);
+    padding:var(--s5) calc(var(--s4) + var(--sar)) calc(var(--s7) + var(--sab)) calc(var(--s4) + var(--sal));
+  }
+  .drawer.on{transform:none}
+  .sheetgrab{
+    display:block; position:sticky; top:calc(var(--s5) * -1); z-index:2;
+    margin:calc(var(--s5) * -1) auto var(--s3); padding:var(--s3) 0 var(--s2);
+    background:var(--surface); width:100%; text-align:center; cursor:grab;
+  }
+  .sheetgrab::before{content:""; display:block; width:38px; height:4px; border-radius:2px; background:var(--rule); margin:0 auto}
+  .drawer .close{top:var(--s3); right:calc(var(--s4) + var(--sar))}
+}
+.drawer .close{position:absolute; top:var(--s4); right:var(--s4); font-family:var(--face-ui); font-size:10px; letter-spacing:.14em; text-transform:lowercase; background:transparent; border:1px solid var(--line); border-radius:2px; color:var(--muted); padding:6px 9px; cursor:pointer; min-height:36px; z-index:3}
+@media(pointer:coarse){ .drawer .close{min-height:var(--tap); min-width:var(--tap)} }
+.drawer .close:hover{color:var(--text); border-color:var(--rule)}
+.drawer .fam{font-family:var(--face-ui); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--ember-text)}
+.drawer h3{font-family:var(--face-display); font-weight:400; font-size:1.9rem; color:var(--heading); margin:var(--s3) 0 var(--s1); line-height:1.1}
+.drawer .prac{font-family:var(--face-ui); font-size:10px; letter-spacing:.06em; color:var(--faint)}
+.drawer .quest{font-family:var(--face-doc); font-style:italic; font-size:1rem; line-height:1.5; color:var(--heading); margin:var(--s4) 0 0; padding:var(--s4) 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule)}
+.drawer h4{font-family:var(--face-ui); font-size:9.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin:var(--s5) 0 var(--s3)}
+.drawer p{margin:0 0 var(--s3); color:var(--text); font-size:.86rem}
+.def{list-style:none; margin:0; padding:0}
+.def-row{display:grid; grid-template-columns:16px 100px 1fr; gap:var(--s3); padding:var(--s3) 0; border-top:1px solid var(--line); align-items:start}
+.def-row .mark{margin-top:5px}
+.def-row .mark.lead{height:12px}
+.def-row .mark.support{height:4px; margin-top:9px}
+.def-row .mark.rest{height:1px; margin-top:11px; background:var(--faint) !important; opacity:.5}
+.def-row .sn{font-family:var(--face-ui); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); padding-top:2px}
+.def-row .sn.now{color:var(--heading)}
+.def-row .sd{font-size:.82rem; color:var(--text); line-height:1.5}
+.def-row .sd.resting{color:var(--faint); font-style:italic}
+.record{border:1px solid var(--line); border-top:2px solid var(--ember); background:var(--inset); padding:var(--s4)}
+.record .rh{font-family:var(--face-doc); font-weight:700; font-style:italic; font-size:.95rem; color:var(--ember-text); margin-bottom:var(--s2)}
+.record .rb{margin:0; font-size:.84rem; color:var(--text)}
+.anatomy{list-style:none; margin:0; padding:0}
+.an-row{display:grid; grid-template-columns:96px 1fr; gap:var(--s3); padding:var(--s3) 0; border-top:1px solid var(--line); align-items:start}
+.an-row .k{font-family:var(--face-ui); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); padding-top:3px}
+.an-row .v{font-size:.84rem; color:var(--text); line-height:1.5}
+.linkchips{display:flex; flex-wrap:wrap; gap:var(--s1)}
+.linkchip{font-family:var(--face-ui); font-size:9.5px; letter-spacing:.06em; background:transparent; border:1px solid var(--line); border-radius:2px; color:var(--muted); padding:5px 8px; cursor:pointer; min-height:32px}
+@media(pointer:coarse){ .linkchip{min-height:var(--tap); font-size:11px; padding-inline:var(--s3)} }
+.linkchip:hover{color:var(--text); border-color:var(--rule)}
+.linkchip.home{color:var(--blue-text); border-color:var(--blue)}
+.linkchip.on{color:var(--ok); border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}
+
+.homecard{border:1px solid var(--line); border-left:4px solid var(--ht); background:var(--inset); padding:var(--s4); margin-top:var(--s5)}
+.homecard .hh{display:flex; flex-direction:column; gap:3px; margin-bottom:var(--s3)}
+.homecard .hlbl{font-family:var(--face-ui); font-size:8.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--faint)}
+.homecard .hnm{font-family:var(--face-display); font-size:1.35rem; color:var(--heading); line-height:1.1}
+.homecard .hq{font-family:var(--face-doc); font-style:italic; font-size:.92rem; color:var(--heading); margin:0 0 var(--s3)}
+.homecard .harc{display:flex; align-items:center; gap:var(--s3); margin-bottom:var(--s3)}
+.homecard .hleg{font-family:var(--face-ui); font-size:8px; letter-spacing:.18em; color:var(--faint); text-transform:uppercase}
+.homecard .hrel{margin:0; font-size:.85rem; color:var(--text)}
+.reachrow{cursor:pointer; align-items:center}
+.reachrow:hover .rnm{color:var(--heading)}
+.reachrow .rnm{display:block; font-family:var(--face-doc); font-weight:700; font-size:.86rem; color:var(--text); padding-left:var(--s2)}
+.reachrow .rq{display:block; font-size:.78rem; color:var(--muted); padding-left:var(--s2); margin-top:2px; line-height:1.4}
+@media(max-width:640px){
+  .mast h1{font-size:1.3rem}
+  .kick{font-size:9px; letter-spacing:.16em}
+  .meta{font-size:10px}
+  .chip{font-size:10.5px}
+  .gridhead .t{font-size:10px}
+  .gridhead .hint{font-size:.78rem}
+  .clusterlbl,.famrow .lbl{font-size:9.5px}
+  .rolechip .nm .rn{font-size:.86rem}
+  .rolechip .nm .hm{font-size:9px}
+  .roster{min-width:0; padding:var(--s3)}
+  .chart{--rail:206px}
+  .rowname{font-size:.9rem; max-width:166px}
+  .rowname .cn{font-size:9.5px}
+  .famrow .lbl{font-size:9.5px}
+  .axis .col .s{font-size:.86rem}
+  .axis .col .s{font-size:.82rem}
+  .verdict{font-size:1rem}
+  .verdictsub,.sidecount{font-size:.82rem}
+  .drawer h3{font-size:1.6rem}
+  .def-row{grid-template-columns:14px 84px 1fr; gap:var(--s2)}
+  .an-row{grid-template-columns:1fr; gap:var(--s1)}
+}
+.narrowonly{display:none}
+@media(max-width:640px){.narrowonly{display:block}}
+.cap{font-family:var(--face-ui); font-size:9px; letter-spacing:.08em; color:var(--faint); margin:var(--s3) 0 0; padding:0 var(--s1)}
+
+
+/* ============================================================
+   TV PRESENTATION MODE · html[data-tv="on"]
+   sized for a 4K room read at distance
+   ============================================================ */
+html[data-tv="on"] body{font-size:22px; line-height:1.55}
+html[data-tv="on"] .wrap-hud{max-width:none}
+html[data-tv="on"] .mast h1{font-size:2.6rem}
+html[data-tv="on"] .kick{font-size:15px}
+html[data-tv="on"] .meta{font-size:15px}
+html[data-tv="on"] .chip{font-size:15px; padding:4px 11px}
+html[data-tv="on"] .addr{font-size:14px}
+html[data-tv="on"] .gridhead .t{font-size:15px}
+html[data-tv="on"] .gridhead .hint{font-size:1.05rem}
+html[data-tv="on"] .field label{font-size:15px}
+html[data-tv="on"] .field input{font-size:22px; min-height:56px}
+html[data-tv="on"] .seasonpick button{font-size:16px; min-height:52px; padding:10px 14px}
+html[data-tv="on"] .seasongloss{font-size:1.05rem}
+html[data-tv="on"] .layerswitch button{font-size:15px; min-height:52px}
+html[data-tv="on"] .groupswitch button{font-size:14px; min-height:48px}
+html[data-tv="on"] .verdict{font-size:1.45rem}
+html[data-tv="on"] .verdictsub{font-size:1.05rem}
+html[data-tv="on"] .sidecount{font-size:15px}
+html[data-tv="on"] .btn{font-size:15px; min-height:52px; padding:12px 18px}
+html[data-tv="on"] .form-status{font-size:14px}
+html[data-tv="on"] .archive .chipbtn{font-size:14px; min-height:44px}
+html[data-tv="on"] .cap{font-size:13px}
+/* phenology at distance */
+html[data-tv="on"] .chart{min-width:1280px; --rail:400px}
+html[data-tv="on"] .rowname{font-size:1.35rem; max-width:352px}
+html[data-tv="on"] .rowname .cn{font-size:15px}
+html[data-tv="on"] .axis .col .n{font-size:14px}
+html[data-tv="on"] .axis .col .s{font-size:1.25rem}
+html[data-tv="on"] .axis .corner{font-size:14px}
+html[data-tv="on"] .famrow .lbl{font-size:14px}
+html[data-tv="on"] .bud{width:28px; height:28px}
+html[data-tv="on"] .band.lead{height:16px}
+html[data-tv="on"] .band.support{height:7px}
+html[data-tv="on"] .band.rest{height:2px}
+html[data-tv="on"] .rail{padding-block:9px}
+/* roster at distance */
+html[data-tv="on"] .roster{min-width:1180px}
+html[data-tv="on"] .clusterlbl{font-size:14px}
+html[data-tv="on"] .intlbl .nm{font-size:1.3rem}
+html[data-tv="on"] .intlbl .q{font-size:1.05rem}
+html[data-tv="on"] .rolechip .nm .rn{font-size:1.15rem}
+html[data-tv="on"] .rolechip .nm .hm{font-size:12px}
+html[data-tv="on"] .rolechip .mk{width:34px}
+html[data-tv="on"] .marc i{width:9px}
+html[data-tv="on"] .marc i.lead{height:15px}
+html[data-tv="on"] .marc i.support{height:7px}
+html[data-tv="on"] .marc.lg i{width:13px}
+html[data-tv="on"] .marc.lg i.lead{height:18px}
+html[data-tv="on"] .marc.lg i.support{height:8px}
+/* drawer at distance */
+html[data-tv="on"] .drawer{width:min(760px,100%)}
+html[data-tv="on"] .drawer h3{font-size:2.6rem}
+html[data-tv="on"] .drawer .quest{font-size:1.4rem}
+html[data-tv="on"] .drawer p{font-size:1.15rem}
+html[data-tv="on"] .drawer h4{font-size:14px}
+html[data-tv="on"] .drawer .fam{font-size:14px}
+html[data-tv="on"] .drawer .prac{font-size:14px}
+html[data-tv="on"] .def-row{grid-template-columns:20px 150px 1fr}
+html[data-tv="on"] .def-row .sn{font-size:13px}
+html[data-tv="on"] .def-row .sd{font-size:1.1rem}
+html[data-tv="on"] .record .rh{font-size:1.3rem}
+html[data-tv="on"] .record .rb{font-size:1.1rem}
+html[data-tv="on"] .homecard .hnm{font-size:1.8rem}
+html[data-tv="on"] .homecard .hq{font-size:1.2rem}
+html[data-tv="on"] .homecard .hrel{font-size:1.1rem}
+html[data-tv="on"] .linkchip{font-size:14px; min-height:44px}
+html[data-tv="on"] .reachrow .rnm{font-size:1.15rem}
+html[data-tv="on"] .reachrow .rq{font-size:1rem}
+html[data-tv="on"] .catbar{min-height:60px}
+html[data-tv="on"] .wordmark{font-size:16px}
+html[data-tv="on"] .modetoggle,html[data-tv="on"] .tvtoggle,html[data-tv="on"] .keytoggle{font-size:18px; min-height:48px; min-width:56px}
+
+/* topbar extra toggles */
+.tvtoggle,.keytoggle{
+  font-family:var(--face-ui); font-size:12px; line-height:1; background:transparent;
+  border:1px solid var(--line); border-radius:2px; color:var(--muted);
+  min-width:var(--tap); min-height:36px; cursor:pointer; letter-spacing:.08em;
+}
+.tvtoggle:hover,.keytoggle:hover{color:var(--text); border-color:var(--rule)}
+.tvtoggle[aria-pressed="true"]{color:var(--ember-text); border-color:var(--ember)}
+
+/* keyboard cursor: the sector or row the keys are on */
+.row.cursor{outline:2px solid var(--ember); outline-offset:-2px}
+html[data-tv="on"] .row.cursor{outline-width:3px}
+
+/* hotkey sheet */
+.keys{position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center; background:rgba(8,8,10,.7)}
+html[data-mode="light"] .keys{background:rgba(26,26,31,.45)}
+.keys.on{display:flex}
+.keycard{background:var(--surface); border:1px solid var(--rule); padding:var(--s6); max-width:640px; width:calc(100% - var(--s6)); max-height:calc(84 * var(--vh)); overflow-y:auto}
+.keycard h3{font-family:var(--face-display); font-weight:400; font-size:1.6rem; color:var(--heading); margin:0 0 var(--s2)}
+.keycard .sub{font-family:var(--face-doc); font-style:italic; font-size:.85rem; color:var(--muted); margin:0 0 var(--s4)}
+.keyrows{display:grid; grid-template-columns:auto 1fr; gap:var(--s2) var(--s4); align-items:center}
+.keyrows .ks{display:flex; gap:4px}
+.keyrows kbd{
+  font-family:var(--face-ui); font-size:11px; color:var(--heading);
+  border:1px solid var(--rule); border-bottom-width:2px; border-radius:2px;
+  padding:3px 8px; min-width:26px; text-align:center; background:var(--inset);
+}
+.keyrows .kd{font-size:.86rem; color:var(--text)}
+.keyrows .kh{grid-column:1/-1; font-family:var(--face-ui); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--ember-text); margin-top:var(--s3)}
+html[data-tv="on"] .keycard h3{font-size:2.2rem}
+html[data-tv="on"] .keyrows kbd{font-size:16px; padding:6px 12px}
+html[data-tv="on"] .keyrows .kd{font-size:1.15rem}
+
+
+/* size stepper: parameter-level control over the whole surface */
+.sizectl{display:inline-flex; align-items:stretch; border:1px solid var(--line); border-radius:2px; overflow:hidden}
+.sizectl button{
+  font-family:var(--face-ui); background:transparent; border:0; color:var(--muted);
+  min-width:var(--tap); min-height:36px; cursor:pointer; font-size:13px; line-height:1;
+}
+.sizectl button:hover{color:var(--text); background:var(--raised)}
+.sizectl button:disabled{color:var(--faint); cursor:default; background:transparent}
+.sizectl .pct{
+  font-family:var(--face-ui); font-size:11px; letter-spacing:.05em; color:var(--text);
+  display:flex; align-items:center; padding:0 var(--s2); min-width:52px; justify-content:center;
+  border-left:1px solid var(--line); border-right:1px solid var(--line);
+  font-variant-numeric:tabular-nums; cursor:pointer;
+}
+.sizectl .pct:hover{color:var(--heading)}
+html[data-tv="on"] .sizectl button{min-height:48px; font-size:16px}
+html[data-tv="on"] .sizectl .pct{font-size:14px; min-width:64px}
+
+@media(prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+@media print{.catbar,.controls,.archive,.stage-grid{display:none} .stage-disc{min-height:auto}}
+.formation-foot{
+ max-width:780px;margin-left:auto;margin-right:auto;
+ padding-left:24px;padding-right:24px;
+ border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+ font-family:var(--face-ui);font-size:11.5px;line-height:1.7;color:var(--muted);
+}
+.formation-foot .ff-mark{
+ font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+ color:var(--ember-text);margin-right:10px;white-space:nowrap;
+}
+.formation-foot a{color:var(--ember-text);}
+</style>
+</head>
+<body>
+
+<div class="catbar">
+  <div class="wordmark">TECHNE <span>· commons · intelligences</span></div>
+  <div class="tb-right">
+    <span class="chip drafted">drafted</span>
+    <div class="sizectl" role="group" aria-label="Text size">
+      <button type="button" id="sizedown" aria-label="Smaller text">A−</button>
+      <button type="button" class="pct" id="sizepct" title="Reset to 100%">100%</button>
+      <button type="button" id="sizeup" aria-label="Larger text">A+</button>
+    </div>
+    <button class="keytoggle" id="keytoggle" type="button" aria-label="Show keyboard controls">?</button>
+    <button class="tvtoggle" id="tvtoggle" type="button" aria-pressed="false" aria-label="Toggle presentation size for a room">tv</button>
+    <button class="modetoggle" id="modetoggle" type="button" aria-label="Switch to light mode">◑</button>
+  </div>
+</div>
+
+<main class="wrap-hud">
+
+  <div class="mast">
+    <div>
+      <p class="kick">Commons instrument · CI‑01 · instrument grammar · two layers, one state</p>
+      <h1>Catalog of Living Intelligences</h1>
+    </div>
+    <div class="meta">
+      <span>the disc reads · the pane below marks</span>
+      <span>questions are held · roles are rostered</span>
+    </div>
+  </div>
+
+  <div class="stack">
+
+    <section class="stage stage-disc">
+      <p class="addr" id="discaddr"></p>
+      <div class="discwell">
+        <svg id="disc" viewBox="0 0 900 900" role="img" aria-label="Concentric reading: six season rings crossed by seventeen intelligence sectors"></svg>
+      </div>
+      <div class="discside">
+        <div class="layerswitch" role="group" aria-label="Disc layer">
+          <button type="button" id="lay-int" aria-pressed="true">intelligences</button>
+          <button type="button" id="lay-rol" aria-pressed="false">roles</button>
+        </div>
+        <div class="field">
+          <label for="pname">The seed · project or body of work</label>
+          <input id="pname" type="text" placeholder="Name the work" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>Declared season</label>
+          <div class="seasonpick" id="seasonpick"></div>
+          <p class="seasongloss" id="seasongloss"></p>
+        </div>
+        <div>
+          <p class="verdict" id="verdict"></p>
+          <p class="verdictsub" id="verdictsub"></p>
+        </div>
+        <div class="sidecount" id="sidecount"></div>
+        <div class="controls">
+          <button class="btn primary" id="savebtn">file this reading</button>
+          <button class="btn secondary" id="copybtn">copy as text</button>
+          <button class="btn" id="clearbtn">clear marks</button>
+        </div>
+        <span class="form-status" id="formstatus" aria-live="polite"></span>
+        <div class="archive" id="archive"></div>
+      </div>
+    </section>
+
+    <section class="stage stage-grid">
+      <div class="gridhead">
+        <span class="t" id="gridaddr"></span>
+        <span class="hint" id="gridhint"></span>
+      </div>
+      <div class="scrollwrap"><div class="scroller" id="lowerpane"></div></div>
+    </section>
+
+  </div>
+
+  <p class="cap narrowonly">On a narrow screen the disc drops its sector names: tap any wedge to open it, or use the pane below where every question is named. A dot marks a held or focused sector.</p>
+  <p class="cap">Rings hold constant thickness so no season reads larger by area. A ring boundary closes solid when every question leading that season is held; the declared frontier stays dashed. Perennial spokes run heart to bark. In the role layer, caps outside the bark mark coverage: green where a rostered role's home sits, blue where only a secondary reach does. Sunset stops approximated pending commons.css; nothing here writes back to the record.</p>
+
+</main>
+
+<footer>
+<div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+
+<div class="keys" id="keys" role="dialog" aria-modal="true" aria-label="Keyboard controls">
+  <div class="keycard">
+    <h3>Keyboard</h3>
+    <p class="sub">The cursor walks the catalog; everything else is one key away. Keys sleep while you are typing a name.</p>
+    <div class="keyrows">
+      <span class="kh">Move</span>
+      <span class="ks"><kbd>W</kbd><kbd>S</kbd></span><span class="kd">previous / next intelligence: the cursor row, mirrored on the disc</span>
+      <span class="ks"><kbd>A</kbd><kbd>D</kbd></span><span class="kd">previous / next season</span>
+      <span class="kh">Act</span>
+      <span class="ks"><kbd>E</kbd></span><span class="kd">open the cursor's card</span>
+      <span class="ks"><kbd>Space</kbd></span><span class="kd">hold / release the cursor's question</span>
+      <span class="ks"><kbd>Q</kbd></span><span class="kd">close the card · clear the cursor</span>
+      <span class="kh">Surface</span>
+      <span class="ks"><kbd>F</kbd></span><span class="kd">flip layer: intelligences / roles</span>
+      <span class="ks"><kbd>T</kbd></span><span class="kd">presentation size for a room</span>
+      <span class="ks"><kbd>M</kbd></span><span class="kd">dark / light</span>
+      <span class="ks"><kbd>?</kbd></span><span class="kd">this sheet</span>
+      <span class="ks"><kbd>+</kbd><kbd>−</kbd></span><span class="kd">grow / shrink everything: text, disc, grid together</span>
+      <span class="ks"><kbd>0</kbd></span><span class="kd">back to 100%</span>
+    </div>
+  </div>
+</div>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawertitle" tabindex="-1"></aside>
+
+<script>
+/* ---------------- mode ---------------- */
+const modeBtn = document.getElementById("modetoggle");
+function syncMode(){
+  const m = document.documentElement.getAttribute("data-mode");
+  modeBtn.textContent = m==="dark" ? "◑" : "◐";
+  modeBtn.setAttribute("aria-label", m==="dark" ? "Switch to light mode" : "Switch to dark mode");
+}
+modeBtn.onclick = ()=>{
+  const m = document.documentElement.getAttribute("data-mode")==="dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-mode", m);
+  try{ localStorage.setItem("techne-mode", m); }catch(e){}
+  syncMode(); renderDisc();
+};
+syncMode();
+
+/* ---------------- vocabulary ---------------- */
+const SEASONS = [
+  {id:"seed",         n:"i",   name:"Seed",         tint:"--sun-gold",   gloss:"Potential, unbroken. Is there viable material here at all?"},
+  {id:"germination",  n:"ii",  name:"Germination",  tint:"--sun-amber",  gloss:"Roots before leaves. What breaks soil first, and will it hold?"},
+  {id:"flowering",    n:"iii", name:"Flowering",    tint:"--sun-coral",  gloss:"Turning outward. Who is drawn in, and are they met?"},
+  {id:"fruiting",     n:"iv",  name:"Fruiting",     tint:"--sun-rose",   gloss:"Something exchangeable. Does the fruit exceed the tending?"},
+  {id:"reproduction", n:"v",   name:"Reproduction", tint:"--sun-violet", gloss:"Propagation. Can this be carried by people who were never here?"},
+  {id:"return",       n:"vi",  name:"Return",       tint:"--sun-blue",   gloss:"Decomposition. What goes back to the commons, and is anything left owed?"}
+];
+const SID = SEASONS.map(s=>s.id);
+const FAMILIES = [
+  {id:"desirability", name:"Desirability", q:"Does anyone want this, and can they grasp it?"},
+  {id:"viability",    name:"Viability",    q:"Will this sustain itself, and on whose terms?"},
+  {id:"feasibility",  name:"Feasibility",  q:"Can this be made, and then actually run?"},
+  {id:"legitimacy",   name:"Legitimacy",   q:"Should this exist, and by what right does it decide?"},
+  {id:"continuity",   name:"Continuity",   q:"Will the people and the record outlast the effort?"}
+];
+
+const C = [
+{id:"inquiry", name:"Inquiry", family:"desirability",
+ practices:"user & customer research · ethnography · needs assessment",
+ question:"Is this wanted, and by whom, specifically?",
+ arc:{seed:"lead",germination:"support",flowering:"support",fruiting:"support",reproduction:"support",return:"rest"},
+ notes:{seed:"Goes out and finds whether the itch is real, and whose it is. Comes back with people, not personas.",germination:"Tests the first form against the people it claims to serve, while changing it is still cheap.",flowering:"Listens to who actually arrives, which is rarely who was expected.",fruiting:"Watches the gap between what people say they will commit to and what they do.",reproduction:"Finds the next context where this pattern is already wanted.",return:"The questions have been answered. What remains is the record."},
+ presence:"Someone can name three real people who want this, and say why, without generalising.",
+ pathology:{name:"Confident invention", body:"The work accumulates features nobody asked for and gets steadily better at going nowhere. Velocity rises; relevance does not."}},
+{id:"form", name:"Form", family:"desirability", perennial:true,
+ practices:"design: interaction, visual, systems, service",
+ question:"Is this coherent, usable, and true to what it claims to be?",
+ arc:{seed:"lead",germination:"lead",flowering:"lead",fruiting:"support",reproduction:"support",return:"support"},
+ notes:{seed:"Gives the idea just enough shape to be argued with. Sketches, not specifications.",germination:"Decides what the thing structurally is, before it hardens into whatever got built first.",flowering:"Turns the surface outward: makes it legible and attractive to people who owe it nothing.",fruiting:"Removes friction at the point of exchange, where a single confusing step costs everything.",reproduction:"Makes the pattern portable: kits, templates, a design system others can hold.",return:"Leaves the shape legible to whoever finds the remains."},
+ presence:"One person is accountable for coherence across the whole, not merely for screens.",
+ pathology:{name:"Accretion", body:"The thing becomes a heap of individually correct decisions that do not add up to anything. Nobody can say what it is in a sentence, including the people making it."}},
+{id:"voice", name:"Voice", family:"desirability",
+ practices:"communications · writing · narrative · public documentation",
+ question:"Can this be understood by someone who was not in the room?",
+ arc:{seed:"support",germination:"support",flowering:"lead",fruiting:"support",reproduction:"lead",return:"lead"},
+ notes:{seed:"The first honest sentence. If the idea cannot be said, it is not yet an idea.",germination:"Holds a steady account while the thing changes underneath it.",flowering:"Carries the work outward in language that strangers can repeat accurately.",fruiting:"States the terms of exchange plainly, so agreement is real agreement.",reproduction:"Teaches the pattern so it can be carried without its originators.",return:"Writes the honest account of what happened, including what did not work."},
+ presence:"An outsider can restate the point in their own words after a single reading.",
+ pathology:{name:"Private brilliance", body:"Real work stays invisible. The project is repeatedly rediscovered from scratch by people who would gladly have joined it."}},
+{id:"gathering", name:"Gathering", family:"desirability",
+ practices:"engagement · community · participation · member relations",
+ question:"Who is arriving, and are they actually held once they do?",
+ arc:{seed:"rest",germination:"support",flowering:"lead",fruiting:"support",reproduction:"lead",return:"support"},
+ notes:{germination:"The first few contributors need a path in that somebody built on purpose.",flowering:"Pollinators arrive. Someone has to meet them, or the visit is the whole relationship.",fruiting:"Turns visitors into members, and members into people who carry the work themselves.",reproduction:"People are the seed. Propagation is social long before it is technical.",return:"Releases people well, with their contribution named and acknowledged."},
+ presence:"A newcomer's first hour has a shape that someone designed deliberately.",
+ pathology:{name:"An open door onto an empty room", body:"Attention arrives and dissipates. Interest never compounds into a body, and every wave of newcomers has to be recruited again from zero."}},
+{id:"direction", name:"Direction", family:"viability",
+ practices:"product · prioritisation · sequencing · scope",
+ question:"Is this the right thing to make now, and what are we choosing not to make?",
+ arc:{seed:"support",germination:"lead",flowering:"support",fruiting:"lead",reproduction:"support",return:"support"},
+ notes:{seed:"Names the smallest version that would still be worth doing.",germination:"Decides what breaks soil first and then defends that sequence against everything reasonable.",flowering:"Holds the line against the features that visibility always invites.",fruiting:"Trades scope for sustenance. Decides what earns its keep and what is merely beloved.",reproduction:"Separates what is core to the pattern from what was local accident.",return:"Decides what is worth salvaging and what should be allowed to end."},
+ presence:"There is a visible \u201cnot now\u201d list, and it is honoured rather than quietly reopened.",
+ pathology:{name:"Perpetual germination", body:"Everything is started, the soil is exhausted, and nothing reaches flower. The project is busy in every direction and has arrived in none."}},
+{id:"reach", name:"Reach", family:"viability",
+ practices:"marketing · distribution · positioning · discovery",
+ question:"Can this be found by the people who need it?",
+ arc:{seed:"rest",germination:"rest",flowering:"lead",fruiting:"support",reproduction:"support",return:"rest"},
+ notes:{flowering:"Places the work where its people already look, rather than where it is convenient to put it.",fruiting:"Sustains enough flow that exchange has something to work with.",reproduction:"Carries the pattern into adjacent fields where it will take."},
+ presence:"Someone can say where the next ten people will come from, and be roughly right.",
+ pathology:{name:"The beautiful thing in the woods", body:"Fully formed, entirely unfound. Excellence turns out not to be a distribution strategy."}},
+{id:"exchange", name:"Exchange", family:"viability",
+ practices:"sales · business development · partnerships · fundraising",
+ question:"Will someone commit something real to this?",
+ arc:{seed:"rest",germination:"support",flowering:"support",fruiting:"lead",reproduction:"support",return:"support"},
+ notes:{germination:"An early commitment is the strongest evidence that a need is real.",flowering:"Converts interest into intent, before enthusiasm has time to cool.",fruiting:"Turns display into sustenance and closes the loop the whole season depends on.",reproduction:"The first outside adopter is itself a form of reproduction.",return:"Winds down obligations honourably rather than letting them lapse."},
+ presence:"Someone is willing to ask directly for a commitment, and to hear no without flinching.",
+ pathology:{name:"Applause without nutrition", body:"Widely admired, structurally starving. Praise is mistaken for traction until the season it has to feed someone."}},
+{id:"reckoning", name:"Reckoning", family:"viability",
+ practices:"accounting · finance · contribution records · REA",
+ question:"Does this sustain itself, and who is owed?",
+ arc:{seed:"rest",germination:"support",flowering:"support",fruiting:"lead",reproduction:"support",return:"lead"},
+ notes:{germination:"Names what the work is costing, including the labour nobody is invoicing for.",flowering:"The cost of being visible is real, continuous, and almost never budgeted.",fruiting:"Measures whether the fruit exceeds the tending, honestly and on a known cadence.",reproduction:"Decides how surplus is shared with the people who actually made it.",return:"Settles accounts, so that nothing is left owed in the dark."},
+ presence:"Contribution is recorded as it happens, not reconstructed from memory afterwards.",
+ pathology:{name:"Invisible debt", body:"The work runs on unrecorded labour and discovers far too late that it was never solvent. The bill arrives as resentment rather than as a number."}},
+{id:"making", name:"Making", family:"feasibility",
+ practices:"software engineering · fabrication · build",
+ question:"Can this be built, and can it be held together once it is?",
+ arc:{seed:"support",germination:"lead",flowering:"support",fruiting:"support",reproduction:"lead",return:"support"},
+ notes:{seed:"Answers \u201cis this even possible\u201d cheaply, without building it.",germination:"Roots go down. The first real structure, and the one hardest to change later.",flowering:"Makes the thing survive being seen by more people than its makers.",fruiting:"Hardens whatever has quietly become load-bearing.",reproduction:"Makes it forkable, installable, genuinely someone else's.",return:"Leaves the code and the material recoverable rather than stranded."},
+ presence:"Someone is accountable not only for what works, but for what will still work in a year.",
+ pathology:{name:"Permanent prototype", body:"Convincing in a demo, incapable of load. Every success becomes an incident, because nothing was built to be depended upon."}},
+{id:"evidence", name:"Evidence", family:"feasibility", perennial:true,
+ practices:"data · analysis · instrumentation · measurement",
+ question:"What is actually happening, as opposed to what we believe is happening?",
+ arc:{seed:"support",germination:"support",flowering:"lead",fruiting:"lead",reproduction:"support",return:"support"},
+ notes:{seed:"Sizes the thing honestly, before hope has a chance to inflate it.",germination:"Instruments the first structure so that it can report on itself later.",flowering:"Separates real arrival from vanity, which look identical from inside.",fruiting:"Tells you which fruit is worth the branch it costs.",reproduction:"Shows which parts of the pattern actually travel and which were local.",return:"Leaves a record of what was true, for whoever tries this next."},
+ presence:"At least one number exists that would change someone's mind.",
+ pathology:{name:"Rule by anecdote", body:"The loudest recent story becomes strategy. Decisions track whoever spoke last rather than what is happening."}},
+{id:"operations", name:"Operations", family:"feasibility",
+ practices:"delivery · infrastructure · logistics · running the thing",
+ question:"Can this be run, day after day, by people who are tired?",
+ arc:{seed:"rest",germination:"support",flowering:"support",fruiting:"lead",reproduction:"support",return:"lead"},
+ notes:{germination:"Establishes the first repeatable rhythm, however small.",flowering:"Absorbs the shock of arrival, which is always less graceful than expected.",fruiting:"The whole difference between a harvest and a scramble.",reproduction:"Makes running it teachable, not merely survivable.",return:"Shuts things down without leaving wreckage for someone else to find."},
+ presence:"The thing runs through a weekend without a hero.",
+ pathology:{name:"Heroism as infrastructure", body:"It works because one person is not sleeping. Capacity looks fine right up until that person takes a holiday."}},
+{id:"integrity", name:"Integrity", family:"feasibility",
+ practices:"quality · security · reliability · risk",
+ question:"Will this hold under stress, error, and bad faith?",
+ arc:{seed:"rest",germination:"support",flowering:"lead",fruiting:"support",reproduction:"support",return:"support"},
+ notes:{germination:"Names what must never break, while it is still cheap to design around.",flowering:"Exposure is precisely when adversaries and accidents arrive.",fruiting:"Protects what has become genuinely valuable to lose.",reproduction:"A pattern that spreads spreads its flaws at the same rate.",return:"Data is disposed of deliberately rather than abandoned in place."},
+ presence:"Someone has written down how this fails, and was thanked rather than managed.",
+ pathology:{name:"Fair-weather system", body:"Works exactly until it matters. The first real load, or the first bad actor, becomes the discovery mechanism."}},
+{id:"lawfulness", name:"Lawfulness", family:"legitimacy",
+ practices:"legal · contracts · compliance · licensing · entity form",
+ question:"Can this exist, on what terms, and who is exposed if it cannot?",
+ arc:{seed:"support",germination:"support",flowering:"support",fruiting:"lead",reproduction:"lead",return:"lead"},
+ notes:{seed:"The shape of the container affects the shape of the plant. Choose it knowingly.",germination:"Agreements between the first contributors, written while everyone is still friendly.",flowering:"What is said in public becomes a term whether or not it was meant as one.",fruiting:"Exchange requires terms that can actually be relied upon.",reproduction:"Licences are the genetics of propagation, they decide what can be inherited.",return:"Dissolution, remaining obligations, and custody of what is left."},
+ presence:"The agreements were written before they were needed.",
+ pathology:{name:"Deferred reckoning", body:"Every unwritten understanding comes due at the worst possible moment, and almost always between people who liked each other."}},
+{id:"governance", name:"Governance", family:"legitimacy",
+ practices:"decision rights · membership · assembly · authority",
+ question:"Who decides, and by what right?",
+ arc:{seed:"support",germination:"support",flowering:"support",fruiting:"support",reproduction:"lead",return:"lead"},
+ notes:{seed:"Even two people have a governance model. Theirs is simply unstated.",germination:"The first real disagreement will find whatever structure happens to exist.",flowering:"Newcomers need to know how standing is gained, or they will assume it cannot be.",fruiting:"Surplus makes decision rights suddenly and permanently interesting.",reproduction:"What propagates is the governance at least as much as the artefact.",return:"Someone must hold the authority to declare an ending, or it will merely drift."},
+ presence:"A contributor can say how a decision gets made, and be right.",
+ pathology:{name:"The tyranny of structurelessness", body:"Power still operates. It simply cannot be named, contested, or handed on, so it accrues to whoever has been there longest."}},
+{id:"conscience", name:"Conscience", family:"legitimacy",
+ practices:"ethics · harm assessment · consent · public benefit",
+ question:"Who bears the cost of this, and did they agree to?",
+ arc:{seed:"lead",germination:"support",flowering:"support",fruiting:"support",reproduction:"lead",return:"support"},
+ notes:{seed:"The cheapest moment there will ever be to decline to build something.",germination:"Design decisions are moral decisions wearing technical clothes.",flowering:"Scale converts small harms into structural ones without changing their appearance.",fruiting:"The terms of exchange are where extraction usually hides.",reproduction:"You are propagating your assumptions along with your pattern.",return:"Leaving well is itself an ethical act, and the one most often skipped."},
+ presence:"Someone has the standing to say \u201cwe should not\u201d and be heard rather than routed around.",
+ pathology:{name:"Externalised cost", body:"The work succeeds by quietly charging someone who never agreed to pay. The books balance because the ledger is incomplete."}},
+{id:"tending", name:"Tending", family:"continuity", perennial:true,
+ practices:"facilitation · care · mutual support · group health",
+ question:"Is the group carrying this still whole?",
+ arc:{seed:"support",germination:"lead",flowering:"support",fruiting:"lead",reproduction:"support",return:"lead"},
+ notes:{seed:"Two people with an idea are already a relationship that can be spent or kept.",germination:"This is where groups break: under the first sustained, unglamorous effort.",flowering:"Visibility raises the emotional stakes for everyone involved.",fruiting:"Harvest exhausts people. A yield taken from depleted ground is borrowed, not earned.",reproduction:"Teaching is tiring in a way that building is not.",return:"Endings need holding as much as beginnings do, and are far more often mishandled."},
+ presence:"When a person goes quiet, someone notices and follows up.",
+ pathology:{name:"Burn-through", body:"The work continues and the people are replaced. Capacity looks stable on paper while knowledge, trust, and goodwill drain out continuously."}},
+{id:"memory", name:"Memory", family:"continuity", perennial:true,
+ practices:"documentation · archive · records · the commonplace",
+ question:"Will this be legible to whoever comes next: including us, later?",
+ arc:{seed:"support",germination:"support",flowering:"support",fruiting:"support",reproduction:"lead",return:"lead"},
+ notes:{seed:"The first note is the first artefact. Ideas never written down were never had.",germination:"Decisions are cheap to record and ruinously expensive to reconstruct.",flowering:"Capture what arrival taught you, while it still surprises you.",fruiting:"The record of exchange is the record of value, and later, of who is owed.",reproduction:"What propagates is what was written down. Nothing else travels.",return:"The archive is the part that actually returns to the commons."},
+ presence:"A new contributor can reconstruct why, not merely what.",
+ pathology:{name:"Oral tradition with turnover", body:"Everything important lives in a few people's heads, so every departure is an amputation and every question is asked for the third time."}}
+];
+
+/* ---------------- THE ROLE LAYER ----------------
+   Every role names one home intelligence: the question it is
+   actually accountable for, and the intelligences it reaches into
+   without owning. "limit" is the honest part: what a title does not
+   carry, however senior it sounds.
+------------------------------------------------- */
+const CLUSTERS = [
+  {id:"research-design", name:"Research & design"},
+  {id:"product-delivery", name:"Product & delivery"},
+  {id:"engineering-data", name:"Engineering & data"},
+  {id:"growth-revenue",  name:"Growth & revenue"},
+  {id:"finance-legal",   name:"Finance & legal"},
+  {id:"people-governance", name:"People & governance"},
+  {id:"leadership",      name:"Leadership & generalists"}
+];
+
+const R = [
+/* --- research & design --- */
+{id:"ux-researcher", name:"UX Researcher", cluster:"research-design", home:"inquiry", also:["form","evidence"],
+ relates:"Turns Inquiry from an opinion into a method: recruits real people, runs the study, and reports what was heard rather than what was hoped.",
+ limit:"Finds out what is wanted. Does not decide what gets made, that is Direction, and confusing the two is how research becomes a veto nobody trusts."},
+{id:"market-analyst", name:"Market Analyst", cluster:"research-design", home:"inquiry", also:["reach","evidence"],
+ relates:"Carries Inquiry at the level of the field rather than the person: who else is doing this, who is paying for it, and where the gap actually sits.",
+ limit:"Sizes a market. Cannot tell you whether any individual will use the thing, which is why it pairs badly with research absent rather than alongside."},
+{id:"product-designer", name:"Product Designer", cluster:"research-design", home:"form", also:["inquiry","direction"],
+ relates:"Holds Form where it is hardest: deciding what the thing structurally is, not merely how its surfaces look.",
+ limit:"Shapes the thing. Does not own the sequence in which it ships, though the two get conflated on small teams constantly."},
+{id:"ux-ui-designer", name:"UX / UI Designer", cluster:"research-design", home:"form", also:["inquiry"],
+ relates:"Carries Form at the surface: the flows, states, and details where coherence is either kept or quietly lost.",
+ limit:"Owns the interface, not the system behind it. Where nobody holds Form at the structural level, this role inherits an incoherence it cannot fix."},
+{id:"brand-designer", name:"Brand Designer", cluster:"research-design", home:"form", also:["voice","reach"],
+ relates:"Holds Form as identity: the visual argument for what this is and who it is for, before anyone reads a word.",
+ limit:"Makes the thing recognisable. Cannot make it wanted; a strong identity on an unwanted product just makes the failure legible."},
+{id:"design-systems", name:"Design Systems Lead", cluster:"research-design", home:"form", also:["making","memory"],
+ relates:"Carries Form into Reproduction: turns settled decisions into components others can inherit without asking.",
+ limit:"Encodes decisions. Does not make them, a system built before the form is settled hardens the wrong answer."},
+{id:"content-strategist", name:"Content Strategist", cluster:"research-design", home:"voice", also:["form","reach"],
+ relates:"Holds Voice as structure: what gets said, where, in what order, and in whose words.",
+ limit:"Shapes the message. Does not own whether the thing is worth describing."},
+{id:"copywriter", name:"Copywriter", cluster:"research-design", home:"voice", also:["reach"],
+ relates:"Carries Voice at the sentence: the level where an idea either lands with a stranger or does not.",
+ limit:"Writes the words. Where Voice is unheld structurally, good copy papers over a story nobody agreed on."},
+{id:"technical-writer", name:"Technical Writer", cluster:"research-design", home:"memory", also:["voice"],
+ relates:"Carries Memory in the form most likely to survive: documentation someone can act on without the author present.",
+ limit:"Records what is. Cannot record decisions that were never made explicitly, which is where most documentation gaps actually originate."},
+
+/* --- product & delivery --- */
+{id:"product-manager", name:"Product Manager", cluster:"product-delivery", home:"direction", also:["inquiry","evidence","exchange"],
+ relates:"Holds Direction as its full weight: not the roadmap but the refusals, and the willingness to be the person who said not now.",
+ limit:"Reaches into nearly everything, owns one thing. A PM held accountable for Making, Reach, and Tending as well is a PM about to hold none of them."},
+{id:"program-manager", name:"Program Manager", cluster:"product-delivery", home:"operations", also:["direction","tending"],
+ relates:"Carries Operations across several bodies of work at once, the rhythm, the dependencies, the things that fall between teams.",
+ limit:"Runs the machine. Does not set what the machine is for."},
+{id:"project-manager", name:"Project Manager / Delivery Lead", cluster:"product-delivery", home:"operations", also:["tending","direction"],
+ relates:"Holds Operations at the scale of one effort: the schedule, the handoffs, the unglamorous follow-through.",
+ limit:"Delivers what was decided. Where Direction is unheld, this role becomes the person who ships the wrong thing efficiently."},
+{id:"business-analyst", name:"Business Analyst", cluster:"product-delivery", home:"evidence", also:["direction","reckoning"],
+ relates:"Carries Evidence toward decisions: turns process and numbers into something a choice can rest on.",
+ limit:"Describes what is happening. Does not choose what should."},
+{id:"scrum-master", name:"Facilitator / Scrum Master", cluster:"product-delivery", home:"tending", also:["operations"],
+ relates:"Holds Tending in its procedural form: the meeting that works, the conflict surfaced early, the person given room to speak.",
+ limit:"Protects the process. Cannot substitute for care that nobody feels; ceremony without Tending held genuinely is theatre."},
+
+/* --- engineering & data --- */
+{id:"software-engineer", name:"Software Engineer", cluster:"engineering-data", home:"making", also:["integrity"],
+ relates:"Carries Making directly: the structure that either holds or does not, long after the demo.",
+ limit:"Builds it. Does not decide whether it should exist, and is poorly served by being the only person in the room when that question arrives."},
+{id:"frontend-engineer", name:"Frontend Engineer", cluster:"engineering-data", home:"making", also:["form","integrity"],
+ relates:"Holds Making at the boundary with Form, where design intent either survives implementation or quietly erodes.",
+ limit:"Implements the surface. Where Form is unheld, inherits a thousand small decisions no one is accountable for."},
+{id:"backend-engineer", name:"Backend / Platform Engineer", cluster:"engineering-data", home:"making", also:["operations","integrity"],
+ relates:"Carries Making where it is least visible and hardest to change: the structure everything else stands on.",
+ limit:"Builds the foundation. Cannot make load-bearing decisions about what the foundation is for."},
+{id:"architect", name:"Architect / Principal Engineer", cluster:"engineering-data", home:"making", also:["integrity","memory","form"],
+ relates:"Holds Making across time: the decisions that will still be constraining the work in three years, written down before they bind.",
+ limit:"Owns technical coherence. Not organisational coherence, though the two failures look identical from a distance."},
+{id:"engineering-manager", name:"Engineering Manager", cluster:"engineering-data", home:"tending", also:["making","direction","operations"],
+ relates:"The role most often mis-filed. Its home is Tending, the health of the people building, with Making as reach, not the reverse.",
+ limit:"Where this role is measured on output alone, Tending goes unheld and the team's decline is invisible until it is a resignation."},
+{id:"qa-engineer", name:"QA Engineer", cluster:"engineering-data", home:"integrity", also:["evidence"],
+ relates:"Carries Integrity as practice: finds the failure before a user does, and is valued for bad news.",
+ limit:"Finds defects. Cannot create a culture that wants to hear about them."},
+{id:"security-engineer", name:"Security Engineer", cluster:"engineering-data", home:"integrity", also:["lawfulness","conscience"],
+ relates:"Holds Integrity against bad faith specifically: the failure mode that is chosen rather than stumbled into.",
+ limit:"Defends the system. Cannot decide the organisation's appetite for risk; that is Governance."},
+{id:"sre-devops", name:"SRE / DevOps", cluster:"engineering-data", home:"operations", also:["integrity","making"],
+ relates:"Carries Operations as the difference between a thing that runs and a thing that is run: automation over heroism.",
+ limit:"Keeps it up. Where Operations is only ever held here, the rest of the team never learns what it costs."},
+{id:"it-admin", name:"IT / Systems Administrator", cluster:"engineering-data", home:"operations", also:["integrity"],
+ relates:"Holds Operations for the organisation itself: the tools, access, and continuity everyone else takes for granted.",
+ limit:"Runs the estate. Invisible when working, blamed when not, which is the signature of an intelligence held without acknowledgement."},
+{id:"data-analyst", name:"Data Analyst", cluster:"engineering-data", home:"evidence", also:["direction"],
+ relates:"Carries Evidence toward the question actually being asked, including when the honest answer is that the data cannot say.",
+ limit:"Reports what is. A dashboard is not a decision, and treating it as one is how Direction quietly goes unheld."},
+{id:"data-engineer", name:"Data Engineer", cluster:"engineering-data", home:"evidence", also:["making","operations"],
+ relates:"Holds Evidence at its foundation, whether the numbers can be trusted before anyone reasons from them.",
+ limit:"Makes measurement possible. Does not choose what is worth measuring."},
+{id:"data-scientist", name:"Data Scientist / ML Engineer", cluster:"engineering-data", home:"evidence", also:["making","conscience"],
+ relates:"Carries Evidence into inference, and, uniquely, into Conscience, since a model encodes assumptions about people at scale.",
+ limit:"Models the world. The reach into Conscience is real but rarely resourced, and unheld it becomes the project's largest unexamined risk."},
+
+/* --- growth & revenue --- */
+{id:"growth-marketer", name:"Growth Marketer", cluster:"growth-revenue", home:"reach", also:["evidence","exchange"],
+ relates:"Holds Reach experimentally: finds the channels that work by testing rather than asserting.",
+ limit:"Finds people. Cannot make the thing worth finding, and growth applied to an unheld Form only accelerates churn."},
+{id:"product-marketer", name:"Product Marketing Manager", cluster:"growth-revenue", home:"reach", also:["voice","direction","inquiry"],
+ relates:"Carries Reach at the join with Voice, positioning: what this is, who it is for, and why it is different, in words that travel.",
+ limit:"Positions the thing. Does not change the thing, though positioning failures are very often product failures wearing a disguise."},
+{id:"seo-content", name:"SEO / Content Marketer", cluster:"growth-revenue", home:"reach", also:["voice","evidence"],
+ relates:"Holds Reach through discoverability: being findable at the moment someone is already looking.",
+ limit:"Captures existing demand. Does not create it."},
+{id:"comms-pr", name:"Communications / PR Manager", cluster:"growth-revenue", home:"voice", also:["gathering","conscience","reach"],
+ relates:"Carries Voice outward under scrutiny, including when the news is bad and the account still has to be honest.",
+ limit:"Tells the story. Where Conscience is unheld, this role is asked to defend what should have been declined."},
+{id:"account-executive", name:"Account Executive / Sales", cluster:"growth-revenue", home:"exchange", also:["gathering","inquiry"],
+ relates:"Holds Exchange at the point of commitment: willing to ask directly and to hear no without flinching.",
+ limit:"Closes. Cannot make a promise the rest of the work can keep, which is where sales-led damage originates."},
+{id:"partnerships", name:"Partnerships / BD Lead", cluster:"growth-revenue", home:"exchange", also:["lawfulness","gathering","governance"],
+ relates:"Carries Exchange between organisations, where the commitment is structural rather than transactional.",
+ limit:"Opens the relationship. Every partnership is also a governance question, and this role rarely has standing to answer it."},
+{id:"account-manager", name:"Account Manager / Customer Success", cluster:"growth-revenue", home:"gathering", also:["exchange","inquiry","tending"],
+ relates:"Holds Gathering after the commitment, whether the people who said yes are actually held once they have.",
+ limit:"Retains people. Where the thing itself does not deliver, this role absorbs the gap personally until it cannot."},
+{id:"community-manager", name:"Community Manager", cluster:"growth-revenue", home:"gathering", also:["voice","tending"],
+ relates:"Carries Gathering as its own craft: the newcomer's first hour, the norms, the reason people stay.",
+ limit:"Builds the room. Cannot be the only one in it, and a community held by one person is a community with a single point of failure."},
+{id:"devrel", name:"Developer Relations", cluster:"growth-revenue", home:"gathering", also:["voice","memory","reach"],
+ relates:"Holds Gathering and Voice together for a technical audience: the pattern taught rather than pitched.",
+ limit:"Sits between marketing and engineering and is often owned by neither, which makes its home intelligence unusually easy to lose."},
+{id:"support-lead", name:"Support Lead", cluster:"growth-revenue", home:"gathering", also:["evidence","integrity","inquiry"],
+ relates:"Carries Gathering where the friction actually is, and hears the failure reports first.",
+ limit:"Answers the question. Where that signal never reaches Direction, the same question is answered forever."},
+
+/* --- finance & legal --- */
+{id:"bookkeeper", name:"Bookkeeper / Controller", cluster:"finance-legal", home:"reckoning", also:["lawfulness"],
+ relates:"Holds Reckoning as discipline: contribution and cost recorded as they happen rather than reconstructed later.",
+ limit:"Keeps the record straight. Does not decide what the money is for."},
+{id:"finance-lead", name:"Finance Lead / CFO", cluster:"finance-legal", home:"reckoning", also:["direction","governance","evidence"],
+ relates:"Carries Reckoning into decisions, whether the fruit exceeds the tending, and for how much longer it will.",
+ limit:"Names the constraint. Where Reckoning is the only intelligence with standing, every other question becomes a cost line."},
+{id:"pricing-analyst", name:"Pricing / Revenue Analyst", cluster:"finance-legal", home:"reckoning", also:["evidence","exchange"],
+ relates:"Holds Reckoning at the point of exchange, what this is worth, to whom, and what the terms actually earn.",
+ limit:"Sets the number. Cannot set what the number buys."},
+{id:"grant-writer", name:"Fundraiser / Grant Writer", cluster:"finance-legal", home:"exchange", also:["voice","reckoning","conscience"],
+ relates:"Carries Exchange where the commitment is made by an institution, and Voice does most of the persuading.",
+ limit:"Wins the commitment. Restricted funding reshapes Direction quietly, and this role rarely holds the authority to refuse it."},
+{id:"general-counsel", name:"General Counsel / Legal", cluster:"finance-legal", home:"lawfulness", also:["governance","conscience"],
+ relates:"Holds Lawfulness ahead of need: the agreements written while everyone is still friendly.",
+ limit:"Says what is permitted. Does not say what is right; treating legal review as an ethics review leaves Conscience unheld."},
+{id:"contracts", name:"Contracts / Procurement", cluster:"finance-legal", home:"lawfulness", also:["exchange","reckoning"],
+ relates:"Carries Lawfulness at the boundary with Exchange: the terms that make a commitment relyable.",
+ limit:"Papers the deal. Does not judge whether the deal was wise."},
+{id:"compliance", name:"Compliance / Privacy Officer", cluster:"finance-legal", home:"lawfulness", also:["integrity","conscience","memory"],
+ relates:"Holds Lawfulness as ongoing condition rather than one-time filing: the obligations that accrue as the work grows.",
+ limit:"Meets the standard. A standard met is a floor, not a defence, and mistaking one for the other is a common way Conscience goes dark."},
+
+/* --- people & governance --- */
+{id:"hr-partner", name:"People / HR Partner", cluster:"people-governance", home:"tending", also:["governance","lawfulness"],
+ relates:"Carries Tending at organisational scale: capacity, conflict, and whether people are actually alright.",
+ limit:"Holds the people function. Where it reports only to management, the Tending it carries is structurally compromised."},
+{id:"chief-of-staff", name:"Chief of Staff", cluster:"people-governance", home:"tending", also:["direction","memory","operations"],
+ relates:"Holds Tending and Memory for a leadership group, what was decided, who is carrying it, and who is close to spent.",
+ limit:"Derives authority from one person. Vanishes when that person does, along with everything held only informally."},
+{id:"board-director", name:"Board Director", cluster:"people-governance", home:"governance", also:["conscience","reckoning","lawfulness"],
+ relates:"Carries Governance as its formal instrument: the decision rights the organisation actually runs on.",
+ limit:"Governs. Does not operate, and a board that drifts into Operations leaves Governance unheld precisely when it matters."},
+{id:"corporate-secretary", name:"Corporate Secretary / Steward", cluster:"people-governance", home:"memory", also:["governance","lawfulness"],
+ relates:"Holds Memory in its governing form: the minutes, the resolutions, the record of what was actually adopted.",
+ limit:"Keeps the record. Does not make the decisions the record preserves."},
+{id:"trust-safety", name:"Trust & Safety Lead", cluster:"people-governance", home:"conscience", also:["integrity","gathering","governance"],
+ relates:"Carries Conscience operationally, who is being harmed by this working as intended, not by it breaking.",
+ limit:"Names the harm. Needs standing to stop the work, and without it the role documents damage it cannot prevent."},
+{id:"impact-lead", name:"Sustainability / Impact Lead", cluster:"people-governance", home:"conscience", also:["evidence","voice","reckoning"],
+ relates:"Holds Conscience at the level of external cost, what this charges to people and places outside the ledger.",
+ limit:"Measures and reports. Where impact reporting is Voice's asset rather than Conscience's instrument, the role becomes decoration."},
+{id:"knowledge-manager", name:"Knowledge Manager / Archivist", cluster:"people-governance", home:"memory", also:["voice","lawfulness"],
+ relates:"Carries Memory as infrastructure: findable, durable, and legible to someone who was never here.",
+ limit:"Stewards the record. Cannot make a culture write things down."},
+
+/* --- leadership & generalists --- */
+{id:"founder", name:"Founder", cluster:"leadership", home:"direction", also:["conscience","exchange","voice","tending"],
+ relates:"Holds Direction by default and reaches into nearly everything: the widest span in the catalog, and the least sustainable.",
+ limit:"Carrying many intelligences at once is not the same as holding them. The founder's real task is to hand each one to someone whose home it is."},
+{id:"exec-director", name:"Executive Director / CEO", cluster:"leadership", home:"governance", also:["direction","exchange","tending","reckoning"],
+ relates:"Carries Governance as accountability upward and Direction downward, which is why the role is structurally overloaded.",
+ limit:"Where the same person holds Governance and Direction and Reckoning, no one is positioned to contest any of them."},
+{id:"creative-director", name:"Creative Director", cluster:"leadership", home:"form", also:["voice","tending","direction"],
+ relates:"Holds Form at the level of the whole body of work: coherence across everything the studio makes, not one piece.",
+ limit:"Owns coherence. Does not own feasibility, and a vision unheld by Making becomes a standing argument."},
+{id:"generalist", name:"Freelance Generalist / Full-stack", cluster:"leadership", home:"making", also:["form","direction","operations"],
+ relates:"Reaches across several intelligences by necessity: the common condition of small and early work.",
+ limit:"Span is not depth. The honest reading of a solo project is not that every question is held, but that most are being visited."}
+];
+
+/* ---------------- state ---------------- */
+const KEY = "techne:living-intelligences:v1";
+let store = {projects:{}, active:null};
+let season = "germination";
+let held = new Set();
+let roster = new Set();
+let project = "";
+let layer = "intelligences";
+let selectedRole = null;
+let grouping = "cluster"; // cluster | intelligence
+let openPane = null; // {kind:'intel'|'role', id}
+let saveTimer = null;
+
+const $ = s=>document.querySelector(s);
+const seasonOf = id => SEASONS.find(s=>s.id===id);
+const intel = id => C.find(x=>x.id===id);
+const roleOf = id => R.find(x=>x.id===id);
+const cssVar = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+/* coverage derived from the roster */
+function coverage(intelId){
+  let cov = "none";
+  for(const id of roster){
+    const r = roleOf(id); if(!r) continue;
+    if(r.home===intelId) return "home";
+    if(r.also.includes(intelId)) cov = "reach";
+  }
+  return cov;
+}
+/* the season a role's home first leads, its tint through the sunset sweep */
+function peakSeason(r){
+  const h = intel(r.home);
+  const lead = SEASONS.find(se=>h.arc[se.id]==="lead");
+  if(lead) return lead;
+  const sup = SEASONS.find(se=>h.arc[se.id]==="support");
+  return sup || SEASONS[0];
+}
+function roleTint(r){ return `var(${peakSeason(r).tint})`; }
+/* the home intelligence's shape across all six seasons, as markup */
+function microArc(intelId, big){
+  const x = intel(intelId);
+  return `<span class="marc${big?" lg":""}">` + SEASONS.map(se=>{
+    const st = x.arc[se.id];
+    const bg = st==="rest" ? "var(--faint)" : `var(${se.tint})`;
+    const op = st==="rest" ? ".45" : (held.has(intelId) ? "1" : ".5");
+    return `<i class="${st}${se.id===season?" nowsn":""}" style="background:${bg};opacity:${op}"></i>`;
+  }).join("") + `</span>`;
+}
+/* the common names beneath an intelligence in the phenology:
+   rostered homes first (green), then remaining homes tinted by peak season, truncated honestly */
+function commonNames(intelId, max){
+  const homes = R.filter(r=>r.home===intelId);
+  if(!homes.length) return `<span class="cn"><i style="--rt2:var(--faint)">no common role calls this home</i></span>`;
+  const ordered = [...homes].sort((a,b)=>(roster.has(b.id)?1:0)-(roster.has(a.id)?1:0));
+  const shown = ordered.slice(0, max);
+  const parts = shown.map(r=>{
+    const short = r.name.split(" / ")[0].split(": ")[0];
+    return roster.has(r.id) ? `<b>${short}</b>` : `<i style="--rt2:${roleTint(r)}">${short}</i>`;
+  });
+  const more = homes.length - shown.length;
+  return `<span class="cn">${parts.join(" · ")}${more>0?` <span style="color:var(--faint)">+${more}</span>`:""}</span>`;
+}
+function rolesFor(intelId){
+  return {
+    home: R.filter(r=>r.home===intelId),
+    reach: R.filter(r=>r.also.includes(intelId))
+  };
+}
+
+/* ---------------- persistence ---------------- */
+async function load(){
+  try{
+    const r = await window.storage.get(KEY);
+    if(r && r.value){
+      store = JSON.parse(r.value);
+      if(store.active && store.projects[store.active]) restore(store.active);
+    }
+  }catch(e){ /* no reading filed on this device yet */ }
+  renderArchive();
+}
+function queueSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(save, 700); }
+async function save(){
+  const name = project.trim(); if(!name) return;
+  store.projects[name] = {season, held:[...held], roster:[...roster], updated:Date.now()};
+  store.active = name;
+  try{
+    await window.storage.set(KEY, JSON.stringify(store));
+    status("reading filed","ok"); renderArchive();
+  }catch(e){ status("the reading did not file · try again","err"); }
+}
+function restore(name){
+  const p = store.projects[name]; if(!p) return;
+  project = name; season = p.season;
+  held = new Set(p.held||[]); roster = new Set(p.roster||[]);
+  $("#pname").value = name;
+  renderAll();
+}
+function status(msg, kind){
+  const el = $("#formstatus"); if(!el) return;
+  el.textContent = msg; el.className = "form-status " + (kind||"");
+  clearTimeout(el._t); el._t = setTimeout(()=>{el.textContent=""; el.className="form-status";}, 2800);
+}
+
+/* ---------------- season logic ---------------- */
+function seasonClosed(sid){
+  const leads = C.filter(x=>x.arc[sid]==="lead");
+  return leads.length>0 && leads.every(x=>held.has(x.id));
+}
+function scoreSeason(sid){
+  const leads = C.filter(x=>x.arc[sid]==="lead");
+  const sups  = C.filter(x=>x.arc[sid]==="support");
+  const l = leads.length ? leads.filter(x=>held.has(x.id)).length/leads.length : 0;
+  const s = sups.length  ? sups.filter(x=>held.has(x.id)).length/sups.length : 0;
+  return l*0.72 + s*0.28;
+}
+
+/* ---------------- side rail ---------------- */
+function renderSeasons(){
+  const host = $("#seasonpick"); host.innerHTML = "";
+  SEASONS.forEach(s=>{
+    const b = document.createElement("button");
+    b.type="button";
+    b.innerHTML = `<span class="sw" style="background:var(${s.tint})"></span><span class="num">${s.n}</span>${s.name.toLowerCase()}`;
+    b.setAttribute("aria-pressed", s.id===season);
+    b.onclick = ()=>{ season = s.id; renderAll(); if(openPane) renderDrawer(); queueSave(); };
+    host.appendChild(b);
+  });
+  $("#seasongloss").textContent = seasonOf(season).gloss;
+}
+
+function renderVerdict(){
+  const s = seasonOf(season);
+  const label = project.trim() || "This work";
+  const calls = C.filter(x=>x.arc[season]!=="rest" && !held.has(x.id));
+  const leadCalls = calls.filter(x=>x.arc[season]==="lead");
+  const lit = C.filter(x=>held.has(x.id) && x.arc[season]!=="rest");
+  const resting = C.filter(x=>x.arc[season]==="rest" && !held.has(x.id));
+  const asked = C.filter(x=>x.arc[season]!=="rest").length;
+
+  if(layer==="roles"){
+    const inSeason = C.filter(x=>x.arc[season]!=="rest");
+    const covHome = inSeason.filter(x=>coverage(x.id)==="home");
+    const covReach = inSeason.filter(x=>coverage(x.id)==="reach");
+    const uncov = inSeason.filter(x=>coverage(x.id)==="none");
+    const staffedUnheld = covHome.filter(x=>!held.has(x.id));
+    let v, sub;
+    if(roster.size===0){
+      v = `No roles are on the roster yet.`;
+      sub = `Mark the roles actually present below. The disc will show which questions have someone whose home they are.`;
+    }else if(uncov.length===0 && staffedUnheld.length===0){
+      v = `Every question this season asks has someone whose home it is, and each is held.`;
+      sub = `Coverage and attention agree: the rarest reading in the catalog.`;
+    }else{
+      v = staffedUnheld.length
+        ? `<b>${staffedUnheld.length}</b> question${staffedUnheld.length>1?"s are":" is"} staffed but unheld.`
+        : `<b>${uncov.length}</b> question${uncov.length>1?"s have":" has"} nobody whose home it is.`;
+      sub = staffedUnheld.length
+        ? `Someone's home sits here: ${staffedUnheld.map(x=>x.name).join(", ")}, and nobody has marked it carried. A title is not attention.`
+        : `Uncovered this season: ${uncov.map(x=>x.name).join(", ")}. These are the roles worth inviting.`;
+    }
+    $("#verdict").innerHTML = v;
+    $("#verdictsub").textContent = sub;
+    $("#sidecount").innerHTML =
+      `<span><b>${roster.size}</b> on roster</span>` +
+      `<span><b>${covHome.length}</b> home-covered</span>` +
+      `<span><b>${covReach.length}</b> reach only</span>` +
+      `<span><b>${uncov.length}</b> uncovered</span>`;
+    return;
+  }
+
+  let verdict, sub;
+  if(held.size===0){
+    verdict = `Nothing is marked as held yet.`;
+    sub = `Mark below the questions someone is genuinely carrying. The reading is only as honest as the marks.`;
+  }else{
+    const ranked = SID.map(id=>({id, v:scoreSeason(id)})).sort((a,b)=>b.v-a.v);
+    const reads = ranked[0]; const declared = scoreSeason(season);
+    if(reads.id===season || reads.v - declared < 0.06){
+      verdict = `${esc(label)} declares <b>${s.name}</b>, and reads as ${s.name.toLowerCase()}.`;
+      sub = leadCalls.length
+        ? `${leadCalls.length} leading question${leadCalls.length>1?"s":""} still unheld: ${leadCalls.map(x=>x.name).join(", ")}.`
+        : `Every question that leads this season is held.`;
+    }else{
+      const r = seasonOf(reads.id);
+      const di = SID.indexOf(season), ri = SID.indexOf(reads.id);
+      verdict = `${esc(label)} declares ${s.name}, but reads as <b>${r.name}</b>.`;
+      sub = ri < di
+        ? `The held questions belong to an earlier season: the declared season was reached before its groundwork.`
+        : `The held questions run ahead of the declared season.`;
+    }
+  }
+  $("#verdict").innerHTML = verdict;
+  $("#verdictsub").textContent = sub;
+  $("#sidecount").innerHTML =
+    `<span><b>${lit.length}</b>/${asked} held in season</span>` +
+    `<span><b>${calls.length}</b> open calls</span>` +
+    `<span><b>${resting.length}</b> at rest</span>`;
+}
+
+function renderArchive(){
+  const host = $("#archive"); if(!host) return;
+  const names = Object.keys(store.projects||{}).sort((a,b)=>store.projects[b].updated-store.projects[a].updated);
+  host.innerHTML = names.length ? `<span class="lbl">filed</span>` : "";
+  names.forEach(n=>{
+    const b = document.createElement("button");
+    b.className="chipbtn"; b.type="button";
+    b.textContent = `${n} · ${seasonOf(store.projects[n].season).name.toLowerCase()}`;
+    b.onclick = ()=>restore(n);
+    host.appendChild(b);
+  });
+}
+
+function copyReading(){
+  const s = seasonOf(season);
+  const calls = C.filter(x=>x.arc[season]!=="rest" && !held.has(x.id));
+  const lit   = C.filter(x=>held.has(x.id));
+  const rest  = C.filter(x=>x.arc[season]==="rest" && !held.has(x.id));
+  const ros   = [...roster].map(id=>roleOf(id)).filter(Boolean);
+  const uncov = C.filter(x=>x.arc[season]!=="rest" && coverage(x.id)==="none");
+  const t = [
+    `${project.trim()||"Untitled work"} · catalog of living intelligences`,
+    `Season: ${s.name}: ${s.gloss}`,
+    ``,
+    `HELD (${lit.length})`, ...(lit.length?lit.map(x=>`  ${x.name}: ${x.question}`):["  none"]),
+    ``,
+    `OPEN CALLS (${calls.length})`, ...(calls.length?calls.map(x=>`  ${x.name} [${x.arc[season]}]: ${x.question}`):["  none"]),
+    ``,
+    `AT REST (${rest.length})`, ...(rest.length?rest.map(x=>`  ${x.name}`):["  none"]),
+    ``,
+    `ROSTER (${ros.length})`, ...(ros.length?ros.map(r=>`  ${r.name}: home: ${intel(r.home).name}`):["  none"]),
+    ``,
+    `UNCOVERED THIS SEASON (${uncov.length})`, ...(uncov.length?uncov.map(x=>`  ${x.name}`):["  none"])
+  ].join("\n");
+  navigator.clipboard.writeText(t).then(()=>status("reading copied","ok"), ()=>status("the browser blocked the copy","err"));
+}
+
+/* ---------------- THE DISC ---------------- */
+const TAU = Math.PI*2;
+function polar(cx,cy,r,a){ return [cx + r*Math.cos(a), cy + r*Math.sin(a)]; }
+function arcPath(cx,cy,r0,r1,a0,a1){
+  const large=(a1-a0)>Math.PI?1:0;
+  const [x0,y0]=polar(cx,cy,r1,a0),[x1,y1]=polar(cx,cy,r1,a1);
+  const [x2,y2]=polar(cx,cy,r0,a1),[x3,y3]=polar(cx,cy,r0,a0);
+  return `M${x0.toFixed(2)},${y0.toFixed(2)} A${r1},${r1} 0 ${large} 1 ${x1.toFixed(2)},${y1.toFixed(2)} L${x2.toFixed(2)},${y2.toFixed(2)} A${r0},${r0} 0 ${large} 0 ${x3.toFixed(2)},${y3.toFixed(2)} Z`;
+}
+function ringArc(cx,cy,r,a0,a1){
+  const large=(a1-a0)>Math.PI?1:0;
+  const [x0,y0]=polar(cx,cy,r,a0),[x1,y1]=polar(cx,cy,r,a1);
+  return `M${x0.toFixed(2)},${y0.toFixed(2)} A${r},${r} 0 ${large} 1 ${x1.toFixed(2)},${y1.toFixed(2)}`;
+}
+
+function renderDisc(){
+  const svg = $("#disc");
+  const W=900,H=900,cx=W/2,cy=H/2;
+  const narrow = window.matchMedia("(max-width:640px)").matches;
+  const tv = document.documentElement.getAttribute("data-tv")==="on";
+  const rHeart=84, ringT= narrow ? 58 : 50, ringGap=3;
+  const r0 = rHeart+18, rOut = r0 + 6*ringT;
+  const labelR = rOut + (narrow ? 26 : 42);
+
+  const line=cssVar("--line"), ruleC=cssVar("--rule"), faint=cssVar("--faint"),
+        mutedC=cssVar("--muted"), headingC=cssVar("--heading"), inset=cssVar("--inset"),
+        blue=cssVar("--blue"), ember=cssVar("--ember"), emberT=cssVar("--ember-text"),
+        okC=cssVar("--ok"), infoC=cssVar("--info");
+
+  const gapA=0.035;
+  const secA=(TAU - FAMILIES.length*gapA)/C.length;
+  const start=-Math.PI/2;
+  const angles={}; let a=start;
+  FAMILIES.forEach(f=>{
+    const members=C.filter(x=>x.family===f.id); const fs=a;
+    members.forEach(x=>{ angles[x.id]=[a,a+secA]; a+=secA; });
+    f._arc=[fs,a]; a+=gapA;
+  });
+
+  const nowIdx = SID.indexOf(season);
+  const sel = selectedRole ? roleOf(selectedRole) : null;
+  const inFocus = id => !sel ? true : (sel.home===id || sel.also.includes(id));
+
+  let s = "";
+  s += `<circle cx="${cx}" cy="${cy}" r="${rOut}" fill="${inset}"/>`;
+
+  SEASONS.forEach((se,i)=>{
+    if(i!==nowIdx) return;
+    const ri=r0+i*ringT, ro=ri+ringT-ringGap;
+    s += `<path d="${arcPath(cx,cy,ri,ro,start,start+TAU-0.0001)}" fill="var(${se.tint})" opacity="0.06"/>`;
+  });
+
+  C.forEach(x=>{
+    const [a0,a1]=angles[x.id];
+    const isHeld = held.has(x.id);
+    const focus = inFocus(x.id);
+    const isHome = sel && sel.home===x.id;
+    const dim = !sel ? 1 : (isHome ? 1 : (focus ? 0.62 : 0.10));
+    const boost = sel && focus;
+    SEASONS.forEach((se,i)=>{
+      const st=x.arc[se.id];
+      const ri=r0+i*ringT, ro=ri+ringT-ringGap, mid=(ri+ro)/2, pad=0.006;
+      const baseOp = isHeld ? 0.95 : (boost ? 0.72 : 0.20);
+      const supOp  = isHeld ? 0.90 : (boost ? 0.66 : 0.18);
+      if(st==="lead"){
+        s += `<path d="${arcPath(cx,cy,ri+3,ro-3,a0+pad,a1-pad)}" fill="var(${se.tint})" opacity="${(baseOp*dim).toFixed(3)}"/>`;
+      }else if(st==="support"){
+        s += `<path d="${arcPath(cx,cy,mid-4,mid+4,a0+pad,a1-pad)}" fill="var(${se.tint})" opacity="${(supOp*dim).toFixed(3)}"/>`;
+      }else{
+        s += `<path d="${ringArc(cx,cy,mid,a0+pad,a1-pad)}" fill="none" stroke="${faint}" stroke-width="1" opacity="${(0.35*dim).toFixed(3)}"/>`;
+      }
+    });
+    if(sel && focus){
+      const isHome = sel.home===x.id;
+      s += `<path d="${arcPath(cx,cy,r0-2,rOut+2,a0+0.004,a1-0.004)}" fill="none" stroke="${isHome?blue:mutedC}" stroke-width="${isHome?1.6:1}" opacity="${isHome?0.95:0.5}" ${isHome?"":'stroke-dasharray="4 4"'}/>`;
+    }
+  });
+
+  for(let i=1;i<=6;i++){
+    const r=r0+i*ringT-ringGap/2;
+    const prevClosed=seasonClosed(SID[i-1]);
+    const isFrontier=(i-1)===nowIdx;
+    let stroke=line, dash="", op=0.6, w=1;
+    if(prevClosed){ stroke=ruleC; op=0.9; w=1.4; }
+    if(isFrontier){ stroke=blue; dash=`stroke-dasharray="5 5"`; op=0.8; w=1.4; }
+    s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${stroke}" stroke-width="${w}" opacity="${op}" ${dash}/>`;
+  }
+
+  C.filter(x=>x.perennial).forEach(x=>{
+    const [a0,a1]=angles[x.id]; const am=(a0+a1)/2;
+    const [x0,y0]=polar(cx,cy,rHeart+6,am), [x1,y1]=polar(cx,cy,rOut+8,am);
+    const dim = sel && !inFocus(x.id) ? 0.15 : 0.5;
+    s += `<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="${ember}" stroke-width="1" opacity="${dim}"/>`;
+  });
+
+  /* coverage caps on the cambium: role layer only */
+  if(layer==="roles"){
+    C.forEach(x=>{
+      const [a0,a1]=angles[x.id];
+      const cov = coverage(x.id);
+      if(cov==="none") return;
+      const r = rOut + 5;
+      s += `<path d="${ringArc(cx,cy,r,a0+0.012,a1-0.012)}" fill="none" stroke="${cov==="home"?okC:infoC}" stroke-width="${cov==="home"?4:2}" opacity="${sel && !inFocus(x.id) ? 0.2 : 0.9}" stroke-linecap="butt"/>`;
+    });
+  }
+
+  FAMILIES.forEach(f=>{
+    const [fa0,fa1]=f._arc;
+    s += `<path d="${ringArc(cx,cy,rOut+(layer==="roles"?13:8),fa0+0.01,fa1-0.01)}" fill="none" stroke="${ember}" stroke-width="1.6" opacity="0.5"/>`;
+    const am=(fa0+fa1)/2; const [tx,ty]=polar(cx,cy,labelR+(narrow?14:16),am);
+    const deg=am*180/Math.PI; const flip=(deg>90||deg<-90)?180:0;
+    s += `<text x="${tx}" y="${ty}" class="svgt" font-size="${narrow?16:(tv?15:10)}" letter-spacing="${narrow?3:2}" fill="${emberT}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${deg+90+flip} ${tx} ${ty})">${f.name.toUpperCase()}</text>`;
+  });
+
+  C.forEach(x=>{
+    const [a0,a1]=angles[x.id]; const am=(a0+a1)/2;
+    const [tx,ty]=polar(cx,cy,labelR-14,am);
+    const deg=am*180/Math.PI; const flip=(deg>90||deg<-90)?180:0;
+    const focus=inFocus(x.id);
+    const fill = !focus ? faint : (held.has(x.id) ? headingC : mutedC);
+    s += `<g class="sector-hit" data-id="${x.id}" tabindex="0" role="button" aria-label="${x.name}: ${x.question}">`;
+    s += `<path d="${arcPath(cx,cy,r0,rOut,a0,a1)}" fill="transparent"/>`;
+    if(!narrow){
+      s += `<text x="${tx}" y="${ty}" class="svgt" font-size="${tv?14.5:10.5}" fill="${fill}" text-anchor="middle" dominant-baseline="middle" transform="rotate(${deg+90+flip} ${tx} ${ty})">${x.name}</text>`;
+    }else if(held.has(x.id) || (sel && focus)){
+      const [dx,dy]=polar(cx,cy,rOut-16,am);
+      s += `<circle cx="${dx}" cy="${dy}" r="4" fill="${fill}" opacity="0.9"/>`;
+    }
+    s += `</g>`;
+  });
+
+  SEASONS.forEach((se,i)=>{
+    const r=r0+i*ringT+(ringT-ringGap)/2;
+    s += `<text x="${cx}" y="${cy-r+(narrow?5:4)}" class="svgt" font-size="${narrow?12:(tv?12.5:8.5)}" letter-spacing="1.5" fill="${i===nowIdx?headingC:faint}" text-anchor="middle">${se.n.toUpperCase()} · ${se.name.toUpperCase()}</text>`;
+  });
+
+  s += `<circle cx="${cx}" cy="${cy}" r="${rHeart}" fill="${cssVar('--surface')}" stroke="${ruleC}" stroke-width="1"/>`;
+  if(sel){
+    const nm = sel.name.length>18 ? sel.name.slice(0,17)+"…" : sel.name;
+    s += `<text x="${cx}" y="${cy-14}" class="svgt" font-size="${tv?12:8.5}" letter-spacing="1.6" fill="${faint}" text-anchor="middle">ROLE</text>`;
+    s += `<text x="${cx}" y="${cy+4}" class="heartname" font-size="${tv?18:13}" fill="${headingC}" text-anchor="middle">${esc(nm)}</text>`;
+    const pk = peakSeason(sel);
+    s += `<text x="${cx}" y="${cy+24}" class="svgt" font-size="${tv?12:8.5}" letter-spacing="1.4" fill="${cssVar(pk.tint)}" text-anchor="middle">HOME · ${intel(sel.home).name.toUpperCase()}</text>`;
+    s += `<text x="${cx}" y="${cy+40}" class="svgt" font-size="${tv?11:7.5}" letter-spacing="1.4" fill="${faint}" text-anchor="middle">+ ${sel.also.length} REACH</text>`;
+  }else{
+    const heartName = project.trim() || "the seed";
+    const shortName = heartName.length>16 ? heartName.slice(0,15)+"…" : heartName;
+    s += `<text x="${cx}" y="${cy-6}" class="heartname" font-size="${narrow?22:(tv?24:17)}" fill="${headingC}" text-anchor="middle">${esc(shortName)}</text>`;
+    s += `<text x="${cx}" y="${cy+16}" class="svgt" font-size="${narrow?11:(tv?12:8.5)}" letter-spacing="1.5" fill="${faint}" text-anchor="middle">DECLARES ${seasonOf(season).name.toUpperCase()}</text>`;
+  }
+
+  svg.innerHTML = s;
+  svg.querySelectorAll(".sector-hit").forEach(g=>{
+    const id=g.getAttribute("data-id");
+    g.addEventListener("click", ()=>openIntel(id));
+    g.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openIntel(id); } });
+  });
+}
+
+/* ---------------- lower pane ---------------- */
+function renderLower(){
+  const host = $("#lowerpane");
+  if(layer==="roles"){
+    $("#gridaddr").textContent = "§2 · The roster · every role carries the shape of its home intelligence";
+    $("#gridhint").textContent = "the mark rosters a role · the name opens its card and lights its reach on the disc";
+    host.innerHTML = `<div class="roster" id="rosterbox"></div>`;
+    const box = $("#rosterbox");
+
+    const bar = document.createElement("div"); bar.className = "rosterbar";
+    bar.innerHTML = `
+      <div class="groupswitch" role="group" aria-label="Group roles by">
+        <button type="button" id="grp-cl" aria-pressed="${grouping==="cluster"}">by practice</button>
+        <button type="button" id="grp-in" aria-pressed="${grouping==="intelligence"}">by intelligence</button>
+      </div>
+      <div class="lg">
+        <span>edge tint · the season its home leads</span>
+        <span>bars · its home across the six seasons</span>
+        <span><i style="background:var(--ok)"></i>rostered</span>
+      </div>`;
+    box.appendChild(bar);
+
+    const makeChip = (r, showHome)=>{
+      const c = document.createElement("div");
+      c.className = "rolechip" + (roster.has(r.id)?" on":"") + (selectedRole===r.id?" sel":"");
+      c.style.setProperty("--rt", roleTint(r));
+      const mk = document.createElement("button");
+      mk.className="mk"; mk.type="button";
+      mk.setAttribute("aria-pressed", roster.has(r.id));
+      mk.setAttribute("aria-label",(roster.has(r.id)?"Remove ":"Add ")+r.name+" to the roster");
+      mk.onclick = ()=>{ roster.has(r.id)?roster.delete(r.id):roster.add(r.id); renderAll(); queueSave(); };
+      const nm = document.createElement("button");
+      nm.className="nm"; nm.type="button";
+      nm.innerHTML = `<span class="rn">${r.name}</span>` +
+        (showHome ? `<span class="hm">${intel(r.home).name}</span>` : microArc(r.home));
+      nm.onclick = ()=>{
+        if(selectedRole===r.id){ selectedRole=null; closeDrawer(); }
+        else { selectedRole=r.id; openRole(r.id); }
+        renderAll();
+      };
+      c.appendChild(mk); c.appendChild(nm);
+      return c;
+    };
+
+    if(grouping==="cluster"){
+      CLUSTERS.forEach(cl=>{
+        const wrap=document.createElement("div"); wrap.className="clusterrow";
+        const lbl=document.createElement("div"); lbl.className="clusterlbl"; lbl.textContent=cl.name;
+        wrap.appendChild(lbl);
+        const chips=document.createElement("div"); chips.className="rolechips";
+        R.filter(r=>r.cluster===cl.id).forEach(r=>chips.appendChild(makeChip(r,true)));
+        wrap.appendChild(chips); box.appendChild(wrap);
+      });
+    }else{
+      FAMILIES.forEach(fam=>{
+        const fl=document.createElement("div"); fl.className="clusterlbl";
+        fl.textContent=fam.name; fl.style.marginTop="var(--s4)";
+        box.appendChild(fl);
+        C.filter(x=>x.family===fam.id).forEach(x=>{
+          const wrap=document.createElement("div"); wrap.className="clusterrow";
+          const homes=R.filter(r=>r.home===x.id);
+          const cov=coverage(x.id);
+          const covChip = cov==="home" ? `<span class="chip ratified">home-covered</span>`
+                        : cov==="reach" ? `<span class="chip drafted">reach only</span>`
+                        : `<span class="chip open">uncovered</span>`;
+          const lbl=document.createElement("div"); lbl.className="intlbl";
+          lbl.style.setProperty("--gt", `var(${(SEASONS.find(se=>x.arc[se.id]==="lead")||SEASONS[0]).tint})`);
+          lbl.innerHTML = `<span class="nm">${x.name}${x.perennial?' <span class="peren">◈</span>':""}</span>` +
+                          microArc(x.id, true) + covChip +
+                          `<span class="q">${x.question}</span>`;
+          lbl.style.cursor="pointer";
+          lbl.onclick=()=>openIntel(x.id);
+          wrap.appendChild(lbl);
+          const chips=document.createElement("div"); chips.className="rolechips";
+          if(homes.length){ homes.forEach(r=>chips.appendChild(makeChip(r,false))); }
+          else{
+            const e=document.createElement("span");
+            e.style.cssText="font-size:.78rem;color:var(--faint);font-style:italic";
+            e.textContent="No role in the catalog calls this home.";
+            chips.appendChild(e);
+          }
+          wrap.appendChild(chips); box.appendChild(wrap);
+        });
+      });
+    }
+
+    $("#grp-cl").onclick = ()=>{ grouping="cluster"; renderLower(); };
+    $("#grp-in").onclick = ()=>{ grouping="intelligence"; renderLower(); };
+    return;
+  }
+
+  $("#gridaddr").textContent = "§2 · The phenology · the working surface";
+  $("#gridhint").textContent = "the mark holds a question · beneath each, the roles that commonly carry it: green when rostered";
+  host.innerHTML = `<div class="chart" id="chart"></div>`;
+  const chart = $("#chart");
+
+  const axis = document.createElement("div"); axis.className="axis";
+  axis.innerHTML = `<div class="corner">intelligence</div>`;
+  SEASONS.forEach(se=>{
+    const c=document.createElement("div");
+    c.className="col"+(se.id===season?" now":"");
+    c.innerHTML=`<span class="n">${se.n}</span><span class="s">${se.name}</span>`;
+    axis.appendChild(c);
+  });
+  chart.appendChild(axis);
+
+  FAMILIES.forEach(fam=>{
+    const band=document.createElement("div"); band.className="famrow";
+    band.innerHTML=`<div class="lbl">${fam.name}</div><div class="sp"></div>`;
+    chart.appendChild(band);
+    C.filter(x=>x.family===fam.id).forEach(x=>{
+      const row=document.createElement("div");
+      row.className="row"+(held.has(x.id)?" held":"");
+      const rail=document.createElement("div"); rail.className="rail";
+      const bud=document.createElement("button");
+      bud.className="bud"; bud.type="button";
+      bud.setAttribute("aria-pressed",held.has(x.id));
+      bud.setAttribute("aria-label",(held.has(x.id)?"Release ":"Hold ")+x.name);
+      bud.onclick=()=>{ held.has(x.id)?held.delete(x.id):held.add(x.id); renderAll(); queueSave(); };
+      const nm=document.createElement("button");
+      nm.className="rowname"; nm.type="button";
+      nm.innerHTML=`<span class="in">${x.name}${x.perennial?'<span class="peren">◈</span>':""}</span>` + commonNames(x.id, 3);
+      nm.onclick=()=>openIntel(x.id);
+      rail.appendChild(bud); rail.appendChild(nm); row.appendChild(rail);
+      SEASONS.forEach(se=>{
+        const cell=document.createElement("div");
+        cell.className="cell"+(se.id===season?" nowcol":"");
+        const st=x.arc[se.id];
+        const b=document.createElement("div"); b.className="band "+st;
+        if(st!=="rest"){ b.style.background=`var(${se.tint})`; b.style.opacity = held.has(x.id)?"1":".24"; }
+        cell.appendChild(b); row.appendChild(cell);
+      });
+      chart.appendChild(row);
+    });
+  });
+}
+
+/* ---------------- drawer ---------------- */
+let lastFocus = null;
+function openIntel(id){ openPane={kind:"intel",id}; renderDrawer(); showDrawer(); }
+function openRole(id){ openPane={kind:"role",id}; renderDrawer(); showDrawer(); }
+function showDrawer(){
+  if(!$("#drawer").classList.contains("on")) lastFocus = document.activeElement;
+  $("#scrim").classList.add("on");
+  $("#drawer").classList.add("on");
+  document.body.classList.add("locked");
+  const first = $("#drawer").querySelector("button, [href], input, [tabindex]:not([tabindex='-1'])");
+  (first || $("#drawer")).focus({preventScroll:true});
+}
+function closeDrawer(){
+  if(!openPane && !$("#drawer").classList.contains("on")) return;
+  openPane=null;
+  $("#scrim").classList.remove("on");
+  $("#drawer").classList.remove("on");
+  document.body.classList.remove("locked");
+  if(lastFocus && document.contains(lastFocus)){ lastFocus.focus({preventScroll:true}); }
+  lastFocus = null;
+}
+/* keep tab inside the sheet while it is open */
+document.addEventListener("keydown", e=>{
+  if(e.key!=="Tab") return;
+  const d = $("#drawer");
+  if(!d.classList.contains("on")) return;
+  const f = [...d.querySelectorAll("button, [href], input, [tabindex]:not([tabindex='-1'])")]
+              .filter(el=>el.offsetParent!==null);
+  if(!f.length) return;
+  const first=f[0], last=f[f.length-1];
+  if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+});
+/* swipe the sheet down to dismiss */
+(function(){
+  const d = $("#drawer"); let y0=null, dy=0, dragging=false;
+  const isSheet = ()=>window.matchMedia("(max-width:700px)").matches;
+  d.addEventListener("touchstart", e=>{
+    if(!isSheet() || d.scrollTop>0) return;
+    y0 = e.touches[0].clientY; dy=0; dragging=true; d.style.transition="none";
+  }, {passive:true});
+  d.addEventListener("touchmove", e=>{
+    if(!dragging) return;
+    dy = e.touches[0].clientY - y0;
+    if(dy>0) d.style.transform = `translateY(${dy}px)`;
+  }, {passive:true});
+  d.addEventListener("touchend", ()=>{
+    if(!dragging) return;
+    dragging=false; d.style.transition=""; d.style.transform="";
+    if(dy>110){ selectedRole=null; closeDrawer(); renderAll(); }
+  });
+})();
+/* the disc is drawn, not laid out, it has to be told the window changed */
+let rzT=null;
+window.addEventListener("resize", ()=>{
+  clearTimeout(rzT);
+  rzT = setTimeout(()=>{ renderDisc(); markScrollable(); }, 160);
+});
+/* announce a horizontally scrollable pane */
+function markScrollable(){
+  const w = document.querySelector(".scrollwrap"); if(!w) return;
+  const sc = w.querySelector(".scroller"); if(!sc) return;
+  const more = sc.scrollWidth - sc.clientWidth - sc.scrollLeft > 8;
+  w.classList.toggle("more", more);
+}
+
+function renderDrawer(){
+  if(!openPane) return;
+  if(openPane.kind==="intel") return renderIntelDrawer(openPane.id);
+  return renderRoleDrawer(openPane.id);
+}
+
+function renderIntelDrawer(id){
+  const x=intel(id); const fam=FAMILIES.find(f=>f.id===x.family);
+  const isHeld=held.has(x.id); const cov=coverage(x.id); const rf=rolesFor(x.id);
+  const covChip = cov==="home" ? `<span class="chip ratified">home-covered</span>`
+                : cov==="reach" ? `<span class="chip drafted">reach only</span>`
+                : `<span class="chip open">uncovered</span>`;
+  $("#drawer").innerHTML = `
+    <div class="sheetgrab" aria-hidden="true"></div>
+    <button class="close" id="closebtn">close</button>
+    <p class="fam">${fam.name}${x.perennial?" · perennial ◈":""}</p>
+    <h3 id="drawertitle">${x.name}</h3>
+    <p class="prac">${x.practices}</p>
+    <p class="quest">${x.question}</p>
+
+    <h4>Through the seasons</h4>
+    <ul class="def">
+      ${SEASONS.map(se=>{
+        const st=x.arc[se.id];
+        const mark=`<span class="mark ${st}" style="background:${st==="rest"?"var(--faint)":`var(${se.tint})`}"></span>`;
+        const txt=x.notes[se.id]||"At rest. Nothing this season asks of it.";
+        return `<li class="def-row">${mark}<span class="sn ${se.id===season?"now":""}">${se.name}</span><span class="sd ${st==="rest"?"resting":""}">${txt}</span></li>`;
+      }).join("")}
+    </ul>
+
+    <h4>You know it is held when</h4>
+    <p>${x.presence}</p>
+
+    <h4>What its prolonged absence produces</h4>
+    <div class="record"><div class="rh">${x.pathology.name}</div><p class="rb">${x.pathology.body}</p></div>
+
+    <h4>Commonly carried by ${covChip}</h4>
+    <p style="color:var(--muted);font-size:.8rem;font-style:italic;margin-bottom:var(--s3)">Roles whose home this is. Tap one to open its card.</p>
+    <div class="linkchips">
+      ${rf.home.map(r=>`<button class="linkchip home${roster.has(r.id)?" on":""}" data-role="${r.id}" style="border-left:3px solid ${roleTint(r)}">${r.name}</button>`).join("")}
+    </div>
+    ${rf.reach.length?`
+      <h4>Reached into by</h4>
+      <p style="color:var(--muted);font-size:.8rem;font-style:italic;margin-bottom:var(--s3)">These roles touch this question without owning it. Reach is not coverage.</p>
+      <div class="linkchips">
+        ${rf.reach.map(r=>`<button class="linkchip${roster.has(r.id)?" on":""}" data-role="${r.id}" style="border-left:3px solid ${roleTint(r)}">${r.name}</button>`).join("")}
+      </div>`:""}
+
+    <div class="controls" style="margin-top:var(--s5)">
+      <button class="btn ${isHeld?"":"primary"}" id="drawertoggle">${isHeld?"release this question":"mark as held"}</button>
+    </div>`;
+  wireDrawer();
+  $("#drawertoggle").onclick = ()=>{
+    held.has(x.id)?held.delete(x.id):held.add(x.id);
+    renderAll(); renderDrawer(); queueSave();
+  };
+}
+
+function renderRoleDrawer(id){
+  const r=roleOf(id); const home=intel(r.home);
+  const cl=CLUSTERS.find(c=>c.id===r.cluster);
+  const onRoster=roster.has(r.id);
+  const peak=peakSeason(r);
+  const leadsIn = SEASONS.filter(se=>home.arc[se.id]==="lead");
+  const homeHeld = held.has(home.id);
+  const fam = FAMILIES.find(f=>f.id===home.family);
+
+  $("#drawer").innerHTML = `
+    <div class="sheetgrab" aria-hidden="true"></div>
+    <button class="close" id="closebtn">close</button>
+    <p class="fam" style="color:var(${peak.tint})">${cl.name} · role card</p>
+    <h3 id="drawertitle">${r.name}</h3>
+    <p class="prac">peaks in ${peak.name.toLowerCase()} · ${fam.name.toLowerCase()} · ${leadsIn.length?("leads in "+leadsIn.map(x=>x.name.toLowerCase()).join(", ")):"supports throughout"}</p>
+
+    <div class="homecard" style="--ht:var(${peak.tint})">
+      <div class="hh">
+        <span class="hlbl">Home intelligence</span>
+        <span class="hnm">${home.name}${home.perennial?' <span class="peren">◈</span>':""}</span>
+      </div>
+      <p class="hq">${home.question}</p>
+      <div class="harc">${microArc(home.id, true)}<span class="hleg">${SEASONS.map(se=>se.n).join(" · ")}</span></div>
+      <p class="hrel">${r.relates}</p>
+    </div>
+
+    <h4>Its home through the seasons</h4>
+    <ul class="def">
+      ${SEASONS.map(se=>{
+        const st=home.arc[se.id];
+        const mark=`<span class="mark ${st}" style="background:${st==="rest"?"var(--faint)":`var(${se.tint})`}"></span>`;
+        const txt=home.notes[se.id]||"At rest. Nothing this season asks of it.";
+        return `<li class="def-row">${mark}<span class="sn ${se.id===season?"now":""}">${se.name}</span><span class="sd ${st==="rest"?"resting":""}">${txt}</span></li>`;
+      }).join("")}
+    </ul>
+
+    <h4>Also reaches</h4>
+    <p style="color:var(--muted);font-size:.8rem;font-style:italic">Touched without being owned. A reach is not coverage, and staffing a reach never closes an open call.</p>
+    <ul class="def">
+      ${r.also.map(i=>{
+        const x=intel(i); const p=SEASONS.find(se=>x.arc[se.id]==="lead")||SEASONS[0];
+        return `<li class="def-row reachrow" data-intel="${i}" tabindex="0" role="button" style="grid-template-columns:1fr auto">
+          <span class="v"><span class="rnm" style="border-left:3px solid var(${p.tint})">${x.name}</span>
+          <span class="rq">${x.question}</span></span>
+          ${microArc(i, false)}
+        </li>`;
+      }).join("")}
+    </ul>
+
+    <h4>Does not carry</h4>
+    <div class="record"><p class="rb">${r.limit}</p></div>
+
+    <h4>Sharing this home</h4>
+    <div class="linkchips">
+      ${R.filter(o=>o.home===r.home && o.id!==r.id).map(o=>`<button class="linkchip${roster.has(o.id)?" on":""}" data-role="${o.id}" style="border-left:3px solid ${roleTint(o)}">${o.name}</button>`).join("") || `<span style="font-size:.8rem;color:var(--faint);font-style:italic">No other role in the catalog calls this home. Worth noticing.</span>`}
+    </div>
+
+    <div class="controls" style="margin-top:var(--s5)">
+      <button class="btn ${onRoster?"":"primary"}" id="rostertoggle">${onRoster?"remove from roster":"add to roster"}</button>
+      <button class="btn secondary" id="holdhome">${homeHeld?"release "+home.name.toLowerCase():"hold "+home.name.toLowerCase()}</button>
+    </div>`;
+  wireDrawer();
+  $("#drawer").querySelectorAll(".reachrow").forEach(el=>{
+    const go=()=>openIntel(el.getAttribute("data-intel"));
+    el.addEventListener("click", go);
+    el.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); go(); }});
+  });
+  $("#rostertoggle").onclick = ()=>{
+    roster.has(r.id)?roster.delete(r.id):roster.add(r.id);
+    renderAll(); renderDrawer(); queueSave();
+  };
+  $("#holdhome").onclick = ()=>{
+    held.has(home.id)?held.delete(home.id):held.add(home.id);
+    renderAll(); renderDrawer(); queueSave();
+  };
+}
+
+function wireDrawer(){
+  $("#closebtn").onclick = ()=>{ selectedRole=null; closeDrawer(); renderAll(); };
+  $("#drawer").querySelectorAll("[data-role]").forEach(b=>{
+    b.onclick = ()=>{ selectedRole=b.getAttribute("data-role"); layer="roles"; syncLayer(); openRole(selectedRole); renderAll(); };
+  });
+  $("#drawer").querySelectorAll("[data-intel]").forEach(b=>{
+    b.onclick = ()=>{ openIntel(b.getAttribute("data-intel")); };
+  });
+}
+
+/* ---------------- layer ---------------- */
+function syncLayer(){
+  $("#lay-int").setAttribute("aria-pressed", layer==="intelligences");
+  $("#lay-rol").setAttribute("aria-pressed", layer==="roles");
+  $("#discaddr").textContent = layer==="roles"
+    ? "§1 · The disc · role layer: caps outside the bark mark coverage; a selected role lights its home and its reach"
+    : "§1 · The disc · seasons as rings, intelligences as sectors, read heart-outward";
+}
+$("#lay-int").onclick = ()=>{ layer="intelligences"; selectedRole=null; syncLayer(); renderAll(); };
+$("#lay-rol").onclick = ()=>{ layer="roles"; syncLayer(); renderAll(); };
+
+/* ---------------- render all + wiring ---------------- */
+function renderAll(){ renderSeasons(); renderDisc(); renderLower(); renderVerdict(); renderArchive(); requestAnimationFrame(markScrollable); }
+$("#lowerpane").addEventListener("scroll", markScrollable, {passive:true});
+$("#scrim").onclick = ()=>{ selectedRole=null; closeDrawer(); renderAll(); };
+document.addEventListener("keydown", e=>{
+  if(e.key!=="Escape") return;
+  if(openPane){ selectedRole=null; closeDrawer(); renderAll(); }
+  else if(selectedRole){ selectedRole=null; renderAll(); }
+});
+$("#pname").addEventListener("input", e=>{ project=e.target.value; renderDisc(); renderVerdict(); queueSave(); });
+$("#savebtn").onclick = ()=> project.trim()?save():status("name the work first","err");
+$("#copybtn").onclick = copyReading;
+$("#clearbtn").onclick = ()=>{ held.clear(); roster.clear(); selectedRole=null; renderAll(); queueSave(); };
+
+/* ---------------- tv mode ---------------- */
+const tvBtn = $("#tvtoggle");
+function setTv(on){
+  document.documentElement.setAttribute("data-tv", on ? "on" : "off");
+  tvBtn.setAttribute("aria-pressed", on);
+  try{ localStorage.setItem("techne-tv", on ? "on" : "off"); }catch(e){}
+  /* entering tv from default size takes a size step too; leaving returns it */
+  if(on && sizeIdx<=1){ sizeIdx = 4; applySize(); }        /* 140% */
+  if(!on && sizeIdx===4){ sizeIdx = 1; applySize(); }
+  renderDisc();
+}
+tvBtn.onclick = ()=> setTv(document.documentElement.getAttribute("data-tv")!=="on");
+(function(){ let t=null; try{ t=localStorage.getItem("techne-tv"); }catch(e){}
+  if(t==="on") setTv(true); })();
+
+/* ---------------- size stepper ----------------
+   scales the whole surface, text, disc, spacing, as one parameter.
+   uses css zoom so the SVG and layout scale together; steps 90%–220%. */
+const SIZES = [0.9, 1, 1.1, 1.25, 1.4, 1.6, 1.8, 2.0, 2.2];
+let sizeIdx = 1;
+function applySize(){
+  const z = SIZES[sizeIdx];
+  document.body.style.zoom = z;
+  $("#sizepct").textContent = Math.round(z*100) + "%";
+  $("#sizedown").disabled = sizeIdx===0;
+  $("#sizeup").disabled = sizeIdx===SIZES.length-1;
+  try{ localStorage.setItem("techne-size", String(sizeIdx)); }catch(e){}
+}
+function stepSize(d){
+  sizeIdx = Math.max(0, Math.min(SIZES.length-1, sizeIdx + d));
+  applySize();
+}
+$("#sizeup").onclick = ()=>stepSize(1);
+$("#sizedown").onclick = ()=>stepSize(-1);
+$("#sizepct").onclick = ()=>{ sizeIdx = 1; applySize(); };
+(function(){
+  let v=null; try{ v=localStorage.getItem("techne-size"); }catch(e){}
+  if(v!==null && SIZES[+v]!==undefined) sizeIdx = +v;
+  if(!("zoom" in document.body.style)){
+    /* rare non-supporting engines: fall back to root font scaling (text-only) */
+    applySize = function(){
+      const z = SIZES[sizeIdx];
+      document.documentElement.style.fontSize = (15*z)+"px";
+      $("#sizepct").textContent = Math.round(z*100) + "%";
+      try{ localStorage.setItem("techne-size", String(sizeIdx)); }catch(e){}
+    };
+  }
+  applySize();
+})();
+
+/* ---------------- hotkey sheet ---------------- */
+const keysEl = $("#keys");
+function toggleKeys(force){
+  const on = force!==undefined ? force : !keysEl.classList.contains("on");
+  keysEl.classList.toggle("on", on);
+}
+$("#keytoggle").onclick = ()=>toggleKeys();
+keysEl.onclick = e=>{ if(e.target===keysEl) toggleKeys(false); };
+
+/* ---------------- keyboard cursor ---------------- */
+let cursor = -1; // index into C
+function moveCursor(delta){
+  cursor = cursor<0 ? (delta>0 ? 0 : C.length-1)
+                    : (cursor + delta + C.length) % C.length;
+  paintCursor();
+  if(openPane){ openIntel(C[cursor].id); }
+}
+function paintCursor(){
+  document.querySelectorAll(".row.cursor").forEach(el=>el.classList.remove("cursor"));
+  if(cursor<0) return;
+  const id = C[cursor].id;
+  const rows = document.querySelectorAll(".row");
+  let i=0;
+  FAMILIES.forEach(fam=>C.filter(x=>x.family===fam.id).forEach(x=>{
+    if(x.id===id && rows[i]) {
+      rows[i].classList.add("cursor");
+      rows[i].scrollIntoView({block:"nearest", inline:"nearest"});
+    }
+    i++;
+  }));
+  /* mirror on the disc via the focus ring */
+  const g = document.querySelector(`.sector-hit[data-id="${id}"]`);
+  if(g) g.focus({preventScroll:true});
+}
+function cursorIntel(){ return cursor>=0 ? C[cursor] : null; }
+
+function stepSeason(delta){
+  const i = (SID.indexOf(season) + delta + SID.length) % SID.length;
+  season = SID[i];
+  renderAll(); if(openPane) renderDrawer(); queueSave();
+  paintCursor();
+}
+
+/* ---------------- WASD map ---------------- */
+document.addEventListener("keydown", e=>{
+  const t = e.target;
+  if(t && (t.tagName==="INPUT" || t.tagName==="TEXTAREA" || t.isContentEditable)) return;
+  if(e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+
+  if(keysEl.classList.contains("on")){
+    if(k==="?" || k==="escape" || k==="q"){ e.preventDefault(); toggleKeys(false); }
+    return;
+  }
+
+  switch(k){
+    case "w": e.preventDefault(); moveCursor(-1); break;
+    case "s": e.preventDefault(); moveCursor(1); break;
+    case "a": e.preventDefault(); stepSeason(-1); break;
+    case "d": e.preventDefault(); stepSeason(1); break;
+    case "e": {
+      e.preventDefault();
+      const x = cursorIntel();
+      if(x) openIntel(x.id);
+      break;
+    }
+    case " ": {
+      const x = cursorIntel();
+      if(x){
+        e.preventDefault();
+        held.has(x.id) ? held.delete(x.id) : held.add(x.id);
+        renderAll(); if(openPane) renderDrawer(); queueSave();
+        paintCursor();
+      }
+      break;
+    }
+    case "q": {
+      e.preventDefault();
+      if(openPane){ selectedRole=null; closeDrawer(); renderAll(); paintCursor(); }
+      else if(cursor>=0){ cursor=-1; paintCursor(); }
+      break;
+    }
+    case "f": e.preventDefault();
+      layer = layer==="intelligences" ? "roles" : "intelligences";
+      if(layer==="intelligences") selectedRole=null;
+      syncLayer(); renderAll(); paintCursor(); break;
+    case "t": e.preventDefault(); setTv(document.documentElement.getAttribute("data-tv")!=="on"); break;
+    case "m": e.preventDefault(); modeBtn.click(); break;
+    case "?": e.preventDefault(); toggleKeys(true); break;
+    case "+": case "=": e.preventDefault(); stepSize(1); break;
+    case "-": case "_": e.preventDefault(); stepSize(-1); break;
+    case "0": e.preventDefault(); sizeIdx=1; applySize(); break;
+  }
+});
+
+/* repaint the cursor after each full render */
+const _renderAll = renderAll;
+renderAll = function(){ _renderAll(); requestAnimationFrame(paintCursor); };
+
+syncLayer();
+renderAll();
+load();
+</script>
+</body>
+</html>
