@@ -6,12 +6,17 @@
 - **From:** Todd Youngblood, Ventures and Operations Steward
 - **Date:** August 21, 2026
 - **Subject:** Why I would support renaming Gitcoin to Techne Foundation
+- **Companion:** [Annex — the proposal as reported, and what consent would cost](annex.md)
 
 > **DRAFT. Adopted by no one.** The rename is Gitcoin's news; nothing here goes public before Kevin says it may.
 
 ## What Kevin asked
 
-Gitcoin may change its name, and Techne Foundation is one of the names on the table. The entity would also move to the United States as a 501(c)(3). Kevin asked whether this cooperative would back the name, unanimously and with our conditions, by today. I would, and here is my thinking in plain terms.
+Gitcoin may change its name, and Techne Foundation is one of the names on the table. This is not only a rename: the entity is presently a Cayman or Bahamian foundation, and the proposal is to domesticate it in the United States as a 501(c)(3). Kevin asked whether this cooperative would back the name, unanimously and with our conditions, by today. I would, and here is my thinking in plain terms.
+
+Three things he said that belong here rather than in a footnote, because they shape what a yes would mean. He named his own conflict without being asked: he has hired a number of our members, he does not want to misuse influence over the cooperative, and he asked us to come to him deliberately, as a separation of containers. He put the odds himself at high upside, low probability. And he reported that the word carries baggage for some people, and that one of our organizers, told over the weekend, said it was not a good idea.
+
+That last one is not a small thing and I am not going to move past it. The bar Kevin set is unanimity. An objection is already on the record, from a person whose judgment I trust and whose reasons I have not yet heard. Whatever we decide runs through that conversation, not around it. This memo is my reasoning offered into that conversation. It is not a whip count.
 
 ## Everyone's work runs on somebody's tools
 
@@ -33,22 +38,35 @@ The work is building the missing way of accounting: a plain record of what a gro
 
 Concentration of ownership is an arrangement, not a conspiracy, and it outlasts everyone inside it. The Greeks had a name for the appetite that drives it: *pleonexia*, the desire to have more than one needs. It is not a vice belonging to particular people. It is what happens to a population once its techniques produce a surplus and it resets its expectations upward. Plato's diagnosis is that no civilization has escaped the resulting cycle, because we lack by nature the intelligence to moderate the abundance our own methods generate. That is a problem of formation, not of villains. It is also the strongest possible argument for an institution that teaches rather than accuses, which is what a 501(c)(3) is built to be, and it is the reason our own decision to reinvest rather than cash out belongs in the same conversation.
 
+I want to be exact about what that costs, because it is easy to hear this section as softness. The stake is not modest. An ownership arrangement of this kind, left alone, hollows out the conditions a democratic republic runs on. Naming that at full strength and refusing to manufacture villains is one position, not two: the arrangement is the target precisely because it outlives everyone who benefits from it, so aiming at people is both unfair and a waste of the shot.
+
+One practical consequence, and it belongs to their counsel rather than to us. A 501(c)(3) has real limits on political activity. We should not hand a foundation founding language it cannot use and call it a gift.
+
 ## What I am asking for, and what I am not
 
 Back the name in principle, as our answer to Kevin. Not money, not staff, not our own mark.
 
-## Four things I would want said out loud before we say yes
+## Five things I would want said out loud before we say yes
 
-1. **Where the trademark lives.** Kevin named this himself. Co-ownership, or a perpetual irrevocable license running to the cooperative, settled in writing before either of us builds on it.
-2. **What lane each thing stays in.** Also his. Benjamin's shape is the sharpest version on the table: the nonprofit holds the data standard, a cooperative holds the software built around it and licenses that to local cooperatives running their own instances.
-3. **A rule about how each of us describes the other.** Neither entity calls the other affiliated with, originating from, or funding it without written consent, and either may require a correction. We have already learned this year what it costs to get it wrong, and the cost is borne by the party who did not consent.
+1. **Where the trademark lives.** Kevin named this himself. Co-ownership, or a perpetual irrevocable license running to the cooperative, settled in writing before either of us builds on it. Neither mark has been cleared, and eight live "Techne" marks are already on the record.
+2. **What lane each thing stays in.** Also his. Benjamin's shape is the sharpest version on the table: the nonprofit holds the data standard, a cooperative holds the software built around it and licenses that to local cooperatives running their own instances. Separate boards, separate books, and no shared officers without a disclosed and recorded decision.
+3. **A rule about how each of us describes the other.** Neither entity calls the other affiliated with, originating from, or funding it without written consent, and either may require a correction. We have already learned this year what it costs to get it wrong, and the cost is borne by the party who did not consent. Neither party publishes anything about the other until both have adopted the rule.
 4. **What happens if we diverge.** The Open Collective pair worked because the people stayed aligned. That is a friendship, not a structure. Say now what becomes of the shared name if the two purposes part.
+5. **How we handle our own conflicts in this decision.** Kevin named his; ours is the mirror image. Members who are, or expect to be, employed or contracted by him are not free agents in a unanimity vote. Whatever we decide, the record should show how that was handled — disclosure at minimum, recusal where the interest is direct.
 
 ## Put our conflicts on the record
 
 We hold Colorado trade names for both `techne.coop`, registered August 12, 2026, and `techne.institute`. We have shifted our public work from the second to the first, but we retain policy and program plans for `techne.institute`, and the first Techne seminar — Plato on craft, facilitated by Paul Diduch of the Cosmos Institute at Parnassus House — is already published there. That is prior use of this name, by us, for exactly the educational purpose a Techne Foundation would claim. Our cooperative also expects to create an investor member class the Board has not yet established. All of it ties us to a Techne Foundation. Kevin is not a neutral party here either. Better said now than discovered later.
 
-Kevin is running the trademark search. He needs to know about both registrations and about the seminar.
+Kevin is running the trademark search. He needs to know about both registrations and about the seminar, and he needs to know today, because his search is presently running without the one fact most likely to change its result.
+
+## What I am asking the board to answer
+
+One of three, and I would rather have the third than a hurried first:
+
+- **Yes, with conditions** — the five above, amended as the board sees fit, conveyed to Kevin as the cooperative's unanimous position.
+- **No** — conveyed plainly, with reasons. Kevin's own read of the odds means this costs us little.
+- **Not on this timeline** — the honest answer if unanimity is not reachable today. A rushed unanimity on sharing our name is worse than a missed window.
 
 ---
 
