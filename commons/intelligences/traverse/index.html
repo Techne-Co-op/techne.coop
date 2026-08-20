@@ -236,6 +236,82 @@ table.near td.frac{color:var(--heading);text-align:right;font-variant-numeric:ta
   padding:var(--s3) var(--s4)}
 .footnote{font:400 10px/1.6 var(--mono);color:var(--faint);margin-top:var(--s4);padding-top:var(--s2);border-top:1px solid var(--line)}
 
+/* ---------------- entry layer (v4): quiz and placement ----------------
+   The instrument now opens as five questions, one per family. The
+   entry pane replaces the three-pane main while it is on stage; the
+   frame itself still never scrolls, only .entrybody does. */
+.entry{flex:1;min-height:0;display:none;flex-direction:column;overflow:hidden;background:var(--bg);position:relative}
+body[data-view="quiz"] .entry,body[data-view="placement"] .entry{display:flex}
+body[data-view="quiz"] main,body[data-view="placement"] main,
+body[data-view="quiz"] .lenses,body[data-view="placement"] .lenses,
+body[data-view="quiz"] .segbar,body[data-view="placement"] .segbar{display:none}
+body[data-view="quiz"] #chip-you,body[data-view="quiz"] #chip-lit,body[data-view="quiz"] #chip-role,
+body[data-view="quiz"] #nav-placement,body[data-view="quiz"] #retake{display:none}
+body[data-view="placement"] #chip-role,body[data-view="placement"] #chip-lit,body[data-view="placement"] #nav-placement{display:none}
+.entrybody{flex:1;min-height:0;overflow:auto;touch-action:pan-y;overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;padding:var(--s5);
+  padding-left:max(var(--s5),env(safe-area-inset-left));
+  padding-right:max(var(--s5),env(safe-area-inset-right));
+  padding-bottom:max(var(--s6),env(safe-area-inset-bottom))}
+.qwrap{max-width:68ch;margin:0 auto;width:100%}
+.qmarks{display:flex;gap:6px;align-items:center;margin-bottom:var(--s4)}
+.qmarks .qm{width:22px;height:6px;background:var(--inset);border:1px solid var(--line)}
+.qmarks .qm.done{background:var(--ember);border-color:var(--ember)}
+.qmarks .qm.now{border-color:var(--ember-text);box-shadow:0 0 0 1px var(--ember-text)}
+.qmarks .ql{font:500 9.5px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-left:8px}
+.qfam{font:500 10px/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ember-text)}
+.qq{font:400 clamp(16px,14px + .8vw,23px)/1.35 var(--serif);color:var(--heading);margin:3px 0 var(--s4)}
+.qopt{display:flex;gap:10px;align-items:baseline;width:100%;text-align:left;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--line);border-radius:2px;padding:8px var(--s4);
+  cursor:pointer;font:400 clamp(12px,11.6px + .25vw,13.5px)/1.5 var(--serif);color:var(--text);
+  margin-bottom:6px;min-height:44px;align-items:center;
+  transition:border-color var(--micro) var(--ease),background-color var(--micro) var(--ease)}
+.qopt .kn{font:500 10px/1.4 var(--mono);color:var(--faint);flex-shrink:0}
+.qopt .stmt{flex:1;min-width:0}
+.qopt .in{font:400 9px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);display:block}
+.qopt:hover{border-color:var(--rule)}
+.qopt[aria-checked="true"]{border-left-color:var(--ember);background:var(--raised);color:var(--heading)}
+.qopt[aria-checked="true"] .in{color:var(--ember-text)}
+.qopt[aria-checked="true"] .kn{color:var(--ember-text)}
+.qopt.none{border-style:dashed;color:var(--muted)}
+.qfoot{display:flex;gap:var(--s3);align-items:center;margin-top:var(--s4);flex-wrap:wrap}
+.cta{font:500 11.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--heading);
+  background:var(--raised);border:1px solid var(--rule);border-radius:2px;padding:0 18px;min-height:44px;
+  cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+  transition:color var(--micro) var(--ease),border-color var(--micro) var(--ease)}
+.cta:hover:not(:disabled){border-color:var(--ember);color:var(--ember-text)}
+.cta:disabled{color:var(--faint);border-color:var(--line);cursor:default}
+.cta.primary{border-color:var(--ember);color:var(--ember-text)}
+.qhint{font:400 10px/1.5 var(--mono);color:var(--faint);margin-left:auto}
+/* placement readout */
+.pwrap{max-width:920px;margin:0 auto;width:100%}
+.phead{font:500 10px/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ember-text)}
+.pcomp{font:400 clamp(16px,14px + .8vw,23px)/1.35 var(--serif);color:var(--heading);margin:2px 0 4px;max-width:68ch}
+.pline{font:400 12.5px/1.65 var(--serif);color:var(--text);max-width:68ch}
+.pquiet{font:400 10.5px/1.6 var(--mono);color:var(--muted);max-width:68ch;margin-top:6px}
+.psec{font:600 10px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  border-bottom:1px solid var(--line);padding-bottom:4px;margin:var(--s5) 0 var(--s3)}
+.nearcard{border:1px solid var(--line);border-left:3px solid var(--line);border-radius:2px;
+  background:var(--surface);padding:9px var(--s4);margin-bottom:8px}
+.nearcard .rn{font:400 15px/1.35 var(--serif);color:var(--heading)}
+.nearcard .rn small{font:400 10px/1 var(--mono);color:var(--muted);margin-left:8px}
+.nearcard .ov{font:400 10.5px/1.55 var(--mono);color:var(--muted)}
+.nearcard .ms{font:400 10.5px/1.55 var(--mono);color:var(--warn);margin-top:2px}
+.nearcard .lm{font:400 11.5px/1.6 var(--serif);color:var(--text);margin-top:6px;
+  border-left:2px solid var(--warn);padding-left:10px;max-width:68ch}
+.darkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+details.darkcell{border:1px solid var(--line);border-radius:2px;background:var(--inset)}
+details.darkcell summary{cursor:pointer;padding:8px var(--s4);list-style:none;min-height:44px;
+  display:flex;flex-direction:column;justify-content:center}
+details.darkcell summary::-webkit-details-marker{display:none}
+details.darkcell summary .dn{font:400 13px/1.35 var(--serif);color:var(--heading)}
+details.darkcell summary .dq{font:400 9.5px/1.5 var(--mono);color:var(--muted)}
+details.darkcell[open]{background:var(--surface)}
+details.darkcell .pn{font:500 9.5px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--warn);padding:0 var(--s4)}
+details.darkcell .pb{font:400 11.5px/1.6 var(--serif);color:var(--text);padding:2px var(--s4) 10px;max-width:68ch}
+.pmoves{display:flex;gap:var(--s3);flex-wrap:wrap;margin:var(--s5) 0 var(--s3)}
+#chip-you b{max-width:34vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;vertical-align:bottom}
+
 /* ---------------- responsive layer (v3) ----------------
    Three regimes. Wide desktop keeps the three panes. Tablet and
    narrow desktop keep the canvas and swap the side pane. Phone
@@ -297,6 +373,8 @@ main{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-ri
   .overview .metric .v{font-size:16px}
   .stagebody{padding:var(--s3) var(--s4) 96px}
   .aside{padding:var(--s3) var(--s4)}
+  .entrybody{padding:var(--s4);padding-bottom:max(var(--s5),env(safe-area-inset-bottom))}
+  #chip-you b{max-width:26vw}
 }
 
 /* phone landscape and any very short window: compress the chrome */
@@ -311,6 +389,11 @@ main{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-ri
   .horizon{display:none}
   .segbar button{min-height:38px}
   .stagebody{padding-bottom:var(--s5)}
+  .entrybody{padding:var(--s3) var(--s4)}
+  .qmarks{margin-bottom:var(--s2)}
+  .qq{margin-bottom:var(--s2)}
+  .qopt{min-height:40px;padding:5px var(--s3)}
+  .qfoot{margin-top:var(--s2)}
 }
 
 /* the canvas judges its own width, not the device's */
@@ -346,15 +429,17 @@ main{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-ri
 }
 </style>
 </head>
-<body data-pane="canvas">
+<body data-pane="canvas" data-view="quiz">
 
 <div class="hudbar">
   <span class="mark">The Traverse</span>
   <span class="sub">seventeen questions over fifty-four titles · an instrument, not a document</span>
-  <span class="chip" id="chip-role"><span class="dot"></span><span>title <b>none</b></span></span>
+  <span class="chip" id="chip-you"><span class="dot"></span><span>you <b>unplaced</b></span></span>
+  <span class="chip" id="chip-role"><span>title <b>none</b></span></span>
   <span class="chip" id="chip-lit"><span>lit <b class="num">0 / 17</b></span></span>
   <span class="spacer"></span>
-  <span class="sub" aria-hidden="true">keys 1 to 5 switch lenses</span>
+  <button class="btn" id="nav-placement">placement</button>
+  <button class="btn" id="retake">retake</button>
   <button class="btn" id="modetoggle" aria-label="Toggle dark or light mode">mode</button>
 </div>
 
@@ -396,6 +481,10 @@ main{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-ri
   </section>
   <aside class="aside" id="aside" aria-live="polite"></aside>
 </main>
+
+<section class="entry" id="entry" aria-live="polite">
+  <div class="entrybody" id="entrybody"></div>
+</section>
 
 <nav class="segbar" aria-label="Pane switcher">
   <button data-pane="rail" aria-pressed="false">choose</button>
@@ -755,16 +844,74 @@ function sharedIntel(a,b){
 
 /* HOMES is computed above, live from the role data */
 
+/* ---------------- the quiz layer (v4) ----------------
+   One question per family, in catalog order. Each option is that
+   intelligence speaking in the first person, derived from its
+   question, practices, and presence line. The "none" option leaves
+   the family dark on purpose; an uneven composition is a real one. */
+const QUIZ_STMT = {
+  inquiry:"I go and find the people this claims to serve, and I come back with three real names, not personas.",
+  form:"I hold what the thing structurally is, so it can be said in one sentence, not only how its screens look.",
+  voice:"I write the account a stranger can repeat accurately after one reading, including the parts that did not work.",
+  gathering:"I build a newcomer's first hour on purpose, and I meet the people who arrive so the visit is not the whole relationship.",
+  direction:"I keep the visible not-now list and defend that sequence against everything reasonable.",
+  reach:"I can say where the next ten people will come from, and I am roughly right.",
+  exchange:"I ask directly for a real commitment, and I can hear no without flinching.",
+  reckoning:"I record what the work costs as it happens, including the labour nobody is invoicing.",
+  making:"I build the structure that has to hold long after the demo, and I answer for what still works in a year.",
+  evidence:"I keep at least one number that could change someone's mind, and I trust it over the loudest recent story.",
+  operations:"I make the thing run through a weekend without a hero, myself included.",
+  integrity:"I write down how this fails before the first real load or the first bad actor finds out for us.",
+  lawfulness:"I write the agreements while everyone is still friendly, before they are needed.",
+  governance:"I make sure a contributor can say how a decision gets made here, and be right.",
+  conscience:"I ask who bears the cost of this and whether they agreed, and I will say we should not.",
+  tending:"I notice when a person goes quiet and follow up before the work spends them.",
+  memory:"I write down why, not merely what, so nobody has to ask the same question a third time."
+};
+const NONE_STMT = {
+  desirability:"None of these is mine. Leave desirability dark for me.",
+  viability:"None of these is mine. Leave viability dark for me.",
+  feasibility:"None of these is mine. Leave feasibility dark for me.",
+  legitimacy:"None of these is mine. Leave legitimacy dark for me.",
+  continuity:"None of these is mine. Leave continuity dark for me."
+};
+const LS_KEY = "techne-traverse-placement";
+function famIntels(fid){ return C.filter(c=>c.family===fid); }
+function compFrom(ans){ return FAMILIES.map(f=>ans[f.id]).filter(id=>id && intel(id)); }
+function savePlacement(){ try{ localStorage.setItem(LS_KEY, JSON.stringify({answers:quiz.answers})); }catch(e){} }
+function clearPlacement(){ try{ localStorage.removeItem(LS_KEY); }catch(e){} }
+
 /* ---------------- state, read-only toward the world ---------------- */
 let state = {lens:1, role:null, goal:null, pick:[]};
+let quiz = {i:0, answers:{}};   /* family id -> intelligence id, or null for dark */
+let comp = [];                  /* the standing composition, derived, never hardcoded */
+let view = "quiz";
 (function(){
   const h = new URLSearchParams(location.hash.replace(/^#/,""));
-  if(h.get("role") && roleOf(h.get("role"))) state.role = h.get("role");
+  /* saved placement: a return visit lands in explore, not the quiz */
+  try{
+    const saved = JSON.parse(localStorage.getItem(LS_KEY) || "null");
+    if(saved && saved.answers && FAMILIES.every(f=>f.id in saved.answers)){
+      quiz.answers = saved.answers; comp = compFrom(saved.answers); view = "explore";
+    }
+  }catch(e){}
+  /* hash overrides, inert unless present (also drive the headless verifier) */
+  if(h.get("ans")!==null && h.get("ans")!==undefined && h.has("ans")){
+    const ids = h.get("ans").split(",").filter(id=>intel(id));
+    quiz.answers = {};
+    FAMILIES.forEach(f=>{ quiz.answers[f.id] = famIntels(f.id).map(c=>c.id).find(id=>ids.includes(id)) || null; });
+    comp = compFrom(quiz.answers);
+    view = "placement";
+  }
+  if(h.has("q")){ const n = +h.get("q"); if(n>=0 && n<=4){ quiz.i = n; view = "quiz"; } }
+  if(h.get("role") && roleOf(h.get("role"))){ state.role = h.get("role"); view = "explore"; }
   if(h.get("goal") && intel(h.get("goal"))) state.goal = h.get("goal");
-  if(h.get("pick")) state.pick = h.get("pick").split(",").filter(id=>intel(id));
-  if(h.get("lens")) { const n = +h.get("lens"); if(n>=1 && n<=5) state.lens = n; }
+  if(h.get("pick")){ state.pick = h.get("pick").split(",").filter(id=>intel(id)); view = "explore"; }
+  if(h.get("lens")) { const n = +h.get("lens"); if(n>=1 && n<=5){ state.lens = n; view = "explore"; } }
   else if(state.pick.length) state.lens = 5;
   else if(state.goal) state.lens = 3;
+  if(h.get("view")==="quiz"||h.get("view")==="placement"||h.get("view")==="explore") view = h.get("view");
+  if(view==="explore" && comp.length && !state.pick.length) state.pick = comp.slice();
 })();
 
 const $ = s=>document.querySelector(s);
@@ -773,11 +920,19 @@ const esc = s=>String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt
 const names = ids=>ids.map(id=>intel(id).name).join(", ");
 
 /* ---------------- movement 3: shortest chain, verbatim from v1 ---------------- */
-function shortestPath(fromRoleId, goalIntelId){
-  const start = roleOf(fromRoleId);
-  if(litOf(start).includes(goalIntelId)) return {already:true};
+function chainFrom(litArr, goalIntelId){
+  if(litArr.includes(goalIntelId)) return {already:true};
+  const litSet = new Set(litArr);
   const prev = {}; const via = {};
-  const q = [start.id]; const seen = new Set([start.id]);
+  const q = []; const seen = new Set();
+  /* seed: every role that shares a question with the origin set */
+  for(const r of R){
+    const sh = litOf(r).filter(x=>litSet.has(x));
+    if(!sh.length) continue;
+    seen.add(r.id); prev[r.id]=null; via[r.id]=sh;
+    if(r.home===goalIntelId) return {path:[{role:r.id, via:sh}]};
+    q.push(r.id);
+  }
   while(q.length){
     const cur = q.shift();
     const curR = roleOf(cur);
@@ -788,7 +943,7 @@ function shortestPath(fromRoleId, goalIntelId){
       seen.add(nxt.id); prev[nxt.id]=cur; via[nxt.id]=sh;
       if(nxt.home===goalIntelId){
         const path=[]; let p=nxt.id;
-        while(p!==start.id){ path.unshift({role:p, via:via[p]}); p=prev[p]; }
+        while(p!==null){ path.unshift({role:p, via:via[p]}); p=prev[p]; }
         return {path};
       }
       q.push(nxt.id);
@@ -796,18 +951,24 @@ function shortestPath(fromRoleId, goalIntelId){
   }
   return {unreachable:true};
 }
+function shortestPath(fromRoleId, goalIntelId){ return chainFrom(litOf(roleOf(fromRoleId)), goalIntelId); }
 
 /* ---------------- shared pieces ---------------- */
 function fieldHTML(r, goalId){
   const lit = r ? new Set(litOf(r)) : new Set();
-  const homeOnly = state.lens===1;
-  return `<div class="field" role="img" aria-label="${r?esc(r.name)+": "+(homeOnly?1:lit.size)+" of 17 intelligences lit.":"Seventeen intelligences, none lit."}">` +
+  const mine = (!r && comp.length) ? new Set(comp) : new Set();
+  const homeOnly = state.lens===1 && r;
+  const label = r ? esc(r.name)+": "+(homeOnly?1:lit.size)+" of 17 intelligences lit."
+    : mine.size ? "Your composition: "+mine.size+" of 17 intelligences lit."
+    : "Seventeen intelligences, none lit.";
+  return `<div class="field" role="img" aria-label="${label}">` +
     C.map(c=>{
       const isHome = r && c.id===r.home;
       const isAlso = !homeOnly && r && lit.has(c.id) && !isHome;
+      const isMine = mine.has(c.id);
       const isGoal = goalId===c.id;
-      const cls = isHome?"home":isAlso?"also":isGoal?"goal":"dark";
-      const mk = isHome?"home":isAlso?"reach":isGoal?"sought":"dark";
+      const cls = isHome||isMine?"home":isAlso?"also":isGoal?"goal":"dark";
+      const mk = isMine?"yours":isHome?"home":isAlso?"reach":isGoal?"sought":"dark";
       return `<div class="cell ${cls}">
         <span class="nm">${esc(c.name)}</span>
         <span class="fm">${esc(famOf(c.family).name)}</span>
@@ -815,8 +976,9 @@ function fieldHTML(r, goalId){
     }).join("") + "</div>";
 }
 function fieldKey(withGoal){
+  const first = (!state.role && comp.length) ? "yours, held" : "home, held";
   return `<div class="fieldkey">
-    <span><span class="sw home"></span>home, held</span>
+    <span><span class="sw home"></span>${first}</span>
     <span><span class="sw also"></span>reach, borrowed</span>
     ${withGoal?'<span><span class="sw goal"></span>sought</span>':""}
     <span><span class="sw dark"></span>dark, unperceived</span>
@@ -835,12 +997,23 @@ function roleRail(){
 }
 function metric(l,v){ return `<div class="metric"><div class="l">${l}</div><div class="v num">${v}</div></div>`; }
 
-/* ---------------- render per lens ---------------- */
+/* ---------------- render: dispatcher over the three views ---------------- */
 function render(){
+  document.body.dataset.view = view;
+  const placed = FAMILIES.every(f=>f.id in quiz.answers) && view!=="quiz";
+  const youLabel = comp.length ? names(comp) : placed ? "all seventeen dark" : "unplaced";
+  $("#chip-you").innerHTML = `<span class="dot"></span><span>you <b>${esc(youLabel)}</b></span>`;
+  if(view==="quiz"){ renderQuiz(); return; }
+  if(view==="placement"){ renderPlacement(); wireEntry(); return; }
+  renderExplore();
+}
+
+/* ---------------- explore: the five lenses, entered from placement ---------------- */
+function renderExplore(){
   $$(".lens").forEach(b=>b.setAttribute("aria-pressed", String(+b.dataset.lens===state.lens)));
   const r = state.role ? roleOf(state.role) : null;
-  $("#chip-role").innerHTML = `<span class="dot"></span><span>title <b>${r?esc(r.name):"none"}</b></span>`;
-  $("#chip-lit").innerHTML = `<span>lit <b class="num">${r?litOf(r).length:0} / 17</b></span>`;
+  $("#chip-role").innerHTML = `<span>title <b>${r?esc(r.name):"none"}</b></span>`;
+  $("#chip-lit").innerHTML = `<span>lit <b class="num">${r?litOf(r).length:comp.length} / 17</b></span>`;
   const rail = $("#rail"), stage = $("#stage"), aside = $("#aside"),
         ov = $("#overview"), rd = $("#reading");
 
@@ -849,9 +1022,19 @@ function render(){
     ov.innerHTML = metric("titles in catalog","54") + metric("questions that exist","17")
       + metric("this title is asked", r?"1":"0") + metric("it is not asked", r?"16":"17");
     if(!r){
-      rd.innerHTML = "Pick a title on the left. The lens cannot narrow until it exists.";
-      stage.innerHTML = fieldHTML(null);
-      aside.innerHTML = '<h2>i · enter</h2><p class="gate">No title chosen yet. Fifty-four wait in the rail. Each one will light exactly one cell.</p>';
+      if(comp.length){
+        rd.innerHTML = `You stand placed: <b>${esc(names(comp))}</b>. Pick a title on the left to enter as one and watch how much of you it keeps.`;
+        stage.innerHTML = fieldHTML(null) + fieldKey(false);
+        aside.innerHTML = `<h2>i · enter</h2>
+          <h3>your composition</h3>
+          <p>The field lights what you said you carry. Any title you enter as will keep one cell of it and rename the rest reach or dark.</p>
+          <div class="kv"><span>you carry</span><b>${comp.length} / 17</b></div>
+          <p class="footnote">Placement and retake stay one click away in the hudbar.</p>`;
+      } else {
+        rd.innerHTML = "Pick a title on the left. The lens cannot narrow until it exists.";
+        stage.innerHTML = fieldHTML(null);
+        aside.innerHTML = '<h2>i · enter</h2><p class="gate">No title chosen yet. Fifty-four wait in the rail. Each one will light exactly one cell.</p>';
+      }
     } else {
       const h = intel(r.home);
       rd.innerHTML = `<b>${esc(r.name)}</b> is accountable for one question: <b>${esc(h.name)}</b>. The other sixteen exist whether or not this title can see them.`;
@@ -870,14 +1053,23 @@ function render(){
 
   if(state.lens===2){
     rail.innerHTML = roleRail();
-    const lit = r? litOf(r) : [];
-    const dark = r? C.filter(c=>!lit.includes(c.id)) : C;
-    ov.innerHTML = metric("home, held", r?1:0) + metric("reach, borrowed", r?lit.length-1:0)
+    const lit = r? litOf(r) : comp;
+    const dark = C.filter(c=>!lit.includes(c.id));
+    ov.innerHTML = metric(r?"home, held":"yours, held", r?1:lit.length) + metric("reach, borrowed", r?lit.length-1:0)
       + metric("dark, unperceived", dark.length) + metric("of","17");
     if(!r){
-      rd.innerHTML = "Enter as a title first, in lens i or on the left, and it will decompose here.";
-      stage.innerHTML = fieldHTML(null);
-      aside.innerHTML = '<h2>ii · dissolve</h2><p class="gate">Nothing to dissolve yet.</p>';
+      if(comp.length){
+        rd.innerHTML = `Your composition lights <b>${comp.length} of 17</b>. The dark cells are not absences of skill, they are questions you told the quiz you are not carrying.`;
+        stage.innerHTML = fieldHTML(null) + fieldKey(false);
+        aside.innerHTML = `<h2>ii · the dark field, named</h2>
+          <h3>${dark.length} questions unasked</h3>
+          <ul class="darklist">${dark.map(c=>`<li><span class="dn">${esc(c.name)}</span><span class="dq">${esc(c.question)}</span></li>`).join("")}</ul>
+          <p class="footnote">Press 3 to traverse toward one of them.</p>`;
+      } else {
+        rd.innerHTML = "Enter as a title first, in lens i or on the left, and it will decompose here.";
+        stage.innerHTML = fieldHTML(null);
+        aside.innerHTML = '<h2>ii · dissolve</h2><p class="gate">Nothing to dissolve yet.</p>';
+      }
     } else {
       rd.innerHTML = `<b>${esc(r.name)}</b> lights ${lit.length} of 17. The dark cells are not absences of skill, they are questions this title is structurally not asked.`;
       stage.innerHTML = fieldHTML(r) + fieldKey(false);
@@ -889,25 +1081,28 @@ function render(){
   }
 
   if(state.lens===3){
-    const lit = r? new Set(litOf(r)) : new Set();
+    const originLit = r ? litOf(r) : comp;
+    const originName = r ? r.name : "your composition";
+    const hasOrigin = originLit.length>0;
+    const lit = new Set(originLit);
     let rh = '<div class="railhead">choose a dark question</div>';
-    if(!r) rh += '<div class="railnote">Enter as a title first (lens i).</div>';
+    if(!hasOrigin) rh += '<div class="railnote">Take the quiz, or enter as a title (lens i), to give the graph a starting node.</div>';
     else C.forEach(c=>{
       const isLit = lit.has(c.id);
       rh += `<button class="goalbtn" data-goal="${c.id}" aria-pressed="${state.goal===c.id}" ${isLit?'disabled':''}>
-        <span>${esc(c.name)}</span><span class="st">${isLit?"lit":state.goal===c.id?"sought":"dark"}</span></button>`;
+        <span>${esc(c.name)}</span><span class="st">${isLit?(r?"lit":"yours"):state.goal===c.id?"sought":"dark"}</span></button>`;
     });
     rail.innerHTML = rh;
-    const res = (r && state.goal && !lit.has(state.goal)) ? shortestPath(r.id, state.goal) : null;
+    const res = (hasOrigin && state.goal && !lit.has(state.goal)) ? chainFrom(originLit, state.goal) : null;
     const steps = res && res.path ? res.path.length : null;
-    ov.innerHTML = metric("edges in the graph","shared questions") + metric("starting node", r?esc(r.name):"none")
-      + metric("sought", state.goal&&!(r&&lit.has(state.goal))?esc(intel(state.goal).name):"none")
+    ov.innerHTML = metric("edges in the graph","shared questions") + metric("starting node", hasOrigin?esc(originName):"none")
+      + metric("sought", state.goal&&!(hasOrigin&&lit.has(state.goal))?esc(intel(state.goal).name):"none")
       + metric("steps", steps!==null?steps:"·");
-    if(!r){
-      rd.innerHTML = "The graph needs a starting node. Enter as a title in lens i.";
+    if(!hasOrigin){
+      rd.innerHTML = "The graph needs a starting node. Take the quiz, or enter as a title in lens i.";
       stage.innerHTML = ""; aside.innerHTML = '<h2>iii · traverse</h2><p class="gate">No starting node.</p>';
     } else if(!state.goal || lit.has(state.goal)){
-      rd.innerHTML = `From <b>${esc(r.name)}</b>, choose a question you currently cannot see, on the left. The instrument will find the shortest chain of colleagues that reaches it.`;
+      rd.innerHTML = `From <b>${esc(originName)}</b>, choose a question you currently cannot see, on the left. The instrument will find the shortest chain of colleagues that reaches it.`;
       stage.innerHTML = fieldHTML(r) + fieldKey(false);
       aside.innerHTML = `<h2>iii · traverse</h2><p>Two titles connect where their lit intelligences intersect. A dark question is reached by walking those edges until you stand beside someone whose home it is.</p><p class="gate">Pick a dark cell in the rail to draw the chain.</p>`;
     } else {
@@ -915,17 +1110,17 @@ function render(){
       if(res.unreachable){
         rd.innerHTML = `No path: no title in the catalog can lend you <b>${esc(goal.name)}</b>. It can only be carried on purpose. See lens iv.`;
         stage.innerHTML = fieldHTML(r, state.goal) + fieldKey(true);
-        aside.innerHTML = `<h2>iii · traverse</h2><p class="q">${esc(goal.question)}</p><p>Unreachable from ${esc(r.name)} along shared questions.</p>`;
+        aside.innerHTML = `<h2>iii · traverse</h2><p class="q">${esc(goal.question)}</p><p>Unreachable from ${esc(originName)} along shared questions.</p>`;
       } else {
-        rd.innerHTML = `<b>${steps===1?"One conversation":steps+" steps"}</b> between ${esc(r.name)} and ${esc(goal.name)}. The lane is not a wall, it is ${steps===1?"a single shared question":"a short chain of shared questions"}. Titles isolate only when nobody walks the edges.`;
+        rd.innerHTML = `<b>${steps===1?"One conversation":steps+" steps"}</b> between ${esc(originName)} and ${esc(goal.name)}. The lane is not a wall, it is ${steps===1?"a single shared question":"a short chain of shared questions"}. Titles isolate only when nobody walks the edges.`;
         const arrow = `<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="6" x2="92" y2="6"/><path d="M92,1.5 L100,6 L92,10.5 Z"/></svg>`;
-        let chain = `<div class="hop start"><div class="via">you stand here</div><div class="who">${esc(r.name)}</div><div class="why">lit: ${esc(names(litOf(r)))}</div></div>`;
+        let chain = `<div class="hop start"><div class="via">you stand here</div><div class="who">${esc(originName)}</div><div class="why">${r?"lit":"yours"}: ${esc(names(originLit))}</div></div>`;
         res.path.forEach((h,i)=>{
           const hr = roleOf(h.role); const last = i===res.path.length-1;
           chain += `<div class="edgecell"><div class="lbl">shared: ${esc(names(h.via))}</div>${arrow}</div>`;
           chain += `<div class="hop${last?" arrive":""}"><div class="via">${last?"arrives at "+esc(goal.name):"one step"}</div><div class="who">${esc(hr.name)}</div><div class="why">${last?"holds "+esc(goal.name)+" as home":"borrow its reach: "+esc(names(litOf(hr)))}</div></div>`;
         });
-        stage.innerHTML = `<div class="chain" role="list" aria-label="Chain of colleague roles from ${esc(r.name)} to ${esc(goal.name)}">${chain}</div>`
+        stage.innerHTML = `<div class="chain" role="list" aria-label="Chain of colleague roles from ${esc(originName)} to ${esc(goal.name)}">${chain}</div>`
           + `<div style="margin-top:var(--s5)">${fieldHTML(r, state.goal)}${fieldKey(true)}</div>`;
         aside.innerHTML = `<h2>iii · what is reached</h2>
           <h3>${esc(goal.name)}</h3>
@@ -1032,6 +1227,113 @@ function unRow(c, who){
     <p class="pb">${esc(c.pathology.body)}</p></div>`;
 }
 
+/* ---------------- quiz view ---------------- */
+function renderQuiz(){
+  const f = FAMILIES[quiz.i];
+  const opts = famIntels(f.id);
+  const cur = quiz.answers[f.id];           /* undefined, an id, or null (dark) */
+  const answered = f.id in quiz.answers;
+  const marks = FAMILIES.map((ff,ix)=>`<span class="qm${ff.id in quiz.answers?" done":""}${ix===quiz.i?" now":""}"></span>`).join("");
+  let html = `<div class="qwrap">
+    <div class="qmarks" aria-hidden="true">${marks}<span class="ql">question ${quiz.i+1} of 5 · ${esc(f.name)}</span></div>
+    <div class="qfam">${esc(f.name)}</div>
+    <h1 class="qq" id="qq">${esc(f.q)}</h1>
+    <div role="radiogroup" aria-labelledby="qq">`;
+  opts.forEach((c,ix)=>{
+    html += `<button class="qopt" role="radio" aria-checked="${cur===c.id}" data-opt="${c.id}">
+      <span class="kn num">${ix+1}</span><span class="stmt">${esc(QUIZ_STMT[c.id])}<span class="in">${esc(c.name)} · ${esc(c.practices)}</span></span></button>`;
+  });
+  html += `<button class="qopt none" role="radio" aria-checked="${answered && cur===null}" data-opt="">
+      <span class="kn num">${opts.length+1}</span><span class="stmt">${esc(NONE_STMT[f.id])}<span class="in">leaves this family dark, which is honest</span></span></button>`;
+  html += `</div><div class="qfoot">
+    <button class="cta" id="qback" ${quiz.i===0?"disabled":""}>back</button>
+    <button class="cta primary" id="qnext" ${answered?"":"disabled"}>${quiz.i===4?"see the placement":"next"}</button>
+    <span class="qhint">keys 1 to ${opts.length+1} select · enter advances</span>
+  </div></div>`;
+  $("#entrybody").innerHTML = html;
+  wireEntry();
+}
+
+/* ---------------- placement view ---------------- */
+function renderPlacement(){
+  comp = compFrom(quiz.answers);
+  const mine = new Set(comp);
+  const dark = C.filter(c=>!mine.has(c.id));
+  const exact = R.filter(x=>{ const s = litOf(x); return comp.length && s.length===mine.size && s.every(id=>mine.has(id)); });
+  const scored = R.map(x=>{
+      const s = new Set(litOf(x));
+      return {r:x, overlap:comp.filter(id=>s.has(id)), miss:comp.filter(id=>!s.has(id))};
+    }).filter(x=>x.overlap.length>0)
+    .sort((a,b)=> b.overlap.length-a.overlap.length || a.miss.length-b.miss.length || litOf(a.r).length-litOf(b.r).length)
+    .slice(0,4);
+  let html = `<div class="pwrap">
+    <div class="phead">your placement · computed from the catalog, not asserted</div>
+    <h1 class="pcomp">${comp.length?esc(names(comp)):"You left all five families dark."}</h1>`;
+  if(comp.length){
+    html += `<p class="pline">Five questions, ${comp.length} carried. ${exact.length
+      ? "One title in the catalog holds exactly this set: <b>"+esc(exact.map(e=>e.name).join(", "))+"</b>. Rare."
+      : "No title in the catalog names this composition."}</p>
+      <p class="pquiet">A title is a lossy compression of the answer you just gave. The placement keeps the remainder.</p>`;
+  } else {
+    html += `<p class="pline">The catalog has nothing to compress. Every title below would be all miss and no overlap. Retake when something here is yours, or explore the field as a visitor.</p>`;
+  }
+  html += `<div class="pmoves">
+    <button class="cta primary" id="go-explore">free explore</button>
+    <button class="cta" id="go-retake">retake the five questions</button>
+  </div>`;
+  if(comp.length){
+    html += `<div class="psec">nearest existing titles, ranked by overlap with you</div>`;
+    scored.forEach(x=>{
+      html += `<div class="nearcard">
+        <div class="rn">${esc(x.r.name)}<small class="num">${x.overlap.length} / ${comp.length} of yours</small></div>
+        <div class="ov">shares: ${esc(names(x.overlap))}</div>
+        <div class="ms">misses: ${x.miss.length?esc(names(x.miss))+", which you carry and it does not":"nothing of yours, but it also claims more than you selected"}</div>
+        <div class="lm">${esc(x.r.limit)}</div>
+      </div>`;
+    });
+  }
+  html += `<div class="psec">the dark: ${dark.length} questions you left unlit</div>
+    <p class="pquiet" style="margin:0 0 var(--s3)">Each fails in a known way when nobody holds it. Open a cell to read how.</p>
+    <div class="darkgrid">${dark.map(c=>`<details class="darkcell">
+      <summary><span class="dn">${esc(c.name)}</span><span class="dq">${esc(c.question)}</span></summary>
+      <div class="pn">when unheld: ${esc(c.pathology.name)}</div>
+      <div class="pb">${esc(c.pathology.body)}</div>
+    </details>`).join("")}</div>
+  </div>`;
+  $("#entrybody").innerHTML = html;
+}
+
+/* ---------------- entry transitions ---------------- */
+function advance(){
+  const f = FAMILIES[quiz.i];
+  if(!(f.id in quiz.answers)) return;
+  if(quiz.i < 4){ quiz.i++; render(); }
+  else { comp = compFrom(quiz.answers); savePlacement(); view = "placement"; render(); }
+}
+function goExplore(){
+  comp = compFrom(quiz.answers);
+  if(comp.length && !state.pick.length) state.pick = comp.slice();
+  view = "explore"; render();
+}
+function retake(){
+  clearPlacement();
+  quiz = {i:0, answers:{}}; comp = [];
+  state.pick = []; state.role = null; state.goal = null; state.lens = 1;
+  view = "quiz"; render();
+}
+function wireEntry(){
+  $$(".qopt").forEach(b=>b.onclick = ()=>{ quiz.answers[FAMILIES[quiz.i].id] = b.dataset.opt || null; render(); });
+  const bk = $("#qback"); if(bk) bk.onclick = ()=>{ if(quiz.i>0){ quiz.i--; render(); } };
+  const nx = $("#qnext"); if(nx) nx.onclick = advance;
+  const ex = $("#go-explore"); if(ex) ex.onclick = goExplore;
+  const rt = $("#go-retake"); if(rt) rt.onclick = retake;
+}
+$("#retake").addEventListener("click", retake);
+$("#nav-placement").addEventListener("click", ()=>{
+  view = FAMILIES.every(f=>f.id in quiz.answers) ? "placement" : "quiz";
+  render();
+});
+
 /* ---------------- wiring ---------------- */
 const PHONE = matchMedia("(max-width:699px)");
 function setPane(p){
@@ -1052,6 +1354,19 @@ function wire(){
 $$(".lens").forEach(b=>b.addEventListener("click",()=>{ state.lens = +b.dataset.lens; render(); }));
 document.addEventListener("keydown",e=>{
   if(e.target.matches("input,textarea")) return;
+  if(view==="quiz"){
+    if((e.key==="Enter"||e.key===" ") && e.target.closest && e.target.closest(".qopt")) return; /* let the focused option select itself */
+    const opts = famIntels(FAMILIES[quiz.i].id);
+    const n = +e.key;
+    if(n>=1 && n<=opts.length+1){
+      quiz.answers[FAMILIES[quiz.i].id] = n<=opts.length ? opts[n-1].id : null;
+      render(); e.preventDefault(); return;
+    }
+    if(e.key==="Enter"||e.key==="ArrowRight"){ advance(); e.preventDefault(); return; }
+    if(e.key==="ArrowLeft"){ if(quiz.i>0){ quiz.i--; render(); } e.preventDefault(); return; }
+    return;
+  }
+  if(view!=="explore") return;
   if(e.key>="1" && e.key<="5"){ state.lens = +e.key; render(); }
 });
 $("#modetoggle").addEventListener("click",()=>{
@@ -1066,12 +1381,12 @@ render();
   const h = new URLSearchParams(location.hash.replace(/^#/,""));
   if(h.get("probe")!=="1") return;
   if(h.get("pane")) setPane(h.get("pane"));
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+  setTimeout(()=>{
     const d = document.documentElement;
     let msg = `PROBE sh=${d.scrollHeight} ih=${innerHeight} sw=${d.scrollWidth} iw=${innerWidth} noscroll=${d.scrollHeight<=innerHeight && d.scrollWidth<=innerWidth}`;
     if(h.get("touch")==="1"){
       const bad = [];
-      $$("button,label.pick").forEach(el=>{
+      $$("button,label.pick,summary").forEach(el=>{
         const r = el.getBoundingClientRect();
         if(r.width===0 && r.height===0) return; /* hidden pane */
         if(r.width<44 || r.height<44) bad.push(`${el.className.split(" ")[0]||el.tagName}:${Math.round(r.width)}x${Math.round(r.height)}`);
@@ -1084,7 +1399,7 @@ render();
     el.style.cssText = "position:fixed;left:-9999px;top:0";
     document.body.appendChild(el);
     document.title = msg;
-  }));
+  }, 250);
 })();
 </script>
 </body>
