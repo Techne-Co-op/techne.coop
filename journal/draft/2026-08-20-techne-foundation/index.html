@@ -57,10 +57,11 @@
 
   @media print{
     @page{margin:0.3in}
-    body{background:#fff; color:#000; font-size:11pt}
+    html{--print-paper:#FFFFFF; --print-ink:#000000}
+    body{background:var(--print-paper); color:var(--print-ink); font-size:11pt}
     .sheet{max-width:none; padding:0}
     footer{display:none}
-    a{color:#000}
+    a{color:var(--print-ink)}
   }
 </style>
 </head>
