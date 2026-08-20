@@ -38,7 +38,9 @@ Organizers are the decision-making body. They record outcomes, approve merges, a
 - Merge a pull request
 - Change the status of a series artifact
 
-**Current organizers:** Todd Youngblood (Ventures & Operations Steward), Aaron G Neyer, Benjamin Ross, Jonathan Borichevskiy, Kevin Owocki, Lucian Hymer, Neil Mackay Yarnal, Savannah Kruger.
+**Current organizers:** Todd Youngblood (Ventures & Operations Steward), Aaron G Neyer, Benjamin Ross, Jonathan Borichevskiy, Kevin Owocki, Lucian Hymer, Neil Mackay Yarnal.
+
+**Stepped back:** Savannah Kruger, by written notice given 2026-06-07.
 
 **Primary build contact:** Todd Youngblood. Schema, authority, design decisions, public naming, and anything touching money or membership standing all go to Todd.
 
