@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Called to Order in the Open: the public record of the launch of RegenHub, LCA on August 14, 2026, its first special board meeting, the election of officers, and the confirmation meeting of August 19.">
+<title>Launch &middot; Called to Order in the Open &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/launch/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/launch/">
+<meta property="og:title" content="Called to Order in the Open · Techne">
+<meta property="og:description" content="The public record of launch day, the first special board meeting, and the election of officers of RegenHub, LCA.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<script src="/assets/sky.js" defer></script>
+<style>
+/* ============================================================
+   TOKENS  --  techne v5, carried unchanged into the v6 draft
+   this page uses the incised register (v6 addendum, drafted):
+   the glyph device, the sky that computes, and the colophon.
+   The rules live at /design-system/.
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #FCFBF8;
+
+  /* sunset range  --  atmospheric per section */
+  --sun-gold: #EAB668; --sun-amber: #E09A52; --sun-coral: #D1755A;
+  --sun-rose: #B45C7C; --sun-violet: #6E5494; --sun-blue: #5476B8;
+
+  /* the sky that computes (v6, drafted): the sweep is a custom
+     property so /assets/sky.js can shift its emphasis by writing
+     one attribute. Scripting off, nothing matches, and the page
+     keeps the standing descent. Tokens only; no new color. */
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+  --sky-glow: .55;
+}
+html[data-sky="day"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-amber) 26%, var(--sun-gold) 50%,
+    var(--sun-amber) 74%, var(--sun-blue));
+  --sky-glow: .38;
+}
+html[data-sky="sunset"] { --sky-glow: .8; }
+html[data-sky="sunrise"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-violet), var(--sun-rose) 28%, var(--sun-gold) 50%,
+    var(--sun-amber) 72%, var(--sun-rose));
+  --sky-glow: .62;
+}
+html[data-sky="night"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet) 30%, var(--sun-blue) 50%,
+    var(--sun-violet) 70%, var(--sun-blue));
+  --sky-glow: .5;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --blue-dim: rgba(106, 138, 196, 0.14);
+  --ember-dim: rgba(196, 149, 106, 0.14);
+  --ok: #6A9A6A; --ok-dim: rgba(106, 154, 106, 0.14);
+  --info: #6A8AC4; --info-dim: rgba(106, 138, 196, 0.14);
+  --warn: #C46A6A; --warn-dim: rgba(196, 106, 106, 0.14);
+  --sun-gold-t: #EAB668; --sun-amber-t: #E5A562; --sun-coral-t: #DE8872;
+  --sun-rose-t: #CF7C9A; --sun-violet-t: #9E86C4; --sun-blue-t: #8FAEE0;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --blue-dim: rgba(74, 111, 176, 0.10);
+  --ember-dim: rgba(138, 106, 74, 0.10);
+  --ok: #4A7A4A; --ok-dim: rgba(74, 122, 74, 0.10);
+  --info: #4A6FB0; --info-dim: rgba(74, 111, 176, 0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168, 79, 76, 0.10);
+  --sun-gold-t: #87621F; --sun-amber-t: #8C581D; --sun-coral-t: #9C4636;
+  --sun-rose-t: #8C3D58; --sun-violet-t: #4C3870; --sun-blue-t: #3A5694;
+  color-scheme: light;
+}
+
+/* SECTION TINTS  --  each section places itself on the descent.
+   The -t variant colors type; the canonical stop carries atmosphere
+   (washes, seams, watermarks) per the U-26 deepening, drafted. */
+[data-tint="gold"]   { --section-tint: var(--sun-gold-t);   --section-stop: var(--sun-gold); }
+[data-tint="amber"]  { --section-tint: var(--sun-amber-t);  --section-stop: var(--sun-amber); }
+[data-tint="coral"]  { --section-tint: var(--sun-coral-t);  --section-stop: var(--sun-coral); }
+[data-tint="rose"]   { --section-tint: var(--sun-rose-t);   --section-stop: var(--sun-rose); }
+[data-tint="violet"] { --section-tint: var(--sun-violet-t); --section-stop: var(--sun-violet); }
+[data-tint="blue"]   { --section-tint: var(--sun-blue-t);   --section-stop: var(--sun-blue); }
+
+/* ============================================================
+   BASE  --  document grammar, v5 measures
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0ms !important; animation: none !important; } }
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--serif);
+  font-size: 18px; line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.mono { font-family: var(--mono); }
+em { font-style: italic; color: var(--heading); }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  font-family: var(--mono); font-size: 13px;
+  background: var(--surface); color: var(--blue-text);
+  border: 1px solid var(--blue); padding: 10px 16px;
+}
+.skip:focus { left: 12px; top: 12px; }
+
+/* the document measure: 760-920px per the design-system grammar */
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 clamp(var(--s5), 5vw, var(--s7)); }
+
+a { color: var(--blue-text); text-decoration: none; border-bottom: 1px solid var(--line); transition: border-color var(--micro) var(--ease); }
+a:hover { border-color: var(--blue); }
+
+/* ============================================================
+   THE GLYPH DEVICE  --  v6 addendum, drafted. One incised mark
+   per page, single stroke, no fill, the way a commonplace
+   manuscript carries a device. This page's device is the hand.
+   ============================================================ */
+.device svg {
+  width: 46px; height: 46px;
+  stroke: var(--ember); fill: none;
+  display: block; margin: 0 auto;
+}
+.device.small svg { width: 28px; height: 28px; }
+
+/* ============================================================
+   MASTHEAD  --  the page opens on the whole evening (v5), and
+   the sky may set the sweep's emphasis (v6, drafted)
+   ============================================================ */
+.masthead {
+  position: relative; text-align: center;
+  padding: clamp(88px, 11vw, 148px) 0 clamp(64px, 8vw, 96px);
+}
+.masthead::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--sky-line);
+  opacity: var(--sky-glow);
+  transition: opacity var(--dur) var(--ease);
+}
+.masthead .device { margin-bottom: 26px; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ember-text);
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.eyebrow .num { font-weight: 500; color: var(--section-tint, var(--ember-text)); }
+.eyebrow .sep { width: 5px; height: 5px; background: var(--section-tint, var(--ember)); }
+/* the eyebrow speaks in its section's stop rather than the global
+   ember (U-26, drafted); the masthead, untinted, keeps ember */
+section[data-tint] .eyebrow, article[data-tint] .eyebrow { color: var(--section-tint); }
+.accent-rule {
+  display: block; width: 96px; height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--section-tint, var(--ember)) 24%,
+    var(--section-tint, var(--ember)) 76%,
+    transparent);
+  margin: 24px auto 28px;
+}
+.masthead h1 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(36px, 5vw, 52px); line-height: 1.14;
+  letter-spacing: -0.018em; color: var(--heading);
+  margin: 0 auto 22px; max-width: 22ch;
+}
+.masthead .lede {
+  font-size: clamp(18px, 2vw, 21px); line-height: 1.65;
+  color: var(--muted); max-width: 56ch; margin: 0 auto;
+}
+
+/* ============================================================
+   SECTIONS  --  the descent, gold first (v5)
+   ============================================================ */
+section.page, section.band { padding: clamp(72px, 9vw, 120px) 0; }
+section.page { background: var(--bg); }
+section.band { background: var(--inset); }
+section[data-tint] { position: relative; }
+section[data-tint]::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg,
+    transparent 4%,
+    color-mix(in srgb, var(--section-tint) 50%, transparent) 50%,
+    transparent 96%);
+}
+/* the wash, deepened, and the seam (U-26, drafted): every tinted
+   section takes a perceptible wash of its canonical stop, and a
+   shallow band of the stop pools under the hairline, fading before
+   the text begins; the seam's strength follows the computed sky.
+   AA-verified by script against both modes. */
+section[data-tint]::after {
+  content: ""; position: absolute; top: 0; left: 0; right: 0;
+  height: clamp(36px, 5vw, 56px);
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--section-stop) 20%, transparent),
+    transparent);
+  opacity: calc(var(--sky-glow, .55) * .6);
+}
+section.page[data-tint] { background: color-mix(in srgb, var(--bg) 95%, var(--section-stop)); }
+section.band[data-tint] { background: color-mix(in srgb, var(--inset) 92%, var(--section-stop)); }
+
+.section-head { max-width: 820px; margin: 0 auto clamp(40px, 5vw, 56px); text-align: center; }
+.section-title {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(28px, 3.6vw, 38px);
+  color: var(--heading); letter-spacing: -0.015em; line-height: 1.2;
+  margin: 0 auto 18px; max-width: 26ch;
+}
+.prose { max-width: 68ch; margin: 0 auto; }
+.prose p { margin-bottom: 22px; }
+.prose p:last-child { margin-bottom: 0; }
+.prose .aside {
+  font-family: var(--mono); font-size: 13px; line-height: 1.85;
+  color: var(--muted); border-top: 1px solid var(--line);
+  padding-top: 16px; margin-top: 28px;
+}
+
+/* the principles list */
+.principles { max-width: 68ch; margin: 28px auto 0; list-style: none; counter-reset: ica; }
+.principles li {
+  counter-increment: ica;
+  padding: 14px 0 14px 52px; position: relative;
+  border-top: 1px solid var(--line);
+}
+.principles li:last-child { border-bottom: 1px solid var(--line); }
+.principles li::before {
+  content: counter(ica);
+  position: absolute; left: 8px; top: 15px;
+  font-family: var(--mono); font-size: 13px; font-weight: 500;
+  color: var(--section-tint, var(--ember-text));
+}
+.principles b { font-family: var(--serif); color: var(--heading); font-weight: 700; }
+
+/* the tending list: roles, never names */
+.tends { max-width: 68ch; margin: 28px auto 0; display: grid; gap: 18px; }
+.tend {
+  background: color-mix(in srgb, var(--surface) 95%, var(--section-stop, var(--ember)));
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--section-tint, var(--ember));
+  padding: 22px 26px;
+}
+.tend .role {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--section-tint, var(--ember-text));
+  margin-bottom: 8px;
+}
+.tend p { font-size: 17px; line-height: 1.7; }
+
+/* lineage entries */
+.lineage { max-width: 68ch; margin: 28px auto 0; }
+.lineage .entry { border-top: 1px solid color-mix(in srgb, var(--section-stop, var(--line)) 30%, var(--line)); padding: 22px 0; }
+.lineage .entry:last-child { border-bottom: 1px solid var(--line); }
+.lineage h3 {
+  font-family: var(--serif); font-weight: 700; font-size: 20px;
+  color: var(--heading); margin-bottom: 10px;
+}
+.lineage p { font-size: 17px; line-height: 1.7; }
+
+/* ============================================================
+   COLOPHON  --  v6 addendum, drafted: the page ends by signing
+   itself. Address, status, one line of its making.
+   ============================================================ */
+.colophon {
+  text-align: center;
+  padding: clamp(72px, 9vw, 112px) 0 clamp(48px, 6vw, 64px);
+}
+.colophon .device { margin-bottom: 18px; }
+.colophon .device svg { stroke: var(--ember); opacity: .85; }
+.colophon .c-rule {
+  display: block; width: 72px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ember) 30%, var(--ember) 70%, transparent);
+  margin: 0 auto 18px;
+}
+.colophon .addr {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--ember-text);
+}
+.colophon .made {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15px; color: var(--muted); margin-top: 10px;
+}
+
+/* ============================================================
+   FOOTER  --  the sweep mirrored at last light (v5)
+   ============================================================ */
+footer { background: var(--inset); padding: 44px 0 52px; position: relative; }
+footer::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: var(--sky-line);
+  opacity: calc(var(--sky-glow) * 0.72);
+  transform: scaleX(-1);
+}
+.foot-line {
+  font-family: var(--mono); font-size: 14px; line-height: 2;
+  color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 28px;
+}
+.foot-line a { color: var(--muted); }
+.foot-line a:hover { color: var(--blue-text); }
+
+    /* Formation note, footer form (P-11). One verbatim copy per page,
+       proved by scripts/notice_audit.py. */
+    .formation-foot{
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+      max-width:96ch;
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+/* ============================================================
+   LAUNCH page additions (U-29). No new color: the minutes block,
+   the marks table, and the notes all speak in existing tokens.
+   ============================================================ */
+.minutes{
+  border:1px solid var(--line);border-left:3px solid var(--ember);
+  background:var(--raise);padding:var(--s5) var(--s5);margin:var(--s6) 0;
+  max-width:86ch;
+}
+.minutes .m-head{
+  font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ember-text);margin-bottom:var(--s4);line-height:1.8;
+}
+.minutes p{font-family:var(--serif);font-size:15px;line-height:1.8;margin:0 0 var(--s4);}
+.minutes .action{
+  border-left:2px solid var(--line);padding-left:var(--s4);margin:var(--s4) 0;
+  font-size:14.5px;
+}
+.minutes .action b{color:var(--ember-text);}
+.minutes .adjourned{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin:0;}
+table.marks, table.seats{
+  width:100%;max-width:86ch;border-collapse:collapse;margin:var(--s5) 0;
+  font-size:14.5px;
+}
+table.marks th, table.marks td, table.seats th, table.seats td{
+  border-bottom:1px solid var(--line);padding:10px 14px;text-align:left;vertical-align:top;
+}
+table.marks th, table.seats th{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+}
+table.marks td:first-child{font-family:var(--mono);white-space:nowrap;color:var(--ember-text);}
+table.seats td:first-child{font-family:var(--serif);}
+table.seats td:last-child{font-family:var(--mono);font-size:13px;color:var(--muted);}
+.notes{max-width:86ch;}
+.notes ol{font-family:var(--mono);font-size:12.5px;line-height:1.9;color:var(--muted);padding-left:20px;}
+.notes li{margin-bottom:var(--s3);}
+.notes a{color:var(--blue-text);}
+sup a{font-family:var(--mono);font-size:11px;text-decoration:none;color:var(--blue-text);}
+.pullquote{
+  font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.7;
+  border-left:2px solid var(--ember);padding-left:var(--s5);margin:var(--s5) 0;max-width:74ch;
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<main id="main">
+
+<!-- ===== MASTHEAD ===== -->
+<header class="masthead">
+  <div class="wrap">
+    <div class="device" aria-hidden="true">
+      <svg viewBox="0 0 48 48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 30 a10 10 0 0 0 20 0"/>
+        <path d="M16 30 V20"/>
+        <path d="M20 30 V15"/>
+        <path d="M24 30 V13"/>
+        <path d="M28 30 V15"/>
+        <path d="M32 30 V21"/>
+      </svg>
+    </div>
+    <div class="eyebrow"><span class="mono">launch</span><span class="sep"></span><span>public record</span></div>
+    <span class="accent-rule"></span>
+    <h1>Called to Order in the Open</h1>
+    <p class="lede">The Board of RegenHub, LCA holding its first special meeting in front of a room. Boulder, Colorado, August 14, 2026. With the confirmation meeting of August 19.</p>
+  </div>
+</header>
+
+<!-- ===== 00 · THE STANDING NOTE (page · gold) ===== -->
+<section class="page" data-tint="gold" id="note">
+  <div class="wrap">
+    <div class="prose">
+      <p>The vessel, the legal entity RegenHub, LCA, has existed on paper since February 6, 2026, when the articles of organization were <b>[Filed]</b> with the Colorado Secretary of State<sup id="r1"><a href="#n1">[1]</a></sup>. What August 14 added was the body that carries the vessel: the seated directors electing their officers, in the form the law requires, with witnesses present<sup id="r2"><a href="#n2">[2]</a></sup>. The point of doing it aloud in front of a room was declarative. No one was being told the cooperative existed. The cooperative was being shown holding its own operations in the open.</p>
+      <p>This is an edited public record of two gatherings. A follow-up board and operations meeting on August 19 confirmed the actions, cured a step that had been skipped, and clarified the framing of a partner project at that partner's request<sup id="r3"><a href="#n3">[3]</a></sup>.</p>
+      <p class="aside">Following the archives' convention, the conversation is told in the group's voice: edited thematically, no one speaking alone. Attendees of the gathering are not named except where a person spoke publicly on record or holds a public office in the cooperative. Direct board actions are set apart in the minutes block and reproduced from the meeting transcript, with names normalized against the articles of organization.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 01 · WHAT WE MEAN BY TECHNE (band · amber) ===== -->
+<section class="band" data-tint="amber" id="techne">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">01</span><span class="sep"></span><span>What we mean by techne</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">A word that held art, skill, and know-how together.</h2>
+    </div>
+    <div class="prose">
+      <p>The word <em>techne</em> is Greek. Before the modern split between art, skill, and know-how, it held all three together. Craft. Technique. The whole of making. The launch talk opened by returning to that root, because the current use of the word technology has narrowed to mean digital tools alone, and the practice being formed here is wider than that.</p>
+      <p>The framing offered was a shift of orientation. Extraction through technology is one paradigm. Regeneration through technology is another. The second paradigm treats a tool as something that enhances a human relationship rather than replacing one; that connects a person to their neighbors rather than mediating them away; that is approached with the care one would bring to a spiritual practice, not the appetite of a market opportunity.</p>
+      <p>The tent, on this framing, is not limited to technologists. Any craft that takes technology seriously as a partner belongs. What is being built is a community of practice around that partnership.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 02 · FOUR TERMS (page · coral) ===== -->
+<section class="page" data-tint="coral" id="terms">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">02</span><span class="sep"></span><span>Four terms the founding carried</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">Each word doing a specific piece of work.</h2>
+    </div>
+    <div class="prose">
+      <p>Four words came up early in the framing talks and have stayed in the working vocabulary of the cooperative. Each has an entry in the Essential Lexicon at <a href="/commons/build/lexicon/">the lexicon</a>.</p>
+    </div>
+    <div class="lineage">
+      <div class="entry">
+        <h3>Scenius</h3>
+        <p>The collective intelligence that emerges from a community. Brian Eno's coinage, borrowed here and filed in the articles as one of the enumerated public benefits of the cooperative<sup id="r4"><a href="#n4">[4]</a></sup>: what the group can think and make together that no single member of it could think or make alone.</p>
+      </div>
+      <div class="entry">
+        <h3>Soil, not firm</h3>
+        <p>An alternative to the firm as an organizing metaphor. A firm exerts control over its substrate. Soil provides the conditions in which work can emerge. The commitment implied is that the cooperative offers a growing medium for projects and collaborations rather than a container in which they must be brought to heel.</p>
+      </div>
+      <div class="entry">
+        <h3>Craft</h3>
+        <p>Quality and care. Named because bringing care into work is what displaces the extractive posture, in a small way and then in a larger one.</p>
+      </div>
+      <div class="entry">
+        <h3>Techne</h3>
+        <p>The Greek root of technology, back when the word held the intersection of art, craft, and skill and drew no line between them: the practice of bringing something into reality through skilled making. The word stakes a position on the technology of its era, insisting that tools, including AI, belong beside the maker rather than in place of the maker.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 03 · A NEIGHBORING PRACTICE (band · rose) ===== -->
+<section class="band" data-tint="rose" id="neighbor">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">03</span><span class="sep"></span><span>A voice from a neighboring practice</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">An independent project, heard in the room.</h2>
+    </div>
+    <div class="prose">
+      <p>One of the eight organizers named on the cooperative's articles of organization, Savannah Kruger, spoke to the room about the Neighborhood Village Project, a free course that teaches people to rebuild neighborhood-scale community, mutual aid, and resilience where they live. She has since stepped back from active board service.</p>
+      <p>The project is not a program of the cooperative and is not affiliated with it. It began before the cooperative did, has its own lineage and its own funding, and is moving toward nonprofit status independently<sup id="r5"><a href="#n5">[5]</a></sup>. It is named here only because the launch record would be incomplete without the fact that it was heard, and because the correction of how it was framed that day is itself part of the record below. Its work is its own to describe, and this page does not describe it further.</p>
+      <p class="aside">The relationship is one of mutual regard between two independent efforts that share a room from time to time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 04 · CALLED TO ORDER (page · violet) ===== -->
+<section class="page" data-tint="violet" id="called">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">04</span><span class="sep"></span><span>Called to order</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">A body electing its officers, in front of a room.</h2>
+    </div>
+    <div class="prose">
+      <p>The formation year began with eight organizers, whose names appear on the articles of organization filed with Colorado in February. An organizer consent then elected the initial board. What August 14 added was the third graduation: the board electing its officers, in session, in front of a room. The framing came from cybernetics. An organization that can amend itself in the open is different in kind from one that only receives amendments from outside.</p>
+      <p>The protocol borrowed for the occasion was Robert's Rules, described from the front of the room, without irony, as a set of corporate incantations. The phrase is worth keeping, because it names something true about the felt experience: the sense that a body must say certain words in a certain order or the act will not hold. As it turns out, the Bylaws name no parliamentary authority at all. Robert's Rules was a borrowed costume, not a binding constraint. What the cooperative actually owes itself is the record: minutes, or written consents, evidencing what the board decided. That distinction, discovered afterward, is the most useful thing the day produced.</p>
+    </div>
+
+    <div class="minutes">
+      <div class="m-head">Minutes &middot; special meeting &middot; August 14, 2026 &middot; 4:08 PM<br>1515 Walnut Street, Suite 200, Boulder, CO</div>
+      <p>The board of RegenHub, LCA was called to order at 4:08 PM by Todd Youngblood and Aaron Gabriel, two directors, under Bylaws Section 3.10. No written notice was delivered under Section 3.11. Each director present waived notice by appearance under Section 3.11 and consented to the holding of the meeting under Section 3.10. No director objected.</p>
+      <p>Present: Todd Youngblood, Aaron Gabriel, Lucian Hymer, Benjamin Life, Kevin Owocki. Absent: John Borichevskiy. Five of six directors present, constituting a quorum under Section 3.13.</p>
+      <div class="action"><b>Moved and passed.</b> Aaron Gabriel is elected President of the cooperative; Todd Youngblood is elected Secretary; Lucian Hymer is elected Treasurer.</div>
+      <div class="action"><b>Moved and passed.</b> The board establishes regular meetings every other Wednesday at 1:00 PM, at 1515 Walnut Street or electronically, for which no notice need be given under Section 3.9.</div>
+      <div class="action"><b>Moved and passed.</b> The Secretary is authorized to complete and execute Schedule A upon receipt from counsel of the effective date and of counsel's confirmation regarding Section 3.2.2 (initial directors).</div>
+      <div class="action"><b>Recorded.</b> The Bylaws (v2.1) and Membership Agreement (v2.3) remain <b>[Drafted]</b>. Member ratification under Article 12 is <b>[Anticipated]</b>; no member has yet been admitted, and the ratification is on the docket.</div>
+      <p class="adjourned">The meeting was adjourned at 4:12 PM.</p>
+    </div>
+
+    <div class="prose">
+      <p>The room registered a voice vote in support. The gong was struck at 4:20. Any further work was, by declaration, illegal until further notice.</p>
+    </div>
+
+    <div class="section-head" style="margin-top:var(--s7)">
+      <div class="eyebrow"><span class="mono">the board as constituted</span></div>
+      <span class="accent-rule"></span>
+    </div>
+    <div class="prose">
+      <p>The Board of Directors as of August 14, 2026, and confirmed on August 19, is six people. Three hold officer positions filled in the meeting above. The remaining three serve as directors without officer titles.</p>
+    </div>
+    <table class="seats">
+      <thead><tr><th>Director</th><th>Office</th></tr></thead>
+      <tbody>
+        <tr><td>Aaron Gabriel</td><td>President</td></tr>
+        <tr><td>Todd Youngblood</td><td>Secretary</td></tr>
+        <tr><td>Lucian Hymer</td><td>Treasurer</td></tr>
+        <tr><td>Benjamin Life</td><td>Director</td></tr>
+        <tr><td>Kevin Owocki</td><td>Director</td></tr>
+        <tr><td>John Borichevskiy</td><td>Director (absent Aug 14)</td></tr>
+      </tbody>
+    </table>
+    <div class="prose">
+      <p class="aside">Names are given as normalized against the articles of organization in the source record. Audio transcription introduced spelling variants that do not match the filed record; where this page and the filing disagree, the filing governs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 05 · WHAT FOLLOWED (band · blue) ===== -->
+<section class="band" data-tint="blue" id="august19">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">05</span><span class="sep"></span><span>What followed on August 19</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">Corrections written as new entries, never over old ones.</h2>
+    </div>
+    <div class="prose">
+      <p>Five days later the board met in its normal working form. Four items on that agenda belong to a public record: a confirmation of the officer election, counsel's recognition of the cooperative's standing, a decision to seat feedback as an operating practice, and a clarification of framing for a partner project.</p>
+    </div>
+    <div class="lineage">
+      <div class="entry">
+        <h3>Confirmation of the officer election</h3>
+        <p>A closer reading of Robert's Rules after the fact suggested a step had been skipped on August 14: under that authority, each officer accepts the nomination aloud before the board takes the vote. The board treated this as a defect and cured it. Each officer verbally accepted the nomination in turn, and each election was re-taken as a separate motion, passing six to zero with all six directors present. The presence of a public witness was entered into the record.</p>
+        <p>The subsequent reading of the Bylaws found no defect to cure. No parliamentary authority is adopted anywhere in the governing documents, so the omitted step was omitted from a rulebook the cooperative had never bound itself to. The August 19 votes stand as confirmation rather than repair. The August 14 minutes remain the August 14 minutes; August 19 is a new entry pointing back at them, and this paragraph is a third entry pointing back at both. Nothing is deleted. The record shows the board being wrong about its own strictness and then being right, which is more useful to a future reader than a record that had simply been correct.</p>
+      </div>
+      <div class="entry">
+        <h3>Counsel's recognition</h3>
+        <p>On the same day, the cooperative's formation counsel reviewed where things stood and confirmed the position plainly<sup id="r7"><a href="#n7">[7]</a></sup>. With articles filed, an organizer consent electing the initial board, bylaws adopted, membership agreements authorized, and officers elected, the cooperative is set to admit members: they sign the membership agreement, pay the buy-in, and the cooperative is running. An annual member meeting can then be scheduled to elect the first board after the initial one.</p>
+        <p>Two forward obligations were named. Keep minutes of board and member meetings, and keep records of actions taken by written consent. At the state level the only recurring filing is the annual periodic report, currently twenty-five dollars, confirming the principal office and registered agent. Tax filings are separate and required. Counsel also noted a discrepancy worth recording: the organizer consent elected seven directors, and the board now seats six. There is a vacancy to fill.</p>
+      </div>
+      <div class="entry">
+        <h3>Feedback as an operating practice</h3>
+        <p>The observation raised in the meeting was straightforward. As the community around the cooperative grows, more people are coming into it whose orientation is unfamiliar. If nobody speaks the small feedback aloud when someone is landing wrong, the friction accumulates until the person becomes hard to include, at which point the response is either to swallow it silently or to remove them, neither of which is honest, and neither of which scales. The board decided that a culture of small, timely feedback among the core needs to be modeled first, before it can be extended to the edges.</p>
+      </div>
+      <div class="entry">
+        <h3>Clarifying the framing of a partner project</h3>
+        <p>Savannah Kruger, listening in, offered feedback that the presentation on August 14 had, in places, framed the Neighborhood Village Project as though it were a program of the cooperative. The two are not related that way. She asked, and the board agreed, that the project not be listed as an organization affiliated with the cooperative in written materials or on the website. The language on this page is written accordingly.</p>
+        <p>The board also noted, in the same conversation, that its own cooperative structure includes pathways for allocating resources to work outside itself, through an endowment mechanism for example, when a partner project would benefit from that support and the partner's own structure can receive it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 06 · TWO MEMBRANES (page · gold) ===== -->
+<section class="page" data-tint="gold" id="membranes">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">06</span><span class="sep"></span><span>Two membranes of participation</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">Membership is one way to relate to the cooperative, not the only one.</h2>
+    </div>
+    <div class="prose">
+      <p>The cooperative is organized as a public benefit entity, which means the benefits it produces are not conditional on being a member of it.</p>
+    </div>
+    <div class="tends">
+      <div class="tend">
+        <div class="role">Outer membrane &middot; community of practice</div>
+        <p>Voluntary participation at a supporting level, from a low monthly amount up to the coworking threshold. Access to public events, member systems, and the ongoing community around the cooperative. Most people who relate to Techne will relate to it here. There is no expectation of governance responsibility or tax paperwork.</p>
+      </div>
+      <div class="tend">
+        <div class="role">Inner membrane &middot; patron member</div>
+        <p>Crossing into full membership of the cooperative. Anticipated to require a period of participation at the outer level and an invitation from an existing member. Carries governance rights, economic rights, and the tax implications of partnership. May carry a minimum time contribution. This is the fit for people who want to help lead the cooperative, not only benefit from it.</p>
+      </div>
+    </div>
+    <div class="prose">
+      <p class="aside">The specific thresholds, the supporting tier amounts, the invitation rule, and the time requirement are drafted, not yet adopted. Schedule A, which will carry them, is on the docket alongside the ratification of the Bylaws and Membership Agreement. The point of naming the two membranes now is to remove the pressure to convert the outer one into the inner one. The outer membrane is not a funnel. It is where the community of practice actually lives.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 07 · THE EMPTY ROOM (band · amber) ===== -->
+<section class="band" data-tint="amber" id="order">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">07</span><span class="sep"></span><span>A room the Bylaws left empty</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">No parliamentary authority is adopted anywhere.</h2>
+    </div>
+    <div class="prose">
+      <p>Most bylaws name a parliamentary authority. The usual sentence reads that meetings shall be governed by the current edition of <em>Robert's Rules of Order</em> except where the bylaws provide otherwise, and with that sentence a cooperative inherits a nineteenth-century American procedural tradition wholesale: its motions, its precedence, its theory of what a deliberating body is and how a minority is protected within it.</p>
+      <p>The cooperative's Bylaws contain no such sentence. Whether that was intention or oversight, the effect is the same. There is a room in the governing documents with nothing in it, and the cooperative may furnish it.</p>
+      <p>This matters more than a procedural footnote. An operating order is not neutral machinery. Robert's Rules encodes particular commitments: that deliberation is adversarial, that the motion is the unit of decision, that a majority prevails and a minority is protected by procedure rather than by relationship. Those commitments have served assemblies well for a century and a half. They are not the only commitments a body could hold. A cooperative that decides by consent rather than by contest, that treats <em>good enough to try</em> as its threshold, that has spent a formation year on how value is recognized without being commodified, might reasonably write an order of business that reflects those choices instead of inheriting ones that do not.</p>
+      <p>The proposal that surfaced from the Philosoraptor retreat, and that this record enters as a live question rather than a decision, is that the cooperative draft its own documented operating order. Not an improvisation, and not the absence of rules. A written, versioned, citable procedure adopted as the Bylaws contemplate. Such a document would do double duty. Inside, it would give the board and the members a shared procedural language that matches the rest of their vocabulary. Outside, it could serve as a lexicon and an interoperability layer between aligned cooperatives and labs, the way a shared file format lets two systems exchange work without either surrendering its internals.</p>
+      <p>That is an ambition, and it is marked as one. It is <b>[Open]</b>, owned by the board, with no date. What can be said today is only that the room exists, that it is empty on purpose or by accident, and that the cooperative noticed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 08 · STATUS OF THE RECORD (page · coral) ===== -->
+<section class="page" data-tint="coral" id="status">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">08</span><span class="sep"></span><span>Status of the record</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">The strongest mark does not appear on this page.</h2>
+    </div>
+    <div class="prose">
+      <p>What follows is the record as it stands at the time of this posting, marked in the cooperative's own honest grammar. The strongest mark, <b>[Ratified]</b>, appears only after the members vote and every citation is re-verified against the adopted text. A record that awarded its best word casually would not be worth keeping.</p>
+    </div>
+    <table class="marks">
+      <thead><tr><th>Mark</th><th>Item</th></tr></thead>
+      <tbody>
+        <tr><td>[Filed]</td><td>Articles of Organization, Colorado Secretary of State entity 20261163853, filed February 6, 2026.</td></tr>
+        <tr><td>[Filed]</td><td>Organizer consent electing the initial board. Seven directors at consent.</td></tr>
+        <tr><td>[Adopted]</td><td>Bylaws and Membership Agreements, adopted and authorized by the board. Minutes and written consents evidencing these actions are the Secretary's standing obligation.</td></tr>
+        <tr><td>[Adopted]</td><td>Officer elections of August 14, 2026, confirmed by separate motion on August 19, 2026.</td></tr>
+        <tr><td>[Drafted]</td><td>Bylaws v2.1 and Membership Agreement v2.3, published at <a href="/legal/">the legal record</a>. Counsel has offered a redline comparison against v1, and tax counsel review of the partnership and capital language is advised before ratification.</td></tr>
+        <tr><td>[Anticipated]</td><td>Admission of the first members. They sign the membership agreement and pay the buy-in. The cooperative is then running.</td></tr>
+        <tr><td>[Anticipated]</td><td>Annual member meeting to elect the first board after the initial one.</td></tr>
+        <tr><td>[Anticipated]</td><td>Schedule A. The thresholds and dues for the two membranes of participation. Executed by the Secretary upon receipt from counsel.</td></tr>
+        <tr><td>[Open]</td><td>One board vacancy. The organizer consent elected seven directors; six are seated.</td></tr>
+        <tr><td>[Open]</td><td>The cooperative's own documented operating order, in the room the Bylaws left empty. Owned by the board. No date.</td></tr>
+        <tr><td>[Open]</td><td>The date of the ratification gate. On the docket. Owned by the board.</td></tr>
+      </tbody>
+    </table>
+    <div class="prose">
+      <p class="aside">Every claim on this page traces to one of these marks. The marks are the cooperative's own, and they run one way only: a plan is never dressed as a fact.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 09 · CLOSE (band · violet) ===== -->
+<section class="band" data-tint="violet" id="close">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="num">09</span><span class="sep"></span><span>What the launch showed</span></div>
+      <span class="accent-rule"></span>
+      <h2 class="section-title">A body coming into a working relationship with itself.</h2>
+    </div>
+    <div class="prose">
+      <p>Above the paperwork, the vessel can act as an entity, can amend its own operations in the open, and can hold a room in which a partner project is heard, its feedback taken, and the framing corrected the same week. Counsel confirms the standing. That is a small proof, but it is the one that matters at the start.</p>
+      <p>The week's other lesson was quieter. A body performing a protocol it had not adopted, discovering as much, and writing the discovery into the record rather than over it, learned something about itself that a flawless ceremony would not have taught. The incantations were not the thing. The record was the thing. And where the ceremony was borrowed, there is now an empty room, and a cooperative that knows it is standing in one.</p>
+      <p>The dialogue that filled fifteen formation meetings did not end on February 6, or on August 14, or on August 19. It changed medium. It lives now in <a href="/commonplace/">the Commonplace Book</a><sup id="r6"><a href="#n6">[6]</a></sup>, the cooperative's shared record, where every agreement carries its version, every figure traces to its events, and every rule cites the clause that justifies it. This page is one panel of that record.</p>
+      <p>The rest is craft.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NOTES ===== -->
+<section class="page" data-tint="blue" id="notes">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="mono">notes</span><span class="sep"></span><span>sources</span></div>
+      <span class="accent-rule"></span>
+    </div>
+    <div class="prose">
+      <p class="aside">RegenHub, LCA is a Colorado Public Benefit Limited Cooperative Association, entity ID 20261163853, articles of organization filed February 6, 2026, principal office 1515 Walnut Street, Suite 200, Boulder, Colorado. Techne is the trade name under which the cooperative operates its studio and community of practice. This page was prepared from the meeting records of August 14 and August 19, 2026, and is maintained on the techne.coop repository. The Bylaws (v2.1) and Membership Agreement (v2.3) remain <b>[Drafted]</b> at the time of this posting; their formal ratification is a separate act, still on the docket.</p>
+    </div>
+    <div class="notes">
+      <ol>
+        <li id="n1">Articles of organization for RegenHub, LCA filed with the Colorado Secretary of State on February 6, 2026, entity ID 20261163853. A Colorado Public Benefit Limited Cooperative Association governed by the Colorado Uniform Limited Cooperative Association Act, taxed as a partnership under Subchapter K. <a href="#r1">Back</a></li>
+        <li id="n2">Principal office: 1515 Walnut Street, Suite 200, Boulder, Colorado. <a href="#r2">Back</a></li>
+        <li id="n3">Source records: LCA Formation Meeting and Board Cybernetics, August 14, 2026; LCA Board and Operations Meeting, August 19, 2026. Both are held on record with the Secretary. Names have been normalized against the articles of organization. <a href="#r3">Back</a></li>
+        <li id="n4">Scenius is Brian Eno's term for the collective intelligence of a scene. It appears in the cooperative's articles of organization as one of the enumerated public benefit purposes, and is entered in the Essential Lexicon at <a href="/commons/build/lexicon/">the lexicon</a>. <a href="#r4">Back</a></li>
+        <li id="n5">The Neighborhood Village Project is presently an unincorporated nonprofit association moving toward 501(c)(3) status. Its team, program, and funding are not related to RegenHub, LCA. <a href="#r5">Back</a></li>
+        <li id="n6">The Commonplace Book, the cooperative's shared record, at <a href="/commons/">the commons</a>. It carries the versioned agreements, the append-only event log, the REA-grounded information model, and the discipline of cite-as-you-enforce that ties every rule back to its authorizing bylaw clause. <a href="#r6">Back</a></li>
+        <li id="n7">Correspondence from formation counsel to the cooperative, August 19, 2026, held on record with the Secretary. Summarized here as to the cooperative's operating standing, its recordkeeping and filing obligations, and the board vacancy. Counsel's observations on the drafting of v2 and on charitable-solicitation registration are working matters before the board and are not reproduced. <a href="#r7">Back</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COLOPHON ===== -->
+<div class="colophon">
+  <div class="wrap">
+    <div class="device small" aria-hidden="true">
+      <svg viewBox="0 0 48 48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 30 a10 10 0 0 0 20 0"/>
+        <path d="M16 30 V20"/>
+        <path d="M20 30 V15"/>
+        <path d="M24 30 V13"/>
+        <path d="M28 30 V15"/>
+        <path d="M32 30 V21"/>
+      </svg>
+    </div>
+    <span class="c-rule"></span>
+    <div class="addr">U-29 &middot; drafted</div>
+    <div class="made">Prepared from the meeting records of August 14 and August 19, 2026. Merge is the act of adoption.</div>
+  </div>
+</div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-line">
+      <a href="/">Techne</a>
+      <a href="/about/">About</a>
+      <a href="/commonplace/">The Commonplace Book</a>
+      <a href="/commons/">The commons</a>
+      <a href="/legal/">Legal instruments</a>
+    </div>
+    <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+  </div>
+</footer>
+
+</body>
+</html>
