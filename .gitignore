@@ -10,3 +10,10 @@ supabase/.temp
 # working tree readable; scripts/validate.py enumerates tracked pages so the
 # manifest is safe either way.
 .wt/
+
+# Ephemeral working files. .scratch/ is the drafting bench, not the record, and
+# an untracked draft there was swept onto a branch twice by `git add -A` and
+# broke style-lint. The material already committed under .scratch/ stays
+# tracked by its exact path; anything new there has to be added deliberately.
+.scratch/*
+!.scratch/labor-schedule/
