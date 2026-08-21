@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>The Order of Proceeding &middot; Documentation &middot; Techne</title>
+<meta name="description" content="A draft proposal for RegenHub, LCA: twelve rules of order evolved from the cooperative's own record rather than adopted from Robert's Rules. It adopts nothing and governs nothing.">
+<meta name="robots" content="noindex,nofollow">
+<script>
+ (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+ var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+ document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+ :root{
+ --serif:'Libre Baskerville',Georgia,serif; --sans:Inter,'Helvetica Neue',Arial,sans-serif; --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+ }
+ [data-mode="dark"]{
+ --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+ --line:#2A2A30; --rule:#3A3A42;
+ --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+ --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+ --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+ }
+ [data-mode="light"]{
+ --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+ --line:#D8D3C8; --rule:#9A958A;
+ --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+ --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+ --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+ }
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{background:var(--bg); color:var(--text); font:400 15px/1.7 var(--serif)}
+ .wrap{max-width:880px; margin:0 auto; padding:0 22px 60px}
+ a{color:var(--blue-text); text-decoration:none}
+ a:hover{text-decoration:underline}
+ em{color:var(--heading)}
+ .mono{font-family:var(--mono)}
+ :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+ .crumb-bar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+ .crumb-bar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+ .crumb-bar .bc a{color:var(--ember-text)}
+
+ .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
+ .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+ .mast .dek{font:400 16.5px/1.65 var(--serif); max-width:64ch}
+ .statusline{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 6px}
+ .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+ .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+ .chip.info{color:var(--info); border-color:var(--info)} .chip.info::before{background:var(--info)}
+ .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:var(--warn)}
+ .citesline{font:400 11.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin:18px 0 38px}
+ .citesline b{color:var(--ember-text); font-weight:500}
+
+ .sec{margin:0 0 40px}
+ .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+ .sec-num{font:500 11px var(--mono); border-left:3px solid var(--ember); padding:2px 0 2px 9px; color:var(--ember); flex:none}
+ .sec-head h2{font:400 21px/1.3 var(--serif); color:var(--heading)}
+ .sec-head .sub{font:400 12px var(--mono); color:var(--muted); margin-left:auto; text-align:right}
+ .sec p{margin:0 0 14px; max-width:68ch}
+ .sec p:last-child{margin-bottom:0}
+
+ table{width:100%; border-collapse:collapse; font:400 12.5px/1.6 var(--sans); margin:0 0 16px}
+ th{font:600 10.5px var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--surface)}
+ td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+ td.mono{font:400 11.5px var(--mono); color:var(--ember-text); white-space:nowrap}
+ tr:hover td{background:var(--surface)}
+
+ pre{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; overflow-x:auto; font:400 11.5px/1.65 var(--mono); color:var(--text); margin:0 0 16px}
+ pre .c{color:var(--faint)}
+ pre .k{color:var(--ember-text)}
+
+ .box{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; margin:0 0 14px}
+ .box .bk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:7px}
+ .box p{font-size:13.5px; max-width:66ch}
+ .box.decide{border-left:3px solid var(--ember)}
+ .box.limit{border-left:3px solid var(--warn)}
+
+ .foot{border-top:1px solid var(--line); margin-top:48px; padding-top:16px}
+ .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint)}
+ @media (max-width:700px){ .mast h1{font-size:27px} table{font-size:11.5px} }
+ @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+
+ /* Diagrams: hand-authored inline SVG, token discipline throughout.
+    Strokes and fills reference the mode tokens; labels ride the mono stack. */
+ .diagram{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:14px 10px; margin:0 0 16px; overflow-x:auto}
+ .diagram svg{display:block; margin:0 auto; max-width:100%; height:auto}
+ .diagram .cap{font:400 11px/1.7 var(--mono); color:var(--muted); text-align:center; margin-top:8px}
+ svg text{font-family:'IBM Plex Mono','SFMono-Regular',Consolas,monospace}
+ svg .lbl{fill:var(--text); font-size:11px}
+ svg .lbl-h{fill:var(--heading); font-size:11.5px; font-weight:500}
+ svg .lbl-m{fill:var(--muted); font-size:10px}
+ svg .lbl-e{fill:var(--ember-text); font-size:10.5px}
+ svg .lbl-b{fill:var(--blue-text); font-size:10.5px}
+ svg .bx{fill:var(--surface); stroke:var(--rule); stroke-width:1}
+ svg .bx-e{fill:var(--surface); stroke:var(--ember); stroke-width:1}
+ svg .bx-b{fill:var(--surface); stroke:var(--blue); stroke-width:1}
+ svg .ln{stroke:var(--rule); stroke-width:1; fill:none}
+ svg .ln-e{stroke:var(--ember); stroke-width:1; fill:none}
+ svg .ln-b{stroke:var(--blue); stroke-width:1; fill:none}
+ svg .ah{fill:var(--rule)}
+ svg .ah-e{fill:var(--ember)}
+ svg .ah-b{fill:var(--blue)}
+ svg .band{fill:var(--inset); stroke:var(--rule); stroke-width:1}
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+
+/* U-27: the sweep horizon, applied softly (v5). The six-stop range
+   as one hairline at the masthead's foot, and its mirror at the
+   footer's head where the page carries a footer. Decorative only:
+   stop values verbatim from commons.css; no control colored, no
+   copy touched. */
+:root{
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+  --sky-line:linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+}
+.mast{position:relative;}
+.mast::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:var(--sky-line);opacity:.45;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumb-bar">
+ <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; <a href="/commons/governance/">governance</a> &middot; documentation</span>
+</div>
+
+<div class="mast">
+ <div class="kicker">ORDER v1 &middot; draft proposal &middot; our own rules, from our own record</div>
+ <h1>The Order of Proceeding<br>Twelve Rules, Evolved Rather Than Adopted</h1>
+ <p class="dek">Robert&#39;s Rules were built for a large contested assembly where the scarce good is the floor and the danger is a majority steamrolling a minority in a single sitting. Our body is small, high-trust, and meets on walks and in kitchens as often as in rooms, and its scarce goods are different: attention, trust, and a record that can survive being read a year later by someone who was not there. So the question is not whether to obey Robert. It is which dangers our rules should actually be built against. This page proposes an answer. It adopts nothing.</p>
+ <div class="statusline">
+ <span class="chip info">Documentation and draft proposal, drafted 2026-08-19</span>
+ <span class="chip warn">Adopts nothing. The board has adopted no parliamentary authority.</span>
+ </div>
+</div>
+
+<div class="citesline">
+ <b>cites</b> &middot; Bylaws v2.1 &sect;2.10 &sect;3.13 &sect;3.16 &sect;4.5 &middot; Bylaws v.1 as received from counsel &sect;2.10 &middot; the first meeting record of 2026-08-14 &middot; Philosoraptor Summit 1, 2026-08-16
+ <br><b>companions</b> &middot; <a href="/commons/governance/rules-of-order/">Rules of Order, the survey</a> &middot; <a href="/commonplace/">the Commonplace</a> &middot; <a href="/commons/build/lexicon/">the build lexicon</a> &middot; <a href="/legal/bylaws/">the Bylaws</a> &middot; <a href="/legal/minute-protocol/">the minute protocol</a>
+</div>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;1</span><h2>The standing of this page</h2><span class="sub">read this before anything else</span></div>
+ <p><strong>Draft. Nothing here governs.</strong> The board has adopted no parliamentary authority of any kind: the Bylaws contain zero occurrences of <span class="mono">Robert</span>, zero of <span class="mono">parliamentary</span>, and zero of the phrase <span class="mono">rules of order</span>. The companion page, <a href="/commons/governance/rules-of-order/">Rules of Order</a>, sets out the option of adopting Robert&#39;s Rules of Order Newly Revised, twelfth edition, as a gap filler. This page sets out the alternative the steward asked for on 2026-08-19: our own order, drawn from our own record.</p>
+ <div class="box"><span class="bk">a verified finding &middot; the omission goes back to counsel&#39;s original draft</span><p>Bylaws v.1, the draft as received from attorney counsel and published at <span class="mono">techne.institute/legal/bylaws-v1/</span>, also carries no parliamentary-authority clause: zero hits for <span class="mono">Robert</span>, <span class="mono">parliamentary</span>, or <span class="mono">rules of order</span> across its full text, checked 2026-08-19. Its &sect;2.10 Order of Business is word for word the same twelve steps that survive into v2.1, and like v2.1 it stands inside Article II and governs membership meetings; there is no board equivalent in either draft. So the gap was not introduced by the organizers&#39; revision. It was there from the first draft and was carried forward unnoticed through ratification. That is worth knowing before anyone treats the absence as a deliberate choice: it was an omission, and it is still open.</p></div>
+ <p>What outranks this page, in this order and without argument: the Articles of Incorporation, then the Bylaws, then Colorado&#39;s Uniform Limited Cooperative Association Act and the Colorado Public Benefit Corporation Act. Nothing proposed here can survive a conflict with those, and where it appears to, the instrument wins and this page is wrong.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;2</span><h2>What we keep from Robert, and why</h2><span class="sub">the parts that were earned</span></div>
+ <p>Robert is not the enemy of this page. Most of the book is a large assembly&#39;s answer to a large assembly&#39;s problems, and we are not that. But five things in it are load-bearing for any body that decides anything, and we keep them.</p>
+ <table>
+ <tr><th>kept</th><th>why it was earned</th></tr>
+ <tr><td>one question at a time</td><td>Earned the hard way. On 2026-08-14 four separate matters were put as a single question, and Robert&#39;s Rules was invoked orally to justify it although the Bylaws had adopted nothing. Two harms followed. A director who supported three of the matters and opposed the fourth had no way to say so. And the minute cannot say what was decided, because a vote attached to a bundle cannot be cited.</td></tr>
+ <tr><td>the chair states the question before debate, and announces the result after</td><td>The announcement, not the counting, is what fixes the act. A room that has counted but not announced has not yet decided anything.</td></tr>
+ <tr><td>a motion, once stated, belongs to the body</td><td>Not to the person who moved it. From the moment the chair states it, the mover cannot withdraw it alone, because the body&#39;s time has already been spent on it.</td></tr>
+ <tr><td>the minority&#39;s right to be heard and the majority&#39;s right to act</td><td>This is Robert&#39;s actual moral core, and it is worth more than his mechanism. Both halves, in the same hour, without either one able to run over the other.</td></tr>
+ <tr><td>roll call by name for anything consequential</td><td>&sect;3.16 presumes a director&#39;s assent to a board action unless dissent or abstention is recorded by name. So a voice vote in our body silently manufactures agreement. This is not a preference; it is what the instrument does to silence.</td></tr>
+ </table>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;3</span><h2>What we decline, and why</h2><span class="sub">stated fairly, and meant</span></div>
+ <p><strong>Parliamentary expertise as a source of power.</strong> Seven hundred pages that nobody at the table has read means whoever knows the book best holds the floor. In a body this size that is a priesthood. We said at the retreat that our tools should explain themselves in ordinary language or they will just swap one priesthood for another, and a rulebook is a tool.</p>
+ <p><strong>The motion to table as an instrument of burial.</strong> A proposal parked without a named condition for its return is a proposal killed quietly, and everyone in the room knows it while the minute says otherwise. We do not park things on a calendar. We park them on conditions.</p>
+ <p><strong>Consensus as a requirement.</strong> The Commonplace already settled this: consent, not consensus. Unanimity gives every participant a veto, and a veto is a tax on whoever is most tired.</p>
+ <p><strong>Robert&#39;s silence about the record.</strong> Robert tells you how to reach a decision and says almost nothing about how the decision survives contact with the future. For us that is the whole problem. Our decisions are made in rooms, on walks, and over audio, and the cooperative has no reliable way to turn a room into an instrument. That gap is where the labor is, and no amount of correct seconding closes it.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;4</span><h2>The twelve rules</h2><span class="sub">four movements of three</span></div>
+ <p>Each rule states itself in one line, then argues for itself. Where Robert does something different, the difference is named rather than hidden. None of this is adopted.</p>
+
+ <div class="box decide"><span class="bk">movement one &middot; gathering</span>
+ <p><strong>1. The record opens by consent, taken aloud, name by name.</strong> Not a blanket policy signed once and forgotten, but a spoken act at the top of the gathering, and re-gathered whenever the room&#39;s composition or its subject changes. Someone may decline and the conversation continues; only the record stops. This is already our practice rather than an invention: the summit&#39;s own working formula was &quot;Consent, general consent down.&quot; Robert says nothing about this at all, because Robert assumes a room that is already a meeting.</p>
+ <p><strong>2. Name the kind of gathering before any business.</strong> Some gatherings are bodies that act, and some are rooms that think. Both are valuable, and the confusion between them is expensive. A room of thinking produces a record of thinking, not decisions, and nothing in it binds anyone. A body that acts states its authority, its quorum, and its notice at the top. Robert assumes you already know which one you are in. We frequently do not, and the cost lands later, on whoever has to write the minute.</p>
+ <p><strong>3. Read the standing.</strong> Before business, the chair states what this gathering may and may not do today, including what waits on counsel, on the board, or on a member vote. A gathering that discovers its own limits halfway through has already wasted the half.</p>
+ </div>
+
+ <div class="box decide"><span class="bk">movement two &middot; the floor</span>
+ <p><strong>4. The floor is asked for briefly, with a time named, and yielded explicitly.</strong> Our practice already does this without being told to: &quot;can I take two or three minutes&quot;, and then, at the end, landing it aloud so the room knows the floor is free. Robert&#39;s recognition-by-the-chair is heavier machinery than a body this size needs. The discipline that actually matters is the time named at the start and the ending marked at the finish.</p>
+ <p><strong>5. Plain speech is an entitlement, not a favor.</strong> Any participant may ask for a thing to be said again without jargon, and the speaker owes them that without cost and without irritation. The reason is not politeness. A body where only some hold the vocabulary is a body where only some can meaningfully vote, and the decentralized projects that failed before us failed exactly there. Understanding is a step toward confidence, and confidence is what makes a vote mean something.</p>
+ <p><strong>6. Silence is a posture, not agreement, in deliberation.</strong> People think slowly on purpose, and the fastest speaker is not the most persuaded. In debate, read nothing into silence. There is a hard boundary on this rule and it cannot be argued around: it cannot touch the vote itself, because &sect;3.16 presumes a director&#39;s assent to any board action unless their dissent or abstention is entered by name. That is the instrument speaking, and this page yields. The practical consequence is that the chair asks each director by name before the result is announced.</p>
+ </div>
+
+ <div class="box decide"><span class="bk">movement three &middot; deciding</span>
+ <p><strong>7. One question at a time, and the question is read back before the vote.</strong> Kept from Robert, and the only rule on this page that we have already been taught by our own defect rather than by a book. The reading back is the cheap half and the one people skip.</p>
+ <p><strong>8. Consent, not consensus, and an objection must name the harm.</strong> The question put is not &quot;do you agree&quot; but &quot;can you live with this, and if not, what does it break&quot;. An objection that names a harm is work the body can act on: amend, narrow, or refer. An objection that names only a preference is recorded and does not block. This distinguishes dissent from veto without silencing either one, which is the thing pure consensus cannot do.</p>
+ <p><strong>9. Simulate before you adopt.</strong> Any consequential change is walked through its consequences aloud, in the meeting, before it is put: who it binds, what it costs, what it would look like a year in, and what happens if it is wrong. The retreat named this as an accessibility feature for consequential choices, and that is exactly what it is. It lets someone who does not hold the technical vocabulary still see the shape of what they are being asked to approve.</p>
+ </div>
+
+ <div class="box decide"><span class="bk">movement four &middot; the record</span>
+ <p><strong>10. Every commitment names its arbiter and its exit before it binds.</strong> The retreat&#39;s rule, transposed from staked capital to ordinary acts: teeth require an exit. Any motion that binds the cooperative or a member states who decides if it goes wrong and how a party gets out. A commitment with no named exit is not a stronger commitment. It is an unreviewable one, and unreviewable commitments are how small bodies acquire grudges.</p>
+ <p><strong>11. Correction is a new act, and nothing is quietly fixed.</strong> The record is append-only in practice as well as in the software: when a decision was wrong, or was wrongly recorded, the body passes a new act that names the old one and says what it corrects. Both stay legible. The August 14 officer election is the working example. The defect was cured on August 19 by verbal acceptances and revotes, and the cure honors the original act rather than erasing it.</p>
+ <p><strong>12. The gathering closes by naming three things: what was decided, what was only said, and what waits.</strong> And what waits waits on a condition, not a date. This is the line the secretary reads back before adjournment, and it is the single highest-leverage minute of any meeting we hold, because it is the moment a room becomes an instrument.</p>
+ </div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;5</span><h2>The life of a proposal</h2><span class="sub">brought, aired, walked, put, decided, closed, carried</span></div>
+ <p>Robert&#39;s life of a motion begins at the motion. Ours begins earlier, because in a body this size the expensive failure is not a badly seconded motion. It is a good idea that never got said, or a decided thing that nobody can find afterwards.</p>
+<div class="diagram">
+ <svg viewBox="0 0 720 260" role="img" aria-label="The life of a proposal: brought by any member, aired on the floor, walked through its consequences, put as one question, decided by consent with dissent recorded by name, closed with the three-part reading back, and carried into the record as an adopted minute.">
+  <rect class="bx" x="20" y="26" width="150" height="44" rx="2"/>
+  <text class="lbl-h" x="34" y="44">1 &middot; brought</text>
+  <text class="lbl-m" x="34" y="58">any member &middot; unfinished</text>
+  <text class="lbl-m" x="34" y="68">is fine</text>
+  <line class="ln" x1="170" y1="48" x2="228" y2="48"/><polygon class="ah" points="234,48 225,44 225,52"/>
+  <rect class="bx" x="234" y="26" width="150" height="44" rx="2"/>
+  <text class="lbl-h" x="248" y="44">2 &middot; aired</text>
+  <text class="lbl-m" x="248" y="58">the floor &middot; plain speech</text>
+  <text class="lbl-m" x="248" y="68">on request</text>
+  <line class="ln" x1="384" y1="48" x2="442" y2="48"/><polygon class="ah" points="448,48 439,44 439,52"/>
+  <rect class="bx-e" x="448" y="26" width="230" height="44" rx="2"/>
+  <text class="lbl-h" x="462" y="44">3 &middot; walked</text>
+  <text class="lbl-m" x="462" y="58">simulated aloud &middot; who it binds,</text>
+  <text class="lbl-m" x="462" y="68">what it costs, what if it is wrong</text>
+  <line class="ln-e" x1="563" y1="70" x2="563" y2="106"/><polygon class="ah-e" points="563,112 559,103 567,103"/>
+  <rect class="bx-e" x="448" y="112" width="230" height="44" rx="2"/>
+  <text class="lbl-h" x="462" y="130">4 &middot; put</text>
+  <text class="lbl-m" x="462" y="144">one question &middot; read back</text>
+  <text class="lbl-m" x="462" y="154">before the vote</text>
+  <line class="ln" x1="448" y1="134" x2="390" y2="134"/><polygon class="ah" points="384,134 393,130 393,138"/>
+  <rect class="bx" x="180" y="112" width="204" height="44" rx="2"/>
+  <text class="lbl-h" x="194" y="130">5 &middot; decided</text>
+  <text class="lbl-m" x="194" y="144">consent taken &middot; harms resolved</text>
+  <text class="lbl-m" x="194" y="154">or referred &middot; dissent by name</text>
+  <line class="ln" x1="180" y1="134" x2="122" y2="134"/><polygon class="ah" points="116,134 125,130 125,138"/>
+  <rect class="bx" x="20" y="112" width="96" height="44" rx="2"/>
+  <text class="lbl-h" x="30" y="130">6 &middot; closed</text>
+  <text class="lbl-m" x="30" y="144">decided &middot; said</text>
+  <text class="lbl-m" x="30" y="154">&middot; waiting</text>
+  <line class="ln-e" x1="68" y1="156" x2="68" y2="196"/><polygon class="ah-e" points="68,202 64,193 72,193"/>
+  <rect class="bx-b" x="20" y="202" width="658" height="44" rx="2"/>
+  <text class="lbl-h" x="34" y="220">7 &middot; carried into the record &middot; the minute adopted at a later meeting</text>
+  <text class="lbl-m" x="34" y="234">the recording is evidence &middot; the transcript has no standing of its own &middot; only the adopted minute evidences the act</text>
+ </svg>
+ <div class="cap">the life of a proposal &middot; it begins before the motion and ends after the meeting</div>
+</div>
+ <p>Keep the three apart, because they are constantly confused and the confusion is expensive. <strong>The recording is evidence:</strong> it is what happened, and it can settle a dispute about what was said. <strong>The transcript has no standing of its own:</strong> it is a convenience, it is frequently wrong about names and numbers, and nobody voted on it. <strong>Only the adopted minute evidences an act of the body.</strong> So record freely, transcribe where it helps, and then write the minute anyway.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;6</span><h2>Where each rule comes from</h2><span class="sub">honestly, including the ones that are only judgment</span></div>
+ <p>A rule with an invented pedigree is worse than a rule with none, so the rows below say plainly where a rule has no source but judgment. The retreat sources are the Philosoraptor Summit 1 records of 2026-08-16, which are held as audio, transcript, and a working synthesis; they are records of a gathering, not instruments, and they bind nobody.</p>
+ <table>
+ <tr><th>rule</th><th>short name</th><th>source</th></tr>
+ <tr><td class="mono">1</td><td>consent to the record, aloud</td><td>Summit 1, 2026-08-16: the record opened by spoken consent and re-gathered when the room changed; &quot;Consent, general consent down.&quot; The code of conduct read into the record that morning: &quot;Consent is the whole game.&quot;</td></tr>
+ <tr><td class="mono">2</td><td>name the kind of gathering</td><td>Judgment. No source. It is drawn from the observed cost of gatherings that were neither clearly a board nor clearly a conversation, and it is offered as a proposal on that basis alone.</td></tr>
+ <tr><td class="mono">3</td><td>read the standing</td><td>Bylaws &sect;2.10 (the order of business as a guide) and &sect;3.13 (what the board may do, and on what quorum). The framing of standing as something read aloud is judgment.</td></tr>
+ <tr><td class="mono">4</td><td>ask for the floor, name a time, yield it</td><td>Summit 1: &quot;Can I take like maybe two or three minutes&quot;, and the speaker landing it aloud at the end.</td></tr>
+ <tr><td class="mono">5</td><td>plain speech as entitlement</td><td>The Commonplace: plain-language change requests; augmentation over automation. Summit 1&#39;s accessibility thread, whose working phrase was to explain it like I am five.</td></tr>
+ <tr><td class="mono">6</td><td>silence is a posture</td><td>Summit 1: &quot;No and not now are complete answers.&quot; The boundary on the rule is Bylaws &sect;3.16, which is the instrument and controls.</td></tr>
+ <tr><td class="mono">7</td><td>one question at a time</td><td>Robert, kept; and the first meeting record of 2026-08-14, where four matters were put as one question and the defect was recorded.</td></tr>
+ <tr><td class="mono">8</td><td>consent, and an objection names the harm</td><td>The Commonplace: consent, not consensus; trust, not reputation; qualification over quantification. Summit 1&#39;s concession formula, &quot;I can hold that&quot;, offered when an objection was a posture rather than a harm.</td></tr>
+ <tr><td class="mono">9</td><td>simulate before you adopt</td><td>Summit 1 synthesis: simulate-before-adopt, named there as an accessibility feature for consequential choices.</td></tr>
+ <tr><td class="mono">10</td><td>arbiter and exit named before it binds</td><td>Summit 1 synthesis, rule 6: teeth require an exit. Written there about staked capital; transposed here to ordinary acts, and that transposition is judgment.</td></tr>
+ <tr><td class="mono">11</td><td>correction is a new act</td><td>The <a href="/commons/build/lexicon/">build lexicon</a> and the information model: append-only, and the compensating event that corrects a ledger entry rather than mutating it. The working example is the August 14 election and its August 19 cure.</td></tr>
+ <tr><td class="mono">12</td><td>close by naming decided, said, waiting</td><td>The build lexicon: conditions rather than dates; the stop card as a signal routed past everything to attention; proof as the human act that closes a bed. Bylaws &sect;4.5 puts the recording duty on the Secretary. The three-part shape itself is judgment.</td></tr>
+ </table>
+ <p>The Commonplace supplies the ground the whole page stands on and is cited above where a rule leans on it directly: soil, not firm, which is why these rules are written to be amended rather than obeyed.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;7</span><h2>What the board would have to do</h2><span class="sub">an ordinary board act; three moves, not two</span></div>
+ <p>Adopting rules of order is an ordinary board act under &sect;3.13: a motion, made and seconded at a properly noticed meeting at which a quorum is present, carried by a simple majority of those present, and recorded in the minute. But the sequencing argument comes first, because it is the honest one. <strong>The board does not have to choose between Robert and this page today.</strong> It has three moves available and they are not exclusive.</p>
+ <table>
+ <tr><th>option</th><th>what it buys, and what it costs</th></tr>
+ <tr><td class="mono">1</td><td><strong>Adopt Robert&#39;s, twelfth edition, as a gap filler</strong>, subordinate to the Articles and Bylaws. Fast, legible to any outsider, and heavy: seven hundred pages, most of them about a body we are not.</td></tr>
+ <tr><td class="mono">2</td><td><strong>Adopt this order, or a cut of it, as special rules of order.</strong> Fits the body we actually are, and asks the board to read twelve rules rather than seven hundred pages. It is also untested, and it is silent on a great deal that Robert has answered for a century.</td></tr>
+ <tr><td class="mono">3</td><td><strong>Adopt both, with these rules controlling and Robert filling whatever they are silent on.</strong> This is the option this page recommends. It gives us our own practice where we have one and a well-tested fallback where we do not, and it removes the failure mode we have already hit: a procedural question resolving to whoever speaks with the most confidence.</td></tr>
+ </table>
+ <p>Suggested text for option 3, which is a draft and not a filing:</p>
+<pre>RESOLVED, that the rules of order titled The Order of Proceeding,
+as presented to the Board, are adopted as the special rules of
+order of RegenHub, LCA, and shall govern the proceedings of the
+Board in all cases to which they are applicable; and
+
+RESOLVED FURTHER, that Robert&#39;s Rules of Order Newly Revised,
+twelfth edition, is adopted as the parliamentary authority of the
+Cooperative and shall govern in all cases to which it is
+applicable and in which it is not inconsistent with these special
+rules of order; and
+
+RESOLVED FURTHER, that both yield to the Articles of
+Incorporation, to these Bylaws, to the Colorado Uniform Limited
+Cooperative Association Act, and to the Colorado Public Benefit
+Corporation Act, and that where any of those speak to a question
+of procedure they control and this adoption yields; and
+
+RESOLVED FURTHER, that the Secretary shall record this adoption
+in the minutes and shall enter the order of business used at
+meetings of the Board into the minute of the meeting at which it
+is first used.</pre>
+ <p>One thing is still missing and this page cannot fix it. <strong>The Bylaws contain no order of business for board meetings at all</strong>, and &sect;2.10&#39;s twelve steps govern membership meetings by their own terms and their own placement. Whichever of the three options the board picks, the board still needs an order of business it can cite. Rules of order tell you how to handle a question; an order of business tells you which questions come up and when, and no adoption of a rulebook supplies one.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;8</span><h2>Two defects, still open</h2><span class="sub">carried forward so they are not lost</span></div>
+ <p>Both were recorded on the companion page and neither has been fixed. They are cheap to fix at the next amendment and they should be fixed there.</p>
+ <div class="box limit"><span class="bk">defect one &middot; a citation pointing at the wrong article</span><p>&sect;3.13 cites Article XVI for interested-director transactions. Article XVI is Distribution of Bylaws. The substance is Article XVII, at &sect;17.1 and &sect;17.2. Anyone following the citation as written arrives at the wrong place.</p></div>
+ <div class="box limit"><span class="bk">defect two &middot; an office the Bylaws never create</span><p>&sect;3.16.5 lets a Director displace the presumption of assent by giving written notice of objection to the &quot;Board chair&quot; within twenty-four hours. The Bylaws nowhere create a Board chair. A director trying to use that route today has no addressee named by the instrument.</p></div>
+</section>
+
+<div class="foot">
+ <p class="tail">ORDER v1 &middot; a draft proposal, adopted by nobody &middot; Nou drafts; Todd decides; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-08-19</p>
+</div>
+
+</div>
+  <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</body>
+</html>
