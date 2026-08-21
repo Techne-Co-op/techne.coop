@@ -676,6 +676,70 @@ belong:
       likewise unchanged; the reading and writing of remarks is the surface
       half of this piece and waits on the same adoption.
 
+  - address: B-09
+    title: Agreements the board originates
+    intent: >
+      The shelf records that a contract was signed. It does not record the
+      board act that authorized anyone to sign it, and under Bylaws Article VII
+      section 7.1 that act is where a contract of the cooperative begins. This
+      piece designs the authorization alongside the execution, an origination
+      act available to directors and officers without a migration, and a
+      disclosure setting held on the row rather than obeyed by hand.
+    status: drafted
+    cites: [IM, AM, PRD, BP, B-03, B-07, B-08]
+    ready_when: >
+      B-08 drafted. Asked by Todd Youngblood in the cooperatives channel
+      2026-08-21: the agreements container should enable the creation of new
+      agreements by the board of the LCA. No upstream piece blocks the design;
+      the migration waits on the three stop cards below.
+    deliverable: >
+      The design and user journeys at commons/agreements/board-originated/.
+      The migration is named and deliberately not written: the
+      agreement_authorizations table carrying the board act, its date, its
+      scope general or specific, the officer authorized, the minute cited and
+      the disinterested-majority fact where section 17.1 applied; the
+      agreements.disclosure column; the originate_agreement definer function
+      granted to directors and officers; and signatures.authorization_id
+      linking an execution to the act it rests on.
+    acceptance: >
+      A director or officer creates an agreement on the shelf with no migration
+      and no build agent in the path. A board authorization records its date,
+      scope, authorized officer and minute citation, and an agreement.authorized
+      event. A signature made in an officer capacity carries the authorization
+      it rests on, and an execution with none is marked unauthorized on its
+      face citing section 7.1. A row set to name-and-standing renders with no
+      body and no link on every surface that reads it, and raising its
+      disclosure is a distinct recorded act by a named human. An active member
+      opens a contract and reads the authorization, the execution and the
+      section 17.1 disclosure in order, with anything absent shown as absent.
+    stop:
+      standing_in: >
+        B-09. Three cards, one question each, stated in full on the piece page.
+      found: >
+        Disclosure is a property of how a row was hand-written rather than a
+        property of the row. No board act on the record has authorized any
+        contract. The capability this piece grants to directors and officers is
+        not in the Authority Map.
+      question: >
+        Does agreements.disclosure enter the Information Model as a first-class
+        field, may an agreement be originated before its authorization exists,
+        and does this piece carry a Tier B review with a decision record?
+      default: >
+        First-class field, because a rule obeyed by hand is unaudited and
+        drifts. Origination allowed and rendered unauthorized on its face.
+        Tier B, with the Authority Map matrix gaining its rows only when the
+        migration is applied.
+    note: >
+      Drafted. No SQL written and none applied. Schema, authority and
+      governance semantics are each a stop-card matter under BP, and this piece
+      is all three at once, so the design is the deliverable and the migration
+      waits on an organizer. The bylaw anchors for the eventual policies are
+      section 7.1 for who may originate, section 4.2 for who may execute,
+      section 17.1 for the interested-director disclosure and section 1.2.9 for
+      who may read. Left deliberately outside: counterparty signing, minute
+      writing, money, and quorum arithmetic.
+
+
 gather:
 
   - address: G-01
