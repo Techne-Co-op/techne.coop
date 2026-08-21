@@ -262,13 +262,12 @@ jobs:
             echo "::error::retired cooperative-tax vocabulary found (BP v1 §6)"; exit 1
           fi
       - name: no em dashes in authored documents
-        run: |
-          set -e
-          # legal/ is exempt: ratified cooperative agreements carry the original
-          # instrument text and may not be reformatted (BP v1 §6 note).
-          if grep -rn "—" --include='*.html' --include='*.md' --exclude-dir=legal . ; then
-            echo "::error::em dash found; use commas, colons, or restructure (BP v1 §6)"; exit 1
-          fi
+        # legal/ is exempt: ratified cooperative agreements carry the original
+        # instrument text and may not be reformatted (BP v1 §6 note). Verbatim
+        # quotation set apart in a .said block is exempt on the same ground,
+        # added 2026-08-21 for the Commonplace Volume Two, which quotes speech
+        # from a transcript. Authored framing is still checked.
+        run: python3 scripts/em_dash_audit.py
       - name: no emoji on the surface
         run: |
           set -e
