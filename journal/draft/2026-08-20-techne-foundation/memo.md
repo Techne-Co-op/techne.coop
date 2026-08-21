@@ -3,7 +3,7 @@
 **Draft memorandum**
 
 - **To:** The board and organizers, RegenHub, LCA
-- **From:** Todd Youngblood, Ventures and Operations Steward
+- **From:** Todd Youngblood, Secretary and Officer
 - **Date:** August 21, 2026
 - **Subject:** Why I would support renaming Gitcoin to Techne Foundation
 
@@ -11,7 +11,7 @@
 
 ## What was asked
 
-Gitcoin is choosing a new brand. One candidate is **Techne Foundation**, and the entity — presently a Cayman or Bahamian foundation — would domesticate here as a 501(c)(3). Kevin asked whether we would back it, unanimously and with our conditions, by today; his second condition is his own branding group, and he puts the odds at high upside, low probability.
+Gitcoin is choosing a new brand. One candidate is **Techne Foundation**, and the entity — presently a Cayman foundation — would domesticate here as a 501(c)(3). Kevin asked whether we would back it, unanimously and with our conditions, by today; his second condition is his own branding group, and he puts the odds at high upside, low probability.
 
 Three facts belong in front of the argument. Kevin named his own conflict unprompted: he has hired a number of our members and does not want to misuse influence, which is why he asked us to come to him deliberately. He wants to contract the cooperative as an entity rather than hire members one at a time, which answers a real fragility of ours and is the strongest thing in the yes column. And one of our organizers, told over the weekend, said it was not a good idea. Against a bar of unanimity that is not a footnote.
 
@@ -45,6 +45,6 @@ We hold Colorado trade names for `techne.coop` (August 12, 2026) and `techne.ins
 
 ---
 
-*Todd Youngblood · Ventures and Operations Steward, RegenHub, LCA*
+*Todd Youngblood · Secretary and Officer, RegenHub, LCA*
 
 *Draft, August 21, 2026, from the author's dictated notes. Personal and signed; it binds no one. The full record behind it is held separately and available on request.*
