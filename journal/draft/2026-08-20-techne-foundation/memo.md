@@ -21,11 +21,29 @@ Three things belong up front.
 
 ## Why I would back it
 
-Everyone's work depends on someone else's tools. A farmer, a potter, a nurse, a programmer — none of them can work without tools, and almost none of them own the ones that matter. Whoever owns the tools sets the terms for everyone who uses them. That is the problem worth building an institution around. Not technology in general.
+**Technology is not a sector. It is what enters at every sector boundary.**
 
-*Techne* is an old Greek word for craft: skill learned by hand and judgment. It fits the potter and the engineer equally well, and so does the problem. Its root also means a dwelling — built, shared, owned by nobody inside it. That is a fair picture of two organizations sharing one name.
+Start with the living planet. Call it the zeroth sector, since it is the ground everything else stands on. Technology enters at the very first moment the primary sector touches it: agriculture, mining, extraction of any kind. Then it enters again at the secondary sector, and the tertiary, and the quaternary. There is no point in the economy where technology is absent and no point where it is merely one industry among others. It is the thing present at every transformation.
 
-The work itself is a kind of accounting we do not have yet. Companies describe themselves with a handful of quarterly numbers. Those numbers give the feeling of knowing how a business did while saying almost nothing about what got made, by whom, at what cost, or who was better off. Cooperatives, trusts, and neighborhood projects have no measure of their own, so they borrow the corporate one and inherit its blind spots. Building that missing record is a teaching job, not a company's job.
+That is why control over technology is the lever. Whoever holds it sets the terms at every one of those boundaries. Held through the ordinary corporate form, it is driving the divergence between strata faster every year: economic growth on one side, wealth inequality on the other, both accelerating from the same cause.
+
+*Techne* is an old Greek word for craft: skill learned by hand and judgment. It fits the potter and the engineer equally well, and so does the problem. A foundation named for a funding mechanism claims the mechanism. A foundation named for techne claims the whole of craft and technique, across every sector, which is the actual scope of the problem.
+
+**The second reason is that we cannot see any of this with the instruments we have.**
+
+The way a firm reports itself is through financial statements, published quarterly or yearly. That is a second-order performance evaluation: an abstraction of the firm, arriving late, in aggregate. It gives the feeling of knowing how a business did while saying almost nothing about what was actually made, moved, transformed, or by whom.
+
+There is a first-order layer underneath it, and it has a language. Resources, events, and agents — REA, from McCarthy's 1982 work. What was transformed, what moved, who did it, with what. Describe an economy in those terms and you get the holistic reality the quarterly summary is standing in for. That bridge, from the second-order corporate report to the first-order record of value creation, is the work.
+
+Engelbart's H-LAM/T belongs alongside it as a second axis: human using language, artifacts, methodology, and training, from the Augmentation Research Center. REA sees the exchange. H-LAM/T sees the augmentation. Together they describe both what was traded and what the people doing it became capable of.
+
+Cooperatives, trusts, and neighborhood projects have no measure of their own today, so they borrow the corporate one and inherit its blind spots. Building the missing instrument is a teaching job, not a company's job. That is what belongs in a 501(c)(3).
+
+**The third reason is that this is a direction, not a description.**
+
+Whatever your practice — nature, art, a craft, a science, the academy — every community of practice is reliant on instrumentation. Tools, systems, technology. That is what makes techne the common substrate rather than a domain you pick, and it is what makes a critical but careful evaluation of technology worth institutionalizing.
+
+The direction is out of an extractive paradigm, one that runs on concentrated corporate advantage, and into one oriented to commoning: Ostrom and the commons researchers who came after her, including the work gathered in *Frontiers of Commoning*. Web3-related technologies are the enabling layer for that turn, not the point of it.
 
 None of this blames anyone. Concentrated ownership is an arrangement, not a plot, and it outlives everyone inside it. Aiming at the arrangement instead of at people is both more accurate and what keeps a 501(c)(3) teaching rather than accusing.
 
