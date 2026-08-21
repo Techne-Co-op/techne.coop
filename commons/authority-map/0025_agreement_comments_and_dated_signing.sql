@@ -284,13 +284,21 @@ grant execute on function public.sign_agreement(uuid, date, text) to authenticat
 -- record as an anticipated contract so that it can be read and commented on by
 -- members before it travels, and signed with a date when it is executed.
 --
+-- Revised to v0.3-draft on 2026-08-21: the draft carried into the cooperatives
+-- channel that morning by ClaudeJi, naming a $35,000 sponsorship redirected
+-- from the Cooperation Games budget, three workstreams, and a program hold of
+-- 10 to 20 percent. Still unpresented: the named recipients, Kevin, Matilda
+-- and Julia, have not seen this version.
+--
 -- Deliberately no uri and no body text: the terms are unpresented and the
 -- estate is public. The row names the instrument and its standing. The text
 -- follows when the counterparty has seen it and the steward says it may.
+-- This migration is unapplied, so the version moves in place rather than
+-- adding a second row; once applied, a revision is a new insert.
 insert into agreements (code, title, version, effective_date, settlement, uri, kind)
 values ('SOW-GITCOIN-2',
         'Statement of Work 2, Gitcoin sponsorship',
-        'v0.1-draft', null, 'anticipated', null, 'contract')
+        'v0.3-draft', null, 'anticipated', null, 'contract')
 on conflict (code, version) do update
    set title = excluded.title, kind = excluded.kind,
        settlement = excluded.settlement;
