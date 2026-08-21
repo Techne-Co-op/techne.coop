@@ -27,15 +27,7 @@ We also cannot see the problem with the instruments we have. A firm reports itse
 
 Every practice depends on someone's tools: nature, art, craft, science, the academy. That is what makes techne the common ground rather than a chosen field, and it is what makes a critical but careful evaluation of technology worth an institution. The direction is out of an extractive arrangement and toward commoning, in Ostrom's sense of shared resources governed by their users. None of this blames anyone. Concentrated ownership is an arrangement, not a plot, and aiming at the arrangement is what keeps a 501(c)(3) teaching rather than accusing.
 
-## Five things to settle first
-
-I am asking us to support the name in principle. Not money, not staff, not our own mark, and not before these:
-
-1. **The trademark.** Joint ownership or a permanent, irrevocable license, in writing, before either side builds on the name. Eight live "Techne" marks exist and neither of us has cleared them.
-2. **Who does what.** Separate boards, separate books, no shared officers without a recorded decision.
-3. **How we describe each other.** Neither side claims the other as affiliate, founder, or funder without written permission. Either can require a correction.
-4. **If we drift apart.** Decide now who keeps the name if the purposes split.
-5. **Our own conflicts.** Members who work for Kevin are not neutral voters here. Disclose at a minimum; step aside where the interest is direct.
+What I am asking for is support in principle: the name, not money, not staff, not our own mark. The terms that would have to accompany a yes are real and I have written them down, but they belong in the discussion rather than in this letter.
 
 ## What Kevin should hear today
 
