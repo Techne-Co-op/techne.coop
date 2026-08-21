@@ -5,9 +5,9 @@ Generated from rdm-ledger.yaml. 155 items total.
 
 | status | count |
 |--------|-------|
-| drafted | 18 |
+| drafted | 17 |
 | anticipated | 40 |
-| open | 97 |
+| open | 98 |
 | filed | 0 |
 
 ## Drafted
@@ -27,7 +27,6 @@ Generated from rdm-ledger.yaml. 155 items total.
 - **STANDING** Work Standing · Module PRD and Specification -- The branching maturity model as record: the origin conferring no standing, Progr
 - **TRANSDUCER** The Transducer · Module PRD and Specification -- The instrument at the boundary where the record crosses into human perception: t
 - **TREASURY** Treasury · Module PRD and Specification -- The movement layer over Stripe, Mercury, and Xero; governed movements as events;
-- **U-30** The Commonplace, Volume Two -- Volume One closed on the day the articles were filed. The steward assembled a se
 - **UI** Tokens and Patterns -- Design tokens and patterns aligned to techne.coop/design-system. Yields commons.
 - **VS** Verification Spec -- Five suites and six proofs. Yields verify.yml.
 
@@ -109,6 +108,7 @@ Generated from rdm-ledger.yaml. 155 items total.
 - **U-25** open · delivered -- The estate after the doors, and the incised register
 - **U-26** open · delivered -- The register deepened, and the lexicon's marks
 - **U-27** open · delivered -- The estate on the register
+- **U-30** open · delivered -- The Commonplace, Volume Two
 - **X-01** open · verified -- Error boundary and observability
 - **X-02** open · verified -- Notices v1
 - **X-03** open · verified -- Export paths
