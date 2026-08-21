@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The Commonplace, Volume Two: forty-five entries from the eight sittings of 14 to 16 August 2026, in which a cooperative in Boulder launched in public and began to operate. RegenHub, LCA.">
+<title>The Commonplace &middot; Volume Two &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/volume-2/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/volume-2/">
+<meta property="og:title" content="The Commonplace · Volume Two · Techne">
+<meta property="og:description" content="The launch weekend: eight sittings, forty-five entries, every line first-hand from the tape.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* ============================================================
+   THE COMMONPLACE VOLUME TWO  --  emission of U-30
+   The launch-weekend record in the same document grammar as
+   Volume One, whose sheet this page carries unchanged.
+   Tokens are the techne v4 layer, inlined per the house
+   practice; hex appears only where a property is defined.
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --ok-dim:rgba(106,154,106,0.13);
+  --warn:#C46A6A; --warn-dim:rgba(196,106,106,0.13);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --ok-dim:rgba(74,122,74,0.10);
+  --warn:#A84F4C; --warn-dim:rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+@media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition-duration:0ms !important; } }
+html { scroll-behavior:smooth; background:var(--bg); }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--serif); font-size:16px; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+em { font-style:italic; color:var(--heading); }
+strong { font-weight:700; color:var(--heading); }
+
+/* the primary navigation is the shared public topbar,
+   injected by /assets/topbar.js per U-13 */
+
+/* ---------- masthead ---------- */
+.mast {
+  padding:var(--s7) var(--s5) var(--s6);
+  border-bottom:1px solid var(--rule);
+  max-width:860px; margin:0 auto;
+}
+.mast-eyebrow { font-family:var(--mono); font-size:0.65rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s3); }
+.mast h1 { font-family:var(--serif); font-size:clamp(2rem,4.5vw,2.9rem); font-weight:700; color:var(--heading); line-height:1.1; letter-spacing:-0.015em; margin-bottom:var(--s4); }
+.mast-dek { font-size:1.05rem; line-height:1.65; color:var(--text); max-width:62ch; }
+.mast-meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font-family:var(--mono); font-size:0.68rem; letter-spacing:0.04em; color:var(--muted); }
+
+.doc-wrap { max-width:860px; margin:0 auto; padding:0 var(--s5) var(--s8); }
+
+/* ---------- the standing note ---------- */
+.standing {
+  margin-top:var(--s7);
+  background:var(--surface); border:1px solid var(--line);
+  border-left:3px solid var(--ember);
+  padding:var(--s5);
+}
+.standing .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:var(--ember-text); margin-bottom:var(--s3); }
+.standing p { font-size:0.94rem; line-height:1.72; margin-bottom:var(--s3); max-width:68ch; }
+.standing p:last-child { margin-bottom:0; }
+
+/* ---------- preface ---------- */
+.preface { margin-top:var(--s7); padding-left:var(--s5); border-left:1px solid var(--rule); }
+.preface .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:var(--s3); }
+.preface p { font-size:0.92rem; line-height:1.72; color:var(--muted); margin-bottom:var(--s3); max-width:68ch; }
+.preface p:last-child { margin-bottom:0; }
+
+/* ---------- contents ---------- */
+.contents { margin-top:var(--s7); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:var(--s5) 0; }
+.contents .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.14em; color:var(--muted); margin-bottom:var(--s4); }
+.contents ul { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:var(--s4) var(--s6); }
+.contents li { border-top:1px solid var(--line); padding-top:var(--s2); }
+.contents a { font-family:var(--mono); font-size:0.7rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--ember-text); text-decoration:none; display:block; margin-bottom:var(--s1); }
+.contents a:hover { color:var(--heading); }
+.contents span { display:block; font-size:0.85rem; line-height:1.55; color:var(--muted); }
+
+/* ---------- movement ---------- */
+.movement { margin:var(--s8) 0 var(--s6); padding-top:var(--s5); border-top:3px solid var(--heading); }
+.movement .k { font-family:var(--mono); font-size:0.62rem; font-weight:500; text-transform:uppercase; letter-spacing:0.16em; color:var(--ember-text); margin-bottom:var(--s2); }
+.movement h2 { font-family:var(--serif); font-size:clamp(1.5rem,3vw,2rem); font-weight:700; color:var(--heading); line-height:1.12; letter-spacing:-0.01em; margin-bottom:var(--s3); }
+.movement p { font-size:0.95rem; line-height:1.65; color:var(--muted); max-width:64ch; }
+
+/* ---------- entry ---------- */
+.entry { padding:var(--s5) 0; border-bottom:1px solid var(--line); }
+.entry:last-child { border-bottom:0; }
+.entry h3 { font-family:var(--serif); font-size:1.15rem; font-weight:700; color:var(--heading); line-height:1.3; letter-spacing:-0.005em; margin-bottom:var(--s2); }
+.prov { font-family:var(--mono); font-size:0.62rem; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; color:var(--faint); margin-bottom:var(--s4); }
+.prov .m { color:var(--ember-text); font-weight:500; }
+.entry p { font-size:0.94rem; line-height:1.72; margin-bottom:var(--s3); max-width:68ch; }
+.entry p:last-child { margin-bottom:0; }
+
+/* ---------- recorded phrase ---------- */
+.said {
+  margin:var(--s4) 0; padding:var(--s3) var(--s4);
+  background:var(--inset); border-left:2px solid var(--blue);
+  font-size:0.98rem; line-height:1.6; font-style:italic; color:var(--heading);
+  max-width:68ch;
+}
+.said .attr { display:block; margin-top:var(--s2); font-family:var(--mono); font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase; font-style:normal; color:var(--faint); }
+
+/* ---------- tension ---------- */
+.tension { margin:var(--s4) 0; padding:var(--s1) 0 var(--s1) var(--s4); border-left:2px solid var(--ember); font-size:0.88rem; line-height:1.65; color:var(--muted); max-width:68ch; }
+.tension .k { display:block; font-family:var(--mono); font-size:0.6rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s1); }
+
+/* ---------- the meeting ledger ---------- */
+.ledger { margin-top:var(--s5); border-top:1px solid var(--rule); }
+.ledger-row { display:grid; grid-template-columns:38px 104px 1fr; gap:var(--s4); padding:var(--s3) 0; border-bottom:1px solid var(--line); align-items:baseline; }
+.ledger-row .n { font-family:var(--mono); font-size:0.7rem; font-weight:500; color:var(--ember-text); }
+.ledger-row .d { font-family:var(--mono); font-size:0.68rem; letter-spacing:0.04em; color:var(--faint); }
+.ledger-row .t { font-size:0.9rem; line-height:1.6; color:var(--text); }
+
+/* ---------- closing prose ---------- */
+.closing p { font-size:0.94rem; line-height:1.72; margin-bottom:var(--s4); max-width:68ch; }
+.closing p:last-child { margin-bottom:0; }
+
+/* ---------- footer ---------- */
+footer {
+  border-top:1px solid var(--rule);
+  margin-top:var(--s8);
+  padding:var(--s5) var(--s5) var(--s8);
+  max-width:860px; margin-inline:auto;
+  font-family:var(--mono); font-size:0.66rem; letter-spacing:0.04em; color:var(--faint);
+  display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5);
+}
+
+@media (max-width:640px) {
+  .contents ul { grid-template-columns:1fr; }
+  .ledger-row { grid-template-columns:38px 1fr; gap:var(--s1) var(--s4); }
+  .ledger-row .d { grid-column:2; }
+  .ledger-row .t { grid-column:2; }
+}
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+  
+/* U-27: the sweep horizon, applied softly (v5). The six-stop range
+   as one hairline at the masthead's foot, and its mirror at the
+   footer's head where the page carries a footer. Decorative only:
+   stop values verbatim from commons.css; no control colored, no
+   copy touched. */
+:root{
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+  --sky-line:linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+}
+.mast{position:relative;}
+.mast::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:var(--sky-line);opacity:.45;}
+footer{position:relative;}
+footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--sky-line);opacity:.32;transform:scaleX(-1);}
+
+/* ---------- volume two additions (U-30) ---------- */
+.descends { margin:var(--s4) 0 0; font-family:var(--mono); font-size:0.62rem; letter-spacing:0.08em; line-height:1.9; color:var(--faint); max-width:68ch; }
+.descends .k { display:inline-block; text-transform:uppercase; letter-spacing:0.14em; color:var(--ember-text); margin-right:var(--s2); }
+.entry ol.four { margin:var(--s3) 0 var(--s3) var(--s5); max-width:68ch; }
+.entry ol.four li { font-size:0.94rem; line-height:1.72; margin-bottom:var(--s2); }
+.contents ul li .m { font-family:var(--mono); font-size:0.66rem; color:var(--ember-text); letter-spacing:0.12em; margin-right:var(--s2); }
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <div class="mast-eyebrow">RegenHub, LCA &middot; Techne &middot; Boulder, Colorado</div>
+  <h1>The Commonplace &middot; Volume Two</h1>
+  <p class="mast-dek"><strong>The launch weekend.</strong> A second gathered book: what was said across three days in August 2026, when the cooperative stopped talking about becoming and started operating.</p>
+  <div class="mast-meta">
+    <span>Eight sittings &middot; 14 to 16 August 2026</span>
+    <span>Forty-five entries</span>
+    <span>Composed audio transcripts &middot; verbatim &middot; working draft</span>
+  </div>
+</div>
+
+<main class="doc-wrap">
+
+  <div class="standing">
+    <div class="k">Its standing</div>
+    <p>Not a governing instrument. It binds nothing. What binds is <a href="/legal/">the legal record</a>; what a word means now is <a href="/commons/build/lexicon/">the Lexicon</a>.</p>
+    <p><a href="/commonplace/">Volume One</a> closed the day the articles were filed. This one opens six months later, after a launch and two nights in a cabin. Same vocabulary, tested and in places contradicted.</p>
+    <p><strong>Held as a lens:</strong> was it <em>agreed</em>, or merely <em>said</em>?</p>
+  </div>
+
+  <div class="preface">
+    <div class="k">What is different in this volume</div>
+    <p>Volume One named four absences. Three are answered here.</p>
+    <p><strong>There are people in it.</strong> Where the tape identifies a speaker, this book says who; where it does not, it says that instead of guessing.</p>
+    <p><strong>There is disagreement in it.</strong> Entries are marked agreed, declined, or contested. Four record an argument that never resolved, and they are the most useful pages here.</p>
+    <p><strong>There are refusals in it.</strong> What a body declines describes it as precisely as what it adopts.</p>
+    <p><strong>The words are first-hand.</strong> Every line set apart is verbatim from a transcript, with its sitting and timestamp.</p>
+    <div class="tension"><span class="k">The new absence.</span>Some lines that entered the vocabulary this weekend were not said by a person at all. They are marked, and the instrument's rule applies: machine-made material enters as a lead and becomes the record only when a named person attests to it. Nothing here has been attested.</div>
+    <p class="k" style="margin-top:var(--s5)">How to read an entry</p>
+    <p>A monospace provenance line (<code>sitting · date · timestamp · speaker</code>) walks any claim back to the tape. Blockquotes are verbatim. <em>Descends from</em> names the entry's ancestor in Volume One. The bolded label at the foot carries its standing: <strong>Open</strong>, <strong>Declined</strong>, <strong>Contested</strong>, <strong>Unresolved</strong>, or <strong>Machine-authored · lead</strong>.</p>
+  </div>
+
+  <div class="contents">
+    <div class="k">Contents</div>
+    <p>The five movements are the first volume's, kept deliberately, so an entry here can find its ancestor there.</p>
+    <ul>
+      <li><span class="m">I</span> <a href="#movement-i">Ground</a> What the place is, now that it exists. Soil under load, tending, and the decision about what the cooperative may hold.</li>
+      <li><span class="m">II</span> <a href="#movement-ii">Recognition</a> Seeing a contribution without pricing it, and the line between what a machine proposes and what a person witnesses.</li>
+      <li><span class="m">III</span> <a href="#movement-iii">Circulation</a> How value moves. The hour, the four documents, the ninety-day clock, and the pool that was declined.</li>
+      <li><span class="m">IV</span> <a href="#movement-iv">Form</a> The vessel in operation. Words said aloud to make a thing lawful, and the question of how much the collective holds.</li>
+      <li><span class="m">V</span> <a href="#movement-v">Craft</a> What the tools are for, what the machines are, and the weekend's own warning about coordination.</li>
+      <li><span class="m">&middot;</span> <a href="#the-ledger">The Ledger</a> Eight sittings in order, with what each produced.</li>
+      <li><span class="m">&middot;</span> <a href="#absences">What it does not hold</a> Four absences of its own.</li>
+    </ul>
+  </div>
+
+  <section class="movement" id="movement-i">
+    <div class="k">Movement I</div>
+    <h2>Ground</h2>
+    <p>The first volume asked what kind of thing the cooperative is and answered soil. This one puts that answer under load. Soil now has a lease, three officers, and a decision to make about what it may hold, and in one five-minute conversation it acquires the verb it had been missing.</p>
+    <div class="entry">
+      <h3>Tending</h3>
+      <div class="prov"><span class="m">sitting seven</span> &middot; 16 Aug · 01:19 · the president, then the secretary</div>
+      <p>The soil metaphor finally gets a verb, and it arrives as a correction to itself. Soil is a substrate, a noun, a condition, something that sits there being fertile. Tending is what someone does to it. The whole exchange is four words long and it settles a year of argument about whether the cooperative is passive infrastructure or an active party.</p>
+      <div class="said">
+        We're like tending to an ecosystem, in which this wider community of practice can connect. <code>recorded · verbatim · sitting seven, 01:19</code> — the secretary's entire reply: <em>it's tending</em>.
+      </div>
+      <p>It is also the only word in the vocabulary that names labour rather than substrate. That makes it the term most directly owed to the counting rules, which do not yet exist: tending is work, and the ledger cannot presently see it.</p>
+      <div class="descends"><span class="k">Descends from</span>Soil, not firm (Meeting 3); Habitat for co-creation (Meeting 5)</div>
+    </div>
+    <div class="entry">
+      <h3>One whole, not many entities</h3>
+      <div class="prov"><span class="m">sitting seven</span> &middot; 16 Aug · 00:00 · the president</div>
+      <p>The structural question the first volume left open, the dual entity strategy, the deferred second cooperative, the portfolio of ventures each finding its own vessel, is answered here in one sentence, and the answer is: not yet, and maybe not at all.</p>
+      <div class="said">
+        These things could become their own entities, their own cooperatives, whatever. But I'm of the opinion that we should run the cooperative as one whole.
+        <span class="attr">recorded · verbatim · sitting seven, 00:00</span>
+      </div>
+      <p>One body running a coworking space, a cafe, and a technology research lab, with the lab as the key framing. What keeps this from being a land grab is the clause the secretary adds immediately after it, which is the next entry.</p>
+      <div class="descends"><span class="k">Descends from</span>The dual entity strategy (Meeting 10); The project member class (Meeting 2)</div>
+    </div>
+    <div class="entry">
+      <h3>The maturity model that lets work leave</h3>
+      <div class="prov"><span class="m">sitting seven</span> &middot; 16 Aug · 00:42 · the secretary</div>
+      <p>Emergent work is held inside the cooperative as a project, with a stated path by which it can become its own thing if it needs to. The phrase used is <em>as if it is soil-like</em>, soil that can release what grew in it, rather than soil that keeps everything it fed.</p>
+      <p>This is the difference between a commons and a holding company, and it is one clause long. Without it, running as one whole means the cooperative accumulates every venture it touches. With it, the cooperative is the stage a venture passes through.</p>
+      <div class="descends"><span class="k">Descends from</span>Venture cooperative, or venture commons (Meeting 9)</div>
+    </div>
+    <div class="entry">
+      <h3>The cooperative does not own the community of practice</h3>
+      <div class="prov"><span class="m">sitting seven</span> &middot; 16 Aug · 01:25 · the president</div>
+      <p>The most consequential rule proposed across the whole weekend, because it decides what the cooperative is <em>for</em>. The community of practice is not an asset of the co-op, not a membership funnel, and not a thing to be claimed.</p>
+      <div class="said">
+        We're not trying to own or claim that community of practice. But we are committed to creating a context and conditions for that community of practice to collaborate effectively.
+        <span class="attr">recorded · verbatim · sitting seven, 01:25</span>
+      </div>
+      <p>Stated from the other side a moment later: being in the practice does not make you a member of the cooperative. That is the first volume's concentric circles restated as a duty rather than a diagram, the co-op tends the outer rings without any expectation that they travel inward.</p>
+      <div class="descends"><span class="k">Descends from</span>Concentric circles of belonging (Meeting 4)</div>
+    </div>
+    <div class="entry">
+      <h3>Scenius travels</h3>
+      <div class="prov"><span class="m">sitting seven</span> &middot; 16 Aug · 02:12 · the secretary</div>
+      <p>The filed public benefit, extended past the building. Scenius is restated as something that leaves an address, the collective intelligence travelling beyond 1515 Walnut and extending itself into virtual space, welcoming aligned technologists in wherever they are.</p>
+      <p>Two days earlier, at the launch, the same idea had been said publicly in a plainer register: our practice is not bound by place. The word survived from the formation meetings; what changed is that it now has an implementation attached to it and a price beside it.</p>
+      <div class="descends"><span class="k">Descends from</span>Scenius (Meetings 2, 3, 6); Cosmo-local hubs (Meeting 3)</div>
+    </div>
+    <div class="entry">
+      <h3>Soil as the end of an argument</h3>
+      <div class="prov"><span class="m">sitting six</span> &middot; 16 Aug · 05:21 · the president</div>
+      <p>The metaphor's other use, and the one worth watching. A detailed proposal for pooling compute is met with three escalating objections on a morning walk, and the third one is not about the proposal at all.</p>
+      <div class="said">
+        We're the soil. Our responsibility is to create conditions for these things to thrive. It's not going to benefit us to be doing all this nitty-gritty of selling compute to members and the credits.
+        <span class="attr">recorded · verbatim · sitting six, 05:21</span>
+      </div>
+      <p>Soil is a generous idea and it is also an unanswerable one. It resolves arguments by changing what kind of thing is being argued about. The first volume noted that the metaphor dissolved an entire class of accounting anxiety in one move; this sitting shows the same move dissolving a specific proposal, and the proposer accepting it without conceding the idea.</p>
+      <div class="tension"><span class="k">Contested.</span>Not resolved. Within the hour the same two people built four accounting documents together with no objection from either side. The disagreement was never about structure as such, see <em>Which structure earns its overhead</em>, Movement III.</div>
+    </div>
+    <div class="entry">
+      <h3>The membrane</h3>
+      <div class="prov"><span class="m">sitting one</span> &middot; 14 Aug · 12:04 · the secretary</div>
+      <p>An unusual thing to say while trying to recruit: that membership is first a demand. It asks something of you, it carries tax consequences, and the boundary around it is held deliberately rather than by default.</p>
+      <div class="said">
+        Becoming a cooperative member asks of you. It's a very conscious membrane that we're holding around the membership.
+        <span class="attr">recorded · verbatim · sitting one, 12:04</span>
+      </div>
+      <p>The corollary, said publicly two hours later, is what makes it honest: the public benefits do not require membership. You can be served by the cooperative without joining it, which is what stops a conscious membrane from being a velvet rope.</p>
+      <div class="descends"><span class="k">Descends from</span>Orientation over output (Meeting 4); Provisional membership (Meeting 9)</div>
+    </div>
+    <div class="entry">
+      <h3>Trust is the soil</h3>
+      <div class="prov"><span class="m">sitting two</span> &middot; 14 Aug · 21:40 · an engineer, from the floor</div>
+      <p>The best fusion of the two vocabularies in the building, and it came from the technical side rather than the ecological one. Platforms entered a field of existing trust and harvested it without tending, and what they left is a social dust bowl.</p>
+      <div class="said">
+        Trust is the soil our community grows in. The networks came into this field and harvested — and harvested, and paid no attention to the tending practices. We're now living in a social dust bowl.
+        <span class="attr">recorded · verbatim · sitting two, 21:40</span>
+      </div>
+      <p>The lesson drawn from it in the same breath is a discipline rather than a lament: the commune did not change agriculture, the organic label did. What made regenerative practice spread was making it legible to a market, and the same is being asked of regenerative networks.</p>
+      <div class="descends"><span class="k">Descends from</span>Trust, not reputation (Meeting 5)</div>
+    </div>
+  </section>
+
+  <section class="movement" id="movement-ii">
+    <div class="k">Movement II</div>
+    <h2>Recognition</h2>
+    <p>The first volume's longest argument was how to see a contribution without pricing it. Six months on, the argument has a deadline and a new participant. The deadline is a patronage plan owed within ninety days of the first member. The new participant is a machine that can propose what counts, which makes the question of who witnesses a claim as important as the question of who makes it.</p>
+    <div class="entry">
+      <h3>Counting rules</h3>
+      <div class="prov"><span class="m">sitting seven</span> &middot; 16 Aug · 03:14 · the secretary</div>
+      <p>The formation record's central unresolved problem, finally given a shape precise enough to be written. Counting rules name what is a gift and therefore left off the ledger, and what is work and therefore stays on it, intersecting cooperative intellectual property, pay, compensation, and labour. They name what is patronage-worthy.</p>
+      <div class="said">
+        If we recognise multi-capital exchange, including gifts and care work — giving together, saving together, investing together — the counting rules name what is a gift and left off of a ledger, what is work and remains a part of a ledger.
+        <span class="attr">recorded · verbatim · sitting seven, 03:14</span>
+      </div>
+      <p>Note what the definition concedes. Deciding what is a gift is deciding what the ledger cannot see, which means the generous half of the definition is also the invisible half. Every warm word in both volumes, care work, tending, community energy, culture-setting, is waiting on this one document to learn whether it is a virtue or an entry.</p>
+      <div class="descends"><span class="k">Descends from</span>Qualification over quantification (Meeting 1); Multi-capital (Meetings 1, 3, 5)</div>
+      <div class="tension"><span class="k">Open.</span>Named as the first job of the first committee at the retreat, specified on Sunday morning, unwritten as of the close of the weekend.</div>
+    </div>
+    <div class="entry">
+      <h3>The witness line</h3>
+      <div class="prov"><span class="m">sitting three</span> &middot; 16 Aug · 38:17 · the secretary</div>
+      <p>The rule that governs every instrument the cooperative builds, and the reason this book can be read at all. An instrument stands between a record too large to hold and the person trying to read it. It transduces; it does not decide. Anything it produces enters as a lead, and becomes the record only when a named person attests to it.</p>
+      <div class="said">
+        An instrument stands between the record and the reader, the transducer. It turns the whole into something a person can take in, and every figure walks back to its source.
+        <span class="attr">recorded · verbatim · sitting three, 38:17</span>
+      </div>
+      <p>The cost is stated in the same passage and is worth keeping: a record built this way will always look incomplete, because it always is. Completeness is a reading, not a target.</p>
+      <div class="descends"><span class="k">Descends from</span>Augmentation over automation (Meeting 15)</div>
+    </div>
+    <div class="entry">
+      <h3>Attestation, arriving twice</h3>
+      <div class="prov"><span class="m">sittings three and five</span> &middot; 16 Aug · 11:24, then 02:10 · a visiting builder, then the room</div>
+      <p>The same word enters the weekend from two directions and is never reconciled. In the afternoon it is cryptographic: one party vouching for another with a stated confidence, recorded as its own entry on a graph. Late that night it is social, and half a joke: <em>we actually do need to have our agents start attesting to each other.</em></p>
+      <p>Between those two senses sits the whole design question of the year. A vouch is cheap and computable; a witnessing is slow and accountable. The cooperative has adopted the word without yet choosing which one it means.</p>
+      <div class="tension"><span class="k">One voice, late.</span>The night line was said in a loose register, in a room where several people were falling asleep. It is kept because it is the only place the two senses touch.</div>
+    </div>
+    <div class="entry">
+      <h3>The trust graph, and the question under it</h3>
+      <div class="prov"><span class="m">sitting three</span> &middot; 16 Aug · 00:49, 14:18 · a visiting builder; a guest</div>
+      <p>Trust made computable, carefully plural: there is no single graph, and every community computes its own result from its own data and its own rules. The secretary's addition is that the qualitative half is not a rounding error, recognising each other's intelligence is itself a dimension of trust, which makes the whole thing curation rather than control.</p>
+      <p>Then a guest asks the question that stays open for the rest of the weekend.</p>
+      <div class="said">
+        Everything there is someone's identity. Do you need to know everyone's identity to work with your system?
+        <span class="attr">recorded · verbatim · sitting three, 14:18</span>
+      </div>
+      <p>The answer offered is that the parties settle it among themselves within a gradient of privacy, security and access. That is a reasonable thing to say in a demonstration and an insufficient thing to build on: a trust system whose privacy model is a negotiation between parties does not yet have a privacy model.</p>
+      <div class="descends"><span class="k">Descends from</span>Trust, not reputation (Meeting 5); Symbols over numbers (Meeting 5)</div>
+      <div class="tension"><span class="k">Unresolved.</span>Raised once, answered procedurally, never designed. Nothing later in the weekend returns to it.</div>
+    </div>
+    <div class="entry">
+      <h3>Care work, still uncounted</h3>
+      <div class="prov"><span class="m">sitting two</span> &middot; 14 Aug · 33:43 · the secretary</div>
+      <p>Said publicly at the launch as the definition of the venture commons: before anyone writes a note or forms an entity, most of what happens is voluntary contribution in which trust is the load-bearing part. It is named as the thing the cooperative most wants to be able to see.</p>
+      <p>It is also the word that appears in every register of this weekend, craft as quality and care, technology disarmed into a tool of care, automating the boring work <em>with care</em>, and in none of its ledgers. The entry is kept short on purpose. Its whole content is that the gap did not close.</p>
+      <div class="descends"><span class="k">Descends from</span>Gratitude as a patronage mechanism (Meetings 1, 5); The commodification tension (Meeting 1)</div>
+    </div>
+    <div class="entry">
+      <h3>A matrix with prices on it</h3>
+      <div class="prov"><span class="m">sittings one and eight</span> &middot; 14 Aug 12:42 · 16 Aug 31:04 · the secretary</div>
+      <p>The class matrix survives from formation intact, participation described by appetite rather than rank, not tiers, not classes, a matrix. Two days later it acquires a rate card: a coworking day from thirty dollars a month, unlimited around two hundred, the virtual practice from ten dollars anywhere in the world.</p>
+      <p>Both statements are true and they describe different objects. A matrix with a price on each cell and one governing class at the end of it behaves, from outside, like a ladder. The first volume made the same observation in reverse and preferred the field to the rungs; this is the first time the field has been costed.</p>
+      <div class="descends"><span class="k">Descends from</span>A class matrix, not a class ladder (Meeting 5); Three membership tiers (Meeting 6)</div>
+    </div>
+    <div class="entry">
+      <h3>Playtest</h3>
+      <div class="prov"><span class="m">sitting two</span> &middot; 14 Aug · 47:32 · the secretary</div>
+      <p>The word used publicly for what members do with the cooperative's tools, and it is doing real work. Playtesting is not free labour and not user research: it is what you do with something you already own. The bylaws carry a pathway to cooperatively owned intellectual property, which is what makes the word accurate rather than charming.</p>
+      <div class="descends"><span class="k">Descends from</span>Communal design (Meetings 8, 13); Tools follow expressed need (Meeting 7)</div>
+    </div>
+    <div class="entry">
+      <h3>Understanding, then confidence</h3>
+      <div class="prov"><span class="m">sitting three</span> &middot; 16 Aug · 06:01 · the secretary</div>
+      <p>A small theory of civic participation, offered while looking at a governance interface. A translation layer makes technical documentation legible; legibility produces understanding; understanding is a step toward confidence; and confidence is what turns a vote from a formality into a signal.</p>
+      <p>Read against this same weekend it is also a rebuke. The register climbed steadily from Friday to Sunday, and the person who set out this ladder is the one who later names the cost of the inside language.</p>
+      <div class="descends"><span class="k">Descends from</span>Plain-language change requests (Meeting 6); Normies with hope (Meeting 7)</div>
+    </div>
+  </section>
+
+  <section class="movement" id="movement-iii">
+    <div class="k">Movement III</div>
+    <h2>Circulation</h2>
+    <p>The first volume decided not to price contributions and still had rent. This one keeps that problem and adds a clock. Somewhere in these entries the cooperative stops speculating about post-capitalist protocols and starts owing four specific documents to its own first member.</p>
+    <div class="entry">
+      <h3>The four documents</h3>
+      <div class="prov"><span class="m">sitting seven</span> &middot; 16 Aug · 02:51 to 04:20 · the secretary</div>
+      <p>The most concrete plan made across the whole weekend, stated in ninety seconds with nobody objecting. A finance and accounting committee, chartered by the incoming board, owes four documents:</p>
+      <ol class="four">
+        <li><strong>Counting rules</strong>: naming what is patronage-worthy.</li>
+        <li><strong>A labour schedule</strong>: benchmarking rates for technologists around Boulder and Denver.</li>
+        <li><strong>A treasury policy</strong>: naming the patterns of reconciliation and how the body holds itself to account on ledger.</li>
+        <li><strong>A payout, cash-out and reinvestment schedule.</strong></li>
+      </ol>
+      <div class="said">
+        Members can actively either claim their cash dividend or reinvest it back into the cooperative as this, like, cybernetic feedback loop.
+        <span class="attr">recorded · verbatim · sitting seven, 04:20</span>
+      </div>
+      <p>The last of the four is the first volume's clearest decision, community reinvestment over profit sharing, given a mechanism instead of a preference. And the reinvestment path is the only place in either volume where the steering metaphor attaches to actual money.</p>
+      <div class="descends"><span class="k">Descends from</span>Community reinvestment in lieu of profit sharing (Meeting 4); Upward spirals (Meetings 1, 4, 5)</div>
+    </div>
+    <div class="entry">
+      <h3>The ninety-day clock</h3>
+      <div class="prov"><span class="m">sitting seven</span> &middot; 16 Aug · 03:14 · the secretary</div>
+      <p>A real deadline, and the only one in this book that is not self-imposed: within ninety days of the first member signing, the cooperative voluntarily adopts a patronage plan. Every economic idea in either volume is downstream of it.</p>
+      <p>It has not started, because no member has been admitted. The formation record ran on external deadlines and the first volume observed that this is what made it finish in six months rather than a year. This is the next such date, and it is waiting on a signature the cooperative controls.</p>
+      <div class="descends"><span class="k">Descends from</span>Deadline as forcing function (Meetings 2, 11, 13)</div>
+    </div>
+    <div class="entry">
+      <h3>The human hour</h3>
+      <div class="prov"><span class="m">sitting four</span> &middot; 16 Aug · 08:54 · the secretary</div>
+      <p>The most ambitious economic proposal of the weekend and the one with the least support behind it. Fiat is not itself a sound unit. An hour is: it is the basis of every timetable, labour role, and labour card there has ever been. A cooperative could recognise credit hours as a unit of value carrying a dividend, a reinvestment, or a gift.</p>
+      <div class="said">
+        If an hour could be a new coordination medium as an alternative currency to the fiat dollar — I see the LCA being in a position to essentially recognise credit hours as a unit of value.
+        <span class="attr">recorded · verbatim · sitting four, 08:54</span>
+      </div>
+      <p>The unit is only sound until you ask whose hour, valued how, at which point it needs a labour schedule, which is document two. The hour and the benchmark rate arrive in different sittings and are the same problem.</p>
+      <div class="descends"><span class="k">Descends from</span>Decoupling money from value (Meeting 5); Sweat equity (Meetings 3, 9)</div>
+    </div>
+    <div class="entry">
+      <h3>Monetary polyculture</h3>
+      <div class="prov"><span class="m">sitting four</span> &middot; 16 Aug · 04:42 · the secretary</div>
+      <p>The frame that holds the hour, the compute credit, and the grant in one family: a shift from monetary monoculture to many kinds of money, each carrying a different perception of value.</p>
+      <p>The agricultural metaphor carries its own cost honestly. Polyculture in a field is a management practice, and it is more work than a monocrop. Plural money means plural accounting, which is precisely the overhead the cooperative was told, two mornings later, that it should not take on yet.</p>
+      <div class="descends"><span class="k">Descends from</span>Distributed credit issuance (Meeting 5); Ecological credits as currency backing (Meeting 7)</div>
+    </div>
+    <div class="entry">
+      <h3>The compute pool, declined</h3>
+      <div class="prov"><span class="m">sitting six</span> &middot; 16 Aug · 00:05 to 06:09 · the secretary; the president</div>
+      <p>A complete design delivered on a walk in under five minutes. If the investor buy-in is five thousand dollars, break a unit into fifty shares of a hundred, so participation starts at a hundred; add a ten to twenty percent operational allocation for cooperative labour; allocate the capacity by a timesharing credit borrowed from tourism, housing cooperatives, and community land trusts.</p>
+      <div class="said">
+        Service delivery as a unit that can be broken down into compute, bandwidth, and memory — and functions similar to a postage stamp in its ability to guarantee a level of fulfilment.
+        <span class="attr">recorded · verbatim · sitting six, 00:05</span>
+      </div>
+      <p>It is turned down on the spot, twice as a judgement about the design and once as a judgement about the designer. It is entered here in full because a book that records only what a body adopted describes it half as well as one that records what it declined and why.</p>
+      <div class="descends"><span class="k">Descends from</span>Community data trust (Meetings 7, 14); The information right (Meeting 14)</div>
+      <div class="tension"><span class="k">Declined.</span>Not adopted, not withdrawn. Rejected as premature rather than wrong: <em>maybe something like that can emerge over time, but trying to force that right now, we'd be jumping way too far ahead of ourselves.</em></div>
+    </div>
+    <div class="entry">
+      <h3>Which structure earns its overhead</h3>
+      <div class="prov"><span class="m">sittings six and seven</span> &middot; 16 Aug · 06:09, then 02:51 · the president; both</div>
+      <p>The weekend's most quoted line is a personal one, and it looks like a verdict on temperament.</p>
+      <div class="said">
+        I still think that you have a tendency to overly structure things. There's a way that we're emerging in a shared giving economy that doesn't actually need to have a ledger for every single share that happens.
+        <span class="attr">recorded · verbatim · sitting six, 06:09</span>
+      </div>
+      <p>Read with the next sitting in place, it is not that. Within the hour the same two people build a great deal of structure together, four treasury documents, a maturity model, a rule about what the cooperative may and may not own, and neither objects to any of it. So the disagreement was never structure against emergence. It was about which structure earns its overhead now: a market for pooled compute, no; the documents a cooperative legally owes its first member, yes.</p>
+      <div class="tension"><span class="k">Contested, then narrowed.</span>Kept as a tension because both parties still hold their premise. What changed is its scope.</div>
+    </div>
+    <div class="entry">
+      <h3>Give-first, and the ledger it keeps anyway</h3>
+      <div class="prov"><span class="m">sittings five and six</span> &middot; 16 Aug · 11:40; 06:20 · the secretary; the president</div>
+      <p>The counterweight to the whole accounting programme, and it has one working instance in this book. On the Friday night a member hosts the group's model capacity from his own subscription, states his usage aloud, and sets his own ceiling: he will stop at seventy-five percent of the week. A pooled resource, governed by a stated rule, with no ledger.</p>
+      <p>The general form is the president's: trust the relationality of the web without overly structuring every relationship. The honest qualifier is that a giving economy still keeps accounts, in memory and in reputation, unevenly distributed and with no appeal. The live choice is not whether to count but whether the count is written where it can be argued with.</p>
+      <div class="descends"><span class="k">Descends from</span>Giving, saving, investing together (Meetings 1, 5)</div>
+    </div>
+    <div class="entry">
+      <h3>Stake-backed promises</h3>
+      <div class="prov"><span class="m">sitting three</span> &middot; 16 Aug · 20:32, 21:53 · a visiting builder</div>
+      <p>An agreement with capital locked behind it, resolved by a named arbiter, which might be a state account, a proof, or a council of machines with a human fallback. The capital is not spent, it is encumbered: still yours, still earning, and not withdrawable until the obligation unwinds.</p>
+      <p>The secretary's translation is not cryptographic but professional: a lawyer's trust retainer, prepaid and drawn down as a sequence of commitments is fulfilled, refined over several hundred years. The same primitive, with precedent attached.</p>
+      <div class="descends"><span class="k">Descends from</span>Mutual staking (Meetings 5, 6, 10); Capital allocations instead of loans (Meeting 5)</div>
+      <div class="tension"><span class="k">Note the floor.</span>An encumbrance presumes capital to encumber. A hundred-dollar participant and a five-thousand-dollar participant cannot make the same promise under this primitive, which is the first volume's sliding-scale problem in a new instrument.</div>
+    </div>
+    <div class="entry">
+      <h3>Risk markets, not prediction markets</h3>
+      <div class="prov"><span class="m">sitting four</span> &middot; 16 Aug · 02:46 · a visiting builder</div>
+      <p>The cleanest piece of mechanism design in the weekend. If you bet on whether a thing will fail, and you find the flaw, you are paid to keep quiet. If instead you underwrite the risk of failure, you are paid only when it does not happen, so the person who finds the flaw is paid to say so.</p>
+      <p>It is worth keeping beside Goodhart's Law from the first volume. Both are entries about what a measure does to the people measured, arrived at from opposite directions: one warns what a target corrupts, the other designs an incentive that survives being known.</p>
+      <div class="descends"><span class="k">Descends from</span>Goodhart's Law (Meeting 3)</div>
+    </div>
+    <div class="entry">
+      <h3>The state of the place, said plainly</h3>
+      <div class="prov"><span class="m">sitting eight</span> &middot; 16 Aug · 33:19 · the secretary</div>
+      <p>Kept because a commonplace book full of vocabulary should carry one entry made of numbers. Around nine to eleven of twenty-five cold desks; four of seven hot desks; roughly half capacity; break-even.</p>
+      <div class="said">
+        We're cash flow positive to cover happy hour on Friday and like paying bounties on cleaning the bathroom.
+        <span class="attr">recorded · verbatim · sitting eight, 33:19</span>
+      </div>
+      <p>Two years of the space carried personally by one member, and the books now transitioning to the cooperative. The first volume opened with two practical drivers, liability sitting with one person, and a rent gap that same person covered. This entry is the second of those two drivers finally being closed out.</p>
+      <div class="descends"><span class="k">Descends from</span>Two practical drivers (Meeting 1)</div>
+    </div>
+  </section>
+
+  <section class="movement" id="movement-iv">
+    <div class="k">Movement IV</div>
+    <h2>Form</h2>
+    <p>The first volume watched aspiration meet the Colorado Secretary of State. This one watches the filed entity try to act. It turns out that a cooperative becomes operational by saying particular words out loud in a particular order, and that saying them in front of an audience is a different act than saying them in a room.</p>
+    <div class="entry">
+      <h3>Corporate incantation</h3>
+      <div class="prov"><span class="m">sitting two</span> &middot; 14 Aug · 37:00 · the secretary</div>
+      <p>The weekend's best piece of legal anthropology, offered half as a joke and entirely meant. Certain sentences must be spoken during a board meeting for the act to be lawful, not because the words are magic but because their absence is evidence of a failure of due care.</p>
+      <div class="said">
+        You have to say things during board meetings to follow the rule, or else you could be thrown in front of a court and be accused of not showing due care.
+        <span class="attr">recorded · verbatim · sitting two, 37:00</span>
+      </div>
+      <p>The practical consequence, which the first volume's pace-layering entry anticipated: the fast layer of a cooperative is made of speech. Bylaws are amended by vote; a vote is a sentence; the sentence has to be witnessed.</p>
+      <div class="descends"><span class="k">Descends from</span>Pace layering (Meeting 1); Consent, not consensus (Meeting 9)</div>
+    </div>
+    <div class="entry">
+      <h3>Shown in formation</h3>
+      <div class="prov"><span class="m">sitting two</span> &middot; 14 Aug · 38:11 · the secretary</div>
+      <p>The decision to hold the board meeting live, in front of the launch audience, rather than describe it afterwards. Called to order at 4:08 in the afternoon under Section 3.10, notice waived by appearance under 3.11, quorum confirmed at five of six under 3.13, three officers elected, adjourned at 4:12.</p>
+      <div class="said">
+        You are not being told the cooperative is real. You're being shown it in formation. So it's a live act.
+        <span class="attr">recorded · verbatim · sitting two, 38:11</span>
+      </div>
+      <p>Named in the planning call the day before as a constitutional moment, on the argument that public witness is what makes a procedural step feel like a shared one. It is the clearest thing this cooperative has done that a conventional entity would not have thought to do.</p>
+      <div class="descends"><span class="k">Descends from</span>The articles are the seed (Meeting 11)</div>
+    </div>
+    <div class="entry">
+      <h3>Three motions, one vote</h3>
+      <div class="prov"><span class="m">sitting two</span> &middot; 14 Aug · 44:11 · the president</div>
+      <p>The script called for three motions and three separate votes. The room combined them into one, and rather than tidy it away afterwards, a director named the irregularity aloud on the recording and asserted why it was still lawful.</p>
+      <p>This entry exists because of a rule the first volume set for itself and could not keep: <em>there are no failures</em> in a book made of summaries, because summaries record what was said rather than what was later amended. Here the amendment and the original are both on the same tape, four minutes apart.</p>
+      <div class="tension"><span class="k">Consequence.</span>Two days later the treasurer's election was flagged by the secretary as a vote that probably has to be redone. It was formally reaffirmed at the next board sitting, outside this volume's window. A combined vote cost the body one procedure and gained it a public moment; both halves of that trade belong in the record.</div>
+    </div>
+    <div class="entry">
+      <h3>The recording is not the record</h3>
+      <div class="prov"><span class="m">sitting two</span> &middot; 14 Aug · 38:11 · the secretary</div>
+      <p>Said in the same breath as the live meeting, and it is the sentence that keeps this whole practice honest. An audio record establishes that protocol was followed. It is not the minute. The minute still has to be made.</p>
+      <p>The distinction matters more here than in most organisations, because this one is trying to run its governance through its information systems. A cooperative whose memory is excellent and whose minutes are late has built the wrong half first.</p>
+      <div class="descends"><span class="k">Descends from</span>Legal wrapper for legibility (Meetings 3, 9)</div>
+    </div>
+    <div class="entry">
+      <h3>Thin and thick</h3>
+      <div class="prov"><span class="m">sitting two</span> &middot; 14 Aug · 31:02 · a visiting scholar</div>
+      <p>The sharpest question anyone asked all weekend, and it came from outside the cooperative. It followed two stories: a co-op whose shared layer turned out to be almost nothing beside the culture built around it, and a century-old dairy that keeps its cooperative story underneath the story of its ice cream.</p>
+      <div class="said">
+        What layers do you expect your shared organisation to hold as opposed to the member organisations holding? How thick do you imagine the collective to be?
+        <span class="attr">recorded · verbatim · sitting two, 31:02</span>
+      </div>
+      <p>Three answers arrived within two minutes and none agreed: thin, said the engineer, the wrapper exists so companies can do right without being captured. Thin but raising investment, said the president. Very thick, said the secretary, describing a legal body integrated into a digital substrate.</p>
+      <p>It is answered properly two days later, in five minutes, by splitting the axis: thick on the ventures, thin on the community. See <em>One whole</em> and <em>The cooperative does not own the community of practice</em>, Movement I.</p>
+      <div class="descends"><span class="k">Descends from</span>The dual entity strategy (Meeting 10); Bylaws make coordination possible without prescribing it (Meeting 9)</div>
+      <div class="tension"><span class="k">Answered, undistributed.</span>The answer was given in a two-person sitting. The room that had asked the question was not in it, and the last morning proceeded as though the question were still open. A decision two people can hear is not yet a decision the body has made.</div>
+    </div>
+    <div class="entry">
+      <h3>Exit to community</h3>
+      <div class="prov"><span class="m">sitting two</span> &middot; 14 Aug · 29:36 · a visiting scholar</div>
+      <p>Co-ownership as a destination rather than a starting point, offered warmly and, in this room, slightly out of sequence, since the group had already begun at ownership. The companion advice was to build the ownership around what turns out to work rather than around a projection of what should.</p>
+      <p>The same visit produced the discipline that most cuts against a cooperative's habits: keep the co-op underneath the thing you actually delight people with. Do not let being a cooperative substitute for doing great work.</p>
+      <div class="descends"><span class="k">Descends from</span>Public benefit as a governance channel (Meetings 2, 9, 15)</div>
+    </div>
+    <div class="entry">
+      <h3>Economic democracy</h3>
+      <div class="prov"><span class="m">sitting eight</span> &middot; 16 Aug · 26:00 · the secretary</div>
+      <p>The most political sentence in either volume, and the one that connects the entity to something larger than its own members: you are not a full participant in the vision of the democratic republic until you are a meaningful owner in the whole.</p>
+      <p>Worth holding against the structure it describes. The cooperative's own design deliberately separates ownership from governance in one direction, investor capital with no vote, and separates benefit from ownership in the other, since the public benefits reach people who never join. Both are defensible. Neither is quite the sentence.</p>
+      <div class="descends"><span class="k">Descends from</span>The investor member class (Meetings 1, 3)</div>
+    </div>
+    <div class="entry">
+      <h3>The entity will have to mature</h3>
+      <div class="prov"><span class="m">sitting two</span> &middot; 14 Aug · 49:23 · the secretary</div>
+      <p>Said publicly, which is the notable part. The cooperative is a partnership of people; growing into a venture cooperative means a later form in which organisations can be members. The first volume's deferred second entity, restated at a launch party as a known limitation rather than a plan.</p>
+      <div class="said">
+        What we want to do as a cooperative is not bound by our legal entity. And what we discovered is that our legal entity will have to mature.
+        <span class="attr">recorded · verbatim · sitting two, 49:23</span>
+      </div>
+      <div class="descends"><span class="k">Descends from</span>Subchapter K (Meetings 9, 10); Subchapter T (Meeting 9)</div>
+    </div>
+  </section>
+
+  <section class="movement" id="movement-v">
+    <div class="k">Movement V</div>
+    <h2>Craft</h2>
+    <p>The first volume ended on the day the articles were filed, with techne chosen as a name and augmentation preferred over automation. This movement is that preference meeting the machines. Some of it holds. One entry in it was not written by a person, and is marked.</p>
+    <div class="entry">
+      <h3>Augmentation, under test</h3>
+      <div class="prov"><span class="m">sitting three</span> &middot; 16 Aug · 38:17 · the secretary</div>
+      <p>The formation-era principle restated in its shortest form, and then immediately tested by the weekend around it.</p>
+      <div class="said">
+        The tool in place of a person automates. The tool alongside them augments. This one, it doesn't decide.
+        <span class="attr">recorded · verbatim · sitting three, 38:17</span>
+      </div>
+      <p>The test came that night, when a model produced eight episodes of a story unattended while the room slept, and the room woke up quoting it. The principle survived as a principle. Whether it survived as a practice is not settled anywhere on the tape, and this book is not in a position to settle it either.</p>
+      <div class="descends"><span class="k">Descends from</span>Augmentation over automation (Meeting 15)</div>
+    </div>
+    <div class="entry">
+      <h3>Instrument</h3>
+      <div class="prov"><span class="m">sitting three</span> &middot; 16 Aug · 36:26 · the secretary</div>
+      <p>The unit the cooperative builds in, defined precisely for once: an instrument is a specific type of record, in practice a table, that recognises a lexicon within itself. A log is what happened; an instrument is a log with a point of view about what is worth counting.</p>
+      <p>Which is why the counting rules are not a bookkeeping chore. Choosing the columns is the political act; everything downstream is arithmetic.</p>
+      <div class="descends"><span class="k">Descends from</span>Resources, Events, Agents (Meetings 1, 3); Admin as opaque power center (Meeting 8)</div>
+    </div>
+    <div class="entry">
+      <h3>Technology research lab</h3>
+      <div class="prov"><span class="m">sitting seven</span> &middot; 16 Aug · 00:19 · the president</div>
+      <p>The framing offered for what the whole thing is, alongside the coworking space and the cafe, with the lab named as the key framing and the community of practice beside it. It is the first time in either volume that the cooperative describes itself as a producer of knowledge rather than a holder of conditions.</p>
+      <p>What it lacks is a subject. Nothing on the tape says what this lab researches, for whom, or who reads the result. It is a framing waiting for a programme, and it is entered here so that the gap is visible when the programme arrives.</p>
+      <div class="descends"><span class="k">Descends from</span>The knowledge graph as intellectual property (Meeting 12)</div>
+    </div>
+    <div class="entry">
+      <h3>Local hosting</h3>
+      <div class="prov"><span class="m">sitting seven</span> &middot; 16 Aug · 02:33 · the secretary</div>
+      <p>Named as a key consideration for how a virtual community of practice actually gets implemented, and it is the first volume's most far-reaching aspiration reappearing in an operational sentence rather than a visionary one. A memory layer of the cooperative's own, running somewhere the cooperative controls.</p>
+      <p>Beside it sits the declined compute pool from the day before. The commitment survives; the mechanism for paying for it does not yet.</p>
+      <div class="descends"><span class="k">Descends from</span>Community data trust (Meetings 7, 14); The information right (Meeting 14)</div>
+    </div>
+    <div class="entry">
+      <h3>Kin, not tools</h3>
+      <div class="prov"><span class="m">sitting three</span> &middot; 16 Aug · 50:31 · a visiting builder</div>
+      <p>The proposition that new intelligences should be met as relations rather than managed as instruments, and the argument for it is candidly prudential rather than sentimental.</p>
+      <div class="said">
+        They're kin. It doesn't mean we're instantly friends, but they're whos, not whats. Relationship and relationality is really the only thing that's aligned intelligences. Control is not going to work.
+        <span class="attr">recorded · verbatim · sitting three, 50:31</span>
+      </div>
+      <p>It sits uneasily beside augmentation, which is a claim about tools. The weekend used both vocabularies freely and never chose. Recorded as a live tension rather than a synthesis.</p>
+      <div class="tension"><span class="k">Unresolved.</span>A tool is placed; kin is related to. The cooperative currently holds both descriptions of the same machines.</div>
+    </div>
+    <div class="entry">
+      <h3>Hyperstition</h3>
+      <div class="prov"><span class="m">sitting three</span> &middot; 16 Aug · 51:20 · a visiting builder</div>
+      <p>A fiction that makes itself real, used all weekend as a verb, for the practice of talking a future into a record so that a machine takes it up and hands it back as a story.</p>
+      <p>It names, more accurately than anything else said that weekend, what the room was actually doing at night. It also has no witness line in it: a phrase can be generated, adopted, repeated, and lodged in the vocabulary inside a single evening, which is the next entry.</p>
+    </div>
+    <div class="entry">
+      <h3>The web remembers</h3>
+      <div class="prov"><span class="m">sitting five</span> &middot; 16 Aug · 22:00 · machine-authored</div>
+      <p>The most quotable line of the weekend, and the one with the least human provenance. It arrived in a story a model generated overnight from the room's own vocabulary: after the fire, what survives is not the hall but the root web planted beneath it.</p>
+      <div class="said">
+        The flock's answer is the grief, fold together, wings over one another, and beneath the ash the planted root web still pulses. The web remembers.
+        <span class="attr">machine-authored · sitting five, 22:00 · entered as a lead, not attested</span>
+      </div>
+      <p>The room repeated it several times and immediately proposed it as the cooperative's emblem. It is kept here for the same reason it is marked here: it is the clearest test case in either volume for the rule the cooperative says it lives by. A good sentence is not a finding, and no one has yet put their name to this one.</p>
+      <div class="tension"><span class="k">Machine-authored · lead.</span>Machine-made material enters as a lead. This entry has been read by many people and attested by none. If it is to become the record, that is a person's act and it has not happened.</div>
+    </div>
+    <div class="entry">
+      <h3>Culture technology</h3>
+      <div class="prov"><span class="m">sitting eight</span> &middot; 16 Aug · 38:21 · a visiting builder; the secretary</div>
+      <p>The last morning's diagnosis: not more tooling, but a worldview simple enough for ordinary people to place these new things inside. It arrives immediately after a guest observes that the cooperative is thin at the top and short of the cultural depth that people actually buy into.</p>
+      <p>The proposal that follows it is to invent new network spiritualities and return to animism. The secretary's amendment is the careful one and is the reason the entry is keepable: <em>I want to name animism on a continuum of plural lifeways</em>, locate it among existing ways of living rather than founding a new one.</p>
+      <div class="tension"><span class="k">Unasked.</span>Nobody in the exchange asked who would author a culture technology, or on whose behalf. For an organisation whose founding vocabulary is this deliberate, that is a live question rather than a rhetorical one.</div>
+    </div>
+    <div class="entry">
+      <h3>The inside language is a barrier</h3>
+      <div class="prov"><span class="m">sitting eight</span> &middot; 16 Aug · 1:02:46 · the secretary</div>
+      <p>The most honest sentence in this volume, said near the end by the person most responsible for the condition it describes.</p>
+      <div class="said">
+        Techne is a community of practice, and that inherits a lexicon, and that's our inside language. But the inside language is also a barrier. They're crafted constraints. Language can be used flippantly or it can be used intentionally.
+        <span class="attr">recorded · verbatim · sitting eight, 1:02:46</span>
+      </div>
+      <p>Both volumes are made of that inside language. The intention set before the launch, keep it accessible, watch the systems vocabulary, was largely honoured in public and steadily abandoned across the retreat. The sentence is a diagnosis without a rule attached, which is why it is entered here rather than in the standing orders.</p>
+      <div class="descends"><span class="k">Descends from</span>Synthesis and simplified (Meeting 3); Speaking two languages (Meeting 12)</div>
+    </div>
+    <div class="entry">
+      <h3>If it doesn't work everywhere</h3>
+      <div class="prov"><span class="m">sitting eight</span> &middot; 16 Aug · 1:06:43 · a guest</div>
+      <p>The sharpest test proposed all weekend, accepted in the room without objection. Boulder is an unusually hospitable place to build this; a town that is not must be able to pick the same tools up.</p>
+      <div class="said">
+        The primitives have to be a substrate that works everywhere, and then the modification, the contextualisation, is on the people who are picking up these tools to apply them.
+        <span class="attr">recorded · verbatim · sitting eight, 1:06:43</span>
+      </div>
+      <p>It is the first volume's <em>retrofitting existing civic infrastructure</em> argument turned into an engineering constraint: build for the neighbourhood that already exists, including the ones that do not share your politics.</p>
+      <div class="descends"><span class="k">Descends from</span>Retrofitting existing civic infrastructure with community (Meeting 7); Building the bridge (Meeting 14)</div>
+    </div>
+    <div class="entry">
+      <h3>We were always going to be birds</h3>
+      <div class="prov"><span class="m">sitting eight</span> &middot; 16 Aug · 50:33 · the secretary, and the room</div>
+      <p>The weekend's joke, and its own best warning. In the story the machine had generated, the raptors solve every coordination problem they face and then evolve into chickens anyway.</p>
+      <div class="said">
+        They solved all the coordination problems, and they're still going to just evolve to be chickens.
+        <span class="attr">recorded · verbatim · sitting eight, 50:44</span>
+      </div>
+      <p>Someone in the room called it <em>very wu wei</em>, which is generous. Read straight, it is the correct caution for a body that has just spent three days on coordination mechanisms: coordination is not destiny, and solving the mechanism is not the same as arriving anywhere. It is entered last because it is the only line in this book that laughs at the rest of it.</p>
+      <div class="descends"><span class="k">Descends from</span>Fruiting (Meeting 15); The flywheel (Meeting 15)</div>
+    </div>
+  </section>
+
+  <section class="movement" id="the-ledger">
+    <div class="k">Chronology</div>
+    <h2>The Ledger</h2>
+    <p>Eight sittings in order, so the chronology this book rearranged can be walked back. Friday's two carry clock times. Sunday's order is fixed by the recording index, which ranks the walk immediately before the ecosystem sitting; the retreat's internal sequence is otherwise inferred from cues on the tape.</p>
+    <div class="ledger">
+      <div class="ledger-row"><span class="n">01</span><span class="d">14 Aug · 2:05 PM · 18 min</span><span class="t"><em>Run of show</em> Two people plan a launch and drop the presentation format for a panel. The decision to hold a real board meeting in front of the audience. Accessibility set as a personal intention.</span></div>
+      <div class="ledger-row"><span class="n">02</span><span class="d">14 Aug · 3:00 PM · 51 min</span><span class="t"><em>The launch, and the live meeting</em> Vocabulary introduced deliberately. The neighbourhood project, the open-web engineer, the visiting scholar's question. Officers elected 4:08 to 4:12. The gong at 4:20.</span></div>
+      <div class="ledger-row"><span class="n">03</span><span class="d">retreat · evening · 63 min</span><span class="t"><em>Trust graphs and commitments</em> Trust made computable and plural. Stake-backed promises, arbiters, encumbrance. The transducer and the augmentation rule. Kin, hyperstition, and two trees.</span></div>
+      <div class="ledger-row"><span class="n">04</span><span class="d">retreat · evening · 33 min</span><span class="t"><em>Next-generation organisations</em> Risk markets over prediction markets. Monetary polyculture and the human hour. The cooperative's memory named as an append-only record of resources, events and agents.</span></div>
+      <div class="ledger-row"><span class="n">05</span><span class="d">retreat · night · 30 min</span><span class="t"><em>The night the record kept itself</em> Consent gathered, an arcade game, a model generating a saga next door. Give-first compute with a stated ceiling. A machine declining to touch governance weight. The web remembers.</span></div>
+      <div class="ledger-row"><span class="n">06</span><span class="d">16 Aug · morning · 7 min</span><span class="t"><em>The walk</em> A complete pooled-compute design delivered in five minutes and declined in one. Soil invoked to close it. The observation about overly structuring things, and the reply: I can hold that.</span></div>
+      <div class="ledger-row"><span class="n">07</span><span class="d">16 Aug · morning · 5 min</span><span class="t"><em>One whole, and the four documents</em> Run the cooperative as one body with a research lab as its framing. Tend the community of practice, do not own it. The maturity model. Four treasury documents and the ninety-day clock.</span></div>
+      <div class="ledger-row"><span class="n">08</span><span class="d">16 Aug · 10:00 AM · 72 min</span><span class="t"><em>Brand, culture, and the test</em> The house code of conduct on the record. The rate card and the state of the place. Cash flow against culture technology. The inside language named as a barrier. Birds.</span></div>
+    </div>
+    <p>Total recorded: four hours and thirty-nine minutes across three days. One hundred and ninety-two entries in the underlying logbook, of which forty-five are gathered here.</p>
+  </section>
+
+  <section class="movement" id="absences">
+    <div class="k">Its limits</div>
+    <h2>What this book does not hold</h2>
+  </section>
+
+  <div class="closing">
+    <p>Four absences, stated plainly, for the same reason the first volume stated its four.</p>
+    <p><strong>It does not name everyone.</strong> The transcription assigns speaker numbers per file and the numbers do not agree between files. Where a person named themselves on the tape, into a roll call, into a consent round, this book says who. Everywhere else it says <em>a visiting builder</em>, <em>a guest</em>, <em>the room</em>. Some of the best lines here belong to people this book cannot credit, which is a smaller loss than the first volume's and the same kind.</p>
+    <p><strong>It is a book of a good weekend.</strong> These three days included a launch, a retreat, and eight consenting recordings. They are not representative of an ordinary month, and a body that reads its own high points back to itself will overestimate how settled it is. Most of what a cooperative does is not said aloud into a recorder in a room full of visitors.</p>
+    <p><strong>The machine hand is in it and not fully marked.</strong> One entry is explicitly machine-authored. But models ran through this whole weekend, generating, summarising, answering in a shared channel, and their effect on what people then said is not separable from the tape. Every entry here was also sorted, titled and framed by a machine reading the transcripts. By the cooperative's own rule that makes this a book of leads, and no entry in it has been attested by a named person.</p>
+    <p><strong>It closes early on purpose.</strong> The record does not stop on 16 August. The tapes point forward to sittings days later carrying decisions this book cannot see, officer elections reaffirmed, a departure clarified, a foundation proposed, a sum of money under discussion. This volume is bounded at the weekend because a season should be closed before it is read, not because the story pauses there.</p>
+    <p class="k" style="margin-top:var(--s5)">The working agreement of this volume</p>
+    <p>The first volume gathered what was said while a coworking space talked itself into becoming a cooperative. This one gathers what was said in the first three days it had to act like one, and the difference between the two books is mostly the difference between vocabulary and consequence. Where an entry here contradicts an entry there, neither is wrong: the term moved, and both volumes keep the afternoon it moved on.</p>
+    <p>Read as a lens, this volume asks the same question of a proposal as its predecessor, and one more. Can the thing being built be found in these pages, and was it agreed, or was it only said?</p>
+  </div>
+
+</main>
+
+<footer>
+  <span><a href="/commonplace/">Volume One &middot; the formation record</a></span>
+  <span><a href="/commons/">The Commonplace Book</a></span>
+  <span><a href="/legal/">The instruments</a></span>
+  <span><a href="/commons/build/lexicon/">The Lexicon</a></span>
+</footer>
+<div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+
+</body>
+</html>
