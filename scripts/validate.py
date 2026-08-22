@@ -352,6 +352,51 @@ def generate_index_json(packets):
         err("index.json was stale or missing; refreshed. Commit the regenerated manifest (X-04).")
 
 
+def check_lexicon_schema(packets):
+    """The lexicon rides in two forms and they must agree (L-09): the prose
+    page at commons/build/lexicon/index.html governs, and the machine-readable
+    register at commons/build/lexicon/lexicon.json distills it for any system
+    that needs the vocabulary as data rather than prose. A schema artifact
+    that drifts from its page is worse than no artifact: it exports a
+    vocabulary the register no longer speaks. So the check is set equality,
+    both directions: every span.k term on the page appears in the JSON, and
+    every JSON term appears on the page. The JSON also carries a version and
+    a source path; a missing field is an error, not a warning."""
+    import re as _re
+    page_path = REPO_ROOT / "commons" / "build" / "lexicon" / "index.html"
+    json_path = REPO_ROOT / "commons" / "build" / "lexicon" / "lexicon.json"
+    if not json_path.exists():
+        err("commons/build/lexicon/lexicon.json: missing; the lexicon's machine-readable register (L-09)")
+        return
+    try:
+        doc = json.loads(json_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        err(f"commons/build/lexicon/lexicon.json: unparseable ({e})")
+        return
+    for field in ("artifact", "version", "source", "terms"):
+        if field not in doc:
+            err(f"lexicon.json: missing field '{field}' (L-09)")
+    if doc.get("source") != "commons/build/lexicon/index.html":
+        err("lexicon.json: source must name the governing page (L-09)")
+    def _norm(t):
+        t = _re.sub(r"<[^>]+>", "", t)
+        return t.replace("&middot;", "·").replace("&sect;", "§").strip()
+    html = page_path.read_text(encoding="utf-8")
+    page_terms = set()
+    for m in _re.finditer(r'<div class="condition"><span class="k">(.*?)</span>', html, _re.S):
+        page_terms.add(_norm(m.group(1)))
+    json_terms = set()
+    for t in doc.get("terms", []):
+        if not isinstance(t, dict) or "term" not in t or "gloss" not in t or "section" not in t:
+            err("lexicon.json: each term carries term, gloss, section (L-09)")
+            continue
+        json_terms.add(t["term"])
+    for missing in sorted(page_terms - json_terms):
+        err(f"lexicon.json: page defines '{missing}' but the artifact omits it (L-09)")
+    for extra in sorted(json_terms - page_terms):
+        err(f"lexicon.json: artifact carries '{extra}' but the page does not define it (L-09)")
+
+
 def check_one_navigation(packets):
     """One primary navigation per page (U-13): every HTML page loads exactly
     one of the two shared frames, /assets/shell.js (signed-in) or
@@ -414,6 +459,7 @@ def main():
     check_done_requires_verified(packets)
     check_decision_coherence(packets)
     check_one_navigation(packets)
+    check_lexicon_schema(packets)
 
     generate_status_md(packets)
     generate_ledger_state(packets)

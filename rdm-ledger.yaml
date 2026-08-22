@@ -3324,6 +3324,34 @@ lexicon:
     deliverable: The style-lint suite extended, exemptions named.
     acceptance: Proven against the whole estate; every suite green.
 
+  - address: L-09
+    title: The lexicon schema
+    intent: >
+      The register's vocabulary as a versioned, machine-readable
+      artifact. The prose page governs; lexicon.json distills it for
+      any system that needs the words as data rather than paragraphs,
+      and the validator holds the two in set agreement both ways, so
+      a drifted artifact is a CI error rather than an export that
+      quietly lies. Drawn from the federation-alignment guidance of
+      2026-08-22: a vocabulary that may one day be spoken across an
+      inter-network relationship needs a schema, not shared vibes.
+    status: drafted
+    cites: [BP, VS]
+    deliverable: >
+      commons/build/lexicon/lexicon.json: artifact name, version,
+      governing source path, and every span.k term of the page with
+      its section and a first-sentence gloss. scripts/validate.py
+      gains check_lexicon_schema.
+    acceptance: >
+      validate.py green with the check live; removing any term from
+      either the page or the artifact turns CI red; the JSON names
+      its governing page and carries a version that rides the same
+      commit as any vocabulary change.
+    note: >
+      Staged on branch L-09; merge is the act of adoption. Gloss is
+      an excerpt, never a competing definition; if gloss and page
+      disagree, the page is right and the artifact is the defect.
+
 standing:
 
   - address: STANDING
