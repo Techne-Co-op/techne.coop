@@ -824,6 +824,55 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     </div>
   </section>
 
+  <!-- §11  --  Adoption receipts -->
+  <section class="sec" id="s11">
+    <div class="addr">&sect;11</div>
+    <h2>Adoption receipts</h2>
+    <p class="lead">Added August 2026 as X-26, on the federation-alignment record (<a href="https://github.com/Techne-Co-op/techne.coop/issues/218">#218</a>, following <a href="https://github.com/Techne-Co-op/techne.coop/issues/217">#217</a>). Every adoption on this estate already leaves a receipt. The merge commit records who adopted, what address, when, and the state of the checks at the moment of the act. This section states the receipt as doctrine, so a future event-shaped record of the build can be derived from the history the estate already keeps, and no new tooling rides the piece.</p>
+
+    <p>Merge is the act of adoption; &sect;1 says so, and &sect;10 restates it at the identity layer. What neither section says is that the act writes itself down. A merge to <code>main</code> under the conventions of &sect;6 carries everything an event needs, and carries it in git, an append-only history the estate already trusts:</p>
+
+    <div class="anatomy">
+      <div class="an-row"><span class="f">who</span><span class="v">Two hands on every receipt. The commit's authorship trailer names the drafting agent and the piece address, per the provenance marks of &sect;3; the merge is performed by a named person, and the history names them. Drafting the agent's, adoption a person's, both legible.</span></div>
+      <div class="an-row"><span class="f">what</span><span class="v">The branch is named by the piece address and the pull request cites it, so the receipt names the address it adopts. The diff is the whole of what was adopted; nothing enters by side channel.</span></div>
+      <div class="an-row"><span class="f">when</span><span class="v">The merge commit's timestamp, at the documentary grain of &sect;9: the day the record took the act in, ready to become the second of the two times when the build's history is ingested.</span></div>
+      <div class="an-row"><span class="f">checks state</span><span class="v">A merge waits on validator green, and the checks that ran are recorded against the merged commit by name. The receipt carries which checks passed; &sect;12 governs what that green does and does not say.</span></div>
+    </div>
+
+    <p>Stated as doctrine, the receipt means the build's adoption history already exists as a record. The Information Model's first law is that state is a tally over events, and the <a href="/commons/build/lexicon/">Lexicon</a>'s record section holds the vocabulary: the event written once and never edited, the append-only log, the tally by which a figure traces to the events that produced it. The merge history is that log for adoptions. What the estate has adopted is a tally over its merge commits, recomputable by anyone with a clone and no credentials at all. When the build's history enters the Common Information System under &sect;9, each receipt converts to an adoption event without loss, because the four fields above are already in it.</p>
+
+    <p>The discipline this section asks for is only care with what is already true: branches named by address, the authorship trailer on agent commits, merges by a named person with the validator green. Break any of those and the receipt degrades from record to guess. Keep them, and no receipt ever needs writing, because the act of adoption is the act of writing it.</p>
+  </section>
+
+  <!-- §12  --  Verification discipline -->
+  <section class="sec" id="s12">
+    <div class="addr">&sect;12</div>
+    <h2>Verification discipline</h2>
+    <p class="lead">Added August 2026 as X-26, from the same federation-alignment guidance. The Verification Spec governs what done means; this section governs how a claim of done is worded. Three rules, each already in force somewhere in this estate's history, written down so they bind everywhere.</p>
+
+    <div class="def">
+      <div class="def-row">
+        <span class="t">Measured, not inferred</span>
+        <span class="d">A report of state names the check it ran and the state it ran against: which command, which tree, which commit. &ldquo;The validator passes&rdquo; is a claim about one run of <code>scripts/validate.py</code> over one tree, and a report that says so is a measurement. Style lint, the validator, and continuous integration are three different checks; naming which one ran is the difference between a measurement and an inference. What was not run is reported as not run, and a claim with no named check behind it does not enter the record.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Guards as scars</span>
+        <span class="d">A check added after a failure names the failure it answers. The almanac audit opens by recounting what X-17 and X-19 found; the em dash audit names the rule it enforces and the exemption it honors. This is not decoration. A guard that names its scar can be judged when circumstances change; a guard that names nothing hardens into ritual that outlives its reason. The estate's checks are a history of its defects, and the history is kept on purpose.</span>
+      </div>
+      <div class="def-row">
+        <span class="t">Green is silence</span>
+        <span class="d">The standing rule: a green check asserts what it checked and nothing else. The card audit once read clean over every address on the morning the ledger was found wrong in twenty-four places, because the cards were faithful to a ledger that was not; X-19 is the record of that lesson. Green from the whole battery says the battery's questions were answered, and says nothing about the questions the battery does not ask.</span>
+      </div>
+    </div>
+
+    <p>The word <em>verified</em> itself stays where the Verification Spec puts it: with a person. TR-02 stands delivered today, its generator run and its evidence recorded, and its verified mark waits on the steward walking the acceptance and saying the word. That packet is open, remains the steward's, and this section neither closes it nor could. Machinery can deliver, measure, and report. Verification is a person's act, the same boundary &sect;1 draws around adoption, met again at the end of the work instead of the beginning.</p>
+
+    <div class="memo">
+      <div class="k">the reporting rule</div>
+      <p>Name the check, name the state it ran against, name what was not checked. A report built that way survives its author: a stranger can rerun it, dispute it, or extend it. A report built any other way is a feeling with a timestamp.</p>
+    </div>
+  </section>
+
 </div><!-- /doc-wrap -->
 
 <footer>
