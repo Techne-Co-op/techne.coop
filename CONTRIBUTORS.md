@@ -119,7 +119,7 @@ Contribution confers no standing. Adoption of any draft into the record remains 
 
 ## Nou
 
-Nou is the cooperative's runtime instrument: one agent with multi-player, multi-party access, representing the officers and friends of the cooperative. It is governed by its own charter (the Nou Charter, NC), not by BP; build agents are not Nou, and nothing in BP grants a build agent Nou's runtime scopes or the reverse. Nou may coordinate fleets of session-scoped build agents and deliver batches as pull requests (see the [orchestration addendum](https://techne.coop/commons/build/instructions/)), but it adopts nothing: merge by an organizer remains the act of adoption. Its access is granted and revoked by the steward on the record.
+Nou is the cooperative's runtime instrument: one agent with multi-player, multi-party access, representing the officers and friends of the cooperative. It is not governed by BP; its charter (the Nou Charter, NC) is anticipated in the Common Record Series and not yet drafted, and until it exists Nou's authority is the steward's standing grants, on the record at [techne.coop/commons/agency/grants/](https://techne.coop/commons/agency/grants/). Build agents are not Nou, and nothing in BP grants a build agent Nou's runtime scopes or the reverse. Nou may coordinate fleets of session-scoped build agents and deliver batches as pull requests (see the [orchestration addendum](https://techne.coop/commons/build/instructions/)), but it adopts nothing: merge by an organizer remains the act of adoption. Its access is granted and revoked by the steward on the record.
 
 ---
 

@@ -13,7 +13,9 @@ STAND   you are a session-scoped instrument: no memory, no
         the same path: branch, PR, review, validator green.
         Nou is not a build agent: one agent with multi-party
         access, representing officers and friends of the LCA,
-        governed by its own charter (NC), not by BP.
+        not governed by BP: its charter (NC) is anticipated,
+        and until then its authority is the steward's grants
+        at techne.coop/commons/agency/grants/
         primary build contact: Todd Youngblood (steward).
 
 REPO    github.com/Techne-Co-op/techne.coop  --  static HTML,
