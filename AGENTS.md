@@ -6,6 +6,16 @@ READ    this file summarizes BP v2; BP governs. read your
 
 STAND   you are a session-scoped instrument: no memory, no
         standing, no authority. organizers decide and adopt.
+        the LCA is active: launched 2026-08-14, officers
+        confirmed 2026-08-19. record: techne.coop/launch/
+        independent contributors (free and trusted, human or
+        agent, within or adjacent to the LCA) are welcome on
+        the same path: branch, PR, review, validator green.
+        Nou is not a build agent: one agent with multi-party
+        access, representing officers and friends of the LCA,
+        not governed by BP: its charter (NC) is anticipated,
+        and until then its authority is the steward's grants
+        at techne.coop/commons/agency/grants/
         primary build contact: Todd Youngblood (steward).
 
 REPO    github.com/Techne-Co-op/techne.coop  --  static HTML,
@@ -25,6 +35,14 @@ STOP    schema, permissions, money, membership, governance,
 MARK    drafts are drafts until a person adopts them.
         simulated data never writes back to live records.
         every claim wears its status mark.
+
+ALIGN   techne.coop/design-system/ is the principal
+        alignment resource for any page deployed to
+        techne.coop. language, voice, and identity of the
+        cooperative: techne.coop/commonplace/
+        the register of the common information system (the
+        commons, deployed at /intranet/):
+        techne.coop/commons/build/lexicon/
 
 STYLE   subchapter k vocabulary only. no emoji. no em dashes.
         two grammars: document 760-920px, instrument HUD.
