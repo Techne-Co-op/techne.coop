@@ -16,6 +16,9 @@ STAND   you are a session-scoped instrument: no memory, no
         not governed by BP: its charter (NC) is anticipated,
         and until then its authority is the steward's grants
         at techne.coop/commons/agency/grants/
+        identity and attestation posture: build instructions
+        section 10. an attestation names who answers for an
+        agent; it widens nothing.
         primary build contact: Todd Youngblood (steward).
 
 REPO    github.com/Techne-Co-op/techne.coop  --  static HTML,
@@ -49,6 +52,11 @@ STYLE   subchapter k vocabulary only. no emoji. no em dashes.
         tokens: --ember #C4956A accent, --blue #6A8AC4 interactive.
         fonts: Libre Baskerville (serif) + IBM Plex Mono (mono).
         localStorage key: techne-mode. data-mode on <html>.
+
+CHECK   a report names the check it ran and the commit it
+        ran against. a check added after a failure names the
+        failure that earned it. a green check is silence
+        about everything it does not check.
 
 DONE    validator green, upstream verified, status changed
         by commit. if unsure whether done: not done.
