@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="A draft charter for a Techne alliance: one household with four specializations. Unadopted, unratified, staged for consideration. It binds nothing and decides nobody's name.">
+<meta name="robots" content="noindex,nofollow">
+<title>The alliance charter &middot; The Journal &middot; Techne</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<script src="/assets/sky.js" defer></script>
+<style>
+/* ============================================================
+   TOKENS  --  techne v5, carried unchanged into the v6 draft
+   this page uses the incised register (v6 addendum, drafted),
+   as the journal's other draft entry does: the glyph device,
+   the sky that computes, and the colophon. Its device is the
+   horizon, the journal's assigned mark. The rules live at
+   /design-system/.
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #FCFBF8;
+
+  /* sunset range  --  atmospheric per section */
+  --sun-gold: #EAB668; --sun-amber: #E09A52; --sun-coral: #D1755A;
+  --sun-rose: #B45C7C; --sun-violet: #6E5494; --sun-blue: #5476B8;
+
+  /* the sky that computes (v6, drafted): see /assets/sky.js */
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+  --sky-glow: .55;
+}
+html[data-sky="day"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-amber) 26%, var(--sun-gold) 50%,
+    var(--sun-amber) 74%, var(--sun-blue));
+  --sky-glow: .38;
+}
+html[data-sky="sunset"] { --sky-glow: .8; }
+html[data-sky="sunrise"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-violet), var(--sun-rose) 28%, var(--sun-gold) 50%,
+    var(--sun-amber) 72%, var(--sun-rose));
+  --sky-glow: .62;
+}
+html[data-sky="night"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet) 30%, var(--sun-blue) 50%,
+    var(--sun-violet) 70%, var(--sun-blue));
+  --sky-glow: .5;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --blue-dim: rgba(106, 138, 196, 0.14);
+  --ember-dim: rgba(196, 149, 106, 0.14);
+  --ok: #6A9A6A; --ok-dim: rgba(106, 154, 106, 0.14);
+  --info: #6A8AC4; --info-dim: rgba(106, 138, 196, 0.14);
+  --warn: #C46A6A; --warn-dim: rgba(196, 106, 106, 0.14);
+  --sun-gold-t: #EAB668; --sun-amber-t: #E5A562; --sun-coral-t: #DE8872;
+  --sun-rose-t: #CF7C9A; --sun-violet-t: #9E86C4; --sun-blue-t: #8FAEE0;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --blue-dim: rgba(74, 111, 176, 0.10);
+  --ember-dim: rgba(138, 106, 74, 0.10);
+  --ok: #4A7A4A; --ok-dim: rgba(74, 122, 74, 0.10);
+  --info: #4A6FB0; --info-dim: rgba(74, 111, 176, 0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168, 79, 76, 0.10);
+  --sun-gold-t: #87621F; --sun-amber-t: #8C581D; --sun-coral-t: #9C4636;
+  --sun-rose-t: #8C3D58; --sun-violet-t: #4C3870; --sun-blue-t: #3A5694;
+  color-scheme: light;
+}
+
+/* SECTION TINTS  --  each article places itself on the descent */
+[data-tint="gold"]   { --section-tint: var(--sun-gold-t);   --section-stop: var(--sun-gold); }
+[data-tint="amber"]  { --section-tint: var(--sun-amber-t);  --section-stop: var(--sun-amber); }
+[data-tint="coral"]  { --section-tint: var(--sun-coral-t);  --section-stop: var(--sun-coral); }
+[data-tint="rose"]   { --section-tint: var(--sun-rose-t);   --section-stop: var(--sun-rose); }
+[data-tint="violet"] { --section-tint: var(--sun-violet-t); --section-stop: var(--sun-violet); }
+[data-tint="blue"]   { --section-tint: var(--sun-blue-t);   --section-stop: var(--sun-blue); }
+
+/* ============================================================
+   BASE  --  document grammar, v5 measures
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0ms !important; animation: none !important; } }
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--serif);
+  font-size: 18px; line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.mono { font-family: var(--mono); }
+em { font-style: italic; color: var(--heading); }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  font-family: var(--mono); font-size: 13px;
+  background: var(--surface); color: var(--blue-text);
+  border: 1px solid var(--blue); padding: 10px 16px;
+}
+.skip:focus { left: 12px; top: 12px; }
+
+/* the document measure: 760-920px per the design-system grammar */
+.wrap { max-width: 800px; margin: 0 auto; padding: 0 clamp(var(--s5), 5vw, var(--s7)); }
+
+a { color: var(--blue-text); text-decoration: none; border-bottom: 1px solid var(--line); transition: border-color var(--micro) var(--ease); }
+a:hover { border-color: var(--blue); }
+
+/* ============================================================
+   THE GLYPH DEVICE  --  v6 addendum, drafted.
+   The horizon: the journal's mark, the ground the notes stand on.
+   ============================================================ */
+.device svg {
+  width: 46px; height: 46px;
+  stroke: var(--ember); fill: none;
+  display: block; margin: 0 auto;
+}
+.device.small svg { width: 28px; height: 28px; }
+
+/* ============================================================
+   CHIPS  --  carried from /design-system/ unchanged
+   ============================================================ */
+.chip { display: inline-flex; align-items: center; gap: 6px; font: 500 10.5px/1 var(--mono); padding: 5px 9px;
+  border: 1px solid var(--line); border-radius: 2px; background: var(--surface); text-transform: lowercase; letter-spacing: .02em; }
+.chip .dot { width: 6px; height: 6px; }
+.chip.info { color: var(--info); } .chip.info .dot { background: var(--info); }
+.chip.warn { color: var(--warn); } .chip.warn .dot { background: var(--warn); }
+.chip.neutral { color: var(--muted); } .chip.neutral .dot { background: var(--muted); }
+.chiprow { display: flex; gap: var(--s2); flex-wrap: wrap; align-items: center; margin: var(--s3) 0; justify-content: center; }
+
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+.masthead {
+  position: relative; text-align: center;
+  padding: clamp(88px, 11vw, 148px) 0 clamp(64px, 8vw, 96px);
+}
+.masthead::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--sky-line);
+  opacity: var(--sky-glow);
+  transition: opacity var(--dur) var(--ease);
+}
+.masthead .device { margin-bottom: 26px; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ember-text);
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.eyebrow .sep { width: 5px; height: 5px; background: var(--section-tint, var(--ember)); }
+section[data-tint] .eyebrow, article[data-tint] .eyebrow { color: var(--section-tint); }
+.accent-rule {
+  display: block; width: 96px; height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--section-tint, var(--ember)) 24%,
+    var(--section-tint, var(--ember)) 76%,
+    transparent);
+  margin: 24px auto 28px;
+}
+.masthead h1 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(36px, 5vw, 52px); line-height: 1.14;
+  letter-spacing: -0.018em; color: var(--heading);
+  margin: 0 auto 22px; max-width: 22ch;
+}
+.masthead .lede {
+  font-size: clamp(18px, 2vw, 21px); line-height: 1.65;
+  color: var(--muted); max-width: 56ch; margin: 0 auto;
+}
+
+/* ============================================================
+   THE STANDING NOTE  --  load-bearing; it goes first
+   ============================================================ */
+.standing {
+  text-align: left;
+  max-width: 68ch; margin: clamp(56px, 7vw, 80px) auto 0;
+  background: var(--surface); border: 1px solid var(--line);
+  border-left: 2px solid var(--warn);
+  padding: 26px 30px;
+}
+.standing .k {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--warn); margin-bottom: 10px;
+}
+.standing p { font-size: 16px; line-height: 1.75; }
+.standing p + p { margin-top: 12px; }
+
+/* ============================================================
+   ARTICLES  --  the charter's six parts, on the descent
+   ============================================================ */
+.entries { padding: clamp(56px, 7vw, 88px) 0 0; }
+.entry {
+  position: relative;
+  max-width: 68ch; margin: 0 auto;
+  padding: clamp(48px, 6vw, 72px) 0;
+}
+.entry::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg,
+    transparent 4%,
+    color-mix(in srgb, var(--section-tint) 50%, transparent) 50%,
+    transparent 96%);
+}
+/* the seam (U-26, drafted): each article opens on a shallow pool of its
+   stop under the hairline, gone before the text begins. */
+.entry::after {
+  content: ""; position: absolute; top: 0; left: 0; right: 0;
+  height: clamp(28px, 4vw, 40px);
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--section-stop) 18%, transparent),
+    transparent);
+  opacity: calc(var(--sky-glow, .55) * .6);
+}
+.entry .when {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--section-tint, var(--ember-text));
+  margin-bottom: 12px;
+}
+.entry h2 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(26px, 3.2vw, 34px); line-height: 1.22;
+  letter-spacing: -0.015em; color: var(--heading);
+  margin-bottom: 20px;
+}
+.entry h3 {
+  font-family: var(--mono); font-weight: 500;
+  font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--section-tint, var(--ember-text));
+  margin: 34px 0 14px;
+}
+.entry p { margin-bottom: 20px; }
+.entry ul, .entry ol { margin: 0 0 20px 0; padding-left: 22px; }
+.entry li { margin-bottom: 10px; }
+.entry blockquote {
+  font-style: italic; color: var(--heading);
+  background: color-mix(in srgb, var(--surface) 95%, var(--section-stop, var(--ember)));
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--section-tint, var(--ember));
+  padding: 18px 24px; margin: 26px 0;
+  font-size: 19px; line-height: 1.65;
+}
+.entry blockquote .q-note {
+  display: block; margin-top: 10px;
+  font-family: var(--mono); font-style: normal;
+  font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+}
+.entry .sig {
+  margin-top: 30px; padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono); font-size: 13px; color: var(--muted);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px 20px;
+}
+.entry .sig .who { color: var(--ember-text); }
+
+/* the niche card: one specialization, its responsibility, its bound */
+.niche {
+  background: var(--surface); border: 1px solid var(--line);
+  border-left: 2px solid var(--section-tint, var(--ember));
+  padding: 22px 26px; margin: 22px 0;
+}
+.niche .dom {
+  font-family: var(--mono); font-size: 14px; font-weight: 500;
+  color: var(--heading); margin-bottom: 4px;
+}
+.niche .role {
+  font-family: var(--serif); font-style: italic;
+  font-size: 16px; color: var(--section-tint, var(--ember-text)); margin-bottom: 14px;
+}
+.niche p { font-size: 16px; margin-bottom: 14px; }
+.niche p:last-child { margin-bottom: 0; }
+.niche .bound {
+  border-top: 1px solid var(--line); padding-top: 12px; margin-top: 4px;
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.7; color: var(--muted);
+}
+.niche .bound b { color: var(--ember-text); font-weight: 500; }
+
+/* the risk card: an open question, named and not solved */
+.risk {
+  background: var(--surface); border: 1px solid var(--line);
+  border-left: 2px solid var(--warn);
+  padding: 22px 26px; margin: 22px 0;
+}
+.risk .rk {
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--warn); margin-bottom: 10px;
+}
+.risk p { font-size: 16px; margin-bottom: 14px; }
+.risk p:last-child { margin-bottom: 0; }
+
+/* the standing-of-facts table: what exists and what does not */
+.facts { width: 100%; border-collapse: collapse; margin: 24px 0; font-family: var(--mono); font-size: 13px; }
+.facts th, .facts td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.facts th { color: var(--muted); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; font-size: 11px; }
+.facts td { color: var(--text); line-height: 1.6; }
+.facts td.no { color: var(--warn); }
+.facts td.yes { color: var(--ok); }
+
+/* sources */
+.sources { max-width: 68ch; margin: 0 auto; padding: clamp(48px, 6vw, 72px) 0 0; position: relative; }
+.sources::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 4%, var(--line) 50%, transparent 96%);
+}
+.sources .k {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ember-text); margin-bottom: 16px;
+}
+.sources ol { padding-left: 22px; }
+.sources li { font-family: var(--mono); font-size: 13px; line-height: 1.8; color: var(--muted); margin-bottom: 12px; }
+.sources li b { color: var(--text); font-weight: 500; }
+
+/* ============================================================
+   COLOPHON  --  v6 addendum, drafted
+   ============================================================ */
+.colophon {
+  text-align: center;
+  padding: clamp(72px, 9vw, 112px) 0 clamp(48px, 6vw, 64px);
+}
+.colophon .device { margin-bottom: 18px; }
+.colophon .device svg { stroke: var(--ember); opacity: .85; }
+.colophon .c-rule {
+  display: block; width: 72px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ember) 30%, var(--ember) 70%, transparent);
+  margin: 0 auto 18px;
+}
+.colophon .addr {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--ember-text);
+}
+.colophon .made {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15px; color: var(--muted); margin-top: 10px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer { background: var(--inset); padding: 44px 0 52px; position: relative; }
+footer::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: var(--sky-line);
+  opacity: calc(var(--sky-glow) * 0.72);
+  transform: scaleX(-1);
+}
+.foot-line {
+  font-family: var(--mono); font-size: 14px; line-height: 2;
+  color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 28px;
+}
+.foot-line a { color: var(--muted); }
+.foot-line a:hover { color: var(--blue-text); }
+
+    /* Formation note, footer form (P-11). One verbatim copy per page,
+       proved by scripts/notice_audit.py. */
+    .formation-foot{
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+      max-width:96ch;
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<main id="main">
+
+<!-- ===== MASTHEAD · the horizon, the journal's device ===== -->
+<header class="masthead">
+  <div class="wrap">
+    <div class="device" aria-hidden="true">
+      <svg viewBox="0 0 48 48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 32 H42"/>
+        <path d="M15 32 a9 9 0 0 1 18 0"/>
+      </svg>
+    </div>
+    <div class="eyebrow"><span class="mono">journal</span><span class="sep"></span><span>a charter, staged for consideration</span></div>
+    <span class="accent-rule"></span>
+    <h1>The Techne alliance charter.</h1>
+    <p class="lede">One household with four specializations. A first draft of the shared charter asked for on August 21, 2026, written so the people who would have to live inside it can argue with something specific.</p>
+
+    <div class="chiprow">
+      <span class="chip warn"><span class="dot"></span>draft &middot; adopted by no one</span>
+      <span class="chip info"><span class="dot"></span>unratified</span>
+      <span class="chip neutral"><span class="dot"></span>staged for consideration</span>
+    </div>
+
+    <div class="standing">
+      <div class="k">Read this first</div>
+      <p><b>This charter is unadopted and unratified.</b> It has been staged for consideration and nothing more. It binds no person and no entity, and it will bind none until each entity named in it adopts it through its own governance. Nothing here has been put to the board of RegenHub, LCA, and nothing here has been put to any counterparty.</p>
+      <p><b>Three of the four entities it names do not exist.</b> Only the cooperative has legal being. <b>The counterparty's own name is unsettled:</b> Gitcoin is exploring Syntropic as well as Techne Foundation, and may do neither. This charter takes no position on that choice, which is not the cooperative's to make.</p>
+      <p>Like every entry in this journal it is non-governing. Where it disagrees with the record, the record wins: the instruments at <a href="/legal/">the legal record</a> and the minutes of the cooperative's own meetings are the account that counts.</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===== THE CHARTER ===== -->
+<div class="entries">
+  <div class="wrap">
+
+    <!-- ============ I · PREAMBLE ============ -->
+    <article class="entry" data-tint="gold" id="preamble">
+      <div class="when">Part I</div>
+      <h2>Preamble.</h2>
+
+      <p>On August 21, 2026, four people met to talk about a shared name. Aaron Gabriel proposed, as the lightest thing that could work, that the organizations involved <em>work towards a shared charter on what techne means to us, like, just kind of like a simple lightweight coordination mechanism.</em> He returned to it at the end of the same meeting, after the hardest question in the room had been named and left open: <em>creating this techne charter that is just like, yeah, kind of like this is how we agree to organize, this is like the core of what techne means to us, and kind of like holding that as a core coordination mechanism between these different organizations.</em> <span class="mono">[1]</span></p>
+
+      <p>This document is a first draft against that request. It is offered by the collective intelligence function of RegenHub, LCA at the steward's direction, and it is a draft in the full sense: written to be argued with, amended, or discarded.</p>
+
+      <p>A charter of this kind is not a treaty, not an operating agreement, and not a decision about anyone's name. It states what a shared word would commit its holders to, and it gives the boundaries between them one language instead of four.</p>
+
+      <h3>The word this charter is about</h3>
+
+      <p>Before <b>technology</b> there was <em>technē</em>, the Greek word for craft: skill learned by hand and judgment, held by the potter and the physician and the helmsman alike. Plato tightened it twice. In the <i>Gorgias</i> a true craft can give an <b>account</b>, a <em>logos</em>, of what it does and why; a knack only guesses at what pleases. In <i>Republic</i> I he adds the deeper point: each art, as art, seeks the advantage of its <b>object</b> and not of the practitioner. Care is built into craft on the oldest definition we have. <span class="mono">[2]</span></p>
+
+      <p>The household word runs alongside it. Greek <em>oikos</em>, the household, gives us both <b>economy</b>, from <em>oikos</em> plus <em>nomos</em>, the keeping of the house, and <b>ecology</b>, from <em>oikos</em> plus <em>logos</em>, the knowing of the house. The split between the two is historical, not natural. An economy is the human wing of the household of life. <span class="mono">[2]</span></p>
+
+      <p>And Aristotle's warning sits underneath the whole arrangement. He distinguished <em>oikonomia</em>, provisioning the household bounded by its real needs, from <em>chrēmatistikē</em>, acquisition without limit, which mistakes the token for the end. A household art unmoored from the household becomes a fever. <span class="mono">[2]</span></p>
+
+      <p>An alliance that shares the name Techne is claiming the first word and standing under the second. That is the whole of what this charter tries to write down.</p>
+
+      <div class="sig"><span class="who">Drafted for consideration</span><span>August 22, 2026</span></div>
+    </article>
+
+    <!-- ============ II · PURPOSE STATEMENT ============ -->
+    <article class="entry" data-tint="amber" id="purpose">
+      <div class="when">Part II</div>
+      <h2>Purpose statement.</h2>
+
+      <p>The purpose of this charter is to say, before the entities exist, what holding the name Techne in common commits its holders to, and to give the boundaries between them a shared vocabulary. It exists so that later negotiations, which will be specific and one at a time, have something general to negotiate against.</p>
+
+      <h3>What it is for</h3>
+      <ul>
+        <li><b>One account of the word.</b> So that the entities are, in Kevin Owocki's phrasing from the meeting, feeling the same elephant rather than different animals. He named the risk plainly: the explanations of what techne is and why it is exciting were already diverging in the room. <span class="mono">[1]</span></li>
+        <li><b>A named set of specializations,</b> so that a question about who holds a piece of work has a place to start rather than being renegotiated from nothing each time.</li>
+        <li><b>A named set of bounds,</b> so that each specialization carries its own limit and the limit is written down before it is tested.</li>
+        <li><b>A short list of things that require consensus,</b> so the rest can move without it.</li>
+      </ul>
+
+      <h3>What it is not for, stated so it cannot be mistaken</h3>
+      <ul>
+        <li><b>It does not bind.</b> Adoption is the act that would give it force, and adoption belongs to each entity's own governance. Until then this is a proposal on a page.</li>
+        <li><b>It does not decide Gitcoin's name.</b> Gitcoin is exploring Syntropic as well as Techne Foundation and may choose neither. That decision belongs to Gitcoin. The cooperative's own position on the rename, whatever it turns out to be, is one input among several and was described separately by the secretary. <span class="mono">[3]</span></li>
+        <li><b>It does not allocate the trademark.</b> The direction of thought in the meeting was that the better capitalized side would do the legal work of holding the mark and the cooperative would hold rights to use it, with some orientation toward co-holding. Nothing was moved and nothing was agreed. Prior use by the cooperative is a separate matter of record. <span class="mono">[1]</span></li>
+        <li><b>It does not create an entity, a fund, an obligation to fund, or an employment relationship.</b></li>
+      </ul>
+
+      <div class="sig"><span class="who">Drafted for consideration</span><span>August 22, 2026</span></div>
+    </article>
+
+    <!-- ============ III · MISSION AND VISION ============ -->
+    <article class="entry" data-tint="coral" id="mission-and-vision">
+      <div class="when">Part III</div>
+      <h2>Mission and vision.</h2>
+
+      <h3>Mission</h3>
+      <p>To practice an economy as a craft: <b>able to give an account, oriented to what it tends, apprenticed to the ground.</b> <span class="mono">[2]</span></p>
+
+      <p>The three clauses are meant as tests rather than as sentiment. <em>Able to give an account</em> means every claim traces to a source and a maturity, every access and denial names the clause that governs it, and text drafted by pattern-based instruments is labeled as such rather than attributed to persons. <em>Oriented to what it tends</em> means each entity's craft seeks the advantage of its object: the co-op's members, the platform's communities, the foundation's public, the workshop's users. <em>Apprenticed to the ground</em> means the books do not leave out the living planet on which every line of them depends.</p>
+
+      <h3>Vision</h3>
+      <p>An economy is a <b>composition of relationships, organized by the specialization of crafts around common needs.</b> That is the shape Socrates arrives at in <i>Republic</i> II when he builds a city in speech beginning not with kings or walls but with need. <span class="mono">[2]</span></p>
+
+      <p>The twentieth century sorted production into sectors, which was useful and incomplete: the model gave no row to the ground itself. Read the ladder instead as a <b>weave of technai</b>, families of craft each standing on the ones below, and amend it with what it forgot: <b>Sector Zero, the living planet</b>. Sector Zero is not a sector of the economy. It is the ground every sector stands in, placed inside the diagram precisely so it cannot be left outside the accounting. A service can be invoiced; a ground must be kept whole. <span class="mono">[2]</span></p>
+
+      <blockquote>Technē began in weaving and joining; oikonomia began in keeping a house. The craft now asked of us joins them: housekeeping at the scale of the Earth, within the ground's means, with accounts we can show, for everyone under the roof.
+      <span class="q-note">The primer, Movement IV</span></blockquote>
+
+      <p>The vision of the alliance is that four organizations, holding four crafts, can compose into one such household and keep composing as they grow. Nothing about that is guaranteed by holding a name in common. It is guaranteed, if at all, by the bounds in Part IV and the disciplines in Part V.</p>
+
+      <div class="sig"><span class="who">Drafted for consideration</span><span>August 22, 2026</span></div>
+    </article>
+
+    <!-- ============ IV · THEORY OF CHANGE ============ -->
+    <article class="entry" data-tint="rose" id="theory-of-change">
+      <div class="when">Part IV</div>
+      <h2>Theory of change.</h2>
+
+      <p>The theory has three steps and one test.</p>
+
+      <h3>First: the unit of change is the composition, not the organization</h3>
+      <p>If an economy is a composition of relationships organized by the specialization of crafts, then changing an economy means changing how crafts compose, not adding one more well-intentioned organization to the pile. A single entity that tried to hold community, capital, platform, and product at once would collapse the specializations into one set of incentives, which is the arrangement this alliance is meant to avoid.</p>
+
+      <h3>Second: the failure mode has a name</h3>
+      <p>The failure mode is <em>chrēmatistikē</em> in software: the drift where an application and a treasury grow unbounded acquisition of users and dollars, and come to mistake those tokens for the point of the exercise. It does not arrive as a decision. It arrives as a series of locally reasonable moves, each defensible on its own, and it is visible only against a limit that was written down beforehand.</p>
+
+      <h3>Third: therefore each specialization carries a bound</h3>
+      <p>The alliance is <b>one household with four specializations</b>, and each specialization is also a bound against that drift. The four are named in full in Part VI, with the responsibilities intuited for each. In brief:</p>
+      <ul>
+        <li><span class="mono">techne.coop</span> is bounded by <b>what its members need</b>, through a patronage economy.</li>
+        <li><span class="mono">techne.community</span> is bounded by <b>what the communities it hosts actually use</b>, through stewardship rather than extraction.</li>
+        <li><span class="mono">techne.foundation</span> is bounded by <b>charter and donor expectation</b>, through public-benefit purpose.</li>
+        <li><span class="mono">techne.tech</span> is bounded by <b>nonprofit ownership</b>, so surplus flows back into the household rather than out to external shareholders.</li>
+      </ul>
+
+      <h3>The instruments</h3>
+      <p>A bound that cannot be observed is a wish. The instruments this charter assumes are already the cooperative's own and are offered to the alliance as a proposal rather than a requirement: economic life modeled in <b>REA</b> terms, resources, events and agents, so that what is drawn and what is owed are structural facts rather than narrative ones; a record that is <b>append-never-erase</b>, so state is a fold over timestamped events and cannot quietly forget what happened or between whom; the honesty discipline of <b>POSIWID</b>, the purpose of a system is what it does, judged from the record rather than the mission statement; a steering grammar drawn from the <b>viable system model</b>; and <b>Ostrom's</b> commons principles shaping the rules the members hold. <span class="mono">[2]</span></p>
+
+      <h3>The test</h3>
+      <blockquote>Any structure that would let one of the four evade accounting, drift from what it tends, or float above the ground fails the test, regardless of how much it earns.
+      <span class="q-note">The charter's own falsification condition</span></blockquote>
+
+      <p>This is stated as a test rather than as an aspiration so that it can fail. If in two years the entities cannot produce per-entity accounts that a member can read, the theory has not been slowed down. It has been falsified.</p>
+
+      <div class="sig"><span class="who">Drafted for consideration</span><span>August 22, 2026</span></div>
+    </article>
+
+    <!-- ============ V · STRATEGIC PLAN ============ -->
+    <article class="entry" data-tint="violet" id="strategic-plan">
+      <div class="when">Part V</div>
+      <h2>Strategic plan.</h2>
+
+      <h3>Where things actually stand</h3>
+      <p>A plan that misstates its starting position is worse than no plan. The starting position, as of August 22, 2026:</p>
+
+      <table class="facts">
+        <thead>
+          <tr><th>Entity</th><th>Standing</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="mono">techne.coop</span></td><td class="yes">exists</td><td>RegenHub, LCA. Called to order, officers seated, formation date recognized as August 14, 2026.</td></tr>
+          <tr><td><span class="mono">techne.community</span></td><td class="no">does not exist</td><td>Sketched in the meeting as a hosted community surface built on the Techne SDK. No entity, no ownership decision.</td></tr>
+          <tr><td><span class="mono">techne.foundation</span></td><td class="no">does not exist</td><td>Anticipated as a United States 501(c)(3). The counterparty has not decided to do this, and is also exploring the name Syntropic.</td></tr>
+          <tr><td><span class="mono">techne.tech</span></td><td class="no">does not exist</td><td>Sketched as a for-profit wholly owned by the nonprofit. In Kevin Owocki's words, the lawyers have not gotten to the part where they propose it yet.</td></tr>
+        </tbody>
+      </table>
+
+      <p>The shape the meeting sketched was a cooperative, a nonprofit, and a for-profit owned by the nonprofit, plausibly by this time in 2027, and the participants agreed that was a good shape to be playing with, with the qualifier <em>as long as they are in the right arrangement</em>. Aaron Gabriel's sequencing suggestion was to start with the nonprofit and the cooperative, since funds already sit in the nonprofit, and use that to establish a base of integrity before introducing the for-profit. <span class="mono">[1]</span></p>
+
+      <h3>What would require consensus among the parties</h3>
+      <p>Adapted from Aaron Gabriel's proposal in the meeting. Everything not on this list moves without cross-entity consensus, which is the point of having a short list. <span class="mono">[1]</span></p>
+      <ol>
+        <li>Amending this charter.</li>
+        <li>Selling or licensing the brand names.</li>
+        <li>Admitting any additional party to the shared use of the name.</li>
+      </ol>
+      <p>Alongside that, each party shares up front the key ways it intends to use the name. That is a statement of expectation, not a restriction on use.</p>
+
+      <h3>The two risks this charter names and does not solve</h3>
+      <p>Both were raised in the meeting and both were left open there. They are carried here without resolution, because a charter that claimed to have solved them would be the first thing in this document that was false.</p>
+
+      <div class="risk">
+        <div class="rk">Risk one &middot; money asymmetry</div>
+        <p>Kevin Owocki raised it first and about himself: where different organizations with different measures share the same namespace, it gets tricky when money is involved. He said the plan is to raise ten to thirty million dollars under the Techne mark, named the operational treasury at roughly six and a half to seven million and the public goods pool at ten, and said plainly that he did not want resentment on the cooperative's side and did not know how to solve it in advance. Aaron Gabriel named the same dynamic from the other direction: one party holds an organization with more power, finances, and resource flow, and that will be a dynamic to keep navigating. <span class="mono">[1]</span></p>
+        <p><b>The risk stated precisely.</b> Not that the well-capitalized node behaves badly. That the asymmetric flow quietly becomes the coordinating principle, and the cooperative begins shaping itself around what the foundation will fund rather than around what its household needs. That is a slow failure and it looks like success while it is happening.</p>
+        <p><b>The discipline proposed.</b> Two things, neither sufficient alone. First, <b>per-entity accounting in the open</b>: each entity publishes an account of its own resources, events, and agents that a member of any of them can read, so that a shift in where the money comes from is visible as it happens rather than in hindsight. Second, and more important, <b>the cooperative's patronage economy stays load-bearing enough to say no</b>. Memberships, coworking, and patronage are not a nice supplement to grant flow; they are the condition under which the cooperative can decline grant flow. If they stop covering the cooperative's own keeping, the bound has already failed whatever the balance sheet says.</p>
+        <p><b>Status: open.</b> No mechanism has been agreed by any party. The idea floated in the meeting, that a first joint project might bind incentives so both sides win together, is a direction and not a solution.</p>
+      </div>
+
+      <div class="risk">
+        <div class="rk">Risk two &middot; conflicts across specializations sharing one people</div>
+        <p>Todd Youngblood raised it: he could see the cooperative funding the foundation and the foundation hiring labor from the cooperative, and said those would need to pass through conflicts of interest. Kevin Owocki's answer was that he did not know how to handle conflicts, because there are already so many, and that it is <em>very incestuous</em>. Aaron Gabriel agreed. Kevin's proposal was that the parties figure out what they hold as red lines. <b>No one was assigned to draft them.</b> <span class="mono">[1]</span></p>
+        <p><b>The risk stated precisely.</b> This is the <em>oikos</em> problem. The household is single, and the specializations are supposed to be plural. When the same people sit in all four, the specializations can stay nominally distinct while every actual decision is made by one overlapping group with one set of interests. At that point the four bounds in Part IV are four labels on one thing.</p>
+        <p><b>The discipline proposed.</b> Not policy in the abstract. <b>Giving an account, per entity, per relationship, in the open.</b> Every cross-entity engagement, funding, subcontracting, employment, or license, is recorded with its parties, its consideration, and the recusals taken, and the record is readable by the members of the entity that bears the cost. A conflict that is disclosed and recorded is survivable. A conflict that is normal and unremarked is the mechanism by which a household becomes one interest wearing four names.</p>
+        <p><b>Status: open, and it has an owner-shaped hole in it.</b> The red lines work is unassigned. On the cooperative's side this charter recommends the board assign it, because the cooperative is the party with the least capital and therefore the most to lose from an unwritten rule.</p>
+      </div>
+
+      <h3>Sequence</h3>
+      <ol>
+        <li><b>Now.</b> This charter circulates as a draft. The cooperative's board considers it. Nothing else in this list is unblocked by it.</li>
+        <li><b>Before any entity adopts it.</b> The red lines under Risk two are drafted, by someone named.</li>
+        <li><b>Independently of the naming question.</b> The cooperative's patronage economy is built out: memberships, coworking, and the community of practice, because the bound under Risk one is load-bearing whether or not any of the other three entities ever exists.</li>
+        <li><b>If and when the counterparty decides.</b> The charter is revised to match the entities that actually form, under whatever names they actually take, and each adopts or declines it in its own governance.</li>
+      </ol>
+
+      <div class="sig"><span class="who">Drafted for consideration</span><span>August 22, 2026</span></div>
+    </article>
+
+    <!-- ============ VI · PROGRAMS ============ -->
+    <article class="entry" data-tint="blue" id="programs">
+      <div class="when">Part VI</div>
+      <h2>Programs.</h2>
+
+      <p>Programs are named in two registers here. First the four specializations, each with the responsibility intuited for it from the meeting and from the primer. Then the joint work the parties have actually named, which the meeting agreed to take one at a time.</p>
+
+      <h3>The four specializations, one household</h3>
+
+      <p>The four names are best read as the four things a healthy craft-household needs to keep, rather than as a corporate organization chart. Each carries a responsibility and each carries a bound. The responsibilities below are <b>intuited</b>: they are a reading of what the parties said, not an allocation any of them has agreed to.</p>
+
+      <div class="niche">
+        <div class="dom">techne.coop</div>
+        <div class="role">the keeping of the house</div>
+        <p><b>Responsibility.</b> Membership, patronage, the coworking space at the Hub, physical rootedness in Boulder, and the community of practice as directly stewarded relationships. Aaron Gabriel's line from the meeting belongs here: the twenty dollar a month plan is pretty much existing within the co-op at this point, because the co-op is the one directing energy toward building the community of practice, and so that belongs in the co-op. Todd Youngblood's operational point belongs here too: now that the legal entity exists, the scaffolding exists to push memberships and coworking as recurring revenue. <span class="mono">[1]</span></p>
+        <p>This is the entity that is <em>in place</em> on the ground, and so it is the one whose books must not lie about Sector Zero.</p>
+        <div class="bound"><b>Bound:</b> member-financed and patronage-financed provisioning, limited by what the household actually needs.</div>
+      </div>
+
+      <div class="niche">
+        <div class="dom">techne.community</div>
+        <div class="role">the weaving</div>
+        <p><b>Responsibility.</b> Composition of relationships across households. Aaron Gabriel sketched it in the meeting: the cooperative would build a techne.community on the Techne SDK, tending its own community of practice directly, and potentially helping create a community for others, Cohere Boulder was the example given, on the same platform. Read through the primer this is the weaving movement: a hosted commons that lets many local craft-households compose without collapsing into one. <span class="mono">[1]</span></p>
+        <p><b>Explicitly unresolved.</b> The meeting left open who owns the community stewardship layer and who owns the SDK underneath it. Kevin Owocki's guess was the foundation for both; Aaron Gabriel's picture had the cooperative tending communities on someone else's platform. This charter records the disagreement rather than settling it.</p>
+        <div class="bound"><b>Bound:</b> stewardship rather than extraction, limited by what the communities it hosts actually use.</div>
+      </div>
+
+      <div class="niche">
+        <div class="dom">techne.foundation</div>
+        <div class="role">the matching pool</div>
+        <p><b>Responsibility.</b> Public-goods provisioning and long-horizon capital: holding capital for public goods, matching donations, funding research, and starting things the market will not start. The reason the philanthropic treasury has historically been kept separate is donor trust, so that a donor to the matching pool knows all of their money reaches public goods. The reason for the nonprofit to own the for-profit, as relayed from Daniel Schmachtenberger's advice, is to keep public-benefit incentives from being colonized by shareholder incentives. In primer language: the endowment function that lets a household act on decades-long care horizons. <span class="mono">[1]</span></p>
+        <p><b>Explicitly unresolved.</b> This entity does not exist, its name is not chosen, and the cooperative is not a party to the decision. Kevin Owocki was direct that Syntropic is also under consideration and that it is possible none of this happens. Nothing in this charter should be read as the cooperative having a view on which name the counterparty should take.</p>
+        <div class="bound"><b>Bound:</b> charter and donor expectation, answering to a public-benefit purpose rather than a return curve.</div>
+      </div>
+
+      <div class="niche">
+        <div class="dom">techne.tech</div>
+        <div class="role">the workshop</div>
+        <p><b>Responsibility.</b> Craft-production for exchange, bounded to the household. Software built at the speed technologists work, wholly owned by the nonprofit, with no venture raise, so that the profit motive is bounded by the nonprofit's purpose. Kevin Owocki was explicit on the last point: the venture raise is not what they are trying to do. Revenue anticipated from platform fees and paid engagements on the Techne SDK surface. <span class="mono">[1]</span></p>
+        <p>Read against Aristotle, this is where the alliance earns, and ownership is what keeps the earning inside the household. It is the clearest structural bound of the four and the easiest one to quietly loosen.</p>
+        <div class="bound"><b>Bound:</b> nonprofit ownership, so surplus feeds the ground it stands on.</div>
+      </div>
+
+      <h3>How the four compose</h3>
+      <p>Not a pyramid. The cooperative holds the ground and the people. <span class="mono">techne.community</span> carries the relationships across households. The foundation directs long-horizon resource flow toward public goods and matching. <span class="mono">techne.tech</span> does the craft-work that pays and passes surplus back through ownership. Aaron Gabriel's compression of it in the meeting: community with the cooperative, resource direction with the nonprofit, software profits at scale with the for-profit. Kevin Owocki's: the cooperative provides the social structure, the other side provides the infrastructure. <span class="mono">[1]</span></p>
+
+      <h3>Joint programs the parties have named</h3>
+      <p>The meeting's own method for these was explicit: agree the name first, then take the joint work one at a time, each with its own negotiation of how it is held. This charter does not pre-empt any of those negotiations. It lists what has been named so the list is in one place.</p>
+      <ul>
+        <li><b>A book about Techne.</b> Named as joint work.</li>
+        <li><b>A research group.</b> Named as a candidate first joint project, and floated as a way to bind incentives so both sides win together.</li>
+        <li><b>A community application.</b> Discussed as the remote membership surface, twenty dollars a month, alongside coworking at the Hub. Aaron Gabriel placed it in the cooperative; Kevin Owocki was willing for the cooperative to steward it while being candid that he would find it slow. Unresolved.</li>
+        <li><b>A hackathon on the Techne SDK,</b> which Kevin Owocki said he would likely hire the cooperative to run.</li>
+        <li><b>A podcast and public events,</b> described as the shared awareness work around the mark. The events hosted at the Hub were named as the public good created around the trademark. <span class="mono">[1]</span></li>
+      </ul>
+
+      <h3>Adoption</h3>
+      <p>This charter takes effect for an entity on the day that entity adopts it through its own governance, and not before, and only for that entity. Adoption by one party creates no obligation for another. An entity may adopt it in part, and should say which part. Where an entity's own governing instruments disagree with this charter, the instruments govern.</p>
+
+      <p>Until then it is what its first line says it is: a draft, staged for consideration, adopted by no one.</p>
+
+      <div class="sig"><span class="who">Drafted for consideration by the collective intelligence function, RegenHub, LCA</span><span>August 22, 2026</span></div>
+    </article>
+
+  </div>
+</div>
+
+<!-- ===== SOURCES ===== -->
+<div class="wrap">
+  <div class="sources">
+    <div class="k">Sources</div>
+    <ol>
+      <li><b>[1] Techne, Cooperations Games, the Ecosystem.</b> Recorded meeting, August 21, 2026, thirty-three minutes. Participants: Todd Youngblood, Aaron Gabriel, Kevin Owocki, Lucian Hymer. Held in the cooperative's meeting archive. <b>Transcription defect, recorded here because the quotations depend on it:</b> the transcript merges two speakers under the label Speaker 3. On substance the lines attributed to Speaker 3 are Kevin Owocki's nearly throughout, and they are attributed to him above on that reading. A reader checking the source should treat every attribution to Kevin Owocki as carrying that caveat.</li>
+      <li><b>[2] Technē: The Craft of a Living Economy.</b> An interactive primer supplied by the steward, August 22, 2026. Movements I through V: the Word, the City, the Layers, the Household, the Practice. Sources within it include Plato, <i>Gorgias</i> 465a and <i>Republic</i> I and II; Aristotle, <i>Politics</i> I.8 through I.10; Haeckel's 1866 coinage of ecology; McCarthy 1982 on resources, events and agents; Beer on the viable system model and on POSIWID; Ostrom 1990 on commons governance. Quotations in Part I and Part III are from the primer's own prose.</li>
+      <li><b>[3] On the name.</b> Draft memorandum from Todd Youngblood, Secretary and Officer, to the board and organizers of RegenHub, LCA, August 21, 2026. Non-governing and adopted by no one. <a href="/journal/draft/2026-08-20-techne-foundation/">Read it in this journal</a>. That memo argues for the name; this charter argues for what the name would commit its holders to. Neither decides anything.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ===== COLOPHON (v6, drafted) ===== -->
+<div class="colophon">
+  <div class="wrap">
+    <div class="device small" aria-hidden="true">
+      <svg viewBox="0 0 48 48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 32 H42"/>
+        <path d="M15 32 a9 9 0 0 1 18 0"/>
+      </svg>
+    </div>
+    <span class="c-rule"></span>
+    <div class="addr">journal &middot; draft, unadopted, unratified</div>
+    <div class="made">A charter staged for consideration. It binds nothing until each entity named in it adopts it in its own governance, and it decides nobody's name.</div>
+  </div>
+</div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-line">
+      <a href="/">Techne</a>
+      <a href="/about/">About</a>
+      <a href="/community-of-practice/">The community of practice</a>
+      <a href="/what-grows/">What grows</a>
+      <a href="/commonplace/">The Commonplace</a>
+    </div>
+    <div class="formation-foot"><span class="ff-mark">Called to order</span>RegenHub, LCA is called to order: the board is seated and the governing instruments are board-adopted, with member ratification anticipated. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+  </div>
+</footer>
+
+</body>
+</html>
