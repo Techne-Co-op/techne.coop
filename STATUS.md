@@ -119,7 +119,7 @@ Generated from rdm-ledger.yaml. 166 items total.
 - **U-25** open · delivered -- The estate after the doors, and the incised register
 - **U-26** open · delivered -- The register deepened, and the lexicon's marks
 - **U-27** open · delivered -- The estate on the register
-- **U-30** open · withdrawn by the steward -- The Commonplace, Volume Two
+- **U-30** open · delivered -- The Daybook
 - **X-01** open · verified -- Error boundary and observability
 - **X-02** open · verified -- Notices v1
 - **X-03** open · verified -- Export paths
