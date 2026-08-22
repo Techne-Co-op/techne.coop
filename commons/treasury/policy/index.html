@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<title>TREASURY-POLICY v1 &middot; Draft &middot; Techne</title>
-<meta name="description" content="Draft treasury policy instrument for RegenHub, LCA: the signature discipline, bands, approver sets, and standing purposes. Staged to the FSC and the board; nothing herein adopted.">
+<title>TREASURY-POLICY v1.2 &middot; Draft &middot; Techne</title>
+<meta name="description" content="Draft treasury policy instrument for RegenHub, LCA: the signature discipline, bands, approver sets, standing purposes, the proposed giving pool, and the line between patronage credit and payment. Staged to the board; nothing herein adopted.">
 <meta name="robots" content="noindex,nofollow">
 <script>
  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
@@ -132,19 +132,21 @@
 </div>
 
 <div class="mast">
- <div class="kicker">TREASURY-POLICY v1.1 &middot; draft instrument &middot; staged</div>
+ <div class="kicker">TREASURY-POLICY v1.2 &middot; draft instrument &middot; staged</div>
  <h1>The Treasury Policy<br>A Draft Instrument for Adoption</h1>
- <p class="dek">The signature discipline of TREASURY &sect;6, drawn into an adoptable instrument: who may propose a movement of the cooperative's money, how many distinct human acts each band of amount requires, which purposes stand pre-authorized, and which always rise to a board act. Every number below is the drafter's cut, staged for the Financial Systems Committee and the board; nothing here binds until adopted, and adoption is an agreements row and its recorded event, not this page.</p>
+ <p class="dek">The signature discipline of TREASURY &sect;6, drawn into an adoptable instrument: who may propose a movement of the cooperative's money, how many distinct human acts each band of amount requires, which purposes stand pre-authorized, which always rise to a board act, whether a giving pool exists at all, and where patronage credit stops and payment begins. Every number below is the drafter's cut, staged for the Financial Systems Committee and the board; nothing here binds until adopted, and adoption is an agreements row and its recorded event, not this page.</p>
  <div class="statusline">
  <span class="chip info">Draft &middot; staged to the FSC and the board</span>
  <span class="chip warn">nothing herein adopted &middot; T-01 completes on adoption</span>
+ <span class="chip warn">v1.2 &middot; the giving pool, proposed not established &middot; issue #212</span>
  </div>
 </div>
 
 <div class="citesline">
- <b>cites</b> &middot; TREASURY v0.1 &sect;5 &sect;6 &sect;14 &middot; PATRONAGE &sect;7 (configuration as record) &middot; Bylaws v2.1 &sect;4.4 (the treasurer) &sect;3.1 &sect;4.1 (board authority) &middot; IM v0.1 Law IV (cite as you enforce) Law X (people decide)
+ <b>cites</b> &middot; TREASURY v0.1 &sect;5 &sect;6 &sect;14 &middot; PATRONAGE v0.4 &sect;7 (configuration as record) &middot; COUNTING-RULES v2 &sect;3 (the election, and the giving pool deferred here) &sect;4 (standing charges) &sect;6 (the board's numbers) &middot; Bylaws v2.1 &sect;4.4 (the treasurer) &sect;3.1 &sect;4.1 (board authority) &sect;3.18 (committees are established by the board) &middot; IM v0.1 Law IV (cite as you enforce) Law X (people decide) &middot; the Commonplace (giving, saving, investing; Meeting 5's three pools), which governs nothing and says so
  <br><b>v1.1</b> &middot; revised 2026-07-22 on the steward's direction: the principal Programs named, RegenHub.xyz and techne.coop, and the program joint drawn through the policy; informed by PATRONAGE v0.2, TREASURY v0.1, and the Program Stack Patronage Plan
- <br><b>form</b> &middot; on adoption: agreements row, code TREASURY-POLICY, version 1, effective-dated; parameters travel in the agreement.adopted event payload; amendments are prospective only, a new version and a new adoption event
+ <br><b>v1.2</b> &middot; the giving pool (issue #212), 2026-08-21: COUNTING-RULES v2 &sect;3 establishes the act of giving and defers the giving pool to this instrument and to the board. Version 1.2 takes up that deferral as a proposal and establishes nothing. A new &sect;6 puts the pool's five questions to the board as the drafter's cut, and states plainly that a Recognition carries no capital-account delta and so does not itself fund the pool, because given time creates no money. A new &sect;7 draws the line COUNTING-RULES &sect;4 leaves on this side of it: an hour counted under a standing charge is a patronage credit, not a payable. Two defects are repaired, the version stamp in the adoption payload and the stale &sect;5 citation for the payload, which is in &sect;8. The bands of &sect;3 are untouched
+ <br><b>form</b> &middot; on adoption: agreements row, code TREASURY-POLICY, version 1.2, effective-dated; parameters travel in the agreement.adopted event payload; amendments are prospective only, a new version and a new adoption event
 </div>
 
 <section class="sec">
@@ -173,6 +175,7 @@
  <tr><td class="mono">band 3</td><td>up to $10,000</td><td>proposer + two distinct approvers</td></tr>
  <tr><td class="mono">band 4</td><td>above $10,000, or any purpose outside &sect;4 at any amount the FSC flags</td><td>a recorded board resolution, then treasurer execution</td></tr>
  </table>
+ <div class="box"><span class="bk">honest limit &middot; the committee this policy names</span><p>This instrument gives the Financial Systems Committee operative work: the band 4 flagging function above, and the keep-or-strike of &sect;5. No board act has established that committee. Bylaws &sect;3.18 makes establishment a board act, and a committee holds only those powers and duties the board establishes, so the FSC's own existence is pending a resolution under &sect;3.18. Every routing to the FSC in this document, here and below, should be read conditionally: if and when the committee is established, and to the board directly until then. Naming a body does not create it, exactly as &sect;5 says of Programs.</p></div>
 </section>
 
 <section class="sec">
@@ -187,9 +190,34 @@
 </section>
 
 <section class="sec">
- <div class="sec-head"><span class="sec-num">&sect;6</span><h2>The adoption payload</h2></div>
+ <div class="sec-head"><span class="sec-num">&sect;6</span><h2>The giving pool, proposed</h2></div>
+ <p>COUNTING-RULES v2 &sect;3 admits an election. A member may have an admissible engagement <em>counted</em>, valued and credited to a capital account, or <em>given</em>, recorded as a Recognition that carries no value, no rate basis, no delta, and no claim on any distribution. That instrument establishes the act of giving and the record of it, and stops there: it says in terms that the giving pool is a treasury matter and not a counting one, and leaves it to this instrument and to the board. This section takes up that deferral. It proposes and it does not establish. No giving pool exists, and none will until a board resolution names one.</p>
+ <p>One thing should be said before the questions, because the whole design turns on it. A Recognition moves no money. It carries no capital-account delta in either book, and it is not a receipt: nothing arrives at the bank when a member gives an afternoon. <em>Given time creates no money</em>, and so a Recognition does not fund the giving pool and cannot be drawn against. What can fund a pool is cash, whether given by a member, given by someone who is not a member, or set aside by the board out of a surplus the cooperative actually holds. Where a member contributes cash and elects <em>given</em>, the money is real and the claim on it is what the giver relinquished: the cooperative holds the dollars and the giver holds no capital credit for them. That is the one case where the election and the pool touch, and it is worth stating so that no one reads a wall of Recognitions as a balance.</p>
+ <p>The five questions, drawn as the drafter's cut so the board has something specific to amend or refuse:</p>
+ <table>
+ <tr><th>question</th><th>drafter's cut</th><th>what it sits on</th></tr>
+ <tr><td class="mono">whether it exists</td><td>a giving pool exists when, and only when, a board resolution establishes it and names it; it is a designated fund within the entity book, tracked in the record, not a separate account until the board directs one</td><td>the Commonplace records the intention and governs nothing; establishing a fund by drafting is the failure mode this whole series is built against</td></tr>
+ <tr><td class="mono">what funds it</td><td>three sources and no others: a CASH contribution whose contributor elects <em>given</em> under COUNTING-RULES &sect;3; a gift from a non-member designated to the pool and accepted; and an allocation from surplus the board directs at the close of an accounting year. Until the board resolves, none of these funds anything, because there is nothing to fund</td><td>designated gifts bind the cooperative to a use, which is a real obligation and should be accepted deliberately; a surplus allocation is patronage-adjacent and needs tax counsel before it is routine</td></tr>
+ <tr><td class="mono">what it may be spent on</td><td>unrestricted community benefit, in the Commonplace's sense: the pool gives without attachment and expects no return. Not member distributions, not operating expenses, not any payment to a member for work. A disbursement that would reduce what a member owes, or pay a member, is not a giving-pool disbursement whatever it is called</td><td>the boundary is the point of the layer; a pool that quietly funds operations is a reserve, and a pool that quietly pays members is compensation</td></tr>
+ <tr><td class="mono">who authorizes a disbursement, and under which band</td><td>band 4: a recorded board resolution, then treasurer execution, at any amount, for at least the first accounting year. The ground is &sect;4's own sentence, that anything novel in kind escalates to the board regardless of amount, and giving away the cooperative's money is novel in kind. The alternative the board may prefer is to bring small grants inside the ordinary bands by amount once a purpose is written into &sect;4</td><td>band 4 at every amount is slow on purpose, and slow is wrong if the pool is meant to answer small needs quickly; the board should choose knowingly rather than inherit the cut</td></tr>
+ <tr><td class="mono">whether saving and investing follow</td><td>not now. Meeting 5 turned the three layers into three pools, and patronage as drafted implements the investing layer only: member capital, allocation, and eventual distribution. The saving pool, aimed at asset acquisition and eventual building ownership, is a real intention with no instrument, and it should arrive as its own proposal with counsel rather than as a subsection here</td><td>a saving pool implies a reserve policy, a target, and a rule about what may be spent from it, none of which this instrument has; naming it here without those would be the same drift it is trying to repair</td></tr>
+ </table>
+ <div class="box"><span class="bk">the honest counterweight</span><p>The grounding for this section is the Commonplace, which is a formation record and governs nothing, and which says so itself. Where it and the operative record disagree, the operative record is what is true. So the claim here is not that the instruments contradicted anything. It is that an intention the formation conversations held, the giving layer as a place money can actually go, was carried into no instrument, and that the board should decide whether to carry it now or to let it stand as an intention. That is a weaker claim than a contradiction, and it should be weighed as one. Tracked as issue #212.</p></div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;7</span><h2>Standing charges: credit is not payment</h2></div>
+ <p>COUNTING-RULES v2 &sect;4 admits continuous cross-program work, stewardship and officer service among it, through a <em>standing charge</em>: a board resolution naming the body of work, its holder, the Labor Schedule tier that values an hour of it, a confirmer who is never the holder, and a term. Where a charge is in force, HOURS is admissible against it with no Opportunity required. That is a counting act, and this instrument states its treasury consequence, which is none.</p>
+ <p>An hour counted under a standing charge is a <em>patronage credit</em>. It posts as a valued Contribution with both deltas and it sits in the holder's capital account. It is not a payable, it creates no disbursement obligation on the cooperative, and it entitles its holder to nothing from the treasury on any timetable. What a capital account eventually reaches is an allocation under an adopted Allocation Run and whatever distribution the board then declares, which is a different sequence with its own authority, already governed by PATRONAGE &sect;11 and by &sect;4 above. No hour, however confirmed, moves money by itself.</p>
+ <p>If the board wishes to <em>pay</em> a charge holder, that is a disbursement and it comes through this policy rather than through patronage. The drafter's cut is band 4, a recorded board resolution at any amount, on the same &sect;4 ground: a payment to an officer or to the steward for their service is novel in kind, and it is the case where the proposer, the approver, and the beneficiary are most likely to be near one another. The board should also expect a question that is not a treasury question at all. Paying a member for labor raises the character of the payment, wages against a distribution against a guaranteed payment, and with it withholding, the tax treatment of the recipient, and any conflict-of-interest process the Bylaws require for a transaction with a director or officer. That belongs to the board with counsel before the first such resolution, not after it.</p>
+ <p>One consequence follows and is proposed plainly: an hour paid is not an hour counted. Where the board resolves to pay for work under a charge, the hours that payment covers do not also post as Contributions, and where hours have posted, a later payment for the same hours would be a correction question rather than a second act. A member may be recognized for work, or credited for it, or paid for it, and the record should show which one happened.</p>
+ <div class="box"><span class="bk">the line this section exists to hold</span><p>Recognition, credit, and payment are three different things and the instruments should never let them blur. A Recognition records that work happened and prices nothing. A patronage credit prices the work and pays nothing. A disbursement pays, and it is the only one of the three that touches the bank. Each has its own authority: the contributor elects the first, the confirming hand of COUNTING-RULES &sect;5 attests the second, and a board resolution under &sect;3 authorizes the third. Nothing in COUNTING-RULES v2 obliges this treasury to move a dollar, and nothing in this section values an hour.</p></div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;8</span><h2>The adoption payload</h2></div>
  <p>On adoption, the agreement.adopted event carries the machine-readable parameters, so the verbs read the version in force and no threshold ever appears in code (PATRONAGE &sect;7, Law IV):</p>
- <pre><span class="c">-- proposed adoption payload &middot; TREASURY-POLICY v1</span>
+ <pre><span class="c">-- proposed adoption payload &middot; TREASURY-POLICY v1.2</span>
 {
  "floor": { "min_distinct_actors": <span class="k">2</span>, "proposer_may_approve": <span class="k">false</span> },
  "proposers": [<span class="k">"treasurer"</span>, <span class="k">"steward"</span>],
@@ -203,27 +231,38 @@
  "standing_purposes": [<span class="k">"dues_refund"</span>, <span class="k">"documented_reimbursement"</span>, <span class="k">"allocation_distribution"</span>],
  "program_payment": { "requires_program_agent_id": <span class="k">true</span>, "book_per_law_ix": <span class="k">true</span> },
  "principal_programs": [<span class="k">"RegenHub.xyz"</span>, <span class="k">"techne.coop"</span>], <span class="c">-- names intent; standing arrives by recorded acts</span>
+ <span class="c">-- &sect;6. Proposed, not established. The pool has no parameters until a board</span>
+ <span class="c">-- resolution establishes it, and its keys arrive with that resolution, not here.</span>
+ "giving_pool": <span class="k">null</span>,
+ <span class="c">-- &sect;7. A COUNTING-RULES standing charge posts patronage credit and no payable.</span>
+ "standing_charge_disbursement": { "creates_obligation": <span class="k">false</span>, "payment_band": <span class="k">"band-4"</span>,
+                                   "payment_excludes_counting": <span class="k">true</span> },
  "execution": <span class="k">"manual_at_bank"</span> <span class="c">-- programmatic initiation deferred; its own proposal, out loud or not at all</span>
 }</pre>
  <div class="box"><span class="bk">honest limit &middot; carried from TREASURY &sect;6</span><p>This instrument governs the record and the process; it does not hold the bank's keys. Mercury-side custody controls, dual authorization at the bank, key hygiene, are the complement the FSC adopts alongside it, not a thing this page can supply.</p></div>
 </section>
 
 <section class="sec">
- <div class="sec-head"><span class="sec-num">&sect;7</span><h2>Decisions, staged</h2></div>
+ <div class="sec-head"><span class="sec-num">&sect;9</span><h2>Decisions, staged</h2></div>
  <div class="dec">
  <div class="head"><div>decision</div><div>owner</div><div>status</div></div>
- <div class="row"><div class="q">Adopt TREASURY-POLICY v1: the agreements row entered, the adoption event recorded with the &sect;5 payload, T-01 completes</div><div class="o">the board, via the FSC</div><div class="s">staged</div></div>
+ <div class="row"><div class="q">Adopt TREASURY-POLICY v1.2: the agreements row entered, the adoption event recorded with the &sect;8 payload, T-01 completes</div><div class="o">the board, via the FSC if established</div><div class="s">staged</div></div>
  <div class="row"><div class="q">Band values and approver sets: the &sect;3 amounts are the drafter's cut</div><div class="o">the FSC</div><div class="s">open</div></div>
  <div class="row"><div class="q">The standing purposes list of &sect;4</div><div class="o">the FSC</div><div class="s">open</div></div>
  <div class="row"><div class="q">Designate the two principal Program agents, RegenHub.xyz and techne.coop, by recorded act; the run-through's sixth act performs it</div><div class="o">Todd &middot; steward</div><div class="s">staged</div></div>
  <div class="row"><div class="q">Each principal Program's POLICY-PATRONAGE instrument, Coordinator and funding bounds included, per the Plan and PATRONAGE &sect;7</div><div class="o">the board, with the Plan</div><div class="s">open</div></div>
  <div class="row"><div class="q">The Coordinator-in-the-trail provision for program-bound disbursements (&sect;5), keep or strike</div><div class="o">the FSC</div><div class="s">open</div></div>
  <div class="row"><div class="q">Mercury bank-side custody controls, the complement to this record-side discipline</div><div class="o">the FSC, alongside adoption</div><div class="s">open</div></div>
+ <div class="row"><div class="q">Whether a giving pool exists at all, and what may fund it: given cash under COUNTING-RULES &sect;3, designated gifts from non-members, an allocation from surplus, or nothing until the board resolves (&sect;6)</div><div class="o">the board, with tax counsel</div><div class="s">open</div></div>
+ <div class="row"><div class="q">What the giving pool may be spent on, and which band authorizes a disbursement from it: band 4 at any amount as drafted, or a standing purpose written into &sect;4 for small grants (&sect;6)</div><div class="o">the board</div><div class="s">open</div></div>
+ <div class="row"><div class="q">Whether the saving and investing pools follow now or later; the saving pool aimed at asset acquisition and eventual building ownership has no instrument (&sect;6)</div><div class="o">the board, with tax counsel</div><div class="s">open</div></div>
+ <div class="row"><div class="q">The pay-versus-credit line for standing charges: whether the board will ever pay a charge holder, at which band, and whether an hour paid is thereby not counted (&sect;7)</div><div class="o">the board, with counsel</div><div class="s">open</div></div>
+ <div class="row"><div class="q">Establish the Financial Systems Committee by board resolution under Bylaws &sect;3.18, with the powers and duties this policy assumes; until then its rows here route to the board</div><div class="o">the board</div><div class="s">open</div></div>
  </div>
 </section>
 
 <div class="foot">
- <p class="tail">TREASURY-POLICY v1 &middot; draft instrument &middot; staged to the FSC and the board &middot; nothing herein adopted &middot; drafted with machine assistance &middot; Nou drafts; the FSC shapes; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-07-22</p>
+ <p class="tail">TREASURY-POLICY v1.2 &middot; draft instrument &middot; staged to the FSC and the board &middot; nothing herein adopted &middot; no giving pool established &middot; v1 drafted 2026-07-22; v1.2 takes up the COUNTING-RULES v2 deferral on issue #212 &middot; drafted with machine assistance &middot; Nou drafts; the FSC shapes; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-08-21</p>
 </div>
 
 </div>
