@@ -44,7 +44,10 @@ STOP    beyond the floor, the Build Protocol still governs.
 
 CLOSE   artifacts on a branch, a pull request where one is due,
         and the close linking everything by reference: branch,
-        pull request, commits. the spend rides with it, tokens
+        pull request, commits. the close names each check it
+        ran and the commit it ran against; a green check says
+        nothing about what it does not check.
+        the spend rides with it, tokens
         consumed and wall time, per AGY §10. counted, not
         charged: no Direction is priced or capped by cost.
 

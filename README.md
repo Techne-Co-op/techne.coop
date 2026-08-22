@@ -92,6 +92,12 @@ Read `AGENTS.md` before opening the code. Read the piece and every artifact it c
 
 ---
 
+## Federation Posture
+
+The estate keeps one record and grants a tiered read: the full record is the inner body's, a defined public digest is the outer body's, and a written rule decides which. The rule is the [Egress Doctrine](https://techne.coop/commons/governance/egress/). Interoperation with peer organizations proceeds by published contracts and owner-attested agent identity (build instructions, [sections 9 and 10](https://techne.coop/commons/build/instructions/#s9)), never by shared access to the record. The public anchor for this posture is [issue #218](https://github.com/Techne-Co-op/techne.coop/issues/218).
+
+---
+
 ## Related Repositories
 
 | Repo | Domain | Purpose |
