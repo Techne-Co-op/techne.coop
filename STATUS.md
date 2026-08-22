@@ -74,7 +74,7 @@ Generated from rdm-ledger.yaml. 166 items total.
 - **P-07** open · delivered -- The participation stories
 - **P-08** open · delivered -- The day-one journeys
 - **P-09** open · delivered -- The two tracks told apart
-- **P-10** open · delivered -- The front door reads like a front door
+- **P-10** open · verified -- The front door reads like a front door
 - **P-11** open · delivered -- The door and the room behind it
 - **P-12** open · delivered -- One notice, one place
 - **S-01** open · Q3 -- Contribution posting paths
@@ -101,12 +101,12 @@ Generated from rdm-ledger.yaml. 166 items total.
 - **U-06** open · delivered -- The frame on a narrow screen
 - **U-07** open · delivered -- The parked door
 - **U-08** open · delivered -- The pattern library grows
-- **U-09** open · delivered -- The launch page joins the site
-- **U-10** open · delivered -- The front door tells the truth
+- **U-09** open · verified -- The launch page joins the site
+- **U-10** open · verified -- The front door tells the truth
 - **U-11** open · delivered -- The member surface speaks one language
 - **U-12** open · delivered -- Two faces, no third
 - **U-13** open · delivered -- One primary navigation for the public face
-- **U-14** open · delivered -- The front door, briefer
+- **U-14** open · verified -- The front door, briefer
 - **U-15** open · delivered -- The intranet walkthrough, answered
 - **U-17** open · delivered -- The intranet in the hand
 - **U-18** open · delivered -- The frame that never held
