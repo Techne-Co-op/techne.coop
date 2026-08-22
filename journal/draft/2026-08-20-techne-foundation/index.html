@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="A personal letter to the board from Todd Youngblood, secretary, on why he would support renaming Gitcoin to Techne Foundation. Draft, unpublished, non-governing.">
+<meta name="robots" content="noindex,nofollow">
+<title>On the name &middot; The Journal &middot; Techne</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<script src="/assets/sky.js" defer></script>
+<style>
+/* ============================================================
+   TOKENS  --  techne v5, carried unchanged into the v6 draft
+   this page uses the incised register (v6 addendum, drafted):
+   the glyph device, the sky that computes, and the colophon.
+   The rules live at /design-system/.
+   ============================================================ */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #FCFBF8;
+
+  /* sunset range  --  atmospheric per section */
+  --sun-gold: #EAB668; --sun-amber: #E09A52; --sun-coral: #D1755A;
+  --sun-rose: #B45C7C; --sun-violet: #6E5494; --sun-blue: #5476B8;
+
+  /* the sky that computes (v6, drafted): see /assets/sky.js */
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet), var(--sun-rose),
+    var(--sun-coral), var(--sun-amber), var(--sun-gold));
+  --sky-glow: .55;
+}
+html[data-sky="day"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-amber) 26%, var(--sun-gold) 50%,
+    var(--sun-amber) 74%, var(--sun-blue));
+  --sky-glow: .38;
+}
+html[data-sky="sunset"] { --sky-glow: .8; }
+html[data-sky="sunrise"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-violet), var(--sun-rose) 28%, var(--sun-gold) 50%,
+    var(--sun-amber) 72%, var(--sun-rose));
+  --sky-glow: .62;
+}
+html[data-sky="night"] {
+  --sky-line: linear-gradient(90deg,
+    var(--sun-blue), var(--sun-violet) 30%, var(--sun-blue) 50%,
+    var(--sun-violet) 70%, var(--sun-blue));
+  --sky-glow: .5;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --blue-dim: rgba(106, 138, 196, 0.14);
+  --ember-dim: rgba(196, 149, 106, 0.14);
+  --ok: #6A9A6A; --ok-dim: rgba(106, 154, 106, 0.14);
+  --info: #6A8AC4; --info-dim: rgba(106, 138, 196, 0.14);
+  --warn: #C46A6A; --warn-dim: rgba(196, 106, 106, 0.14);
+  --sun-gold-t: #EAB668; --sun-amber-t: #E5A562; --sun-coral-t: #DE8872;
+  --sun-rose-t: #CF7C9A; --sun-violet-t: #9E86C4; --sun-blue-t: #8FAEE0;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --blue-dim: rgba(74, 111, 176, 0.10);
+  --ember-dim: rgba(138, 106, 74, 0.10);
+  --ok: #4A7A4A; --ok-dim: rgba(74, 122, 74, 0.10);
+  --info: #4A6FB0; --info-dim: rgba(74, 111, 176, 0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168, 79, 76, 0.10);
+  --sun-gold-t: #87621F; --sun-amber-t: #8C581D; --sun-coral-t: #9C4636;
+  --sun-rose-t: #8C3D58; --sun-violet-t: #4C3870; --sun-blue-t: #3A5694;
+  color-scheme: light;
+}
+
+/* SECTION TINTS  --  each entry places itself on the descent */
+[data-tint="gold"]   { --section-tint: var(--sun-gold-t);   --section-stop: var(--sun-gold); }
+[data-tint="amber"]  { --section-tint: var(--sun-amber-t);  --section-stop: var(--sun-amber); }
+[data-tint="coral"]  { --section-tint: var(--sun-coral-t);  --section-stop: var(--sun-coral); }
+[data-tint="rose"]   { --section-tint: var(--sun-rose-t);   --section-stop: var(--sun-rose); }
+[data-tint="violet"] { --section-tint: var(--sun-violet-t); --section-stop: var(--sun-violet); }
+[data-tint="blue"]   { --section-tint: var(--sun-blue-t);   --section-stop: var(--sun-blue); }
+
+/* ============================================================
+   BASE  --  document grammar, v5 measures
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0ms !important; animation: none !important; } }
+html { scroll-behavior: smooth; background: var(--bg); }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--serif);
+  font-size: 18px; line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.mono { font-family: var(--mono); }
+em { font-style: italic; color: var(--heading); }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  font-family: var(--mono); font-size: 13px;
+  background: var(--surface); color: var(--blue-text);
+  border: 1px solid var(--blue); padding: 10px 16px;
+}
+.skip:focus { left: 12px; top: 12px; }
+
+/* the document measure: 760-920px per the design-system grammar */
+.wrap { max-width: 800px; margin: 0 auto; padding: 0 clamp(var(--s5), 5vw, var(--s7)); }
+
+a { color: var(--blue-text); text-decoration: none; border-bottom: 1px solid var(--line); transition: border-color var(--micro) var(--ease); }
+a:hover { border-color: var(--blue); }
+
+/* ============================================================
+   THE GLYPH DEVICE  --  v6 addendum, drafted.
+   This page's device is the horizon: the ground the notes stand on.
+   ============================================================ */
+.device svg {
+  width: 46px; height: 46px;
+  stroke: var(--ember); fill: none;
+  display: block; margin: 0 auto;
+}
+.device.small svg { width: 28px; height: 28px; }
+
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+.masthead {
+  position: relative; text-align: center;
+  padding: clamp(88px, 11vw, 148px) 0 clamp(64px, 8vw, 96px);
+}
+.masthead::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--sky-line);
+  opacity: var(--sky-glow);
+  transition: opacity var(--dur) var(--ease);
+}
+.masthead .device { margin-bottom: 26px; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ember-text);
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.eyebrow .sep { width: 5px; height: 5px; background: var(--section-tint, var(--ember)); }
+/* the eyebrow speaks in its section's stop rather than the global
+   ember (U-26, drafted); the masthead, untinted, keeps ember */
+section[data-tint] .eyebrow, article[data-tint] .eyebrow { color: var(--section-tint); }
+.accent-rule {
+  display: block; width: 96px; height: 2px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--section-tint, var(--ember)) 24%,
+    var(--section-tint, var(--ember)) 76%,
+    transparent);
+  margin: 24px auto 28px;
+}
+.masthead h1 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(36px, 5vw, 52px); line-height: 1.14;
+  letter-spacing: -0.018em; color: var(--heading);
+  margin: 0 auto 22px; max-width: 22ch;
+}
+.masthead .lede {
+  font-size: clamp(18px, 2vw, 21px); line-height: 1.65;
+  color: var(--muted); max-width: 56ch; margin: 0 auto;
+}
+
+/* ============================================================
+   THE STANDING NOTE  --  load-bearing; it goes first
+   ============================================================ */
+.standing {
+  text-align: left;
+  max-width: 68ch; margin: clamp(56px, 7vw, 80px) auto 0;
+  background: var(--surface); border: 1px solid var(--line);
+  border-left: 2px solid var(--ember);
+  padding: 26px 30px;
+}
+.standing .k {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ember-text); margin-bottom: 10px;
+}
+.standing p { font-size: 16px; line-height: 1.75; }
+.standing p + p { margin-top: 12px; }
+
+/* ============================================================
+   ENTRIES  --  field notes on the descent
+   ============================================================ */
+.entries { padding: clamp(56px, 7vw, 88px) 0 0; }
+.entry {
+  position: relative;
+  max-width: 68ch; margin: 0 auto;
+  padding: clamp(48px, 6vw, 72px) 0;
+}
+.entry::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg,
+    transparent 4%,
+    color-mix(in srgb, var(--section-tint) 50%, transparent) 50%,
+    transparent 96%);
+}
+/* the seam (U-26, drafted): each entry opens on a shallow pool of its
+   stop under the hairline, gone before the text begins; its strength
+   follows the computed sky. AA-verified by script in both modes. */
+.entry::after {
+  content: ""; position: absolute; top: 0; left: 0; right: 0;
+  height: clamp(28px, 4vw, 40px);
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--section-stop) 18%, transparent),
+    transparent);
+  opacity: calc(var(--sky-glow, .55) * .6);
+}
+.entry .when {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--section-tint, var(--ember-text));
+  margin-bottom: 12px;
+}
+.entry h2 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(26px, 3.2vw, 34px); line-height: 1.22;
+  letter-spacing: -0.015em; color: var(--heading);
+  margin-bottom: 20px;
+}
+.entry p { margin-bottom: 20px; }
+.entry blockquote {
+  font-style: italic; color: var(--heading);
+  background: color-mix(in srgb, var(--surface) 95%, var(--section-stop, var(--ember)));
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--section-tint, var(--ember));
+  padding: 18px 24px; margin: 26px 0;
+  font-size: 19px; line-height: 1.65;
+}
+.entry blockquote .q-note {
+  display: block; margin-top: 10px;
+  font-family: var(--mono); font-style: normal;
+  font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted);
+}
+.entry .sig {
+  margin-top: 30px; padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono); font-size: 13px; color: var(--muted);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px 20px;
+}
+.entry .sig .who { color: var(--ember-text); }
+
+/* ============================================================
+   COLOPHON  --  v6 addendum, drafted
+   ============================================================ */
+.colophon {
+  text-align: center;
+  padding: clamp(72px, 9vw, 112px) 0 clamp(48px, 6vw, 64px);
+}
+.colophon .device { margin-bottom: 18px; }
+.colophon .device svg { stroke: var(--ember); opacity: .85; }
+.colophon .c-rule {
+  display: block; width: 72px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ember) 30%, var(--ember) 70%, transparent);
+  margin: 0 auto 18px;
+}
+.colophon .addr {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--ember-text);
+}
+.colophon .made {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15px; color: var(--muted); margin-top: 10px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer { background: var(--inset); padding: 44px 0 52px; position: relative; }
+footer::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: var(--sky-line);
+  opacity: calc(var(--sky-glow) * 0.72);
+  transform: scaleX(-1);
+}
+.foot-line {
+  font-family: var(--mono); font-size: 14px; line-height: 2;
+  color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 28px;
+}
+.foot-line a { color: var(--muted); }
+.foot-line a:hover { color: var(--blue-text); }
+
+    /* Formation note, footer form (P-11). One verbatim copy per page,
+       proved by scripts/notice_audit.py. */
+    .formation-foot{
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+      max-width:96ch;
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<main id="main">
+
+<!-- ===== MASTHEAD · the horizon, the page's device ===== -->
+<header class="masthead">
+  <div class="wrap">
+    <div class="device" aria-hidden="true">
+      <svg viewBox="0 0 48 48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 32 H42"/>
+        <path d="M15 32 a9 9 0 0 1 18 0"/>
+      </svg>
+    </div>
+    <div class="eyebrow"><span class="mono">journal</span><span class="sep"></span><span>a letter to the board</span></div>
+    <span class="accent-rule"></span>
+    <h1>On the name.</h1>
+    <p class="lede">Why I would support renaming Gitcoin to Techne Foundation. Written to the board and organizers of RegenHub, LCA, on August 21, 2026.</p>
+
+    <div class="standing">
+      <div class="k">Its standing</div>
+      <p>Draft, adopted by no one. This is a personal letter, signed, and it binds nothing and nobody. The rename is Gitcoin's news to tell; nothing here goes public before Kevin says it may.</p>
+      <p>Like every entry in this journal it is non-governing. Where it disagrees with the record, the record wins: the instruments at <a href="/legal/">the legal record</a> and the minutes of the cooperative's own meetings are the account that counts.</p>
+    </div>
+  </div>
+</header>
+
+<!-- ===== ENTRIES ===== -->
+<div class="entries">
+  <div class="wrap">
+
+    <article class="entry" data-tint="gold" id="what-kevin-asked">
+      <div class="when">August 21, 2026</div>
+      <h2>What Kevin asked.</h2>
+      <p>Gitcoin is picking a new name. One option is <b>Techne Foundation</b>. The entity is a Cayman foundation today and would move to the United States as a 501(c)(3). Kevin wants a unanimous answer from us, with conditions, by today.</p>
+      <p>He raised his own conflict first. He has hired several of our members and does not want to lean on that, so he asked us as a group. He wants to contract with the cooperative as an entity rather than hire our members one at a time, which fixes a real weakness of ours and is the strongest reason to say yes. And one of our organizers heard about this over the weekend and said it is not a good idea. When the bar is unanimity, that is not a small thing.</p>
+      <div class="sig"><span class="who">Todd Youngblood, secretary</span><span>August 21, 2026</span></div>
+    </article>
+
+    <article class="entry" data-tint="amber" id="why-i-would-back-it">
+      <div class="when">The reasoning</div>
+      <h2>Why I would back it.</h2>
+      <p><em>Techne</em> is an old Greek word for craft: skill learned by hand and judgment, held by the potter and the engineer alike. <em>Economy</em> is another one, the management of a household. Put them together and you have the work a Techne Foundation would do: an economic exploration of technology, from instruments and tools to systems and networks, across and within every sector of the household. Economists already sort that household into sectors, and each sector is a body of craft: a distinct skill applied to what the sector before it hands up.</p>
+      <p>Read them as nested rather than sorted. At the center is the living planet, which nobody made. Around it, the <b>primary</b> sector: farming, fishing, mining, the crafts of taking from the earth. Around that, the <b>secondary</b>: manufacture and construction, the crafts of making. Then the <b>tertiary</b>: trade, transport, care, the crafts of service. Then the <b>quaternary</b>: research, education, information, the crafts of knowing. Each ring lives on the one inside it, and each holds its own skill.</p>
+      <p>Technology is not one of those rings. It is what enters at every boundary between them, the tool that lets the next ring do its work at all. There is no point in the household where it is absent, which is why every tool carries an ownership question and why the answer to it sets the terms everywhere at once. Today the default answer is shareholder primacy: the tool is held to maximize a return to its owners. That is the tension worth naming plainly, because an economy built for public benefit and an economy built for profit maximization are two different arrangements, not two moods.</p>
+      <blockquote>A foundation named for a funding mechanism claims the mechanism. A foundation named for techne claims the whole of craft, across every ring, which is the actual size of the problem.</blockquote>
+      <p>We also cannot see the problem with the instruments we have. A firm reports itself through financial statements, published quarterly. That is a summary of a summary, arriving late, and it says almost nothing about what was made, moved, or by whom. There is a first-order record underneath it, and it has a language: <b>resources, events, and agents</b>, meaning what was transformed, what moved, who did it, with what. Accountants call it REA, from McCarthy's 1982 work. Alongside it belongs Engelbart's account of how people are augmented by their <b>language, artifacts, methodology, and training</b>. One sees the exchange; the other sees what the people doing it became capable of. Cooperatives, trusts, and neighborhood projects have neither, so they borrow the corporate measure and inherit its blind spots. Building the missing instrument is a teaching job, not a company's job. That is what belongs in a 501(c)(3).</p>
+      <p>The optimistic half is that the alternative is already being built and is simply under-equipped. Non-profits, public benefit corporations, cooperatives and trust-owned companies all have to distinguish themselves from shareholder ownership, and they are doing it without the shared protocols, lexicons and standards the corporate form has had for a century. What they need are measures for an economy that does not treat currency as the only capital, but recognizes many forms of wealth held and accounted differently, the direction Ostrom pointed at: shared resources governed by the people who use them.</p>
+      <p>None of this blames anyone. Concentrated ownership is an arrangement, not a plot, and aiming at the arrangement is what keeps a 501(c)(3) teaching rather than accusing.</p>
+      <p>What I am asking for is support in principle: the name, not money, not staff, not our own mark. The terms that would have to accompany a yes are real and I have written them down, but they belong in the discussion rather than in this letter.</p>
+      <div class="sig"><span class="who">Todd Youngblood, secretary</span><span>from the author's dictated notes</span></div>
+    </article>
+
+    <article class="entry" data-tint="coral" id="what-kevin-should-hear-today">
+      <div class="when">Before the search closes</div>
+      <h2>What Kevin should hear today.</h2>
+      <p>We hold Colorado trade names for <span class="mono">techne.coop</span> and <span class="mono">techne.institute</span>, and the first Techne seminar is already published on the second. That is prior use, by us, for the exact purpose a Techne Foundation would claim. He is running the trademark search now and knows none of it.</p>
+      <div class="sig"><span class="who">Todd Youngblood, secretary</span><span>August 21, 2026</span></div>
+    </article>
+
+    <article class="entry" data-tint="violet" id="the-answer-i-am-asking-for">
+      <div class="when">The ask</div>
+      <h2>The answer I am asking for.</h2>
+      <p>One of three: <b>yes, with conditions</b>, as our unanimous position; <b>no</b>, plainly and with reasons; or <b>not on this timeline</b>, which is the honest answer if we cannot reach unanimity today.</p>
+      <blockquote>Rushing to agree about sharing our name is worse than missing the window.</blockquote>
+      <div class="sig"><span class="who">Todd Youngblood, secretary and officer, RegenHub, LCA</span><span>August 21, 2026</span></div>
+    </article>
+
+  </div>
+</div>
+
+<!-- ===== COLOPHON (v6, drafted) ===== -->
+<div class="colophon">
+  <div class="wrap">
+    <div class="device small" aria-hidden="true">
+      <svg viewBox="0 0 48 48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 32 H42"/>
+        <path d="M15 32 a9 9 0 0 1 18 0"/>
+      </svg>
+    </div>
+    <span class="c-rule"></span>
+    <div class="addr">journal &middot; draft, unpublished</div>
+    <div class="made">A personal letter, signed and non-governing. It adopts nothing and binds no one.</div>
+  </div>
+</div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-line">
+      <a href="/">Techne</a>
+      <a href="/about/">About</a>
+      <a href="/community-of-practice/">The community of practice</a>
+      <a href="/what-grows/">What grows</a>
+      <a href="/commonplace/">The Commonplace</a>
+    </div>
+    <div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<title>COUNTING-RULES v1 &middot; Draft &middot; Techne</title>
-<meta name="description" content="Draft counting rules instrument for RegenHub, LCA: the admissible contribution kinds, the confirming hand, the board's numbers, and the first accounting year. Staged to the board with tax counsel; nothing herein adopted.">
+<title>COUNTING-RULES v2 &middot; Draft &middot; Techne</title>
+<meta name="description" content="Draft counting rules instrument for RegenHub, LCA: the admissible contribution kinds, the election between given and counted, standing charges, the confirming hand, the board's numbers, and the first accounting year. Staged to the board with tax counsel; nothing herein adopted.">
 <meta name="robots" content="noindex,nofollow">
 <script>
  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
@@ -132,23 +132,33 @@
 </div>
 
 <div class="mast">
- <div class="kicker">COUNTING-RULES v1 &middot; draft instrument &middot; staged</div>
+ <div class="kicker">COUNTING-RULES v2 &middot; draft instrument &middot; staged</div>
  <h1>The Counting Rules<br>A Draft Instrument for Adoption</h1>
- <p class="dek">The valuation discipline PATRONAGE &sect;7 reserves for the board: which kinds of engagement enter the record as Contributions, who confirms a value and how, the numbers only the board can set, and when the counting begins. Every number below is the drafter's cut, staged for the board with tax counsel; nothing here binds until adopted, and adoption is an agreements row and its recorded event, not this page.</p>
+ <p class="dek">The valuation discipline PATRONAGE &sect;7 reserves for the board: which kinds of engagement enter the record as Contributions, whether a contribution is given or counted, who confirms it and how, the numbers only the board can set, and when the counting begins. Every number below is the drafter's cut, staged for the board with tax counsel; nothing here binds until adopted, and adoption is an agreements row and its recorded event, not this page.</p>
  <div class="statusline">
  <span class="chip info">Draft &middot; staged to the board, with tax counsel</span>
  <span class="chip warn">nothing herein adopted &middot; Q3 resolves on adoption</span>
+ <span class="chip warn">v2 &middot; revised against the Commonplace &middot; issue #212</span>
  </div>
 </div>
 
 <div class="citesline">
  <b>cites</b> &middot; PATRONAGE v0.2 &sect;7 (configuration as record) &sect;10 (posting paths) &middot; CIS PRD v0.3 Q3 (prospective board policy, with tax counsel) &middot; IM v0.1 Law IV (cite as you enforce) Law VII (both deltas) &middot; the Program Stack Patronage Plan (the six Primitives, the Labor Schedule) &middot; MA v2.3 &sect;2.3 &sect;2.4 &middot; TREASURY-POLICY v1 &sect;3 (the band its &sect;3 threshold mirrors)
- <br><b>form</b> &middot; on adoption: agreements row, code COUNTING-RULES, version 1, effective-dated; parameters travel in the agreement.adopted event payload; amendments are prospective only, a new version and a new adoption event
+ <br><b>form</b> &middot; on adoption: agreements row, code COUNTING-RULES, version 2, effective-dated; parameters travel in the agreement.adopted event payload; amendments are prospective only, a new version and a new adoption event
 </div>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">v2</span><h2>What this revision does, and why</h2></div>
+ <p>Version 1 admitted six Primitives, and every one of them counts an episode and prices it. HOURS wants a resolved Opportunity affiliated to a Program. PRESENCE wants a registration and a mark at a gathering. OUTPUT wants a unit some Program policy defines. Two kinds of contribution fall outside that shape, and version 1 had no place to put either.</p>
+ <p>The first is <em>given</em> time and property: contribution a member makes without seeking anything back. Version 1 offered such a member two options, to have the work priced at a Labor Schedule tier and credited to their capital account, or to have it go unrecorded. The Commonplace holds a third possibility that the instruments did not carry forward. Its layered model of economic relationship, from the meetings of August and September 2025, puts giving together at the innermost circle, <em>where a dollar given carries no attachment</em>, with saving and investing as the outer rings. A capital-account credit is an attachment. Running given time through HOURS does not accommodate giving; it converts giving into investing and records it as such. Section 3 below gives giving its own act.</p>
+ <p>The second is <em>continuous</em> work: stewardship and officer service, the convening and holding and record-keeping that runs between meetings and belongs to no single Program. There is no Opportunity for being the secretary. Under version 1 this work was not undervalued, it was uncountable. Section 4 admits it through a standing charge, which is a board act rather than a self-assessment.</p>
+ <div class="box"><span class="bk">the honest counterweight</span><p>The Commonplace governs nothing and says so: it is a formation record, and where it and the operative record disagree, the operative record is what is true. So this revision does not claim that version 1 contradicted an instrument. It claims that an intention the formation conversations held was not carried into the instruments, and asks the board to decide whether to carry it now. That is a weaker claim, and it should be weighed as one.</p></div>
+</section>
 
 <section class="sec">
  <div class="sec-head"><span class="sec-num">&sect;1</span><h2>The floor</h2></div>
  <p>Nothing counts by assertion alone. A Contribution enters the record only as an event on a posting path this instrument admits, valued under the version of these rules in force at its occurrence, carrying the policy citation, the rate basis, and both deltas (Law IV, Law VII). These rules are <em>prospective</em>: they govern from their adoption forward, per Q3's own words, and no quantity is computed under them for any act before their effective date.</p>
+ <p>A Recognition, defined at &sect;3, is not exempt from this floor. It is an event on an admitted path, attributed to a member, confirmed by a distinct hand, and unalterable once posted, exactly as a Contribution is. What distinguishes it is that it carries no value, no rate basis, and no delta of either kind. It is recorded and it is not priced.</p>
  <p>Two exclusions are named so no one wonders: the $100 membership share purchase is the Membership Interest of MA &sect;1.4, and the $100 annual dues are operating revenue under Bylaws Schedule A. Neither is a Contribution; neither enters patronage under any Primitive.</p>
 </section>
 
@@ -157,54 +167,92 @@
  <p>The six Primitives of the Plan, a closed set. Each admits a Contribution only on the condition in its row; anything not on this table is inadmissible until an amendment names it.</p>
  <table>
  <tr><th>primitive</th><th>counts when</th><th>valued at</th></tr>
- <tr><td class="mono">HOURS</td><td>a resolved work or practice Opportunity, affiliated to a Program whose policy activates HOURS; claimed by the contributor, confirmed by another hand (&sect;3)</td><td>the Labor Schedule tier in force (LABOR-SCHEDULE, &sect;6)</td></tr>
- <tr><td class="mono">REVENUE</td><td>revenue actually received by the cooperative and attributable to a member's patronage; cites the reconciled bank record until the intake rail (T-02) carries the reference</td><td>the REVENUE percentage of &sect;4</td></tr>
+ <tr><td class="mono">HOURS</td><td>a resolved work or practice Opportunity, affiliated to a Program whose policy activates HOURS; claimed by the contributor, confirmed by another hand (&sect;5)</td><td>the Labor Schedule tier in force (LABOR-SCHEDULE, &sect;8)</td></tr>
+ <tr><td class="mono">REVENUE</td><td>revenue actually received by the cooperative and attributable to a member's patronage; cites the reconciled bank record until the intake rail (T-02) carries the reference</td><td>the REVENUE percentage of &sect;6</td></tr>
  <tr><td class="mono">CASH</td><td>contributed capital beyond the membership share, recorded with its movement reference</td><td>face value</td></tr>
  <tr><td class="mono">OUTPUT</td><td>a unit a Program's POLICY-PATRONAGE defines, code and value adopted with that policy; no ad hoc outputs</td><td>the unit value in the Program policy in force</td></tr>
- <tr><td class="mono">PRESENCE</td><td>attendance the record counted: a registration and a presence mark at a gathering that counts presence</td><td>the presence credit of &sect;4, capped there</td></tr>
- <tr><td class="mono">PROPERTY</td><td>in-kind property the cooperative accepts, at documented fair market value under &sect;3</td><td>documented FMV</td></tr>
+ <tr><td class="mono">PRESENCE</td><td>attendance the record counted: a registration and a presence mark at a gathering that counts presence</td><td>the presence credit of &sect;6, capped there</td></tr>
+ <tr><td class="mono">PROPERTY</td><td>in-kind property the cooperative accepts, at documented fair market value under &sect;5</td><td>documented FMV</td></tr>
  </table>
+ <p>The table says what is <em>admissible</em>. It does not say that everything admissible must be counted. Section 3 gives the contributor that choice.</p>
 </section>
 
 <section class="sec">
- <div class="sec-head"><span class="sec-num">&sect;3</span><h2>The confirming hand</h2></div>
+ <div class="sec-head"><span class="sec-num">&sect;3</span><h2>Given and counted: the election</h2></div>
+ <p>Every admissible engagement arrives at a fork, and the contributor takes it. A contribution is either <em>counted</em>, entering patronage as a Contribution valued under &sect;2 and carrying both deltas, or it is <em>given</em>, entering the record as a Recognition: attributed to the member, described, quantified in its own natural unit where it has one, and carrying no value, no rate basis, and no delta. A Recognition confers no capital account credit, no allocation weight, and no claim on any distribution, now or later. That is not a defect of the form. It is the whole of what the giver elected.</p>
+ <p>The election is made by the contributor at the moment of claim, recorded in the event itself, and is <em>irrevocable for that contribution</em>. Nothing given is later counted, and nothing counted is later given. The irrevocability is deliberate and it protects both parties: it keeps the cooperative from treating a gift as deferred compensation, and it keeps a member from converting a year of unpriced work into a claim after the surplus is known.</p>
+ <p>Silence is not an election. A claim that does not state which it is is refused at the verb, before it is written, so no unelected claim ever stands in the record and there is nothing for the confirming hand of &sect;5 to return. The refusal belongs at the door rather than at the confirmation because an election is the contributor's act alone, and no one else may supply it.</p>
+ <div class="box"><span class="bk">why this is not a seventh Primitive</span><p>A Primitive is a way of turning an engagement into a quantity of value. Recognition does the opposite: it records the engagement and declines to value it. Putting it in the &sect;2 table would make it a priced thing with a price of zero, which is a different and worse statement, because zero is a valuation. The Recognition therefore rides its own event kind, deltaless, beside the claim that PATRONAGE &sect;10 already defines as deltaless. The tally does not read it, and the tally is not wrong.</p></div>
+ <p>A Recognition is nonetheless visible. It appears in the member's contribution history, marked as given, and it appears wherever the cooperative reports what its members have done. The Commonplace's phrase for this is qualification over quantification, which it names as the reason contributions are made visible without being priced.</p>
+ <div class="box"><span class="bk">named open &middot; the giving pool</span><p>The Commonplace's Meeting 5 turned the three layers into three capital pools, a giving pool for unrestricted community benefit among them. This instrument does not establish that pool, which is a treasury matter, not a counting one. It establishes only the act of giving and the record of it. Whether the giving pool follows, and on what terms, belongs with TREASURY-POLICY and to the board.</p></div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;4</span><h2>Standing charges: stewardship and office</h2></div>
+ <p>HOURS at &sect;2 wants a resolved Opportunity affiliated to a Program. Some of the cooperative's most necessary work has no such shape. Convening, holding the thread between meetings, keeping the record, carrying the entity's obligations, serving as an officer: this work is continuous rather than episodic, and it belongs to the whole rather than to one Program. Version 1 admitted none of it, not by decision but by omission.</p>
+ <p>A <em>standing charge</em> is a board act that names a body of continuous work, the person charged with it, and the Labor Schedule tier that values an hour of it. Where a standing charge is in force, HOURS is admissible against the charge itself and no Opportunity is required. The charge stands in the record as the affiliation that an Opportunity would otherwise supply, which keeps &sect;2's discipline intact: the hour still cites something adopted, and the something is still not the contributor's own assertion.</p>
+ <table>
+ <tr><th>element</th><th>what the board sets</th></tr>
+ <tr><td class="mono">charge</td><td>the body of work, described plainly enough that an hour can be judged in or out of it</td></tr>
+ <tr><td class="mono">holder</td><td>the person or office charged; an office rather than a person where the work follows the office</td></tr>
+ <tr><td class="mono">tier</td><td>the Labor Schedule tier that values an hour under the charge</td></tr>
+ <tr><td class="mono">confirmer</td><td>the distinct hand that confirms hours under the charge, named by the board and never the holder</td></tr>
+ <tr><td class="mono">term</td><td>when the charge begins and when it lapses or is reviewed</td></tr>
+ </table>
+ <p>Officer and director service is within scope of this section and outside it only by the board's choice. The board may establish a standing charge for an office, may decline to, or may establish one and direct that hours under it be given rather than counted. What the board may not do is leave the question unanswered while the work continues, which is the condition version 1 left in place.</p>
+ <div class="box"><span class="bk">the self-confirmation problem, stated plainly</span><p>Section 5 forbids anyone confirming the value of their own Contribution, and the cooperative presently has one steward doing most of the continuous work. A standing charge for that work therefore cannot be confirmed by its holder, cannot be sized by its holder, and should not be drafted by its holder alone. The board names the confirmer in the charge itself, and where the holder is an officer, the confirmer sits outside that office. This is a protection for the holder before it is a protection for anyone else.</p></div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;5</span><h2>The confirming hand</h2></div>
  <p>A value is declared by the contributor and confirmed by a distinct hand: the Program's Coordinator of record for program-scoped work, the treasurer otherwise. No one confirms the value of their own Contribution. The valued event carries <span class="mono">valuation_method</span> and <span class="mono">valuation_approver_agent_id</span>, the columns the substrate already holds for exactly this, so the confirmation is in the row, not beside it.</p>
- <p>PROPERTY above the &sect;4 threshold takes a recorded board resolution before it posts, the same shape as TREASURY-POLICY's upper band. A valuation, once posted, changes only by an explicit correction event that names what it corrects; never by mutation.</p>
+ <p>A Recognition has no value to confirm, and it is still confirmed. The distinct hand attests that the work described happened and that it is attributable to the member named, which is the whole of what a Recognition asserts. The event carries <span class="mono">valuation_method</span> as <span class="mono">none</span> and its approver field holds the attesting hand, so a Recognition is as unforgeable as a Contribution and no easier to enter. A member cannot attest their own.</p>
+ <p>PROPERTY above the &sect;6 threshold takes a recorded board resolution before it posts, the same shape as TREASURY-POLICY's upper band. A valuation, once posted, changes only by an explicit correction event that names what it corrects; never by mutation.</p>
 </section>
 
 <section class="sec">
- <div class="sec-head"><span class="sec-num">&sect;4</span><h2>The board's numbers</h2></div>
+ <div class="sec-head"><span class="sec-num">&sect;6</span><h2>The board's numbers</h2></div>
  <p>The values only the board can set, drawn here as the drafter's cut so the board has something specific to amend or refuse:</p>
  <table>
  <tr><th>number</th><th>drafter's cut</th><th>the tradeoff it sits on</th></tr>
  <tr><td class="mono">REVENUE percentage</td><td>10% of member-attributed revenue</td><td>raw dollars dwarf hours; a higher cut (15 to 20) rewards revenue-bringers strongly, a lower one (5) keeps patronage labor-centric</td></tr>
  <tr><td class="mono">PRESENCE credit</td><td>$15.00 per counted occurrence</td><td>enough that showing up compounds; small enough that presence feeds the community weight rather than competing with labor</td></tr>
  <tr><td class="mono">PRESENCE cap</td><td>26 occurrences per accounting year</td><td>a biweekly rhythm; the cap keeps PRESENCE a floor of belonging, not a path to volume</td></tr>
- <tr><td class="mono">PROPERTY threshold</td><td>$2,500 before a board resolution is required</td><td>mirrors TREASURY-POLICY band 2, one discipline for one magnitude of money</td></tr>
+ <tr><td class="mono">PROPERTY threshold</td><td>$2,500 before a board resolution is required</td><td>one discipline for one magnitude of money. Version 1 justified this figure as mirroring TREASURY-POLICY band 2; band 2 is that policy's one-approver band and not a board-resolution band, so the mirror was mis-stated. The figure is left where v1 put it and the reasoning is withdrawn, which leaves the number for the board to set on its merits</td></tr>
  </table>
 </section>
 
 <section class="sec">
- <div class="sec-head"><span class="sec-num">&sect;5</span><h2>The first accounting year</h2></div>
+ <div class="sec-head"><span class="sec-num">&sect;7</span><h2>The first accounting year</h2></div>
  <p>The first accounting year runs from the adoption date of these rules through December 31, 2026; accounting years follow the calendar year thereafter. This is the prospective reading Q3 requires.</p>
  <div class="box"><span class="bk">named open &middot; the formation period</span><p>Work between formation (February 6, 2026) and adoption is real and uncounted under these rules. Whether it is recognized some other way, a board-ratified retroactive entry, or an acknowledgment outside patronage entirely, is a question for the board with tax counsel, and this instrument deliberately does not decide it.</p></div>
 </section>
 
 <section class="sec">
- <div class="sec-head"><span class="sec-num">&sect;6</span><h2>What stays out, and the Labor Schedule</h2></div>
+ <div class="sec-head"><span class="sec-num">&sect;8</span><h2>What stays out, and the Labor Schedule</h2></div>
  <p>The allocation weights, 40 labor, 30 revenue, 20 cash, 10 community as proposed in the Plan, are not here. Weights belong to the Plan and to each Program's POLICY-PATRONAGE; these rules only make quantities valuable. A weight change never touches valuation history.</p>
  <p>The Labor Schedule, the four labor tiers and their rates understood to have been settled in June 2026, enters the record as its own instrument under the code <span class="mono">LABOR-SCHEDULE</span>. The code <span class="mono">SCHEDULE-A</span> stands in the record with the Bylaws schedule of stock prices and membership dues, entered July 24, 2026; PATRONAGE &sect;7's table amends to the new code by the decision record this draft carries. The tier rates themselves are not yet in the estate and enter with that instrument, from the Plan, before the first HOURS Contribution posts.</p>
 </section>
 
 <section class="sec">
- <div class="sec-head"><span class="sec-num">&sect;7</span><h2>The adoption payload</h2></div>
+ <div class="sec-head"><span class="sec-num">&sect;9</span><h2>The adoption payload</h2></div>
  <p>On adoption, the agreement.adopted event carries the machine-readable parameters, so the posting verbs read the version in force and no rate ever appears in code (PATRONAGE &sect;7, Law IV):</p>
- <pre><span class="c">-- proposed adoption payload &middot; COUNTING-RULES v1</span>
+ <pre><span class="c">-- proposed adoption payload &middot; COUNTING-RULES v2</span>
 {
  "prospective_from": <span class="k">"&lt;adoption date&gt;"</span>,
  "first_accounting_year_end": <span class="k">"2026-12-31"</span>,
  "admissible": [<span class="k">"HOURS"</span>, <span class="k">"REVENUE"</span>, <span class="k">"CASH"</span>, <span class="k">"OUTPUT"</span>, <span class="k">"PRESENCE"</span>, <span class="k">"PROPERTY"</span>],
- "hours":    { "requires": [<span class="k">"resolved_affiliated_opportunity"</span>, <span class="k">"distinct_confirmer"</span>], "rate_basis": <span class="k">"labor_schedule_tier"</span> },
+ <span class="c">-- &sect;3, the election. Recognition is deltaless and unvalued.</span>
+ "election":  { "values": [<span class="k">"counted"</span>, <span class="k">"given"</span>], "required": <span class="k">true</span>, "irrevocable": <span class="k">true</span>, "default": <span class="k">null</span> },
+ "recognition": { "event_kind": <span class="k">"patronage.recognition"</span>, "book_delta": <span class="k">0</span>, "tax_delta": <span class="k">0</span>,
+                  "carries_rate_basis": <span class="k">false</span>, "enters_allocation": <span class="k">false</span>,
+                  "requires": [<span class="k">"attribution"</span>, <span class="k">"distinct_confirmer"</span>], "visible_in_history": <span class="k">true</span> },
+ <span class="c">-- &sect;4, standing charges. Each charge is its own board act.</span>
+ "standing_charge": { "established_by": <span class="k">"board_resolution"</span>,
+                      "fields": [<span class="k">"charge"</span>, <span class="k">"holder"</span>, <span class="k">"tier"</span>, <span class="k">"confirmer"</span>, <span class="k">"term"</span>],
+                      "satisfies": <span class="k">"resolved_affiliated_opportunity"</span>,
+                      "confirmer_is_holder": <span class="k">false</span> },
+ "hours":    { "requires": [<span class="k">"resolved_affiliated_opportunity_or_standing_charge"</span>, <span class="k">"distinct_confirmer"</span>], "rate_basis": <span class="k">"labor_schedule_tier"</span> },
  "revenue":  { "percentage": <span class="k">10</span>, "requires": [<span class="k">"reconciled_receipt"</span>] },
  "cash":     { "basis": <span class="k">"face"</span>, "excludes": [<span class="k">"member_share"</span>, <span class="k">"dues"</span>] },
  "output":   { "unit_source": <span class="k">"program_policy"</span> },
@@ -215,11 +263,15 @@
 </section>
 
 <section class="sec">
- <div class="sec-head"><span class="sec-num">&sect;8</span><h2>Decisions, staged</h2></div>
+ <div class="sec-head"><span class="sec-num">&sect;10</span><h2>Decisions, staged</h2></div>
  <div class="dec">
  <div class="head"><div>decision</div><div>owner</div><div>status</div></div>
- <div class="row"><div class="q">Adopt COUNTING-RULES v1: the agreements row entered, the adoption event recorded with the &sect;7 payload, Q3 resolves</div><div class="o">the board, with tax counsel</div><div class="s">staged</div></div>
- <div class="row"><div class="q">The four numbers of &sect;4: the REVENUE percentage, the PRESENCE credit and cap, the PROPERTY threshold</div><div class="o">the board</div><div class="s">open</div></div>
+ <div class="row"><div class="q">Adopt COUNTING-RULES v2: the agreements row entered, the adoption event recorded with the &sect;9 payload, Q3 resolves</div><div class="o">the board, with tax counsel</div><div class="s">staged</div></div>
+ <div class="row"><div class="q">Whether to admit the &sect;3 election at all: does the cooperative want a way to record a contribution without valuing it, and so make the Commonplace's giving layer operable rather than aspirational</div><div class="o">the board, with tax counsel</div><div class="s">open</div></div>
+ <div class="row"><div class="q">Whether &sect;3's irrevocability is the right discipline, or whether an election may be revisited within a stated window</div><div class="o">the board, with tax counsel</div><div class="s">open</div></div>
+ <div class="row"><div class="q">Whether &sect;4 standing charges are admitted, and whether officer and director service is eligible for one</div><div class="o">the board</div><div class="s">open</div></div>
+ <div class="row"><div class="q">The first standing charges, if any: the charge, the holder, the tier, the confirmer, the term. The steward's continuous work is the live instance and cannot be sized or confirmed by its holder</div><div class="o">the board</div><div class="s">open</div></div>
+ <div class="row"><div class="q">The four numbers of &sect;6: the REVENUE percentage, the PRESENCE credit and cap, the PROPERTY threshold</div><div class="o">the board</div><div class="s">open</div></div>
  <div class="row"><div class="q">Formation-period recognition, retroactive entry or acknowledgment outside patronage</div><div class="o">the board, with tax counsel</div><div class="s">open</div></div>
  <div class="row"><div class="q">LABOR-SCHEDULE enters the record with the four tier rates, whose adoption the record does not evidence; the rates arrive from the Plan</div><div class="o">Todd &middot; steward, from the Plan</div><div class="s">open</div></div>
  <div class="row"><div class="q">The PATRONAGE &sect;7 recode, SCHEDULE-A to LABOR-SCHEDULE for the labor tiers, this draft's decision record</div><div class="o">adopted with this PR's merge</div><div class="s">staged</div></div>
@@ -227,7 +279,7 @@
 </section>
 
 <div class="foot">
- <p class="tail">COUNTING-RULES v1 &middot; draft instrument &middot; staged to the board with tax counsel &middot; nothing herein adopted &middot; drafted with machine assistance &middot; Nou drafts; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-07-24</p>
+ <p class="tail">COUNTING-RULES v2 &middot; draft instrument &middot; staged to the board with tax counsel &middot; nothing herein adopted &middot; v1 drafted 2026-07-24; v2 revised against the Commonplace on issue #212 &middot; drafted with machine assistance &middot; Nou drafts; the board adopts &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-08-21</p>
 </div>
 
 </div>
