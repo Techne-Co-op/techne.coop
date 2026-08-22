@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<!-- THE GOVERNANCE MODEL v5 - the bench.
+     v4 drew the system at rest: two modes, standing state, acts, lifecycle,
+     events, invariants, open anchors. v5 keeps all of that machinery and
+     re-spines it on OPERATIONS - the twelve things a board or a member body
+     actually does - and binds each one to the twelve rules of the order of
+     proceeding (/commons/governance/order-of-proceeding/, PR #198, not adopted).
+
+     This is a test environment, not a deployment. Nothing here runs against
+     anything: no data client, no database, no clock, no simulated record, no
+     network. Every verdict the bench renders is computed from the tables in
+     this file, which are a reading of the Bylaws and of two unadopted drafts.
+     A verdict is a claim about a model, never a claim about the cooperative.
+
+     Staged for Todd Youngblood's review at his direction, 2026-08-20.
+     Noindexed and linked from no navigation. Nothing on this page is adopted. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="A staged bench: the governance model refactored around twelve operations and bound to the twelve rules of the order of proceeding. Nothing here is adopted.">
+<title>The governance model &middot; v5 &middot; the bench &middot; Techne</title>
+<meta name="robots" content="noindex, nofollow">
+<script src="/assets/topbar.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem('techne-mode');
+      if (!m) m = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-mode', m);
+    } catch(e) {}
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px;
+  --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --blue-dim: rgba(106, 138, 196, 0.14);
+  --ok: #6A9A6A; --warn: #C46A6A;
+  --k-gold:#EAB668; --k-amber:#E5A562; --k-coral:#DE8872;
+  --k-rose:#CF7C9A; --k-violet:#9E86C4; --k-blue:#8FAEE0; --k-green:#7FB08A;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --blue-dim: rgba(74, 111, 176, 0.10);
+  --ok: #4A7A4A; --warn: #A84F4C;
+  --k-gold:#87621F; --k-amber:#8C581D; --k-coral:#9C4636;
+  --k-rose:#8C3D58; --k-violet:#4C3870; --k-blue:#3A5694; --k-green:#2F6B3A;
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--text); font-family: var(--serif);
+  font-size: 16px; line-height: 1.6; display: flex; flex-direction: column;
+  height: 100vh; overflow: hidden; }
+button, select { font-family: inherit; }
+
+.solo-bar { display: flex; align-items: center; justify-content: space-between;
+  height: 48px; padding: 0 20px; border-bottom: 1px solid var(--line);
+  background: var(--surface); flex: none; gap: var(--s3); }
+.solo-word { font-family: var(--mono); font-size: .72rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--heading); white-space: nowrap; }
+.solo-word span { color: var(--faint); }
+.solo-right { display: flex; align-items: center; gap: var(--s3); }
+.mode-btn { font-family: var(--mono); font-size: .68rem; color: var(--muted);
+  background: none; border: 1px solid var(--line); padding: 6px 12px;
+  cursor: pointer; letter-spacing: .04em; white-space: nowrap; }
+.mode-btn:hover { color: var(--heading); border-color: var(--rule); }
+
+.mark { font-family: var(--mono); font-size: .62rem; letter-spacing: .08em;
+  text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--line);
+  color: var(--muted); white-space: nowrap; }
+.mark.staged { border-color: var(--ember); color: var(--ember-text); }
+.mark.gap { border-color: var(--warn); color: var(--warn); }
+
+.strip { flex: none; display: flex; align-items: center; gap: var(--s3);
+  padding: var(--s2) var(--s5); border-bottom: 1px solid var(--line);
+  background: var(--surface); flex-wrap: wrap; min-height: 46px; }
+.strip .page-label { font-family: var(--mono); font-size: .65rem;
+  letter-spacing: .12em; color: var(--ember); text-transform: uppercase; }
+.strip .grow { flex: 1; }
+.sel-lab { font-family: var(--mono); font-size: .6rem; color: var(--faint);
+  letter-spacing: .1em; display: flex; align-items: center; gap: 5px; }
+.sel { font-family: var(--mono); font-size: .7rem; color: var(--heading);
+  background: var(--inset); border: 1px solid var(--line); padding: 5px 8px; }
+.sel.on { border-color: var(--k-blue); color: var(--k-blue); }
+
+.readout { flex: none; display: flex; align-items: center; gap: var(--s3);
+  flex-wrap: wrap; font-family: var(--mono); min-height: 40px;
+  padding: var(--s2) var(--s5); border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--k-blue) 7%, var(--surface));
+  box-shadow: inset 3px 0 0 var(--k-blue); }
+.readout .lk { font-size: .62rem; color: var(--k-blue); letter-spacing: .12em;
+  text-transform: uppercase; }
+.readout .ltext { font-size: .7rem; color: var(--text); }
+.readout .ltext b { color: var(--heading); font-weight: 500; }
+
+.cols { flex: 1; min-height: 0; display: grid; grid-template-columns: 258px 1fr 372px; }
+
+.rail { border-right: 1px solid var(--line); background: var(--surface);
+  overflow-y: auto; padding: var(--s3) 0 var(--s5); }
+.rail-sub { font-family: var(--mono); font-size: .6rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--faint); margin: var(--s4) var(--s4) var(--s1);
+  padding-bottom: 3px; border-bottom: 1px solid var(--line); }
+.rail-item { display: flex; align-items: center; gap: var(--s2); width: 100%;
+  text-align: left; background: none; border: none; cursor: pointer;
+  font-family: var(--mono); font-size: .72rem; color: var(--text);
+  padding: 6px 10px; line-height: 1.35; border-left: 2px solid transparent; }
+.rail-item:hover { background: var(--raised); }
+.rail-item.sel { border-left-color: var(--ember); background: var(--raised); color: var(--heading); }
+.rail-item .dot { width: 7px; height: 7px; flex: none; }
+.rail-item .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rail-item .st { margin-left: auto; font-size: .58rem; flex: none; letter-spacing: .04em; }
+.st.yes { color: var(--ok); } .st.no { color: var(--warn); } .st.na { color: var(--faint); }
+
+.stage { position: relative; min-width: 0; min-height: 0; overflow-y: auto;
+  background: radial-gradient(ellipse at 50% 30%, var(--surface) 0%, var(--bg) 70%);
+  padding: var(--s5); }
+.tabrow { display: flex; align-items: center; gap: var(--s2); flex-wrap: wrap;
+  font-family: var(--mono); margin-bottom: var(--s5); }
+.vkey { font-size: .6rem; color: var(--faint); letter-spacing: .06em; margin-right: var(--s2); }
+.vtab { font-size: .64rem; letter-spacing: .08em; text-transform: uppercase;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  border: 1px solid var(--line); color: var(--muted); padding: 5px 10px; cursor: pointer; }
+.vtab:hover { color: var(--heading); border-color: var(--rule); }
+.vtab.on { color: var(--heading); border-color: var(--vt, var(--ember));
+  box-shadow: inset 0 -2px 0 var(--vt, var(--ember)); }
+
+.stage h3 { font-family: var(--serif); font-weight: 400; font-size: 1rem;
+  color: var(--heading); margin-bottom: var(--s2); }
+.stage .lede { font-size: .82rem; color: var(--muted); margin-bottom: var(--s5);
+  max-width: 62ch; line-height: 1.65; }
+
+.bench-grid { display: grid; gap: var(--s3);
+  grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); }
+.op { border: 1px solid var(--line); background: var(--surface); padding: var(--s3) var(--s4);
+  cursor: pointer; text-align: left; border-left-width: 3px; transition: border-color var(--micro) var(--ease); }
+.op:hover { border-color: var(--rule); }
+.op.sel { background: var(--raised); }
+.op .oph { display: flex; align-items: baseline; gap: var(--s2); margin-bottom: var(--s1); }
+.op .opn { font-family: var(--serif); font-size: .92rem; color: var(--heading); }
+.op .opv { font-family: var(--mono); font-size: .58rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--faint); margin-left: auto; }
+.op .opl { font-size: .76rem; color: var(--muted); line-height: 1.5; }
+.op .opf { display: flex; align-items: center; gap: var(--s2); margin-top: var(--s2);
+  font-family: var(--mono); font-size: .6rem; letter-spacing: .05em; flex-wrap: wrap; }
+.verdict { padding: 2px 7px; border: 1px solid; }
+.verdict.yes { color: var(--ok); border-color: var(--ok); }
+.verdict.no { color: var(--warn); border-color: var(--warn); }
+.verdict.na { color: var(--faint); border-color: var(--line); }
+.chip { color: var(--muted); border: 1px solid var(--line); padding: 2px 6px; }
+.chip.warn { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 50%, var(--line)); }
+
+table.mx { border-collapse: collapse; font-family: var(--mono); font-size: .6rem; margin-top: var(--s6); }
+table.mx th { font-weight: 400; color: var(--muted); letter-spacing: .06em;
+  padding: 4px 5px; text-align: left; vertical-align: bottom; }
+table.mx th.rot { height: 158px; white-space: nowrap; width: 26px; vertical-align: bottom; }
+table.mx th.rot div { transform: rotate(-90deg) translateX(-6px); transform-origin: left bottom;
+  width: 20px; }
+table.mx td { border: 1px solid var(--line); width: 26px; height: 26px; padding: 0; }
+table.mx td.rowh { border: none; padding: 3px 10px 3px 0; color: var(--text);
+  white-space: nowrap; width: auto; font-size: .64rem; }
+table.mx button.cell { width: 100%; height: 100%; min-height: 24px; border: none;
+  background: none; cursor: pointer; display: block; }
+table.mx button.cell.on { background: var(--k-violet); }
+table.mx button.cell.on.hard { background: var(--warn); }
+table.mx button.cell:hover { outline: 2px solid var(--blue); outline-offset: -2px; }
+
+.walkrow { display: flex; gap: var(--s2); flex-wrap: wrap; margin-bottom: var(--s5); }
+.wstep { font-family: var(--mono); font-size: .62rem; letter-spacing: .06em;
+  border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+  padding: 6px 10px; cursor: pointer; }
+.wstep.on { color: var(--heading); border-color: var(--k-violet);
+  box-shadow: inset 0 -2px 0 var(--k-violet); }
+.wcard { border: 1px solid var(--line); border-left: 3px solid var(--k-violet);
+  background: var(--surface); padding: var(--s4) var(--s5); max-width: 74ch; }
+.wcard h4 { font-family: var(--serif); font-weight: 400; font-size: 1.05rem;
+  color: var(--heading); margin-bottom: var(--s3); }
+.wcard p { font-size: .84rem; margin-bottom: var(--s3); line-height: 1.65; }
+
+.evgroup { margin-bottom: var(--s5); max-width: 78ch; }
+.evgroup .egh { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line);
+  padding-bottom: 4px; margin-bottom: var(--s2); display: flex; }
+.evgroup .egh .n { margin-left: auto; color: var(--faint); }
+.ev { display: flex; gap: var(--s3); font-size: .76rem; padding: 4px 0; align-items: baseline; }
+.ev .id { font-family: var(--mono); font-size: .66rem; color: var(--k-gold); flex: none; width: 150px; }
+.ev .w { color: var(--text); min-width: 0; }
+.ev.absent .id { color: var(--warn); text-decoration: line-through; }
+
+.window { border-left: 1px solid var(--line); background: var(--surface);
+  overflow-y: auto; padding: var(--s5); }
+.win-eyebrow { font-family: var(--mono); font-size: .62rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: var(--s2);
+  display: flex; align-items: center; gap: var(--s2); }
+.win-eyebrow .dot { width: 8px; height: 8px; flex: none; }
+.win-title { font-family: var(--serif); font-size: 1.12rem; color: var(--heading);
+  font-weight: 400; line-height: 1.35; margin-bottom: var(--s3); }
+.win-marks { display: flex; gap: var(--s2); flex-wrap: wrap; margin-bottom: var(--s3);
+  font-family: var(--mono); font-size: .6rem; }
+.win-body { font-size: .85rem; color: var(--text); line-height: 1.65; }
+.win-body p { margin-bottom: var(--s3); }
+.win-facts { border-top: 1px solid var(--line); margin-top: var(--s3); padding-top: var(--s3); }
+.win-fact { display: flex; gap: var(--s3); font-size: .78rem; padding: 4px 0; }
+.win-fact .k { font-family: var(--mono); font-size: .64rem; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--faint); flex: none; width: 108px; padding-top: 2px; }
+.win-fact .v { color: var(--text); min-width: 0; }
+.win-note { border-left: 3px solid var(--blue); background: var(--blue-dim);
+  padding: var(--s3) var(--s4); font-size: .78rem; color: var(--text);
+  margin-top: var(--s4); line-height: 1.6; }
+.win-note.warn { border-left-color: var(--warn);
+  background: color-mix(in srgb, var(--warn) 10%, transparent); }
+.win-note .nt { font-family: var(--mono); font-size: .62rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--blue-text); display: block; margin-bottom: var(--s1); }
+.win-note.warn .nt { color: var(--warn); }
+.win-list { margin: 0 0 var(--s3) 0; padding: 0; list-style: none; }
+.win-list li { font-size: .78rem; padding: 3px 0 3px 14px; position: relative; color: var(--text); }
+.win-list li:before { content: ''; position: absolute; left: 0; top: 12px;
+  width: 6px; height: 1px; background: var(--rule); }
+.jump { font-family: var(--mono); font-size: .66rem; color: var(--blue-text);
+  background: none; border: 1px solid var(--line); padding: 4px 8px; cursor: pointer;
+  margin: 0 0 6px 0; text-align: left; max-width: 100%; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; display: block; width: 100%; }
+.jump:hover { border-color: var(--blue); }
+
+.legend { flex: none; display: flex; align-items: center; gap: var(--s4);
+  padding: var(--s2) var(--s5); border-top: 1px solid var(--line);
+  background: var(--surface); font-family: var(--mono); font-size: .62rem;
+  color: var(--muted); flex-wrap: wrap; min-height: 36px; }
+.legend .grow { flex: 1; }
+.legend a { color: var(--blue-text); }
+
+.formation-foot { flex: none; padding: var(--s2) var(--s5); border-top: 1px solid var(--line);
+  background: var(--inset); font-family: var(--mono); font-size: .58rem; color: var(--faint);
+  line-height: 1.5; }
+.formation-foot .ff-mark { color: var(--ember); letter-spacing: .1em; text-transform: uppercase;
+  margin-right: var(--s2); }
+.formation-foot a { color: var(--ember-text); }
+
+@media (max-width: 1080px) {
+  body { overflow: auto; }
+  .cols { grid-template-columns: 1fr; }
+  .rail { border-right: none; border-bottom: 1px solid var(--line); }
+  .window { border-left: none; border-top: 1px solid var(--line); }
+  .rail-item, .mode-btn, .vtab, .sel, .wstep { min-height: 44px; }
+  .strip { position: sticky; top: 0; z-index: 5; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="solo-bar">
+  <span class="solo-word">The governance model <span>&middot; v5 &middot; the bench</span></span>
+  <div class="solo-right">
+    <span class="mark staged">staged &middot; nothing adopted</span>
+    <span class="mark gap" id="gap-mark">gaps &middot; &mdash;</span>
+  </div>
+</header>
+
+<div class="strip">
+  <span class="page-label">the bench</span>
+  <label class="sel-lab">seat
+    <select class="sel" id="seat-sel" aria-label="Take a seat"></select>
+  </label>
+  <label class="sel-lab">gathering
+    <select class="sel" id="kind-sel" aria-label="Choose the kind of gathering"></select>
+  </label>
+  <span class="grow"></span>
+  <span class="mark" id="count-mark">&mdash;</span>
+</div>
+
+<div class="readout" id="readout" role="status"></div>
+
+<main class="cols">
+  <nav class="rail" id="rail" aria-label="The twelve operations"></nav>
+  <div class="stage" id="stage">
+    <div class="tabrow" id="tabrow" role="tablist" aria-label="Panels"></div>
+    <div id="panel"></div>
+  </div>
+  <aside class="window" id="window" aria-live="polite"></aside>
+</main>
+
+<footer class="legend">
+  <span>v5 refactors <a href="../model-v4/governance-model-v4.html">v4</a> onto operations</span>
+  <span>rules from <a href="../order-of-proceeding/">the order of proceeding</a> &middot; a draft</span>
+  <span class="grow"></span>
+  <span>nothing on this page runs, stores, or binds</span>
+</footer>
+
+<div class="formation-foot"><span class="ff-mark">In formation</span>RegenHub, LCA is being built. The governing instruments are drafted and not yet executed, and no member has been admitted. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+
+<script>
+/* ==========================================================================
+   v5 - the bench. Every table below is a reading, not an authority.
+   Sources: Bylaws v2.1 (ratified Jul 2026); the order of proceeding (draft,
+   PR #198, unadopted); the governance model v4 (a drawing, unadopted).
+   ========================================================================== */
+
+/* ------------------------------------------------------------ seats */
+const SEATS = [
+  { id: 'member',    name: 'a member',            note: 'A voting member of the cooperative, not a director.' },
+  { id: 'director',  name: 'a director',          note: 'A seated director. Six of seven seats are filled; one is vacant.' },
+  { id: 'chair',     name: 'the chair',           note: 'Whoever presides. Note the Bylaws create no standing "Board chair" office - see the carried defect.' },
+  { id: 'secretary', name: 'the secretary',       note: 'Holds the roll and the minute. Todd Youngblood, elected Aug 14 2026, cured Aug 19.' },
+  { id: 'steward',   name: 'the steward',         note: 'Acting between the gatherings, within a delegation, never on the legal state.' },
+  { id: 'observer',  name: 'an observer',         note: 'Present, reading everything, holding no act. A named public witness is this seat.' },
+  { id: 'agent',     name: 'an agent',            note: 'A non-human actor holding scoped, written, revocable authority. Whether this seat may exist at all is A-03, open before the board.' }
+];
+
+/* ------------------------------------------------------------ gathering kinds */
+const KINDS = [
+  { id: 'board',   name: 'a body that acts &middot; the board',   short: 'board in session',
+    note: 'Quorum four. A tied vote fails. Directors hold no proxies. &sect;3.16 presumes assent unless dissent or abstention is recorded by name.' },
+  { id: 'members', name: 'a body that acts &middot; the members',  short: 'members in session',
+    note: 'The members&rsquo; meeting. &sect;2.10 gives it an order of business - the only one the Bylaws contain.' },
+  { id: 'room',    name: 'a room that thinks',                     short: 'a room that thinks',
+    note: 'A retreat, a walk, a channel, a call. It produces a record of thinking. Nothing in it binds anyone. Rule 2 exists because we confuse this with a body that acts.' },
+  { id: 'between', name: 'between the gatherings',                 short: 'between the gatherings',
+    note: 'The ordinary condition. The legal state is set. Delegated acts happen here and are recorded here.' }
+];
+
+/* ------------------------------------------------------------ the twelve rules */
+const RULES = [
+  { n: 1,  id: 'consent',   move: 'gathering', short: 'the record opens by consent, aloud, name by name' },
+  { n: 2,  id: 'namekind',  move: 'gathering', short: 'name the kind of gathering before any business' },
+  { n: 3,  id: 'standing',  move: 'gathering', short: 'read the standing' },
+  { n: 4,  id: 'floor',     move: 'the floor', short: 'the floor is asked for briefly, with a time named, and yielded explicitly' },
+  { n: 5,  id: 'plain',     move: 'the floor', short: 'plain speech is an entitlement, not a favor' },
+  { n: 6,  id: 'silence',   move: 'the floor', short: 'silence is a posture, not agreement, in deliberation' },
+  { n: 7,  id: 'onequest',  move: 'deciding',  short: 'one question at a time, read back before the vote' },
+  { n: 8,  id: 'harm',      move: 'deciding',  short: 'consent, not consensus, and an objection must name the harm' },
+  { n: 9,  id: 'simulate',  move: 'deciding',  short: 'simulate before you adopt' },
+  { n: 10, id: 'exit',      move: 'the record', short: 'every commitment names its arbiter and its exit before it binds' },
+  { n: 11, id: 'correct',   move: 'the record', short: 'correction is a new act, and nothing is quietly fixed' },
+  { n: 12, id: 'close',     move: 'the record', short: 'the gathering closes by naming what was decided, what was only said, and what waits' }
+];
+function rule(id) { return RULES.find(r => r.id === id); }
+
+/* ------------------------------------------------------------ the twelve operations */
+const FAMILIES = [
+  { id: 'entering',  name: 'entering',  tint: 'var(--k-coral)' },
+  { id: 'thinking',  name: 'thinking',  tint: 'var(--k-rose)' },
+  { id: 'deciding',  name: 'deciding',  tint: 'var(--k-amber)' },
+  { id: 'binding',   name: 'binding',   tint: 'var(--k-violet)' },
+  { id: 'holding',   name: 'holding',   tint: 'var(--k-gold)' },
+  { id: 'answering', name: 'answering', tint: 'var(--k-green)' }
+];
+
+/* seats: who may perform it. kinds: where it can happen at all.
+   rules: which of the twelve bite, 'hard' meaning the rule is the operation's spine.
+   v4: the acts in v4 that implement it. writes: v4 event kinds it produces.
+   missing: what the model has no verb for. */
+const OPS = [
+  { id: 'convening', name: 'Convening', family: 'entering', origin: 'v4',
+    line: 'Calling, notice, quorum, and seating - the gate every other operation passes through.',
+    body: 'v4 modelled this as a handful of acts scattered across two modes. It is one operation, and it is the one most likely to be done badly in a small cooperative, because it feels like preamble. It is not preamble: a gathering that convened without quorum did not convene, and a gathering nobody was noticed of is a room that thinks wearing a body&rsquo;s clothes.',
+    seats: ['chair','secretary'], kinds: ['board','members','between'],
+    rules: [['namekind','hard'],['standing','hard'],['consent','soft']],
+    v4: ['setBody','setAgenda','markSelf','markOther','convene','adjourn','standDown'],
+    writes: ['meeting.noticed','meeting.called','body.set','agenda.ordered','attendance.marked','meeting.adjourned','meeting.stoodDown'],
+    holds: 'The chair convenes; the secretary keeps the roll. Quorum is counted, never stored.',
+    refuses: ['convening without quorum standing','any seat but the chair convening','switching which body is meeting mid-session'],
+    gaps: ['notice','nokindevent'] },
+
+  { id: 'admitting', name: 'Admitting', family: 'entering', origin: 'new',
+    line: 'Membership, standing, suspension - who may act at all, upstream of every seat.',
+    body: 'v4 has a membership roll as an instrument and no operation that moves it. That is a real hole rather than an omission of drawing: admission is the board&rsquo;s hand under the membership policy, it happens between the gatherings, and every seat on this page presupposes it. A model that cannot represent becoming a member cannot represent losing standing either, and losing standing is where a cooperative gets sued.',
+    seats: ['director','secretary'], kinds: ['board','between'],
+    rules: [['standing','hard'],['exit','hard'],['correct','soft']],
+    v4: ['interim'], writes: ['interim.recorded'],
+    holds: 'The board, under the membership policy. The roll is the secretary&rsquo;s to keep.',
+    refuses: ['a members&rsquo; meeting admitting a member - it is the board&rsquo;s hand','admitting without the Membership Agreement executed'],
+    gaps: ['admitverb','privacy'] },
+
+  { id: 'speaking', name: 'Speaking', family: 'thinking', origin: 'v4',
+    line: 'The floor: who has it, for how long, in whose vocabulary.',
+    body: 'The rules do more work here than anywhere else, and the model does less. v4 can open discussion and record that a member rose to a point of order, and by design it holds no verb for anything said. That is right for the record and wrong for the operation: the entitlement to plain speech, the named time, the explicit yielding, are all things a body does and none of them are visible anywhere.',
+    seats: ['member','director','chair','secretary','steward','agent'], kinds: ['board','members','room'],
+    rules: [['floor','hard'],['plain','hard'],['silence','hard']],
+    v4: ['openDisc','pointOrder'], writes: ['discussion.opened','point.order'],
+    holds: 'Anyone seated. The chair opens discussion; the floor is asked for and yielded.',
+    refuses: ['opening discussion on an amendment - it goes straight to its ballot','rising to a point of order between the gatherings'],
+    gaps: ['plainrequest','ruling','amendDiscuss'] },
+
+  { id: 'sensemaking', name: 'Sense-making', family: 'thinking', origin: 'new',
+    line: 'Walking a thing through its consequences, together, before anyone is asked to decide.',
+    body: 'Rule 9 says simulate before you adopt, and rule 2 says a room that thinks is a real kind of gathering with a real kind of record. v4 has neither. Its lifecycle goes seconded &rarr; discussion &rarr; ballot, and discussion is a state with no content. So the single most valuable thing this cooperative does - a walk, a retreat, a long channel thread that changes what the motion should say - is invisible to the model and therefore to the record. This is the largest hole v5 names.',
+    seats: ['member','director','chair','secretary','steward','observer','agent'], kinds: ['board','members','room','between'],
+    rules: [['simulate','hard'],['namekind','hard'],['plain','soft'],['harm','soft']],
+    v4: [], writes: [],
+    holds: 'Anyone. A room that thinks has no seats, which is its point and its danger.',
+    refuses: ['treating the output as a decision - a room that thinks binds nobody'],
+    gaps: ['roomthinks','walkrecord'] },
+
+  { id: 'deciding', name: 'Decision-making', family: 'deciding', origin: 'v4',
+    line: 'Putting one question and settling it.',
+    body: 'The part v4 modelled best and the part Robert modelled best, so v5 changes least here. Two changes that matter: the question is read back before the vote, which is the cheap half nobody does; and consent replaces agreement, so an objection that names a harm is work the body can act on while an objection that names a preference is recorded and does not block.',
+    seats: ['member','director','chair','secretary'], kinds: ['board','members'],
+    rules: [['onequest','hard'],['harm','hard'],['silence','hard'],['simulate','soft']],
+    v4: ['notice','move','second','amend','callQ','withdraw','table','putQ','cast','settle'],
+    writes: ['motion.noticed','motion.moved','motion.seconded','question.called','motion.withdrawn','motion.tabled','ballot.opened','vote.cast','vote.superseded','ballot.settled','motion.adopted','motion.failed'],
+    holds: 'The floor moves; only the chair puts the question, and only with quorum standing.',
+    refuses: ['a second ballot while one stands','seconding your own motion','casting without a voting share or without presence','a body reaching an instrument the other body holds'],
+    gaps: ['thresholds','previousQ','nesting','tabled','proxy','harmverb'] },
+
+  { id: 'policy', name: 'Policy setting', family: 'binding', origin: 'v4',
+    line: 'Rules the board may set and change without touching the instruments.',
+    body: 'Distinguished from constituting because the Bylaws put them in different hands. Counting rules, the treasury policy, the labor schedule and the operating delegation are the board&rsquo;s to adopt; a members&rsquo; meeting may direct the board to act but cannot adopt for it. v4 named that as an open anchor and it is still open: there is no verb for directing another body.',
+    seats: ['director','chair'], kinds: ['board'],
+    rules: [['simulate','hard'],['exit','hard'],['onequest','soft'],['harm','soft']],
+    v4: ['notice','move','putQ','settle'], writes: ['motion.adopted','state.moved'],
+    holds: 'The board, assembled. Prospective adoption only where the policy says so.',
+    refuses: ['a members&rsquo; meeting adopting board policy','adopting a policy retroactively where the instrument requires prospective effect'],
+    gaps: ['direct','laborschedule'] },
+
+  { id: 'constituting', name: 'Constituting', family: 'binding', origin: 'new',
+    line: 'Moving the instruments themselves: Articles, Bylaws, Membership Agreement, and amendment of them.',
+    body: 'Todd&rsquo;s list said "governance", sitting next to policy setting. This is the reading: the operation that changes the cooperative&rsquo;s own form. It is separated from policy because the hands differ and the thresholds differ, and because one of these acts is not finished by a vote at all - amending the Articles requires a filing with the State, and no model here can represent an obligation that outlives the meeting.',
+    seats: ['member','chair','secretary'], kinds: ['members'],
+    rules: [['simulate','hard'],['exit','hard'],['correct','hard'],['onequest','soft']],
+    v4: ['notice','move','putQ','settle'], writes: ['motion.adopted','state.moved'],
+    holds: 'The members, assembled. The board may not amend the Bylaws.',
+    refuses: ['any delegation reaching an instrument - none does','a board meeting amending the Bylaws','a motion aimed at the quorum rule, which is derived and moves only when the Bylaws move'],
+    gaps: ['filing','thresholds','noboardorder'] },
+
+  { id: 'delegating', name: 'Delegating', family: 'binding', origin: 'v4',
+    line: 'Grants, committees, officers, and what may be done between the gatherings.',
+    body: 'This is where the grant register lives, and where v4 named its worst hole. The interim ledger is readable and not answerable: a member who disputes something done under delegation has nowhere in the design to say so. Rule 10 is the fix in principle - every commitment names its arbiter and its exit before it binds - and it is unimplemented in every instrument we hold.',
+    seats: ['director','chair','steward'], kinds: ['board','between'],
+    rules: [['exit','hard'],['standing','hard'],['correct','soft']],
+    v4: ['interim'], writes: ['interim.recorded'],
+    holds: 'The board grants; the steward acts within the grant and records each act with its authority.',
+    refuses: ['a delegated act aimed at the legal state','recording an interim act while in session - in session the body acts by motion','a grant with no named ceiling'],
+    gaps: ['appeal','agentseat'] },
+
+  { id: 'recording', name: 'Recording', family: 'holding', origin: 'new',
+    line: 'Turning a room into an instrument.',
+    body: 'The retreat&rsquo;s own finding is that our decisions are made in rooms, on walks, over audio, and that we have no reliable way to turn a room into an instrument. That makes recording an operation in its own right rather than a byproduct of deciding. Three things belong to it and only one is modelled: consent to record, taken aloud and re-gathered when the room changes; the minute, projected from events and adopted by a human hand; and the closing reading-back, which is the moment the room becomes an instrument and has no event kind at all.',
+    seats: ['secretary','chair'], kinds: ['board','members','room','between'],
+    rules: [['consent','hard'],['close','hard'],['correct','hard'],['plain','soft']],
+    v4: ['adoptMin'], writes: ['minutes.adopted'],
+    holds: 'The secretary. Adoption is human; nothing certifies itself.',
+    refuses: ['adopting the minutes before adjournment','a record of what someone said - there is no event kind for speech','recording a room that has not consented'],
+    gaps: ['consentevent','closeevent','threeartifacts'] },
+
+  { id: 'signaling', name: 'Signaling', family: 'holding', origin: 'v4',
+    line: 'What the cooperative shows: outward as a body, and inward to its own members.',
+    body: 'Publication, the mark on an instrument, the status of a proof, who may speak outward as the cooperative. v4 handles the inward half through visibility on events - substance may be held, the fact never is - and handles the outward half not at all. There are no grades of audience: no board-only, no member-only, no public, and no rule for when a hold expires. For a cooperative whose product is partly its own record, that is a live risk rather than an elegance problem.',
+    seats: ['chair','secretary','steward'], kinds: ['board','members','between'],
+    rules: [['plain','hard'],['close','soft'],['correct','soft']],
+    v4: ['observe'], writes: ['state.moved'],
+    holds: 'Unresolved. The Bylaws name no spokesperson and no publication authority.',
+    refuses: ['an act that leaves no trace because it was sensitive','holding the fact of a thing rather than its substance'],
+    gaps: ['privacy','outward'] },
+
+  { id: 'repairing', name: 'Repairing', family: 'answering', origin: 'new',
+    line: 'Correction, cure, grievance - and the arbiter and exit that make them possible.',
+    body: 'Rules 10 and 11 are entirely about this and v4 has no verb for any of it. We have already performed the operation twice without a name for it: the August 14 officer election was defective and was cured on August 19 by verbal acceptances and revotes, and the cure honors the original act rather than erasing it. A model in which nothing deletes is the precondition for repair, not the substitute for it.',
+    seats: ['member','director','chair','secretary'], kinds: ['board','members','between'],
+    rules: [['correct','hard'],['exit','hard'],['harm','soft']],
+    v4: [], writes: [],
+    holds: 'Whoever holds the act being corrected. A grievance has no home at all.',
+    refuses: ['quietly fixing a record','a correction that does not name what it corrects'],
+    gaps: ['grievance','appeal','curearc'] },
+
+  { id: 'stopping', name: 'Stopping', family: 'answering', origin: 'new',
+    line: 'Refusal, the halt, the stop card - pain routed past everything else to attention.',
+    body: 'The algedonic channel, and the operation a governance model is most tempted to leave out because it looks like failure. v4 has adjourn and a point of order and nothing else: no way for a participant to halt a thing in motion, no stop card, no refusal that is recorded as an act rather than as an absence. Every other operation on this page is easier to trust when this one exists.',
+    seats: ['member','director','chair','secretary','steward','observer','agent'], kinds: ['board','members','room','between'],
+    rules: [['harm','hard'],['standing','soft'],['close','soft']],
+    v4: ['adjourn','pointOrder'], writes: ['meeting.adjourned','point.order'],
+    holds: 'Anyone present, in principle. In the instruments, almost nobody.',
+    refuses: ['adjourning over an open ballot'],
+    gaps: ['halt','stopcard','refusalevent'] }
+];
+function op(id) { return OPS.find(o => o.id === id); }
+
+/* ------------------------------------------------------------ gaps
+   carried from v4 where the id matches; new to v5 where marked. */
+const GAPS = [
+  { id: 'thresholds', name: 'Which majority, of what', kind: 'open question', src: 'v4',
+    q: 'Majority of voting members present, or of casts actually made? The two differ the moment anyone abstains, and the Bylaws must say which before any threshold means anything.' },
+  { id: 'previousQ', name: 'The previous-question machinery', kind: 'open question', src: 'v4',
+    q: 'Calling the question is modelled as a signal to the chair. Whether it should itself be a votable motion, and at what threshold, is unresolved.' },
+  { id: 'nesting', name: 'Amendment depth', kind: 'open question', src: 'v4',
+    q: 'One amendment at a time is modelled. Whether an amendment to an amendment is permitted, and how deep, is not decided.' },
+  { id: 'tabled', name: 'Whether tabled business returns', kind: 'open question', src: 'v4',
+    q: 'Tabling settles the motion. Rule 8&rsquo;s parking is conditional rather than calendared, which points the other way - toward suspension with a named condition for return.' },
+  { id: 'proxy', name: 'Proxy and absentee voting', kind: 'not yet specified', src: 'v4',
+    q: 'Casting requires presence. Members hold proxies under the Bylaws and directors do not, and neither case is modelled. For a distributed cooperative that is a large silence.' },
+  { id: 'appeal', name: 'Appealing an interim act', kind: 'absent', src: 'v4',
+    q: 'A member who disputes something done under delegation has nowhere in this design to say so. The ledger is readable but not answerable.' },
+  { id: 'privacy', name: 'Grades of audience', kind: 'open question', src: 'v4',
+    q: 'Privacy is a single hold: substance held, fact open. There are no grades - nothing for board-only, member-only, or public, and no rule for when a hold expires.' },
+  { id: 'ruling', name: 'The chair&rsquo;s ruling on a point of order', kind: 'not yet specified', src: 'v4',
+    q: 'The rising is recorded. The ruling that answers it, and any appeal from the ruling, are not modelled.' },
+  { id: 'filing', name: 'The act that is not finished by a vote', kind: 'open question', src: 'v4',
+    q: 'The Articles need a filing with the State after the members act. Nothing here can represent an obligation that outlives the meeting.' },
+  { id: 'direct', name: 'Directing another body', kind: 'not yet specified', src: 'v4',
+    q: 'The members can direct the board without adopting its policy. That verb does not exist here.' },
+  { id: 'notice', name: 'Notice periods', kind: 'not yet specified', src: 'v4',
+    q: 'A motion can be noticed at any time, with no modelled interval before it can be moved.' },
+  { id: 'amendDiscuss', name: 'Discussion on an amendment', kind: 'open question', src: 'v4',
+    q: 'An amendment goes from seconded straight to its ballot. Whether it deserves its own discussion is unresolved.' },
+
+  { id: 'roomthinks', name: 'A room that thinks has no representation', kind: 'absent', src: 'v5',
+    q: 'Rule 2 makes it a first-class kind of gathering. The model has two modes, in session and between, and no third. Every retreat, walk and long thread that changed a decision is invisible.' },
+  { id: 'walkrecord', name: 'The walk leaves no trace', kind: 'absent', src: 'v5',
+    q: 'Rule 9 requires a consequential change to be walked aloud before it is put. Nothing records that the walk happened, so the rule is unenforceable and unauditable.' },
+  { id: 'consentevent', name: 'Consent to record is not an event', kind: 'absent', src: 'v5',
+    q: 'Rule 1 opens the record by consent, name by name, re-gathered when the room changes. There is no event kind for it, so a record cannot show the consent it rests on.' },
+  { id: 'closeevent', name: 'The three-part close is not an event', kind: 'absent', src: 'v5',
+    q: 'Rule 12 - what was decided, what was only said, what waits - is called the highest-leverage minute of any meeting, and produces nothing the model can hold.' },
+  { id: 'threeartifacts', name: 'Recording, transcript, minute are one thing to the model', kind: 'absent', src: 'v5',
+    q: 'The order of proceeding keeps three apart: the recording is evidence, the transcript has no standing, only the adopted minute evidences an act. The model has only the minute.' },
+  { id: 'harmverb', name: 'A named harm is not an object', kind: 'absent', src: 'v5',
+    q: 'Rule 8 turns an objection-with-harm into work the body can act on: amend, narrow, or refer. Without a verb, a harm named aloud dies with the meeting.' },
+  { id: 'grievance', name: 'Grievance has no home', kind: 'absent', src: 'v5',
+    q: 'Neither the Bylaws nor the model provide a way for a member to raise a dispute against an act of the cooperative and have it answered.' },
+  { id: 'halt', name: 'Nothing can be halted', kind: 'absent', src: 'v5',
+    q: 'No participant may stop a thing in motion. Adjournment closes a meeting; it does not answer harm in progress.' },
+  { id: 'stopcard', name: 'The stop card is practice, not instrument', kind: 'absent', src: 'v5',
+    q: 'Audit stop cards exist in the build practice and appear nowhere in governance. The pattern is proven and unadopted.' },
+  { id: 'refusalevent', name: 'A refusal is an absence, not a line', kind: 'absent', src: 'v5',
+    q: 'v4 refuses many things by name in the interface and records none of them. A refusal that leaves no trace cannot be reviewed.' },
+  { id: 'admitverb', name: 'Admission and suspension have no verb', kind: 'absent', src: 'v5',
+    q: 'The roll is an instrument in v4 and nothing moves it. Losing standing is entirely unmodelled.' },
+  { id: 'outward', name: 'Who speaks outward as the cooperative', kind: 'not yet specified', src: 'v5',
+    q: 'No spokesperson, no publication authority, no rule for representing the body outward. Currently resolved by whoever posts.' },
+  { id: 'plainrequest', name: 'The plain-speech request is invisible', kind: 'absent', src: 'v5',
+    q: 'Rule 5 makes it an entitlement. Nothing records that it was asked for or that it was met, so a body cannot tell whether it is honoring its own rule.' },
+  { id: 'nokindevent', name: 'The kind of gathering is never declared in the record', kind: 'absent', src: 'v5',
+    q: 'Rule 2 requires it aloud. v4 records which body meets, not whether this is a body that acts at all.' },
+  { id: 'agentseat', name: 'Whether an agent may hold a seat', kind: 'open question', src: 'v5',
+    q: 'A-03, open before the board: may a non-human agent hold scoped authority at all? The steward has made grants; the board has not ruled. This bench models the seat without asserting it exists.' },
+  { id: 'noboardorder', name: 'The Bylaws contain no order of business for board meetings', kind: 'absent', src: 'v5',
+    q: '&sect;2.10 governs membership meetings by its own first sentence. There is no board order of business anywhere in the instrument. This one takes an amendment, not a page.' },
+  { id: 'laborschedule', name: 'The labor schedule exists nowhere', kind: 'absent', src: 'v5',
+    q: 'Rates for contribution appear in no instrument on the estate. Policy setting has an object it cannot reach.' },
+  { id: 'curearc', name: 'The cure has no shape', kind: 'open question', src: 'v5',
+    q: 'August 19 cured August 14 by acceptances and revotes. Nothing in the model links a curing act to the act it cures, so the arc is legible only to whoever remembers it.' }
+];
+function gap(id) { return GAPS.find(g => g.id === id); }
+
+/* ------------------------------------------------------------ the dry walk */
+const WALK = [
+  { id: 'brought', name: '1 &middot; brought', op: 'sensemaking',
+    what: 'Any member brings a thing. Unfinished is fine, and saying so is what makes it safe to bring.',
+    rules: ['namekind','plain'],
+    record: 'Nothing. The model has no verb for bringing, which is why good ideas that were never moved leave no trace.',
+    refuse: 'Nothing refuses here, and that is the point of the stage: the expensive failure in a body this size is not a badly seconded motion, it is a thing that never got said.' },
+  { id: 'aired', name: '2 &middot; aired', op: 'speaking',
+    what: 'The floor is asked for with a time named. Anyone may ask for it again in plain speech, and is owed that without cost.',
+    rules: ['floor','plain','silence'],
+    record: 'discussion.opened - and nothing of what is said. There is no event kind for speech, by design.',
+    refuse: 'Reading agreement into silence. In deliberation only: at the vote itself &sect;3.16 governs and a director&rsquo;s silence is assent unless recorded otherwise.' },
+  { id: 'walked', name: '3 &middot; walked', op: 'sensemaking',
+    what: 'The change is simulated aloud before it is put: who it binds, what it costs, what it looks like a year in, what happens if it is wrong.',
+    rules: ['simulate','plain','harm'],
+    record: 'Nothing. The walk leaves no trace, which is the gap that makes rule 9 unenforceable and unauditable.',
+    refuse: 'Putting a consequential question that has not been walked. The rule says so; no instrument makes it stick.' },
+  { id: 'put', name: '4 &middot; put', op: 'deciding',
+    what: 'One question, stated by the chair and read back before the vote.',
+    rules: ['onequest','standing'],
+    record: 'ballot.opened, carrying its threshold.',
+    refuse: 'A second ballot while one stands. Combining separate matters into one question - which happened on August 14, was justified aloud by a book we have not adopted, and went into the record as a defect.' },
+  { id: 'decided', name: '5 &middot; decided', op: 'deciding',
+    what: 'Consent is taken. An objection that names a harm is amended, narrowed or referred; an objection that names a preference is recorded and does not block. Directors are asked by name.',
+    rules: ['harm','silence','onequest'],
+    record: 'vote.cast, ballot.settled with its conserved tally, then motion.adopted or motion.failed. A named harm records nowhere - gap harmverb.',
+    refuse: 'Announcing a board result without asking each director by name, because &sect;3.16 will otherwise manufacture assent out of silence.' },
+  { id: 'closed', name: '6 &middot; closed', op: 'recording',
+    what: 'The secretary reads back three things: what was decided, what was only said, and what waits - and what waits waits on a condition, not a date.',
+    rules: ['close','consent','plain'],
+    record: 'Nothing. Gap closeevent. The highest-leverage minute of the meeting produces no line.',
+    refuse: 'Closing with a date where a condition belongs, which is how parked business quietly becomes buried business.' },
+  { id: 'carried', name: '7 &middot; carried', op: 'recording',
+    what: 'The minute is written from the events and adopted at a later meeting by a human hand.',
+    rules: ['correct','close'],
+    record: 'minutes.adopted. Until then the projection is a draft; nothing certifies itself.',
+    refuse: 'Treating the recording or the transcript as the act. The recording is evidence, the transcript has no standing of its own, and only the adopted minute evidences an act of the body.' }
+];
+
+/* ------------------------------------------------------------ event vocabulary by operation */
+const EVENT_WORDS = {
+  'meeting.noticed': 'a meeting was noticed, with its order of business',
+  'meeting.called': 'the chair convened the body, and the line carries the quorum it found',
+  'meeting.adjourned': 'the chair adjourned',
+  'meeting.stoodDown': 'the body stood down; the state is set again',
+  'body.set': 'the body meeting next was set',
+  'agenda.ordered': 'the order of business changed',
+  'attendance.marked': 'a member is present, by their own hand or the secretary&rsquo;s',
+  'motion.noticed': 'a motion joined the order of business',
+  'motion.moved': 'a motion, or an amendment to one, was moved',
+  'motion.seconded': 'it was seconded',
+  'discussion.opened': 'discussion opened - and nothing of it is recorded',
+  'question.called': 'the question was called from the floor',
+  'point.order': 'a member rose to a point of order',
+  'motion.withdrawn': 'the mover withdrew it; it settles and stands',
+  'motion.tabled': 'it was laid on the table',
+  'ballot.opened': 'the ballot opened, carrying its threshold',
+  'vote.cast': 'a vote was cast; the count moves, the roll does not show',
+  'vote.superseded': 'a cast was superseded, leaving one standing',
+  'ballot.settled': 'the ballot closed with its conserved tally',
+  'motion.adopted': 'the motion was adopted',
+  'motion.failed': 'the motion failed',
+  'state.moved': 'an instrument&rsquo;s mark hardened, by the act of an assembled body',
+  'interim.recorded': 'a delegated act was recorded, with its authority',
+  'minutes.adopted': 'the secretary adopted the minutes'
+};
+/* events v5 says are missing, named where they would belong */
+const ABSENT_EVENTS = [
+  { op: 'convening',   id: 'gathering.kindDeclared', w: 'the chair named the kind of gathering and its standing (rule 2, rule 3)' },
+  { op: 'recording',   id: 'record.consented',       w: 'consent to record was taken aloud, name by name (rule 1)' },
+  { op: 'recording',   id: 'record.reGathered',      w: 'consent was re-taken because the room or the subject changed (rule 1)' },
+  { op: 'sensemaking', id: 'proposal.brought',       w: 'a thing was brought, unfinished, by any member' },
+  { op: 'sensemaking', id: 'consequence.walked',     w: 'the change was walked aloud before it was put (rule 9)' },
+  { op: 'speaking',    id: 'plain.asked',            w: 'a participant asked for it again without jargon (rule 5)' },
+  { op: 'deciding',    id: 'harm.named',             w: 'an objection named a harm, and what the body did with it (rule 8)' },
+  { op: 'recording',   id: 'gathering.closed',       w: 'what was decided, what was only said, what waits, and on which condition (rule 12)' },
+  { op: 'repairing',   id: 'act.corrected',          w: 'a new act naming the act it corrects (rule 11)' },
+  { op: 'repairing',   id: 'grievance.raised',       w: 'a member disputed an act and named the arbiter (rule 10)' },
+  { op: 'stopping',    id: 'halt.called',            w: 'a participant stopped a thing in motion, and why' },
+  { op: 'stopping',    id: 'act.refused',            w: 'the surface refused an act, in whose words, and to whom' },
+  { op: 'admitting',   id: 'member.admitted',        w: 'the board admitted a member; the roll moved' },
+  { op: 'admitting',   id: 'standing.changed',       w: 'a member&rsquo;s standing was suspended or restored' },
+  { op: 'signaling',   id: 'published',              w: 'the cooperative said something outward, and by whose authority' }
+];
+
+/* ------------------------------------------------------------ state */
+const S = { seat: 'member', kind: 'board', panel: 'bench', sel: null, walk: 'brought' };
+const PANELS = [
+  { id: 'bench',  label: 'the bench',   tint: 'var(--k-amber)' },
+  { id: 'walk',   label: 'a dry walk',  tint: 'var(--k-violet)' },
+  { id: 'matrix', label: 'rules × operations', tint: 'var(--k-rose)' },
+  { id: 'record', label: 'the record',  tint: 'var(--k-gold)' },
+  { id: 'gaps',   label: 'gaps',        tint: 'var(--k-blue)' }
+];
+
+/* ------------------------------------------------------------ helpers */
+function esc(s) { return String(s == null ? '' : s); }
+function seatName(id) { const s = SEATS.find(x => x.id === id); return s ? s.name : id; }
+function kindOf(id) { return KINDS.find(k => k.id === id); }
+function famOf(id) { return FAMILIES.find(f => f.id === id); }
+
+/* the only inference this page makes: may THIS seat perform THIS operation
+   in THIS kind of gathering, under the tables above. */
+function verdict(o) {
+  const kindOk = o.kinds.includes(S.kind);
+  const seatOk = o.seats.includes(S.seat);
+  if (!kindOk && !seatOk) return { v: 'no', why: 'Neither the seat nor the gathering permits it: ' + seatName(S.seat) + ' does not hold this operation, and it does not happen ' + (S.kind === 'between' ? 'between the gatherings' : 'in ' + kindOf(S.kind).short) + ' at all.' };
+  if (!kindOk) return { v: 'no', why: 'The seat holds it, the gathering does not. This operation does not happen in ' + kindOf(S.kind).short + '.' };
+  if (!seatOk) return { v: 'no', why: seatName(S.seat).replace(/^a(n?) /, 'A$1 ').replace(/^the /, 'The ') + ' does not hold this operation. It is held by: ' + o.seats.map(seatName).join(', ') + '.' };
+  if (S.seat === 'agent') return { v: 'na', why: 'Permitted in this model, and the model is ahead of the record. Whether an agent may hold any authority is A-03, open before the board. Treat every green verdict on this seat as a proposal.' };
+  if (S.seat === 'observer') return { v: 'na', why: 'The observer holds no act. What they can do here is read, and every refusal they meet is the seat&rsquo;s rather than the surface&rsquo;s.' };
+  return { v: 'yes', why: 'Permitted in this model, ' + (S.kind === 'between' ? 'between the gatherings' : 'in ' + kindOf(S.kind).short) + '.' };
+}
+
+/* ------------------------------------------------------------ chrome */
+function fillSelects() {
+  const bound = S._bound; S._bound = true;
+  const ss = document.getElementById('seat-sel');
+  ss.innerHTML = SEATS.map(s => '<option value="' + s.id + '">' + s.name + '</option>').join('');
+  ss.value = S.seat;
+  const ks = document.getElementById('kind-sel');
+  ks.innerHTML = KINDS.map(k => '<option value="' + k.id + '">' + k.name + '</option>').join('');
+  ks.value = S.kind;
+  if (bound) return;
+  ss.addEventListener('change', e => { S.seat = e.target.value; renderAll(); });
+  ks.addEventListener('change', e => { S.kind = e.target.value; renderAll(); });
+}
+
+function renderReadout() {
+  const seat = SEATS.find(s => s.id === S.seat), k = kindOf(S.kind);
+  const permitted = OPS.filter(o => verdict(o).v !== 'no').length;
+  document.getElementById('readout').innerHTML =
+    '<span class="lk">on the bench</span>' +
+    '<span class="ltext">You are <b>' + seat.name + '</b>, ' + (S.kind === 'between' ? '<b>between the gatherings</b>' : 'in <b>' + k.short + '</b>') +
+    '. ' + permitted + ' of 12 operations are open to you here. ' + seat.note + '</span>';
+  document.getElementById('count-mark').textContent = permitted + ' of 12 open';
+  document.getElementById('gap-mark').innerHTML = 'gaps &middot; ' + GAPS.length + ' (' + GAPS.filter(g => g.src === 'v5').length + ' new)';
+}
+
+function renderRail() {
+  const rail = document.getElementById('rail');
+  let html = '';
+  FAMILIES.forEach(f => {
+    const list = OPS.filter(o => o.family === f.id);
+    if (!list.length) return;
+    html += '<div class="rail-sub">' + f.name + '</div>';
+    list.forEach(o => {
+      const v = verdict(o);
+      html += '<button class="rail-item' + (S.sel === 'op:' + o.id ? ' sel' : '') + '" data-key="op:' + o.id + '">' +
+        '<span class="dot" style="background:' + f.tint + '"></span>' +
+        '<span class="nm">' + o.name + '</span>' +
+        '<span class="st ' + v.v + '">' + (v.v === 'yes' ? 'open' : v.v === 'no' ? 'closed' : 'qualified') + '</span>' +
+        '</button>';
+    });
+  });
+  rail.innerHTML = html;
+  rail.querySelectorAll('.rail-item').forEach(b =>
+    b.addEventListener('click', () => select(b.dataset.key)));
+}
+
+function renderTabs() {
+  document.getElementById('tabrow').innerHTML =
+    '<span class="vkey">panel</span>' +
+    PANELS.map(p => '<button class="vtab' + (S.panel === p.id ? ' on' : '') + '" data-panel="' + p.id +
+      '" style="--vt:' + p.tint + '">' + p.label + '</button>').join('');
+  document.querySelectorAll('[data-panel]').forEach(b =>
+    b.addEventListener('click', () => { S.panel = b.dataset.panel; renderPanel(); renderTabs(); writeHash(); }));
+}
+
+/* ------------------------------------------------------------ panels */
+function renderPanel() {
+  const p = document.getElementById('panel');
+  if (S.panel === 'bench') p.innerHTML = panelBench();
+  else if (S.panel === 'walk') p.innerHTML = panelWalk();
+  else if (S.panel === 'matrix') p.innerHTML = panelMatrix();
+  else if (S.panel === 'record') p.innerHTML = panelRecord();
+  else p.innerHTML = panelGaps();
+  p.querySelectorAll('[data-key]').forEach(b =>
+    b.addEventListener('click', () => select(b.dataset.key)));
+  p.querySelectorAll('[data-walk]').forEach(b =>
+    b.addEventListener('click', () => { S.walk = b.dataset.walk; renderPanel(); writeHash(); }));
+}
+
+function panelBench() {
+  let h = '<h3>Twelve operations, under one seat and one gathering</h3>' +
+    '<p class="lede">Change the seat or the gathering in the bar above and every verdict recomputes. ' +
+    'A verdict is a claim about this model - a reading of the Bylaws and of two unadopted drafts - and never a claim about what the cooperative may lawfully do. ' +
+    'Nothing here is stored, sent, or run.</p><div class="bench-grid">';
+  OPS.forEach(o => {
+    const v = verdict(o), f = famOf(o.family);
+    const hard = o.rules.filter(r => r[1] === 'hard').map(r => rule(r[0]).n);
+    h += '<button class="op' + (S.sel === 'op:' + o.id ? ' sel' : '') + '" data-key="op:' + o.id +
+      '" style="border-left-color:' + f.tint + '">' +
+      '<span class="oph"><span class="opn">' + o.name + '</span>' +
+      '<span class="opv">' + (o.origin === 'new' ? 'new in v5' : 'from v4') + '</span></span>' +
+      '<span class="opl">' + o.line + '</span>' +
+      '<span class="opf"><span class="verdict ' + v.v + '">' +
+        (v.v === 'yes' ? 'open' : v.v === 'no' ? 'closed' : 'qualified') + '</span>' +
+      '<span class="chip">rules ' + hard.join(', ') + '</span>' +
+      (o.gaps.length ? '<span class="chip warn">' + o.gaps.length + ' gap' + (o.gaps.length > 1 ? 's' : '') + '</span>' : '') +
+      '</span></button>';
+  });
+  return h + '</div>';
+}
+
+function panelWalk() {
+  const st = WALK.find(w => w.id === S.walk) || WALK[0];
+  const o = op(st.op);
+  let h = '<h3>A dry walk of a proposal</h3>' +
+    '<p class="lede">Seven stages, rehearsed with nothing real touched. Robert&rsquo;s life of a motion begins at the motion; ' +
+    'ours begins earlier and ends later, because the expensive failures in a body this size are a good thing that never got said and a decided thing nobody can find.</p>' +
+    '<div class="walkrow">' + WALK.map(w =>
+      '<button class="wstep' + (w.id === st.id ? ' on' : '') + '" data-walk="' + w.id + '">' + w.name + '</button>').join('') + '</div>';
+  h += '<div class="wcard"><h4>' + st.name + '</h4>' +
+    '<p>' + st.what + '</p>' +
+    '<div class="win-facts">' +
+      fact('operation', '<button class="jump" data-key="op:' + o.id + '">' + o.name + '</button>') +
+      fact('rules biting', st.rules.map(r => '<b>' + rule(r).n + '.</b> ' + rule(r).short).join('<br>')) +
+      fact('the record gets', st.record) +
+      fact('what refuses', st.refuse) +
+    '</div></div>';
+  return h;
+}
+
+function panelMatrix() {
+  let h = '<h3>Which rule bites which operation</h3>' +
+    '<p class="lede">A filled cell means the rule governs the operation; a red cell means the rule is that operation&rsquo;s spine. ' +
+    'The count under each column is how many operations that rule reaches, computed from the table rather than asserted. ' +
+    'Read it for coverage and for thinness: the two rules that reach furthest are 10 and 11, the arbiter-and-exit rule and the correction rule, ' +
+    'and they are the two our instruments implement least.</p>' +
+    '<table class="mx"><tr><th></th>';
+  RULES.forEach(r => h += '<th class="rot" title="' + r.short + '"><div>' + r.n + '. ' + r.short.slice(0, 26) + '</div></th>');
+  h += '</tr>';
+  OPS.forEach(o => {
+    h += '<tr><td class="rowh">' + o.name + '</td>';
+    RULES.forEach(r => {
+      const hit = o.rules.find(x => x[0] === r.id);
+      h += '<td>' + (hit
+        ? '<button class="cell on' + (hit[1] === 'hard' ? ' hard' : '') + '" data-key="op:' + o.id +
+          '" title="' + o.name + ' · rule ' + r.n + ' · ' + (hit[1] === 'hard' ? 'spine' : 'governs') + '"></button>'
+        : '') + '</td>';
+    });
+    h += '</tr>';
+  });
+  h += '<tr><td class="rowh" style="color:var(--faint)">operations reached</td>';
+  RULES.forEach(r => {
+    const n = OPS.filter(o => o.rules.some(x => x[0] === r.id)).length;
+    h += '<td style="border:none;text-align:center;font-size:.62rem;color:' +
+      (n <= 2 ? 'var(--warn)' : 'var(--muted)') + '">' + n + '</td>';
+  });
+  h += '</tr>';
+  return h + '</table>';
+}
+
+function panelRecord() {
+  let h = '<h3>The event vocabulary, re-sorted by operation</h3>' +
+    '<p class="lede">v4&rsquo;s twenty-four event kinds, regrouped under the operation that produces them, ' +
+    'with the events v5 says are missing struck through in place. An operation with no events is an operation the record cannot see.</p>';
+  OPS.forEach(o => {
+    const absent = ABSENT_EVENTS.filter(a => a.op === o.id);
+    if (!o.writes.length && !absent.length) return;
+    h += '<div class="evgroup"><div class="egh"><span>' + o.name + '</span><span class="n">' +
+      o.writes.length + ' present &middot; ' + absent.length + ' absent</span></div>';
+    o.writes.forEach(w => h += '<div class="ev"><span class="id">' + w + '</span><span class="w">' + (EVENT_WORDS[w] || '') + '</span></div>');
+    absent.forEach(a => h += '<div class="ev absent"><span class="id">' + a.id + '</span><span class="w">' + a.w + '</span></div>');
+    h += '</div>';
+  });
+  const orphan = OPS.filter(o => !o.writes.length);
+  h += '<div class="win-note warn"><span class="nt">what this panel shows</span>' +
+    orphan.length + ' of 12 operations produce no event at all in v4: <b>' +
+    orphan.map(o => o.name.toLowerCase()).join(', ') + '</b>. ' +
+    'They are not edge cases. They are sense-making and repair - the two things the retreat said we actually do and cannot hold.</div>';
+  return h;
+}
+
+function panelGaps() {
+  const byKind = {};
+  GAPS.forEach(g => { (byKind[g.kind] = byKind[g.kind] || []).push(g); });
+  let h = '<h3>What this model does not answer</h3>' +
+    '<p class="lede">Twelve carried from v4, ' + GAPS.filter(g => g.src === 'v5').length +
+    ' new in v5. An open question has a fork the design has not taken; something not yet specified has an obvious shape nobody has written; ' +
+    'absent means the model has no verb at all, which is the honest and the worst kind.</p>';
+  ['absent', 'open question', 'not yet specified'].forEach(k => {
+    const list = byKind[k] || [];
+    h += '<div class="evgroup"><div class="egh"><span>' + k + '</span><span class="n">' + list.length + '</span></div>';
+    list.forEach(g => h += '<div class="ev"><span class="id" style="color:var(--k-blue);width:auto;min-width:150px">' +
+      (g.src === 'v5' ? '&middot; new &middot; ' : '') + '</span>' +
+      '<span class="w"><button class="jump" data-key="gap:' + g.id + '">' + g.name + '</button></span></div>');
+    h += '</div>';
+  });
+  return h;
+}
+
+/* ------------------------------------------------------------ window */
+function fact(k, v) { return (v == null || v === '') ? '' :
+  '<div class="win-fact"><div class="k">' + k + '</div><div class="v">' + v + '</div></div>'; }
+function list(items) { return '<ul class="win-list">' + items.map(i => '<li>' + i + '</li>').join('') + '</ul>'; }
+
+function select(key) { S.sel = key; renderWindow(); renderRail(); renderPanel(); writeHash(); }
+
+function renderWindow() {
+  const w = document.getElementById('window');
+  if (!S.sel) { w.innerHTML = windowIntro(); wire(w); return; }
+  const i = S.sel.indexOf(':'), kind = S.sel.slice(0, i), id = S.sel.slice(i + 1);
+  if (kind === 'op') w.innerHTML = windowOp(op(id));
+  else if (kind === 'gap') w.innerHTML = windowGap(gap(id));
+  else w.innerHTML = windowIntro();
+  wire(w);
+}
+function wire(w) {
+  w.querySelectorAll('[data-key]').forEach(b => b.addEventListener('click', () => select(b.dataset.key)));
+}
+
+function windowIntro() {
+  return '<div class="win-eyebrow">v5 &middot; what this is</div>' +
+    '<div class="win-title">A bench, not a deployment</div>' +
+    '<div class="win-body">' +
+    '<p>v4 drew the governance system at rest. v5 keeps its machinery - the acts, the lifecycle, the event vocabulary, the invariants, the named holes - and re-spines all of it on <b>operations</b>: the twelve things a board or a member body actually does. Each operation is bound to the twelve rules of the order of proceeding, which are a draft nobody has adopted.</p>' +
+    '<p>Pick a seat and a gathering in the bar above. The rail and the bench recompute. Choose an operation to read what it holds, which rules bite it, what the record would keep, what refuses, and where it is hollow.</p>' +
+    '<p>Six operations came from v4. Six are new here: <b>admitting, sense-making, recording, constituting, repairing, stopping</b>. ' + OPS.filter(o => o.origin === 'new' && !o.writes.length).length + ' of those six produce no event in v4 at all, and the two that produce none are sense-making and repair - the two things the retreat said we actually do.</p>' +
+    '</div>' +
+    '<div class="win-note warn"><span class="nt">the standing of this page</span>' +
+    'Nothing on it is adopted. The Bylaws adopt no parliamentary authority, contain no order of business for board meetings, and say nothing about any of the twelve rules. This page is a proposal about a proposal, staged for review. It runs nothing and stores nothing.</div>';
+}
+
+function windowOp(o) {
+  const f = famOf(o.family), v = verdict(o);
+  let h = '<div class="win-eyebrow"><span class="dot" style="background:' + f.tint + '"></span>' +
+    f.name + ' &middot; ' + (o.origin === 'new' ? 'new in v5' : 'carried from v4') + '</div>' +
+    '<div class="win-title">' + o.name + '</div>' +
+    '<div class="win-marks"><span class="verdict ' + v.v + '">' +
+      (v.v === 'yes' ? 'open to you here' : v.v === 'no' ? 'closed to you here' : 'qualified') + '</span></div>' +
+    '<div class="win-body"><p><i>' + o.line + '</i></p><p>' + o.body + '</p></div>' +
+    '<div class="win-note"><span class="nt">the bench says</span>' + v.why + '</div>' +
+    '<div class="win-facts">' +
+      fact('held by', o.seats.map(seatName).join(', ')) +
+      fact('happens in', o.kinds.map(k => kindOf(k).short).join(', ')) +
+      fact('whose hand', o.holds) +
+      fact('rules', o.rules.map(r => '<b>' + rule(r[0]).n + '.</b> ' + rule(r[0]).short +
+        (r[1] === 'hard' ? ' <span style="color:var(--warn)">&middot; spine</span>' : '')).join('<br>')) +
+      fact('v4 acts', o.v4.length ? o.v4.join(', ') : '<span style="color:var(--warn)">none - v4 has no act for this</span>') +
+      fact('the record gets', o.writes.length ? o.writes.join(', ') : '<span style="color:var(--warn)">nothing</span>') +
+    '</div>';
+  if (o.refuses.length) h += '<div class="win-body" style="margin-top:var(--s4)"><div class="win-eyebrow">what refuses</div>' + list(o.refuses) + '</div>';
+  if (o.gaps.length) {
+    h += '<div class="win-body"><div class="win-eyebrow">where it is hollow</div>' +
+      o.gaps.map(g => gap(g) ? '<button class="jump" data-key="gap:' + g + '">' + gap(g).name + '</button>' : '').join('') + '</div>';
+  }
+  return h;
+}
+
+function windowGap(g) {
+  const bites = OPS.filter(o => o.gaps.includes(g.id));
+  return '<div class="win-eyebrow"><span class="dot" style="background:var(--warn)"></span>' +
+    g.kind + ' &middot; ' + (g.src === 'v5' ? 'new in v5' : 'carried from v4') + '</div>' +
+    '<div class="win-title">' + g.name + '</div>' +
+    '<div class="win-body"><p>' + g.q + '</p></div>' +
+    '<div class="win-facts">' + fact('bites', bites.length
+      ? bites.map(o => '<button class="jump" data-key="op:' + o.id + '">' + o.name + '</button>').join('')
+      : '&mdash;') + '</div>' +
+    (g.kind === 'absent'
+      ? '<div class="win-note warn"><span class="nt">absent</span>The model holds no verb for this. It is not refused - it cannot be attempted, which means it also cannot be reviewed.</div>'
+      : '');
+}
+
+/* ------------------------------------------------------------ boot */
+function renderAll() { renderReadout(); renderRail(); renderTabs(); renderPanel(); renderWindow(); writeHash(); }
+
+/* the bench state lives in the hash, so a seat-and-panel can be linked to
+   in a review thread without anything being stored anywhere. */
+function readHash() {
+  const h = (location.hash || '').replace(/^#/, '');
+  if (!h) return;
+  h.split('&').forEach(pair => {
+    const [k, v] = pair.split('=');
+    if (k === 'seat' && SEATS.some(s => s.id === v)) S.seat = v;
+    if (k === 'kind' && KINDS.some(x => x.id === v)) S.kind = v;
+    if (k === 'panel' && PANELS.some(x => x.id === v)) S.panel = v;
+    if (k === 'walk' && WALK.some(x => x.id === v)) S.walk = v;
+    if (k === 'op' && op(v)) S.sel = 'op:' + v;
+    if (k === 'gap' && gap(v)) S.sel = 'gap:' + v;
+  });
+}
+function writeHash() {
+  const parts = ['seat=' + S.seat, 'kind=' + S.kind, 'panel=' + S.panel];
+  if (S.panel === 'walk') parts.push('walk=' + S.walk);
+  if (S.sel) parts.push(S.sel.replace(':', '='));
+  try { history.replaceState(null, '', '#' + parts.join('&')); } catch(e) {}
+}
+window.addEventListener('hashchange', () => { readHash(); fillSelects(); renderAll(); });
+
+readHash();
+fillSelects();
+renderAll();
+</script>
+</body>
+</html>
