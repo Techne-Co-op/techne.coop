@@ -1,0 +1,1 @@
+Read `AGENTS.md` at the repository root before anything else. It is the machine-facing distillation of BP v2 and governs every agent session in this repository, this one included. Contribution paths, vocabulary, and status marks are in `CONTRIBUTORS.md`; full instructions at techne.coop/commons/build/instructions/

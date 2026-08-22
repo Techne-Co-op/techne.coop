@@ -1,6 +1,6 @@
 # Contributing to techne.coop
 
-This repository is a cooperative project, built under the **Build Protocol (BP v2)**. Contributions come in two forms: work by human organizers, and work by build agents under organizer direction. Both paths end at the same place: a pull request, reviewed by an organizer, merged only with the validator green.
+This repository is a cooperative project of **RegenHub, LCA**, an active Colorado limited cooperative association (launched August 14, 2026; officers confirmed August 19, 2026; the public record is at [techne.coop/launch/](https://techne.coop/launch/)), built under the **Build Protocol (BP v2)**. Contributions come in three forms: work by human organizers, work by build agents under organizer direction, and work by independent contributors  --  free and trusted contributors, human or agent, within or adjacent to the cooperative. All paths end at the same place: a pull request, reviewed by an organizer, merged only with the validator green.
 
 ---
 
@@ -41,6 +41,8 @@ Organizers are the decision-making body. They record outcomes, approve merges, a
 **Current organizers:** Todd Youngblood (Ventures & Operations Steward), Aaron G Neyer, Benjamin Ross, Jonathan Borichevskiy, Kevin Owocki, Lucian Hymer, Neil Mackay Yarnal.
 
 **Stepped back:** Savannah Kruger, by written notice given 2026-06-07.
+
+**Officers**, elected August 14, 2026 and confirmed August 19, 2026 ([the record](https://techne.coop/launch/)): Aaron Gabriel, President; Todd Youngblood, Secretary; Lucian Hymer, Treasurer.
 
 **Primary build contact:** Todd Youngblood. Schema, authority, design decisions, public naming, and anything touching money or membership standing all go to Todd.
 
@@ -103,6 +105,34 @@ Authored-by: <agent role> / <piece address>
 
 ---
 
+## Independent contributors
+
+Recognized at the steward's direction, 2026-08-22. Independent contributors are free and trusted contributors  --  human or agent  --  within or adjacent to the cooperative, working without organizer direction. They are welcome on the same terms as everyone else:
+
+1. Open an issue, or pick up an open piece from the [Almanac](https://techne.coop/commons/build/).
+2. Branch, work within the cited constraints, open a pull request.
+3. Organizer review and a green validator remain the conditions of merge.
+
+Contribution confers no standing. Adoption of any draft into the record remains an organizer's act, and the stop-card boundaries above bind independent agents exactly as they bind build agents.
+
+---
+
+## Nou
+
+Nou is the cooperative's runtime instrument: one agent with multi-player, multi-party access, representing the officers and friends of the cooperative. It is governed by its own charter (the Nou Charter, NC), not by BP; build agents are not Nou, and nothing in BP grants a build agent Nou's runtime scopes or the reverse. Nou may coordinate fleets of session-scoped build agents and deliver batches as pull requests (see the [orchestration addendum](https://techne.coop/commons/build/instructions/)), but it adopts nothing: merge by an organizer remains the act of adoption. Its access is granted and revoked by the steward on the record.
+
+---
+
+## Alignment resources
+
+Three references, one per register:
+
+- **Pages:** the design system at [techne.coop/design-system/](https://techne.coop/design-system/) is the *principal alignment resource* for any page deployed to techne.coop.
+- **Language, voice, identity:** the Commonplace at [techne.coop/commonplace/](https://techne.coop/commonplace/)  --  the vocabulary the cooperative reasons in.
+- **The Common Information System** (the commons, as deployed on [/intranet/](https://techne.coop/intranet/)): what a word means now is settled in the Lexicon at [techne.coop/commons/build/lexicon/](https://techne.coop/commons/build/lexicon/).
+
+---
+
 ## Vocabulary
 
 Subchapter K throughout: **distributive share**, **capital account**, **allocation**.
@@ -120,7 +150,7 @@ Techne v4. Two grammars:
 - **Document:** Libre Baskerville body, 16px, 1.75 line-height, 760-920px max-width. For series artifacts, onboarding pages, the instructions page.
 - **Instrument:** IBM Plex Mono base, 13px, dense, full-width. For HUDs, dashboards, the build page.
 
-Full reference: [techne.coop/design-system/](https://techne.coop/design-system/) and [techne.coop/commons/build/instructions/#s6](https://techne.coop/commons/build/instructions/#s6).
+Full reference: [techne.coop/design-system/](https://techne.coop/design-system/)  --  the principal alignment resource for any page deployed to techne.coop  --  and [techne.coop/commons/build/instructions/](https://techne.coop/commons/build/instructions/).
 
 ---
 
