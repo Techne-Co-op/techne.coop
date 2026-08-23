@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The verification walk, walked in the page: the same cards as the public run-book, with the verdict clicked and the sentence typed instead of spoken into a recording. Members only.">
+<title>The walk &middot; Techne</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem('techne-mode');
+      if (!m) m = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-mode', m);
+    } catch(e) {}
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #fff;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
+  --info: #6A8AC4; --info-dim: rgba(106,138,196,0.12);
+  --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
+  --info: #4A6FB0; --info-dim: rgba(74,111,176,0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+body {
+  background: var(--bg); color: var(--text); font-family: var(--serif);
+  font-size: 16px; line-height: 1.65; min-height: 100vh; display: flex; flex-direction: column;
+}
+/* the topbar, the map, and the mode toggle are the shell's (U-01) */
+
+main { flex: 1; width: 100%; max-width: 70rem; margin-inline: auto; padding-block: clamp(var(--s5), 3.5vw, var(--s7)); padding-inline: clamp(var(--s4), 3vw, var(--s6)); }
+
+.page-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; color: var(--ember); text-transform: uppercase; margin-bottom: var(--s2); }
+h1 { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--heading); line-height: 1.25; }
+.section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s3) 0 var(--s3); }
+.lead { color: var(--muted); font-size: 0.92rem; margin-bottom: var(--s3); max-width: 68ch; }
+a { color: var(--blue-text); text-underline-offset: 3px; }
+
+.standing {
+  background: var(--info-dim); border: 1px solid var(--info); border-left: 3px solid var(--info);
+  border-radius: 2px; padding: var(--s3) var(--s4); margin: var(--s4) 0;
+  font-size: 0.86rem; line-height: 1.6; max-width: 78ch;
+}
+.standing b { color: var(--heading); font-weight: 700; }
+
+.section-head {
+  display: flex; align-items: baseline; gap: var(--s3); flex-wrap: wrap;
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em;
+  color: var(--ember); text-transform: uppercase;
+  padding-bottom: var(--s2); border-bottom: 1px solid var(--line);
+  margin: var(--s6) 0 var(--s4);
+}
+
+/* ---------- who is walking ---------- */
+.walker {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 2px;
+  padding: var(--s4); margin-bottom: var(--s4);
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--s4);
+}
+.walker .f label {
+  display: block; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: var(--s1);
+}
+.walker .f input {
+  width: 100%; background: var(--inset); border: 1px solid var(--line); color: var(--heading);
+  font-family: var(--mono); font-size: 16px; padding: 8px 10px; border-radius: 2px;
+}
+.walker .f input:focus { border-color: var(--blue); outline: none; }
+.walker .f .fixed {
+  font-family: var(--mono); font-size: 0.86rem; color: var(--heading);
+  padding: 8px 0; word-break: break-word;
+}
+.walker .f .hint { font-family: var(--mono); font-size: 0.6rem; color: var(--faint); margin-top: var(--s1); }
+
+/* ---------- the tally ---------- */
+.tally { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: var(--s3); margin-bottom: var(--s4); }
+.tally .cell { background: var(--surface); border: 1px solid var(--line); border-radius: 2px; padding: var(--s3); }
+.tally .n { font-family: var(--serif); font-size: 1.4rem; color: var(--heading); display: block; line-height: 1.2; }
+.tally .l { font-family: var(--mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.tally .cell.holds .n { color: var(--ok); }
+.tally .cell.fails .n { color: var(--warn); }
+.tally .cell.deferred .n { color: var(--ember-text); }
+
+.filters { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s5); }
+.filters button {
+  font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.06em;
+  background: var(--surface); border: 1px solid var(--line); color: var(--muted);
+  padding: 6px 10px; border-radius: 2px; cursor: pointer; min-height: 32px;
+}
+.filters button:hover { color: var(--heading); border-color: var(--rule); }
+.filters button[aria-pressed="true"] { color: var(--heading); border-color: var(--ember); background: var(--raised); }
+
+/* ---------- the cards ---------- */
+.grp-head { margin: var(--s6) 0 var(--s3); }
+.grp-kicker { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ember-text); }
+.grp-title { font-family: var(--serif); font-size: 1.15rem; color: var(--heading); margin-top: var(--s1); }
+.grp-blurb, .grp-lead { font-size: 0.88rem; color: var(--muted); max-width: 72ch; margin-top: var(--s2); }
+.grp-need {
+  margin-top: var(--s3); background: var(--surface); border: 1px solid var(--line);
+  border-left: 2px solid var(--blue); padding: var(--s3); font-size: 0.84rem; max-width: 72ch;
+}
+.grp-need .k { display: block; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-text); margin-bottom: var(--s1); }
+.cluster-head { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: var(--s5) 0 var(--s2); }
+
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-left: 2px solid var(--line);
+  border-radius: 2px; padding: var(--s4); margin-bottom: var(--s3);
+  transition: border-color var(--micro) var(--ease);
+}
+.card[data-verdict="holds"] { border-left-color: var(--ok); }
+.card[data-verdict="attested"] { border-left-color: var(--ok); }
+.card[data-verdict="fails"] { border-left-color: var(--warn); }
+.card[data-verdict="not ready"] { border-left-color: var(--warn); }
+.card[data-verdict="deferred"] { border-left-color: var(--ember); }
+.card-head { display: flex; align-items: baseline; gap: var(--s3); flex-wrap: wrap; margin-bottom: var(--s2); }
+.card-addr { font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em; color: var(--ember-text); }
+.card-title { font-family: var(--serif); color: var(--heading); }
+.card-ctx { font-size: 0.88rem; color: var(--muted); margin-bottom: var(--s2); max-width: 74ch; }
+.card-steps { margin: 0 0 var(--s3) var(--s5); font-size: 0.88rem; line-height: 1.7; max-width: 74ch; }
+.card-steps li { margin-bottom: var(--s1); }
+.card-steps a { word-break: break-word; }
+.card-say { font-size: 0.8rem; color: var(--faint); border-top: 1px solid var(--line); padding-top: var(--s2); margin-bottom: var(--s3); }
+
+.verdicts { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s3); }
+.verdicts button {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em;
+  background: var(--inset); border: 1px solid var(--line); color: var(--muted);
+  padding: 8px 14px; border-radius: 2px; cursor: pointer; min-height: 40px;
+}
+.verdicts button:hover { color: var(--heading); border-color: var(--rule); }
+.verdicts button[data-v="holds"][aria-pressed="true"],
+.verdicts button[data-v="attested"][aria-pressed="true"] { color: var(--ok); border-color: var(--ok); background: var(--ok-dim); }
+.verdicts button[data-v="fails"][aria-pressed="true"],
+.verdicts button[data-v="not ready"][aria-pressed="true"] { color: var(--warn); border-color: var(--warn); background: var(--warn-dim); }
+.verdicts button[data-v="deferred"][aria-pressed="true"] { color: var(--ember-text); border-color: var(--ember); }
+
+.sentence label { display: block; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: var(--s1); }
+.sentence textarea {
+  width: 100%; background: var(--inset); border: 1px solid var(--line); color: var(--heading);
+  font-family: var(--serif); font-size: 16px; line-height: 1.6; padding: 10px 12px;
+  border-radius: 2px; resize: vertical; min-height: 62px;
+}
+.sentence textarea:focus { border-color: var(--blue); outline: none; }
+.card.short .sentence textarea { border-color: var(--warn); }
+.card-flag { font-family: var(--mono); font-size: 0.62rem; color: var(--warn); margin-top: var(--s1); display: none; }
+.card.short .card-flag { display: block; }
+
+/* ---------- the record of the walk ---------- */
+.record-actions { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s3); }
+.record-actions button {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em;
+  background: var(--raised); border: 1px solid var(--rule); color: var(--heading);
+  padding: 10px 16px; border-radius: 2px; cursor: pointer; min-height: 40px;
+}
+.record-actions button:hover { border-color: var(--ember); }
+.record-actions button.quiet { background: var(--surface); color: var(--muted); border-color: var(--line); }
+.record-status { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); margin-bottom: var(--s3); min-height: 1.2em; }
+.record-out {
+  width: 100%; background: var(--inset); border: 1px solid var(--line); color: var(--text);
+  font-family: var(--mono); font-size: 0.74rem; line-height: 1.65; padding: var(--s4);
+  border-radius: 2px; resize: vertical; min-height: 260px; white-space: pre;
+}
+
+.loading, .failed { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); padding: var(--s5) 0; }
+.failed { color: var(--warn); }
+
+footer {
+  border-top: 1px solid var(--line); padding: var(--s4) clamp(var(--s4), 3vw, var(--s6)) var(--s6);
+  font-family: var(--mono); font-size: 0.68rem; color: var(--faint);
+}
+footer a { color: var(--ember-text); }
+.formation-foot{
+  max-width:780px;margin-left:auto;margin-right:auto;
+  padding-left:24px;padding-right:24px;
+  border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+  font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+}
+.formation-foot .ff-mark{
+  font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--ember-text);margin-right:10px;white-space:nowrap;
+}
+.formation-foot a{color:var(--ember-text);}
+@media (prefers-reduced-motion: reduce) { * { transition-duration: 0ms !important; } }
+</style>
+<script src="/assets/error-boundary.js"></script>
+<script src="/assets/shell-gate.js"></script>
+<link rel="stylesheet" href="/assets/shell.css">
+<script src="/assets/shell.js" defer></script>
+</head>
+<body>
+<!-- generated:shell-frame -- written by scripts/shell_frame.py; do not edit by hand -->
+<header class="cis-topbar">
+  <a class="cis-brand" href="/intranet/">Techne<span class="cis-brand-suffix"> &middot; intranet</span></a>
+  <div class="cis-topbar-right">
+    <button type="button" class="cis-menu" id="cis-menu-btn" aria-expanded="false" aria-controls="cis-map" aria-label="show the intranet map">Menu</button>
+    <button type="button" class="cis-bell" aria-expanded="false" aria-controls="cis-notices" aria-label="notices addressed to you">Notices</button>
+    <span class="cis-chip" id="cis-member-chip">not signed in</span>
+    <button type="button" class="cis-mode" aria-label="toggle light and dark mode">&#9689;</button>
+  </div>
+</header>
+<div class="cis-body">
+<nav class="cis-side" id="cis-map" aria-label="intranet">
+  <a href="/intranet/" data-tint="gold"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Overview</a>
+  <div class="cis-group">Belong</div>
+  <a href="/commons/agreements/" data-tint="amber"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Agreements</a>
+  <a href="/commons/directory/" data-tint="amber"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Directory</a>
+  <div class="cis-group">Gather</div>
+  <a href="/commons/gatherings/" data-tint="coral"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Gatherings</a>
+  <div class="cis-group">Find one another</div>
+  <a href="/commons/opportunities/" data-tint="rose"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Opportunities</a>
+  <a href="/intranet/programs/" data-tint="rose"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>Programs</a>
+  <div class="cis-group">See your share</div>
+  <a href="/intranet/share/" data-tint="violet"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>Your share</a>
+  <div class="cis-group">Treasury</div>
+  <a href="/intranet/treasury/" data-tint="violet"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>The Desk</a>
+  <div class="cis-group">Common agency</div>
+  <a href="/intranet/direct/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>Direction</a>
+  <div class="cis-group">The record</div>
+  <a href="/intranet/record/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="M8 7h8"/><path d="M8 11h6"/></svg>The record</a>
+  <a href="/intranet/legal/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>Legal</a>
+  <a href="/commons/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>The Commonplace Book</a>
+  <a href="/intranet/verification/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>The walk</a>
+  <a href="/commons/build/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg>The Almanac</a>
+  <a class="cis-out cis-home" href="/">&#8592; techne.coop</a>
+  <div class="cis-side-you">signed in</div>
+</nav>
+<div class="cis-main">
+<!-- /generated:shell-frame -->
+
+<main>
+  <div class="page-label">The record &middot; the walk &middot; RegenHub, LCA</div>
+  <h1>The verification walk</h1>
+  <div class="section-rule"></div>
+  <p class="lead">The same cards as the <a href="/commons/build/verification/">public run-book</a>, walked here instead of spoken into a recording. Read a card, do its steps, click the verdict, type the one sentence. When you stop, the page writes the record of what you walked, and that record is what moves the marks.</p>
+
+  <div class="standing">
+    <b>What this page does and does not do.</b> It moves nothing. Your verdicts live in this browser and nowhere else: no verdict is written to the cooperative&rsquo;s record by clicking it, and closing the tab on a different machine loses nothing because nothing was sent. A mark moves when a person opens the pull request that carries this walk&rsquo;s record, and the ledger wins every disagreement with this page. The verdict is yours, under your name and the date you give it.
+  </div>
+
+  <div class="walker" id="walker">
+    <div class="f">
+      <label id="walker-lab">who is walking</label>
+      <div class="fixed" id="walker-name" aria-labelledby="walker-lab">reading your session&hellip;</div>
+      <div class="hint">from your sign-in; the record carries it</div>
+    </div>
+    <div class="f">
+      <label for="walk-date">the date of the walk</label>
+      <input type="date" id="walk-date">
+      <div class="hint">defaults to today</div>
+    </div>
+    <div class="f">
+      <label for="walk-second">the second person, if any</label>
+      <input type="text" id="walk-second" placeholder="their name" autocomplete="off">
+      <div class="hint">required by the two-person cards and the attestations</div>
+    </div>
+  </div>
+
+  <div class="tally" id="tally"></div>
+  <div class="filters" id="filters"></div>
+
+  <div id="cards"><p class="loading">reading the cards&hellip;</p></div>
+
+  <h2 class="section-head" id="record">the record of this walk</h2>
+  <p class="lead">This is the walk in the form the pull request wants: one line per address, your name and the date at the head. Copy it into the steward channel, or download it and attach it. Nothing leaves this page on its own.</p>
+  <div class="record-actions">
+    <button type="button" id="btn-copy">Copy the record</button>
+    <button type="button" id="btn-download">Download it</button>
+    <button type="button" class="quiet" id="btn-clear">Clear this walk</button>
+  </div>
+  <div class="record-status" id="record-status" role="status" aria-live="polite"></div>
+  <textarea class="record-out" id="record-out" readonly aria-label="the record of this walk"></textarea>
+</main>
+
+<!-- generated:shell-frame-close -- written by scripts/shell_frame.py; do not edit by hand -->
+</div><!-- .cis-main -->
+</div><!-- .cis-body -->
+<!-- /generated:shell-frame-close -->
+<footer>
+  The walk &middot; <a href="/commons/build/verification/">the run-book</a> &middot; <a href="/commons/build/">the Almanac</a> &middot; the ledger is the record; this page is a reading of it
+  <div class="formation-foot"><span class="ff-mark">Called to order</span>RegenHub, LCA is called to order: the board is seated and the governing instruments are board-adopted, with member ratification anticipated. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+<script>
+/* ============================================================
+   The walk, in the page (X-28)
+
+   The cards are not authored here. They are generated from the
+   run-book at /commons/build/verification/ by
+   scripts/verification_cards.py, and CI refuses a stale copy, so
+   the two surfaces cannot say different things about the same
+   piece. This file renders them, holds the verdicts, and writes
+   the record.
+
+   Nothing here writes to the Common Information System. The
+   steward chose that shape on 2026-08-23: no new table, no new
+   policy, no schema act. Identity comes from the session the
+   shell already resolved; the verdicts persist in localStorage
+   under the signed-in user, so two people on one machine do not
+   inherit each other's walk.
+
+   The Common Record Series - RegenHub, LCA - August 2026
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var CARDS_URL = '/commons/build/verification/cards.json';
+  var STORE_PREFIX = 'techne-walk-v1:';
+
+  var state = { cards: [], byAddr: {}, verdicts: {}, meta: {}, user: null, filter: 'all' };
+
+  var elCards = document.getElementById('cards');
+  var elTally = document.getElementById('tally');
+  var elFilters = document.getElementById('filters');
+  var elOut = document.getElementById('record-out');
+  var elStatus = document.getElementById('record-status');
+  var elDate = document.getElementById('walk-date');
+  var elSecond = document.getElementById('walk-second');
+  var elWalker = document.getElementById('walker-name');
+
+  function storeKey() {
+    /* Before the session resolves there is still a walk to hold; it
+       moves under the user's key the moment the shell names them. */
+    return STORE_PREFIX + (state.user && state.user.userId ? state.user.userId : 'anonymous');
+  }
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(storeKey());
+      if (!raw) return;
+      var saved = JSON.parse(raw);
+      state.verdicts = saved.verdicts || {};
+      state.meta = saved.meta || {};
+    } catch (e) { /* a walk that cannot be read is a walk not yet taken */ }
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(storeKey(), JSON.stringify({ verdicts: state.verdicts, meta: state.meta }));
+    } catch (e) { /* private browsing; the page still works for this sitting */ }
+  }
+
+  function today() {
+    var d = new Date();
+    return d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' +
+      String(d.getDate()).padStart(2, '0');
+  }
+
+  function walkerName() {
+    if (!state.user) return null;
+    return state.user.displayName || state.user.email || null;
+  }
+
+  /* ---------- rendering ---------- */
+
+  function frag(html) {
+    /* The card fragments come from the run-book, through the
+       generator, through our own repository. They are authored
+       markup, not reader input, and they carry links and emphasis
+       the walker needs. */
+    var span = document.createElement('span');
+    span.innerHTML = html;
+    return span;
+  }
+
+  function renderCard(card) {
+    var wrap = document.createElement('div');
+    wrap.className = 'card';
+    wrap.id = 'card-' + card.address;
+    wrap.setAttribute('data-addr', card.address);
+
+    var head = document.createElement('div');
+    head.className = 'card-head';
+    var addr = document.createElement('span');
+    addr.className = 'card-addr';
+    addr.textContent = card.address;
+    var title = document.createElement('span');
+    title.className = 'card-title';
+    title.appendChild(frag(card.title));
+    head.appendChild(addr);
+    head.appendChild(title);
+    wrap.appendChild(head);
+
+    var ctx = document.createElement('p');
+    ctx.className = 'card-ctx';
+    ctx.appendChild(frag(card.context));
+    wrap.appendChild(ctx);
+
+    var steps = document.createElement('ol');
+    steps.className = 'card-steps';
+    card.steps.forEach(function (s) {
+      var li = document.createElement('li');
+      li.appendChild(frag(s));
+      steps.appendChild(li);
+    });
+    wrap.appendChild(steps);
+
+    var say = document.createElement('p');
+    say.className = 'card-say';
+    say.appendChild(frag(card.say));
+    wrap.appendChild(say);
+
+    var row = document.createElement('div');
+    row.className = 'verdicts';
+    card.verdicts.forEach(function (v) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('data-v', v);
+      b.setAttribute('aria-pressed', 'false');
+      b.textContent = v;
+      b.addEventListener('click', function () { setVerdict(card.address, v); });
+      row.appendChild(b);
+    });
+    wrap.appendChild(row);
+
+    var sen = document.createElement('div');
+    sen.className = 'sentence';
+    var lab = document.createElement('label');
+    lab.setAttribute('for', 'note-' + card.address);
+    lab.textContent = 'one sentence of what you actually saw';
+    var ta = document.createElement('textarea');
+    ta.id = 'note-' + card.address;
+    ta.rows = 2;
+    ta.addEventListener('input', function () { setNote(card.address, ta.value); });
+    sen.appendChild(lab);
+    sen.appendChild(ta);
+    var flag = document.createElement('p');
+    flag.className = 'card-flag';
+    flag.textContent = 'a verdict without a sentence is not a verdict; say what you saw';
+    sen.appendChild(flag);
+    wrap.appendChild(sen);
+
+    return wrap;
+  }
+
+  function renderGroup(group) {
+    var out = document.createDocumentFragment();
+
+    var head = document.createElement('div');
+    head.className = 'grp-head';
+    if (group.part) {
+      var k = document.createElement('div');
+      k.className = 'grp-kicker';
+      k.appendChild(frag(group.part.kicker));
+      head.appendChild(k);
+      var t = document.createElement('div');
+      t.className = 'grp-title';
+      t.appendChild(frag(group.part.title));
+      head.appendChild(t);
+      var bl = document.createElement('p');
+      bl.className = 'grp-blurb';
+      bl.appendChild(frag(group.part.blurb));
+      head.appendChild(bl);
+    }
+    var h = document.createElement('div');
+    h.className = 'grp-title';
+    h.appendChild(frag(group.title));
+    head.appendChild(h);
+    if (group.lead) {
+      var ld = document.createElement('p');
+      ld.className = 'grp-lead';
+      ld.appendChild(frag(group.lead));
+      head.appendChild(ld);
+    }
+    if (group.need) {
+      var nd = document.createElement('div');
+      nd.className = 'grp-need';
+      var nk = document.createElement('span');
+      nk.className = 'k';
+      nk.textContent = 'what you need';
+      nd.appendChild(nk);
+      nd.appendChild(frag(group.need));
+      head.appendChild(nd);
+    }
+    out.appendChild(head);
+
+    var cluster = null;
+    group.cards.forEach(function (card) {
+      if (card.cluster && card.cluster !== cluster) {
+        cluster = card.cluster;
+        var ch = document.createElement('div');
+        ch.className = 'cluster-head';
+        ch.appendChild(frag(cluster));
+        out.appendChild(ch);
+      }
+      out.appendChild(renderCard(card));
+    });
+
+    return out;
+  }
+
+  function renderAll(data) {
+    elCards.textContent = '';
+    data.groups.forEach(function (group, i) {
+      var sec = document.createElement('section');
+      sec.setAttribute('data-group', String(i));
+      sec.appendChild(renderGroup(group));
+      elCards.appendChild(sec);
+      group.cards.forEach(function (card) {
+        card.group = i;
+        card.groupTitle = group.title;
+        card.twoPerson = !!group.two_person;
+        state.cards.push(card);
+        state.byAddr[card.address] = card;
+      });
+    });
+
+    renderFilters(data);
+  }
+
+  function renderFilters(data) {
+    var opts = [{ key: 'all', label: 'every card' }];
+    data.groups.forEach(function (g, i) {
+      opts.push({ key: String(i), label: stripTags(g.title) });
+    });
+    opts.push({ key: 'unwalked', label: 'not yet walked' });
+
+    opts.forEach(function (o) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = o.label;
+      b.setAttribute('data-filter', o.key);
+      b.setAttribute('aria-pressed', o.key === 'all' ? 'true' : 'false');
+      b.addEventListener('click', function () { setFilter(o.key); });
+      elFilters.appendChild(b);
+    });
+  }
+
+  function stripTags(html) {
+    var d = document.createElement('div');
+    d.innerHTML = html;
+    return d.textContent || '';
+  }
+
+  /* ---------- state ---------- */
+
+  function setVerdict(addr, v) {
+    var cur = state.verdicts[addr] || {};
+    cur.verdict = (cur.verdict === v) ? null : v;
+    state.verdicts[addr] = cur;
+    save();
+    paint();
+  }
+
+  function setNote(addr, text) {
+    var cur = state.verdicts[addr] || {};
+    cur.note = text;
+    state.verdicts[addr] = cur;
+    save();
+    paintCard(addr);
+    paintTally();
+    paintRecord();
+  }
+
+  function setFilter(key) {
+    state.filter = key;
+    Array.prototype.forEach.call(elFilters.children, function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-filter') === key ? 'true' : 'false');
+    });
+    paintVisibility();
+  }
+
+  /* ---------- painting ---------- */
+
+  function paintCard(addr) {
+    var node = document.getElementById('card-' + addr);
+    if (!node) return;
+    var rec = state.verdicts[addr] || {};
+    if (rec.verdict) node.setAttribute('data-verdict', rec.verdict);
+    else node.removeAttribute('data-verdict');
+    Array.prototype.forEach.call(node.querySelectorAll('.verdicts button'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-v') === rec.verdict ? 'true' : 'false');
+    });
+    var ta = node.querySelector('textarea');
+    if (ta && ta.value !== (rec.note || '')) ta.value = rec.note || '';
+    var short = !!rec.verdict && !(rec.note || '').trim();
+    node.classList.toggle('short', short);
+  }
+
+  function paintVisibility() {
+    state.cards.forEach(function (card) {
+      var node = document.getElementById('card-' + card.address);
+      if (!node) return;
+      var rec = state.verdicts[card.address] || {};
+      var show =
+        state.filter === 'all' ? true :
+        state.filter === 'unwalked' ? !rec.verdict :
+        String(card.group) === state.filter;
+      node.style.display = show ? '' : 'none';
+    });
+    Array.prototype.forEach.call(elCards.children, function (sec) {
+      var any = Array.prototype.some.call(sec.querySelectorAll('.card'), function (c) {
+        return c.style.display !== 'none';
+      });
+      sec.style.display = any ? '' : 'none';
+    });
+  }
+
+  function counts() {
+    var c = { total: state.cards.length, walked: 0, holds: 0, fails: 0, deferred: 0, short: 0 };
+    state.cards.forEach(function (card) {
+      var rec = state.verdicts[card.address] || {};
+      if (!rec.verdict) return;
+      c.walked += 1;
+      if (rec.verdict === 'holds' || rec.verdict === 'attested') c.holds += 1;
+      else if (rec.verdict === 'deferred') c.deferred += 1;
+      else c.fails += 1;
+      if (!(rec.note || '').trim()) c.short += 1;
+    });
+    return c;
+  }
+
+  function paintTally() {
+    var c = counts();
+    var cells = [
+      ['', c.walked + ' of ' + c.total, 'walked'],
+      ['holds', c.holds, 'holds or attested'],
+      ['fails', c.fails, 'fails or not ready'],
+      ['deferred', c.deferred, 'deferred'],
+      ['', c.total - c.walked, 'still to walk']
+    ];
+    elTally.textContent = '';
+    cells.forEach(function (cell) {
+      var d = document.createElement('div');
+      d.className = 'cell' + (cell[0] ? ' ' + cell[0] : '');
+      var n = document.createElement('span');
+      n.className = 'n';
+      n.textContent = String(cell[1]);
+      var l = document.createElement('span');
+      l.className = 'l';
+      l.textContent = cell[2];
+      d.appendChild(n);
+      d.appendChild(l);
+      elTally.appendChild(d);
+    });
+  }
+
+  function paintWalker() {
+    var name = walkerName();
+    elWalker.textContent = name || 'not signed in';
+    if (!elDate.value) elDate.value = state.meta.date || today();
+    if (!elSecond.value) elSecond.value = state.meta.second || '';
+  }
+
+  /* ---------- the record ---------- */
+
+  function recordText() {
+    var c = counts();
+    var name = walkerName() || '(not signed in)';
+    var date = elDate.value || today();
+    var second = (elSecond.value || '').trim();
+
+    var lines = [];
+    lines.push('# Verification walk, ' + date);
+    lines.push('');
+    lines.push('Walker: ' + name);
+    if (second) lines.push('Second person: ' + second);
+    lines.push('Surface: /intranet/verification/ (X-28), cards read from the run-book at /commons/build/verification/');
+    lines.push('Verdicts spoken: ' + c.walked + ' of ' + c.total +
+               ' (' + c.holds + ' holds or attested, ' + c.fails + ' fails or not ready, ' +
+               c.deferred + ' deferred)');
+    lines.push('');
+    lines.push('This record was written by the page from verdicts held in the walker’s browser.');
+    lines.push('It moves nothing on its own. The ledger moves when a pull request carries these lines.');
+    lines.push('');
+
+    var wroteAny = false;
+    state.cards.forEach(function (card) {
+      var rec = state.verdicts[card.address] || {};
+      if (!rec.verdict) return;
+      if (!wroteAny) { lines.push('## Verdicts'); lines.push(''); wroteAny = true; }
+      var note = (rec.note || '').trim();
+      var line = '- ' + card.address + ' ' + rec.verdict + '.';
+      if (note) line += ' ' + note;
+      else line += ' (no sentence given)';
+      if (card.twoPerson && second) line += ' [with ' + second + ']';
+      lines.push(line);
+    });
+
+    if (!wroteAny) {
+      lines.push('No card has a verdict yet. Walk a card, click its verdict, and this record fills in.');
+    } else {
+      var unwalked = state.cards.filter(function (card) {
+        return !(state.verdicts[card.address] || {}).verdict;
+      }).map(function (card) { return card.address; });
+      lines.push('');
+      lines.push('## Not walked in this sitting');
+      lines.push('');
+      lines.push(unwalked.length ? unwalked.join(', ') : 'None; every card carries a verdict.');
+      if (c.short) {
+        lines.push('');
+        lines.push('Short: ' + c.short + ' verdict(s) carry no sentence. A verdict without a sentence ' +
+                   'tells the record what happened and not what was seen.');
+      }
+    }
+
+    lines.push('');
+    return lines.join('\n');
+  }
+
+  function paintRecord() {
+    elOut.value = recordText();
+  }
+
+  function paint() {
+    state.cards.forEach(function (card) { paintCard(card.address); });
+    paintTally();
+    paintVisibility();
+    paintRecord();
+  }
+
+  /* ---------- wiring ---------- */
+
+  function wireControls() {
+    elDate.addEventListener('input', function () {
+      state.meta.date = elDate.value; save(); paintRecord();
+    });
+    elSecond.addEventListener('input', function () {
+      state.meta.second = elSecond.value; save(); paintRecord();
+    });
+
+    document.getElementById('btn-copy').addEventListener('click', function () {
+      var text = recordText();
+      function fallback() {
+        elOut.removeAttribute('readonly');
+        elOut.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+        elOut.setAttribute('readonly', 'readonly');
+        elStatus.textContent = ok ? 'copied' : 'could not copy; select the text below and copy it by hand';
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          elStatus.textContent = 'copied';
+        }, fallback);
+      } else { fallback(); }
+    });
+
+    document.getElementById('btn-download').addEventListener('click', function () {
+      var date = elDate.value || today();
+      var blob = new Blob([recordText()], { type: 'text/markdown;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'verification-walk-' + date + '.md';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+      elStatus.textContent = 'downloaded as ' + a.download;
+    });
+
+    document.getElementById('btn-clear').addEventListener('click', function () {
+      var c = counts();
+      if (c.walked && !window.confirm(
+          'Clear ' + c.walked + ' verdict(s) from this browser? The record above is lost unless you ' +
+          'copied or downloaded it.')) return;
+      state.verdicts = {};
+      save();
+      paint();
+      elStatus.textContent = 'this walk is cleared';
+    });
+  }
+
+  function adoptUser(user) {
+    var hadAnon = !state.user;
+    state.user = user;
+    if (hadAnon && user) {
+      /* A walk started before the session resolved belongs to the
+         person the shell just named; carry it over rather than
+         stranding it under the anonymous key. */
+      var carried = state.verdicts;
+      var carriedMeta = state.meta;
+      load();
+      if (!Object.keys(state.verdicts).length && Object.keys(carried).length) {
+        state.verdicts = carried;
+        state.meta = carriedMeta;
+        save();
+      }
+    }
+    paintWalker();
+    paint();
+  }
+
+  function start(data) {
+    renderAll(data);
+    wireControls();
+    load();
+    paintWalker();
+    paint();
+
+    if (window.cisUser) adoptUser(window.cisUser);
+    document.addEventListener('cis:user', function (e) { adoptUser(e.detail || null); });
+  }
+
+  fetch(CARDS_URL, { cache: 'no-cache' })
+    .then(function (r) {
+      if (!r.ok) throw new Error('cards.json responded ' + r.status);
+      return r.json();
+    })
+    .then(start)
+    .catch(function (err) {
+      elCards.textContent = '';
+      var p = document.createElement('p');
+      p.className = 'failed';
+      p.textContent = 'The cards did not load (' + err.message + '). ' +
+        'The run-book at /commons/build/verification/ carries every card in full; walk it there.';
+      elCards.appendChild(p);
+    });
+})();
+</script>
+
+</body>
+</html>

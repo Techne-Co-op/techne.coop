@@ -3167,6 +3167,57 @@ cross_cutting:
       remains open and the steward's: this piece records that the
       verified word is a person's, and takes none.
 
+  - address: X-28
+    title: The walk in the page
+    intent: >
+      X-22 built the walk as a run-book for a person with a voice
+      recorder: read a card, do its steps, speak the verdict, send
+      the audio, and someone turns the transcript into resolutions.
+      The first recorded walk proved the shape works and showed
+      what it costs: a thirteen-minute recording, a transcript to
+      archive, a reader to read it, and four verdicts out the far
+      end. This piece adds a second surface for the same walk,
+      behind the intranet gate, where the walker clicks the verdict
+      and types the sentence and the page writes the record that
+      the transcription step used to produce. The recorded walk is
+      not retired; the run-book stays public and stays walkable by
+      anyone, signed in or not.
+    status: drafted
+    cites: [X-22, U-19, BP]
+    ready_when: >
+      the steward's direction of 2026-08-23 in intranet-dev, and
+      his choice of the no-schema shape when the fork was put to
+      him.
+    deliverable: >
+      /intranet/verification/, the walk as a signed-in surface: the
+      cards rendered from commons/build/verification/cards.json,
+      one verdict and one sentence per card, a live tally, filters
+      by section and by what is still unwalked, and a generated
+      record of the sitting to copy or download.
+      scripts/verification_cards.py generates the JSON from the
+      run-book and refuses a stale copy under --check, so the two
+      surfaces cannot say different things about the same piece.
+      A pointer from the run-book, a door on the intranet map, and
+      a freshness job in verify.yml.
+    acceptance: >
+      A signed-in member opens the surface, walks a card, and the
+      record at the foot of the page carries the address, the
+      verdict, the sentence, their name from the session, and the
+      date. A signed-out reader never paints it, by the U-19 gate.
+      Editing a card in the run-book and regenerating changes the
+      surface; editing it and not regenerating turns CI red. The
+      audit battery green.
+    note: >
+      Staged on branch X-28; merge is the act of adoption. Option A
+      of the fork put to the steward on 2026-08-23: no table and no
+      policy, so no schema act rides this piece. Verdicts live in
+      the walker's browser under their user id and are sent
+      nowhere; the write path is the one thing a later piece would
+      swap if the cooperative decides the verdicts belong in the
+      Common Information System. Nothing here moves a mark: the
+      ledger still moves by a pull request a person opens, and the
+      verified word stays theirs, per X-26.
+
 agency:
 
   # The agency lane: common direction of the instrument. Entered 2026-07-27
