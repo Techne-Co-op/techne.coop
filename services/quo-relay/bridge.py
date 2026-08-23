@@ -61,7 +61,7 @@ class BuzzBridge:
             return None
         for pk in (member_pubkey, owner_pubkey):
             added = _run(["channels", "add-member", "--channel", channel_id,
-                          "--member", pk])
+                          "--pubkey", pk])
             if not added:
                 log.error("add-member %s to %s failed", pk[:12], channel_id)
         return channel_id
@@ -85,7 +85,9 @@ class BuzzBridge:
                     "--since", str(since_ts)])
         if not got:
             return []
-        msgs = got.get("messages", got if isinstance(got, list) else [])
+        # The CLI returns a bare JSON list of events (verified live
+        # 2026-08-23): id, pubkey, content, created_at, kind, tags.
+        msgs = got if isinstance(got, list) else got.get("messages", [])
         out = []
         for m in msgs:
             out.append({
