@@ -44,6 +44,10 @@ grant insert on table phone_events to phone_relay;
 -- No usage on any schema beyond public (default), and no grants on any
 -- other table.
 
+-- Anchor: append-only recording of the co-op line is a housekeeping
+-- act by an agent under owner authority (Bylaws v2.1 §2.1); this policy
+-- grants that seat to the phone_relay role and nothing else. Art. XV
+-- (records) untouched: read remains service_role only.
 create policy phone_relay_insert on phone_events
   for insert to phone_relay
   with check (true);
