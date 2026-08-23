@@ -60,12 +60,19 @@ def fetch_new(cfg: Config, since_iso: str) -> list[InboundMessage]:
 
     The Quo API returns most-recent-first; we reverse to process in order.
     A single-page cap keeps a long silence from flooding on first tick.
+
+    No `since` param on the API call: Quo's `since=` filters the wrong
+    direction (returns messages BEFORE the timestamp, not after), so
+    passing the cursor as `since` causes the newest inbound to be
+    excluded from the response entirely. Local `createdAt <= since_iso`
+    filter below is the source of truth; a 50-message page cap keeps
+    the first-tick blast bounded either way.
     """
     r = requests.get(
         f"{QUO_API_BASE}/messages",
         params={"phoneNumberId": cfg.phone_number_id,
                 "participants": list(cfg.allowlist),
-                "maxResults": 50, "since": since_iso},
+                "maxResults": 50},
         headers={"Authorization": cfg.quo_api_key},
         timeout=10,
     )
