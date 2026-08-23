@@ -4947,6 +4947,17 @@ matrix:
 
   - address: SMS-01
     title: The steward's phone line answered by Nou
+    verified_by: >
+      Steward, 2026-08-23 (DM, "SMS-01 complete"). Two clean round trips
+      landed in phone_events: "are you there?" answered 01:13:49 UTC,
+      "is your SMS harness active?" answered 01:15:01 UTC, both status
+      sent through Quo and both logged with the scoped phone_relay key.
+      Three follow-up PRs merged the same session to get here — #237
+      floor, #238 dropped the broken Quo since= param, #239 fixed the
+      dispatch invocation to `openclaw agent`. Lesson written to
+      memory/sms-01-smoke-test-lesson.md: a green health endpoint is
+      not a smoke test; drive a real inbound end-to-end before calling
+      ready.
     intent: >
       The plan at issue #191 lays out the phone channel in tiers,
       steward-only through member-with-passkey. This piece is the
@@ -4956,7 +4967,7 @@ matrix:
       allowlist. Every inbound and outbound is a row on
       phone_events; nothing binds a member and no schema on profiles
       moves.
-    status: open · delivered
+    status: open · verified
     cites: [BP]
     ready_when: >
       A2P 10DLC cleared for the line, verified 2026-08-22; the round

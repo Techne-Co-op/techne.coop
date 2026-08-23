@@ -79,7 +79,7 @@ Generated from rdm-ledger.yaml. 167 items total.
 - **P-12** open · delivered -- One notice, one place
 - **S-01** open · Q3 -- Contribution posting paths
 - **S-02** open · Q3 -- The tally surface
-- **SMS-01** open · delivered -- The steward's phone line answered by Nou
+- **SMS-01** open · verified -- The steward's phone line answered by Nou
 - **SUB-01** open · verified -- Repository scaffold
 - **SUB-02** open · verified -- Governing emissions at root
 - **SUB-03** open · verified -- Provision database environment
