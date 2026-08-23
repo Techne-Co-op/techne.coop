@@ -4987,3 +4987,35 @@ matrix:
       dispatch and reply; poll mode is deployed on noesis and its
       unit stays up across restarts; no schema on profiles has moved
       and no binding table exists.
+
+  - address: SMS-02
+    title: Verified phone bindings to private Buzz channels
+    intent: >
+      The phone plan's second tier, designed before it is built: a
+      member proves in one ceremony that they hold a phone number and
+      that they hold their Nostr key, the proof becomes a binding row
+      in the CIS, and from then on that number's texts arrive in a
+      dedicated private Buzz channel seating exactly the member, the
+      agent, and the steward. SMS proposes; nothing over SMS disposes.
+      The CIS is the source of record and the relay is an
+      authentication factor, per the steward's direction of 2026-08-19
+      on issue #191.
+    status: drafted
+    cites: [SMS-01, BP]
+    ready_when: >
+      Design only; nothing runs. The build that follows waits on the
+      phone_bindings stop card (schema against the live CIS, a named
+      human) and on direction for the line to answer anyone beyond
+      the steward (issue #191, open questions 2 and 3).
+    deliverable: >
+      commons/build/sms-bindings/index.html, the design: the
+      verification ceremony, the phone_bindings sketch and its scoped
+      roles, the channel-per-binding routing rule, the six-concern
+      security posture, and the seams flagged as upstream Buzz
+      contributions rather than forks.
+    acceptance: >
+      The page stands on main marked a draft adopted by nobody; no
+      migration is numbered, no service is modified, no channel is
+      created, and the live CIS is untouched. The design answers the
+      steward's ask of 2026-08-23 in a form a builder can take up
+      without re-deriving it.

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>SMS-02: Verified Phone Bindings &middot; Build &middot; Techne</title>
+<meta name="description" content="A draft design for the second tier of the phone channel: binding a verified phone number to a member's Nostr key and routing that number's SMS into a dedicated private Buzz channel. Design only; nothing here is built, applied, or adopted.">
+<meta name="robots" content="noindex,nofollow">
+<script>
+ (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+ var m=s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+ document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+ :root{
+ --serif:'Libre Baskerville',Georgia,serif; --sans:Inter,'Helvetica Neue',Arial,sans-serif; --mono:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+ }
+ [data-mode="dark"]{
+ --inset:#08080A; --bg:#0F0F12; --surface:#16161B; --raised:#232329;
+ --line:#2A2A30; --rule:#3A3A42;
+ --blue:#6A8AC4; --blue-text:#97B5E8; --ember:#C4956A; --ember-text:#D4A57A;
+ --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+ --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+ }
+ [data-mode="light"]{
+ --inset:#EBE7DF; --bg:#F7F5F0; --surface:#FCFBF8; --raised:#FEFDFB;
+ --line:#D8D3C8; --rule:#9A958A;
+ --blue:#4A6FB0; --blue-text:#39588F; --ember:#8A6A4A; --ember-text:#6F5436;
+ --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+ --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+ }
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{background:var(--bg); color:var(--text); font:400 15px/1.7 var(--serif)}
+ .wrap{max-width:880px; margin:0 auto; padding:0 22px 60px}
+ a{color:var(--blue-text); text-decoration:none}
+ a:hover{text-decoration:underline}
+ em{color:var(--heading)}
+ .mono{font-family:var(--mono)}
+ :focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+
+ .crumb-bar{display:flex; justify-content:space-between; align-items:center; padding:14px 0 10px; border-bottom:1px solid var(--line); margin-bottom:34px}
+ .crumb-bar .bc{font:400 11.5px var(--mono); color:var(--muted)}
+ .crumb-bar .bc a{color:var(--ember-text)}
+
+ .mast .kicker{font:500 11px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase}
+ .mast h1{font:400 34px/1.2 var(--serif); color:var(--heading); margin:8px 0 10px}
+ .mast .dek{font:400 16.5px/1.65 var(--serif); max-width:64ch}
+ .statusline{display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 6px}
+ .chip{display:inline-flex; align-items:center; gap:6px; font:400 10.5px var(--mono); border:1px solid var(--line); border-radius:2px; padding:2px 8px; color:var(--muted); white-space:nowrap}
+ .chip::before{content:""; width:7px; height:7px; flex:none; background:var(--faint)}
+ .chip.info{color:var(--info); border-color:var(--info)} .chip.info::before{background:var(--info)}
+ .chip.warn{color:var(--warn); border-color:var(--warn)} .chip.warn::before{background:var(--warn)}
+ .citesline{font:400 11.5px/1.8 var(--mono); color:var(--muted); border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:9px 0; margin:18px 0 38px}
+ .citesline b{color:var(--ember-text); font-weight:500}
+
+ .sec{margin:0 0 40px}
+ .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:12px}
+ .sec-num{font:500 11px var(--mono); border-left:3px solid var(--ember); padding:2px 0 2px 9px; color:var(--ember); flex:none}
+ .sec-head h2{font:400 21px/1.3 var(--serif); color:var(--heading)}
+ .sec-head .sub{font:400 12px var(--mono); color:var(--muted); margin-left:auto; text-align:right}
+ .sec p{margin:0 0 14px; max-width:68ch}
+ .sec p:last-child{margin-bottom:0}
+ .sec ol, .sec ul{margin:0 0 14px 22px; max-width:66ch}
+ .sec li{margin:0 0 8px}
+
+ table{width:100%; border-collapse:collapse; font:400 12.5px/1.6 var(--sans); margin:0 0 16px}
+ th{font:600 10.5px var(--mono); text-transform:uppercase; letter-spacing:.05em; color:var(--muted); text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--surface)}
+ td{padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top}
+ td.mono{font:400 11.5px var(--mono); color:var(--ember-text); white-space:nowrap}
+ tr:hover td{background:var(--surface)}
+
+ pre{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; margin:0 0 16px; overflow-x:auto; font:400 11.5px/1.6 var(--mono); color:var(--text)}
+ code{font:400 12px var(--mono); color:var(--ember-text)}
+ pre code{color:var(--text)}
+
+ .box{background:var(--inset); border:1px solid var(--line); border-radius:3px; padding:13px 15px; margin:0 0 14px}
+ .box .bk{font:500 10.5px var(--mono); color:var(--ember-text); letter-spacing:.06em; text-transform:uppercase; display:block; margin-bottom:7px}
+ .box p{font-size:13.5px; max-width:66ch}
+ .box.decide{border-left:3px solid var(--ember)}
+ .box.limit{border-left:3px solid var(--warn)}
+
+ .foot{border-top:1px solid var(--line); margin-top:48px; padding-top:16px}
+ .foot .tail{font:400 11px/1.9 var(--mono); color:var(--faint)}
+ @media (max-width:700px){ .mast h1{font-size:27px} table{font-size:11.5px} }
+ @media (prefers-reduced-motion:reduce){ *{transition:none !important} }
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="crumb-bar">
+ <span class="bc"><a href="https://techne.coop/commons/">Commons</a> &middot; <a href="/commons/build/">build</a> &middot; design</span>
+</div>
+
+<div class="mast">
+ <div class="kicker">SMS-02 &middot; draft design &middot; the phone channel's second tier</div>
+ <h1>Verified Phone Bindings<br>to Private Buzz Channels</h1>
+ <p class="dek">SMS-01 put the co-op line in front of the agent for one number: the steward's, allowlisted by hand. This page designs the next tier: a member proves they hold a phone number, the proof binds that number to their Nostr key, and from then on their texts arrive in a dedicated private Buzz channel where the member, the agent, and the record can all see the same conversation. This page is a design. It builds nothing, applies nothing, and adopts nothing.</p>
+ <div class="statusline">
+ <span class="chip info">Design draft, drafted 2026-08-23 under Grant 003</span>
+ <span class="chip warn">Adopts nothing. The binding schema is a stop card and waits on a named human.</span>
+ </div>
+</div>
+
+<div class="citesline">
+ <b>anchors</b> &middot; <a href="https://github.com/Techne-Co-op/techne.coop/issues/191">issue #191</a>, the tiered phone plan and its 2026-08-19 security comments &middot; <a href="https://github.com/Techne-Co-op/techne.coop/pull/237">PR #237</a>, SMS-01 as shipped
+ <br><b>companions</b> &middot; <a href="/commons/authority-map/">the authority map</a> &middot; <span class="mono">services/quo-relay/</span>, the tier-one relay &middot; <span class="mono">commons/authority-map/0026_phone_events.sql</span>, the line's log
+ <br><b>sources read</b> &middot; the Buzz tree at commit 02f640b: <span class="mono">buzz-relay/src/handlers/{auth,ingest,req}.rs</span> &middot; <span class="mono">buzz-db/src/channel.rs</span> &middot; <span class="mono">buzz-sdk/src/nip_oa.rs</span> &middot; <span class="mono">buzz-acp/src/{lib,filter,queue}.rs</span> &middot; <span class="mono">docs/nips/NIP-OA.md</span>, <span class="mono">NIP-AA.md</span>
+</div>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;1</span><h2>The standing of this page</h2><span class="sub">read this before anything else</span></div>
+ <p><strong>Design draft. Nothing here runs.</strong> This page was drafted by the cooperative&rsquo;s agent on the steward&rsquo;s direction of 2026-08-23, staged on its own branch per the build discipline, and entered in the ledger at the address <span class="mono">SMS-02</span> with the drafted mark. No migration in this piece is numbered for application, no service is modified, and no channel is created. The one schema this design needs, a binding table in the CIS, was named a stop card in <a href="https://github.com/Techne-Co-op/techne.coop/issues/191">issue #191</a> and in the SMS-01 migration&rsquo;s own comments: schema against the live record needs a named human. This page respects that card by designing the table and stopping there.</p>
+ <p>The tier boundary also stands. SMS-01 shipped read-only and steward-only. This design widens <em>who</em> may converse, from one allowlisted number to any member with a verified binding, and <em>where</em> the conversation is visible, from a private poll log to a Buzz channel. It does not widen <em>what</em> the channel may do: no write act crosses from SMS at this tier, per the second-factor rule recorded in the issue&rsquo;s 2026-08-19 comments. SMS proposes; nothing over SMS disposes.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;2</span><h2>What exists, and what this adds</h2><span class="sub">the floor tier as built; the second tier as designed</span></div>
+ <p><strong>What exists.</strong> The tier-one relay at <span class="mono">services/quo-relay/</span> polls the Quo API for the co-op line, gates on a hand-kept E.164 allowlist, dispatches the steward&rsquo;s texts to the agent, replies through the messages API, and writes every branch of every exchange to <span class="mono">phone_events</span> under an INSERT-only role. Separately, the Buzz hive at <span class="mono">buzz.techne.coop</span> runs a NIP-29-shaped relay where the agent holds a Nostr key, answers an allowlist of members in channels, and publishes only by an explicit <span class="mono">buzz messages send</span>; the harness never auto-publishes a turn. Those two systems do not know about each other today.</p>
+ <p><strong>What this adds.</strong> Three things, each one section below: a <em>verification ceremony</em> (&sect;3) by which a member proves both halves of an identity claim, that they hold a phone and that they hold a Nostr key, in a single act; a <em>binding record</em> (&sect;4) in the CIS that makes the claim durable, auditable, and revocable; and a <em>routing rule</em> (&sect;5) that gives each binding a dedicated private Buzz channel, so an SMS from a bound number stops being a private exchange with a poll loop and becomes a message in a room the member can also open from Buzz.</p>
+ <div class="box decide"><span class="bk">the governing decision, restated from the record</span><p>The steward&rsquo;s direction of 2026-08-19 on issue #191 fixes the architecture: the CIS is the source of record for who may do what, and the Buzz relay is an authentication factor, never the authority on membership. Every design choice below derives authorization from CIS state at request time. The relay is consulted to verify signatures and to carry messages, nothing more.</p></div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;3</span><h2>The verification ceremony</h2><span class="sub">one act proves both keys</span></div>
+ <p>A binding is a claim with two halves: <em>this person receives at this number</em>, and <em>this person signs with this key</em>. The ceremony is built so a single act proves both, and so the proof is a pair of signed, logged artifacts rather than anyone&rsquo;s say-so.</p>
+ <ol>
+ <li><strong>Request, in Buzz.</strong> The member asks for a binding in a Buzz channel where the agent answers them, naming the number they want bound. The request is a kind-9 message signed by their Nostr key; the relay has already authenticated that key over NIP-42 at connection time. The request event id is retained. A DM to the agent cannot serve here: the harness drops non-owner DMs by design (<span class="mono">buzz-acp/src/lib.rs</span>, the DM hardening in <span class="mono">author_allowed</span>), because clients auto-tag every DM participant and an allowlist honored in DMs would become a transitive grant. The ceremony therefore lives in channels.</li>
+ <li><strong>Challenge, over the line.</strong> The relay service sends one SMS from the co-op number to the named number: a short random code, single-use, expiring in ten minutes, at most three sends per number per day. The send is a <span class="mono">phone_events</span> row like any other outbound. Only a hash of the code is stored.</li>
+ <li><strong>Response, back in Buzz.</strong> The member posts the code in the same Buzz thread, signed by the same key that made the request. This is the load-bearing step: possession of the phone is proven by having received the code, and control of the key is proven by the signature on the reply. Caller-ID never enters the proof; nothing about this ceremony trusts an SMS <em>from</em> the member, which is the field an attacker can forge.</li>
+ <li><strong>Record.</strong> The service verifies the code against its hash and writes the binding row (&sect;4) carrying the number, the member&rsquo;s pubkey, the challenge&rsquo;s <span class="mono">phone_events</span> id, and the Nostr event ids of the request and the response. The binding is the member&rsquo;s own act, twice signed, fully replayable from the two logs.</li>
+ </ol>
+ <p><strong>On attestation shape.</strong> The hive already carries one precedent for a signed identity claim: the NIP-OA owner attestation, where an owner signs <span class="mono">SHA256("nostr:agent-auth:" + agent_pubkey + ":" + conditions)</span> to vouch an agent&rsquo;s standing (<span class="mono">docs/nips/NIP-OA.md</span>; verification in <span class="mono">buzz-sdk/src/nip_oa.rs</span>). The construction is the right template, a domain-separated hash under a BIP-340 signature, but its conditions grammar admits only <span class="mono">kind=</span> and <span class="mono">created_at</span> clauses, so a phone claim cannot ride the existing tag; it would need a sibling attestation with its own domain separator, for instance <span class="mono">"techne:phone-binding:" + pubkey + ":" + e164 + ":" + timestamp</span>. Buzz also defines an ephemeral one-time identity-binding proof (kind 24243, <span class="mono">buzz-core/src/kind.rs</span>), the nearest existing primitive, and it is deliberately not stored. This design publishes <em>no</em> such attestation to the relay: an E.164 on a relay event is personal data leaving the CIS, and the steward&rsquo;s decision makes the CIS the authority anyway, so a relay-side attestation would be a second copy of the truth with a privacy cost and no consumer. If a portable attestation is ever wanted, it can be derived from the binding row and the two signed events without a new ceremony. The idea is parked, not adopted.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;4</span><h2>The binding record</h2><span class="sub">a sibling of phone_events; a stop card before it moves</span></div>
+ <p>The binding lives in the CIS as a table, <span class="mono">phone_bindings</span>, sibling to <span class="mono">phone_events</span> in the same bed. It is not a column on <span class="mono">profiles</span>: the SMS-01 migration recorded the reasons a phone is a sibling record rather than a profile field, and a binding additionally carries state (pending, verified, revoked) and evidence (event ids) that a column cannot. The deferred verified-phone column on <span class="mono">profiles</span>, if it ever lands, becomes a view over this table, not a second place the fact is kept.</p>
+ <pre><code>-- SKETCH ONLY. Not a numbered migration. The stop card from issue
+-- #191 stands: schema against the live CIS needs a named human, and
+-- this table is minted as commons/authority-map/00NN only when one
+-- takes it up. Anchor on adoption: recording and revoking a member's
+-- own channel binding is the member's act on their own record
+-- (Bylaws v2.1 Art. XV); the policy set below must carry that anchor.
+
+create table phone_bindings (
+  id                 uuid primary key default gen_random_uuid(),
+  member_pubkey      text not null check (member_pubkey ~ '^[0-9a-f]{64}$'),
+  peer_e164          text not null check (peer_e164 ~ '^\+[1-9][0-9]{7,14}$'),
+  status             text not null default 'pending'
+                     check (status in ('pending','verified','revoked')),
+  code_hash          text,                -- SHA-256 of the challenge; cleared on verify
+  challenge_event_id uuid references phone_events(id),  -- the outbound code SMS
+  request_event_id   text,                -- Nostr event id, kind 9, member-signed
+  response_event_id  text,                -- Nostr event id carrying the code back
+  buzz_channel_id    uuid,                -- the dedicated private channel, once created
+  requested_at       timestamptz not null default now(),
+  verified_at        timestamptz,
+  revoked_at         timestamptz,
+  revoke_reason      text                 -- 'sms_stop' | 'member_request' | 'steward' | 'expired'
+);
+
+-- One live binding per number and per key. Partial unique indexes so
+-- history rows (revoked) accumulate without collision.
+create unique index phone_bindings_live_e164
+  on phone_bindings (peer_e164) where status = 'verified';
+create unique index phone_bindings_live_pubkey
+  on phone_bindings (member_pubkey) where status = 'verified';</code></pre>
+ <p><strong>Roles.</strong> The relay keeps its INSERT-only hand on <span class="mono">phone_events</span> unchanged. Routing needs one new, equally narrow hand: a <span class="mono">phone_router</span> role with SELECT on <span class="mono">phone_bindings</span> where <span class="mono">status = 'verified'</span> and nothing else anywhere, so a leak of the router&rsquo;s key discloses who is bound but cannot forge a binding, revoke one, or read the message log. Writes to <span class="mono">phone_bindings</span> (create pending, verify, revoke) go through a third scoped role held only by the binding service. All three policies carry their bylaw anchors in the migration that mints them. Authorization is derived from this table at request time, per the steward&rsquo;s direction; no cached roster, no relay directory query on the routing path.</p>
+ <p><strong>Revocation.</strong> STOP over SMS from a bound number revokes the binding: <span class="mono">status = 'revoked'</span>, <span class="mono">revoke_reason = 'sms_stop'</span>, and one confirmation message back, which the carrier rules require. SMS-01 honors STOP silently today precisely because there was no binding to revoke and nothing to confirm; its ledger entry anticipated this upgrade. Revocation closes the Buzz channel&rsquo;s bridge (the channel itself remains as record), and re-binding after any revocation is a fresh ceremony. Unbinding needs no second factor at any tier: turning the channel off is never the dangerous direction. Binding and re-binding are the dangerous direction, and the delay-and-notice controls from the issue&rsquo;s 2026-08-19 comments apply when a number moves between members.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;5</span><h2>Routing: one binding, one private channel</h2><span class="sub">the SMS thread becomes a room</span></div>
+ <p>On verification, the agent creates one private Buzz channel for the binding: <span class="mono">buzz channels create --name sms-&lt;member&gt; --type stream --visibility private</span>, then <span class="mono">channels add-member</span> for exactly three keys: the bound member, the agent, and the owner-steward. The channel id is written onto the binding row. This works with no relay change, verified against the source rather than assumed: a channel is a relay-database row with enforced membership, messages are kind-9 events carrying an <span class="mono">h</span> tag naming the channel, the relay checks membership on every write (<span class="mono">buzz-relay/src/handlers/ingest.rs</span>) and on every read (<span class="mono">handlers/req.rs</span>), the creator of a channel becomes its owner, and on a private channel only an owner or admin may add members (<span class="mono">buzz-db/src/channel.rs</span>). The agent creates, so the agent holds the owner role and can seat exactly the three keys. Nobody else joins without an explicit elevated add, and every membership change is a relay event.</p>
+ <table>
+ <tr><th>leg</th><th>carrier</th><th>mechanism</th></tr>
+ <tr><td class="mono">phone &rarr; room</td><td>SMS in, Buzz out</td><td>The quo-relay router matches the inbound&rsquo;s <span class="mono">peer_e164</span> to a verified binding, logs to <span class="mono">phone_events</span>, and posts the text into the bound channel with <span class="mono">buzz messages send</span> under the agent&rsquo;s key, framed as bridged: <span class="mono">[SMS &middot; +1&hellip;7888 &middot; bound to &lt;member&gt;]</span>. The frame is provenance, not authority; a bridged message is data.</td></tr>
+ <tr><td class="mono">agent reply</td><td>both</td><td>The router dispatches the text to the agent exactly as SMS-01 does, sends the reply as SMS to the bound number, and posts the same reply into the channel, so the room and the phone hold one transcript. Delivery evidence is the API accept and the relay accept, never the fact that a turn ended.</td></tr>
+ <tr><td class="mono">room &rarr; phone</td><td>Buzz in, SMS out</td><td>The router watches the bound channel; a kind-9 message authored by the bound member&rsquo;s own key goes out as SMS to their bound number. Only the bound member&rsquo;s messages bridge outward, and only to their own number: the room can never be used to text a third party.</td></tr>
+ </table>
+ <p><strong>Unbound numbers stay silent.</strong> An inbound from a number with no verified binding follows the SMS-01 path exactly: logged, dropped, no reply, no confirmation that the number is or is not known. The allowlist file of tier one becomes the <span class="mono">phone_bindings</span> table of tier two; the steward&rsquo;s own number can be seeded as the first binding through the same ceremony rather than grandfathered, so the ceremony gets walked before any member touches it.</p>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;6</span><h2>What changes where</h2><span class="sub">the harness stays still; the relay service grows</span></div>
+ <p><strong>Nothing in buzz-acp changes for this tier.</strong> The harness&rsquo;s job, watching channels and running the agent&rsquo;s turns, is untouched: bridged SMS messages are posted by the agent&rsquo;s own key, and the harness does not respond to its own messages, so the bridge cannot recurse. The conversational loop runs in the quo-relay service, which already owns dispatch. What grows is <span class="mono">services/quo-relay/</span>: the allowlist gate becomes a binding lookup, a ceremony module handles challenge and verify, and a channel bridge (create, post, watch) wraps the <span class="mono">buzz</span> CLI the same way the estate already publishes turns by hand.</p>
+ <p>Three things were checked against the Buzz source rather than assumed, and each marks a seam where an upstream contribution, never a fork, would improve the design later:</p>
+ <ul>
+ <li><strong>Bridged identity.</strong> A bridged message is authored by the agent&rsquo;s key with a provenance frame, because the relay rejects any event whose author differs from the authenticated connection, with a single exception for NIP-17 gift wraps (<span class="mono">buzz-relay/src/handlers/ingest.rs</span>), and no harness or CLI path emits those. So if the member also speaks in the room from Buzz, the room shows two authors for one person. An upstream shape for external-bridge provenance, an SMS analogue of what NIP-OA does for agent standing, would let clients render the bridged half as the member. Contribution, not blocker.</li>
+ <li><strong>DM ceremonies.</strong> The harness&rsquo;s deliberate non-owner DM drop forces the ceremony into channels. If a private ceremony is ever wanted, the upstream ask is a scoped DM allow for a named ceremony flow, argued on the buzz-acp tracker, not patched locally.</li>
+ <li><strong>Turn-in-room.</strong> If the agent&rsquo;s turns should someday run <em>from</em> the bound room (harness-native, instead of relay-dispatched), the harness allowlist would need per-channel members, which today it applies globally in two places. Also upstream.</li>
+ </ul>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;7</span><h2>Security posture, six concerns</h2><span class="sub">the SMS-01 review pattern, applied to the new surface</span></div>
+ <table>
+ <tr><th>concern</th><th>posture</th></tr>
+ <tr><td class="mono">1 &middot; spoofing and spam</td><td>Caller-ID is never a credential; the ceremony proves reception, not origin. Per-number velocity caps on messages and on challenge sends, with the caps adopted parameters rather than constants in code. A burst from a bound number trips a hold, not a wider read.</td></tr>
+ <tr><td class="mono">2 &middot; SIM swap</td><td>Binding proves possession at binding time only. A swapped SIM inherits the read-and-converse tier and nothing above it, which bounds the loss. Re-verification on a cadence (an adopted parameter; ninety days proposed) and on any anomaly hold. Re-binding a number that already has a live binding carries the delay and out-of-band notice from issue #191&rsquo;s comments.</td></tr>
+ <tr><td class="mono">3 &middot; prompt injection</td><td>SMS text reaching the agent is untrusted input from an authenticated-but-low-assurance channel. It arrives inside a provenance frame with the tier constraints stated inline, as SMS-01&rsquo;s dispatch already does; it is never treated as an instruction carrying the member&rsquo;s authority, because this tier carries no authority to lend.</td></tr>
+ <tr><td class="mono">4 &middot; carrier compliance</td><td>STOP revokes the binding and sends the one required confirmation; HELP answers with the line&rsquo;s identity and contact. Both are logged like every other exchange. The Low Volume Standard tier caps throughput; nothing in this design broadcasts.</td></tr>
+ <tr><td class="mono">5 &middot; unknown numbers</td><td>Silent drop, unchanged from SMS-01. No reply, no acknowledgment, no oracle for whether a number is bound.</td></tr>
+ <tr><td class="mono">6 &middot; the tier boundary</td><td>Read and converse only. No write act originates from SMS or from the bound room at this tier; escalation requires a second factor that never travels over SMS, per the rule fixed in the issue&rsquo;s 2026-08-19 comments. The private channel is a window on the conversation, not a grant of standing.</td></tr>
+ </table>
+ <div class="box limit"><span class="bk">failure closes</span><p>If the binding lookup fails, if the CIS write fails, if the relay publish is not accepted, the message is not answered and the act does not happen. The SMS-01 discipline carries over unchanged: if it did not land in the log, it did not happen, and a turn that produced an answer nobody published said nothing.</p></div>
+</section>
+
+<section class="sec">
+ <div class="sec-head"><span class="sec-num">&sect;8</span><h2>Phasing: what ships, what waits</h2><span class="sub">drafted by the agent; the schema and the widening wait on people</span></div>
+ <p><strong>SMS-02, this piece, is the design.</strong> Its deliverable is this page and its ledger entry, nothing running. The build that follows it, call it SMS-03 when it is taken up, is gated on two human acts that no amount of code removes:</p>
+ <ol>
+ <li><strong>The stop card.</strong> Minting and applying the <span class="mono">phone_bindings</span> migration, with its role grants and anchored policies, is schema against the live CIS and belongs to a named human. The sketch in &sect;4 is written to be minted, not to be pasted.</li>
+ <li><strong>The widening.</strong> The line answering anyone beyond the steward is board or steward direction, still open as questions 2 and 3 on issue #191: which member classes, and whether any write act is worth the risk on day one. This design assumes the answers &ldquo;members with verified bindings&rdquo; and &ldquo;no,&rdquo; and both are elections, not defaults.</li>
+ </ol>
+ <p>Independent of both gates, two pieces of the build can be walked early at no risk: the ceremony can be rehearsed end to end with the steward&rsquo;s own number as the first binding, and the private-channel bridge can be proven in a test channel with no binding table at all, the binding faked in an env file the way tier one&rsquo;s allowlist already is. Everything beyond that waits.</p>
+ <p>Out of scope for this address entirely, recorded so no drift is possible: the passkey and WebAuthn store, Tier 2 acts and their one-time-link ceremony, multi-signature operations, voice in any form, and any broadcast use of the line. Each has its place in the issue&rsquo;s tier model; none is designed here.</p>
+</section>
+
+<div class="foot">
+ <p class="tail">SMS-02 &middot; a design draft, adopted by nobody &middot; Nou drafts; Todd decides; adoption is a human act &middot; RegenHub, LCA &middot; Boulder, Colorado &middot; 2026-08-23</p>
+</div>
+
+</div>
+  <div class="formation-foot"><span class="ff-mark">Called to order</span>RegenHub, LCA is called to order: the board is seated and the governing instruments are board-adopted, with member ratification anticipated. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</body>
+</html>
