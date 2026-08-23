@@ -54,12 +54,21 @@ QUO_ALLOWLIST=+13035059612
 QUO_POLL_INTERVAL_SEC=15
 QUO_WEBHOOK_SIGNING_KEY=<set only when webhook.py ships>
 CIS_URL=https://ujujwgopdwirebgcpekc.supabase.co
-CIS_SERVICE_ROLE_KEY=<from vault>
+CIS_PHONE_RELAY_KEY=<from ~/.config/secrets/nou-phone-relay.env.gpg>
 NOU_ACP_COMMAND=openclaw
 NOU_ACP_ARGS=acp
 ```
 
-`QUO_API_KEY`, `QUO_ALLOWLIST`, and `CIS_SERVICE_ROLE_KEY` never appear in
+`CIS_PHONE_RELAY_KEY` is a Supabase secret API key bound to the
+`phone_relay` Postgres role. That role has INSERT-only on `phone_events`
+and no other table privileges anywhere in the CIS; RLS on `phone_events`
+carries one policy (`phone_relay_insert`) that permits inserts and
+nothing else. A leak of this key lets an attacker append log rows to
+`phone_events`; it cannot read the log back, tamper with existing rows,
+or reach any other table. The service_role key is never held by the
+relay.
+
+`QUO_API_KEY`, `QUO_ALLOWLIST`, and `CIS_PHONE_RELAY_KEY` never appear in
 logs. `QUO_ALLOWLIST` is a comma-separated E.164 list; the poll loop and
 the webhook both compare exact strings, no normalisation.
 

@@ -26,7 +26,7 @@ def cfg():
         line_e164="+19702927888",
         allowlist=frozenset({"+13035059612"}),
         cis_url="https://cis.test",
-        cis_service_role_key="srv",
+        cis_phone_relay_key="sb_secret_test",
     )
 
 

@@ -39,14 +39,14 @@ class Config:
     line_e164: str
     allowlist: frozenset[str]
     cis_url: str
-    cis_service_role_key: str
+    cis_phone_relay_key: str
     nou_acp_command: str = "openclaw"
     nou_acp_args: tuple[str, ...] = ("acp",)
 
     @classmethod
     def from_env(cls) -> "Config":
         required = ["QUO_API_KEY", "QUO_PHONE_NUMBER_ID", "QUO_LINE_E164",
-                    "QUO_ALLOWLIST", "CIS_URL", "CIS_SERVICE_ROLE_KEY"]
+                    "QUO_ALLOWLIST", "CIS_URL", "CIS_PHONE_RELAY_KEY"]
         missing = [k for k in required if not os.environ.get(k)]
         if missing:
             raise RuntimeError(f"missing env: {', '.join(missing)}")
@@ -58,7 +58,7 @@ class Config:
                 x.strip() for x in os.environ["QUO_ALLOWLIST"].split(",") if x.strip()
             ),
             cis_url=os.environ["CIS_URL"],
-            cis_service_role_key=os.environ["CIS_SERVICE_ROLE_KEY"],
+            cis_phone_relay_key=os.environ["CIS_PHONE_RELAY_KEY"],
             nou_acp_command=os.environ.get("NOU_ACP_COMMAND", "openclaw"),
             nou_acp_args=tuple(os.environ.get("NOU_ACP_ARGS", "acp").split()),
         )
@@ -100,8 +100,8 @@ def log_event(cfg: Config, *, direction: str, peer: str, content: str,
         "payload": payload or {},
     }
     headers = {
-        "apikey": cfg.cis_service_role_key,
-        "Authorization": f"Bearer {cfg.cis_service_role_key}",
+        "apikey": cfg.cis_phone_relay_key,
+        "Authorization": f"Bearer {cfg.cis_phone_relay_key}",
         "Content-Type": "application/json",
         "Prefer": "return=minimal",
     }
