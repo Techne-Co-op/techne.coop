@@ -5019,3 +5019,39 @@ matrix:
       created, and the live CIS is untouched. The design answers the
       steward's ask of 2026-08-23 in a form a builder can take up
       without re-deriving it.
+
+  - address: SMS-03
+    title: The binding ceremony built and the line widened by proof
+    intent: >
+      The build the SMS-02 design gated on human acts, taken up the
+      same night the design merged: the steward lifted the stop card
+      and directed the build (DM, 2026-08-23 04:07 UTC). The
+      phone_bindings table is minted with its two scoped roles, the
+      quo-relay grows the ceremony and the channel bridge, and a
+      verified binding admits a number the way the hand-kept
+      allowlist did. SMS still proposes and never disposes; the
+      tier boundary from the design carries unchanged.
+    status: open · come
+    cites: [SMS-02, SMS-01, BP]
+    ready_when: >
+      The stop card lifted by the steward's named authorization of
+      2026-08-23; the widening bounded to bindings whose ceremony
+      the steward can audit end to end in phone_events and the
+      relay record.
+    deliverable: >
+      commons/authority-map/0028_phone_bindings.sql minting the
+      table, the phone_router and phone_binder roles, and their
+      anchored policies; services/quo-relay/bindings.py, the
+      ceremony; services/quo-relay/bridge.py, the buzz CLI hand;
+      the tier-two wiring in relay.py and poll.py behind optional
+      env, absent which the service runs pure tier one; eleven new
+      unit tests alongside the seven that stand.
+    acceptance: >
+      The steward walks the ceremony from Buzz with their own
+      number as the first binding: !bind sends a code over the
+      line, !verify from the same key completes the binding, the
+      private room opens seating member, agent, and steward, an
+      SMS from the bound number lands in the room and is answered
+      on both legs, a room message from the bound member goes out
+      as SMS, and STOP revokes with one confirmation. Every leg
+      visible in phone_events.
