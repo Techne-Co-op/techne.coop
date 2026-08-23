@@ -306,6 +306,13 @@ jobs:
         # audit reported clean, so the teeth arrive with the third
         # check as well as the first two. Scope per VS v2 §9.
         run: python3 scripts/almanac_audit.py
+      - name: the walk's cards answer to the run-book (X-28)
+        # Two surfaces carry the same fifty-eight cards: the public
+        # run-book, which is authored, and the signed-in walk, which
+        # renders cards.json generated from it. A hand-kept second
+        # copy is the drift the almanac audit above exists for; this
+        # refuses a stale generated one.
+        run: python3 scripts/verification_cards.py --check
 
   gate-rehearsal:
     # G-B, G-G · the mechanical half of the Gate Book: every Belong
