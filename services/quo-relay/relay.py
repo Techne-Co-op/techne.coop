@@ -40,6 +40,17 @@ class Config:
     allowlist: frozenset[str]
     cis_url: str
     cis_phone_relay_key: str
+    # SMS-03 tier two. All optional: absent, the service runs pure
+    # tier one and touches neither phone_bindings nor the Buzz relay.
+    cis_phone_router_key: str = ""
+    cis_phone_binder_key: str = ""
+    ceremony_channel_id: str = ""
+    owner_pubkey: str = ""
+    agent_pubkey: str = ""
+
+    @property
+    def tier2(self) -> bool:
+        return bool(self.cis_phone_router_key)
 
     @classmethod
     def from_env(cls) -> "Config":
@@ -57,6 +68,11 @@ class Config:
             ),
             cis_url=os.environ["CIS_URL"],
             cis_phone_relay_key=os.environ["CIS_PHONE_RELAY_KEY"],
+            cis_phone_router_key=os.environ.get("CIS_PHONE_ROUTER_KEY", ""),
+            cis_phone_binder_key=os.environ.get("CIS_PHONE_BINDER_KEY", ""),
+            ceremony_channel_id=os.environ.get("BUZZ_CEREMONY_CHANNEL_ID", ""),
+            owner_pubkey=os.environ.get("BUZZ_OWNER_PUBKEY", ""),
+            agent_pubkey=os.environ.get("BUZZ_AGENT_PUBKEY", ""),
         )
 
 
@@ -172,11 +188,18 @@ def send_reply(cfg: Config, peer: str, content: str) -> dict:
 
 # --- the whole turn --------------------------------------------------------
 
-def handle_inbound(cfg: Config, msg: InboundMessage) -> None:
+def handle_inbound(cfg: Config, msg: InboundMessage,
+                   router=None, binder=None, bridge=None) -> None:
     """One inbound message, start to finish. Never raises to the caller.
 
     Every branch writes at least one phone_events row so a walker can
     audit what the service did with each message.
+
+    Tier two (SMS-03): when router/binder/bridge are supplied and the
+    peer holds a verified binding, the exchange is mirrored into the
+    binding's private Buzz channel and STOP revokes the binding with
+    the one confirmation the carrier rules require. Unbound peers fall
+    through to the tier-one allowlist path unchanged.
     """
     peer = msg.peer_e164
 
@@ -188,21 +211,56 @@ def handle_inbound(cfg: Config, msg: InboundMessage) -> None:
                      status="received", payload=msg.raw):
         return
 
-    # Allowlist gate. Not on the list: log the drop, do not reply, do not
-    # dispatch. Silence to unknown numbers is a feature, not a defect.
-    if peer not in cfg.allowlist:
+    binding = None
+    if router is not None:
+        try:
+            binding = router.lookup_verified_by_e164(peer)
+        except Exception as e:
+            # Fail closed on the widening: a router outage narrows the
+            # service to tier one, never widens it.
+            log.error("binding lookup failed, tier-one path only: %s", e)
+
+    # Gate. A verified binding admits; otherwise the tier-one allowlist
+    # decides. Unknown numbers: log the drop, no reply, no oracle.
+    if binding is None and peer not in cfg.allowlist:
         log_event(cfg, direction="in", peer=peer, content="",
                   status="ignored_not_allowlisted",
                   conversation_id=msg.conversation_id)
         return
 
-    # STOP: skip dispatch, do not reply. STOP is honoured silently in this
-    # tier because there is no binding to revoke; a courteous confirmation
-    # lands when Phase 1 proper adds bindings.
+    # STOP. Bound peer: revoke the binding and send the one required
+    # confirmation (design §4). Tier-one peer: honoured silently, as
+    # SMS-01 shipped it, because there is no binding to revoke.
     if msg.text.strip().lower() in STOP_TOKENS:
+        if binding is not None and binder is not None:
+            try:
+                binder.revoke(binding["id"], "sms_stop")
+                api_resp = send_reply(
+                    cfg, peer, "Unsubscribed. Your Techne binding is revoked; "
+                    "no further messages. Re-bind any time from Buzz.")
+                log_event(cfg, direction="out", peer=peer,
+                          content="stop_confirmation",
+                          quo_message_id=api_resp.get("id"),
+                          conversation_id=api_resp.get("conversationId"),
+                          status="stop_confirmed")
+                if bridge is not None and binding.get("buzz_channel_id"):
+                    bridge.post(binding["buzz_channel_id"],
+                                "[bridge] STOP received; binding revoked.")
+            except Exception as e:
+                log.exception("stop revocation failed")
+                log_event(cfg, direction="in", peer=peer, content=msg.text,
+                          status="stop_revoke_failed", error=str(e)[:400],
+                          conversation_id=msg.conversation_id)
+            return
         log_event(cfg, direction="in", peer=peer, content=msg.text,
                   status="stopped", conversation_id=msg.conversation_id)
         return
+
+    # Mirror the inbound into the bound room before dispatch, framed as
+    # bridged (design §5): provenance, not authority.
+    channel = binding.get("buzz_channel_id") if binding else None
+    if bridge is not None and channel:
+        bridge.post(channel, f"[SMS · {peer}] {msg.text}")
 
     # Dispatch.
     try:
@@ -229,3 +287,9 @@ def handle_inbound(cfg: Config, msg: InboundMessage) -> None:
               conversation_id=api_resp.get("conversationId"),
               status=api_resp.get("status"),
               payload=api_resp)
+
+    # Mirror the reply into the room, so phone and room hold one
+    # transcript. Logged to phone_events already; the room copy is a
+    # convenience view and its failure does not undo the send.
+    if bridge is not None and channel:
+        bridge.post(channel, reply)

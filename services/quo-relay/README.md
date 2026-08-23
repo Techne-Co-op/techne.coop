@@ -57,7 +57,28 @@ CIS_URL=https://ujujwgopdwirebgcpekc.supabase.co
 CIS_PHONE_RELAY_KEY=<from ~/.config/secrets/nou-phone-relay.env.gpg>
 NOU_ACP_COMMAND=openclaw
 NOU_ACP_ARGS=acp
+
+# --- tier two (SMS-03), all optional; absent = pure tier one ---
+CIS_PHONE_ROUTER_KEY=<phone_router scoped key; SELECT on verified bindings only>
+CIS_PHONE_BINDER_KEY=<phone_binder scoped key; ceremony writes>
+BUZZ_CEREMONY_CHANNEL_ID=<channel where !bind / !verify are answered>
+BUZZ_OWNER_PUBKEY=<steward hex pubkey, seated in every binding room>
+BUZZ_AGENT_PUBKEY=<agent hex pubkey, filtered from ceremony echo>
+BUZZ_PRIVATE_KEY=<agent Nostr key for the buzz CLI>
+BUZZ_AUTH_TAG=<NIP-OA owner attestation for the buzz CLI>
+BUZZ_RELAY_URL=wss://buzz.techne.coop
+BUZZ_CLI=/home/openclaw/bin/buzz
 ```
+
+Tier two adds the SMS-02 design's ceremony and routing (see
+/commons/build/sms-bindings/): `!bind +1XXXXXXXXXX` in the ceremony
+channel sends a one-time code over the line; `!verify <code>` from the
+same Nostr key completes the binding, and the service creates a private
+channel seating the member, the agent, and the steward. A verified
+binding admits a number the same way the tier-one allowlist does; STOP
+from a bound number revokes the binding and sends the one confirmation
+the carrier rules require. A `phone_router` outage narrows the service
+to tier one; it never widens it.
 
 `CIS_PHONE_RELAY_KEY` is a Supabase secret API key bound to the
 `phone_relay` Postgres role. That role has INSERT-only on `phone_events`
