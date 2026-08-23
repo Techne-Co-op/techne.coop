@@ -40,8 +40,6 @@ class Config:
     allowlist: frozenset[str]
     cis_url: str
     cis_phone_relay_key: str
-    nou_acp_command: str = "openclaw"
-    nou_acp_args: tuple[str, ...] = ("acp",)
 
     @classmethod
     def from_env(cls) -> "Config":
@@ -59,8 +57,6 @@ class Config:
             ),
             cis_url=os.environ["CIS_URL"],
             cis_phone_relay_key=os.environ["CIS_PHONE_RELAY_KEY"],
-            nou_acp_command=os.environ.get("NOU_ACP_COMMAND", "openclaw"),
-            nou_acp_args=tuple(os.environ.get("NOU_ACP_ARGS", "acp").split()),
         )
 
 
@@ -121,10 +117,9 @@ def dispatch_to_nou(peer: str, text: str) -> str:
     """Hand the inbound to Nou and return the reply.
 
     Placeholder shape for the first PR: shells out to the openclaw CLI
-    with a one-shot prompt that carries the sender and the message.
-    Conversation history is not threaded in this PR; each inbound is a
-    fresh call. When the ACP bridge integration lands, this function is
-    the one seam that changes.
+    with a one-shot agent turn. Conversation history is not threaded
+    in this PR; each inbound is a fresh call. When the ACP bridge
+    integration lands, this function is the one seam that changes.
 
     The prompt is deliberately terse and includes the tier constraints
     inline. Nou is expected to know its identity and voice from core
@@ -137,9 +132,12 @@ def dispatch_to_nou(peer: str, text: str) -> str:
         "detail, or an unpublished treasury figure. If the ask needs a "
         "write, say so and stop."
     )
+    cmd = [os.environ.get("NOU_ACP_COMMAND", "openclaw"),
+           "agent", "--agent", os.environ.get("NOU_AGENT_ID", "main"),
+           "-m", prompt]
     result = subprocess.run(
-        [os.environ.get("NOU_ACP_COMMAND", "openclaw"), "--prompt", prompt],
-        capture_output=True, text=True, timeout=60,
+        cmd, capture_output=True, text=True,
+        timeout=int(os.environ.get("NOU_DISPATCH_TIMEOUT_SEC", "180")),
     )
     if result.returncode != 0:
         raise RuntimeError(f"nou dispatch failed: {result.stderr[:400]}")
