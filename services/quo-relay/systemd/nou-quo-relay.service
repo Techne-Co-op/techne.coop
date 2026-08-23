@@ -1,0 +1,25 @@
+[Unit]
+Description=Nou Quo relay (SMS-01, poll mode)
+Documentation=https://github.com/Techne-Co-op/techne.coop/issues/191
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/default/nou-quo-relay
+WorkingDirectory=%h/.openclaw/workspace/techne.coop/services/quo-relay
+ExecStart=/usr/bin/python3 poll.py
+Restart=on-failure
+RestartSec=10s
+# StateDirectory creates and owns /var/lib/nou-quo-relay for the cursor file.
+StateDirectory=nou-quo-relay
+StateDirectoryMode=0700
+# No new privileges, no shell.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=read-only
+ProtectSystem=strict
+ReadWritePaths=/var/lib/nou-quo-relay
+
+[Install]
+WantedBy=default.target

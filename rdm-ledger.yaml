@@ -4944,3 +4944,35 @@ matrix:
       No score is imported and none is computed; no relation above mark
       4 is bound to encumbered capital; the fold reads chain events
       rather than an indexer's current-state rows.
+
+  - address: SMS-01
+    title: The steward's phone line answered by Nou
+    intent: >
+      The plan at issue #191 lays out the phone channel in tiers,
+      steward-only through member-with-passkey. This piece is the
+      floor tier: the co-op number answered by Nou, from the
+      steward's number only, read-only, over SMS. The Buzz seat's
+      owner-only allowlist is the analogue; the E.164 list is the
+      allowlist. Every inbound and outbound is a row on
+      phone_events; nothing binds a member and no schema on profiles
+      moves.
+    status: open · delivered
+    cites: [BP]
+    ready_when: >
+      A2P 10DLC cleared for the line, verified 2026-08-22; the round
+      trip proved end to end from the steward's number the same day.
+    deliverable: >
+      services/quo-relay/, a poll-mode Python service with allowlist
+      gate, Nou dispatch, reply through the Quo API, and event
+      logging to phone_events; migration
+      commons/authority-map/0026_phone_events.sql for the sibling
+      table; a webhook receiver alongside the poll for the follow-up
+      merge that turns on Cloudflare fronting; systemd user unit for
+      noesis; deploy and rollback notes in the service README.
+    acceptance: >
+      Steward texts the co-op line and receives Nou's reply within a
+      minute; a non-allowlisted sender receives nothing and lands as
+      an ignored row in phone_events; STOP from the steward skips
+      dispatch and reply; poll mode is deployed on noesis and its
+      unit stays up across restarts; no schema on profiles has moved
+      and no binding table exists.
