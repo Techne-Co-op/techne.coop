@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Where the cooperative's record stands toward systems beyond it: two rings, one record, the rule that decides what crosses, and what any of it would mean for a member.">
+<title>Federation &middot; Techne</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem('techne-mode');
+      if (!m) m = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-mode', m);
+    } catch(e) {}
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #fff;
+  --blue: var(--info);
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
+  --info: #6A8AC4; --info-dim: rgba(106,138,196,0.12);
+  --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
+  --info: #4A6FB0; --info-dim: rgba(74,111,176,0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+body {
+  background: var(--bg); color: var(--text); font-family: var(--serif);
+  font-size: 16px; line-height: 1.65; min-height: 100vh; display: flex; flex-direction: column;
+}
+/* the topbar, the map, and the mode toggle are the shell's (U-01) */
+
+main { flex: 1; width: 100%; max-width: 70rem; margin-inline: auto; padding-block: clamp(var(--s5), 3.5vw, var(--s7)); padding-inline: clamp(var(--s4), 3vw, var(--s6)); }
+h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
+.section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
+.lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; max-width: 68ch; }
+
+.statusline { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s6); }
+.chip {
+  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.04em;
+  padding: 3px 9px; border: 1px solid var(--line); color: var(--muted);
+}
+.chip.info { background: var(--info-dim); color: var(--info); border-color: var(--info); }
+.chip.warn { background: var(--warn-dim); color: var(--warn); border-color: var(--warn); }
+
+.section-head {
+  font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--faint); margin: var(--s7) 0 var(--s4);
+  padding-bottom: var(--s2); border-bottom: 1px solid var(--line);
+}
+.section-head .num { color: var(--ember-text); margin-right: var(--s2); }
+
+p.body { max-width: 68ch; margin-bottom: var(--s4); font-size: 0.95rem; }
+p.body b, p.body strong { color: var(--heading); }
+a { color: var(--info); }
+
+.mono { font-family: var(--mono); font-size: 0.85em; }
+
+.ring {
+  border: 1px solid var(--line); background: var(--surface);
+  padding: var(--s5); margin-bottom: var(--s4);
+}
+.ring h3 { font-size: 1rem; color: var(--heading); margin-bottom: var(--s2); font-weight: 700; }
+.ring .k {
+  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--faint); display: block; margin-bottom: var(--s2);
+}
+.ring p { font-size: 0.9rem; color: var(--muted); }
+
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: var(--s4); margin-bottom: var(--s5); }
+
+.horizon {
+  border: 1px solid var(--line); border-left: 3px solid var(--ember);
+  background: var(--surface); padding: var(--s5); margin-bottom: var(--s4);
+}
+.horizon .h-num {
+  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ember-text); display: block; margin-bottom: var(--s2);
+}
+.horizon h3 { font-size: 1.02rem; color: var(--heading); margin-bottom: var(--s3); font-weight: 700; }
+.horizon p { font-size: 0.9rem; color: var(--muted); margin-bottom: var(--s3); max-width: 68ch; }
+.horizon p:last-child { margin-bottom: 0; }
+.horizon .proves { color: var(--text); }
+
+.col { border: 1px solid var(--line); background: var(--surface); padding: var(--s5); }
+.col.holds { border-left: 3px solid var(--ok); }
+.col.later { border-left: 3px solid var(--info); }
+.col h3 {
+  font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--faint); margin-bottom: var(--s3); font-weight: 400;
+}
+.col ul { list-style: none; }
+.col li {
+  font-size: 0.88rem; color: var(--muted); padding: var(--s2) 0;
+  border-bottom: 1px solid var(--line);
+}
+.col li:last-child { border-bottom: none; }
+.col li b { color: var(--heading); font-weight: 700; }
+
+.bounds { border: 1px solid var(--line); border-left: 3px solid var(--warn); background: var(--inset); padding: var(--s5); margin-bottom: var(--s5); }
+.bounds dt { font-family: var(--serif); font-weight: 700; font-size: 0.95rem; color: var(--heading); margin-top: var(--s4); }
+.bounds dt:first-of-type { margin-top: 0; }
+.bounds dd { font-size: 0.88rem; line-height: 1.7; color: var(--muted); margin-top: var(--s1); max-width: 68ch; }
+
+.citesline {
+  font-family: var(--mono); font-size: 0.7rem; color: var(--faint);
+  border-top: 1px solid var(--line); padding-top: var(--s4); margin-top: var(--s6); line-height: 1.9;
+}
+.citesline b { color: var(--muted); }
+
+footer {
+  border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
+  font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center;
+}
+footer a { color: var(--faint); }
+
+@media (max-width: 640px) {
+  h1 { font-size: 1.35rem; }
+  .ring, .horizon, .col, .bounds { padding: var(--s4); }
+}
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+  </style>
+<script src="/assets/error-boundary.js"></script>
+<script src="/assets/shell-gate.js"></script>
+<link rel="stylesheet" href="/assets/shell.css">
+<script src="/assets/shell.js" defer></script>
+</head>
+<body>
+<!-- generated:shell-frame -- written by scripts/shell_frame.py; do not edit by hand -->
+<header class="cis-topbar">
+  <a class="cis-brand" href="/intranet/">Techne<span class="cis-brand-suffix"> &middot; intranet</span></a>
+  <div class="cis-topbar-right">
+    <button type="button" class="cis-menu" id="cis-menu-btn" aria-expanded="false" aria-controls="cis-map" aria-label="show the intranet map">Menu</button>
+    <button type="button" class="cis-bell" aria-expanded="false" aria-controls="cis-notices" aria-label="notices addressed to you">Notices</button>
+    <span class="cis-chip" id="cis-member-chip">not signed in</span>
+    <button type="button" class="cis-mode" aria-label="toggle light and dark mode">&#9689;</button>
+  </div>
+</header>
+<div class="cis-body">
+<nav class="cis-side" id="cis-map" aria-label="intranet">
+  <a href="/intranet/" data-tint="gold"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Overview</a>
+  <div class="cis-group">Belong</div>
+  <a href="/commons/agreements/" data-tint="amber"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Agreements</a>
+  <a href="/commons/directory/" data-tint="amber"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Directory</a>
+  <div class="cis-group">Gather</div>
+  <a href="/commons/gatherings/" data-tint="coral"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Gatherings</a>
+  <div class="cis-group">Find one another</div>
+  <a href="/commons/opportunities/" data-tint="rose"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Opportunities</a>
+  <a href="/intranet/programs/" data-tint="rose"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>Programs</a>
+  <div class="cis-group">See your share</div>
+  <a href="/intranet/share/" data-tint="violet"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>Your share</a>
+  <div class="cis-group">Treasury</div>
+  <a href="/intranet/treasury/" data-tint="violet"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>The Desk</a>
+  <div class="cis-group">Common agency</div>
+  <a href="/intranet/direct/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>Direction</a>
+  <div class="cis-group">The record</div>
+  <a href="/intranet/record/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="M8 7h8"/><path d="M8 11h6"/></svg>The record</a>
+  <a href="/intranet/legal/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>Legal</a>
+  <a href="/intranet/federation/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>Federation</a>
+  <a href="/commons/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>The Commonplace Book</a>
+  <a href="/intranet/verification/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>The walk</a>
+  <a href="/commons/build/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg>The Almanac</a>
+  <a class="cis-out cis-home" href="/">&#8592; techne.coop</a>
+  <div class="cis-side-you">signed in</div>
+</nav>
+<div class="cis-main">
+<!-- /generated:shell-frame -->
+
+<main>
+  <div id="content">
+    <h1>Federation</h1>
+    <div class="section-rule"></div>
+    <p class="lead">Where this record stands toward systems beyond it, and what that would mean for you. The cooperative keeps one record. This page states how that record is meant to travel: which ring it lives in, which ring the public reads, what decides the crossing, and in what order any of it would arrive. It is a strategy, not an instrument. Nothing on it is adopted, most of it is not built, and nothing on it changes your account today.</p>
+
+    <div class="statusline">
+      <span class="chip info">Strategy draft &middot; ledger address X-29</span>
+      <span class="chip warn">Adopts nothing. Nothing here is in force.</span>
+    </div>
+
+    <div class="section-head"><span class="num">&sect;1</span>The standing of this page</div>
+    <p class="body"><strong>Draft. Nothing here governs.</strong> It was drafted by the cooperative's agent under the standing drafting grant recorded at <a href="/commons/agency/grants/">the grant register</a>, staged on its own branch under the build discipline, and entered in the ledger at the address <span class="mono">X-29</span> with the drafted mark. The merge that publishes it adopts a draft into the estate. It puts no strategy in force, commits the cooperative to no protocol, and creates no relationship with anybody.</p>
+    <p class="body">It is written on the intranet rather than only in the commons because the questions underneath it are a member's questions: what leaves, who can read it, and whether the identity you sign in with is yours or the cooperative's. <a href="/commons/#fed-h">The posture note on the Commonplace</a> states the same orientation to a public reader. This page states the strategy to you, and adds the part that page has no reason to carry: what changes for the person reading it, and what does not.</p>
+    <p class="body">Where this page and an adopted instrument differ, the instrument is right and this page is the defect to fix.</p>
+
+    <div class="section-head"><span class="num">&sect;2</span>Two rings, one record</div>
+    <p class="body">The cooperative's position, arrived at from its own record rather than from anyone's platform: <strong>the record rides signed events, and it stands in two rings with a written rule between them.</strong> An entry is written once, carries its provenance, and is never edited, which is what lets it travel without losing its authority.</p>
+
+    <div class="pair">
+      <div class="ring">
+        <span class="k">the inner ring &middot; operational</span>
+        <h3>A relay the cooperative operates</h3>
+        <p>Where the cooperative works: coordination, approvals, agent identity, the day to day. Keys speak here, and a named human attests to every key that is not a person's own. This ring runs on nostr today, and the full record lives behind it.</p>
+      </div>
+      <div class="ring">
+        <span class="k">the outer ring &middot; public</span>
+        <h3>A commons on a portable-identity protocol</h3>
+        <p>What the public may read and build on. Today the outer ring is this web estate, the pages themselves. The intended shape is a public commons of typed, addressable records under published vocabularies, on the AT Protocol. That candidate is named on the record and it is not adopted.</p>
+      </div>
+    </div>
+
+    <p class="body"><strong>What crosses is decided by rule, not by judgment on the day.</strong> <a href="/commons/governance/egress/">The Egress Doctrine</a> is that rule: whose the record is, whose the public digest is, and a written table over rights class and content class deciding which subset departs, at what grain, through which named door, with corrections travelling outward through the same door. It is drafted and it binds nothing until a person with standing adopts it.</p>
+
+    <p class="body"><strong>Two consequences the cooperative takes as position rather than preference.</strong> First, do not plan a single-protocol future: an operational ring and a public commons want different properties, and one substrate serving both serves neither well. Second, do not plan a wire-level bridge between the two as a prerequisite for anything. The rings join at the organizational layer, in shared vocabulary and shared governance, not at the transport. The same division of protocol labor is visible in other bodies of work of this kind, arrived at independently and without coordination, which is the better argument for it: a reading two parties reach separately is more likely a property of the problem than a house preference.</p>
+
+    <div class="section-head"><span class="num">&sect;3</span>The four horizons</div>
+    <p class="body">Sequenced by what unlocks what, not by ambition. Each is stated as work that could be taken up, and none of it has been. Every one of them ends at a decision that is not the agent's.</p>
+
+    <div class="horizon">
+      <span class="h-num">horizon 1</span>
+      <h3>Prove the seam the inner ring already has</h3>
+      <p>The cooperative already runs a relay where agents hold keys and a named human answers for each one. Peer organizations of this kind run the same shape, under the same public attestation mechanism. Seating an attested agent from another body in one channel, read-only, bounded, and revocable by one word, is therefore a configuration act rather than an engineering project.</p>
+      <p>It would publish nothing outward. The point is the protocol path, not the data.</p>
+      <p class="proves"><b>What it would prove:</b> that inner-ring interoperation costs a configuration change, and that the trust anchor is a person's attestation rather than a platform's permission. It is a governance act on both sides, a named human's to authorize. No such seat exists today.</p>
+    </div>
+
+    <div class="horizon">
+      <span class="h-num">horizon 2</span>
+      <h3>Make the vocabularies machine-readable, and map rather than merge</h3>
+      <p>The register's vocabulary is already a versioned artifact, held in agreement with its governing page in both directions by the validator, so a drifted export is a failed check rather than a quiet lie. That is the pattern, and it is the half of federation that is cheapest to do early.</p>
+      <p>The deliverable across a boundary is <b>a mapping, not a merger</b>: the ability to say that this term here means that term there, at this grain, with these losses. Neither body adopts the other's language.</p>
+      <p class="proves"><b>What it would prove:</b> that two bodies can interoperate without either surrendering its own words, which is the political question underneath the technical one. This is the least glamorous horizon and the highest leverage, because federation happens at the vocabulary layer first.</p>
+    </div>
+
+    <div class="horizon">
+      <span class="h-num">horizon 3</span>
+      <h3>State egress, then stand up the outer commons</h3>
+      <p>The Egress Doctrine is adopted first, or the outer commons is built without a rule for what may enter it. A record without an egress rule leaks by accident and hoards by default, usually both at once. Adoption is a person's act and the doctrine has not had it.</p>
+      <p>Then the outer commons carries typed records under published vocabularies: solicitations and the answers to them, offers, claims, practice. Inner records stay inner. The outer record is a projection of the inner one and never the source of truth.</p>
+      <p><b>An honest constraint.</b> Operating a personal data server is a standing availability and identity commitment, not a weekend. It should not be taken on before there is traffic that needs it, and the vocabularies can be published and the mapping proven long before any such thing is stood up.</p>
+      <p class="proves"><b>What it would prove:</b> that a federation can be public-facing without being extractive, because what crosses is governed by a written rule rather than by whatever an interface happens to expose.</p>
+    </div>
+
+    <div class="horizon">
+      <span class="h-num">horizon 4</span>
+      <h3>Portable member identity</h3>
+      <p>The end state the shape implies, and the reason for the rest of it: <b>a person carries their own identity and their own record of practice across bodies that federate</b>, rather than holding a separate account in each. Decentralized identifiers with roles derived from signed membership claims on the outer side; owner-attested keys on the inner side; the person's history following the person.</p>
+      <p>An identity that can leave with the member sits closer to open and voluntary membership than any account table the cooperative would build for itself, which is the cooperative argument for it and not merely the technical one.</p>
+      <p class="proves"><b>Standing:</b> none of this is built, none of it is decided, and the account you sign in with today is the cooperative's. Saying otherwise would be a promise, and this page does not make one.</p>
+    </div>
+
+    <div class="section-head"><span class="num">&sect;4</span>What it means for you</div>
+    <p class="body">The reason this page stands on the intranet rather than only in the commons. Most of what is above is unbuilt, so the honest account of what changes for a member is short, and the honest account of what does not is longer.</p>
+
+    <div class="pair">
+      <div class="col holds">
+        <h3>What does not change</h3>
+        <ul>
+          <li><b>Your sign-in.</b> One identity, the same magic link, the same authority map deciding what you may read. Nothing here adds a second account or asks you to hold a key.</li>
+          <li><b>Your share and your agreements.</b> Nothing about them federates. They are inner-ring records and they stay inner under every horizon above.</li>
+          <li><b>What leaves.</b> Nothing leaves the record because this page exists. Egress is deny by default, and the doctrine that would permit anything is itself unadopted.</li>
+          <li><b>Who can read you.</b> No outside party gains a read on anything of yours. There is no seat, no door, and no outward publication standing today.</li>
+          <li><b>The relay.</b> Membership of the cooperative's relay is not a condition of membership of the cooperative, and this strategy does not make it one.</li>
+        </ul>
+      </div>
+      <div class="col later">
+        <h3>What would change, in the order it would arrive</h3>
+        <ul>
+          <li><b>First, nothing you can see.</b> Horizon 1 is invisible to a member by design. If it happens you will read about it here, not notice it.</li>
+          <li><b>Then the words, as data.</b> The cooperative's vocabulary readable by another system without that system reading our database. It looks like a file, not a feature.</li>
+          <li><b>Then a defined public digest,</b> if and only if the doctrine is adopted: a named grain, a named door, and corrections travelling outward through the same door. You would be able to ask how a thing got out and get a door's name for an answer.</li>
+          <li><b>Then, furthest away, an identity you hold.</b> Portable, and portable means it goes with you if you leave. That is the largest change on this page and the one least likely to arrive soon.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="body"><strong>What you can actually do about it now.</strong> Read <a href="/commons/governance/egress/">the Egress Doctrine</a> and say where its cells are wrong, because it decides what may be said about you outside the cooperative and it is still a draft. One of the three elections it leaves open is whether a member's consent to being named is gathered once, standing, or per departure, and that is a member's question before it is a drafter's.</p>
+
+    <div class="section-head"><span class="num">&sect;5</span>The bounds</div>
+    <p class="body">Named here rather than left implied, because a strategy page is exactly where scope quietly widens.</p>
+
+    <dl class="bounds">
+      <dt>Nothing here is adopted.</dt>
+      <dd>The merge that publishes this page adopts a draft into the estate and adopts no strategy. Every horizon above becomes real, if it ever does, by its own piece through the ordinary branch and adopt path, with a person's hand on it.</dd>
+
+      <dt>A federation act is a governance act.</dt>
+      <dd>Any cross-organization seat, any dependency taken on another body, any protocol the cooperative commits to operating, and anything published outward as the cooperative are acts for named humans with the standing to bind it. They are not the agent's, and no amount of technical readiness makes them so.</dd>
+
+      <dt>The agent's authority is the register, and only the register.</dt>
+      <dd>What the agent holds is the four standing grants at <a href="/commons/agency/grants/">the grant register</a>: correcting the record, review and merge on the estate, drafting instruments, and publishing that something is wrong. None of them covers speaking outward as the cooperative or binding it to anyone. What is not in the register is not held, and any new authority goes in the register before it is exercised.</dd>
+
+      <dt>No relationship is presumed.</dt>
+      <dd>This page names no other organization, describes no agreement, and assumes nobody else's plans. Convergence on a design is not a partnership, and reading a pattern in the open is not a negotiation.</dd>
+
+      <dt>The record is the check.</dt>
+      <dd>If this page and the cooperative's practice ever disagree, the practice is the fact and this page owes a correction, published the way corrections are published rather than quietly edited.</dd>
+    </dl>
+
+    <div class="citesline">
+      <b>stands on</b> &middot; <a href="/commons/governance/egress/">the Egress Doctrine</a>, the rule for what leaves &middot; <a href="/commons/#fed-h">the federation posture</a> on the Commonplace &middot; <a href="/commons/build/lexicon/">the Lexicon</a> and its schema artifact &middot; <a href="/commons/agency/grants/">the grant register</a>
+      <br><b>public anchors</b> &middot; <a href="https://github.com/Techne-Co-op/techne.coop/issues/217">issue #217</a>, the inner and outer two-body frame &middot; <a href="https://github.com/Techne-Co-op/techne.coop/issues/218">issue #218</a>, the forward design guidance &middot; <a href="https://github.com/Techne-Co-op/techne.coop/issues/250">issue #250</a>, solicitations as a first inhabitant of the outer commons
+      <br><b>standing</b> &middot; X-29 &middot; drafted, adopted by nobody &middot; the agent drafts, a person decides
+    </div>
+  </div>
+</main>
+
+<!-- generated:shell-frame-close -- written by scripts/shell_frame.py; do not edit by hand -->
+</div><!-- .cis-main -->
+</div><!-- .cis-body -->
+<!-- /generated:shell-frame-close -->
+<footer>
+  <span>Techne &middot; RegenHub, LCA &middot; Boulder, Colorado</span>
+  &nbsp;&middot;&nbsp;
+  <a href="/legal">legal</a>
+  <div class="formation-foot"><span class="ff-mark">Called to order</span>RegenHub, LCA is called to order: the board is seated and the governing instruments are board-adopted, with member ratification anticipated. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+</body>
+</html>
