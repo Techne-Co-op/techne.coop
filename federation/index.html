@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!-- X-30, the federation vision on the public estate. The outer-grain half of
+     a pair: X-29 states the strategy to a member on the intranet, at the grain
+     a member needs, and this page states the vision to anyone, at the grain the
+     public is owed. The relationship between the two is the Egress Doctrine's
+     own shape, and the page says so rather than leaving a reader of either one
+     to infer it. Names no other organization: a federation vision that named
+     its intended partners would be a negotiation conducted in public, and none
+     of that is settled. Steward's direction, 2026-08-24. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="What federation means to this cooperative: one record in two rings, a written rule for what crosses, what the cooperative commits to, and what it invites. A vision, not an agreement with anybody.">
+<title>Federation &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/federation/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/federation/">
+<meta property="og:title" content="Federation · Techne">
+<meta property="og:description" content="One record in two rings, a written rule for what crosses, and what this cooperative commits to. A vision, not an agreement with anybody.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* tokens: techne v4, values per commons.css (the distillation of the live constitution) */
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --sun-gold: #EAB668; --sun-amber: #E09A52; --sun-coral: #D1755A;
+  --sun-rose: #B45C7C; --sun-violet: #6E5494; --sun-blue: #5476B8;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --blue: #6A8AC4; --blue-text: #97B5E8;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --ok: #6A9A6A; --info: #6A8AC4; --warn: #C46A6A;
+  --sun-gold-t: #EAB668; --sun-amber-t: #E5A562; --sun-coral-t: #DE8872;
+  --sun-rose-t: #CF7C9A; --sun-violet-t: #9E86C4; --sun-blue-t: #8FAEE0;
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --blue: #4A6FB0; --blue-text: #39588F;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --ok: #4A7A4A; --info: #4A6FB0; --warn: #A84F4C;
+  --sun-gold-t: #87621F; --sun-amber-t: #8C581D; --sun-coral-t: #9C4636;
+  --sun-rose-t: #8C3D58; --sun-violet-t: #4C3870; --sun-blue-t: #3A5694;
+  color-scheme: light;
+}
+[data-tint="gold"]   { --shue: var(--sun-gold);   --shue-t: var(--sun-gold-t); }
+[data-tint="amber"]  { --shue: var(--sun-amber);  --shue-t: var(--sun-amber-t); }
+[data-tint="coral"]  { --shue: var(--sun-coral);  --shue-t: var(--sun-coral-t); }
+[data-tint="rose"]   { --shue: var(--sun-rose);   --shue-t: var(--sun-rose-t); }
+[data-tint="violet"] { --shue: var(--sun-violet); --shue-t: var(--sun-violet-t); }
+[data-tint="blue"]   { --shue: var(--sun-blue);   --shue-t: var(--sun-blue-t); }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; background: var(--bg); }
+body { background: var(--bg); color: var(--text); font: 400 16px/1.75 var(--serif);
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+.mono { font-family: var(--mono); }
+em { font-style: italic; color: var(--heading); }
+a { color: var(--blue-text); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.skip { position: absolute; left: -9999px; top: 0; z-index: 100; font-family: var(--mono); font-size: 13px;
+  background: var(--surface); color: var(--blue-text); border: 1px solid var(--blue); padding: 10px 16px; }
+.skip:focus { left: 12px; top: 12px; }
+
+/* the primary navigation is the shared public topbar,
+   injected by /assets/topbar.js per U-13 */
+
+.wrap { max-width: 1060px; margin: 0 auto; padding: 0 var(--s5); }
+
+.mast { border-bottom: 1px solid var(--rule); padding: var(--s5) 0 var(--s4); }
+.mast .kick { font: 500 11px/1.6 var(--mono); color: var(--ember-text); text-transform: uppercase; letter-spacing: .12em; }
+.mast h1 { font: 700 clamp(28px, 4vw, 36px)/1.15 var(--serif); color: var(--heading); margin: var(--s2) 0 var(--s3); letter-spacing: -.01em; }
+.mast .dek { font: 400 16.5px/1.65 var(--serif); color: var(--text); margin: 0; max-width: 68ch; }
+
+.sec { padding: var(--s7) 0 0; }
+.sec h2 { font: 700 24px/1.25 var(--serif); color: var(--heading); margin: 0 0 var(--s4);
+  letter-spacing: -.01em; padding-left: 14px; border-left: 3px solid var(--shue, var(--ember)); }
+.sec > p { margin: 0 0 var(--s4); max-width: 68ch; }
+.lead { font-size: 17px; }
+.tracknote { font: 400 13px/1.7 var(--mono); color: var(--muted); max-width: 72ch; margin: 0 0 var(--s3); }
+
+/* lucide icons */
+svg.lucide { width: 16px; height: 16px; flex: none; vertical-align: -3px; }
+
+/* the standing strip: what this page is, said before it is read (X-30) */
+.standing { display: flex; flex-wrap: wrap; gap: var(--s2); margin: var(--s4) 0 0; }
+.standing .chip { font: 400 10.5px/1.5 var(--mono); letter-spacing: .04em; padding: 4px 9px;
+  border: 1px solid var(--line); color: var(--muted); }
+.standing .chip.mark { border-left: 2px solid var(--ember); color: var(--ember-text); }
+.standing .chip.bound { border-left: 2px solid var(--warn); color: var(--warn); }
+
+/* the two rings, side by side */
+.rings { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: var(--s4); margin: var(--s5) 0 var(--s4); }
+.ring { background: var(--surface); border: 1px solid var(--line); border-top: 2px solid var(--shue, var(--ember)); padding: var(--s4) var(--s5) var(--s5); }
+.ring .r-kick { font: 500 10px/1.6 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--shue-t, var(--ember-text)); }
+.ring h3 { font: 700 18px/1.3 var(--serif); color: var(--heading); margin: var(--s2) 0 var(--s2); }
+.ring p { font: 400 14px/1.7 var(--serif); color: var(--text); margin: 0 0 var(--s2); }
+.ring .r-fine { font: 400 12px/1.65 var(--mono); color: var(--muted); }
+
+/* what the cooperative commits to */
+.commits { list-style: none; margin: var(--s5) 0 var(--s4); padding: 0; }
+.commits li { border-left: 3px solid var(--shue, var(--ember)); background: var(--inset);
+  padding: var(--s3) var(--s5); margin: 0 0 var(--s3); max-width: 78ch; }
+.commits li b { display: block; font: 700 15px/1.5 var(--serif); color: var(--heading); margin-bottom: 2px; }
+.commits li span { font: 400 14px/1.7 var(--serif); color: var(--text); }
+
+/* the grain note: how this page and the members' page relate */
+.grain { border: 1px dashed var(--rule); background: var(--inset); padding: var(--s4) var(--s5); margin: var(--s5) 0 0; }
+.grain .g-kick { font: 500 10px/1.6 var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--sun-violet-t); }
+.grain h3 { font: 700 18px/1.3 var(--serif); color: var(--heading); margin: var(--s2) 0 var(--s2); }
+.grain p { font: 400 14px/1.7 var(--serif); color: var(--text); max-width: 74ch; margin: 0 0 var(--s2); }
+.grain .g-fine { font: 400 12px/1.65 var(--mono); color: var(--muted); margin: 0; }
+
+/* the bounds */
+.bounds { border: 1px solid var(--line); border-left: 2px solid var(--warn); background: var(--inset);
+  padding: var(--s4) var(--s5); margin: var(--s5) 0 0; max-width: 78ch; }
+.bounds dt { font: 700 15px/1.5 var(--serif); color: var(--heading); margin-top: var(--s4); }
+.bounds dt:first-of-type { margin-top: 0; }
+.bounds dd { font: 400 14px/1.7 var(--serif); color: var(--text); margin: var(--s1) 0 0; }
+
+/* provenance, per commons.css */
+.prov { display: inline-flex; align-items: center; gap: 6px; font: 400 10.5px/1.5 var(--mono); color: var(--muted);
+  padding: 4px 9px; border: 1px solid var(--line); border-left: 2px solid var(--ember); border-radius: 2px; background: var(--surface); }
+.prov b { color: var(--heading); font-weight: 600; }
+.provrow { display: flex; gap: var(--s2); flex-wrap: wrap; margin: var(--s4) 0 0; }
+
+footer { border-top: 1px solid var(--rule); margin-top: var(--s8); padding: var(--s5) 0 var(--s8);
+  font: 400 11px/1.8 var(--mono); color: var(--muted); }
+footer .row { display: flex; flex-wrap: wrap; gap: 6px var(--s5); }
+footer a { color: var(--muted); }
+
+@media (max-width: 640px) {
+  .mast h1 { font-size: 26px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+    /* Formation note, footer form (P-11). One verbatim copy per page it
+       covers, proved by scripts/notice_audit.py. The long form at
+       /legal/#formation still governs. */
+    .formation-foot{
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+      max-width:96ch;
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<main id="main" class="wrap">
+
+  <header class="mast">
+    <div class="kick">Techne &middot; Federation</div>
+    <h1>Federation</h1>
+    <p class="dek">A cooperative keeps a record of its own work, and sooner or later that record has to meet other people&rsquo;s. This page states what federation means to this cooperative: how the record is meant to travel, what decides which part of it leaves, what we commit to, and what we invite. It is a vision, written down so nobody has to ask, and it is nobody&rsquo;s obligation but ours.</p>
+    <div class="standing">
+      <span class="chip mark">Vision &middot; ledger address X-30</span>
+      <span class="chip">Drafted, not adopted</span>
+      <span class="chip bound">Names no other organization</span>
+    </div>
+  </header>
+
+  <section class="sec" data-tint="gold" aria-labelledby="h-what" style="margin-top:var(--s6)">
+    <h2 id="h-what">What federation means here</h2>
+    <p class="lead">Not a merger, and not a platform anybody joins. <em>Federation is two bodies keeping their own records, in their own words, and being able to hand each other a defined part of what they hold, under a rule each of them wrote down first.</em> Nothing about it requires either one to move onto the other&rsquo;s system, adopt the other&rsquo;s vocabulary, or give up the ability to walk away.</p>
+    <p>That reading has consequences the cooperative takes as position rather than preference. The first is that there is no single-protocol future worth planning for: the work a body does internally and the record a public reads want different properties, and one substrate serving both serves neither well. The second is that the join between two bodies is not a wire. It is shared vocabulary and shared governance, which is to say it is mostly a writing problem, and the technical part is the easy half.</p>
+  </section>
+
+  <section class="sec" data-tint="blue" aria-labelledby="h-rings">
+    <h2 id="h-rings">One record, two rings</h2>
+    <p>The cooperative keeps one record. An entry is written once, carries its provenance, and is never edited, which is what lets it travel later without losing its authority. That record stands in two rings, and there is a written rule between them.</p>
+
+    <div class="rings">
+      <div class="ring" data-tint="amber">
+        <div class="r-kick">the inner ring</div>
+        <h3>Where the work happens</h3>
+        <p>Coordination, approvals, the day to day, and the identities that speak for the cooperative. The full record lives here, and it belongs to the members, who are the people it is about.</p>
+        <p class="r-fine">Operational. Not public, and not published by default.</p>
+      </div>
+      <div class="ring" data-tint="blue">
+        <div class="r-kick">the outer ring</div>
+        <h3>What the public may read</h3>
+        <p>A defined digest of the inner record, at a stated grain, published so that anyone can read it, cite it, and hold the cooperative to it. Today the outer ring is this web estate, the pages you are reading.</p>
+        <p class="r-fine">Public. A projection of the record, never the source of it.</p>
+      </div>
+    </div>
+
+    <p><strong>What crosses between them is decided by rule, not by judgment on the day.</strong> <a href="/commons/governance/egress/">The Egress Doctrine</a> is that rule: whose the record is, whose the public digest is, and a written table deciding which subset departs, at what grain, through which named door, with corrections travelling outward through the same door a claim did. The doctrine stands drafted. It binds when a person with standing adopts it, and not before.</p>
+    <p class="tracknote">Deny by default is the starting position. A record without an egress rule leaks by accident and hoards by default, usually both at once, and the cure for both is the same written table.</p>
+  </section>
+
+  <section class="sec" data-tint="coral" aria-labelledby="h-commit">
+    <h2 id="h-commit">What the cooperative commits to</h2>
+    <p class="lead">Four commitments, stated from this cooperative&rsquo;s own record and binding on nobody else. They are the shape any federation with us would have to fit, and they are written here so that a reader can hold us to them before there is anybody to federate with.</p>
+
+    <ul class="commits" data-tint="coral">
+      <li><b>The record travels with its provenance, or it does not travel.</b> <span>A claim that leaves this cooperative carries where it came from and how fine its citation is. A digest that cannot be traced back to an entry is a rumour with good typography.</span></li>
+      <li><b>Our vocabulary is published, and mapping beats merging.</b> <span>The words the record uses are a versioned artifact, held in agreement with the page that governs them by a check that fails when they drift. Across a boundary the deliverable is a mapping, not a merger: this term here means that term there, at this grain, with these losses. Neither body has to adopt the other&rsquo;s language, and neither should be asked to.</span></li>
+      <li><b>Nothing leaves except by a rule written in advance.</b> <span>What may be said publicly about a member, a program, or a transaction is decided by an adopted doctrine and not by whatever an interface happens to expose. Where the rule is still a draft, as it is today, the answer is that nothing leaves.</span></li>
+      <li><b>Identity is meant to end up the person&rsquo;s.</b> <span>The end state this shape implies is that a person carries their own identity and their own record of practice between bodies that federate, rather than holding a separate account inside each of them. An identity that can leave with the member sits closer to open and voluntary membership than any account table we would build for ourselves. It is not built, and today the account you sign in with here is the cooperative&rsquo;s.</span></li>
+    </ul>
+  </section>
+
+  <section class="sec" data-tint="rose" aria-labelledby="h-invite">
+    <h2 id="h-invite">What it invites</h2>
+    <p>No invitation on this page is addressed to a particular body, because none has been extended and this is not the place one would be. What the cooperative invites is narrower and more useful than a partnership: <strong>read the rule before it hardens, and tell us where it is wrong.</strong></p>
+    <p>Three things are readable today, and all three are drafts:</p>
+    <p class="tracknote">&middot; <a href="/commons/governance/egress/">The Egress Doctrine</a>, the rule for what leaves. One of the elections it leaves open is whether a member&rsquo;s consent to being named is gathered once, standing, or per departure. That is a question for the people it would name.</p>
+    <p class="tracknote">&middot; <a href="/commons/build/lexicon/">The Lexicon</a>, the cooperative&rsquo;s vocabulary as an artifact a machine can read, which is the half of federation that is cheapest to do early and the half that decides the rest.</p>
+    <p class="tracknote">&middot; <a href="/commons/build/">The Almanac</a>, the register where every piece of this is addressed, marked, and open to being argued with. This page is entered there at <span class="mono">X-30</span>.</p>
+    <p>Anyone building along these lines is welcome to take the vocabulary, the doctrine, or the argument and use it. Nothing here asks for a relationship in return, and nothing here creates one.</p>
+  </section>
+
+  <section class="sec" data-tint="violet" aria-labelledby="h-grain">
+    <h2 id="h-grain">Two pieces, at two grains</h2>
+    <p>This page has a companion, and the relationship between them is the doctrine above, applied to itself.</p>
+
+    <div class="grain">
+      <div class="g-kick">The shape, applied to this page</div>
+      <h3>The full account belongs to the members. This is the digest.</h3>
+      <p>The cooperative&rsquo;s members read a longer version of this on the intranet: the same two rings and the same rule, plus the sequencing, the horizons in the order that would unlock them, and the part a public page has no business carrying, which is what any of it would mean for a particular person&rsquo;s share, sign-in, and record. That page is at <a href="/intranet/federation/">the members&rsquo; federation strategy</a>, and it is readable to members.</p>
+      <p>This page is the outer-grain version of the same thing: what federation means to us, what we commit to, what we invite. It is thinner on purpose, and thinner is not a euphemism for vaguer. Everything on this page is true at the grain it is stated, and the part held back is sequencing and member detail rather than position.</p>
+      <p class="g-fine">Two ledger addresses, X-29 and X-30, so that either can be adopted, corrected, or withdrawn without the other. Not one document published twice.</p>
+    </div>
+  </section>
+
+  <section class="sec" data-tint="blue" aria-labelledby="h-bounds">
+    <h2 id="h-bounds">The bounds</h2>
+    <p>Named here rather than left implied, because a vision page is exactly where scope quietly widens.</p>
+
+    <dl class="bounds">
+      <dt>Nothing on this page is adopted.</dt>
+      <dd>It was drafted by the cooperative&rsquo;s agent under the standing drafting grant in <a href="/commons/agency/grants/">the grant register</a>, staged on its own branch, and entered in the register at <span class="mono">X-30</span> with the drafted mark. Publishing it puts a draft on the estate. It commits the cooperative to no protocol and puts no rule in force.</dd>
+
+      <dt>No other organization is named, and none is implied.</dt>
+      <dd>This page describes no agreement, assumes nobody else&rsquo;s plans, and should not be read as announcing that anything exists beyond this cooperative or that any relationship has been agreed. A federation vision that named its intended partners would be a negotiation conducted in public, and that is not a thing to do to people who have not agreed to it.</dd>
+
+      <dt>A federation act is a governance act.</dt>
+      <dd>Any dependency taken on another body, any protocol the cooperative commits to operating, and anything published outward as the cooperative are acts for named humans with the standing to bind it. No amount of technical readiness makes them otherwise.</dd>
+
+      <dt>Where this page and an adopted instrument differ, the instrument is right.</dt>
+      <dd>This page is then the defect, and it owes a correction published the way corrections are published rather than quietly edited. Every instrument named on this site, with its status, is on <a href="/legal/">the legal shelf</a>.</dd>
+    </dl>
+
+    <div class="provrow">
+      <span class="prov"><b>X-30</b> drafted &middot; adopted by nobody</span>
+      <span class="prov"><b>stands on</b> the Egress Doctrine, the Lexicon, the grant register</span>
+      <span class="prov"><b>drafted</b> 2026-08-24</span>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span>Techne &middot; RegenHub, LCA &middot; Boulder, Colorado</span>
+      <span><a href="/commons/join/">apply to join</a></span>
+      <span><a href="/legal/">legal</a></span>
+      <span><a href="/commons/">the commons</a></span>
+    </div>
+    <div class="formation-foot"><span class="ff-mark">Called to order</span>RegenHub, LCA is called to order: the board is seated and the governing instruments are board-adopted, with member ratification anticipated. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+  </div>
+</footer>
+
+</body>
+</html>
