@@ -19,6 +19,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
 import subprocess
 import time
 from dataclasses import dataclass, field
@@ -51,6 +52,15 @@ class Config:
     @property
     def tier2(self) -> bool:
         return bool(self.cis_phone_router_key)
+
+    @property
+    def ceremony_channel_ids(self) -> tuple[str, ...]:
+        """BUZZ_CEREMONY_CHANNEL_ID accepts a comma-separated list so each
+        member can hold a private ceremony room (a number posted in !bind
+        must not be readable by other members)."""
+        return tuple(
+            x.strip() for x in self.ceremony_channel_id.split(",") if x.strip()
+        )
 
     @classmethod
     def from_env(cls) -> "Config":
@@ -143,7 +153,11 @@ def dispatch_to_nou(peer: str, text: str) -> str:
     """
     prompt = (
         f"[SMS from steward, tier 1 read-only, peer={peer}]\n\n{text}\n\n"
-        "Reply in one to three sentences. No markdown. No headers. "
+        "Reply in one to three sentences, and never more than about 700 "
+        "characters: this is a phone, and anything longer is split across "
+        "messages. Put the answer first; drop the preamble, the caveats "
+        "that change nothing, and the closing summary. No markdown. "
+        "No headers. "
         "Never quote a confidential record, another member's contact "
         "detail, or an unpublished treasury figure. If the ask needs a "
         "write, say so and stop."
@@ -160,10 +174,65 @@ def dispatch_to_nou(peer: str, text: str) -> str:
     reply = result.stdout.strip()
     if not reply:
         raise RuntimeError("nou dispatch returned empty reply")
-    # SMS body cap: soft 320 chars (~2 segments), hard 4096. Trim safely.
-    if len(reply) > 320:
-        reply = reply[:317] + "..."
     return reply
+
+
+# --- length ----------------------------------------------------------------
+
+# A modern handset concatenates segments and RCS has no practical limit, so
+# the old hard cut at 320 chars was truncating answers mid-sentence for no
+# carrier reason. Cap generously, split on sentence boundaries, and never
+# emit a trailing ellipsis: a reply either ends where a sentence ends or the
+# member is told plainly that the rest was dropped.
+SMS_PART_CHARS = int(os.environ.get("NOU_SMS_PART_CHARS", "900"))
+SMS_MAX_PARTS = int(os.environ.get("NOU_SMS_MAX_PARTS", "3"))
+
+_SENTENCE_END = re.compile(r"(?<=[.!?])\s+")
+
+
+def split_for_sms(reply: str,
+                  part_chars: int = SMS_PART_CHARS,
+                  max_parts: int = SMS_MAX_PARTS) -> list[str]:
+    """Split a reply into whole-sentence parts fitting the per-part cap.
+
+    Never cuts a sentence in half unless a single sentence exceeds the cap,
+    in which case it breaks on a word boundary. If the reply needs more than
+    max_parts, the overflow is dropped and the last part says so, because a
+    silent truncation reads as a complete answer when it is not.
+    """
+    reply = reply.strip()
+    if len(reply) <= part_chars:
+        return [reply]
+
+    pieces: list[str] = []
+    for sentence in _SENTENCE_END.split(reply):
+        while len(sentence) > part_chars:
+            cut = sentence.rfind(" ", 0, part_chars)
+            if cut <= 0:
+                cut = part_chars
+            pieces.append(sentence[:cut].strip())
+            sentence = sentence[cut:].strip()
+        if sentence:
+            pieces.append(sentence)
+
+    parts: list[str] = []
+    for piece in pieces:
+        if parts and len(parts[-1]) + 1 + len(piece) <= part_chars:
+            parts[-1] = f"{parts[-1]} {piece}"
+        else:
+            parts.append(piece)
+
+    if len(parts) > max_parts:
+        dropped = len(parts) - max_parts
+        parts = parts[:max_parts]
+        note = f"[{dropped} more part(s) not sent; ask and I will continue]"
+        if len(parts[-1]) + 1 + len(note) <= part_chars:
+            parts[-1] = f"{parts[-1]} {note}"
+        else:
+            # The note goes as its own short message rather than displacing
+            # content the member would otherwise have received.
+            parts.append(note)
+    return parts
 
 
 # --- reply -----------------------------------------------------------------
@@ -272,9 +341,18 @@ def handle_inbound(cfg: Config, msg: InboundMessage,
                   conversation_id=msg.conversation_id)
         return
 
-    # Reply.
+    # Reply. Long answers go as ordered parts, each its own logged send;
+    # the last response is the one carried into the event below.
     try:
-        api_resp = send_reply(cfg, peer, reply)
+        parts = split_for_sms(reply)
+        for part in parts[:-1]:
+            resp = send_reply(cfg, peer, part)
+            log_event(cfg, direction="out", peer=peer, content=part,
+                      quo_message_id=resp.get("id"),
+                      conversation_id=resp.get("conversationId"),
+                      status=resp.get("status"), payload=resp)
+        api_resp = send_reply(cfg, peer, parts[-1])
+        reply = parts[-1]
     except Exception as e:
         log.exception("send_reply failed")
         log_event(cfg, direction="out", peer=peer, content=reply,
