@@ -139,6 +139,40 @@ def log_event(cfg: Config, *, direction: str, peer: str, content: str,
 
 # --- dispatch --------------------------------------------------------------
 
+# How much of the binding room to carry into a dispatch. The room holds
+# both halves of every exchange, so it is the SMS conversation's memory;
+# without it a follow-up text ("what does it cost?") arrives with nothing
+# to refer back to. Bounded because the whole thing is re-read on every
+# inbound and each character is a token paid for again.
+SMS_HISTORY_MESSAGES = int(os.environ.get("NOU_SMS_HISTORY_MESSAGES", "16"))
+SMS_HISTORY_CHARS = int(os.environ.get("NOU_SMS_HISTORY_CHARS", "400"))
+
+
+def _render_history(msgs: list[dict], agent_pubkey: str) -> str:
+    """The room's recent traffic as a plain transcript, oldest first.
+
+    Speakers are read off the mirror prefix, not the event author: both
+    halves of the SMS traffic are posted into the room under the agent's
+    own key, so author alone would call the member's texts mine.
+    """
+    lines = []
+    for m in msgs[-SMS_HISTORY_MESSAGES:]:
+        body = " ".join((m.get("content") or "").split())
+        if not body:
+            continue
+        if body.startswith("[SMS \u00b7 out]"):
+            who, body = "you", body.split("]", 1)[1].strip()
+        elif body.startswith("[SMS \u00b7"):
+            who, body = "them", body.split("]", 1)[1].strip()
+        elif m.get("author") == agent_pubkey:
+            who = "you, in the Buzz room"
+        else:
+            who = "them, in the Buzz room"
+        if body:
+            lines.append(f"{who}: {body[:SMS_HISTORY_CHARS]}")
+    return "\n".join(lines)
+
+
 def _sender_frame(peer: str, binding: Optional[dict]) -> str:
     """One line naming who this text is from, and on what evidence.
 
@@ -156,13 +190,17 @@ def _sender_frame(peer: str, binding: Optional[dict]) -> str:
 
 
 def dispatch_to_nou(peer: str, text: str,
-                    binding: Optional[dict] = None) -> str:
+                    binding: Optional[dict] = None,
+                    history: str = "") -> str:
     """Hand the inbound to Nou and return the reply.
 
-    Placeholder shape for the first PR: shells out to the openclaw CLI
-    with a one-shot agent turn. Conversation history is not threaded
-    in this PR; each inbound is a fresh call. When the ACP bridge
-    integration lands, this function is the one seam that changes.
+    Shells out to the openclaw CLI with a one-shot agent turn. The
+    process holds no state between texts, so continuity comes from
+    `history`: the binding room read back and pasted in, since the room
+    already mirrors both halves of every exchange. That is why an SMS
+    peer with no binding room still arrives cold - there is nothing to
+    read. When the ACP bridge integration lands, this function is the
+    one seam that changes.
 
     The prompt is deliberately terse and includes the tier constraints
     inline. Nou is expected to know its identity and voice from core
@@ -175,8 +213,11 @@ def dispatch_to_nou(peer: str, text: str,
     is wrong in both directions: it slanders a member, and it would have
     handed a stranger the steward's standing.
     """
+    prior = (f"Earlier in this conversation, oldest first:\n{history}\n\n"
+             if history else "")
     prompt = (
-        f"[{_sender_frame(peer, binding)}]\n\n{text}\n\n"
+        f"[{_sender_frame(peer, binding)}]\n\n{prior}"
+        f"Their message now:\n{text}\n\n"
         "Reply in one or two sentences and stay under 300 characters. "
         "Every 160 characters is a billed segment, so length costs money "
         "on every answer; a third sentence is almost always the one to "
@@ -409,12 +450,22 @@ def handle_inbound(cfg: Config, msg: InboundMessage,
     # Mirror the inbound into the bound room before dispatch, framed as
     # bridged (design §5): provenance, not authority.
     channel = binding.get("buzz_channel_id") if binding else None
+
+    # Read the room back for continuity, before this inbound is mirrored
+    # into it: the transcript wanted is what came *before* the message
+    # being answered, and a duplicate of it helps nobody. A failed read
+    # degrades to no history rather than failing the turn.
+    history = ""
+    if bridge is not None and channel:
+        history = _render_history(
+            bridge.recent(channel, SMS_HISTORY_MESSAGES), cfg.agent_pubkey)
+
     if bridge is not None and channel:
         bridge.post(channel, f"[SMS · {peer}] {msg.text}")
 
     # Dispatch.
     try:
-        reply = dispatch_to_nou(peer, msg.text, binding)
+        reply = dispatch_to_nou(peer, msg.text, binding, history)
     except Exception as e:
         log.exception("dispatch failed")
         log_event(cfg, direction="in", peer=peer, content=msg.text,

@@ -21,6 +21,9 @@ from relay import (  # noqa: E402
     SMS_PART_CHARS,
     Config,
     InboundMessage,
+    SMS_HISTORY_CHARS,
+    SMS_HISTORY_MESSAGES,
+    _render_history,
     _sender_frame,
     handle_inbound,
     split_for_sms,
@@ -180,3 +183,51 @@ def test_frame_says_plainly_when_a_peer_carries_no_key_evidence():
     assert "allowlisted number" in frame
     assert "no binding and no key evidence" in frame
     assert "steward" not in frame
+
+
+# --- conversation memory ---------------------------------------------------
+# The binding room is the SMS conversation's memory: a one-shot dispatch
+# holds no state, so continuity is the room read back.
+
+AGENT = "ea11b8c9"
+
+
+def test_history_reads_speakers_from_the_mirror_prefix_not_the_author():
+    # Both halves are posted under the agent's key; author alone would
+    # call the member's own texts ours.
+    msgs = [{"author": AGENT, "content": "[SMS · +15135931721] how much?"},
+            {"author": AGENT, "content": "[SMS · out] a cent or two"}]
+    assert _render_history(msgs, AGENT) == "them: how much?\nyou: a cent or two"
+
+
+def test_history_marks_unmirrored_room_posts_as_room_posts():
+    msgs = [{"author": AGENT, "content": "line is out of credits"},
+            {"author": "3e748f43", "content": "ok thanks"}]
+    rendered = _render_history(msgs, AGENT)
+    assert "you, in the Buzz room: line is out of credits" in rendered
+    assert "them, in the Buzz room: ok thanks" in rendered
+
+
+def test_history_is_bounded_in_messages_and_in_characters():
+    msgs = [{"author": AGENT, "content": f"[SMS · out] {i} " + "x" * 900}
+            for i in range(SMS_HISTORY_MESSAGES + 10)]
+    lines = _render_history(msgs, AGENT).split("\n")
+    assert len(lines) == SMS_HISTORY_MESSAGES
+    assert all(len(line) <= SMS_HISTORY_CHARS + len("you: ") for line in lines)
+    assert lines[0].startswith("you: 10 ")  # oldest kept, not oldest overall
+
+
+def test_history_skips_empty_and_prefix_only_messages():
+    msgs = [{"author": AGENT, "content": "[SMS · out]"},
+            {"author": AGENT, "content": "   "},
+            {"author": AGENT, "content": "[SMS · out] real"}]
+    assert _render_history(msgs, AGENT) == "you: real"
+
+
+@patch("relay.log_event", return_value=True)
+@patch("relay.dispatch_to_nou", return_value="pong")
+@patch("relay.send_reply", return_value={"id": "OUT", "status": "sent",
+                                          "conversationId": "C1"})
+def test_dispatch_gets_no_history_when_the_peer_has_no_room(send, dispatch, log, cfg):
+    handle_inbound(cfg, _msg())
+    assert dispatch.call_args.args[3] == ""

@@ -198,3 +198,22 @@ def test_router_outage_narrows_to_tier_one(send, dispatch, log, cfg):
     handle_inbound(cfg, _msg("+13035551234", mid="M2"), router=router,
                    binder=MagicMock(), bridge=MagicMock())
     dispatch.assert_not_called()
+
+
+@patch("relay.log_event", return_value=True)
+@patch("relay.dispatch_to_nou", return_value="pong")
+@patch("relay.send_reply", return_value={"id": "OUT", "status": "sent",
+                                          "conversationId": "C1"})
+def test_bound_peer_dispatch_carries_the_room_as_history(send, dispatch, log, cfg):
+    router, bridge = MagicMock(), MagicMock()
+    router.lookup_verified_by_e164.return_value = {
+        "id": "B1", "member_pubkey": MEMBER, "peer_e164": "+13035551234",
+        "buzz_channel_id": "CH-1"}
+    bridge.recent.return_value = [
+        {"author": AGENT, "content": "[SMS · +13035551234] how much?"},
+        {"author": AGENT, "content": "[SMS · out] a cent or two"},
+    ]
+    handle_inbound(cfg, _msg("+13035551234"), router=router,
+                   binder=MagicMock(), bridge=bridge)
+    history = dispatch.call_args.args[3]
+    assert "them: how much?" in history and "you: a cent or two" in history
