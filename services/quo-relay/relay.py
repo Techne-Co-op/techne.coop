@@ -400,6 +400,7 @@ def handle_inbound(cfg: Config, msg: InboundMessage,
 
     # Reply. Long answers go as ordered parts, each its own logged send;
     # the last response is the one carried into the event below.
+    parts: list[str] = []
     try:
         parts = split_for_sms(reply)
         for part in parts[:-1]:
@@ -426,5 +427,11 @@ def handle_inbound(cfg: Config, msg: InboundMessage,
     # Mirror the reply into the room, so phone and room hold one
     # transcript. Logged to phone_events already; the room copy is a
     # convenience view and its failure does not undo the send.
+    #
+    # The prefix matters: an unlabelled copy of an SMS reply reads in the
+    # room as though the agent answered twice, once by text and once in
+    # channel (steward's report, 2026-08-25). It is one answer, shown
+    # where it was sent. Every part is mirrored, not just the last, or
+    # the room holds a shorter transcript than the phone does.
     if bridge is not None and channel:
-        bridge.post(channel, reply)
+        bridge.post(channel, "[SMS \u00b7 out] " + " ".join(parts))

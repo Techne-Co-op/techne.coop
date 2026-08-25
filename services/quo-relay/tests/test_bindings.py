@@ -125,10 +125,11 @@ def test_bound_peer_mirrors_to_channel(send, dispatch, log, cfg):
                    binder=MagicMock(), bridge=bridge)
     dispatch.assert_called_once()
     send.assert_called_once()
-    # inbound mirrored + reply mirrored.
+    # inbound mirrored + reply mirrored, both labelled as SMS traffic so
+    # the room does not read one answer as two.
     posted = [c.args for c in bridge.post.call_args_list]
-    assert posted[0][0] == "CH-1" and "[SMS" in posted[0][1]
-    assert posted[1] == ("CH-1", "pong")
+    assert posted[0][0] == "CH-1" and posted[0][1].startswith("[SMS \u00b7 +1")
+    assert posted[1] == ("CH-1", "[SMS \u00b7 out] pong")
 
 
 @patch("relay.log_event", return_value=True)
