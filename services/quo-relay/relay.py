@@ -153,11 +153,15 @@ def dispatch_to_nou(peer: str, text: str) -> str:
     """
     prompt = (
         f"[SMS from steward, tier 1 read-only, peer={peer}]\n\n{text}\n\n"
-        "Reply in one to three sentences, and never more than about 700 "
-        "characters: this is a phone, and anything longer is split across "
-        "messages. Put the answer first; drop the preamble, the caveats "
-        "that change nothing, and the closing summary. No markdown. "
-        "No headers. "
+        "Reply in one or two sentences and stay under 300 characters. "
+        "Every 160 characters is a billed segment, so length costs money "
+        "on every answer; a third sentence is almost always the one to "
+        "cut. Put the answer first; drop the preamble, the caveats that "
+        "change nothing, and the closing summary. If the full answer will "
+        "not fit, give the one-line version and offer the rest on Buzz. "
+        "Plain ASCII only: no markdown, no headers, no emoji, no curly "
+        "quotes, no em dashes. One non-ASCII character drops the segment "
+        "size from 160 to 70 and more than doubles the cost. "
         "Never quote a confidential record, another member's contact "
         "detail, or an unpublished treasury figure. If the ask needs a "
         "write, say so and stop."
@@ -179,13 +183,54 @@ def dispatch_to_nou(peer: str, text: str) -> str:
 
 # --- length ----------------------------------------------------------------
 
-# A modern handset concatenates segments and RCS has no practical limit, so
-# the old hard cut at 320 chars was truncating answers mid-sentence for no
-# carrier reason. Cap generously, split on sentence boundaries, and never
+# A modern handset concatenates segments, so the cap is about money rather
+# than about the carrier: Quo bills $0.01 per 160-character GSM-7 segment of
+# every API-sent message, and the balance running dry fails every send with
+# a 402 and no warning (2026-08-25). Two parts of two segments each puts the
+# worst case at four cents a reply. Split on sentence boundaries and never
 # emit a trailing ellipsis: a reply either ends where a sentence ends or the
 # member is told plainly that the rest was dropped.
-SMS_PART_CHARS = int(os.environ.get("NOU_SMS_PART_CHARS", "900"))
-SMS_MAX_PARTS = int(os.environ.get("NOU_SMS_MAX_PARTS", "3"))
+SMS_PART_CHARS = int(os.environ.get("NOU_SMS_PART_CHARS", "320"))
+SMS_MAX_PARTS = int(os.environ.get("NOU_SMS_MAX_PARTS", "2"))
+
+# One non-GSM-7 character re-encodes the WHOLE message at 70 chars per
+# segment, so a single curly quote or em dash can more than double the cost
+# of an otherwise plain reply. The model is told to write ASCII; this is the
+# belt to that suspenders, applied before the split so the length maths and
+# the billing agree.
+_GSM_SUBSTITUTIONS = {
+    "\u2018": "'", "\u2019": "'", "\u201a": "'", "\u201b": "'",
+    "\u201c": '"', "\u201d": '"', "\u201e": '"',
+    "\u2013": "-", "\u2014": "-", "\u2015": "-", "\u2212": "-",
+    "\u2026": "...", "\u2022": "*", "\u2192": "->", "\u00d7": "x",
+    "\u00a0": " ", "\u2009": " ", "\u202f": " ",
+}
+
+# The GSM 03.38 basic set plus its extension characters. Anything outside
+# this set forces UCS-2 encoding on the entire message.
+_GSM7_CHARS = frozenset(
+    "@\u00a3$\u00a5\u00e8\u00e9\u00f9\u00ec\u00f2\u00c7\n\u00d8\u00f8\r"
+    "\u00c5\u00e5\u0394_\u03a6\u0393\u039b\u03a9\u03a0\u03a8\u03a3\u0398"
+    "\u039e\u00c6\u00e6\u00df\u00c9 !\"#\u00a4%&'()*+,-./0123456789:;<=>?"
+    "\u00a1ABCDEFGHIJKLMNOPQRSTUVWXYZ\u00c4\u00d6\u00d1\u00dc\u00a7"
+    "\u00bfabcdefghijklmnopqrstuvwxyz\u00e4\u00f6\u00f1\u00fc\u00e0"
+    "^{}\\[~]|\u20ac"
+)
+
+
+def to_gsm7(text: str) -> str:
+    """Fold a reply down to characters that bill at 160 per segment.
+
+    Known punctuation is substituted for its ASCII equivalent; anything
+    else outside the GSM-7 set (emoji, accented letters, symbols) is
+    dropped rather than transliterated, because a mangled word is easier
+    for a member to read past than a doubled bill is to notice.
+    """
+    for bad, good in _GSM_SUBSTITUTIONS.items():
+        text = text.replace(bad, good)
+    kept = "".join(c for c in text if c in _GSM7_CHARS)
+    return re.sub(r"[ \t]{2,}", " ", kept).strip()
+
 
 _SENTENCE_END = re.compile(r"(?<=[.!?])\s+")
 
@@ -199,8 +244,13 @@ def split_for_sms(reply: str,
     in which case it breaks on a word boundary. If the reply needs more than
     max_parts, the overflow is dropped and the last part says so, because a
     silent truncation reads as a complete answer when it is not.
+
+    The reply is folded to GSM-7 first, so the character counts here are the
+    counts the carrier bills on.
     """
-    reply = reply.strip()
+    reply = to_gsm7(reply)
+    if not reply:
+        raise ValueError("reply held nothing sendable after GSM-7 folding")
     if len(reply) <= part_chars:
         return [reply]
 
@@ -244,6 +294,11 @@ def send_reply(cfg: Config, peer: str, content: str) -> dict:
     this returns successfully. status='sent' from the API is the send
     accept, not delivery; a later delivered/undelivered lands via a
     separate status event we do not consume in this PR.
+
+    The response body is logged on failure. The status line alone is not
+    enough to act on: a 402 says only "Payment Required", while the body
+    says the credit balance is empty, which is a different fix from an
+    unpaid invoice and cost ten minutes to find by hand on 2026-08-25.
     """
     r = requests.post(
         f"{QUO_API_BASE}/messages",
@@ -251,6 +306,8 @@ def send_reply(cfg: Config, peer: str, content: str) -> dict:
         json={"from": cfg.line_e164, "to": [peer], "content": content},
         timeout=10,
     )
+    if r.status_code >= 400:
+        log.error("quo send %s: %s", r.status_code, r.text[:400])
     r.raise_for_status()
     return r.json()["data"]
 

@@ -89,6 +89,27 @@ nothing else. A leak of this key lets an attacker append log rows to
 or reach any other table. The service_role key is never held by the
 relay.
 
+## Reply length is a bill
+
+Quo charges $0.01 per outbound segment on every API-sent message, drawn
+from a prepaid credit balance that fails closed: when it runs dry the API
+returns `402 Not Enough Credits` on every send and the reply is composed
+and lost. That happened live on 2026-08-25, mid-conversation, with no
+warning anywhere in the dashboard. Keep auto-recharge on.
+
+A segment is 160 GSM-7 characters, or **70** if the message contains even
+one character outside that set. The service defends the bill twice:
+
+- The dispatch frame asks for one or two sentences under 300 characters,
+  plain ASCII, and tells the model why.
+- `to_gsm7()` folds the reply before it is measured or sent, so smart
+  quotes, em dashes, and emoji cannot silently double the cost. The
+  character counts in `split_for_sms()` are the counts the carrier bills.
+
+`NOU_SMS_PART_CHARS` (default 320) and `NOU_SMS_MAX_PARTS` (default 2) cap
+the worst case at four segments, four cents, per reply. Overflow is
+dropped and the member is told so, never truncated silently.
+
 `QUO_API_KEY`, `QUO_ALLOWLIST`, and `CIS_PHONE_RELAY_KEY` never appear in
 logs. `QUO_ALLOWLIST` is a comma-separated E.164 list; the poll loop and
 the webhook both compare exact strings, no normalisation.

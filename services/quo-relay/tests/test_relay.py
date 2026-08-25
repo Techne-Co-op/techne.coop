@@ -15,7 +15,16 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from relay import Config, InboundMessage, handle_inbound  # noqa: E402
+from relay import (  # noqa: E402
+    _GSM7_CHARS,
+    SMS_MAX_PARTS,
+    SMS_PART_CHARS,
+    Config,
+    InboundMessage,
+    handle_inbound,
+    split_for_sms,
+    to_gsm7,
+)
 
 
 @pytest.fixture
@@ -117,3 +126,38 @@ def test_webhook_signature_verifies_openphone_scheme():
     assert _verify(body, sig)
     assert not _verify(body, "wrong")
     assert not _verify(body + b"tamper", sig)
+
+
+# --- segment cost ----------------------------------------------------------
+# Every 160 GSM-7 characters is a billed segment, and one non-GSM character
+# re-encodes the whole message at 70. These guard the cost of a reply, not
+# its correctness.
+
+def test_gsm7_folding_substitutes_known_punctuation():
+    folded = to_gsm7("He said “no—really” and left…")
+    assert folded == 'He said "no-really" and left...'
+    assert all(c in _GSM7_CHARS for c in folded)
+
+
+def test_gsm7_folding_drops_emoji_rather_than_paying_ucs2_for_it():
+    assert to_gsm7("done \U0001f680 shipped") == "done shipped"
+
+
+def test_split_folds_before_measuring_so_counts_are_billable_counts():
+    assert split_for_sms("café — ‘ok’") == ["café - 'ok'"]
+
+
+def test_split_defaults_cap_a_reply_at_four_segments():
+    assert SMS_PART_CHARS * SMS_MAX_PARTS <= 640
+
+
+def test_split_tells_the_member_when_it_dropped_the_overflow():
+    long_reply = " ".join(f"Sentence number {i} runs on for a while." for i in range(40))
+    parts = split_for_sms(long_reply)
+    assert len(parts) <= SMS_MAX_PARTS + 1
+    assert "not sent" in parts[-1]
+
+
+def test_split_refuses_a_reply_that_folds_away_to_nothing():
+    with pytest.raises(ValueError):
+        split_for_sms("\U0001f680\U0001f680")
