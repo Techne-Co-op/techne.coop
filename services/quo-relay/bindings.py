@@ -33,6 +33,23 @@ CODE_TTL_SEC = 600            # design §3: single-use, expiring in ten minutes
 MAX_CHALLENGES_PER_DAY = 3    # design §3: at most three sends per number per day
 
 
+def _binding_note(row: dict, pubkey: str) -> str:
+    """The first message in a binding room: what the ceremony proved."""
+    return (
+        "Binding ceremony complete.\n\n"
+        f"Number: {row['peer_e164']}\n"
+        f"Member key: {pubkey}\n"
+        f"Verified: {time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())}\n"
+        f"Binding id: {row['id']}\n\n"
+        "This room is the transcript for that number. Texts arriving from "
+        "it are from a member who proved control of the number with a "
+        "one-time code and answered from the key above; they are not an "
+        "unknown caller and not the steward. Lines prefixed [SMS] are "
+        "mirrored phone traffic, not fresh channel messages. STOP by SMS "
+        "revokes the binding."
+    )
+
+
 def _hash(code: str) -> str:
     return hashlib.sha256(code.encode()).hexdigest()
 
@@ -170,9 +187,17 @@ class Ceremony:
         self.store.mark_verified(row["id"], event_id)
         channel_id = self.bridge.create_binding_channel(
             member_pubkey=pubkey, owner_pubkey=owner_pubkey,
-            label=row["peer_e164"][-4:])
+            label=row["peer_e164"][-4:],
+            seed=str(row["id"]).replace("-", "")[:6])
         if channel_id:
             self.store.set_channel(row["id"], channel_id)
+            # Seed the room with what the ceremony established. A reader
+            # arriving later - member, steward, or an agent session with
+            # no memory of the ceremony - should find the binding stated
+            # rather than have to infer it from a phone number, which is
+            # how a verified member once got read as an intruder here
+            # (2026-08-24).
+            self.bridge.post(channel_id, _binding_note(row, pubkey))
             return (f"verified. {row['peer_e164']} is bound to your key. "
                     f"Your private SMS room is open; texts to the co-op line "
                     f"from your number now land there. STOP by SMS revokes.")

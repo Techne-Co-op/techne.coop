@@ -49,9 +49,17 @@ class BuzzBridge:
         self.agent_pubkey = agent_pubkey
 
     def create_binding_channel(self, member_pubkey: str, owner_pubkey: str,
-                               label: str) -> Optional[str]:
-        """Create the private room for a binding; returns channel id or None."""
-        created = _run(["channels", "create", "--name", f"sms-{label}",
+                               label: str, seed: str = "") -> Optional[str]:
+        """Create the private room for a binding; returns channel id or None.
+
+        The name carries a unique suffix as well as the number's last four
+        digits. Two members whose numbers end 1721 would otherwise both ask
+        for #sms-1721 and collide (steward, 2026-08-25); the suffix comes
+        from the binding row id, so the name is stable per binding rather
+        than random per attempt.
+        """
+        name = f"sms-{label}-{seed}" if seed else f"sms-{label}"
+        created = _run(["channels", "create", "--name", name,
                         "--type", "stream", "--visibility", "private"])
         if not created:
             return None

@@ -21,6 +21,7 @@ from relay import (  # noqa: E402
     SMS_PART_CHARS,
     Config,
     InboundMessage,
+    _sender_frame,
     handle_inbound,
     split_for_sms,
     to_gsm7,
@@ -161,3 +162,21 @@ def test_split_tells_the_member_when_it_dropped_the_overflow():
 def test_split_refuses_a_reply_that_folds_away_to_nothing():
     with pytest.raises(ValueError):
         split_for_sms("\U0001f680\U0001f680")
+
+
+# --- who is texting --------------------------------------------------------
+# The frame used to say "from steward" for every peer, which read a
+# correctly bound member as an intruder (2026-08-24).
+
+def test_frame_names_a_bound_member_and_denies_them_the_steward_label():
+    frame = _sender_frame("+15135931721", {"member_pubkey": "3e748f43fe80e8e2"})
+    assert "verified bound member" in frame
+    assert "3e748f43fe80e8e2" in frame
+    assert "not the steward" in frame
+
+
+def test_frame_says_plainly_when_a_peer_carries_no_key_evidence():
+    frame = _sender_frame("+13035059612", None)
+    assert "allowlisted number" in frame
+    assert "no binding and no key evidence" in frame
+    assert "steward" not in frame

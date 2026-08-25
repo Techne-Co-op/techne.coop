@@ -139,7 +139,24 @@ def log_event(cfg: Config, *, direction: str, peer: str, content: str,
 
 # --- dispatch --------------------------------------------------------------
 
-def dispatch_to_nou(peer: str, text: str) -> str:
+def _sender_frame(peer: str, binding: Optional[dict]) -> str:
+    """One line naming who this text is from, and on what evidence.
+
+    A verified binding is an identity claim the ceremony actually made:
+    the member proved control of the number by code and answered from
+    their own Nostr key. The allowlist is weaker - a number in the
+    service env, nothing else - and says so.
+    """
+    if binding and binding.get("member_pubkey"):
+        return (f"SMS from verified bound member {binding['member_pubkey'][:16]}, "
+                f"peer={peer}, binding verified by ceremony, tier 1 read-only. "
+                f"This is not the steward unless that key is the steward's")
+    return (f"SMS from an allowlisted number, peer={peer}, "
+            f"no binding and no key evidence, tier 1 read-only")
+
+
+def dispatch_to_nou(peer: str, text: str,
+                    binding: Optional[dict] = None) -> str:
     """Hand the inbound to Nou and return the reply.
 
     Placeholder shape for the first PR: shells out to the openclaw CLI
@@ -150,9 +167,16 @@ def dispatch_to_nou(peer: str, text: str) -> str:
     The prompt is deliberately terse and includes the tier constraints
     inline. Nou is expected to know its identity and voice from core
     memory; this is just the payload frame.
+
+    The frame names who actually texted. It used to say "from steward"
+    for every peer, so a correctly bound member arrived wearing the
+    steward's label and the agent read the mismatch as an intruder
+    (Aaron Neyer, 2026-08-24). A frame that can only describe one person
+    is wrong in both directions: it slanders a member, and it would have
+    handed a stranger the steward's standing.
     """
     prompt = (
-        f"[SMS from steward, tier 1 read-only, peer={peer}]\n\n{text}\n\n"
+        f"[{_sender_frame(peer, binding)}]\n\n{text}\n\n"
         "Reply in one or two sentences and stay under 300 characters. "
         "Every 160 characters is a billed segment, so length costs money "
         "on every answer; a third sentence is almost always the one to "
@@ -390,7 +414,7 @@ def handle_inbound(cfg: Config, msg: InboundMessage,
 
     # Dispatch.
     try:
-        reply = dispatch_to_nou(peer, msg.text)
+        reply = dispatch_to_nou(peer, msg.text, binding)
     except Exception as e:
         log.exception("dispatch failed")
         log_event(cfg, direction="in", peer=peer, content=msg.text,

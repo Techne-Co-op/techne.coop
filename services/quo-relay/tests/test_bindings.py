@@ -78,6 +78,25 @@ def test_verify_good_code_creates_channel_and_marks_verified():
     bridge.create_binding_channel.assert_called_once()
     store.set_channel.assert_called_once_with("B1", "CH-NEW")
     assert "verified" in reply
+    # The room name carries the binding id, so two numbers ending in the
+    # same four digits cannot collide on one channel name.
+    assert bridge.create_binding_channel.call_args.kwargs["seed"] == "B1"
+    # And the room opens with the ceremony stated, so a later reader does
+    # not have to infer the member's standing from a phone number.
+    seeded = bridge.post.call_args.args[1]
+    assert "Binding ceremony complete" in seeded
+    assert MEMBER in seeded and "+13035551234" in seeded
+
+
+def test_verify_without_channel_posts_no_note():
+    c, store, _, bridge = _ceremony()
+    store.pending_for_pubkey.return_value = {
+        "id": "B1", "peer_e164": "+13035551234", "code_hash": _hash("123456"),
+        "requested_at": time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime())}
+    bridge.create_binding_channel.return_value = None
+    reply = c.handle_message(MEMBER, "!verify 123456", "EV2", OWNER, AGENT)
+    bridge.post.assert_not_called()
+    assert "could not be created" in reply
 
 
 def test_verify_wrong_code_rejected():
