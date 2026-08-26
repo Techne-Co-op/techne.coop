@@ -213,11 +213,20 @@ footer a { color: var(--faint); }
   <div id="statements" style="display:none">
     <h1>Treasury</h1>
     <div class="section-rule"></div>
-    <p class="lead">The cooperative's finances at member scale: what we hold, how money moved, and what stands outstanding, by month, quarter, and fiscal year. No figure here is entered; each derives from the record, an instrument in force, or a rail's read, and each names its source in the treasury specification. Your own money facts also appear on your own surfaces, movement lines beside meaning lines.</p>
+    <p class="lead">The cooperative's money, at the scale every member can see: what we hold, how money moved, and what is still owed, by month, quarter, and financial year. Nobody types these figures in by hand. Each one is worked out from the record of what happened, from a rule the board has adopted, or from a direct read of our bank, card processor, and wallet accounts (this page calls those the rails), and each one says where it came from. Your own payments and shares also appear on your own pages, under Your share.</p>
     <div class="basis-line" id="basis-line"></div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">Position &middot; what we hold, owe, and own</h2><span class="desk-count" id="pos-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Start here</h2><span class="desk-count">read only</span></div>
+      <div class="desk-body">
+        <p style="margin-bottom:var(--s3)"><b>What this page is.</b> The cooperative's open books. It is read-only for everyone: nothing you click here moves money, and there is nothing to fill in.</p>
+        <p style="margin-bottom:var(--s3)"><b>What you can do here.</b> Read the five cards below, in order. <b>Position</b> is what we own and owe right now. <b>Flow</b> is money in and money out, month by month. <b>Monthly statements</b> opens each month in detail, and you can click any month to expand it. <b>Standing</b> is what people still owe the cooperative. <b>The close ribbon</b> shows which months of the year have been checked and finalised.</p>
+        <p><b>Two words to know.</b> <span class="chip anticipated">provisional</span> means a figure can still change, because nobody has checked that month yet. <span class="chip">closed</span> means the month has been checked and will not move. If a card says it is waiting, the figure does not exist yet; the card names what has to happen first.</p>
+      </div>
+    </div>
+
+    <div class="desk-card">
+      <div class="desk-header"><h2 class="desk-title">Position &middot; what we own and what we owe, right now</h2><span class="desk-count" id="pos-mark"></span></div>
       <div class="desk-body">
         <div class="tiles" id="pos-tiles"></div>
         <div class="desk-empty" id="pos-note" style="margin-top:var(--s3)"></div>
@@ -225,22 +234,22 @@ footer a { color: var(--faint); }
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">Flow &middot; cash, direct method</h2><span class="desk-count" id="flow-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Flow &middot; money in and money out, month by month</h2><span class="desk-count" id="flow-mark"></span></div>
       <div class="desk-body" id="flow-body"></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">Monthly statements &middot; from the rails</h2><span class="desk-count" id="stmt-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Monthly statements &middot; read straight from the bank, card, and wallet accounts</h2><span class="desk-count" id="stmt-mark"></span></div>
       <div class="desk-body" id="stmt-body"><span class="desk-empty">Reading&hellip;</span></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">Standing &middot; who has paid, what is outstanding</h2><span class="desk-count" id="standing-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Standing &middot; who has paid, and what is still owed to us</h2><span class="desk-count" id="standing-mark"></span></div>
       <div class="desk-body" id="standing-body"></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">The close ribbon &middot; fiscal year 2026</h2><span class="desk-count" id="ribbon-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">The close ribbon &middot; which months of 2026 have been checked</h2><span class="desk-count" id="ribbon-mark"></span></div>
       <div class="desk-body">
         <div class="ribbon" id="ribbon"></div>
         <div class="desk-empty" id="ribbon-note"></div>
@@ -250,32 +259,32 @@ footer a { color: var(--faint); }
 
   <div id="content">
     <div class="desk-h2">The Desk</div>
-    <p class="lead">The treasurer's surface, for the directors and officers <a href="/legal/">the bylaws</a> will seat here once the board elects them: what stands proposed, what awaits execution, what the record has committed and not yet seen settle, and whether the last window reconciled. Read-only for now; the acts that move money arrive with the policy that governs them.</p>
+    <p class="lead">The treasurer's view. Only directors and officers see this part of the page, and <a href="/legal/">the bylaws</a> will seat them here once the board elects them. It shows what spending has been asked for, what has been approved but not yet paid, what the cooperative has promised and not yet paid out, and whether the last check against the bank balanced. It is read-only for now: the controls that actually move money arrive together with the policy that governs them.</p>
 
     <div class="notice" id="page-notice"></div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">The instrument in force</h2><span class="desk-count" id="policy-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">The instrument in force &middot; the spending rule we follow</h2><span class="desk-count" id="policy-mark"></span></div>
       <div class="desk-body" id="policy-body"><span class="desk-empty">Reading&hellip;</span></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">Proposal queue</h2><span class="desk-count" id="prop-count"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Proposal queue &middot; spending asked for, not yet decided</h2><span class="desk-count" id="prop-count"></span></div>
       <div class="desk-body" id="prop-body"></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">Awaiting execution</h2><span class="desk-count" id="exec-count"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Awaiting execution &middot; approved, not yet paid</h2><span class="desk-count" id="exec-count"></span></div>
       <div class="desk-body" id="exec-body"></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">Commitments &middot; patronage</h2><span class="desk-count" id="commit-count"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Commitments &middot; surplus promised back to members, not yet paid</h2><span class="desk-count" id="commit-count"></span></div>
       <div class="desk-body" id="commit-body"></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">Reconciliation</h2><span class="desk-count" id="recon-count"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Reconciliation &middot; our records checked against the bank</h2><span class="desk-count" id="recon-count"></span></div>
       <div class="desk-body" id="recon-body"></div>
     </div>
   </div>
@@ -317,19 +326,19 @@ function renderPolicy(policyRow, adoption) {
   const mark = document.getElementById('policy-mark');
   const body = document.getElementById('policy-body');
   if (!policyRow) {
-    mark.textContent = 'none in force';
-    body.innerHTML = `<span class="desk-empty">No TREASURY-POLICY stands yet. The v1 draft is staged to the FSC and the board at <a href="/commons/treasury/policy/">/commons/treasury/policy/</a>; T-01 completes when it adopts, the row enters, and its thresholds render here, cited to the instrument. Until then this Desk shows the record as it is: quiet.</span>`;
+    mark.innerHTML = `<span class="chip">none in force</span>`;
+    body.innerHTML = `<span class="desk-empty">No treasury policy is in force yet. A treasury policy is the written rule that says who may spend how much, and who has to approve it. Version 1 is drafted and waiting on the Financial Systems Committee and the board; read the draft at <a href="/commons/treasury/policy/">/commons/treasury/policy/</a>. When the board adopts it, its spending limits appear here, quoted from the adopted text. Until then this Desk shows the record as it is: quiet.</span>`;
     return;
   }
   mark.textContent = policyRow.code + ' v' + policyRow.version;
   let bandsHtml = '';
   const p = adoption && adoption.payload ? adoption.payload : null;
   if (p && Array.isArray(p.bands)) {
-    bandsHtml = `<table class="bands"><tr><th>band</th><th>up to</th><th>requires</th></tr>` +
-      p.bands.map(b => `<tr><td>${escHtml(b.code)}</td><td>${b.max_usd == null ? 'no ceiling' : fmtUsd(b.max_usd)}</td><td>${b.board_resolution ? 'board resolution' : (b.approvals + ' approval' + (b.approvals === 1 ? '' : 's')) + (b.standing_only ? ' · standing purposes only' : '')}</td></tr>`).join('') + `</table>`;
+    bandsHtml = `<table class="bands"><tr><th>band</th><th>up to</th><th>who has to approve it</th></tr>` +
+      p.bands.map(b => `<tr><td>${escHtml(b.code)}</td><td>${b.max_usd == null ? 'no upper limit' : fmtUsd(b.max_usd)}</td><td>${b.board_resolution ? 'a recorded decision of the board' : (b.approvals + ' approval' + (b.approvals === 1 ? '' : 's')) + (b.standing_only ? ' · for spending the board has already agreed to in advance' : '')}</td></tr>`).join('') + `</table>`;
   }
   body.innerHTML = `<div class="row-line"><span class="row-main">${escHtml(policyRow.title || policyRow.code)}</span><span class="row-meta">effective <span>${policyRow.effective_date ? fmtDate(policyRow.effective_date) : 'on adoption'}</span></span></div>${bandsHtml}
-  <div class="row-meta" style="margin-top:var(--s3)">Read from the version in force at every act; no threshold lives in code (Law IV).</div>`;
+  <div class="row-meta" style="margin-top:var(--s3)">These limits are read from the adopted policy every time money moves. None of them is written into this website's code (Law IV).</div>`;
 }
 
 async function loadDesk() {
@@ -343,7 +352,7 @@ async function loadDesk() {
   ]);
   if (evErr) {
     const n = document.getElementById('page-notice');
-    n.textContent = Techne.report(evErr, 'Could not read the Desk right now. Directors and officers read the full record; others see their own facts on their own surfaces.');
+    n.textContent = Techne.report(evErr, 'We could not load the Desk just now. Only directors and officers can read the full record here; everyone else sees their own information on their own pages.');
     n.className = 'notice err'; n.style.display = 'block';
   }
   const evs = events || [];
@@ -356,7 +365,7 @@ async function loadDesk() {
   const closedRefs = new Set(evs.filter(e => e.kind === 'disbursement.executed' || e.kind === 'disbursement.refused')
     .map(e => (e.payload && e.payload.proposal_event_id) || null).filter(Boolean));
   const queue = proposed.filter(e => !closedRefs.has(e.id));
-  if (queue.length === 0) setEmpty('prop', 'Nothing proposed. Proposals arrive with the disbursement verbs, an emission that waits on this policy and its own word.', '0');
+  if (queue.length === 0) setEmpty('prop', 'Nothing has been proposed. Spending proposals become possible once the treasury policy above is adopted and the spending controls are built. Neither has happened yet.', '0');
   else {
     document.getElementById('prop-count').textContent = String(queue.length);
     document.getElementById('prop-body').innerHTML = queue.map(e =>
@@ -364,13 +373,13 @@ async function loadDesk() {
   }
 
   // Awaiting execution: approvals accumulated, no executed pairing (rendering only; the trail math arrives with T-04).
-  setEmpty('exec', 'Nothing awaits the bank. Execution records arrive with T-04, after reconciliation proves the fabric (T-03).', '0');
+  setEmpty('exec', 'Nothing is waiting to be paid. Records of payments made start appearing once the payment step is built (T-04), which comes after the bank check is working (T-03).', '0');
 
   // Commitments: capital.distribution with settlement anticipated and no executed discharge.
   const discharged = new Set(evs.filter(e => e.kind === 'disbursement.executed')
     .map(e => (e.payload && e.payload.commitment_event_id) || null).filter(Boolean));
   const commitments = evs.filter(e => e.kind === 'capital.distribution' && e.settlement === 'anticipated' && !discharged.has(e.id));
-  if (commitments.length === 0) setEmpty('commit', 'No commitments stand. They arrive with the Allocation Run (S-03, under PATRONAGE), and settle here only by pairing; nothing flips, something arrives beside it.', '0');
+  if (commitments.length === 0) setEmpty('commit', 'Nothing has been promised yet. Promises to members are created by the Allocation Run, the step that shares out surplus (S-03, under the patronage rules). When one is paid, the promise is never edited: the payment is recorded beside it, so both stay visible.', '0');
   else {
     document.getElementById('commit-count').textContent = String(commitments.length);
     document.getElementById('commit-body').innerHTML = commitments.map(e =>
@@ -383,12 +392,12 @@ async function loadDesk() {
     .map(e => (e.payload && e.payload.gap_id) || null).filter(Boolean));
   let gaps = [];
   windows.forEach(w => { (w.payload && w.payload.gaps || []).forEach(g => { if (!resolved.has(g.id)) gaps.push(g); }); });
-  if (windows.length === 0) setEmpty('recon', 'No window has been attested. The reconciliation fold arrives with T-03, once the Mercury feed and Xero references flow.', '0');
+  if (windows.length === 0) setEmpty('recon', 'No period has been checked and signed off yet. Checking begins once the bank feed (Mercury) and the accounting system (Xero) are connected (T-03).', '0');
   else {
     document.getElementById('recon-count').textContent = windows.length + ' window' + (windows.length === 1 ? '' : 's') + (gaps.length ? ' · ' + gaps.length + ' gap' + (gaps.length === 1 ? '' : 's') + ' standing' : '');
     document.getElementById('recon-body').innerHTML = windows.slice(0, 6).map(w =>
-      `<div class="row-line"><span class="row-main">Window attested</span><span class="row-meta"><span>${fmtDate(w.recorded_at)}</span> &middot; event ${escHtml(w.id.slice(0,8))}</span></div>`).join('') +
-      gaps.map(g => `<div class="row-line"><span class="row-main" style="color:var(--warn)">Gap: ${escHtml(g.kind || 'unpaired')}</span><span class="row-meta">stands until treasury.gap_resolved</span></div>`).join('');
+      `<div class="row-line"><span class="row-main">Period checked and signed off</span><span class="row-meta"><span>${fmtDate(w.recorded_at)}</span> &middot; event ${escHtml(w.id.slice(0,8))}</span></div>`).join('') +
+      gaps.map(g => `<div class="row-line"><span class="row-main" style="color:var(--warn)">Gap: ${escHtml(g.kind || 'unpaired')}</span><span class="row-meta">a line we could not match; it stays open until someone records that it is resolved</span></div>`).join('');
   }
   return evs;
 }
@@ -425,7 +434,7 @@ function renderFlowTable(byMonth) {
   });
   rows += `<tr class="subtotal"><td>FY ${FY}</td><td>${fmtUsd(yIn)}</td><td>${fmtUsd(yOut)}</td><td>${fmtUsd(yIn - yOut)}</td><td>${fmtUsd(running)}</td></tr>`;
   return `<table class="flow"><tr><th>month</th><th>in</th><th>out</th><th>net</th><th>cash</th></tr>${rows}</table>
-  <div class="row-meta" style="margin-top:var(--s3)">Inflows from money.received by purpose; outflows from disbursement.executed. Quarters and the year are sums of months. Follow any figure to its events.</div>`;
+  <div class="row-meta" style="margin-top:var(--s3)">Money in comes from recorded receipts, money out from recorded payments. The quarter and year lines are just the months added up. Every figure can be traced back to the records behind it.</div>`;
 }
 
 function renderRibbon(windows) {
@@ -440,8 +449,8 @@ function renderRibbon(windows) {
   }).join('');
   document.getElementById('ribbon-mark').textContent = covered.size + ' of 12 closed';
   document.getElementById('ribbon-note').textContent = windows.length === 0
-    ? 'No Reconciliation Window has attested; every past month stands provisional. Closed marks arrive with the fold (T-03), and a closed month will link its window.'
-    : 'A month wears closed only under an attested window; provisional figures may still move.';
+    ? 'Nobody has checked a month against the bank yet, so every month so far is marked provisional: its figures can still change. Months begin showing as closed once the checking step is built (T-03), and each closed month will link to the check that closed it.'
+    : 'A month shows closed only after it has been checked against the bank and signed off. Provisional months can still change. Future months have not happened yet.';
 }
 
 /* Monthly statements: rail-derived snapshots from the 0019 store, generated
@@ -475,21 +484,21 @@ function renderStatement(row) {
     secA = `<table class="flow"><tr><th>date</th><th>kind</th><th>gross</th><th>fee</th><th>net</th></tr>` +
       pays.map(r => `<tr><td>${escHtml(r.date)}</td><td style="text-align:left">${escHtml(r.kind)}</td><td>${fmtUsd(r.gross)}</td><td>${fmtUsd(r.fee)}</td><td>${fmtUsd(r.net)}</td></tr>`).join('') +
       `<tr class="subtotal"><td>total</td><td></td><td>${fmtUsd(gross)}</td><td>${fmtUsd(fees)}</td><td>${fmtUsd(netRev)}</td></tr></table>
-      <div class="row-meta" style="margin-top:var(--s2)">The cooperative's own Stripe account. Payments that ran the sponsor-era processor appear in the custody lines below, not here (AC-03).</div>`;
+      <div class="row-meta" style="margin-top:var(--s2)">These are payments through the cooperative's own Stripe account. Payments that went through the earlier sponsor organisation's account appear in the account balances below, not here (AC-03).</div>`;
   } else {
-    secA = `<span class="desk-empty">No payments on the cooperative's processor this month; inflows, if any, ran the sponsor-era rails and appear in the custody lines below.</span>`;
+    secA = `<span class="desk-empty">No card payments through the cooperative's own account this month. Any money that did come in went through the earlier sponsor organisation's accounts, and appears in the account balances below.</span>`;
   }
 
   /* C · on-chain: month transfers with explorer links */
   const tr = p.safe_transfers || [];
   const holdings = (sf.holdings || []).filter(h => h.asset !== 'read_failed')
     .map(h => `${escHtml(h.chain)} ${escHtml(h.asset)} ${Number(h.amount).toLocaleString('en-US')}`).join(' &middot; ');
-  let secC = holdings ? `<div class="row-meta" style="margin-bottom:var(--s2)">holdings at read: ${holdings}</div>` : '';
+  let secC = holdings ? `<div class="row-meta" style="margin-bottom:var(--s2)">in the wallet when we last looked: ${holdings}</div>` : '';
   if (tr.length) {
     secC += `<table class="flow"><tr><th>date</th><th>chain</th><th>asset</th><th>amount</th><th>counterparty</th><th>tx</th></tr>` +
       tr.map(t => `<tr><td>${escHtml(t.date)}</td><td>${escHtml(t.chain)}</td><td>${escHtml(t.asset)}</td><td class="${t.amount < 0 ? 'neg' : ''}">${t.amount < 0 ? '\u2212' : '+'}${Number(Math.abs(t.amount)).toLocaleString('en-US')}</td><td>${escHtml(t.counterparty)}</td><td><a href="${escHtml(t.tx)}" rel="noopener" target="_blank">\u2197</a></td></tr>`).join('') + `</table>`;
   } else {
-    secC += `<span class="desk-empty">No recognized-asset transfers this month.</span>`;
+    secC += `<span class="desk-empty">Nothing moved in or out of the shared crypto wallet this month.</span>`;
   }
 
   /* D · bank register: inbound payer names genericized by design */
@@ -498,7 +507,7 @@ function renderStatement(row) {
     `<div class="row-meta" style="margin:var(--s2) 0">${escHtml(a.account)} &middot; in ${fmtUsd(a.inflow)} &middot; out ${fmtUsd(a.outflow)}</div>
      <table class="flow"><tr><th>date</th><th style="text-align:left">counterparty</th><th>amount</th></tr>` +
       a.register.map(t => `<tr><td>${escHtml(t.date)}</td><td style="text-align:left">${escHtml(t.counterparty)}</td><td class="${t.amount < 0 ? 'neg' : ''}">${fmtUsd(t.amount)}</td></tr>`).join('') + `</table>`).join('')
-    : `<span class="desk-empty">No bank-rail activity this month.</span>`;
+    : `<span class="desk-empty">Nothing moved through the bank account this month.</span>`;
 
   /* the book's custody lines */
   const custody = (x.bank_summary || []).filter(c => c.account !== 'Total');
@@ -508,18 +517,18 @@ function renderStatement(row) {
   return `<details class="stmt">
     <summary>
       <span class="stmt-month">${fmtMonth(row.month)}</span>
-      <span class="stmt-kpi">revenue net <b>${fmtUsd(netRev)}</b></span>
-      <span class="stmt-kpi">book net <b>${net != null ? fmtUsd(net) : '&ndash;'}</b></span>
-      <span class="stmt-kpi">book cash <b>${pos['Total Cash and Cash Equivalents'] != null ? fmtUsd(pos['Total Cash and Cash Equivalents']) : '&ndash;'}</b></span>
+      <span class="stmt-kpi">income after fees <b>${fmtUsd(netRev)}</b></span>
+      <span class="stmt-kpi">profit or loss, in the books <b>${net != null ? fmtUsd(net) : '&ndash;'}</b></span>
+      <span class="stmt-kpi">cash, in the books <b>${pos['Total Cash and Cash Equivalents'] != null ? fmtUsd(pos['Total Cash and Cash Equivalents']) : '&ndash;'}</b></span>
       <span class="chip anticipated">provisional</span>
     </summary>
     <div class="stmt-inner">
-      <div class="stmt-sec">A &middot; revenue &middot; the processor, itemized</div>${secA}
-      <div class="stmt-sec">B &middot; the book's custody lines</div>
-      <table class="flow"><tr><th style="text-align:left">account</th><th>open</th><th>in</th><th>out</th><th>close</th></tr>${custodyRows}</table>
-      <div class="stmt-sec">C &middot; on-chain &middot; the Safe</div>${secC}
-      <div class="stmt-sec">D &middot; the bank rail, register</div>${secD}
-      <div class="row-meta" style="margin-top:var(--s3)">generated ${fmtDate(row.generated_at)} &middot; provisional until a Reconciliation Window attests this month (T-03) &middot; book figures are Xero's, cited not restated</div>
+      <div class="stmt-sec">A &middot; income &middot; each card payment, listed</div>${secA}
+      <div class="stmt-sec">B &middot; account balances, as the accountant's books have them</div>
+      <table class="flow"><tr><th style="text-align:left">account</th><th>opening</th><th>in</th><th>out</th><th>closing</th></tr>${custodyRows}</table>
+      <div class="stmt-sec">C &middot; the shared crypto wallet (our Safe)</div>${secC}
+      <div class="stmt-sec">D &middot; the bank account, line by line</div>${secD}
+      <div class="row-meta" style="margin-top:var(--s3)">prepared ${fmtDate(row.generated_at)} &middot; provisional, meaning these figures can still change, until this month is checked against the bank and signed off (T-03) &middot; figures marked "in the books" come from Xero, our accounting system, quoted as they stand there</div>
     </div>
   </details>`;
 }
@@ -530,24 +539,24 @@ function renderStatement(row) {
 function renderStandingFromSnapshot(latest) {
   const ar = latest && latest.payload && latest.payload.xero && latest.payload.xero.receivables;
   if (!ar || !ar.invoices) return false;
-  const buckets = { 'current': 0, '1-30 days late': 0, '31-60': 0, '61 and over': 0 };
+  const buckets = { 'not yet due': 0, '1-30 days late': 0, '31-60 days late': 0, '61 days late and over': 0 };
   ar.invoices.forEach(i => {
     const d = i.days_past_due;
-    if (d == null || d <= 0) buckets['current'] += i.amount_due;
+    if (d == null || d <= 0) buckets['not yet due'] += i.amount_due;
     else if (d <= 30) buckets['1-30 days late'] += i.amount_due;
-    else if (d <= 60) buckets['31-60'] += i.amount_due;
-    else buckets['61 and over'] += i.amount_due;
+    else if (d <= 60) buckets['31-60 days late'] += i.amount_due;
+    else buckets['61 days late and over'] += i.amount_due;
   });
   const shown = ar.invoices.slice(0, 15);
   document.getElementById('standing-body').innerHTML =
-    `<div class="row-line"><span class="row-main">${ar.count} invoices outstanding &middot; ${fmtUsd(ar.total_due)}</span><span class="row-meta">as of <span>${fmtDate(ar.as_of)}</span> &middot; from the book's sales invoices</span></div>
+    `<div class="row-line"><span class="row-main">${ar.count} invoices still unpaid &middot; ${fmtUsd(ar.total_due)}</span><span class="row-meta">as of <span>${fmtDate(ar.as_of)}</span> &middot; from the invoices in our accounting system</span></div>
      <div class="row-meta" style="margin:var(--s2) 0">${Object.keys(buckets).filter(k => buckets[k] > 0).map(k => `${k}: ${fmtUsd(buckets[k])}`).join(' &middot; ')}</div>
      <table class="flow"><tr><th style="text-align:left">invoice</th><th>issued</th><th>due</th><th>amount due</th><th>days late</th></tr>` +
     shown.map(i => `<tr><td style="text-align:left">${escHtml(i.invoice || '?')}</td><td>${escHtml(i.issued)}</td><td>${escHtml(i.due)}</td><td>${fmtUsd(i.amount_due)}</td><td>${i.days_past_due > 0 ? i.days_past_due : ''}</td></tr>`).join('') +
     `</table>` +
-    (ar.count > 15 ? `<div class="row-meta" style="margin-top:var(--s2)">and ${ar.count - 15} more in the book</div>` : '') +
-    `<div class="row-meta" style="margin-top:var(--s3)">Invoice numbers, never names, on the member view. The dues schedule instrument will make expected-minus-received computable from the record; until then this is the book's own receivable, read live.</div>`;
-  document.getElementById('standing-mark').textContent = ar.count + ' outstanding';
+    (ar.count > 15 ? `<div class="row-meta" style="margin-top:var(--s2)">and ${ar.count - 15} more in the accounting system</div>` : '') +
+    `<div class="row-meta" style="margin-top:var(--s3)">Members see invoice numbers here, never customer names. Once a dues schedule is adopted, this card can show what is owed against what has been paid; until then it shows what our accounting system says is unpaid, read live.</div>`;
+  document.getElementById('standing-mark').innerHTML = '<span class="chip">' + ar.count + ' unpaid</span>';
   return true;
 }
 
@@ -557,22 +566,22 @@ async function loadMonthlyStatements() {
   const { data, error } = await sb.from('treasury_statements')
     .select('month,payload,generated_at').order('month', { ascending: false });
   if (error || !data || data.length === 0) {
-    body.innerHTML = '<span class="desk-empty">No statements stand in the store yet. They arrive by the runner, scripts/treasury_statements.py, read-only from the rails (0019).</span>';
-    mark.textContent = '0';
+    body.innerHTML = '<span class="desk-empty">No monthly statements have been prepared yet. They are produced by a script that reads our bank, card, and wallet accounts, and it can only read, never move money (0019).</span>';
+    mark.innerHTML = '<span class="chip">0 months</span>';
     return;
   }
-  mark.textContent = data.length + ' month' + (data.length === 1 ? '' : 's') + ' · rail-derived';
+  mark.innerHTML = '<span class="chip">' + data.length + ' month' + (data.length === 1 ? '' : 's') + '</span>';
   renderStandingFromSnapshot(data[0]);
   body.innerHTML = data.map(renderStatement).join('<div style="border-top:1px solid var(--rule);margin:var(--s4) 0"></div>') +
-    `<div class="row-meta" style="margin-top:var(--s4)">Every figure carries its source and read time. Custody lines are shown separately pending the scoping determination (<a href="/accounting/counsel-memo/#ac-03">AC-03</a>); the sponsor-era account is not presumed the cooperative's. A month wears closed only when a Reconciliation Window attests (T-03); until then these are the rails as read, not the record as attested.</div>`;
+    `<div class="row-meta" style="margin-top:var(--s4)">Every figure says where it came from and when it was read. Balances held in the earlier sponsor organisation's accounts are listed separately, because it has not yet been decided whether they belong to the cooperative (<a href="/accounting/counsel-memo/#ac-03">AC-03</a>). A month shows closed only once it has been checked and signed off (T-03). Until then these are the accounts as read, not figures anyone has verified.</div>`;
 }
 
 async function loadStatements(atDesk, evs) {
   document.getElementById('statements').style.display = 'block';
   document.getElementById('basis-line').textContent =
-    'cash basis · derived at read · as of ' + new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC · fiscal year ' + FY + ', calendar, assumed until the board records otherwise';
+    'counted when money actually moved (cash basis) · worked out just now, at ' + new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC · financial year ' + FY + ' runs January to December, assumed until the board decides otherwise';
 
-  const emissionNote = 'The member cut crosses the policy boundary as totals, never as rows: it waits on the definer folds of 000N_treasury_folds.sql, the T-07 emission. Until that lands, this region waits rather than guesses.';
+  const emissionNote = 'Members see totals here, never another member’s individual lines. The calculations that produce those totals safely have not been built yet (T-07). Until they are, this card waits rather than guesses.';
 
   if (!atDesk) {
     /* the member cut: aggregate folds by rpc; honest waiting states until the emission lands */
@@ -584,19 +593,19 @@ async function loadStatements(atDesk, evs) {
     if (folds.treasury_position) {
       const p = folds.treasury_position;
       document.getElementById('pos-tiles').innerHTML =
-        tile('cash in custody', fmtUsd(p.cash), 'the rails’ reads &middot; ' + escHtml(p.cash_as_of || '')) +
-        tile('receivables', fmtUsd(p.receivables), 'instrument-expected minus received') +
-        tile('commitments standing', fmtUsd(p.commitments), 'unpaired distributions') +
-        tile('member capital', fmtUsd(p.member_capital), 'the PP capital-account fold');
-      document.getElementById('pos-mark').textContent = 'aggregate';
+        tile('cash we hold', fmtUsd(p.cash), 'read from the bank, card, and wallet accounts &middot; ' + escHtml(p.cash_as_of || '')) +
+        tile('money owed to us', fmtUsd(p.receivables), 'what the adopted rules say is due, minus what has come in') +
+        tile('promised, not yet paid', fmtUsd(p.commitments), 'promises with no matching payment yet') +
+        tile('member capital', fmtUsd(p.member_capital), 'what members have paid in for their shares');
+      document.getElementById('pos-mark').innerHTML = '<span class="chip">totals only</span>';
     } else {
       document.getElementById('pos-tiles').innerHTML =
-        tile('cash in custody', '–', 'waits on the bank rail reads', true) +
-        tile('receivables', '–', 'awaits the dues schedule', true) +
-        tile('commitments standing', '–', 'the fold emission', true) +
-        tile('member capital', '–', 'the fold emission', true);
+        tile('cash we hold', '–', '<span class="chip anticipated">waiting</span> on the bank account reads', true) +
+        tile('money owed to us', '–', '<span class="chip anticipated">waiting</span> on an adopted dues schedule', true) +
+        tile('promised, not yet paid', '–', '<span class="chip anticipated">waiting</span> on the calculation (T-07)', true) +
+        tile('member capital', '–', '<span class="chip anticipated">waiting</span> on the calculation (T-07)', true);
       document.getElementById('pos-note').textContent = emissionNote;
-      document.getElementById('pos-mark').textContent = 'waiting';
+      document.getElementById('pos-mark').innerHTML = '<span class="chip anticipated">waiting</span>';
     }
     if (folds.treasury_flow_by_month && folds.treasury_flow_by_month.length) {
       const byMonth = {};
@@ -605,17 +614,17 @@ async function loadStatements(atDesk, evs) {
       document.getElementById('flow-mark').textContent = folds.treasury_flow_by_month.length + ' months';
     } else {
       document.getElementById('flow-body').innerHTML = `<span class="desk-empty">${emissionNote}</span>`;
-      document.getElementById('flow-mark').textContent = 'waiting';
+      document.getElementById('flow-mark').innerHTML = '<span class="chip anticipated">waiting</span>';
     }
     if (folds.treasury_standing_aggregate) {
       const s = folds.treasury_standing_aggregate;
       /* the small-cohort withholding: under three outstanding, the count shows and the total does not (§9a) */
-      const total = s.outstanding_count >= 3 ? ' &middot; ' + fmtUsd(s.outstanding_total) + ' outstanding' : ' &middot; total withheld under the small-cohort rule';
-      document.getElementById('standing-body').innerHTML = `<div class="row-line"><span class="row-main">${s.current_count} current &middot; ${s.outstanding_count} outstanding${total}</span></div>`;
-      document.getElementById('standing-mark').textContent = 'aggregate';
+      const total = s.outstanding_count >= 3 ? ' &middot; ' + fmtUsd(s.outstanding_total) + ' still owed' : ' &middot; total hidden, because fewer than three people are behind and the amount could identify them';
+      document.getElementById('standing-body').innerHTML = `<div class="row-line"><span class="row-main">${s.current_count} paid up &middot; ${s.outstanding_count} behind${total}</span></div>`;
+      document.getElementById('standing-mark').innerHTML = '<span class="chip">totals only</span>';
     } else {
-      document.getElementById('standing-body').innerHTML = `<span class="desk-empty">Standing derives from the dues schedule, expected minus received, and reaches members as counts and totals, never names. It waits on the dues schedule recording as an instrument. Your own line, once it exists, appears here in full; it was already yours to see.</span>`;
-      document.getElementById('standing-mark').textContent = 'waiting';
+      document.getElementById('standing-body').innerHTML = `<span class="desk-empty">This card compares what members owe with what they have paid. It needs an adopted dues schedule, the document that sets who owes what and when, and none has been adopted yet. Members see counts and totals here, never names. Your own line, once it exists, appears here in full: it was always yours to see.</span>`;
+      document.getElementById('standing-mark').innerHTML = '<span class="chip anticipated">waiting</span>';
     }
     renderRibbon([]);
     return;
@@ -633,16 +642,16 @@ async function loadStatements(atDesk, evs) {
   const capitalTotal = capital.reduce((a, e) => a + (Number(e.book_delta) || 0), 0);
 
   document.getElementById('pos-tiles').innerHTML =
-    tile('cash in custody', '–', 'waits on the bank rail reads', true) +
-    tile('receivables', '–', 'awaits the dues schedule as an instrument', true) +
-    tile('commitments standing', fmtUsd(commitTotal), 'unpaired capital.distribution rows', false) +
-    tile('member capital', capital.length ? fmtUsd(capitalTotal) : '–', capital.length ? 'the PP capital-account fold, ' + capital.length + ' events' : 'no capital events stand yet', !capital.length);
-  document.getElementById('pos-mark').textContent = 'desk cut';
-  document.getElementById('pos-note').innerHTML = 'The equation shows whole when its parts exist: assets, cash and receivables, against commitments and member capital, with the delta to the books surfaced beside it, not smoothed.';
+    tile('cash we hold', '–', '<span class="chip anticipated">waiting</span> on the bank account reads', true) +
+    tile('money owed to us', '–', '<span class="chip anticipated">waiting</span> on an adopted dues schedule', true) +
+    tile('promised, not yet paid', fmtUsd(commitTotal), 'promises with no matching payment yet', false) +
+    tile('member capital', capital.length ? fmtUsd(capitalTotal) : '–', capital.length ? 'what members have paid in for their shares, from ' + capital.length + ' records' : 'no share or capital records yet', !capital.length);
+  document.getElementById('pos-mark').innerHTML = '<span class="chip">full detail</span>';
+  document.getElementById('pos-note').innerHTML = 'Once all four figures exist, they balance: what we hold and are owed on one side, what we owe members on the other. Any difference from the accountant’s books is shown here plainly rather than smoothed over.';
 
   if (money.length === 0 && exec.length === 0) {
-    document.getElementById('flow-body').innerHTML = '<span class="desk-empty">No governed movement stands in the record. The first money.received arrives with the intake rail (T-02), or as a manual entry at R1; the first outflow arrives with disbursement execution (T-04). The table folds itself from the events the moment they exist.</span>';
-    document.getElementById('flow-mark').textContent = '0 movements';
+    document.getElementById('flow-body').innerHTML = '<span class="desk-empty">No money movement has been recorded here yet. The first money in appears when the card processor is connected (T-02), or when someone enters it by hand; the first money out appears when the payment step is built (T-04). This table builds itself from those records the moment they exist.</span>';
+    document.getElementById('flow-mark').innerHTML = '<span class="chip">0 movements</span>';
   } else {
     const byMonth = {};
     money.forEach(e => { const k = monthKey(e.occurred_at || e.recorded_at); (byMonth[k] = byMonth[k] || { inflow: 0, outflow: 0 }).inflow += Number(e.payload && e.payload.amount) || 0; });
@@ -651,8 +660,8 @@ async function loadStatements(atDesk, evs) {
     document.getElementById('flow-mark').textContent = (money.length + exec.length) + ' movements';
   }
 
-  document.getElementById('standing-body').innerHTML = '<span class="desk-empty">The named roster, each member’s expected, received, outstanding, and age, derives from the dues schedule, and no dues schedule yet stands as an instrument; the roster activates when it records. Members see this region as counts and totals only, under the small-cohort withholding.</span>';
-  document.getElementById('standing-mark').textContent = 'desk cut · waiting on the instrument';
+  document.getElementById('standing-body').innerHTML = '<span class="desk-empty">The named list, showing what each member owes, has paid, still owes, and for how long, needs an adopted dues schedule, the document that sets who owes what and when. None has been adopted yet, so the list is empty; it fills in the moment one is recorded. Members see only counts and totals here, and the total is hidden when fewer than three people are behind.</span>';
+  document.getElementById('standing-mark').innerHTML = '<span class="chip anticipated">waiting on a dues schedule</span>';
 
   renderRibbon(windows);
 }
