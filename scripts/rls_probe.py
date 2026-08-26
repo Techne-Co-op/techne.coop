@@ -52,6 +52,7 @@ GAT  = "00000000-0000-4000-8000-000000000201"   # gathering hosted by MEM1
 SES  = "00000000-0000-4000-8000-000000000202"   # its session
 OPP  = "00000000-0000-4000-8000-000000000301"   # opportunity authored by MEM1
 DIR1 = "00000000-0000-4000-8000-000000000401"   # seeded Direction given by MEM1 (A-01)
+VER1 = "00000000-0000-4000-8000-000000000402"   # seeded verdict spoken by MEM1 (X-32)
 
 BOOTSTRAP = """
 create role anon nologin;
@@ -116,6 +117,9 @@ insert into events (occurred_at, actor_agent_id, kind, agent_id) values
 
 insert into events (id, occurred_at, actor_agent_id, kind, agent_id, payload) values
   ('{DIR1}', now(), '{MEM1}', 'direction.given', '{MEM1}', '{{"brief": "Seeded probe direction.", "kind": "survey", "repositories": []}}'::jsonb);
+
+insert into events (id, occurred_at, actor_agent_id, kind, agent_id, payload) values
+  ('{VER1}', now(), '{MEM1}', 'verdict.spoken', '{MEM1}', '{{"address": "P-12", "verdict": "holds", "sentence": "Seeded probe verdict: notice is intact.", "walk": "2026-08-26"}}'::jsonb);
 
 insert into profiles (agent_id, bio, email, email_visible) values
   ('{MEM1}', 'Probe bio one.', 'one@probe.local', true),
@@ -560,11 +564,17 @@ probe("verdict-address-shape-deny", "authenticated", MEM2,
       "select record_verdict('not an address', 'holds', 'Probe verdict against a malformed address.')",
       ("deny",), "X-32: the verb checks the shape of an address, the walk surface checks its existence")
 probe("verdict-own-walk-read", "authenticated", MEM1,
-      "select count(*) from (select record_verdict('P-12', 'holds', 'Probe: notice is intact.')) w, standing_verdicts s where s.address = 'P-12'",
+      "select count(*) from standing_verdicts where address = 'P-12'",
       ("count", 1), "Bylaws section 18.1: the walker reads their own walk back")
 probe("verdict-cross-member-none", "authenticated", MEM3,
-      "select count(*) from (select record_verdict('P-12', 'holds', 'Probe: a third member speaks.')) w, standing_verdicts s where s.walker_agent_id = '" + MEM1 + "'",
+      f"select count(*) from standing_verdicts where walker_agent_id = '{MEM1}'",
       ("count", 0), "0002 events_read: another member's verdicts are not theirs to read, and X-32 widens nothing")
+probe("verdict-director-reads-every-walk", "authenticated", DIR,
+      f"select count(*) from standing_verdicts where walker_agent_id = '{MEM1}'",
+      ("count", 1), "0002 events_read: the director branch already reads every walk, so X-32 widens no policy")
+probe("verdict-steward-reads-no-walk", "authenticated", STE,
+      f"select count(*) from standing_verdicts where walker_agent_id = '{MEM1}'",
+      ("count", 0), "0002 events_read: app_is_officer() is secretary or treasurer, so the steward as steward reads no walk but their own")
 
 
 # ============================================================

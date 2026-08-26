@@ -25,12 +25,17 @@
 --   No read widening, deliberately. Every verdict.spoken event
 --   carries the speaking member as agent_id, so the standing
 --   events_read policy (0002) already shows a walker their own walk
---   and shows directors and officers all of them. That is enough for
---   the board to query the walk and for a walker to resume one. It
---   is NOT enough for members to read each other's verdicts. Whether
---   the walk is common to the membership is a governance question
---   about what the cooperative shows itself, and it is not taken
---   here. Adding it later is one policy, no change to this verb.
+--   and shows directors, secretaries and treasurers all of them.
+--   Read that list exactly: app_is_officer() is secretary or
+--   treasurer, so a steward who holds no other appointment reads no
+--   walk but their own, and the seat that most often asks for the
+--   walk is not the seat the policy admits. That is a finding about
+--   0002 and not a thing to fix here by widening; it is probed as
+--   it stands (verdict-steward-reads-no-walk) so the record says
+--   what is true. Whether the membership at large, or the steward,
+--   reads one another's verdicts is a governance question about
+--   what the cooperative shows itself, and it is not taken here.
+--   Adding either is one policy, no change to this verb.
 --
 --   The sentence is required. The run-book has always warned that a
 --   verdict without a sentence tells the record what happened and
