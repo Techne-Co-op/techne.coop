@@ -52,6 +52,7 @@ GAT  = "00000000-0000-4000-8000-000000000201"   # gathering hosted by MEM1
 SES  = "00000000-0000-4000-8000-000000000202"   # its session
 OPP  = "00000000-0000-4000-8000-000000000301"   # opportunity authored by MEM1
 DIR1 = "00000000-0000-4000-8000-000000000401"   # seeded Direction given by MEM1 (A-01)
+VER1 = "00000000-0000-4000-8000-000000000402"   # seeded verdict spoken by MEM1 (X-32)
 
 BOOTSTRAP = """
 create role anon nologin;
@@ -117,6 +118,9 @@ insert into events (occurred_at, actor_agent_id, kind, agent_id) values
 insert into events (id, occurred_at, actor_agent_id, kind, agent_id, payload) values
   ('{DIR1}', now(), '{MEM1}', 'direction.given', '{MEM1}', '{{"brief": "Seeded probe direction.", "kind": "survey", "repositories": []}}'::jsonb);
 
+insert into events (id, occurred_at, actor_agent_id, kind, agent_id, payload) values
+  ('{VER1}', now(), '{MEM1}', 'verdict.spoken', '{MEM1}', '{{"address": "P-12", "verdict": "holds", "sentence": "Seeded probe verdict: notice is intact.", "walk": "2026-08-26"}}'::jsonb);
+
 insert into profiles (agent_id, bio, email, email_visible) values
   ('{MEM1}', 'Probe bio one.', 'one@probe.local', true),
   ('{MEM2}', 'Probe bio two.', 'two@probe.local', false);
@@ -131,6 +135,7 @@ MIGRATIONS = [
     "commons/authority-map/0010_programs_view.sql",
     "commons/authority-map/0017_direction_rail.sql",
     "commons/authority-map/0018_direction_desk.sql",
+    "commons/authority-map/0030_verdict_rail.sql",
 ]
 
 
@@ -287,8 +292,8 @@ probe("events-applicant-cross-none", "authenticated", APP,
       f"select count(*) from events where agent_id = '{MEM2}'", ("count", 0),
       "s5 events/applicant: -; 18.1 grants only own record")
 probe("events-member-self", "authenticated", MEM1,
-      f"select count(*) from events where agent_id = '{MEM1}'", ("count", 2),
-      "s5 events/member: self; 18.1, 6.2.1 (the capital contribution and the seeded A-01 Direction)")
+      f"select count(*) from events where agent_id = '{MEM1}'", ("count", 3),
+      "s5 events/member: self; 18.1, 6.2.1 (the capital contribution, the seeded A-01 Direction, the seeded X-32 verdict)")
 probe("events-member-cross-none", "authenticated", MEM1,
       f"select count(*) from events where agent_id = '{MEM2}'", ("count", 0),
       "s5 events/member: self only; 18.2")
@@ -534,6 +539,45 @@ probe("direction-standing-own-counts", "authenticated", MEM1,
 probe("direction-steward-relay-ok", "authenticated", STE,
       f"insert into events (occurred_at, actor_agent_id, kind, agent_id, payload) values (now(), '{STE}', 'direction.accepted', '{MEM1}', jsonb_build_object('direction_id', '{DIR1}')) returning id",
       ("write_ok",), "AGY section 12 R0: the steward relays the agent-side events under the overseer branch")
+
+
+# ---- the verdict rail (X-32) · X-28; AM v0.1 section 7; Bylaws section 18.1 ----
+probe("verdict-member-direct-insert-deny", "authenticated", MEM2,
+      f"insert into events (occurred_at, actor_agent_id, kind, agent_id) values (now(), '{MEM2}', 'verdict.spoken', '{MEM2}') returning id",
+      ("write_deny",), "AM v0.1 section 7: the verb is the only door; events_scoped_insert admits no verdict kind")
+probe("verdict-member-verb-ok", "authenticated", MEM2,
+      "select record_verdict('U-09', 'holds', 'Probe: the front door carries its paths.')",
+      ("write_ok",), "X-28: a member walks a piece and says what they saw")
+probe("verdict-applicant-deny", "authenticated", APP,
+      "select record_verdict('U-09', 'holds', 'Probe verdict from an applicant.')",
+      ("deny",), "X-28: walking a piece is membership work")
+probe("verdict-anon-deny", "anon", None,
+      "select record_verdict('U-09', 'holds', 'Probe verdict from the anon column.')",
+      ("deny",), "AM v0.1 section 5: the anon column speaks no verdict")
+probe("verdict-vocabulary-deny", "authenticated", MEM2,
+      "select record_verdict('U-09', 'looks fine', 'Probe verdict outside the vocabulary.')",
+      ("deny",), "X-28: five words, a closed set")
+probe("verdict-silent-deny", "authenticated", MEM2,
+      "select record_verdict('U-09', 'holds', '   ')",
+      ("deny",), "X-28: a verdict without a sentence records what happened and not what was seen")
+probe("verdict-address-shape-deny", "authenticated", MEM2,
+      "select record_verdict('not an address', 'holds', 'Probe verdict against a malformed address.')",
+      ("deny",), "X-32: the verb checks the shape of an address, the walk surface checks its existence")
+probe("verdict-own-walk-read", "authenticated", MEM1,
+      "select count(*) from standing_verdicts where address = 'P-12'",
+      ("count", 1), "Bylaws section 18.1: the walker reads their own walk back")
+probe("verdict-cross-member-none", "authenticated", MEM3,
+      f"select count(*) from standing_verdicts where walker_agent_id = '{MEM1}'",
+      ("count", 0), "0002 events_read: another member's verdicts are not theirs to read, and X-32 widens nothing")
+probe("verdict-director-reads-every-walk", "authenticated", DIR,
+      f"select count(*) from standing_verdicts where walker_agent_id = '{MEM1}'",
+      ("count", 1), "0002 events_read: the director branch already reads every walk, so X-32 widens no policy")
+probe("verdict-steward-reads-every-walk", "authenticated", STE,
+      f"select count(*) from standing_verdicts where walker_agent_id = '{MEM1}'",
+      ("count", 1), "0005 events_steward_read, AM v0.1 s5 events/steward R: the steward reads the log by their own policy, not through app_is_officer()")
+probe("verdict-plain-member-reads-no-walk", "authenticated", MEM2,
+      f"select count(*) from standing_verdicts where walker_agent_id = '{MEM1}'",
+      ("count", 0), "0002 events_read: a member with no appointment reads no walk but their own, and X-32 widens nothing")
 
 
 # ============================================================
