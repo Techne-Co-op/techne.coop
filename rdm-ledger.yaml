@@ -5222,3 +5222,47 @@ matrix:
       on both legs, a room message from the bound member goes out
       as SMS, and STOP revokes with one confirmation. Every leg
       visible in phone_events.
+
+  - address: SMS-04
+    title: The frame names who actually texted
+    intent: >
+      A defect found while walking SMS-03's acceptance, and live on
+      the line until this packet. The relay resolved a verified
+      binding in handle_inbound and then threw it away: every
+      dispatch opened with the fixed string "SMS from steward",
+      whoever had sent the text. A correctly bound member arrived
+      wearing the steward's name, which slanders the member in one
+      direction and would hand a stranger the steward's standing in
+      the other. The frame is now built from what the relay actually
+      knows, and it carries a third state for the case where it
+      knows nothing.
+    status: open · delivered
+    cites: [SMS-03, SMS-02, BP]
+    ready_when: >
+      The defect is in shipped code and needs no human act to
+      repair; the repair touches the dispatch frame only and moves
+      neither the gate, the schema, nor the tier boundary.
+    deliverable: >
+      _sender_frame() in services/quo-relay/relay.py, three states
+      and no default label: a verified binding names the member by
+      the first sixteen hex of their pubkey and says the ceremony
+      verified it; an allowlist match with no binding says it
+      carries no key evidence; an unreadable binding directory says
+      the identity is unknown rather than reporting an absence it
+      never looked for. Tier stays asserted because it is a property
+      of the channel; identity is asserted only where a binding
+      produced one. Nine new unit tests, including the standing
+      assertion that the word steward cannot appear in a frame built
+      without a binding. The frame is documented in the service
+      README.
+    acceptance: >
+      A text from a verified bound number dispatches under that
+      member's key; a text from an allowlisted number with no
+      binding dispatches saying so; a router outage narrows the
+      frame to identity unknown the same way it already narrows the
+      gate to tier one; and no frame built without a binding
+      contains the word steward. The reply splitting, the gate, and
+      the phone_events record are unchanged. Not fixed here and
+      named as open: an SMS sender id is spoofable, so the number
+      remains the whole credential behind a binding, and moving the
+      ceremony to a signed-in intranet session is issue #247.

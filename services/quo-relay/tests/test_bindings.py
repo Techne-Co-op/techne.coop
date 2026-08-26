@@ -12,7 +12,9 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bindings import Ceremony, _hash  # noqa: E402
-from relay import Config, InboundMessage, handle_inbound  # noqa: E402
+from relay import (  # noqa: E402
+    Config, InboundMessage, _sender_frame, handle_inbound,
+)
 
 OWNER = "99" + "0" * 62
 AGENT = "ea" + "0" * 62
@@ -198,6 +200,62 @@ def test_router_outage_narrows_to_tier_one(send, dispatch, log, cfg):
     handle_inbound(cfg, _msg("+13035551234", mid="M2"), router=router,
                    binder=MagicMock(), bridge=MagicMock())
     dispatch.assert_not_called()
+
+
+@patch("relay.log_event", return_value=True)
+@patch("relay.dispatch_to_nou", return_value="pong")
+@patch("relay.send_reply", return_value={"id": "OUT", "status": "sent",
+                                          "conversationId": "C1"})
+def test_router_outage_narrows_the_frame_too(send, dispatch, log, cfg):
+    """The turn survives the outage on the allowlist, but it must not
+    carry an identity the relay could not check."""
+    router = MagicMock()
+    router.lookup_verified_by_e164.side_effect = RuntimeError("cis down")
+    handle_inbound(cfg, _msg("+13035059612"), router=router,
+                   binder=MagicMock(), bridge=MagicMock())
+    binding, identity_unknown = dispatch.call_args.args[2], \
+        dispatch.call_args.args[4]
+    assert binding is None
+    assert identity_unknown is True
+    assert "identity unknown" in _sender_frame("+13035059612", binding,
+                                               identity_unknown)
+
+
+@patch("relay.log_event", return_value=True)
+@patch("relay.dispatch_to_nou", return_value="pong")
+@patch("relay.send_reply", return_value={"id": "OUT", "status": "sent",
+                                          "conversationId": "C1"})
+def test_bound_peer_is_dispatched_under_their_own_key(send, dispatch, log, cfg):
+    """The resolved binding reaches dispatch, so the frame names the
+    member who actually texted rather than a label fixed in the code."""
+    router = MagicMock()
+    router.lookup_verified_by_e164.return_value = {
+        "id": "B1", "member_pubkey": MEMBER, "peer_e164": "+13035551234",
+        "buzz_channel_id": "CH-1"}
+    handle_inbound(cfg, _msg("+13035551234"), router=router,
+                   binder=MagicMock(), bridge=MagicMock())
+    assert dispatch.call_args.args[2]["member_pubkey"] == MEMBER
+    assert dispatch.call_args.args[4] is False
+    frame = _sender_frame("+13035551234", dispatch.call_args.args[2])
+    assert MEMBER[:16] in frame
+    assert "binding verified by ceremony" in frame
+
+
+@patch("relay.log_event", return_value=True)
+@patch("relay.dispatch_to_nou", return_value="pong")
+@patch("relay.send_reply", return_value={"id": "OUT", "status": "sent",
+                                          "conversationId": "C1"})
+def test_allowlisted_peer_with_no_binding_is_framed_as_such(send, dispatch,
+                                                            log, cfg):
+    router = MagicMock()
+    router.lookup_verified_by_e164.return_value = None
+    handle_inbound(cfg, _msg("+13035059612"), router=router,
+                   binder=MagicMock(), bridge=MagicMock())
+    assert dispatch.call_args.args[2] is None
+    assert dispatch.call_args.args[4] is False
+    frame = _sender_frame("+13035059612", None, False)
+    assert "allowlisted number" in frame
+    assert "steward" not in frame.lower()
 
 
 @patch("relay.log_event", return_value=True)

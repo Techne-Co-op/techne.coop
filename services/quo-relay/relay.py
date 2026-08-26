@@ -173,25 +173,41 @@ def _render_history(msgs: list[dict], agent_pubkey: str) -> str:
     return "\n".join(lines)
 
 
-def _sender_frame(peer: str, binding: Optional[dict]) -> str:
+def _sender_frame(peer: str, binding: Optional[dict],
+                  identity_unknown: bool = False) -> str:
     """One line naming who this text is from, and on what evidence.
+
+    Three states, and the frame says which one it is in.
 
     A verified binding is an identity claim the ceremony actually made:
     the member proved control of the number by code and answered from
     their own Nostr key. The allowlist is weaker - a number in the
-    service env, nothing else - and says so.
+    service env, nothing else - and says so. And when the binding
+    directory could not be read at all, the frame says the identity is
+    unknown rather than reporting the absence of a binding it never got
+    to look for. A lookup that failed is not a lookup that found
+    nothing, and the frame must not round the first down to the second.
+
+    Tier is a property of the channel and is asserted here. Who the
+    person is is a property of the binding and is asserted only where a
+    binding exists.
     """
     if binding and binding.get("member_pubkey"):
         return (f"SMS from verified bound member {binding['member_pubkey'][:16]}, "
                 f"peer={peer}, binding verified by ceremony, tier 1 read-only. "
                 f"This is not the steward unless that key is the steward's")
+    if identity_unknown:
+        return (f"SMS from peer={peer}, identity unknown: the binding "
+                f"directory could not be read this turn, so treat the "
+                f"sender as unidentified, tier 1 read-only")
     return (f"SMS from an allowlisted number, peer={peer}, "
             f"no binding and no key evidence, tier 1 read-only")
 
 
 def dispatch_to_nou(peer: str, text: str,
                     binding: Optional[dict] = None,
-                    history: str = "") -> str:
+                    history: str = "",
+                    identity_unknown: bool = False) -> str:
     """Hand the inbound to Nou and return the reply.
 
     Shells out to the openclaw CLI with a one-shot agent turn. The
@@ -216,7 +232,7 @@ def dispatch_to_nou(peer: str, text: str,
     prior = (f"Earlier in this conversation, oldest first:\n{history}\n\n"
              if history else "")
     prompt = (
-        f"[{_sender_frame(peer, binding)}]\n\n{prior}"
+        f"[{_sender_frame(peer, binding, identity_unknown)}]\n\n{prior}"
         f"Their message now:\n{text}\n\n"
         "Reply in one or two sentences and stay under 300 characters. "
         "Every 160 characters is a billed segment, so length costs money "
@@ -403,12 +419,17 @@ def handle_inbound(cfg: Config, msg: InboundMessage,
         return
 
     binding = None
+    identity_unknown = False
     if router is not None:
         try:
             binding = router.lookup_verified_by_e164(peer)
         except Exception as e:
             # Fail closed on the widening: a router outage narrows the
-            # service to tier one, never widens it.
+            # service to tier one, never widens it. It narrows the frame
+            # too: with the directory unreadable the relay knows nothing
+            # about who this is, and the frame must say so rather than
+            # report "no binding" as though it had looked and found none.
+            identity_unknown = True
             log.error("binding lookup failed, tier-one path only: %s", e)
 
     # Gate. A verified binding admits; otherwise the tier-one allowlist
@@ -465,7 +486,8 @@ def handle_inbound(cfg: Config, msg: InboundMessage,
 
     # Dispatch.
     try:
-        reply = dispatch_to_nou(peer, msg.text, binding, history)
+        reply = dispatch_to_nou(peer, msg.text, binding, history,
+                                identity_unknown)
     except Exception as e:
         log.exception("dispatch failed")
         log_event(cfg, direction="in", peer=peer, content=msg.text,

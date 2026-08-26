@@ -25,6 +25,7 @@ from relay import (  # noqa: E402
     SMS_HISTORY_MESSAGES,
     _render_history,
     _sender_frame,
+    dispatch_to_nou,
     handle_inbound,
     split_for_sms,
     to_gsm7,
@@ -183,6 +184,53 @@ def test_frame_says_plainly_when_a_peer_carries_no_key_evidence():
     assert "allowlisted number" in frame
     assert "no binding and no key evidence" in frame
     assert "steward" not in frame
+
+
+def test_frame_says_identity_unknown_when_the_directory_could_not_be_read():
+    """A lookup that failed is not a lookup that found nothing."""
+    frame = _sender_frame("+13035059612", None, identity_unknown=True)
+    assert "identity unknown" in frame
+    assert "unidentified" in frame
+    # It must not report the absence of a binding it never got to seek.
+    assert "no binding and no key evidence" not in frame
+
+
+@pytest.mark.parametrize("binding,unknown", [
+    (None, False),                  # allowlisted, looked, found nothing
+    (None, True),                   # directory unreadable
+    ({}, False),                    # a row carrying no key is not an identity
+    ({"member_pubkey": ""}, True),  # empty key, and the lookup failed too
+])
+def test_no_frame_without_a_binding_can_say_steward(binding, unknown):
+    """The word is an identity claim. Without a key there is nothing to
+    make it on, and the relay must never make it by default."""
+    frame = _sender_frame("+19995551212", binding, identity_unknown=unknown)
+    assert "steward" not in frame.lower()
+
+
+def test_the_dispatch_prompt_carries_the_frame_it_was_given():
+    """The frame is only worth building if it reaches the agent."""
+    seen = {}
+
+    class _Result:
+        returncode = 0
+        stdout = "pong"
+        stderr = ""
+
+    def _fake_run(cmd, **kwargs):
+        seen["prompt"] = cmd[-1]
+        return _Result()
+
+    with patch("relay.subprocess.run", _fake_run):
+        dispatch_to_nou("+13035551234", "hi",
+                        {"member_pubkey": "3e748f43fe80e8e2c0ff"}, "")
+    assert seen["prompt"].startswith("[SMS from verified bound member "
+                                     "3e748f43fe80e8e2")
+
+    with patch("relay.subprocess.run", _fake_run):
+        dispatch_to_nou("+13035059612", "hi", None, "", True)
+    assert "identity unknown" in seen["prompt"].split("]")[0]
+    assert "steward" not in seen["prompt"].split("]")[0].lower()
 
 
 # --- conversation memory ---------------------------------------------------
