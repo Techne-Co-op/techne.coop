@@ -317,7 +317,7 @@ function notice(msg, cls) {
   n.textContent = msg; n.className = 'notice ' + cls; n.style.display = 'block';
 }
 
-const waitingNote = 'The registry waits on its schema: 0030_program_revenue.sql (T-08) is drafted and not applied. Schema against the live CIS is a named human’s act, a stop card under BP; this surface waits rather than guesses.';
+const waitingNote = 'The registry is not answering: revenue_dashboard() is absent from the database this surface reads. 0030_program_revenue.sql (T-08) was applied to the live CIS on 2026-08-26, so if this note is showing, the surface is pointed somewhere that does not carry it. It waits rather than guesses.';
 
 function renderWaiting() {
   document.getElementById('kpi-tiles').innerHTML =
@@ -327,7 +327,7 @@ function renderWaiting() {
     tile('tiers reporting', '–', 'named offers per Program', true);
   document.getElementById('kpi-note').textContent = waitingNote;
   document.getElementById('kpi-mark').textContent = 'waiting';
-  document.getElementById('prog-body').innerHTML = `<span class="desk-empty">${waitingNote} Once applied, each Program’s named tiers render here with their price, active count, basis, source, and read time.</span>`;
+  document.getElementById('prog-body').innerHTML = `<span class="desk-empty">${waitingNote} When it answers, each Program’s named tiers render here with their price, active count, basis, source, and read time.</span>`;
   document.getElementById('prog-mark').textContent = 'waiting';
   document.getElementById('trend-body').innerHTML = '<span class="desk-empty">The strip folds itself from the readings the moment they exist: month by month, the last reading per tier within the month, summed. Reads, never extrapolations.</span>';
   document.getElementById('trend-mark').textContent = 'waiting';

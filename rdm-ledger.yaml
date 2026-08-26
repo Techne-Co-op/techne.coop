@@ -1167,15 +1167,18 @@ treasury:
       balance is stored (IM Law VII); Xero remains the book of account.
       Drafted at the steward's direction of 2026-08-26, the recurring
       revenue ask of the LCA finance thread.
-    status: drafted
+    status: open · delivered
     cites: [TREASURY, IM, AM, BP]
     ready_when: >
-      The surface renders its waiting cut today. The figures wait on the
-      stop card, 0030_program_revenue.sql applied to the live CIS by a
-      named human, then on tiers declared by the registry acts and on a
-      runner reading the systems of record, regenhub.xyz among them,
-      whose seam is Aaron's system boundary and not this repo's to
-      presume.
+      The stop card cleared on 2026-08-26: the steward directed the
+      migration and 0030_program_revenue.sql was applied to the live
+      CIS that afternoon. RegenHub.xyz's six tiers stand declared, four
+      of them read live from Stripe by the T-09 runner. The seam this
+      packet expected to wait on turned out to be open already: the
+      cooperative's own read-only Stripe key sees the regenhub.xyz
+      subscriptions, so no boundary had to be crossed. What still
+      waits: techne.coop declares no tier until the dues schedule
+      records, and the two attested tiers wait on a vouched count.
     deliverable: >
       commons/treasury/0030_program_revenue.sql, unapplied: revenue_tiers
       and revenue_readings with the creation defaults stripped at birth,
@@ -1190,6 +1193,45 @@ treasury:
       waiting rather than a number; the registry acts refuse a
       non-overseer under probe; the unapplied schema leaves the surface
       honest, waiting rather than guessing.
+
+  - address: T-09
+    title: The readings runner
+    intent: >
+      A registry with no readings is a surface that says waiting, so
+      T-08's store needs a filler. The runner reads active
+      subscriptions from Stripe, folds them per product, matches each
+      to the tier bearing that product's name, and writes one live
+      reading per tier; where no system holds a count, it writes an
+      attested reading and refuses to write one without the name of
+      the human vouching it. It writes to the readings store and
+      nowhere else: it declares no tier, retires none, moves no money,
+      and stores no balance. A Stripe product with no tier and a tier
+      with no product are both reported and neither is invented,
+      because a forgotten declaration and an unread tier are signals
+      worth seeing rather than gaps worth filling.
+    status: open · delivered
+    cites: [TREASURY, IM, BP]
+    ready_when: >
+      Delivered and run against the live CIS on 2026-08-26. What the
+      runner still cannot reach: the maker node and the unmigrated
+      legacy memberships, which no system holds, so both tiers stay
+      unread until a named human vouches their counts. Aaron Neyer
+      reported 850 and 750 per month respectively on 2026-08-25, and
+      those figures are deliberately not written as readings, because
+      the live Stripe total of 1,650 does not reconcile against the
+      1,050 reported the same evening and writing both would risk
+      counting the same members twice.
+    deliverable: >
+      scripts/revenue_readings.py, with --live for the Stripe seam,
+      --attest with a required --voucher for counts no system holds,
+      --show for the fold as it stands, and --dry-run throughout.
+    acceptance: >
+      A dry run names each tier, its count, and its monthly figure and
+      writes nothing; a live run writes one reading per matched tier
+      and the fold's total equals the sum of its lines; an attested
+      reading without a voucher is refused; an unmatched Stripe
+      product is reported and skipped; anon is refused on both tables
+      and on both folds through the public API.
 
 shell:
 
