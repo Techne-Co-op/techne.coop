@@ -142,3 +142,8 @@ where e.kind = 'verdict.spoken'
 order by e.agent_id, e.payload->>'address', e.recorded_at desc;
 comment on view standing_verdicts is
   'The latest un-corrected verdict each member has spoken about each address (X-32). Reads through events_read: a walker sees their own walk, directors and officers see all of them. A row is testimony and not a mark; the ledger is the mark.';
+-- security_invoker means the reader's own events_read decides every
+-- row, so the grant opens the view and widens nothing behind it. The
+-- anon column is named explicitly rather than left to the default.
+revoke all on standing_verdicts from public, anon;
+grant select on standing_verdicts to authenticated;
