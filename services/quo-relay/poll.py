@@ -55,11 +55,24 @@ def save_cursor(cursor_iso: str) -> None:
     _state["cursor_iso"] = cursor_iso
 
 
-def fetch_new(cfg: Config, since_iso: str) -> list[InboundMessage]:
+def fetch_new(cfg: Config, since_iso: str,
+              participants: list[str] | None = None) -> list[InboundMessage]:
     """One page of inbounds after since_iso, oldest first, direction=in only.
 
     The Quo API returns most-recent-first; we reverse to process in order.
     A single-page cap keeps a long silence from flooding on first tick.
+
+    `participants` is the set of numbers whose conversations are read:
+    the tier-one allowlist plus every verified binding (SMS-03). The
+    query has to be widened, not just the gate in handle_inbound: a
+    number absent here is never fetched, so a bound member's text is
+    invisible to the service no matter what the gate would allow.
+    Defaults to the allowlist alone, which is the tier-one behaviour.
+
+    One request per number, because Quo's `participants` is an exact
+    conversation match, not an OR: passing two numbers asks for the
+    group conversation between both and returns nothing (verified
+    against the live API 2026-08-24). The page cap is per number.
 
     No `since` param on the API call: Quo's `since=` filters the wrong
     direction (returns messages BEFORE the timestamp, not after), so
@@ -68,36 +81,56 @@ def fetch_new(cfg: Config, since_iso: str) -> list[InboundMessage]:
     filter below is the source of truth; a 50-message page cap keeps
     the first-tick blast bounded either way.
     """
-    r = requests.get(
-        f"{QUO_API_BASE}/messages",
-        params={"phoneNumberId": cfg.phone_number_id,
-                "participants": list(cfg.allowlist),
-                "maxResults": 50},
-        headers={"Authorization": cfg.quo_api_key},
-        timeout=10,
-    )
-    r.raise_for_status()
-    data = r.json().get("data", [])
     out: list[InboundMessage] = []
-    for m in reversed(data):
-        if m.get("direction") != "incoming":
-            continue
-        if m.get("createdAt", "") <= since_iso:
-            continue
-        out.append(InboundMessage(
-            quo_message_id=m["id"],
-            conversation_id=m.get("conversationId", ""),
-            peer_e164=m["from"],
-            text=m.get("text", ""),
-            created_at=m["createdAt"],
-            raw=m,
-        ))
+    for number in (participants or list(cfg.allowlist)):
+        r = requests.get(
+            f"{QUO_API_BASE}/messages",
+            params={"phoneNumberId": cfg.phone_number_id,
+                    "participants": [number],
+                    "maxResults": 50},
+            headers={"Authorization": cfg.quo_api_key},
+            timeout=10,
+        )
+        r.raise_for_status()
+        data = r.json().get("data", [])
+        for m in reversed(data):
+            if m.get("direction") != "incoming":
+                continue
+            if m.get("createdAt", "") <= since_iso:
+                continue
+            out.append(InboundMessage(
+                quo_message_id=m["id"],
+                conversation_id=m.get("conversationId", ""),
+                peer_e164=m["from"],
+                text=m.get("text", ""),
+                created_at=m["createdAt"],
+                raw=m,
+            ))
+    out.sort(key=lambda m: m.created_at)
     return out
+
+
+def poll_participants(cfg: Config, tier2=None) -> list[str]:
+    """Allowlist plus every verified binding, deduplicated.
+
+    A router outage falls back to the allowlist alone: the service
+    narrows to tier one, never widens, same rule as the gate.
+    """
+    numbers = list(cfg.allowlist)
+    if tier2 is not None:
+        try:
+            for b in tier2.router.verified_bindings():
+                e164 = b.get("peer_e164")
+                if e164 and e164 not in numbers:
+                    numbers.append(e164)
+        except Exception as e:
+            log.error("binding poll failed, allowlist only this tick: %s", e)
+    return numbers
 
 
 def poll_tick(cfg: Config, tier2=None) -> None:
     cursor = _state["cursor_iso"] or load_cursor()
-    msgs = fetch_new(cfg, cursor)
+    msgs = fetch_new(cfg, cursor, poll_participants(cfg, tier2))
     for m in msgs:
         if tier2 is not None:
             handle_inbound(cfg, m, router=tier2.router,
@@ -135,9 +168,26 @@ class Tier2:
         self.cursors: dict[str, int] = {}
         if self.cursor_path.exists():
             self.cursors = json.loads(self.cursor_path.read_text())
+        # Event ids already handled. The cursor alone cannot carry this:
+        # `buzz messages get --since` is inclusive of its second and the
+        # cursor is set to the newest message's own created_at, so the
+        # last message of every tick comes back once more. Left to the
+        # cursor, one !bind sent two challenge SMS (2026-08-24).
+        self.seen_path = STATE_PATH.parent / "ceremony-seen.json"
+        self.seen: list[str] = []
+        if self.seen_path.exists():
+            self.seen = json.loads(self.seen_path.read_text())
 
     def _save_cursors(self) -> None:
         self.cursor_path.write_text(json.dumps(self.cursors))
+
+    def _already_seen(self, event_id: str) -> bool:
+        if event_id in self.seen:
+            return True
+        self.seen.append(event_id)
+        del self.seen[:-500]
+        self.seen_path.write_text(json.dumps(self.seen))
+        return False
 
     def _cursor(self, channel: str) -> int:
         # First sight of a channel starts at now: nothing pre-existing
@@ -172,23 +222,23 @@ class Tier2:
         self._bridge_tick()
 
     def _ceremony_tick(self) -> None:
-        ch = self.cfg.ceremony_channel_id
-        if not ch:
-            return
-        since = self._cursor(ch)
-        for m in self.bridge.get_since(ch, since):
-            self.cursors[ch] = max(self.cursors[ch], m["created_at"])
-            if m["author"] == self.cfg.agent_pubkey:
-                continue
-            try:
-                reply = self.ceremony.handle_message(
-                    m["author"], m["content"], m["event_id"],
-                    self.cfg.owner_pubkey, self.cfg.agent_pubkey)
-            except Exception:
-                log.exception("ceremony message failed")
-                reply = "ceremony error; nothing was recorded. Try again."
-            if reply:
-                self.bridge.post(ch, reply)
+        for ch in self.cfg.ceremony_channel_ids:
+            since = self._cursor(ch)
+            for m in self.bridge.get_since(ch, since):
+                self.cursors[ch] = max(self.cursors[ch], m["created_at"])
+                if m["author"] == self.cfg.agent_pubkey:
+                    continue
+                if self._already_seen(m["event_id"]):
+                    continue
+                try:
+                    reply = self.ceremony.handle_message(
+                        m["author"], m["content"], m["event_id"],
+                        self.cfg.owner_pubkey, self.cfg.agent_pubkey)
+                except Exception:
+                    log.exception("ceremony message failed")
+                    reply = "ceremony error; nothing was recorded. Try again."
+                if reply:
+                    self.bridge.post(ch, reply)
         self._save_cursors()
 
     def _bridge_tick(self) -> None:
@@ -209,8 +259,12 @@ class Tier2:
                 # and only to their own number (design §5).
                 if m["author"] != b["member_pubkey"]:
                     continue
+                # Same inclusive-cursor replay as the ceremony: without
+                # this, the last room post of a tick bridges out twice.
+                if self._already_seen(m["event_id"]):
+                    continue
                 try:
-                    api = send_reply(self.cfg, b["peer_e164"], m["content"][:320])
+                    api = send_reply(self.cfg, b["peer_e164"], m["content"][:1600])
                 except Exception as e:
                     log.error("room->phone send failed: %s", e)
                     continue
