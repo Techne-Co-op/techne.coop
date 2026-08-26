@@ -156,6 +156,62 @@
     return /access_token=|refresh_token=|type=magiclink|type=signup|type=recovery|[?&#]code=/.test(h);
   }
 
+  /* ---------- the landing, owned ----------
+     The line above was written assuming every surface the frame gates
+     carries a Supabase client to do the exchange. Six do not: the
+     verification walk, the record, the share, the federation desk, and
+     the two commons landings. A member arriving there held tokens the
+     record had already issued and had no one to take them, so the frame
+     read signing in until the watch below gave up and returned them to
+     the gate. Four of the steward's sessions, on 24 and 26 August, were
+     issued and never once used.
+
+     The gate sends the link through GoTrue itself, so the shell owns
+     the other end of it too. This reads the implicit grant out of the
+     address, writes it where a client would have written it, and takes
+     the tokens out of the address bar. A page that does carry its own
+     client is given first refusal: see the watch in build(). */
+  function b64urlJson(seg) {
+    var s = seg.replace(/-/g, '+').replace(/_/g, '/');
+    while (s.length % 4) s += '=';
+    return JSON.parse(decodeURIComponent(escape(atob(s))));
+  }
+
+  function adoptImplicitSession() {
+    try {
+      var frag = location.hash.charAt(0) === '#' ? location.hash.slice(1) : location.hash;
+      if (!frag) return null;
+      var p = new URLSearchParams(frag);
+      var at = p.get('access_token');
+      var rt = p.get('refresh_token');
+      if (!at || !rt) return null;
+      var claims = b64urlJson(at.split('.')[1]);
+      if (!claims || !claims.sub) return null;
+      var sess = {
+        access_token: at,
+        refresh_token: rt,
+        token_type: p.get('token_type') || 'bearer',
+        expires_in: parseInt(p.get('expires_in') || '3600', 10),
+        expires_at: parseInt(p.get('expires_at') || '0', 10) || claims.exp,
+        user: {
+          id: claims.sub,
+          aud: claims.aud,
+          role: claims.role,
+          email: claims.email || '',
+          phone: claims.phone || '',
+          app_metadata: claims.app_metadata || {},
+          user_metadata: claims.user_metadata || {}
+        }
+      };
+      localStorage.setItem(TOKEN_KEY, JSON.stringify(sess));
+      history.replaceState(null, '', location.pathname + location.search);
+      return sess;
+    } catch (e) {
+      if (window.Techne && Techne.record) Techne.record('handled', 'shell landing: ' + (e && e.message ? e.message : e));
+      return null;
+    }
+  }
+
   function fetchIdentity(sess, done) {
     try {
       var cached = JSON.parse(sessionStorage.getItem(ROLE_CACHE_KEY) || 'null');
@@ -535,6 +591,9 @@
       var wait = setInterval(function () {
         var s = session();
         tries += 1;
+        /* a page with its own client gets the first second and a half;
+           after that the shell completes the landing itself. */
+        if (!s && tries >= 4) s = adoptImplicitSession();
         if (s) {
           clearInterval(wait);
           document.documentElement.setAttribute('data-cis', 'in');
