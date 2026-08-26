@@ -215,14 +215,18 @@ footer {
 /* a standing shown, not described: same chip idiom as /intranet/programs/,
    drawn with the tokens this page defines */
 .standing-chip {
-  display: inline-block;
-  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em;
-  padding: 2px 8px; border-radius: 2px; white-space: nowrap;
-  border: 1px solid var(--line); color: var(--muted);
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 0.65rem; font-weight: 500; line-height: 1;
+  letter-spacing: 0.02em; text-transform: lowercase;
+  padding: 5px 9px; border-radius: 2px; white-space: nowrap;
+  border: 1px solid var(--line); background: var(--surface); color: var(--muted);
   margin-bottom: var(--s2);
 }
-.standing-chip.live { background: var(--blue-dim); color: var(--blue-text); border-color: var(--blue); }
-.standing-chip.waiting { background: var(--ember-dim); color: var(--ember-text); border-color: var(--ember); }
+.standing-chip::before { content: ""; width: 6px; height: 6px; flex: none; background: currentColor; }
+.standing-chip.live { color: var(--blue-text); }
+.standing-chip.live::before { background: var(--blue); }
+.standing-chip.waiting { color: var(--ember-text); }
+.standing-chip.waiting::before { background: var(--ember); }
 .orient-card { border-left: 3px solid var(--ember); }
 .orient-card ul { margin: var(--s2) 0 0 var(--s4); padding: 0; }
 .orient-card li { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
