@@ -106,6 +106,25 @@ def icon(svg):
     )
 
 
+"""The mode toggle names the mode the press switches to: moon and
+"Dark" while the page is light, sun and "Light" while it is dark.
+Both states are in the markup and shell.css gates them on
+html[data-mode], so the control is right before shell.js wires the
+click. Lucide sun and moon, per the U-08 icon amendment; the icon is
+decorative beside its word."""
+MOON = '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>'
+SUN = ('<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/>'
+       '<path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/>'
+       '<path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/>'
+       '<path d="m19.07 4.93-1.41 1.41"/>')
+MODE_BUTTON = (
+    '<button type="button" class="cis-mode" aria-label="toggle light and dark mode">'
+    '<span class="cis-mode-to-dark">' + icon(MOON) + 'Dark</span>'
+    '<span class="cis-mode-to-light">' + icon(SUN) + 'Light</span>'
+    '</button>'
+)
+
+
 def open_block(manifest, public=False):
     """The topbar, the map, and the two wrappers the page content sits in.
 
@@ -122,7 +141,7 @@ def open_block(manifest, public=False):
     L.append('    <button type="button" class="cis-menu" id="cis-menu-btn" aria-expanded="false" aria-controls="cis-map" aria-label="show the intranet map">Menu</button>')
     L.append('    <button type="button" class="cis-bell" aria-expanded="false" aria-controls="cis-notices" aria-label="notices addressed to you">Notices</button>')
     L.append('    <span class="cis-chip" id="cis-member-chip">not signed in</span>')
-    L.append('    <button type="button" class="cis-mode" aria-label="toggle light and dark mode">&#9689;</button>')
+    L.append('    ' + MODE_BUTTON)
     L.append('  </div>')
     L.append('</header>')
     L.append('<div class="cis-body">')

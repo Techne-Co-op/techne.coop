@@ -119,6 +119,15 @@ html:not([data-cis="in"]) .cis-body { display: block; min-height: 0; }
   cursor: pointer; letter-spacing: .04em;
 }
 .cis-mode:hover { color: var(--ember); border-color: var(--ember); }
+/* Two states in the markup, one shown: the control names the mode the
+   press switches to, gated on html[data-mode] so it is right before
+   shell.js wires the click. Light is the default reading when no mode
+   is set, so the moon-and-Dark face shows. */
+.cis-mode span { display: inline-flex; align-items: center; gap: 5px; }
+.cis-mode svg.lucide { width: 12px; height: 12px; }
+.cis-mode .cis-mode-to-light { display: none; }
+html[data-mode="dark"] .cis-mode .cis-mode-to-dark { display: none; }
+html[data-mode="dark"] .cis-mode .cis-mode-to-light { display: inline-flex; }
 .cis-body { display: flex; align-items: stretch; min-height: calc(100vh - 49px); }
 .cis-side {
   width: 212px; flex-shrink: 0; background: var(--surface);
