@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="The Programs view for RegenHub, LCA: Programs as organizing bodies for the Opportunities surfaced in the commons.">
+<meta name="description" content="The Programs view for RegenHub, LCA: the standing groups that gather related Opportunities, each with its purpose, its Coordinator, and how it recognizes work.">
 <title>Programs &middot; Techne</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -284,21 +284,37 @@ footer a { color: var(--faint); }
   <div id="content">
     <h1>Programs</h1>
     <div class="section-rule"></div>
-    <p class="lead">The cooperative's organized life, arranged for engagement. A Program is an organizing body for the Opportunities surfaced in the commons: a purpose, a Coordinator, and a ratified way of recognizing what the work is worth. Not every Opportunity has one, and nothing requires it.</p>
+    <p class="lead">A Program is a standing group inside the cooperative that gathers related Opportunities, the open invitations to play, practice, or work that members post on <a href="/commons/opportunities/" style="color:var(--ember-text)">the board</a>. Each Program carries three things: a purpose, a Coordinator (the member who runs it), and an adopted rule for how the work it gathers gets recognized. Most Opportunities have no Program, and none needs one.</p>
+
+    <div class="prog-card">
+      <div class="prog-header">
+        <div style="flex:1">
+          <div class="prog-name">What this page is</div>
+          <div class="prog-meta">the roster of Programs &middot; <span>and the one act you can take here</span></div>
+        </div>
+      </div>
+      <div class="prog-purpose">Below is every Program the cooperative has designated, each with its purpose, who coordinates it, how it recognizes work, and which open Opportunities it gathers. Under the roster sit the open Opportunities that belong to no Program at all.</div>
+      <div class="recognition">
+        <span class="k">What you can do here</span>
+        Select any Program's name to open its full record in place. If you posted an Opportunity yourself, you can affiliate it with a Program, which means recording that the Program now gathers it. To respond to an Opportunity, follow its link through to the board. Stewards and directors also get a panel here for designating a new Program.
+      </div>
+    </div>
 
     <div class="notice" id="page-notice"></div>
 
     <div id="steward-panel" style="display:none">
       <div class="section-head">Designate a Program</div>
-      <p class="lead" style="margin-bottom:var(--s4)">A steward or director act, under the delegation the drafted Bylaws contemplate at &sect;3.1 and &sect;4.1; the board elected its first officers on August 14, 2026 and confirmed those elections by separate motions on August 19, 2026, and this stands as practice under that delegation rather than in the absence of officers. The Program enters the record as an agent and its designation event together, standing <em>in formation</em> until the board adopts its POLICY-PATRONAGE instrument, which is what brings a Coordinator and a way of recognizing work.</p>
+      <p class="lead" style="margin-bottom:var(--s4)">Only a steward or a director can do this. The drafted Bylaws delegate the power at &sect;3.1 and &sect;4.1, and the board elected its first officers on August 14, 2026 and confirmed those elections by separate motions on August 19, 2026, so this is practice under that delegation rather than something done in the absence of officers.</p>
+      <p class="lead" style="margin-bottom:var(--s4)">Give the Program a name and say what it is for. It lands on the record straight away, as a row in the register of participants plus one event recording who designated it and when. It then stands <span class="standing-chip formation">in formation</span> until the board adopts POLICY-PATRONAGE, the instrument that gives a Program its Coordinator and its way of recognizing work.</p>
       <button class="affiliate-btn" id="open-designate" aria-expanded="false" aria-controls="designate-drawer" aria-haspopup="dialog">Designate a Program</button>
     </div>
 
     <div class="section-head">The roster</div>
+    <p class="lead" style="margin-bottom:var(--s4)">Every Program carries a standing chip. <span class="standing-chip formation">in formation</span> means the board has designated it but has not yet adopted the policy that names a Coordinator and sets how work is recognized. <span class="standing-chip force">in force</span> means that policy is adopted and this page reads the Program's rates straight from it. Select a Program's name to open its full record.</p>
     <div id="roster"></div>
 
     <div class="section-head">Open opportunities without a Program</div>
-    <p class="lead" style="margin-bottom:var(--s4)">Pure Find. These stand on the board on their own terms; a Program is never required to engage.</p>
+    <p class="lead" style="margin-bottom:var(--s4)">These open Opportunities belong to no Program. They stand on the board on their own terms, and you can respond to any of them. You never need a Program to take part.</p>
     <div id="unaffiliated"></div>
   </div>
 </main>
@@ -350,14 +366,14 @@ function escHtml(s) {
 
 function recognitionHtml(p) {
   if (p.standing !== 'in force') {
-    return `<div class="recognition"><span class="k">How recognition works here</span>In formation under the Default Policy. No rates exist yet; they arrive as adopted instruments when the counting rules record (Q3), and will be shown from the version in force.</div>`;
+    return `<div class="recognition"><span class="k">How recognition works here</span>This Program has no rule of its own yet, so the cooperative's Default Policy applies while it stands in formation. No rates exist anywhere yet. They arrive as adopted instruments once the counting rules are recorded, which is the open condition the build calls Q3, and this page will then show them from whichever version is in force.</div>`;
   }
   const prims = Array.isArray(p.active_primitives) ? p.active_primitives.join(' · ') : '';
   let weights = '';
   if (p.weights && typeof p.weights === 'object') {
     weights = Object.entries(p.weights).map(([k,v]) => `${escHtml(k)} ${escHtml(String(v))}%`).join(' · ');
   }
-  return `<div class="recognition"><span class="k">How recognition works here &middot; ${escHtml(p.policy_code || '')} ${escHtml(p.policy_version || '')}</span>${prims ? 'Active Primitives: ' + escHtml(prims) + '.' : ''} ${weights ? 'Weights: ' + weights + '.' : ''} Read from the version in force; nothing stored twice.</div>`;
+  return `<div class="recognition"><span class="k">How recognition works here &middot; ${escHtml(p.policy_code || '')} ${escHtml(p.policy_version || '')}</span>${prims ? 'Active Primitives, the kinds of contribution this Program counts: ' + escHtml(prims) + '.' : ''} ${weights ? 'Weights, how much each kind counts toward recognition: ' + weights + '.' : ''} These are read from the adopted policy version in force. The page keeps no second copy of them.</div>`;
 }
 
 function detailValueHtml(v) {
@@ -382,7 +398,7 @@ function detailRowsHtml(p) {
 }
 
 function oppRowHtml(o, aff) {
-  const trace = aff ? ` <span class="trace">affiliated on the record</span>` : '';
+  const trace = aff ? ` <span class="trace">linked to this Program on the record</span>` : '';
   return `<div class="opp-row">
     <span class="kind-chip">${escHtml(o.kind)}</span>
     <span class="opp-row-title">${escHtml(o.title)}</span>
@@ -397,7 +413,7 @@ function affiliateControlHtml(o) {
   const opts = roster.map(p => `<option value="${p.program_agent_id}">${escHtml(p.display_name)}</option>`).join('');
   return `<div class="affiliate-form" data-opp="${o.id}">
     <select aria-label="Choose a Program">${opts}</select>
-    <button class="affiliate-btn">Affiliate with this Program</button>
+    <button class="affiliate-btn">Affiliate: put this Opportunity under that Program</button>
     <span class="status-msg"></span>
   </div>`;
 }
@@ -409,17 +425,17 @@ function render() {
   const openOpps = opportunities.filter(o => o.state === 'open');
 
   if (roster.length === 0) {
-    rosterEl.innerHTML = `<div class="empty-state"><p>No Programs stand yet. The first arrives when the board designates one; its Opportunities will gather here.</p></div>`;
+    rosterEl.innerHTML = `<div class="empty-state"><p>No Programs exist yet. The first one appears here when the board designates it, and the Opportunities it gathers will be listed under it.</p></div>`;
   } else {
     rosterEl.innerHTML = roster.map(p => {
       const chipCls = p.standing === 'in force' ? 'force' : 'formation';
       const coord = p.coordinator_name
         ? `coordinator &middot; <span>${escHtml(p.coordinator_name)}</span>`
-        : `coordinator &middot; <span>to be designated with the policy</span>`;
+        : `coordinator &middot; <span>not named yet; arrives with the policy</span>`;
       const progOpps = openOpps.filter(o => affByOpp[o.id] && affByOpp[o.id].program_agent_id === p.program_agent_id);
       const oppsHtml = progOpps.length
         ? progOpps.map(o => oppRowHtml(o, affByOpp[o.id])).join('')
-        : `<div class="opp-row"><span class="opp-row-title" style="color:var(--muted);font-size:0.88rem">No open Opportunities affiliated yet.</span></div>`;
+        : `<div class="opp-row"><span class="opp-row-title" style="color:var(--muted);font-size:0.88rem">No open Opportunities are affiliated with this Program yet.</span></div>`;
       const isOpen = openPrograms.has(p.program_agent_id);
       return `<div class="prog-card${isOpen ? ' open' : ''}" data-prog="${escHtml(p.program_agent_id)}">
         <button class="prog-header" type="button" aria-expanded="${isOpen ? 'true' : 'false'}" aria-controls="prog-detail-${escHtml(p.program_agent_id)}">
@@ -433,13 +449,13 @@ function render() {
         ${p.purpose ? `<div class="prog-purpose">${escHtml(p.purpose)}</div>` : ''}
         <div class="prog-detail" id="prog-detail-${escHtml(p.program_agent_id)}">
           ${recognitionHtml(p)}
-          <div class="detail-label">On the record, from the roster</div>
+          <div class="detail-label">Everything the record holds for this Program</div>
           <div class="detail-list">${detailRowsHtml(p)}</div>
           <div class="prog-opps">
             <div class="prog-opps-label">Open opportunities, this Program</div>
             ${oppsHtml}
           </div>
-          <div class="schema-note">Member affiliations, files, and links arrive with the extended Program schema.</div>
+          <div class="schema-note">Who belongs to a Program, plus its files and links, are not shown yet. They arrive when the Program record is extended to hold them.</div>
         </div>
       </div>`;
     }).join('');
@@ -449,7 +465,7 @@ function render() {
   const unaffEl = document.getElementById('unaffiliated');
   const unaff = openOpps.filter(o => !affByOpp[o.id]);
   if (unaff.length === 0) {
-    unaffEl.innerHTML = `<div class="empty-state"><p>Every open Opportunity currently stands with a Program, or the board is empty.</p></div>`;
+    unaffEl.innerHTML = `<div class="empty-state"><p>Nothing to show: either every open Opportunity is already affiliated with a Program, or the board has none open right now.</p></div>`;
   } else {
     unaffEl.innerHTML = unaff.map(o => `<div class="prog-card">
       <div class="prog-header">
@@ -525,10 +541,10 @@ function wireAffiliateControls() {
         p_opportunity: opp, p_program: program
       });
       if (error) {
-        status.textContent = Techne.report(error, 'Could not affiliate. Only the author or the Program Coordinator may.');
+        status.textContent = Techne.report(error, 'Could not affiliate this Opportunity. Only the member who posted it, or that Program\'s Coordinator, is allowed to.');
         status.className = 'status-msg err'; btn.disabled = false; return;
       }
-      status.textContent = 'Affiliated. The relationship is an event in the record.';
+      status.textContent = 'Affiliated. The link is now an event on the record.';
       await loadData(); render();
     });
   });
@@ -605,12 +621,12 @@ async function designateProgram() {
 
   if (error) {
     status.className = 'status-msg err';
-    status.textContent = Techne.report(error, 'The record refused the act. Check that your steward grant stands.');
+    status.textContent = Techne.report(error, 'The record refused this. Check that your steward or director role is still active.');
     btn.disabled = false;
     return;
   }
 
-  status.textContent = 'Designated · ' + String(data).slice(0, 8) + '…';
+  status.textContent = 'Designated. Record id begins ' + String(data).slice(0, 8) + '…';
   nameEl.value = '';
   purposeEl.value = '';
   btn.disabled = false;
