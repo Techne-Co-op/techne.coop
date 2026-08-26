@@ -292,8 +292,8 @@ probe("events-applicant-cross-none", "authenticated", APP,
       f"select count(*) from events where agent_id = '{MEM2}'", ("count", 0),
       "s5 events/applicant: -; 18.1 grants only own record")
 probe("events-member-self", "authenticated", MEM1,
-      f"select count(*) from events where agent_id = '{MEM1}'", ("count", 2),
-      "s5 events/member: self; 18.1, 6.2.1 (the capital contribution and the seeded A-01 Direction)")
+      f"select count(*) from events where agent_id = '{MEM1}'", ("count", 3),
+      "s5 events/member: self; 18.1, 6.2.1 (the capital contribution, the seeded A-01 Direction, the seeded X-32 verdict)")
 probe("events-member-cross-none", "authenticated", MEM1,
       f"select count(*) from events where agent_id = '{MEM2}'", ("count", 0),
       "s5 events/member: self only; 18.2")
@@ -572,9 +572,12 @@ probe("verdict-cross-member-none", "authenticated", MEM3,
 probe("verdict-director-reads-every-walk", "authenticated", DIR,
       f"select count(*) from standing_verdicts where walker_agent_id = '{MEM1}'",
       ("count", 1), "0002 events_read: the director branch already reads every walk, so X-32 widens no policy")
-probe("verdict-steward-reads-no-walk", "authenticated", STE,
+probe("verdict-steward-reads-every-walk", "authenticated", STE,
       f"select count(*) from standing_verdicts where walker_agent_id = '{MEM1}'",
-      ("count", 0), "0002 events_read: app_is_officer() is secretary or treasurer, so the steward as steward reads no walk but their own")
+      ("count", 1), "0005 events_steward_read, AM v0.1 s5 events/steward R: the steward reads the log by their own policy, not through app_is_officer()")
+probe("verdict-plain-member-reads-no-walk", "authenticated", MEM2,
+      f"select count(*) from standing_verdicts where walker_agent_id = '{MEM1}'",
+      ("count", 0), "0002 events_read: a member with no appointment reads no walk but their own, and X-32 widens nothing")
 
 
 # ============================================================
