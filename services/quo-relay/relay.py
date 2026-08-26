@@ -139,25 +139,110 @@ def log_event(cfg: Config, *, direction: str, peer: str, content: str,
 
 # --- dispatch --------------------------------------------------------------
 
-def dispatch_to_nou(peer: str, text: str) -> str:
+# How much of the binding room to carry into a dispatch. The room holds
+# both halves of every exchange, so it is the SMS conversation's memory;
+# without it a follow-up text ("what does it cost?") arrives with nothing
+# to refer back to. Bounded because the whole thing is re-read on every
+# inbound and each character is a token paid for again.
+SMS_HISTORY_MESSAGES = int(os.environ.get("NOU_SMS_HISTORY_MESSAGES", "16"))
+SMS_HISTORY_CHARS = int(os.environ.get("NOU_SMS_HISTORY_CHARS", "400"))
+
+
+def _render_history(msgs: list[dict], agent_pubkey: str) -> str:
+    """The room's recent traffic as a plain transcript, oldest first.
+
+    Speakers are read off the mirror prefix, not the event author: both
+    halves of the SMS traffic are posted into the room under the agent's
+    own key, so author alone would call the member's texts mine.
+    """
+    lines = []
+    for m in msgs[-SMS_HISTORY_MESSAGES:]:
+        body = " ".join((m.get("content") or "").split())
+        if not body:
+            continue
+        if body.startswith("[SMS \u00b7 out]"):
+            who, body = "you", body.split("]", 1)[1].strip()
+        elif body.startswith("[SMS \u00b7"):
+            who, body = "them", body.split("]", 1)[1].strip()
+        elif m.get("author") == agent_pubkey:
+            who = "you, in the Buzz room"
+        else:
+            who = "them, in the Buzz room"
+        if body:
+            lines.append(f"{who}: {body[:SMS_HISTORY_CHARS]}")
+    return "\n".join(lines)
+
+
+def _sender_frame(peer: str, binding: Optional[dict],
+                  identity_unknown: bool = False) -> str:
+    """One line naming who this text is from, and on what evidence.
+
+    Three states, and the frame says which one it is in.
+
+    A verified binding is an identity claim the ceremony actually made:
+    the member proved control of the number by code and answered from
+    their own Nostr key. The allowlist is weaker - a number in the
+    service env, nothing else - and says so. And when the binding
+    directory could not be read at all, the frame says the identity is
+    unknown rather than reporting the absence of a binding it never got
+    to look for. A lookup that failed is not a lookup that found
+    nothing, and the frame must not round the first down to the second.
+
+    Tier is a property of the channel and is asserted here. Who the
+    person is is a property of the binding and is asserted only where a
+    binding exists.
+    """
+    if binding and binding.get("member_pubkey"):
+        return (f"SMS from verified bound member {binding['member_pubkey'][:16]}, "
+                f"peer={peer}, binding verified by ceremony, tier 1 read-only. "
+                f"This is not the steward unless that key is the steward's")
+    if identity_unknown:
+        return (f"SMS from peer={peer}, identity unknown: the binding "
+                f"directory could not be read this turn, so treat the "
+                f"sender as unidentified, tier 1 read-only")
+    return (f"SMS from an allowlisted number, peer={peer}, "
+            f"no binding and no key evidence, tier 1 read-only")
+
+
+def dispatch_to_nou(peer: str, text: str,
+                    binding: Optional[dict] = None,
+                    history: str = "",
+                    identity_unknown: bool = False) -> str:
     """Hand the inbound to Nou and return the reply.
 
-    Placeholder shape for the first PR: shells out to the openclaw CLI
-    with a one-shot agent turn. Conversation history is not threaded
-    in this PR; each inbound is a fresh call. When the ACP bridge
-    integration lands, this function is the one seam that changes.
+    Shells out to the openclaw CLI with a one-shot agent turn. The
+    process holds no state between texts, so continuity comes from
+    `history`: the binding room read back and pasted in, since the room
+    already mirrors both halves of every exchange. That is why an SMS
+    peer with no binding room still arrives cold - there is nothing to
+    read. When the ACP bridge integration lands, this function is the
+    one seam that changes.
 
     The prompt is deliberately terse and includes the tier constraints
     inline. Nou is expected to know its identity and voice from core
     memory; this is just the payload frame.
+
+    The frame names who actually texted. It used to say "from steward"
+    for every peer, so a correctly bound member arrived wearing the
+    steward's label and the agent read the mismatch as an intruder
+    (Aaron Neyer, 2026-08-24). A frame that can only describe one person
+    is wrong in both directions: it slanders a member, and it would have
+    handed a stranger the steward's standing.
     """
+    prior = (f"Earlier in this conversation, oldest first:\n{history}\n\n"
+             if history else "")
     prompt = (
-        f"[SMS from steward, tier 1 read-only, peer={peer}]\n\n{text}\n\n"
-        "Reply in one to three sentences, and never more than about 700 "
-        "characters: this is a phone, and anything longer is split across "
-        "messages. Put the answer first; drop the preamble, the caveats "
-        "that change nothing, and the closing summary. No markdown. "
-        "No headers. "
+        f"[{_sender_frame(peer, binding, identity_unknown)}]\n\n{prior}"
+        f"Their message now:\n{text}\n\n"
+        "Reply in one or two sentences and stay under 300 characters. "
+        "Every 160 characters is a billed segment, so length costs money "
+        "on every answer; a third sentence is almost always the one to "
+        "cut. Put the answer first; drop the preamble, the caveats that "
+        "change nothing, and the closing summary. If the full answer will "
+        "not fit, give the one-line version and offer the rest on Buzz. "
+        "Plain ASCII only: no markdown, no headers, no emoji, no curly "
+        "quotes, no em dashes. One non-ASCII character drops the segment "
+        "size from 160 to 70 and more than doubles the cost. "
         "Never quote a confidential record, another member's contact "
         "detail, or an unpublished treasury figure. If the ask needs a "
         "write, say so and stop."
@@ -179,13 +264,54 @@ def dispatch_to_nou(peer: str, text: str) -> str:
 
 # --- length ----------------------------------------------------------------
 
-# A modern handset concatenates segments and RCS has no practical limit, so
-# the old hard cut at 320 chars was truncating answers mid-sentence for no
-# carrier reason. Cap generously, split on sentence boundaries, and never
+# A modern handset concatenates segments, so the cap is about money rather
+# than about the carrier: Quo bills $0.01 per 160-character GSM-7 segment of
+# every API-sent message, and the balance running dry fails every send with
+# a 402 and no warning (2026-08-25). Two parts of two segments each puts the
+# worst case at four cents a reply. Split on sentence boundaries and never
 # emit a trailing ellipsis: a reply either ends where a sentence ends or the
 # member is told plainly that the rest was dropped.
-SMS_PART_CHARS = int(os.environ.get("NOU_SMS_PART_CHARS", "900"))
-SMS_MAX_PARTS = int(os.environ.get("NOU_SMS_MAX_PARTS", "3"))
+SMS_PART_CHARS = int(os.environ.get("NOU_SMS_PART_CHARS", "320"))
+SMS_MAX_PARTS = int(os.environ.get("NOU_SMS_MAX_PARTS", "2"))
+
+# One non-GSM-7 character re-encodes the WHOLE message at 70 chars per
+# segment, so a single curly quote or em dash can more than double the cost
+# of an otherwise plain reply. The model is told to write ASCII; this is the
+# belt to that suspenders, applied before the split so the length maths and
+# the billing agree.
+_GSM_SUBSTITUTIONS = {
+    "\u2018": "'", "\u2019": "'", "\u201a": "'", "\u201b": "'",
+    "\u201c": '"', "\u201d": '"', "\u201e": '"',
+    "\u2013": "-", "\u2014": "-", "\u2015": "-", "\u2212": "-",
+    "\u2026": "...", "\u2022": "*", "\u2192": "->", "\u00d7": "x",
+    "\u00a0": " ", "\u2009": " ", "\u202f": " ",
+}
+
+# The GSM 03.38 basic set plus its extension characters. Anything outside
+# this set forces UCS-2 encoding on the entire message.
+_GSM7_CHARS = frozenset(
+    "@\u00a3$\u00a5\u00e8\u00e9\u00f9\u00ec\u00f2\u00c7\n\u00d8\u00f8\r"
+    "\u00c5\u00e5\u0394_\u03a6\u0393\u039b\u03a9\u03a0\u03a8\u03a3\u0398"
+    "\u039e\u00c6\u00e6\u00df\u00c9 !\"#\u00a4%&'()*+,-./0123456789:;<=>?"
+    "\u00a1ABCDEFGHIJKLMNOPQRSTUVWXYZ\u00c4\u00d6\u00d1\u00dc\u00a7"
+    "\u00bfabcdefghijklmnopqrstuvwxyz\u00e4\u00f6\u00f1\u00fc\u00e0"
+    "^{}\\[~]|\u20ac"
+)
+
+
+def to_gsm7(text: str) -> str:
+    """Fold a reply down to characters that bill at 160 per segment.
+
+    Known punctuation is substituted for its ASCII equivalent; anything
+    else outside the GSM-7 set (emoji, accented letters, symbols) is
+    dropped rather than transliterated, because a mangled word is easier
+    for a member to read past than a doubled bill is to notice.
+    """
+    for bad, good in _GSM_SUBSTITUTIONS.items():
+        text = text.replace(bad, good)
+    kept = "".join(c for c in text if c in _GSM7_CHARS)
+    return re.sub(r"[ \t]{2,}", " ", kept).strip()
+
 
 _SENTENCE_END = re.compile(r"(?<=[.!?])\s+")
 
@@ -199,8 +325,13 @@ def split_for_sms(reply: str,
     in which case it breaks on a word boundary. If the reply needs more than
     max_parts, the overflow is dropped and the last part says so, because a
     silent truncation reads as a complete answer when it is not.
+
+    The reply is folded to GSM-7 first, so the character counts here are the
+    counts the carrier bills on.
     """
-    reply = reply.strip()
+    reply = to_gsm7(reply)
+    if not reply:
+        raise ValueError("reply held nothing sendable after GSM-7 folding")
     if len(reply) <= part_chars:
         return [reply]
 
@@ -244,6 +375,11 @@ def send_reply(cfg: Config, peer: str, content: str) -> dict:
     this returns successfully. status='sent' from the API is the send
     accept, not delivery; a later delivered/undelivered lands via a
     separate status event we do not consume in this PR.
+
+    The response body is logged on failure. The status line alone is not
+    enough to act on: a 402 says only "Payment Required", while the body
+    says the credit balance is empty, which is a different fix from an
+    unpaid invoice and cost ten minutes to find by hand on 2026-08-25.
     """
     r = requests.post(
         f"{QUO_API_BASE}/messages",
@@ -251,6 +387,8 @@ def send_reply(cfg: Config, peer: str, content: str) -> dict:
         json={"from": cfg.line_e164, "to": [peer], "content": content},
         timeout=10,
     )
+    if r.status_code >= 400:
+        log.error("quo send %s: %s", r.status_code, r.text[:400])
     r.raise_for_status()
     return r.json()["data"]
 
@@ -281,12 +419,17 @@ def handle_inbound(cfg: Config, msg: InboundMessage,
         return
 
     binding = None
+    identity_unknown = False
     if router is not None:
         try:
             binding = router.lookup_verified_by_e164(peer)
         except Exception as e:
             # Fail closed on the widening: a router outage narrows the
-            # service to tier one, never widens it.
+            # service to tier one, never widens it. It narrows the frame
+            # too: with the directory unreadable the relay knows nothing
+            # about who this is, and the frame must say so rather than
+            # report "no binding" as though it had looked and found none.
+            identity_unknown = True
             log.error("binding lookup failed, tier-one path only: %s", e)
 
     # Gate. A verified binding admits; otherwise the tier-one allowlist
@@ -328,12 +471,23 @@ def handle_inbound(cfg: Config, msg: InboundMessage,
     # Mirror the inbound into the bound room before dispatch, framed as
     # bridged (design §5): provenance, not authority.
     channel = binding.get("buzz_channel_id") if binding else None
+
+    # Read the room back for continuity, before this inbound is mirrored
+    # into it: the transcript wanted is what came *before* the message
+    # being answered, and a duplicate of it helps nobody. A failed read
+    # degrades to no history rather than failing the turn.
+    history = ""
+    if bridge is not None and channel:
+        history = _render_history(
+            bridge.recent(channel, SMS_HISTORY_MESSAGES), cfg.agent_pubkey)
+
     if bridge is not None and channel:
         bridge.post(channel, f"[SMS · {peer}] {msg.text}")
 
     # Dispatch.
     try:
-        reply = dispatch_to_nou(peer, msg.text)
+        reply = dispatch_to_nou(peer, msg.text, binding, history,
+                                identity_unknown)
     except Exception as e:
         log.exception("dispatch failed")
         log_event(cfg, direction="in", peer=peer, content=msg.text,
@@ -343,6 +497,7 @@ def handle_inbound(cfg: Config, msg: InboundMessage,
 
     # Reply. Long answers go as ordered parts, each its own logged send;
     # the last response is the one carried into the event below.
+    parts: list[str] = []
     try:
         parts = split_for_sms(reply)
         for part in parts[:-1]:
@@ -369,5 +524,11 @@ def handle_inbound(cfg: Config, msg: InboundMessage,
     # Mirror the reply into the room, so phone and room hold one
     # transcript. Logged to phone_events already; the room copy is a
     # convenience view and its failure does not undo the send.
+    #
+    # The prefix matters: an unlabelled copy of an SMS reply reads in the
+    # room as though the agent answered twice, once by text and once in
+    # channel (steward's report, 2026-08-25). It is one answer, shown
+    # where it was sent. Every part is mirrored, not just the last, or
+    # the room holds a shorter transcript than the phone does.
     if bridge is not None and channel:
-        bridge.post(channel, reply)
+        bridge.post(channel, "[SMS \u00b7 out] " + " ".join(parts))

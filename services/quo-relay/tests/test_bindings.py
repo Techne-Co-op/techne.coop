@@ -12,7 +12,9 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from bindings import Ceremony, _hash  # noqa: E402
-from relay import Config, InboundMessage, handle_inbound  # noqa: E402
+from relay import (  # noqa: E402
+    Config, InboundMessage, _sender_frame, handle_inbound,
+)
 
 OWNER = "99" + "0" * 62
 AGENT = "ea" + "0" * 62
@@ -78,6 +80,25 @@ def test_verify_good_code_creates_channel_and_marks_verified():
     bridge.create_binding_channel.assert_called_once()
     store.set_channel.assert_called_once_with("B1", "CH-NEW")
     assert "verified" in reply
+    # The room name carries the binding id, so two numbers ending in the
+    # same four digits cannot collide on one channel name.
+    assert bridge.create_binding_channel.call_args.kwargs["seed"] == "B1"
+    # And the room opens with the ceremony stated, so a later reader does
+    # not have to infer the member's standing from a phone number.
+    seeded = bridge.post.call_args.args[1]
+    assert "Binding ceremony complete" in seeded
+    assert MEMBER in seeded and "+13035551234" in seeded
+
+
+def test_verify_without_channel_posts_no_note():
+    c, store, _, bridge = _ceremony()
+    store.pending_for_pubkey.return_value = {
+        "id": "B1", "peer_e164": "+13035551234", "code_hash": _hash("123456"),
+        "requested_at": time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime())}
+    bridge.create_binding_channel.return_value = None
+    reply = c.handle_message(MEMBER, "!verify 123456", "EV2", OWNER, AGENT)
+    bridge.post.assert_not_called()
+    assert "could not be created" in reply
 
 
 def test_verify_wrong_code_rejected():
@@ -125,10 +146,11 @@ def test_bound_peer_mirrors_to_channel(send, dispatch, log, cfg):
                    binder=MagicMock(), bridge=bridge)
     dispatch.assert_called_once()
     send.assert_called_once()
-    # inbound mirrored + reply mirrored.
+    # inbound mirrored + reply mirrored, both labelled as SMS traffic so
+    # the room does not read one answer as two.
     posted = [c.args for c in bridge.post.call_args_list]
-    assert posted[0][0] == "CH-1" and "[SMS" in posted[0][1]
-    assert posted[1] == ("CH-1", "pong")
+    assert posted[0][0] == "CH-1" and posted[0][1].startswith("[SMS \u00b7 +1")
+    assert posted[1] == ("CH-1", "[SMS \u00b7 out] pong")
 
 
 @patch("relay.log_event", return_value=True)
@@ -178,3 +200,78 @@ def test_router_outage_narrows_to_tier_one(send, dispatch, log, cfg):
     handle_inbound(cfg, _msg("+13035551234", mid="M2"), router=router,
                    binder=MagicMock(), bridge=MagicMock())
     dispatch.assert_not_called()
+
+
+@patch("relay.log_event", return_value=True)
+@patch("relay.dispatch_to_nou", return_value="pong")
+@patch("relay.send_reply", return_value={"id": "OUT", "status": "sent",
+                                          "conversationId": "C1"})
+def test_router_outage_narrows_the_frame_too(send, dispatch, log, cfg):
+    """The turn survives the outage on the allowlist, but it must not
+    carry an identity the relay could not check."""
+    router = MagicMock()
+    router.lookup_verified_by_e164.side_effect = RuntimeError("cis down")
+    handle_inbound(cfg, _msg("+13035059612"), router=router,
+                   binder=MagicMock(), bridge=MagicMock())
+    binding, identity_unknown = dispatch.call_args.args[2], \
+        dispatch.call_args.args[4]
+    assert binding is None
+    assert identity_unknown is True
+    assert "identity unknown" in _sender_frame("+13035059612", binding,
+                                               identity_unknown)
+
+
+@patch("relay.log_event", return_value=True)
+@patch("relay.dispatch_to_nou", return_value="pong")
+@patch("relay.send_reply", return_value={"id": "OUT", "status": "sent",
+                                          "conversationId": "C1"})
+def test_bound_peer_is_dispatched_under_their_own_key(send, dispatch, log, cfg):
+    """The resolved binding reaches dispatch, so the frame names the
+    member who actually texted rather than a label fixed in the code."""
+    router = MagicMock()
+    router.lookup_verified_by_e164.return_value = {
+        "id": "B1", "member_pubkey": MEMBER, "peer_e164": "+13035551234",
+        "buzz_channel_id": "CH-1"}
+    handle_inbound(cfg, _msg("+13035551234"), router=router,
+                   binder=MagicMock(), bridge=MagicMock())
+    assert dispatch.call_args.args[2]["member_pubkey"] == MEMBER
+    assert dispatch.call_args.args[4] is False
+    frame = _sender_frame("+13035551234", dispatch.call_args.args[2])
+    assert MEMBER[:16] in frame
+    assert "binding verified by ceremony" in frame
+
+
+@patch("relay.log_event", return_value=True)
+@patch("relay.dispatch_to_nou", return_value="pong")
+@patch("relay.send_reply", return_value={"id": "OUT", "status": "sent",
+                                          "conversationId": "C1"})
+def test_allowlisted_peer_with_no_binding_is_framed_as_such(send, dispatch,
+                                                            log, cfg):
+    router = MagicMock()
+    router.lookup_verified_by_e164.return_value = None
+    handle_inbound(cfg, _msg("+13035059612"), router=router,
+                   binder=MagicMock(), bridge=MagicMock())
+    assert dispatch.call_args.args[2] is None
+    assert dispatch.call_args.args[4] is False
+    frame = _sender_frame("+13035059612", None, False)
+    assert "allowlisted number" in frame
+    assert "steward" not in frame.lower()
+
+
+@patch("relay.log_event", return_value=True)
+@patch("relay.dispatch_to_nou", return_value="pong")
+@patch("relay.send_reply", return_value={"id": "OUT", "status": "sent",
+                                          "conversationId": "C1"})
+def test_bound_peer_dispatch_carries_the_room_as_history(send, dispatch, log, cfg):
+    router, bridge = MagicMock(), MagicMock()
+    router.lookup_verified_by_e164.return_value = {
+        "id": "B1", "member_pubkey": MEMBER, "peer_e164": "+13035551234",
+        "buzz_channel_id": "CH-1"}
+    bridge.recent.return_value = [
+        {"author": AGENT, "content": "[SMS · +13035551234] how much?"},
+        {"author": AGENT, "content": "[SMS · out] a cent or two"},
+    ]
+    handle_inbound(cfg, _msg("+13035551234"), router=router,
+                   binder=MagicMock(), bridge=bridge)
+    history = dispatch.call_args.args[3]
+    assert "them: how much?" in history and "you: a cent or two" in history

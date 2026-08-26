@@ -49,9 +49,17 @@ class BuzzBridge:
         self.agent_pubkey = agent_pubkey
 
     def create_binding_channel(self, member_pubkey: str, owner_pubkey: str,
-                               label: str) -> Optional[str]:
-        """Create the private room for a binding; returns channel id or None."""
-        created = _run(["channels", "create", "--name", f"sms-{label}",
+                               label: str, seed: str = "") -> Optional[str]:
+        """Create the private room for a binding; returns channel id or None.
+
+        The name carries a unique suffix as well as the number's last four
+        digits. Two members whose numbers end 1721 would otherwise both ask
+        for #sms-1721 and collide (steward, 2026-08-25); the suffix comes
+        from the binding row id, so the name is stable per binding rather
+        than random per attempt.
+        """
+        name = f"sms-{label}-{seed}" if seed else f"sms-{label}"
+        created = _run(["channels", "create", "--name", name,
                         "--type", "stream", "--visibility", "private"])
         if not created:
             return None
@@ -74,6 +82,27 @@ class BuzzBridge:
         if not ok:
             log.error("post to %s not accepted: %s", channel_id, sent)
         return ok
+
+    def recent(self, channel_id: str, limit: int) -> list[dict]:
+        """The last `limit` messages in a channel, oldest first.
+
+        The binding room already holds both halves of every exchange, so
+        it is the SMS conversation's memory: reading it back is what lets
+        a one-shot dispatch answer a follow-up text. Returns [] on any
+        failure, which degrades to the old context-free behaviour rather
+        than failing the turn.
+        """
+        got = _run(["messages", "get", "--channel", channel_id,
+                    "--limit", str(limit)])
+        if not got:
+            return []
+        msgs = got if isinstance(got, list) else got.get("messages", [])
+        out = [{"author": m.get("author_pubkey") or m.get("pubkey", ""),
+                "content": m.get("content", ""),
+                "created_at": int(m.get("created_at", 0))}
+               for m in msgs]
+        out.sort(key=lambda m: m["created_at"])
+        return out
 
     def get_since(self, channel_id: str, since_ts: int) -> list[dict]:
         """Messages in a channel since a unix timestamp, oldest first.
