@@ -1,9 +1,12 @@
 -- 0030_program_revenue.sql · T-08 · the program revenue registry
 --
--- Not applied. Drafted at the steward's direction of 2026-08-26 (the
--- MRR dashboard ask, LCA finance thread). Applying it to the live CIS
--- is a schema act and a stop card under BP: it needs a named human.
--- The agent that drafted this file did not run it anywhere.
+-- Drafted at the steward's direction of 2026-08-26 (the MRR dashboard
+-- ask, LCA finance thread), and APPLIED to the live CIS the same
+-- afternoon, 2026-08-26 17:12 UTC, at the steward's direction in
+-- writing. Applying it was a schema act and a stop card under BP: it
+-- needed a named human, and Todd Youngblood named himself and asked.
+-- It ran once, whole, through the management channel; the file below
+-- is the text that ran.
 --
 -- WHAT THIS IS, and what it is not
 --
