@@ -193,6 +193,8 @@ a { color: var(--blue-text); text-underline-offset: 3px; }
 .card.short .sentence textarea { border-color: var(--warn); }
 .card-flag { font-family: var(--mono); font-size: 0.62rem; color: var(--warn); margin-top: var(--s1); display: none; }
 .card.short .card-flag { display: block; }
+.card-rail { font-family: var(--mono); font-size: 0.62rem; color: var(--faint); margin-top: var(--s1); }
+.card-rail.in-record { color: var(--ok); }
 
 /* ---------- the record of the walk ---------- */
 .record-actions { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s3); }
@@ -297,7 +299,7 @@ footer a { color: var(--ember-text); }
   </div>
 
   <div class="standing">
-    <b>Clicking a verdict here changes nothing yet.</b> Your verdicts stay in this browser and go nowhere else. Nothing is sent, so nothing is lost if you close the tab on a different machine, and nothing is written into the cooperative&rsquo;s records by the click. What changes a record is a person taking your write-up and opening a pull request, a proposed change that others review before it is accepted. Where this page and the ledger, the cooperative&rsquo;s register of record, disagree, the ledger is right. The verdict stays yours, under your name and the date you give it.
+    <b>Your verdict is recorded; it is not yet a mark.</b> When you click a verdict and write your sentence, both go into the cooperative&rsquo;s record as your testimony, under your name, at the moment you speak them. That means the walk survives a closed tab and resumes on another machine, and it means a second person can read what you saw. It does not move anything. What moves a mark is a person taking this walk and opening a pull request, a proposed change that others review before it is accepted. Where this page and the ledger, the cooperative&rsquo;s register of record, disagree, the ledger is right. A verdict with no sentence is held in this browser only, because the record will not take one: a verdict without a sentence tells the record what happened and not what was seen.
   </div>
 
   <div class="walker" id="walker">
@@ -324,7 +326,7 @@ footer a { color: var(--ember-text); }
   <div id="cards"><p class="loading">reading the cards&hellip;</p></div>
 
   <h2 class="section-head" id="record">the record of this walk</h2>
-  <p class="lead">Your walk, written up the way a steward needs it: one line per card, with your name and the date at the top. Click <b>Copy the record</b> and paste it into the steward channel. If pasting is awkward, click <b>Download it</b> and attach the file instead. Nothing leaves this page on its own, so if you do neither, the walk stays with you.</p>
+  <p class="lead">Your walk, written up the way a steward needs it: one line per card, with your name and the date at the top. Click <b>Copy the record</b> and paste it into the steward channel. If pasting is awkward, click <b>Download it</b> and attach the file instead. Your verdicts are already in the record by the time you get here; this write-up is for the person opening the pull request, who needs them in one piece and in reading order.</p>
   <div class="record-actions">
     <button type="button" id="btn-copy">Copy the record</button>
     <button type="button" id="btn-download">Download it</button>
@@ -354,12 +356,29 @@ footer a { color: var(--ember-text); }
    piece. This file renders them, holds the verdicts, and writes
    the record.
 
-   Nothing here writes to the Common Information System. The
-   steward chose that shape on 2026-08-23: no new table, no new
-   policy, no schema act. Identity comes from the session the
-   shell already resolved; the verdicts persist in localStorage
-   under the signed-in user, so two people on one machine do not
-   inherit each other's walk.
+   This page speaks each verdict into the Common Information
+   System as it is spoken, through record_verdict (X-32). That
+   reverses the shape the steward chose on 2026-08-23, no new
+   table, no new policy, no schema act, and it reverses it on his
+   own direction of 2026-08-26, given after a walk of eleven cards
+   had to be carried into the record by copying text out of this
+   browser. The reason he gave is the right one: a walk held in
+   one tab is not a record, and a cooperative that means to see
+   itself cannot have its verification surface be the one page
+   nothing can query.
+
+   What that does and does not change. A verdict is testimony and
+   enters as one verdict.spoken event concerning the speaking
+   member; the mark still moves only by pull request, and the page
+   still says so. No read policy is widened: a walker reads their
+   own walk, directors and officers read every walk. The verb
+   refuses a verdict with no sentence, so this page keeps
+   localStorage as the place a half-finished verdict waits, and it
+   is still the fallback whenever the record cannot be reached.
+
+   Identity comes from the session the shell already resolved; the
+   verdicts persist in localStorage under the signed-in user, so
+   two people on one machine do not inherit each other's walk.
 
    The Common Record Series - RegenHub, LCA - August 2026
    ============================================================ */
@@ -368,6 +387,48 @@ footer a { color: var(--ember-text); }
 
   var CARDS_URL = '/commons/build/verification/cards.json';
   var STORE_PREFIX = 'techne-walk-v1:';
+
+  /* ---------- the verdict rail (X-32) ----------
+     The shell resolves the session but exports no client, so this
+     reads the same token the shell reads and calls the verb over
+     REST. Every failure is soft: the walk keeps working out of
+     localStorage and the card says what the record said. */
+  var SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
+  var ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
+  var TOKEN_KEY = 'sb-ujujwgopdwirebgcpekc-auth-token';
+
+  function accessToken() {
+    try {
+      var t = JSON.parse(localStorage.getItem(TOKEN_KEY) || 'null');
+      return t && t.access_token ? t.access_token : null;
+    } catch (e) { return null; }
+  }
+
+  function cis(path, opts) {
+    var token = accessToken();
+    if (!token) return Promise.reject(new Error('not signed in'));
+    var o = opts || {};
+    return fetch(SUPABASE_URL + '/rest/v1/' + path, {
+      method: o.method || 'GET',
+      headers: {
+        apikey: ANON_KEY,
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      },
+      body: o.body ? JSON.stringify(o.body) : undefined
+    }).then(function (r) {
+      return r.text().then(function (txt) {
+        var data = null;
+        try { data = txt ? JSON.parse(txt) : null; } catch (e) { data = txt; }
+        if (!r.ok) {
+          /* The verb's refusals cite their rules; show what it said. */
+          var msg = (data && (data.message || data.hint)) || ('the record answered ' + r.status);
+          throw new Error(msg);
+        }
+        return data;
+      });
+    });
+  }
 
   var state = { cards: [], byAddr: {}, verdicts: {}, meta: {}, user: null, filter: 'all' };
 
@@ -485,12 +546,17 @@ footer a { color: var(--ember-text); }
     ta.id = 'note-' + card.address;
     ta.rows = 2;
     ta.addEventListener('input', function () { setNote(card.address, ta.value); });
+    ta.addEventListener('blur', function () { speak(card.address); });
     sen.appendChild(lab);
     sen.appendChild(ta);
     var flag = document.createElement('p');
     flag.className = 'card-flag';
     flag.textContent = 'Add your sentence. Whoever reads this later was not standing next to you.';
     sen.appendChild(flag);
+    var rail = document.createElement('p');
+    rail.className = 'card-rail';
+    rail.id = 'rail-' + card.address;
+    sen.appendChild(rail);
     wrap.appendChild(sen);
 
     return wrap;
@@ -600,19 +666,87 @@ footer a { color: var(--ember-text); }
   function setVerdict(addr, v) {
     var cur = state.verdicts[addr] || {};
     cur.verdict = (cur.verdict === v) ? null : v;
+    cur.spoken = false;
     state.verdicts[addr] = cur;
     save();
     paint();
+    speak(addr);
   }
 
   function setNote(addr, text) {
     var cur = state.verdicts[addr] || {};
+    if ((cur.note || '') !== text) cur.spoken = false;
     cur.note = text;
     state.verdicts[addr] = cur;
     save();
     paintCard(addr);
     paintTally();
     paintRecord();
+  }
+
+  /* Speak the verdict into the record (X-32). A verdict without a
+     sentence is not sent, because the verb refuses it; it waits in
+     this browser until the sentence arrives. Called on the verdict
+     click and again when the sentence settles. */
+  function speak(addr) {
+    var rec = state.verdicts[addr] || {};
+    var sentence = (rec.note || '').trim();
+    if (!rec.verdict || !sentence || rec.spoken || rec.speaking) return;
+    if (!accessToken()) { rec.railStatus = 'held here: no session'; paintCard(addr); return; }
+
+    rec.speaking = true;
+    rec.railStatus = 'speaking into the record';
+    paintCard(addr);
+
+    cis('rpc/record_verdict', {
+      method: 'POST',
+      body: {
+        p_address: addr,
+        p_verdict: rec.verdict,
+        p_sentence: sentence,
+        p_walk: state.meta.date || today()
+      }
+    }).then(function () {
+      rec.speaking = false;
+      rec.spoken = true;
+      rec.railStatus = 'in the record';
+      save();
+      paintCard(addr);
+    }).catch(function (err) {
+      rec.speaking = false;
+      rec.spoken = false;
+      rec.railStatus = 'held here only: ' + err.message;
+      save();
+      paintCard(addr);
+    });
+  }
+
+  /* Read this walker's standing verdicts back, so a walk resumes on
+     a machine that never held it. The record wins only where this
+     browser is silent; a verdict typed here and not yet sent is not
+     overwritten by an older one from the record. */
+  function readBack() {
+    if (!accessToken()) return Promise.resolve();
+    return cis('standing_verdicts?select=address,verdict,sentence,recorded_at')
+      .then(function (rows) {
+        if (!rows || !rows.length) return;
+        var carried = 0;
+        rows.forEach(function (r) {
+          var cur = state.verdicts[r.address];
+          if (cur && (cur.verdict || (cur.note || '').trim())) return;
+          state.verdicts[r.address] = {
+            verdict: r.verdict, note: r.sentence,
+            spoken: true, railStatus: 'in the record'
+          };
+          carried++;
+        });
+        if (carried) {
+          save();
+          paint();
+          elStatus.textContent = carried + ' verdict(s) read back from the record';
+        }
+      })
+      .catch(function () { /* the walk works without the readback */ });
   }
 
   function setFilter(key) {
@@ -638,6 +772,11 @@ footer a { color: var(--ember-text); }
     if (ta && ta.value !== (rec.note || '')) ta.value = rec.note || '';
     var short = !!rec.verdict && !(rec.note || '').trim();
     node.classList.toggle('short', short);
+    var rail = document.getElementById('rail-' + addr);
+    if (rail) {
+      rail.textContent = rec.verdict ? (rec.railStatus || '') : '';
+      rail.className = 'card-rail' + (rec.spoken ? ' in-record' : '');
+    }
   }
 
   function paintVisibility() {
@@ -732,7 +871,8 @@ footer a { color: var(--ember-text); }
                ' (' + c.holds + ' holds or attested, ' + c.fails + ' fails or not ready, ' +
                c.deferred + ' deferred)');
     lines.push('');
-    lines.push('The page wrote this from verdicts held in the walker’s own browser.');
+    lines.push('The page wrote this from the verdicts given in this walk.');
+    lines.push('Each one with a sentence is already in the cooperative’s record as the walker’s own testimony (X-32).');
     lines.push('It changes nothing by itself. A record moves only when a person opens a pull request carrying these lines.');
     lines.push('');
 
@@ -824,8 +964,9 @@ footer a { color: var(--ember-text); }
     document.getElementById('btn-clear').addEventListener('click', function () {
       var c = counts();
       if (c.walked && !window.confirm(
-          'Delete ' + c.walked + ' verdict(s) from this browser? Copy or download the write-up first, ' +
-          'or it is gone.')) return;
+          'Clear ' + c.walked + ' verdict(s) from this browser? Whatever you already spoke stays in ' +
+          'the record and is read back the next time you open this page; anything still waiting on a ' +
+          'sentence is gone. Copy or download the write-up first if you want it in one piece.')) return;
       state.verdicts = {};
       save();
       paint();
@@ -851,6 +992,7 @@ footer a { color: var(--ember-text); }
     }
     paintWalker();
     paint();
+    readBack();
   }
 
   function start(data) {

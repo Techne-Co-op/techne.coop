@@ -131,6 +131,7 @@ MIGRATIONS = [
     "commons/authority-map/0010_programs_view.sql",
     "commons/authority-map/0017_direction_rail.sql",
     "commons/authority-map/0018_direction_desk.sql",
+    "commons/authority-map/0030_verdict_rail.sql",
 ]
 
 
@@ -534,6 +535,36 @@ probe("direction-standing-own-counts", "authenticated", MEM1,
 probe("direction-steward-relay-ok", "authenticated", STE,
       f"insert into events (occurred_at, actor_agent_id, kind, agent_id, payload) values (now(), '{STE}', 'direction.accepted', '{MEM1}', jsonb_build_object('direction_id', '{DIR1}')) returning id",
       ("write_ok",), "AGY section 12 R0: the steward relays the agent-side events under the overseer branch")
+
+
+# ---- the verdict rail (X-32) · X-28; AM v0.1 section 7; Bylaws section 18.1 ----
+probe("verdict-member-direct-insert-deny", "authenticated", MEM2,
+      f"insert into events (occurred_at, actor_agent_id, kind, agent_id) values (now(), '{MEM2}', 'verdict.spoken', '{MEM2}') returning id",
+      ("write_deny",), "AM v0.1 section 7: the verb is the only door; events_scoped_insert admits no verdict kind")
+probe("verdict-member-verb-ok", "authenticated", MEM2,
+      "select record_verdict('U-09', 'holds', 'Probe: the front door carries its paths.')",
+      ("write_ok",), "X-28: a member walks a piece and says what they saw")
+probe("verdict-applicant-deny", "authenticated", APP,
+      "select record_verdict('U-09', 'holds', 'Probe verdict from an applicant.')",
+      ("deny",), "X-28: walking a piece is membership work")
+probe("verdict-anon-deny", "anon", None,
+      "select record_verdict('U-09', 'holds', 'Probe verdict from the anon column.')",
+      ("deny",), "AM v0.1 section 5: the anon column speaks no verdict")
+probe("verdict-vocabulary-deny", "authenticated", MEM2,
+      "select record_verdict('U-09', 'looks fine', 'Probe verdict outside the vocabulary.')",
+      ("deny",), "X-28: five words, a closed set")
+probe("verdict-silent-deny", "authenticated", MEM2,
+      "select record_verdict('U-09', 'holds', '   ')",
+      ("deny",), "X-28: a verdict without a sentence records what happened and not what was seen")
+probe("verdict-address-shape-deny", "authenticated", MEM2,
+      "select record_verdict('not an address', 'holds', 'Probe verdict against a malformed address.')",
+      ("deny",), "X-32: the verb checks the shape of an address, the walk surface checks its existence")
+probe("verdict-own-walk-read", "authenticated", MEM1,
+      "select count(*) from (select record_verdict('P-12', 'holds', 'Probe: notice is intact.')) w, standing_verdicts s where s.address = 'P-12'",
+      ("count", 1), "Bylaws section 18.1: the walker reads their own walk back")
+probe("verdict-cross-member-none", "authenticated", MEM3,
+      "select count(*) from (select record_verdict('P-12', 'holds', 'Probe: a third member speaks.')) w, standing_verdicts s where s.walker_agent_id = '" + MEM1 + "'",
+      ("count", 0), "0002 events_read: another member's verdicts are not theirs to read, and X-32 widens nothing")
 
 
 # ============================================================
