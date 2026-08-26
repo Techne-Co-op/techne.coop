@@ -5266,3 +5266,47 @@ matrix:
       named as open: an SMS sender id is spoofable, so the number
       remains the whole credential behind a binding, and moving the
       ceremony to a signed-in intranet session is issue #247.
+
+  - address: SMS-05
+    title: The binding ceremony moves to the intranet
+    intent: >
+      SMS-03 built a ceremony that starts in a Buzz channel and anchors
+      a phone number to a Nostr key. The steward's direction of
+      2026-08-23 (issue #247) moves it: a signed-in member enters their
+      number on the intranet, receives a code by text, and confirms it
+      on the same authenticated surface, so the binding anchors to the
+      magic-link session identity the record already holds rather than
+      to a chat identity it cannot resolve. Issue #247 proposed the
+      address SMS-04; that address was minted the same day for the
+      relay dispatch-frame repair, so this piece takes the next one.
+      Design and migration only; the surface is a separate UI packet
+      and the apply is a named human's act.
+    status: drafted
+    cites: [SMS-04, SMS-03, SMS-02, SMS-01, BP]
+    ready_when: >
+      Design and migration only; nothing runs and nothing is applied.
+      The build that follows waits on the stop card, schema against the
+      live CIS by a named human, and on the three decisions the design
+      stages: whether the Buzz-originated ceremony survives as a
+      steward-only fallback, who holds the carrier credential that
+      sends the code, and what becomes of the two verified bindings
+      that anchor on keys the record cannot name.
+    deliverable: >
+      commons/build/sms-05-ceremony/index.html, the design;
+      commons/authority-map/0029_phone_bindings_intranet.sql,
+      unapplied: agent_id and origin on phone_bindings, member_pubkey
+      made optional with anchor constraints in its place, the code's
+      expiry and attempt budget as row state, the member-scoped read
+      policies that 0026 deferred, the Supabase creation-default
+      grants stripped before the first permissive policy exists, and
+      three security-definer verbs through which every member write
+      travels; scripts/sms05_probe.py and its sms05-ceremony CI job,
+      which walks the ceremony against a scratch substrate.
+    acceptance: >
+      The migration applies to a fresh substrate and the probe is
+      green: the two pre-existing verified bindings survive with their
+      keys and keep routing, a member cannot read the hash of their own
+      code, a member reads the messages inside their binding's window
+      and none outside it, a direct write to phone_bindings by a member
+      is refused, and a number that changes hands carries no history to
+      its new holder. Nothing is applied to the live CIS by this piece.

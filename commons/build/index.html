@@ -367,7 +367,7 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
   </div>
   <div class="mast-stats">
 <!-- generated:ledger-state -- written by scripts/validate.py; do not edit by hand -->
-    <span class="stat-chip drafted"><span class="n">32</span>&thinsp;drafted</span>
+    <span class="stat-chip drafted"><span class="n">33</span>&thinsp;drafted</span>
     <span class="stat-chip anticipated"><span class="n">40</span>&thinsp;anticipated</span>
     <span class="stat-chip open"><span class="n">101</span>&thinsp;open</span>
     <span class="stat-chip verified"><span class="n">35</span>&thinsp;verified</span>
@@ -1053,6 +1053,12 @@ footer { border-top:1px solid var(--rule); padding:var(--s4) var(--s5) var(--s7)
         <span class="pkt-intent">The frame names who actually texted. The relay resolved a verified binding and then threw it away, opening every dispatch with the fixed words &ldquo;SMS from steward&rdquo; whoever had sent the text, so a correctly bound member arrived wearing the steward&rsquo;s name. The frame is now built from what the relay knows: a verified binding names the member by their key and says the ceremony verified it, an allowlisted number with no binding says it carries no key evidence, and an unreadable binding directory says the identity is unknown rather than reporting an absence it never looked for. Tier stays asserted because it is a property of the channel; identity is asserted only where a binding produced one. The number remains the whole credential behind a binding, which issue #247 is where that is answered.</span>
         <span><span class="chip open"><span class="dot"></span>open &middot; delivered</span></span>
         <span class="pkt-ready">a defect in shipped code, repairable with no human act &middot; the gate, the schema, and the tier boundary all stand unmoved</span>
+      </div>
+      <div class="packet-row">
+        <span class="pkt-addr">SMS-05</span>
+        <span class="pkt-intent">The binding ceremony moves to the intranet: a signed-in member enters their number, receives a code by text, and confirms it on the same authenticated surface, so the binding anchors to the magic-link session identity the record holds rather than to a Nostr key it cannot resolve. 0029 extends phone_bindings rather than superseding it, so every verified binding survives; the member-scoped read that 0026 deferred arrives with it. Issue #247 proposed the address SMS-04, which was minted the same day for the frame repair. Design and migration only; the apply is a named human&rsquo;s act.</span>
+        <span><span class="chip drafted"><span class="dot"></span>drafted</span></span>
+        <span class="pkt-ready">the steward&rsquo;s direction of 2026-08-23, issue #247 &middot; the migration stays a stop card &middot; three decisions staged, none taken</span>
       </div>
       <div class="packet-row">
         <span class="pkt-addr">G-A</span>
