@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Recurring revenue for RegenHub, LCA: the monthly and annual figure composed from named subscription tiers per Program, every line carrying its source, basis, and read time. Read-only.">
+<title>Revenue &middot; Techne</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem('techne-mode');
+      if (!m) m = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-mode', m);
+    } catch(e) {}
+  })();
+</script>
+<style>
+:root {
+  --serif: 'Libre Baskerville', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #fff;
+}
+html[data-mode="dark"] {
+  --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
+  --line: #2A2A30; --rule: #3A3A42;
+  --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
+  --ember: #C4956A; --ember-text: #D4A57A;
+  --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
+  --info: #6A8AC4; --info-dim: rgba(106,138,196,0.12);
+  --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
+  color-scheme: dark;
+}
+html[data-mode="light"] {
+  --bg: #F7F5F0; --inset: #EBE7DF; --surface: #FCFBF8; --raised: #FEFDFB;
+  --line: #D8D3C8; --rule: #9A958A;
+  --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
+  --ember: #8A6A4A; --ember-text: #6F5436;
+  --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
+  --info: #4A6FB0; --info-dim: rgba(74,111,176,0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
+  color-scheme: light;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:focus-visible { outline: 2px solid var(--info); outline-offset: 2px; }
+body {
+  background: var(--bg); color: var(--text); font-family: var(--serif);
+  font-size: 16px; line-height: 1.65; min-height: 100vh; display: flex; flex-direction: column;
+}
+/* the topbar, the map, and the mode toggle are the shell's (U-01) */
+
+main { flex: 1; width: 100%; max-width: 70rem; margin-inline: auto; padding-block: clamp(var(--s5), 3.5vw, var(--s7)); padding-inline: clamp(var(--s4), 3vw, var(--s6)); }
+h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom: var(--s3); }
+.section-rule { border-top: 2px solid var(--ember); width: 32px; margin: var(--s4) 0 var(--s5); }
+.lead { color: var(--muted); margin-bottom: var(--s6); font-size: 0.95rem; max-width: 68ch; }
+
+.btn { font-family: var(--mono); font-size: 0.85rem; padding: 10px 24px; border-radius: 2px; border: none; cursor: pointer; }
+.btn-primary { background: var(--ember); color: var(--on-accent); }
+.btn-primary:hover { opacity: 0.88; }
+.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-quiet { background: none; border: 1px solid var(--line); color: var(--muted); font-family: var(--mono); font-size: 0.68rem; padding: 3px 10px; border-radius: 2px; cursor: pointer; }
+.btn-quiet:hover { border-color: var(--warn); color: var(--warn); }
+
+#loading { text-align: center; padding: var(--s7) 0; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; }
+#view { display: none; }
+#desk { display: none; }
+
+.notice { padding: var(--s4); border-radius: 2px; margin: var(--s4) 0; font-size: 0.88rem; display: none; }
+.notice.ok  { background: var(--ok-dim); color: var(--ok); border: 1px solid var(--ok); }
+.notice.err { background: var(--warn-dim); color: var(--warn); border: 1px solid var(--warn); }
+
+.desk-card {
+  border: 1px solid var(--line); border-radius: 2px; background: var(--surface);
+  margin-bottom: var(--s5); overflow: hidden;
+}
+.desk-header { padding: var(--s4) var(--s5); display: flex; align-items: baseline; gap: var(--s4); border-bottom: 1px solid var(--line); }
+.desk-title { margin: 0; font-weight: 400; flex: 1; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+.desk-count { font-family: var(--mono); font-size: 0.72rem; color: var(--ember-text); }
+.desk-body { padding: var(--s4) var(--s5); font-size: 0.92rem; }
+.desk-empty { color: var(--muted); font-size: 0.88rem; }
+.desk-h2 { font-size: 1.25rem; font-weight: 700; color: var(--heading); margin: var(--s7) 0 var(--s3); }
+.row-line { padding: var(--s3) 0; border-bottom: 1px solid var(--line); display: flex; gap: var(--s3); align-items: baseline; flex-wrap: wrap; }
+.row-line:last-child { border-bottom: none; }
+.row-main { flex: 1; min-width: 200px; color: var(--heading); font-size: 0.92rem; }
+.row-meta { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); }
+.row-meta span { color: var(--ember-text); }
+.chip {
+  font-family: var(--mono); font-size: 0.65rem; padding: 2px 8px; border-radius: 2px;
+  border: 1px solid var(--line); color: var(--muted); white-space: nowrap;
+}
+.chip.live { background: var(--ok-dim); color: var(--ok); border-color: var(--ok); }
+.chip.attested { background: var(--info-dim); color: var(--info); border-color: var(--info); }
+.chip.waiting { color: var(--faint); border-style: dashed; }
+
+.basis-line { font-family: var(--mono); font-size: 0.68rem; color: var(--faint); margin: 0 0 var(--s5); }
+.tiles { --grid-min: 150px; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-min, 300px), 100%), 1fr)); gap: var(--s3); align-items: start; }
+.tile { background: var(--inset); border: 1px solid var(--line); border-radius: 2px; padding: var(--s3) var(--s4); }
+.tile .tk { font-family: var(--mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); margin-bottom: 4px; }
+.tile .tv { font-family: var(--mono); font-size: 1.15rem; color: var(--heading); }
+.tile .tv.waiting { color: var(--faint); }
+.tile .tm { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); margin-top: 4px; }
+
+table.flow { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+table.flow th { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--faint); text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--rule); }
+table.flow th:first-child, table.flow td:first-child { text-align: left; }
+table.flow td { padding: 7px 8px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; text-align: right; }
+table.flow td:first-child { font-family: var(--serif); font-size: 0.88rem; color: var(--heading); }
+table.flow tr.subtotal td { border-top: 1px solid var(--rule); color: var(--heading); }
+
+.prog-head { display: flex; align-items: baseline; gap: var(--s3); flex-wrap: wrap; margin: var(--s5) 0 var(--s2); }
+.prog-head:first-child { margin-top: 0; }
+.prog-name { font-weight: 700; color: var(--heading); font-size: 1rem; flex: 1; min-width: 140px; }
+.prog-sum { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+.prog-sum b { color: var(--heading); font-weight: 500; }
+
+/* the trend strip: one series, months on the walk, the ember carries it */
+.trend { display: flex; align-items: flex-end; gap: 6px; height: 120px; margin: var(--s3) 0 var(--s2); }
+.trend .col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; min-width: 0; }
+.trend .bar { background: var(--ember); border-radius: 3px 3px 0 0; min-height: 2px; transition: opacity var(--micro) var(--ease); }
+.trend .col:hover .bar { opacity: 0.75; }
+.trend-labels { display: flex; gap: 6px; }
+.trend-labels span { flex: 1; text-align: center; font-family: var(--mono); font-size: 0.6rem; color: var(--faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+details.tbl { margin-top: var(--s3); }
+details.tbl summary { cursor: pointer; font-family: var(--mono); font-size: 0.68rem; color: var(--muted); list-style: none; }
+details.tbl summary::-webkit-details-marker { display: none; }
+details.tbl summary::before { content: "+ "; color: var(--ember-text); }
+details.tbl[open] summary::before { content: "\2212 "; }
+
+label.f { display: block; font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--faint); margin: var(--s3) 0 4px; }
+input.f, select.f, textarea.f {
+  width: 100%; max-width: 420px; background: var(--inset); border: 1px solid var(--line);
+  border-radius: 2px; color: var(--text); font-family: var(--mono); font-size: 0.85rem; padding: 8px 10px;
+}
+input.f:focus, select.f:focus { border-color: var(--info); outline: none; }
+
+footer {
+  border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
+  font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center;
+}
+footer a { color: var(--faint); }
+
+@media (max-width: 640px) {
+  h1 { font-size: 1.35rem; }
+  .desk-header, .desk-body { padding: var(--s3) var(--s4); }
+  .btn-primary { width: 100%; min-height: 44px; }
+  .trend-labels span:nth-child(even) { visibility: hidden; }
+}
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+  </style>
+<script src="/assets/error-boundary.js"></script>
+<script src="/assets/shell-gate.js"></script>
+<link rel="stylesheet" href="/assets/shell.css">
+<script src="/assets/shell.js" defer></script>
+</head>
+<body>
+<!-- generated:shell-frame -- written by scripts/shell_frame.py; do not edit by hand -->
+<header class="cis-topbar">
+  <a class="cis-brand" href="/intranet/">Techne<span class="cis-brand-suffix"> &middot; intranet</span></a>
+  <div class="cis-topbar-right">
+    <button type="button" class="cis-menu" id="cis-menu-btn" aria-expanded="false" aria-controls="cis-map" aria-label="show the intranet map">Menu</button>
+    <button type="button" class="cis-bell" aria-expanded="false" aria-controls="cis-notices" aria-label="notices addressed to you">Notices</button>
+    <span class="cis-chip" id="cis-member-chip">not signed in</span>
+    <button type="button" class="cis-mode" aria-label="toggle light and dark mode">&#9689;</button>
+  </div>
+</header>
+<div class="cis-body">
+<nav class="cis-side" id="cis-map" aria-label="intranet">
+  <a href="/intranet/" data-tint="gold"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>Overview</a>
+  <div class="cis-group">Belong</div>
+  <a href="/commons/agreements/" data-tint="amber"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Agreements</a>
+  <a href="/commons/directory/" data-tint="amber"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Directory</a>
+  <div class="cis-group">Gather</div>
+  <a href="/commons/gatherings/" data-tint="coral"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Gatherings</a>
+  <div class="cis-group">Find one another</div>
+  <a href="/commons/opportunities/" data-tint="rose"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>Opportunities</a>
+  <a href="/intranet/programs/" data-tint="rose"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/><path d="M12 12V8"/></svg>Programs</a>
+  <div class="cis-group">See your share</div>
+  <a href="/intranet/share/" data-tint="violet"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>Your share</a>
+  <div class="cis-group">Treasury</div>
+  <a href="/intranet/treasury/" data-tint="violet"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" x2="21" y1="22" y2="22"/><line x1="6" x2="6" y1="18" y2="11"/><line x1="10" x2="10" y1="18" y2="11"/><line x1="14" x2="14" y1="18" y2="11"/><line x1="18" x2="18" y1="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>The Desk</a>
+  <a href="/intranet/revenue/" data-tint="violet"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>Revenue</a>
+  <div class="cis-group">Common agency</div>
+  <a href="/intranet/direct/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>Direction</a>
+  <div class="cis-group">The record</div>
+  <a href="/intranet/record/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="M8 7h8"/><path d="M8 11h6"/></svg>The record</a>
+  <a href="/intranet/legal/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>Legal</a>
+  <a href="/intranet/federation/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>Federation</a>
+  <a href="/commons/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>The Commonplace Book</a>
+  <a href="/intranet/verification/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>The walk</a>
+  <a href="/commons/build/" data-tint="blue"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg>The Almanac</a>
+  <a class="cis-out cis-home" href="/">&#8592; techne.coop</a>
+  <div class="cis-side-you">signed in</div>
+</nav>
+<div class="cis-main">
+<!-- /generated:shell-frame -->
+
+<main>
+  <div id="loading">Loading&hellip;</div>
+
+  <div id="view">
+    <h1>Revenue</h1>
+    <div class="section-rule"></div>
+    <p class="lead">The cooperative's recurring revenue, composed rather than flattened: each Program offers named monthly subscription tiers, each tier's active count is a reading from the system that holds it, and the figure at the top is the sum of the latest reading per tier. No figure here is entered on this page; every line names its source, its basis, and its read time. A reading is an observation beside the record, never a movement in it; Xero remains the book of account and <a href="/intranet/treasury/">the treasury</a> remains where movement and meaning meet.</p>
+    <div class="basis-line" id="basis-line"></div>
+
+    <div class="desk-card">
+      <div class="desk-header"><h2 class="desk-title">The recurring figure</h2><span class="desk-count" id="kpi-mark"></span></div>
+      <div class="desk-body">
+        <div class="tiles" id="kpi-tiles"></div>
+        <div class="desk-empty" id="kpi-note" style="margin-top:var(--s3)"></div>
+      </div>
+    </div>
+
+    <div class="desk-card">
+      <div class="desk-header"><h2 class="desk-title">By program &middot; named tiers</h2><span class="desk-count" id="prog-mark"></span></div>
+      <div class="desk-body" id="prog-body"><span class="desk-empty">Reading&hellip;</span></div>
+    </div>
+
+    <div class="desk-card">
+      <div class="desk-header"><h2 class="desk-title">The trend &middot; month by month</h2><span class="desk-count" id="trend-mark"></span></div>
+      <div class="desk-body" id="trend-body"></div>
+    </div>
+
+    <div class="desk-card">
+      <div class="desk-header"><h2 class="desk-title">How the figure composes</h2><span class="desk-count">method</span></div>
+      <div class="desk-body">
+        <div class="row-line"><span class="row-main">Monthly recurring revenue is the sum of the latest reading per live tier.</span><span class="row-meta">one line per tier &middot; nothing extrapolated</span></div>
+        <div class="row-line"><span class="row-main">Annual recurring revenue is twelve times the monthly figure.</span><span class="row-meta">no growth assumed &middot; the assumption stated, not hidden</span></div>
+        <div class="row-line"><span class="row-main">A line's basis is <em>live</em> when a system reported it through a seam, and <em>attested</em> when a named human vouched it because no system holds it yet.</span><span class="row-meta">migration into a system is not growth; the basis mark is what tells them apart</span></div>
+        <div class="row-line"><span class="row-main">Received cash is the treasury's fact, not this page's. What stands expected of members arrives with the dues schedule instrument.</span><span class="row-meta">TREASURY &sect;9 &middot; T-02 &middot; T-07 standing</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="desk">
+    <div class="desk-h2">The registry</div>
+    <p class="lead">The steward's surface for the tier registry: what each Program offers, declared as an act in the record. Declaring a tier writes the row and its revenue.tier_declared event together; retiring one leaves every reading standing. Counts and readings never enter here; they arrive by the runner, read-only from the systems that hold them.</p>
+
+    <div class="notice" id="desk-notice"></div>
+
+    <div class="desk-card">
+      <div class="desk-header"><h2 class="desk-title">Declare a tier</h2><span class="desk-count" id="declare-mark"></span></div>
+      <div class="desk-body">
+        <label class="f" for="d-program">Program</label>
+        <select class="f" id="d-program"></select>
+        <label class="f" for="d-name">Tier name</label>
+        <input class="f" id="d-name" type="text" placeholder="e.g. Resident desk" maxlength="80">
+        <label class="f" for="d-usd">Monthly price, USD</label>
+        <input class="f" id="d-usd" type="number" min="0" step="0.01" placeholder="150.00">
+        <label class="f" for="d-source">Source &middot; the system of record for this tier's subscriptions</label>
+        <input class="f" id="d-source" type="text" placeholder="regenhub.xyz &middot; stripe &middot; attested" maxlength="80">
+        <label class="f" for="d-note">Note, optional</label>
+        <input class="f" id="d-note" type="text" maxlength="200">
+        <div style="margin-top:var(--s4)"><button class="btn btn-primary" id="d-btn">Declare the tier</button></div>
+      </div>
+    </div>
+
+    <div class="desk-card">
+      <div class="desk-header"><h2 class="desk-title">Live tiers</h2><span class="desk-count" id="tiers-mark"></span></div>
+      <div class="desk-body" id="tiers-body"></div>
+    </div>
+  </div>
+</main>
+
+<!-- generated:shell-frame-close -- written by scripts/shell_frame.py; do not edit by hand -->
+</div><!-- .cis-main -->
+</div><!-- .cis-body -->
+<!-- /generated:shell-frame-close -->
+<footer>
+  <span>Techne &middot; RegenHub, LCA &middot; Boulder, Colorado</span>
+  &nbsp;&middot;&nbsp;
+  <a href="/legal">legal</a>
+  <div class="formation-foot"><span class="ff-mark">Called to order</span>RegenHub, LCA is called to order: the board is seated and the governing instruments are board-adopted, with member ratification anticipated. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
+let sb, currentAgentId;
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function fmtDate(iso) {
+  return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+function fmtUsd(n) {
+  return n == null ? '' : '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2 });
+}
+function tile(k, v, m, waiting) {
+  return `<div class="tile"><div class="tk">${escHtml(k)}</div><div class="tv${waiting ? ' waiting' : ''}">${escHtml(v)}</div><div class="tm">${m}</div></div>`;
+}
+function notice(msg, cls) {
+  const n = document.getElementById('desk-notice');
+  n.textContent = msg; n.className = 'notice ' + cls; n.style.display = 'block';
+}
+
+const waitingNote = 'The registry waits on its schema: 0030_program_revenue.sql (T-08) is drafted and not applied. Schema against the live CIS is a named human’s act, a stop card under BP; this surface waits rather than guesses.';
+
+function renderWaiting() {
+  document.getElementById('kpi-tiles').innerHTML =
+    tile('monthly recurring', '–', 'waits on the registry schema', true) +
+    tile('annual recurring', '–', 'twelve times the monthly figure', true) +
+    tile('active subscriptions', '–', 'the latest reading per tier', true) +
+    tile('tiers reporting', '–', 'named offers per Program', true);
+  document.getElementById('kpi-note').textContent = waitingNote;
+  document.getElementById('kpi-mark').textContent = 'waiting';
+  document.getElementById('prog-body').innerHTML = `<span class="desk-empty">${waitingNote} Once applied, each Program’s named tiers render here with their price, active count, basis, source, and read time.</span>`;
+  document.getElementById('prog-mark').textContent = 'waiting';
+  document.getElementById('trend-body').innerHTML = '<span class="desk-empty">The strip folds itself from the readings the moment they exist: month by month, the last reading per tier within the month, summed. Reads, never extrapolations.</span>';
+  document.getElementById('trend-mark').textContent = 'waiting';
+}
+
+function renderDashboard(rows) {
+  const read = rows.filter(r => r.read_at != null);
+  const mrr = read.reduce((a, r) => a + Number(r.mrr_usd || 0), 0);
+  const subs = read.reduce((a, r) => a + Number(r.active_count || 0), 0);
+  const attested = read.filter(r => r.basis === 'attested').length;
+  const silent = rows.length - read.length;
+
+  document.getElementById('kpi-tiles').innerHTML =
+    tile('monthly recurring', fmtUsd(mrr), 'sum of the latest reading per tier', false) +
+    tile('annual recurring', fmtUsd(mrr * 12), 'twelve times monthly &middot; no growth assumed', false) +
+    tile('active subscriptions', String(subs), 'across ' + read.length + ' reporting tier' + (read.length === 1 ? '' : 's'), false) +
+    tile('tiers reporting', read.length + ' of ' + rows.length, silent ? silent + ' tier' + (silent === 1 ? '' : 's') + ' without a reading yet' : 'every tier carries a reading', false);
+  document.getElementById('kpi-mark').textContent = 'composed at read';
+  document.getElementById('kpi-note').innerHTML = attested
+    ? attested + ' of ' + read.length + ' lines are attested rather than read live; the by-program table marks which. An attested line is a named human’s vouching, honest about being one.'
+    : (read.length ? 'Every line below was read live from its system of record.' : '');
+
+  const byProg = new Map();
+  rows.forEach(r => {
+    if (!byProg.has(r.program_agent_id)) byProg.set(r.program_agent_id, { name: r.program_name, tiers: [] });
+    byProg.get(r.program_agent_id).tiers.push(r);
+  });
+  let html = '';
+  byProg.forEach(p => {
+    const pMrr = p.tiers.reduce((a, r) => a + (r.read_at ? Number(r.mrr_usd || 0) : 0), 0);
+    html += `<div class="prog-head"><span class="prog-name">${escHtml(p.name)}</span><span class="prog-sum">recurring <b>${fmtUsd(pMrr)}</b> / mo</span></div>`;
+    html += `<table class="flow"><tr><th>tier</th><th>monthly</th><th>active</th><th>recurring</th><th>basis</th><th>source</th><th>read</th></tr>` +
+      p.tiers.map(r => r.read_at
+        ? `<tr><td>${escHtml(r.tier_name)}</td><td>${fmtUsd(r.monthly_usd)}</td><td>${Number(r.active_count)}</td><td>${fmtUsd(r.mrr_usd)}</td><td style="text-align:right"><span class="chip ${r.basis === 'live' ? 'live' : 'attested'}">${escHtml(r.basis)}</span></td><td>${escHtml(r.reading_source)}</td><td>${fmtDate(r.read_at)}</td></tr>`
+        : `<tr><td>${escHtml(r.tier_name)}</td><td>${fmtUsd(r.monthly_usd)}</td><td colspan="4" style="text-align:left;color:var(--faint);font-family:var(--mono);font-size:0.72rem">no reading yet &middot; source of record ${escHtml(r.tier_source)}</td><td><span class="chip waiting">waiting</span></td></tr>`
+      ).join('') + `</table>`;
+  });
+  document.getElementById('prog-body').innerHTML = html ||
+    `<span class="desk-empty">No tiers stand in the registry. They arrive by declare_revenue_tier, a steward or director act at the registry desk below.</span>`;
+  document.getElementById('prog-mark').textContent = byProg.size + ' program' + (byProg.size === 1 ? '' : 's');
+}
+
+function renderTrend(months) {
+  const body = document.getElementById('trend-body');
+  const mark = document.getElementById('trend-mark');
+  if (!months || months.length === 0) {
+    body.innerHTML = '<span class="desk-empty">The strip folds itself from the readings the moment they exist: month by month, the last reading per tier within the month, summed. Reads, never extrapolations.</span>';
+    mark.textContent = 'no readings yet';
+    return;
+  }
+  const last12 = months.slice(-12);
+  const max = Math.max(...last12.map(m => Number(m.mrr_usd)));
+  const bars = last12.map(m =>
+    `<div class="col" title="${escHtml(m.month)} &middot; ${fmtUsd(m.mrr_usd)}"><div class="bar" style="height:${max > 0 ? Math.max(2, Math.round(Number(m.mrr_usd) / max * 100)) : 2}%"></div></div>`).join('');
+  const labels = last12.map(m => `<span>${escHtml(m.month.slice(5))}</span>`).join('');
+  body.innerHTML = `<div class="trend">${bars}</div><div class="trend-labels">${labels}</div>` +
+    `<details class="tbl"><summary>the same strip as a table</summary><table class="flow" style="margin-top:var(--s2)"><tr><th>month</th><th>recurring</th></tr>` +
+    last12.map(m => `<tr><td>${escHtml(m.month)}</td><td>${fmtUsd(m.mrr_usd)}</td></tr>`).join('') + `</table></details>`;
+  mark.textContent = last12.length + ' month' + (last12.length === 1 ? '' : 's');
+}
+
+async function loadDashboard() {
+  document.getElementById('view').style.display = 'block';
+  document.getElementById('basis-line').textContent =
+    'composed at read · as of ' + new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC · every line names its source, basis, and read time';
+  const { data, error } = await sb.rpc('revenue_dashboard');
+  if (error || data == null) { renderWaiting(); return false; }
+  renderDashboard(data);
+  const { data: trend, error: tErr } = await sb.rpc('revenue_trend');
+  renderTrend(tErr ? null : trend);
+  return true;
+}
+
+async function loadDesk(schemaLive) {
+  document.getElementById('desk').style.display = 'block';
+  if (!schemaLive) {
+    document.getElementById('declare-mark').textContent = 'waiting';
+    document.getElementById('d-btn').disabled = true;
+    document.getElementById('tiers-body').innerHTML = `<span class="desk-empty">${waitingNote}</span>`;
+    document.getElementById('tiers-mark').textContent = 'waiting';
+  }
+  const { data: roster, error } = await sb.rpc('programs_roster');
+  const sel = document.getElementById('d-program');
+  if (error || !roster || roster.length === 0) {
+    sel.innerHTML = '<option value="">no Programs stand; designate one first (F-05)</option>';
+    document.getElementById('d-btn').disabled = true;
+  } else {
+    sel.innerHTML = roster.map(p => `<option value="${escHtml(p.program_agent_id)}">${escHtml(p.display_name)} &middot; ${escHtml(p.standing)}</option>`).join('');
+  }
+  if (!schemaLive) return;
+
+  const { data: tiers } = await sb.from('revenue_tiers')
+    .select('id,program_agent_id,name,monthly_usd,source,offered_at,note,agents(display_name)')
+    .is('retired_at', null).order('offered_at', { ascending: false });
+  const body = document.getElementById('tiers-body');
+  if (!tiers || tiers.length === 0) {
+    body.innerHTML = '<span class="desk-empty">No tiers stand. The first declaration writes the row and its event together.</span>';
+    document.getElementById('tiers-mark').textContent = '0';
+  } else {
+    document.getElementById('tiers-mark').textContent = String(tiers.length);
+    body.innerHTML = tiers.map(t =>
+      `<div class="row-line"><span class="row-main">${escHtml(t.agents && t.agents.display_name)} &middot; ${escHtml(t.name)} &middot; ${fmtUsd(t.monthly_usd)} / mo</span><span class="row-meta">source <span>${escHtml(t.source)}</span> &middot; offered ${fmtDate(t.offered_at)}</span><button class="btn-quiet" data-retire="${escHtml(t.id)}">retire</button></div>`).join('');
+    body.querySelectorAll('[data-retire]').forEach(b => b.addEventListener('click', async () => {
+      b.disabled = true;
+      const { error: rErr } = await sb.rpc('retire_revenue_tier', { p_tier: b.getAttribute('data-retire') });
+      if (rErr) { notice(Techne.report(rErr, 'The retirement did not record.'), 'err'); b.disabled = false; return; }
+      notice('The tier retired; its readings stand.', 'ok');
+      await loadDashboard(); await loadDesk(true);
+    }));
+  }
+
+  document.getElementById('d-btn').onclick = async () => {
+    const btn = document.getElementById('d-btn');
+    btn.disabled = true;
+    const { error: dErr } = await sb.rpc('declare_revenue_tier', {
+      p_program: document.getElementById('d-program').value,
+      p_name: document.getElementById('d-name').value,
+      p_monthly_usd: parseFloat(document.getElementById('d-usd').value),
+      p_source: document.getElementById('d-source').value,
+      p_note: document.getElementById('d-note').value || null
+    });
+    btn.disabled = false;
+    if (dErr) { notice(Techne.report(dErr, 'The declaration did not record.'), 'err'); return; }
+    notice('The tier stands: the row and its revenue.tier_declared event recorded together.', 'ok');
+    document.getElementById('d-name').value = ''; document.getElementById('d-usd').value = ''; document.getElementById('d-note').value = '';
+    await loadDashboard(); await loadDesk(true);
+  };
+}
+
+async function loadAll(session) {
+  const { data: agents } = await sb.from('agents').select('id,auth_user_id');
+  const self = agents && agents.find(a => a.auth_user_id === session.user.id);
+  currentAgentId = self ? self.id : null;
+
+  const schemaLive = await loadDashboard();
+
+  // The registry desk's audience: the overseer guard the acts enforce
+  // server-side (0030); the page only decides what to offer.
+  let atDesk = false;
+  if (currentAgentId) {
+    const { data: grants } = await sb.from('role_grants').select('role')
+      .eq('agent_id', currentAgentId).is('revoked_at', null);
+    const roles = (grants || []).map(g => g.role);
+    atDesk = roles.includes('director') || roles.includes('treasurer') || roles.includes('secretary') || roles.includes('steward');
+  }
+  if (atDesk) await loadDesk(schemaLive);
+}
+
+(async function init() {
+  sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
+  const { data: { session } } = await sb.auth.getSession();
+  document.getElementById('loading').style.display = 'none';
+
+  if (!session) {
+    return; /* signed out: the shell shows the gate (U-04) */
+  }
+
+  await loadAll(session);
+
+  sb.auth.onAuthStateChange(async (event, s) => {
+    if (event === 'SIGNED_IN' && s) {
+      await loadAll(s);
+    }
+    if (event === 'SIGNED_OUT') {
+      document.getElementById('view').style.display = 'none';
+      document.getElementById('desk').style.display = 'none';
+      location.reload(); /* the shell renders the gate (U-04) */
+    }
+  });
+})();
+</script>
+</body>
+</html>
