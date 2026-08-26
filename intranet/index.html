@@ -30,6 +30,7 @@
   --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
   --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #fff;
 }
 html[data-mode="dark"] {
   --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
@@ -37,9 +38,11 @@ html[data-mode="dark"] {
   --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
   --blue: #6A8AC4; --blue-text: #97B5E8;
   --ember: #C4956A; --ember-text: #D4A57A;
-  --blue-dim: rgba(106, 138, 196, 0.14);
-  --ember-dim: rgba(196, 149, 106, 0.14);
-  --ok: #6A9A6A; --warn: #C46A6A;
+  --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
+  --info: #6A8AC4; --info-dim: rgba(106,138,196,0.12);
+  --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
+  --blue-dim: rgba(106,138,196,0.14);
+  --ember-dim: rgba(196,149,106,0.14);
   color-scheme: dark;
 }
 html[data-mode="light"] {
@@ -48,15 +51,16 @@ html[data-mode="light"] {
   --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
   --blue: #4A6FB0; --blue-text: #39588F;
   --ember: #8A6A4A; --ember-text: #6F5436;
-  --blue-dim: rgba(74, 111, 176, 0.10);
-  --ember-dim: rgba(138, 106, 74, 0.10);
-  --ok: #4A7A4A; --warn: #A84F4C;
+  --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
+  --info: #4A6FB0; --info-dim: rgba(74,111,176,0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
+  --blue-dim: rgba(74,111,176,0.10);
+  --ember-dim: rgba(138,106,74,0.10);
   color-scheme: light;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
-html, body { height: 100%; }
 body {
   background: var(--bg);
   color: var(--text);
@@ -190,17 +194,10 @@ body {
 
 /* ---- footer ---- */
 footer {
-  border-top: 1px solid var(--line);
-  padding: var(--s4) var(--s5);
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  color: var(--faint);
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--s2);
-  background: var(--surface);
+  border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
+  font-family: var(--mono); font-size: 0.7rem; color: var(--faint); text-align: center;
 }
+footer a { color: var(--faint); }
 
 .door-card { display:block; text-decoration:none; transition: border-color var(--micro) var(--ease); }
 .door-card:hover { border-color: var(--ember); }
@@ -211,14 +208,18 @@ footer {
 /* a standing shown, not described: same chip idiom as /intranet/programs/,
    drawn with the tokens this page defines */
 .standing-chip {
-  display: inline-block;
-  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em;
-  padding: 2px 8px; border-radius: 2px; white-space: nowrap;
-  border: 1px solid var(--line); color: var(--muted);
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 0.65rem; font-weight: 500; line-height: 1;
+  letter-spacing: 0.02em; text-transform: lowercase;
+  padding: 5px 9px; border-radius: 2px; white-space: nowrap;
+  border: 1px solid var(--line); background: var(--surface); color: var(--muted);
   margin-bottom: var(--s2);
 }
-.standing-chip.live { background: var(--blue-dim); color: var(--blue-text); border-color: var(--blue); }
-.standing-chip.waiting { background: var(--ember-dim); color: var(--ember-text); border-color: var(--ember); }
+.standing-chip::before { content: ""; width: 6px; height: 6px; flex: none; background: currentColor; }
+.standing-chip.live { color: var(--blue-text); }
+.standing-chip.live::before { background: var(--blue); }
+.standing-chip.waiting { color: var(--ember-text); }
+.standing-chip.waiting::before { background: var(--ember); }
 .orient-card { border-left: 3px solid var(--ember); }
 .orient-card ul { margin: var(--s2) 0 0 var(--s4); padding: 0; }
 .orient-card li { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
@@ -265,7 +266,7 @@ footer {
     <button type="button" class="cis-menu" id="cis-menu-btn" aria-expanded="false" aria-controls="cis-map" aria-label="show the intranet map">Menu</button>
     <button type="button" class="cis-bell" aria-expanded="false" aria-controls="cis-notices" aria-label="notices addressed to you">Notices</button>
     <span class="cis-chip" id="cis-member-chip">not signed in</span>
-    <button type="button" class="cis-mode" aria-label="toggle light and dark mode">&#9689;</button>
+    <button type="button" class="cis-mode" aria-label="toggle light and dark mode"><span class="cis-mode-to-dark"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Dark</span><span class="cis-mode-to-light"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>Light</span></button>
   </div>
 </header>
 <div class="cis-body">
@@ -439,8 +440,9 @@ footer {
 </div><!-- .cis-body -->
 <!-- /generated:shell-frame-close -->
 <footer>
-  <span>Techne · RegenHub, LCA · Boulder, Colorado</span>
-  <span><a href="/legal" style="color:var(--faint)">legal</a></span>
+  <span>Techne &middot; RegenHub, LCA &middot; Boulder, Colorado</span>
+  &nbsp;&middot;&nbsp;
+  <a href="/legal">legal</a>
   <div class="formation-foot"><span class="ff-mark">Called to order</span>RegenHub, LCA is called to order: the board is seated and the governing instruments are board-adopted, with member ratification anticipated. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
 </footer>
 

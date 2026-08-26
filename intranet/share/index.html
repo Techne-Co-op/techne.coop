@@ -24,7 +24,7 @@
 :root {
   --serif: 'Libre Baskerville', Georgia, serif;
   --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
-  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
   --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
   --on-accent: #fff;
 }
@@ -37,6 +37,8 @@ html[data-mode="dark"] {
   --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
   --info: #6A8AC4; --info-dim: rgba(106,138,196,0.12);
   --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
+  --blue-dim: rgba(106,138,196,0.14);
+  --ember-dim: rgba(196,149,106,0.14);
   color-scheme: dark;
 }
 html[data-mode="light"] {
@@ -48,6 +50,8 @@ html[data-mode="light"] {
   --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
   --info: #4A6FB0; --info-dim: rgba(74,111,176,0.10);
   --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
+  --blue-dim: rgba(74,111,176,0.10);
+  --ember-dim: rgba(138,106,74,0.10);
   color-scheme: light;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -117,13 +121,19 @@ table.fold td.lbl small { color: var(--faint); font-size: 0.66rem; }
 .period { display: flex; align-items: baseline; gap: var(--s3); border: 1px solid var(--line); border-radius: 2px; padding: var(--s2) var(--s3); }
 .period .p-name { font-family: var(--mono); font-size: 0.7rem; color: var(--heading); white-space: nowrap; }
 .period .p-span { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); flex: 1; }
-.period .p-state, .state-chip { font-family: var(--mono); font-size: 0.62rem; padding: 1px 7px; border-radius: 2px; border: 1px solid var(--line); color: var(--faint); white-space: nowrap; }
+.period .p-state, .state-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 0.65rem; font-weight: 500; line-height: 1;
+  letter-spacing: 0.02em; text-transform: lowercase;
+  padding: 5px 9px; border-radius: 2px; white-space: nowrap;
+  border: 1px solid var(--line); background: var(--surface); color: var(--muted);
+}
 /* the same chip the period ribbon uses, reused in a section head so the
    reader can see the state of a section without reading the paragraph */
-.state-chip { text-transform: none; letter-spacing: 0.04em; }
-.state-chip.waiting { border-color: var(--warn); color: var(--warn); background: var(--warn-dim); }
+.period .p-state::before, .state-chip::before { content: ""; width: 6px; height: 6px; flex: none; background: currentColor; }
+.state-chip.waiting { color: var(--warn); }
 .period.open-q { border-style: dashed; }
-.period.first .p-state { border-color: var(--info); color: var(--info); background: var(--info-dim); }
+.period.first .p-state { color: var(--info); }
 
 footer {
   border-top: 1px solid var(--line); padding: var(--s4) var(--s5);
@@ -174,7 +184,7 @@ footer a { color: var(--faint); }
     <button type="button" class="cis-menu" id="cis-menu-btn" aria-expanded="false" aria-controls="cis-map" aria-label="show the intranet map">Menu</button>
     <button type="button" class="cis-bell" aria-expanded="false" aria-controls="cis-notices" aria-label="notices addressed to you">Notices</button>
     <span class="cis-chip" id="cis-member-chip">not signed in</span>
-    <button type="button" class="cis-mode" aria-label="toggle light and dark mode">&#9689;</button>
+    <button type="button" class="cis-mode" aria-label="toggle light and dark mode"><span class="cis-mode-to-dark"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Dark</span><span class="cis-mode-to-light"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>Light</span></button>
   </div>
 </header>
 <div class="cis-body">
