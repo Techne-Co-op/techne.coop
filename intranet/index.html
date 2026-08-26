@@ -208,6 +208,21 @@ footer {
 .door-card.inert:hover { border-color: var(--line); }
 .steward-card { border-left: 3px solid var(--ember); }
 
+/* a standing shown, not described: same chip idiom as /intranet/programs/,
+   drawn with the tokens this page defines */
+.standing-chip {
+  display: inline-block;
+  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em;
+  padding: 2px 8px; border-radius: 2px; white-space: nowrap;
+  border: 1px solid var(--line); color: var(--muted);
+  margin-bottom: var(--s2);
+}
+.standing-chip.live { background: var(--blue-dim); color: var(--blue-text); border-color: var(--blue); }
+.standing-chip.waiting { background: var(--ember-dim); color: var(--ember-text); border-color: var(--ember); }
+.orient-card { border-left: 3px solid var(--ember); }
+.orient-card ul { margin: var(--s2) 0 0 var(--s4); padding: 0; }
+.orient-card li { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
 @media (max-width: 640px) {
   /* the doors read as a compact list in hand: the description clamps
      to two lines; the door itself is the destination, not the essay */
@@ -294,7 +309,7 @@ footer {
       <div class="member-strip">
         <div>
           <div class="member-email" id="member-email"> -- </div>
-          <div class="member-role" id="member-role">resolving identity…</div>
+          <div class="member-role" id="member-role">looking up your member record…</div>
         </div>
         <button class="signout-btn" id="signout-btn">Sign out</button>
       </div>
@@ -303,12 +318,24 @@ footer {
 
       <div class="first-run" id="first-run" style="display:none">
         <div class="fr-title">First time here?</div>
-        The intranet is a set of doors into one shared record. Start with <a href="/commons/agreements/" style="color:var(--blue-text)">the shelf</a> to see what binds you, <a href="/commons/gatherings/" style="color:var(--blue-text)">the calendar</a> to show up, and <a href="/commons/opportunities/" style="color:var(--blue-text)">the board</a> to find work and play. The map on the left carries everything else.
+        Take three steps, in this order. Open <a href="/commons/agreements/" style="color:var(--blue-text)">the shelf</a> and read the agreements that bind you. Open <a href="/commons/gatherings/" style="color:var(--blue-text)">the calendar</a> and sign up for something. Open <a href="/commons/opportunities/" style="color:var(--blue-text)">the board</a> and find work or play you want in on. Everything else is in the menu on the left.
         <button class="fr-close" id="fr-close" type="button" aria-label="Dismiss this orientation note">Got it</button>
       </div>
 
-      <div class="notice">
-        <strong>One record, many doors.</strong> Everything here reads and writes one shared record, so what you see is what the cooperative knows. Nothing is kept twice and nothing is quietly overwritten. Words that carry weight are defined in <a href="/commons/build/lexicon/" style="color:var(--blue-text)">the Lexicon</a>.
+      <div class="dash-grid" style="--grid-min:320px">
+        <div class="dash-card orient-card">
+          <div class="card-label">What this page is</div>
+          <div class="card-desc" style="margin-top:0">Your front page as a member. It is a set of links into the cooperative's shared record: one database that every page here reads from and writes to, so what you see is what the cooperative knows. Nothing is stored twice and nothing is changed behind your back.</div>
+        </div>
+        <div class="dash-card orient-card">
+          <div class="card-label">What you can do here</div>
+          <ul>
+            <li>Read the agreements you are bound by, and sign the ones that need your signature.</li>
+            <li>Look up other members, sign up for gatherings, and answer open calls for work or play.</li>
+            <li>Check your own account, and follow the running count of what the cooperative has recorded.</li>
+          </ul>
+          <div class="card-desc">Words used in a special sense here are defined in <a href="/commons/build/lexicon/" style="color:var(--blue-text)">the Lexicon</a>.</div>
+        </div>
       </div>
 
       <h2 class="section-head">The doors</h2>
@@ -316,49 +343,51 @@ footer {
         <a class="dash-card door-card" href="/commons/agreements/">
           <div class="card-label">Belong · agreements</div>
           <div class="card-value" style="font-size:1rem">The shelf</div>
-          <div class="card-desc">Every agreement that binds you, version and standing marked, with inline signing.</div>
+          <div class="card-desc">Every agreement that binds you. Each one shows its version and its standing (whether it binds you yet), and you can sign it right there on the page.</div>
           <div class="card-go">open the shelf →</div>
         </a>
         <a class="dash-card door-card" href="/commons/directory/">
           <div class="card-label">Belong · directory</div>
           <div class="card-value" style="font-size:1rem">The members</div>
-          <div class="card-desc">The people and entities of the cooperative, each with a profile they alone control.</div>
+          <div class="card-desc">The people and organizations that make up the cooperative. Each one has a profile that only they can edit.</div>
           <div class="card-go">open the directory →</div>
         </a>
         <a class="dash-card door-card" href="/commons/join/">
           <div class="card-label">Belong · the front door</div>
           <div class="card-value" style="font-size:1rem">The join form</div>
-          <div class="card-desc">Where a newcomer applies, no meeting needed. Share this one outward.</div>
+          <div class="card-desc">Where someone new applies to join. No meeting required. Send this link to people outside the cooperative.</div>
           <div class="card-go">open the form →</div>
         </a>
         <a class="dash-card door-card" href="/commons/gatherings/">
           <div class="card-label">Gather · calendar</div>
           <div class="card-value" style="font-size:1rem">The gatherings</div>
-          <div class="card-desc">What is happening and who hosts it. Register, cancel, return; presence counted where the record counts it.</div>
+          <div class="card-desc">What is happening and who is hosting it. Sign up, cancel, or sign up again. Where a gathering counts your attendance, the record keeps it.</div>
           <div class="card-go">open the calendar →</div>
         </a>
         <a class="dash-card door-card" href="/commons/opportunities/">
           <div class="card-label">Find one another · board</div>
           <div class="card-value" style="font-size:1rem">The opportunities</div>
-          <div class="card-desc">Open invitations to play, practice, and work. Post, respond, and close it when it resolves.</div>
+          <div class="card-desc">Open invitations to play, practice, and work. Post one, answer someone else's, and close yours once it is settled.</div>
           <div class="card-go">open the board →</div>
         </a>
         <a class="dash-card door-card" href="/intranet/programs/">
           <div class="card-label">Find one another · programs</div>
           <div class="card-value" style="font-size:1rem">The programs</div>
-          <div class="card-desc" id="programs-desc">Organizing bodies for the Opportunities on the board: purpose, Coordinator, and how work is recognized, each read from the version in force.</div>
+          <div class="standing-chip" id="programs-chip">standing: loading</div>
+          <div class="card-desc" id="programs-desc">The standing groups that organize the work posted on the opportunities board. Each one shows its purpose, its Coordinator (the member who runs it), and how it credits the work you do. All of that is read from the version currently in force, meaning the version the board has adopted.</div>
           <div class="card-go">open the programs →</div>
         </a>
         <a class="dash-card door-card" href="/intranet/share/">
           <div class="card-label">See your share · account</div>
           <div class="card-value" style="font-size:1rem">Your share</div>
-          <div class="card-desc">The shape of the account, shown at zero: contribution categories and the capital account as the counting rules will read them. Counting begins when the Board adopts those rules; monthly statements already stand on the treasury's Desk.</div>
+          <div class="standing-chip waiting">standing: shown at zero, counting not started</div>
+          <div class="card-desc">What your member account will look like: the kinds of contribution it tracks, and your capital account (the running record of what you have put in and what the cooperative owes back). Every figure reads zero for now. The Board has not yet adopted the rules that do the counting, so nothing is being counted. Monthly statements are already published at the treasury's Desk.</div>
           <div class="card-go">open your share →</div>
         </a>
         <a class="dash-card door-card" href="/intranet/direct/">
           <div class="card-label">Common agency &middot; direction</div>
           <div class="card-value" style="font-size:1rem">Direction</div>
-          <div class="card-desc" id="direction-desc">Set the cooperative's agent working, on the record and within the declared scope. Every Direction carries your name, and everything that comes of it is recorded beside it.</div>
+          <div class="card-desc" id="direction-desc">Give the cooperative's software agent a job to do. A Direction is a written instruction you put on the record, inside limits the cooperative has already set. It carries your name, and whatever the agent produces is filed next to it.</div>
           <div class="card-go">open direction &rarr;</div>
         </a>
       </div>
@@ -369,13 +398,14 @@ footer {
           <a class="dash-card door-card steward-card" href="/commons/directory/">
             <div class="card-label">Admissions · the assigned hand</div>
             <div class="card-value" id="stat-pending"> -- </div>
-            <div class="card-desc">Pending applications. The panel at the top of the directory records admission as one act, the decision and its record together.</div>
+            <div class="card-desc">Applications waiting on a decision. Admit or decline someone from the panel at the top of the directory. Making the decision and writing it into the record are a single step.</div>
             <div class="card-go">open admissions →</div>
           </a>
           <a class="dash-card door-card steward-card" href="/intranet/treasury/">
             <div class="card-label">Treasury</div>
             <div class="card-value" style="font-size:1rem">The Desk</div>
-            <div class="card-desc">The governance record of every movement the rules care about: proposals, commitments, reconciliation. Read-only until the board adopts the treasury policy.</div>
+            <div class="standing-chip waiting">standing: read only</div>
+            <div class="card-desc">The record of every money movement the rules track: proposed spending, promises made, and the matching of the record against the bank. You can read it but not change it. The board has not yet adopted the treasury policy that would allow changes.</div>
             <div class="card-go">open the Desk →</div>
           </a>
         </div>
@@ -386,17 +416,18 @@ footer {
         <div class="dash-card">
           <div class="card-label">Agents</div>
           <div class="card-value" id="stat-agents"> -- </div>
-          <div class="card-desc">People, entities, and instruments the cooperative knows, across every relationship state.</div>
+          <div class="card-desc">Everyone and everything the cooperative can name: people, organizations, and instruments (the documents that govern us). The record calls all of them agents. Counted here whatever their current relationship to the cooperative.</div>
         </div>
         <div class="dash-card">
           <div class="card-label">Events recorded</div>
           <div class="card-value" id="stat-sections"> -- </div>
-          <div class="card-desc">Everything above is a reading of these.</div>
+          <div class="card-desc">Every act the cooperative has written down, in order. Every number and page above is worked out from this list.</div>
         </div>
         <div class="dash-card">
           <div class="card-label">Agreements</div>
           <div class="card-value" id="stat-agreements"> -- </div>
-          <div class="card-desc">Governing documents on the shelf, Bylaws v2.1 and Membership Agreement v2.3, drafted and not yet executed.</div>
+          <div class="standing-chip waiting">standing: drafted, not yet executed</div>
+          <div class="card-desc">The documents that govern the cooperative, kept on the shelf: Bylaws v2.1 and Membership Agreement v2.3. Both are drafted and not yet executed, meaning written but not yet signed into effect.</div>
         </div>
       </div>
     </div>
@@ -467,8 +498,8 @@ async function loadPortal(user) {
 
     if (!self) {
       notice.style.display = '';
-      notice.innerHTML = '<strong>Sign-in not yet bound to an agent.</strong> If you applied with this address, the binding completes by itself on your first sign-in after admission; try reloading. Otherwise, apply at <a href="/commons/join/" style="color:var(--blue-text)">the join form</a> or ask a steward.';
-      roleEl.textContent = 'unbound';
+      notice.innerHTML = '<strong>This sign-in is not linked to a member record yet.</strong> Reload the page first. Linking happens on its own the first time you sign in after you are admitted, so a reload often settles it. Still not linked? Apply at <a href="/commons/join/" style="color:var(--blue-text)">the join form</a>, or ask a steward (a member who handles admissions) to look you up.';
+      roleEl.textContent = 'not linked to a member record';
     } else {
       notice.style.display = 'none';
       // membership + roles
@@ -480,7 +511,7 @@ async function loadPortal(user) {
       const grants = await grantRes.json();
       const state = Array.isArray(mems) && mems.length ? mems[0].state : 'no membership';
       const roles = Array.isArray(grants) ? grants.map(g => g.role) : [];
-      roleEl.textContent = self.display_name + ' · ' + state + (roles.length ? ' · ' + roles.join(' · ') : '');
+      roleEl.textContent = self.display_name + ' · membership: ' + state + (roles.length ? ' · role: ' + roles.join(', ') : '');
 
       // the Programs window: the same reads the page makes, summarized (F-04)
       try {
@@ -491,10 +522,16 @@ async function loadPortal(user) {
         if (Array.isArray(progs)) {
           const inForce = progs.filter(p => p.standing === 'in force').length;
           const desc = document.getElementById('programs-desc');
+          const chip = document.getElementById('programs-chip');
           if (progs.length === 0) {
-            desc.textContent = 'No Programs stand yet; the first arrives when the board designates one. The view is open and honest about it.';
+            if (chip) { chip.className = 'standing-chip waiting'; chip.textContent = 'standing: none yet'; }
+            desc.textContent = 'There are no programs yet. The first one starts when the board sets it up. This page will show it as soon as that happens.';
           } else {
-            desc.textContent = progs.length + ' program' + (progs.length === 1 ? '' : 's') + ' · ' + inForce + ' in force, ' + (progs.length - inForce) + ' in formation. Purpose, Coordinator, and recognition read from the version in force.';
+            if (chip) {
+              chip.className = 'standing-chip' + (inForce ? ' live' : ' waiting');
+              chip.textContent = 'standing: ' + inForce + ' in force, ' + (progs.length - inForce) + ' in formation';
+            }
+            desc.textContent = progs.length + ' program' + (progs.length === 1 ? '' : 's') + '. In force means adopted and running; in formation means still being set up. Each one shows its purpose, its Coordinator (the member who runs it), and how it credits your work, taken from the version the board has adopted.';
           }
         }
       } catch (e) { /* the door still stands; the summary is a courtesy */ }
@@ -510,9 +547,9 @@ async function loadPortal(user) {
           const live = given.filter(g => !closed.has(g.id)).length;
           const desc = document.getElementById('direction-desc');
           if (given.length === 0) {
-            desc.textContent = 'Set the cooperative\u0027s agent working, on the record and within the declared scope. You have given no Directions yet; the first one stands here with everything that comes of it.';
+            desc.textContent = 'Set the cooperative\u0027s software agent a job to do: a written instruction, put on the record, inside limits the cooperative has already set. You have not given one yet. Your first shows up here, along with whatever comes of it.';
           } else {
-            desc.textContent = given.length + ' Direction' + (given.length === 1 ? '' : 's') + ' given \u00b7 ' + live + ' live. Every one carries your name, and its artifacts are recorded beside it.';
+            desc.textContent = given.length + ' Direction' + (given.length === 1 ? '' : 's') + ' given \u00b7 ' + live + ' still open. Each one carries your name, and whatever the agent produces is filed next to it.';
           }
         }
       } catch (e) { /* the door still stands; the summary is a courtesy */ }
@@ -537,7 +574,7 @@ async function loadPortal(user) {
   } catch(e) {
     Techne.record('handled', 'portal load: ' + (e && e.message ? e.message : e));
     notice.style.display = '';
-    notice.textContent = 'Could not load the portal data. Reload, or tell a steward.';
+    notice.textContent = 'Your dashboard did not load. Reload the page. If it fails again, tell a steward.';
   }
 }
 

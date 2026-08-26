@@ -81,6 +81,18 @@ a { color: var(--blue-text); text-underline-offset: 3px; }
   margin: var(--s6) 0 var(--s4);
 }
 
+/* ---------- what this page is ---------- */
+.orient { border-left-color: var(--ember) !important; }
+.orient h2 {
+  font-family: var(--mono); font-size: 0.66rem; font-weight: 400; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ember-text); margin-bottom: var(--s2);
+}
+.orient h2 + h2 { margin-top: var(--s4); }
+.orient p { font-size: 0.88rem; max-width: 74ch; }
+.orient ul { margin: 0 0 0 var(--s5); font-size: 0.88rem; line-height: 1.7; max-width: 74ch; }
+.orient li { margin-bottom: var(--s1); }
+.orient b { color: var(--heading); }
+
 /* ---------- who is walking ---------- */
 .walker {
   background: var(--surface); border: 1px solid var(--line); border-radius: 2px;
@@ -101,6 +113,12 @@ a { color: var(--blue-text); text-underline-offset: 3px; }
   padding: 8px 0; word-break: break-word;
 }
 .walker .f .hint { font-family: var(--mono); font-size: 0.6rem; color: var(--faint); margin-top: var(--s1); }
+.walker .f .fixed .dot {
+  display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--faint); margin-right: var(--s2); vertical-align: middle;
+}
+.walker .f .fixed[data-signed="yes"] .dot { background: var(--ok); }
+.walker .f .fixed[data-signed="no"] .dot { background: var(--warn); }
 
 /* ---------- the tally ---------- */
 .tally { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: var(--s3); margin-bottom: var(--s4); }
@@ -110,6 +128,7 @@ a { color: var(--blue-text); text-underline-offset: 3px; }
 .tally .cell.holds .n { color: var(--ok); }
 .tally .cell.fails .n { color: var(--warn); }
 .tally .cell.deferred .n { color: var(--ember-text); }
+.tally .cell.nosentence .n { color: var(--warn); }
 
 .filters { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s5); }
 .filters button {
@@ -263,27 +282,39 @@ footer a { color: var(--ember-text); }
   <div class="page-label">The record &middot; the walk &middot; RegenHub, LCA</div>
   <h1>The verification walk</h1>
   <div class="section-rule"></div>
-  <p class="lead">The same cards as the <a href="/commons/build/verification/">public run-book</a>, walked here instead of spoken into a recording. Read a card, do its steps, click the verdict, type the one sentence. When you stop, the page writes the record of what you walked, and that record is what moves the marks.</p>
+  <p class="lead">The cooperative checks its own claims by hand, and calls that a walk. These are the same cards as the <a href="/commons/build/verification/">public run-book</a>, the step-by-step guide anyone can walk out loud into a recorder. Here you click the verdict and type it instead.</p>
+
+  <div class="card orient">
+    <h2>What this page is</h2>
+    <p>A checklist of the claims the cooperative makes about itself, one card per claim. The running count is just below. Each card names one claim, tells you where to go look, and asks you to say whether it held up. You are the one checking. Nobody has checked on your behalf.</p>
+    <h2>What you can do here</h2>
+    <ul>
+      <li>Walk one card or all of them, in any order. Nothing here has to be finished in one sitting.</li>
+      <li>Do a card&rsquo;s steps, then click one verdict: <b>holds</b> (you saw it work), <b>fails</b> (you saw it not work), <b>not ready</b> (the thing is not built yet), <b>deferred</b> (you could not check it today), <b>attested</b> (you are signing your name to a proof).</li>
+      <li>Type one sentence saying what you actually saw. The verdict without the sentence is not much use to anyone reading later.</li>
+      <li>When you are done, go to <a href="#record">the record of this walk</a> at the bottom, copy it, and hand it to a steward.</li>
+    </ul>
+  </div>
 
   <div class="standing">
-    <b>What this page does and does not do.</b> It moves nothing. Your verdicts live in this browser and nowhere else: no verdict is written to the cooperative&rsquo;s record by clicking it, and closing the tab on a different machine loses nothing because nothing was sent. A mark moves when a person opens the pull request that carries this walk&rsquo;s record, and the ledger wins every disagreement with this page. The verdict is yours, under your name and the date you give it.
+    <b>Clicking a verdict here changes nothing yet.</b> Your verdicts stay in this browser and go nowhere else. Nothing is sent, so nothing is lost if you close the tab on a different machine, and nothing is written into the cooperative&rsquo;s records by the click. What changes a record is a person taking your write-up and opening a pull request, a proposed change that others review before it is accepted. Where this page and the ledger, the cooperative&rsquo;s register of record, disagree, the ledger is right. The verdict stays yours, under your name and the date you give it.
   </div>
 
   <div class="walker" id="walker">
     <div class="f">
       <label id="walker-lab">who is walking</label>
-      <div class="fixed" id="walker-name" aria-labelledby="walker-lab">reading your session&hellip;</div>
-      <div class="hint">from your sign-in; the record carries it</div>
+      <div class="fixed" id="walker-name" aria-labelledby="walker-lab"><span class="dot" aria-hidden="true"></span>reading your session&hellip;</div>
+      <div class="hint">taken from your sign-in; your write-up carries it</div>
     </div>
     <div class="f">
       <label for="walk-date">the date of the walk</label>
       <input type="date" id="walk-date">
-      <div class="hint">defaults to today</div>
+      <div class="hint">today, unless you change it</div>
     </div>
     <div class="f">
       <label for="walk-second">the second person, if any</label>
       <input type="text" id="walk-second" placeholder="their name" autocomplete="off">
-      <div class="hint">required by the two-person cards and the attestations</div>
+      <div class="hint">some cards need two people watching. Name yours here. If you are alone, leave this empty and skip those cards.</div>
     </div>
   </div>
 
@@ -293,7 +324,7 @@ footer a { color: var(--ember-text); }
   <div id="cards"><p class="loading">reading the cards&hellip;</p></div>
 
   <h2 class="section-head" id="record">the record of this walk</h2>
-  <p class="lead">This is the walk in the form the pull request wants: one line per address, your name and the date at the head. Copy it into the steward channel, or download it and attach it. Nothing leaves this page on its own.</p>
+  <p class="lead">Your walk, written up the way a steward needs it: one line per card, with your name and the date at the top. Click <b>Copy the record</b> and paste it into the steward channel. If pasting is awkward, click <b>Download it</b> and attach the file instead. Nothing leaves this page on its own, so if you do neither, the walk stays with you.</p>
   <div class="record-actions">
     <button type="button" id="btn-copy">Copy the record</button>
     <button type="button" id="btn-download">Download it</button>
@@ -449,7 +480,7 @@ footer a { color: var(--ember-text); }
     sen.className = 'sentence';
     var lab = document.createElement('label');
     lab.setAttribute('for', 'note-' + card.address);
-    lab.textContent = 'one sentence of what you actually saw';
+    lab.textContent = 'in one sentence, what did you actually see?';
     var ta = document.createElement('textarea');
     ta.id = 'note-' + card.address;
     ta.rows = 2;
@@ -458,7 +489,7 @@ footer a { color: var(--ember-text); }
     sen.appendChild(ta);
     var flag = document.createElement('p');
     flag.className = 'card-flag';
-    flag.textContent = 'a verdict without a sentence is not a verdict; say what you saw';
+    flag.textContent = 'Add your sentence. Whoever reads this later was not standing next to you.';
     sen.appendChild(flag);
     wrap.appendChild(sen);
 
@@ -545,7 +576,7 @@ footer a { color: var(--ember-text); }
     data.groups.forEach(function (g, i) {
       opts.push({ key: String(i), label: stripTags(g.title) });
     });
-    opts.push({ key: 'unwalked', label: 'not yet walked' });
+    opts.push({ key: 'unwalked', label: 'not yet checked' });
 
     opts.forEach(function (o) {
       var b = document.createElement('button');
@@ -645,11 +676,12 @@ footer a { color: var(--ember-text); }
   function paintTally() {
     var c = counts();
     var cells = [
-      ['', c.walked + ' of ' + c.total, 'walked'],
-      ['holds', c.holds, 'holds or attested'],
-      ['fails', c.fails, 'fails or not ready'],
-      ['deferred', c.deferred, 'deferred'],
-      ['', c.total - c.walked, 'still to walk']
+      ['', c.walked + ' of ' + c.total, 'you have checked'],
+      ['holds', c.holds, 'held up'],
+      ['fails', c.fails, 'did not hold'],
+      ['deferred', c.deferred, 'put off for now'],
+      ['', c.total - c.walked, 'still to check'],
+      ['nosentence', c.short, 'still need a sentence']
     ];
     elTally.textContent = '';
     cells.forEach(function (cell) {
@@ -669,7 +701,15 @@ footer a { color: var(--ember-text); }
 
   function paintWalker() {
     var name = walkerName();
-    elWalker.textContent = name || 'not signed in';
+    /* The dot says at a glance whether the write-up will carry a
+       name; textContent alone would wipe it, so rebuild both. */
+    elWalker.textContent = '';
+    var dot = document.createElement('span');
+    dot.className = 'dot';
+    dot.setAttribute('aria-hidden', 'true');
+    elWalker.appendChild(dot);
+    elWalker.appendChild(document.createTextNode(name || 'not signed in'));
+    elWalker.setAttribute('data-signed', name ? 'yes' : 'no');
     if (!elDate.value) elDate.value = state.meta.date || today();
     if (!elSecond.value) elSecond.value = state.meta.second || '';
   }
@@ -687,13 +727,13 @@ footer a { color: var(--ember-text); }
     lines.push('');
     lines.push('Walker: ' + name);
     if (second) lines.push('Second person: ' + second);
-    lines.push('Surface: /intranet/verification/ (X-28), cards read from the run-book at /commons/build/verification/');
-    lines.push('Verdicts spoken: ' + c.walked + ' of ' + c.total +
+    lines.push('Walked on: /intranet/verification/ (X-28), cards read from the run-book at /commons/build/verification/');
+    lines.push('Verdicts given: ' + c.walked + ' of ' + c.total +
                ' (' + c.holds + ' holds or attested, ' + c.fails + ' fails or not ready, ' +
                c.deferred + ' deferred)');
     lines.push('');
-    lines.push('This record was written by the page from verdicts held in the walker’s browser.');
-    lines.push('It moves nothing on its own. The ledger moves when a pull request carries these lines.');
+    lines.push('The page wrote this from verdicts held in the walker’s own browser.');
+    lines.push('It changes nothing by itself. A record moves only when a person opens a pull request carrying these lines.');
     lines.push('');
 
     var wroteAny = false;
@@ -710,19 +750,19 @@ footer a { color: var(--ember-text); }
     });
 
     if (!wroteAny) {
-      lines.push('No card has a verdict yet. Walk a card, click its verdict, and this record fills in.');
+      lines.push('No card has a verdict yet. Do a card, click its verdict, and this write-up fills itself in.');
     } else {
       var unwalked = state.cards.filter(function (card) {
         return !(state.verdicts[card.address] || {}).verdict;
       }).map(function (card) { return card.address; });
       lines.push('');
-      lines.push('## Not walked in this sitting');
+      lines.push('## Not checked in this sitting');
       lines.push('');
       lines.push(unwalked.length ? unwalked.join(', ') : 'None; every card carries a verdict.');
       if (c.short) {
         lines.push('');
-        lines.push('Short: ' + c.short + ' verdict(s) carry no sentence. A verdict without a sentence ' +
-                   'tells the record what happened and not what was seen.');
+        lines.push('Missing sentences: ' + c.short + ' verdict(s) came with no sentence. Those lines say ' +
+                   'what the walker decided, but not what the walker saw.');
       }
     }
 
@@ -759,7 +799,7 @@ footer a { color: var(--ember-text); }
         var ok = false;
         try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
         elOut.setAttribute('readonly', 'readonly');
-        elStatus.textContent = ok ? 'copied' : 'could not copy; select the text below and copy it by hand';
+        elStatus.textContent = ok ? 'copied' : 'the copy button did not work here. Select the text below and copy it yourself.';
       }
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(function () {
@@ -784,8 +824,8 @@ footer a { color: var(--ember-text); }
     document.getElementById('btn-clear').addEventListener('click', function () {
       var c = counts();
       if (c.walked && !window.confirm(
-          'Clear ' + c.walked + ' verdict(s) from this browser? The record above is lost unless you ' +
-          'copied or downloaded it.')) return;
+          'Delete ' + c.walked + ' verdict(s) from this browser? Copy or download the write-up first, ' +
+          'or it is gone.')) return;
       state.verdicts = {};
       save();
       paint();
@@ -835,7 +875,7 @@ footer a { color: var(--ember-text); }
       var p = document.createElement('p');
       p.className = 'failed';
       p.textContent = 'The cards did not load (' + err.message + '). ' +
-        'The run-book at /commons/build/verification/ carries every card in full; walk it there.';
+        'Go to the run-book at /commons/build/verification/ instead. It carries every card in full.';
       elCards.appendChild(p);
     });
 })();

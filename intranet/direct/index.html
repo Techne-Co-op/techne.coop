@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="Direction for RegenHub, LCA: a patron member gives the cooperative's agent work, on the record, within the declared scope.">
+<meta name="description" content="Direction for RegenHub, LCA: give the cooperative's working agent a piece of work, on the record, within the limits the membership has set.">
 <title>Direction &middot; Techne</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -223,17 +223,24 @@ footer a { color: var(--faint); }
   <div id="content">
     <h1>Direction</h1>
     <div class="section-rule"></div>
-    <p class="lead">The cooperative's agent works for the whole membership, and this is where you set it working. A Direction is an act on the record: it carries your name, it names what you asked for, and everything that comes of it, the branch, the pull request, the refusal, is recorded here beside it. Deciding stays with people. Merge, adoption, and signature are never the instrument's to make.</p>
+    <p class="lead">The cooperative keeps a working agent, a software worker that does tasks for the whole membership, and this page is where you give it work. A <b>Direction</b> is one such task, written down permanently: it carries your name, it says what you asked for, and everything that comes of it is filed here beside it. People still decide. The agent never merges its own work, never adopts anything, and never signs anything.</p>
+
+    <div class="card"><div class="card-body">
+      <p style="font-size:0.95rem;color:var(--heading);margin-bottom:var(--s2)"><b>What this page is</b></p>
+      <p class="lead" style="margin-bottom:var(--s4);font-size:0.88rem">Your desk for the cooperative's working agent. It shows what the agent is allowed to touch, lets you hand it a piece of work, and then keeps the running account of what it did with it.</p>
+      <p style="font-size:0.95rem;color:var(--heading);margin-bottom:var(--s2)"><b>What you can do here</b></p>
+      <p class="lead" style="margin-bottom:0;font-size:0.88rem">Write what you want done in the box below, pick the kind of work, and press <b>Give the Direction</b>. Then watch it under <b>Your Directions</b>, where every step the agent takes is added as it happens. Nothing you write here is private to you and undone later: giving a Direction files it permanently. Nothing here spends money or changes the cooperative's governing documents.</p>
+    </div></div>
 
     <div class="notice" id="page-notice"></div>
 
-    <div class="section-head">The instrument's standing</div>
+    <div class="section-head">What the agent may do right now</div>
     <div class="card"><div class="card-body">
       <div class="standing" id="standing">
-        <div><span class="k">Estate list</span><span class="v" id="st-repos">&ndash;</span></div>
-        <div><span class="k">Your live Directions</span><span class="v" id="st-live">&ndash;</span></div>
-        <div><span class="k">Given today</span><span class="v" id="st-today">&ndash;</span></div>
-        <div><span class="k">Bounds in force</span><span class="v" id="st-policy">&ndash;</span></div>
+        <div><span class="k">Code it may touch</span><span class="v" id="st-repos">&ndash;</span></div>
+        <div><span class="k">Yours still running</span><span class="v" id="st-live">&ndash;</span></div>
+        <div><span class="k">Yours given today</span><span class="v" id="st-today">&ndash;</span></div>
+        <div><span class="k">Limits in force</span><span class="v" id="st-policy">&ndash;</span> <span class="state-chip" id="st-policy-chip" hidden></span></div>
       </div>
       <p class="lead" style="margin:var(--s4) 0 0;font-size:0.85rem" id="st-note"></p>
     </div></div>
@@ -242,35 +249,38 @@ footer a { color: var(--faint); }
     <div class="card"><div class="card-body">
       <div class="field-row">
         <label for="brief">The work, in your words</label>
-        <textarea id="brief" placeholder="What you would like done, and anything the instrument should know before it starts."></textarea>
+        <textarea id="brief" placeholder="What you would like done, and anything the agent should know before it starts."></textarea>
+        <div class="hint">Write it as you would say it to a colleague. Say what you want and why. If a page or document is involved, name it.</div>
       </div>
       <div class="field-row">
-        <label for="kind">Kind</label>
+        <label for="kind">Kind of work</label>
         <select id="kind">
-          <option value="draft">draft &middot; produce or revise documents and pages</option>
-          <option value="build">build &middot; produce code and working drafts</option>
-          <option value="survey">survey &middot; read and report, writing nothing but the report</option>
-          <option value="answer">answer &middot; a recorded question and a recorded answer</option>
+          <option value="draft">draft &middot; write or revise documents and pages</option>
+          <option value="build">build &middot; write code and working drafts</option>
+          <option value="survey">survey &middot; look something up and report back, changing nothing</option>
+          <option value="answer">answer &middot; ask a question and get an answer, both kept on the record</option>
         </select>
+        <div class="hint">Pick the closest one. If you are not sure, pick survey: it changes nothing.</div>
       </div>
       <div class="field-row">
-        <label>Repositories</label>
+        <label>Code the agent may work in</label>
         <div class="repo-list" id="repo-list"></div>
-        <div class="hint">The Estate list grows by amendment, not by request. Name none for work on the record alone.</div>
+        <div class="hint">Tick only what this piece of work needs. Tick nothing for work that touches no code, such as a question or a document. To add something to this list, propose an amendment: you cannot request it here.</div>
       </div>
       <div class="act-row">
         <button class="act-btn" id="give-btn">Give the Direction</button>
         <span class="status-msg" id="give-status"></span>
       </div>
-      <p class="lead" style="margin:var(--s4) 0 0;font-size:0.82rem">A Direction cannot move money, reach outside the estate, or merge its own work. The floor is stated in <a href="/commons/agency/" style="color:var(--ember-text)">Common Agency</a> &sect;11, and the record enforces it whatever any interface offers.</p>
+      <p class="lead" style="margin:var(--s4) 0 0;font-size:0.82rem">Three things a Direction can never do: move money, reach any system outside the list above, or merge its own work into the cooperative's code. These limits are written in <a href="/commons/agency/" style="color:var(--ember-text)">Common Agency</a> &sect;11, the cooperative's rules for its working agent. The database enforces them directly, so no page or app can offer you a way around them.</p>
     </div></div>
 
     <div class="section-head">Your Directions</div>
+    <p class="lead" style="margin-bottom:var(--s4);font-size:0.88rem">Everything you have given, newest first, with each step the agent took written underneath it. The tag on the right tells you where it stands: <span class="state-chip live">given</span> waiting to be picked up, <span class="state-chip live">running</span> being worked on now, <span class="state-chip done">completed</span> finished, <span class="state-chip stopped">refused</span> turned down for breaking a rule, and the rule is named, <span class="state-chip stopped">halted</span> stopped part way by the steward. A completed Direction lists what it produced. Two terms you will see there: a <b>branch</b> is the agent's own working copy of the code, kept apart from everyone else's, and a <b>pull request</b> is the agent asking a person to review that work and decide whether to accept it.</p>
     <div id="arc"></div>
 
     <div class="section-head">Everyone's Directions</div>
     <div class="card"><div class="card-body">
-      <p class="lead" style="margin:0;font-size:0.88rem">The commons shelf, every member's completed Directions visible to one another, is described in <a href="/commons/agency/" style="color:var(--ember-text)">Common Agency</a> &sect;8 and waits on one decision the module routed rather than took: whether direction arcs are common reading or private to the member who gave them (&sect;15). Until that decision records, this page shows you your own.</p>
+      <p class="lead" style="margin:0;font-size:0.88rem">This page shows you your own Directions only. A shared shelf, where members could read each other's finished Directions, is described in <a href="/commons/agency/" style="color:var(--ember-text)">Common Agency</a> &sect;8, but it is not built yet. One question has to be answered first, and only the membership can answer it: should a member's Directions be readable by everyone, or private to whoever gave them (&sect;15)? The shelf appears once that is decided and recorded.</p>
     </div></div>
   </div>
 </main>
@@ -316,15 +326,19 @@ function renderStanding() {
   document.getElementById('st-today').textContent = standing.given_today + ' of ' + standing.day_bound;
   document.getElementById('st-policy').textContent = standing.policy_code
     ? standing.policy_code + ' ' + (standing.policy_version || '')
-    : 'the module defaults';
+    : 'starting values';
+  const chip = document.getElementById('st-policy-chip');
+  chip.hidden = false;
+  chip.className = standing.policy_code ? 'state-chip done' : 'state-chip';
+  chip.textContent = standing.policy_code ? 'adopted' : 'not yet adopted';
   document.getElementById('st-note').textContent = standing.policy_code
-    ? 'Read from the version in force; a change of bounds is an adopted amendment, not a change of code.'
-    : "No AGY-ESTATE instrument has adopted yet, so these are the opening values Common Agency proposed. They become the record's the moment the instrument adopts.";
+    ? 'These limits come from the version now in force. Changing them takes an adopted amendment, not a code change.'
+    : "The document that sets these limits has not been adopted yet, so the numbers above are the starting values Common Agency proposed. They become binding the moment that document is adopted.";
 
   const list = document.getElementById('repo-list');
   list.innerHTML = repos.length
     ? repos.map(r => `<label><input type="checkbox" value="${escHtml(r)}"> ${escHtml(r)}</label>`).join('')
-    : '<span class="hint">No repository stands on the Estate list yet.</span>';
+    : '<span class="hint">The agent is not yet cleared to work in any code. You can still give it a Direction that touches no code.</span>';
 }
 
 // ── The arc ───────────────────────────────────────────────────────────────────
@@ -351,17 +365,17 @@ function beatHtml(b) {
   const p = b.payload || {};
   if (b.kind === 'direction.accepted') {
     return `<div class="beat"><span class="beat-k">Accepted</span>
-      <div class="beat-v">The instrument took the work up. <span class="trace">${escHtml(when(b.recorded_at))}${p.run_id ? ' · run ' + escHtml(shortId(p.run_id)) : ''}</span></div></div>`;
+      <div class="beat-v">The agent started work. <span class="trace">${escHtml(when(b.recorded_at))}${p.run_id ? ' · run ' + escHtml(shortId(p.run_id)) : ''}</span></div></div>`;
   }
   if (b.kind === 'direction.refused') {
     return `<div class="beat"><span class="beat-k">Refused</span>
-      <div class="beat-v"><span class="rule-cite">${escHtml(p.rule || 'a rule of the floor')}</span>
+      <div class="beat-v">Turned down. The rule it would have broken: <span class="rule-cite">${escHtml(p.rule || 'one of the standing limits')}</span>
       ${p.reason ? '<br>' + escHtml(p.reason) : ''}
       <div class="trace">${escHtml(when(b.recorded_at))}</div></div></div>`;
   }
   if (b.kind === 'direction.halted') {
     return `<div class="beat"><span class="beat-k">Halted</span>
-      <div class="beat-v">${escHtml(p.reason || "Stopped by the steward's hand.")}
+      <div class="beat-v">${escHtml(p.reason || 'The steward stopped this work part way through.')}
       <div class="trace">${escHtml(when(b.recorded_at))}</div></div></div>`;
   }
   // completed: the artifacts, by reference
@@ -375,21 +389,21 @@ function beatHtml(b) {
   if (p.tokens) spend.push(escHtml(String(p.tokens)) + ' tokens');
   if (p.wall_seconds) spend.push(escHtml(String(p.wall_seconds)) + 's');
   return `<div class="beat"><span class="beat-k">Completed</span>
-    <div class="beat-v">${links.length ? links.join(' &middot; ') : 'No artifact was recorded with this closing.'}
+    <div class="beat-v">${links.length ? links.join(' &middot; ') : 'The agent finished, and filed nothing you can open.'}
     <div class="trace">${escHtml(when(b.recorded_at))}${spend.length ? ' · ' + spend.join(' · ') : ''}</div></div></div>`;
 }
 
 function render() {
   const el = document.getElementById('arc');
   if (!directions.length) {
-    el.innerHTML = `<div class="empty-state"><p>You have given no Directions yet. The first one you give stands here with everything that comes of it.</p></div>`;
+    el.innerHTML = `<div class="empty-state"><p>You have not given any Directions yet. Use the box above. The first one you give appears here, and everything that comes of it is added underneath.</p></div>`;
     return;
   }
   el.innerHTML = directions.map(d => {
     const p = d.payload || {};
     const beats = beatsFor(d);
     const st = stateOf(beats);
-    const repos = Array.isArray(p.repositories) && p.repositories.length ? p.repositories.join(' · ') : 'the record alone';
+    const repos = Array.isArray(p.repositories) && p.repositories.length ? p.repositories.join(' · ') : 'no code';
     return `<div class="arc-card">
       <div class="arc-head">
         <div style="flex:1">
@@ -413,10 +427,10 @@ async function giveDirection() {
   const repos = Array.from(document.querySelectorAll('#repo-list input:checked')).map(i => i.value);
 
   status.className = 'status-msg';
-  if (!brief) { status.className = 'status-msg err'; status.textContent = 'A Direction needs a brief.'; return; }
+  if (!brief) { status.className = 'status-msg err'; status.textContent = 'Write what you want done first.'; return; }
 
   btn.disabled = true;
-  status.textContent = 'Recording…';
+  status.textContent = 'Filing…';
 
   const { data, error } = await sb.rpc('give_direction', {
     p_brief: brief, p_kind: kind, p_repositories: repos
@@ -425,12 +439,12 @@ async function giveDirection() {
   if (error) {
     // The verb's refusals cite their rules; show what it said, not a paraphrase.
     status.className = 'status-msg err';
-    status.textContent = Techne.report(error, 'The record refused the Direction.');
+    status.textContent = Techne.report(error, 'The record turned this Direction down. Nothing was filed.');
     btn.disabled = false;
     return;
   }
 
-  status.textContent = 'Given · ' + shortId(data) + '…';
+  status.textContent = 'Given and filed · ' + shortId(data) + '…';
   document.getElementById('brief').value = '';
   document.querySelectorAll('#repo-list input:checked').forEach(i => { i.checked = false; });
   btn.disabled = false;
@@ -452,7 +466,7 @@ async function loadData() {
   const notice = document.getElementById('page-notice');
   if (r1.error || r2.error) {
     const e = r1.error || r2.error;
-    notice.textContent = Techne.report(e, 'Could not load the desk right now. Please reload the page.');
+    notice.textContent = Techne.report(e, 'This page could not load right now. Reload it. If it keeps failing, tell the steward.');
     notice.className = 'notice err'; notice.style.display = 'block';
   }
   standing = Array.isArray(r1.data) ? r1.data[0] : r1.data;

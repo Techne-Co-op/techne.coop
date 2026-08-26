@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="See your share: your patronage by kind under the staged counting rules, the capital account as a fold, and the accounting-year structure. All zeros until the Board adopts COUNTING-RULES v1.">
+<meta name="description" content="See your share: what you put into the cooperative, sorted by kind, your capital account, and which years count. Every figure is zero until the Board adopts COUNTING-RULES v1.">
 <title>Your share &middot; Techne</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -97,6 +97,14 @@ h1 { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(
 .panel { background: var(--surface); border: 1px dashed var(--line); padding: var(--s4); }
 .panel .panel-note { font-size: 0.78rem; color: var(--muted); line-height: 1.55; margin-top: var(--s3); }
 .panel .panel-note a { color: var(--ember-text); }
+/* the orientation card: the panel idiom, with the card's own label rule,
+   so a first-time reader gets the what-and-why before the figures */
+.orient { margin-bottom: var(--s4); }
+.orient .card-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--faint); text-transform: uppercase; margin-bottom: var(--s2); }
+.orient p { font-size: 0.82rem; line-height: 1.6; }
+.orient p + p { margin-top: var(--s2); }
+.orient b { color: var(--heading); font-weight: 700; }
+.orient a { color: var(--ember-text); }
 
 table.fold { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.78rem; }
 table.fold td { padding: 7px 4px; border-bottom: 1px solid var(--line); }
@@ -109,7 +117,11 @@ table.fold td.lbl small { color: var(--faint); font-size: 0.66rem; }
 .period { display: flex; align-items: baseline; gap: var(--s3); border: 1px solid var(--line); border-radius: 2px; padding: var(--s2) var(--s3); }
 .period .p-name { font-family: var(--mono); font-size: 0.7rem; color: var(--heading); white-space: nowrap; }
 .period .p-span { font-family: var(--mono); font-size: 0.66rem; color: var(--muted); flex: 1; }
-.period .p-state { font-family: var(--mono); font-size: 0.62rem; padding: 1px 7px; border-radius: 2px; border: 1px solid var(--line); color: var(--faint); white-space: nowrap; }
+.period .p-state, .state-chip { font-family: var(--mono); font-size: 0.62rem; padding: 1px 7px; border-radius: 2px; border: 1px solid var(--line); color: var(--faint); white-space: nowrap; }
+/* the same chip the period ribbon uses, reused in a section head so the
+   reader can see the state of a section without reading the paragraph */
+.state-chip { text-transform: none; letter-spacing: 0.04em; }
+.state-chip.waiting { border-color: var(--warn); color: var(--warn); background: var(--warn-dim); }
 .period.open-q { border-style: dashed; }
 .period.first .p-state { border-color: var(--info); color: var(--info); background: var(--info-dim); }
 
@@ -200,81 +212,88 @@ footer a { color: var(--faint); }
   <div class="page-label">See your share &middot; Techne &middot; RegenHub, LCA</div>
   <h1>Your share</h1>
   <div class="section-rule"></div>
-  <p class="lead">What you have put in, by kind, and the capital account that folds over it. Every figure reads from the event record under the counting rules in force; there are none in force yet.</p>
+  <p class="lead">What you have put into the cooperative, sorted by kind, and the running total that sits on top of it. Every figure is added up from the record of things that actually happened, using whichever counting rules the Board has put in force. It has not put any in force yet, so every figure is zero.</p>
 
-  <div class="adoption-banner">
-    <b>Illustrative structure; nothing is being counted.</b> The Board has not adopted <a href="/commons/patronage/counting-rules/">COUNTING-RULES v1</a>, so no Contribution is valued and every figure on this page is a zero by construction, not a measurement. When the rules are adopted, counting begins from that day forward, never backward, and this page fills in from the record.
+  <div class="panel orient">
+    <div class="card-label">Start here</div>
+    <p><b>What this page is.</b> Your own contribution statement. Patronage is the cooperative word for what you put in, whether that is hours, money, or goods, and this is where you will see yours.</p>
+    <p><b>What you can do here.</b> Read the six kinds of contribution below, so you know what will count once counting starts. Read the <a href="/commons/patronage/counting-rules/">counting rules</a> while they are still a draft and tell a board member what you think. Keep your own notes of hours and receipts in the meantime, because nothing that happens before the adoption day gets counted.</p>
+    <p><b>What you cannot do yet.</b> You cannot claim anything here. There is no form to fill in until the Board adopts the rules.</p>
   </div>
 
-  <h2 class="section-head">Your patronage by kind <span class="head-note">the six Primitives of COUNTING-RULES v1 &sect;2 &middot; a closed set</span></h2>
+  <div class="adoption-banner">
+    <b>This is the shape of the page, not your real numbers. Nothing is being counted yet.</b> The Board has not adopted <a href="/commons/patronage/counting-rules/">COUNTING-RULES v1</a>, the document that says how a contribution turns into a dollar figure. Until it does, nothing you contribute is given a value, so every figure below is zero because there is no rule to count by, not because you have done nothing. Counting starts on the day the Board adopts the rules and runs forward from there. It never reaches back to pick up earlier work.
+  </div>
+
+  <h2 class="section-head">What you put in, by kind <span class="state-chip waiting">waiting on the Board &middot; all zeros</span> <span class="head-note">the six kinds named in COUNTING-RULES v1 &sect;2 &middot; nothing else counts</span></h2>
   <div class="dash-grid">
     <div class="dash-card zero">
-      <div class="card-label"><span>HOURS</span><span class="basis">Labor Schedule tier</span></div>
+      <div class="card-label"><span>HOURS</span><span class="basis">paid at a Labor Schedule rate</span></div>
       <div class="card-value">0.0 <span class="unit">hrs &middot; $0.00 valued</span></div>
-      <div class="card-desc">Work or practice on a resolved, affiliated Opportunity, claimed by you and confirmed by another hand, at the Labor Schedule tier in force.</div>
+      <div class="card-desc">Time you spend on an Opportunity, which is a piece of work the cooperative has posted and agreed to take on. Log your own hours. Then ask someone else who was there to confirm them. The rate comes from the Labor Schedule, the board's table of hourly rates by kind of work.</div>
     </div>
     <div class="dash-card zero">
-      <div class="card-label"><span>REVENUE</span><span class="basis">REVENUE percentage</span></div>
+      <div class="card-label"><span>REVENUE</span><span class="basis">a percentage the board sets</span></div>
       <div class="card-value">$0.00 <span class="unit">attributed</span></div>
-      <div class="card-desc">Revenue actually received by the cooperative and attributable to your patronage, entering at the percentage the board sets.</div>
+      <div class="card-desc">Money a customer actually paid the cooperative, where the work or the introduction that earned it was yours. Money invoiced but not yet received does not count. A percentage of what came in counts as yours, and the board sets that percentage.</div>
     </div>
     <div class="dash-card zero">
       <div class="card-label"><span>CASH</span><span class="basis">face value</span></div>
       <div class="card-value">$0.00</div>
-      <div class="card-desc">Contributed capital beyond the membership share, recorded at face value with its movement reference.</div>
+      <div class="card-desc">Money you put in over and above your $100 membership share. It counts at the amount you sent, and the record keeps the transfer reference that shows it moved.</div>
     </div>
     <div class="dash-card zero">
-      <div class="card-label"><span>OUTPUT</span><span class="basis">Program unit value</span></div>
+      <div class="card-label"><span>OUTPUT</span><span class="basis">a price per unit, set by the Program</span></div>
       <div class="card-value">0 <span class="unit">units &middot; $0.00 valued</span></div>
-      <div class="card-desc">Units a Program's POLICY-PATRONAGE defines, at the unit value in the policy in force. No ad hoc outputs.</div>
+      <div class="card-desc">Finished things you produce that a Program counts, such as a workshop delivered or a report filed. Each Program keeps a patronage policy listing which units count and what each one is worth. If a piece of work is not on that list, it does not count here.</div>
     </div>
     <div class="dash-card zero">
-      <div class="card-label"><span>PRESENCE</span><span class="basis">presence credit, capped</span></div>
+      <div class="card-label"><span>PRESENCE</span><span class="basis">a flat credit, capped for the year</span></div>
       <div class="card-value">0 <span class="unit">of 26 occurrences &middot; $0.00</span></div>
-      <div class="card-desc">A registration and a presence mark at a gathering that counts presence, at the board's presence credit, capped per accounting year.</div>
+      <div class="card-desc">Showing up. Register for a gathering that counts presence, then get marked present on the day. Each one earns the same flat credit, an amount the board sets, and only the first 26 in a year count.</div>
     </div>
     <div class="dash-card zero">
-      <div class="card-label"><span>PROPERTY</span><span class="basis">documented FMV</span></div>
+      <div class="card-label"><span>PROPERTY</span><span class="basis">market value, with paperwork</span></div>
       <div class="card-value">$0.00</div>
-      <div class="card-desc">In-kind property the cooperative accepts, at documented fair market value; a board resolution above the threshold before it posts.</div>
+      <div class="card-desc">Goods or equipment you hand over and the cooperative accepts. It counts at fair market value, which is what the item would sell for, so bring a receipt or a valuation. Above a set amount the board must pass a resolution first.</div>
     </div>
   </div>
 
   <div class="two-col">
     <section>
-      <h2 class="section-head">Capital account <span class="head-note">a fold over your events, never a stored number</span></h2>
+      <h2 class="section-head">Your capital account <span class="state-chip waiting">not open yet</span> <span class="head-note">added up from your record each time it is shown, never saved as a number</span></h2>
       <div class="panel">
         <table class="fold">
           <tr><td class="lbl">Opening balance</td><td class="amt">$0.00</td></tr>
-          <tr><td class="lbl">Contributions valued in the year <small>the six kinds above</small></td><td class="amt">$0.00</td></tr>
-          <tr><td class="lbl">Allocated to you at the year's close</td><td class="amt">$0.00</td></tr>
-          <tr><td class="lbl">Corrections <small>compensating entries only, each naming what it corrects</small></td><td class="amt">$0.00</td></tr>
+          <tr><td class="lbl">What you put in this year <small>the six kinds above, priced</small></td><td class="amt">$0.00</td></tr>
+          <tr><td class="lbl">Allocated to you after the year closes <small>your slice, worked out from the year's totals</small></td><td class="amt">$0.00</td></tr>
+          <tr><td class="lbl">Corrections <small>a mistake is never erased; a new entry cancels it and names it</small></td><td class="amt">$0.00</td></tr>
           <tr><td class="lbl">Closing balance</td><td class="amt">$0.00</td></tr>
         </table>
-        <p class="panel-note">Your $100 membership share is the Membership Interest of MA &sect;1.4 and the $100 annual dues are operating revenue under Bylaws Schedule A; neither is a Contribution, and neither enters this account. Every line, once live, follows to the events and the policy citation that produced it.</p>
+        <p class="panel-note">Two payments you may already have made do not appear here. Your $100 membership share buys your membership itself, called the Membership Interest in the Membership Agreement &sect;1.4. Your $100 a year in dues is ordinary income for running the place, under Bylaws Schedule A. Neither counts as a contribution, so neither enters this account. Once the account is live, every line above traces back to the events behind it and the rule that priced them.</p>
       </div>
     </section>
     <section>
-      <h2 class="section-head">Accounting years &amp; allocation <span class="head-note">COUNTING-RULES v1 &sect;5</span></h2>
+      <h2 class="section-head">Which years count <span class="head-note">the periods the books are kept in &middot; COUNTING-RULES v1 &sect;5</span></h2>
       <div class="panel">
         <div class="period-ribbon">
           <div class="period open-q">
             <span class="p-name">formation period</span>
-            <span class="p-span">Feb 6, 2026 to adoption &middot; real work, uncounted under these rules</span>
-            <span class="p-state">named open</span>
+            <span class="p-span">Feb 6, 2026 until the Board adopts the rules &middot; real work, and none of it counted here</span>
+            <span class="p-state">open now</span>
           </div>
           <div class="period first">
             <span class="p-name">first accounting year</span>
-            <span class="p-span">adoption date through Dec 31, 2026</span>
+            <span class="p-span">from the adoption day through Dec 31, 2026 &middot; the first stretch that counts</span>
             <span class="p-state">not begun</span>
           </div>
           <div class="period open-q">
             <span class="p-name">2027 onward</span>
-            <span class="p-span">calendar years</span>
+            <span class="p-span">ordinary calendar years, Jan 1 to Dec 31</span>
             <span class="p-state">ahead</span>
           </div>
         </div>
-        <p class="panel-note">At each year's close, the year's valued Contributions enter allocation under the weights proposed in the Plan (40 labor, 30 revenue, 20 cash, 10 community). The weights stay with the Plan and each Program's POLICY-PATRONAGE; the counting rules only make quantities valuable. Every valuation is declared by the contributor and confirmed by a distinct hand.</p>
+        <p class="panel-note">When a year closes, everything counted that year is weighed up to work out each member's slice. The Plan proposes the weights: 40 parts labor, 30 revenue, 20 cash, 10 community. Those weights live in the Plan and in each Program's own patronage policy, not in the counting rules, which only put a price on what you did. Whatever the figure, you declare it and a second person confirms it. You cannot confirm your own.</p>
       </div>
     </section>
   </div>
