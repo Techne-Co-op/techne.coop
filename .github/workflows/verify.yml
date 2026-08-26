@@ -230,6 +230,32 @@ jobs:
       - name: probe the matrix
         run: python3 scripts/rls_probe.py
 
+  sms05-ceremony:
+    # SMS-05 · VS v1 §2 · the intranet binding ceremony walked against a
+    # fresh substrate with 0026 through 0029 applied. Three properties
+    # earn the job rather than a paragraph: the two bindings that already
+    # exist must survive the migration and keep routing, the one-time
+    # code's hash must be unreadable by the member whose code it is, and
+    # a member's read of phone_events must close at both ends of their
+    # binding so a reassigned number carries no history across. The
+    # migration under test is drafted and unapplied; this job is the only
+    # place it has ever run.
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env: { POSTGRES_PASSWORD: postgres }
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PGURL: postgresql://postgres:postgres@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - name: walk the ceremony
+        run: python3 scripts/sms05_probe.py
+
   style-lint:
     # VS v1 §2 · the house rules as CI: vocabulary quarantine,
     # no em dashes, no emoji in authored documents and pages.
