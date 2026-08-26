@@ -327,7 +327,11 @@ footer a { color: var(--faint); }
   .hand.members{border-color:var(--info);color:var(--info);}
   .hand.board{border-color:var(--ember);color:var(--ember-text);}
   .hand.derived{border-style:dashed;}
-  .mk{font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap;}
+  .mk{font-family:var(--mono);font-size:11px;color:var(--muted);}
+  /* the standing chips are the shell's own; they only need to sit on their
+     own line above the date so a long mark does not force the column wide */
+  .mk .standing-chip,.mk .kind-chip{display:inline-block;margin-bottom:4px;}
+  table.state td .trace{display:block;margin-top:2px;white-space:normal;}
 
   .cannot-hold{border:1px solid var(--line);border-left:3px solid var(--warn);background:var(--inset);padding:var(--s5);margin:var(--s4) 0 var(--s6);}
   .cannot-hold dt{font-family:var(--serif);font-weight:700;font-size:15px;color:var(--heading);margin-top:var(--s4);}
@@ -350,170 +354,181 @@ footer a { color: var(--faint); }
   <div id="content">
     <h1>The record</h1>
     <div class="section-rule"></div>
-    <p class="lead">Where the cooperative stands in its own governance: which mode it is in, what each instrument is and whose hand may move it, what the record can and cannot hold, and what is missing. This page is a reading of the published instruments. Nothing on it runs, nothing on it is adopted, and no act on this surface moves anything.</p>
+    <p class="lead">Where the cooperative stands in its own governance: which of two modes it is in, what each instrument (a governing document such as the Articles or the Bylaws) is and who may change it, what the record can and cannot hold, and what is still missing. This page reads the published instruments back to you. Nothing here runs, nothing here is adopted, and nothing you do on this page changes anything.</p>
+
+    <div class="gaps">
+      <div class="g">
+        <b>What this page is</b>
+        <p>A plain reading of the cooperative's governing documents, gathered in one place. It answers three questions: what state the cooperative is in right now, which document controls what and who may change it, and what this record still cannot do.</p>
+      </div>
+      <div class="g">
+        <b>What you can do here</b>
+        <p>Read. There is no form and no button on this page, and nothing you do here changes the record. To read the documents themselves, go to <a href="/legal/">the legal shelf</a>. To see mistakes found after publication, go to <a href="/legal/corrections/">Corrections and open readings</a>. If this page disagrees with a document on the shelf, believe the document: this page is the one that is wrong.</p>
+      </div>
+    </div>
 
     <div class="section-head">The two modes</div>
-    <p class="lead" style="margin-bottom:0">A cooperative is in one of two conditions at any moment, and almost all of its life is spent in the first. Naming that plainly is the point: the ordinary condition is not a gap between the interesting parts.</p>
+    <p class="lead" style="margin-bottom:0">At any moment the cooperative is in one of two conditions: <b>between the meetings</b>, or <b>in session</b> (a meeting is actually open and running). Almost all of its life is spent in the first. Naming that plainly is the point: the ordinary condition is not a gap between the interesting parts.</p>
 
     <div class="mode-pair">
       <div class="mode here">
         <span class="you-are">Where we are</span>
         <h3>Between the meetings</h3>
-        <div class="line">The legal state is set.</div>
-        <div class="sub">Permits</div>
+        <div class="line">No meeting is open. The governing documents cannot change.</div>
+        <div class="sub">What you can do</div>
         <ul>
-          <li class="p">Mark presence for a coming meeting</li>
-          <li class="p">Set the order of business</li>
-          <li class="p">Notice a motion</li>
-          <li class="p">Record an interim act under a delegation</li>
-          <li class="p">Adopt the minutes of the meeting just closed</li>
-          <li class="p">Convene, once quorum stands</li>
+          <li class="p">Say whether you will attend a coming meeting</li>
+          <li class="p">Set the agenda, meaning the order of business</li>
+          <li class="p">Give notice of a motion you want taken up</li>
+          <li class="p">Record an interim act: something done between meetings under a standing authority the board granted in advance</li>
+          <li class="p">Adopt the minutes of the meeting that just closed</li>
+          <li class="p">Open the meeting. Get a quorum first: the minimum number of people who must be present for the meeting to count.</li>
         </ul>
-        <div class="sub">Refuses</div>
+        <div class="sub">What you cannot do</div>
         <ul>
-          <li class="r">Move, second, amend, withdraw</li>
-          <li class="r">Call the question, put it, cast, settle</li>
-          <li class="r">Anything that would move an instrument by delegation</li>
+          <li class="r">Move, second, amend or withdraw a motion. Wait for a meeting to open.</li>
+          <li class="r">Call the question, put it to a vote, cast a vote, or settle it</li>
+          <li class="r">Change a governing document without a meeting. There is no authority that reaches one.</li>
         </ul>
       </div>
       <div class="mode">
         <h3>In session</h3>
-        <div class="line">The legal state is open, but only what this body holds.</div>
-        <div class="sub">Permits</div>
+        <div class="line">A meeting is open. This body may change only its own documents.</div>
+        <div class="sub">What you can do</div>
         <ul>
-          <li class="p">The whole floor: move, second, amend, call, put, cast, settle</li>
-          <li class="p">Point of order</li>
-          <li class="p">Table</li>
-          <li class="p">Adjourn, never over an open ballot</li>
+          <li class="p">Everything the floor allows: move, second, amend, call the question, put it to a vote, cast, and settle it</li>
+          <li class="p">Raise a point of order, meaning an objection that the rules are not being followed</li>
+          <li class="p">Table a motion, meaning set it aside without deciding it</li>
+          <li class="p">Adjourn. Close any open ballot first.</li>
         </ul>
-        <div class="sub">Refuses</div>
+        <div class="sub">What you cannot do</div>
         <ul>
-          <li class="r">Recording an interim act; in session a body acts by motion</li>
-          <li class="r">Switching which body is meeting</li>
-          <li class="r">Reaching an instrument the other body holds</li>
+          <li class="r">Record an interim act. In session a body acts by motion instead.</li>
+          <li class="r">Switch which body is meeting</li>
+          <li class="r">Change a document the other body controls</li>
         </ul>
       </div>
     </div>
 
-    <p class="lead">The cooperative has been between the meetings for its whole existence, because no meeting of this Board has ever been convened on the record. The procedure for the first one is written at <a href="/legal/first-meeting/">The first meeting</a>.</p>
+    <p class="lead">The cooperative has been between the meetings for its whole existence, because no meeting of this Board has ever been opened on the record. If you want to know how the first one is meant to run, read <a href="/legal/first-meeting/">The first meeting</a>.</p>
 
     <div class="section-head">The standing state</div>
-    <p class="lead">Every instrument, the hand that may move it, and the mark it presently carries. A body reaches only its own instruments: a meeting of the Board is refused at a members' instrument, and the refusal names whose hand it is rather than simply failing.</p>
+    <p class="lead">Every governing document, who may change it, and where it stands today. Each body may touch only its own documents. If the Board tries to change a document that belongs to the members, the attempt is refused, and the refusal tells you whose document it is instead of just failing. Where the third column shows a coloured tag: green means settled, blue means drafted but not yet in force, grey means it does not exist yet.</p>
 
     <table class="state">
       <thead>
-        <tr><th>Instrument</th><th>Hand</th><th>Mark today</th><th>What would move it</th></tr>
+        <tr><th>Document</th><th>Who may change it</th><th>Where it stands today</th><th>What it would take to change it</th></tr>
       </thead>
       <tbody>
         <tr>
           <td>Articles of Organization</td>
           <td><span class="hand members">members</span></td>
-          <td class="mk">Filed &middot; Feb 6, 2026</td>
-          <td class="n">A members' act, then a filing with the State. A vote is not the whole of it, and the record has no way yet to hold an obligation that outlives the meeting.</td>
+          <td class="mk"><span class="standing-chip force">filed</span> Feb 6, 2026</td>
+          <td class="n">A vote of the members, then a filing with the State. The vote alone is not enough, and this record has no way yet to track a follow-up step that has to happen after the meeting ends.</td>
         </tr>
         <tr>
           <td>Bylaws v2.1</td>
           <td><span class="hand members">members</span></td>
-          <td class="mk">Drafted &middot; not in effect</td>
-          <td class="n">Schedule A completed, an effective date from counsel, and the Secretary's signature. That is an <em>execution</em>, not an assembled-body act, and it is the one thing this model does not yet have a shape for.</td>
+          <td class="mk"><span class="standing-chip formation">drafted</span> not in effect</td>
+          <td class="n">Three things: Schedule A (the schedule attached to the Bylaws that carries the money figures, such as the share price and the dues) completed, an effective date from counsel, and the Secretary's signature. Signing is an <em>execution</em>, meaning one officer signs rather than a meeting voting, and that is the one act this model has no shape for yet.</td>
         </tr>
         <tr>
           <td>Membership Agreement v2.3</td>
           <td><span class="hand members">members</span></td>
-          <td class="mk">Drafted &middot; unsigned</td>
-          <td class="n">Executable once Schedule A is. Nobody has signed it.</td>
+          <td class="mk"><span class="standing-chip formation">drafted</span> unsigned</td>
+          <td class="n">It can be signed as soon as Schedule A is signed. Nobody has signed it.</td>
         </tr>
         <tr>
           <td>Counting rules</td>
           <td><span class="hand board">board</span></td>
-          <td class="mk">Drafted &middot; staged</td>
-          <td class="n">A board adoption, prospective only. The members may direct the board here but cannot adopt it for them, and that verb does not exist in the record yet.</td>
+          <td class="mk"><span class="standing-chip formation">drafted</span> staged, waiting on the board</td>
+          <td class="n">A vote of the board to adopt them, and only going forward, never backdated. The members can tell the board to act here, but they cannot adopt the rules in the board's place. The record has no way to hold an instruction like that yet.</td>
         </tr>
         <tr>
-          <td>The operating delegation</td>
+          <td>The operating delegation<br><span class="trace">the board's standing grant of day-to-day authority</span></td>
           <td><span class="hand board">board</span></td>
-          <td class="mk">Does not exist</td>
-          <td class="n">A board resolution. Without it, every interim act is a thing that merely happened rather than an act with an authority behind it.</td>
+          <td class="mk"><span class="kind-chip">does not exist</span></td>
+          <td class="n">A board resolution. Until there is one, anything done between meetings is just a thing that happened, with no authority standing behind it.</td>
         </tr>
         <tr>
           <td>The membership roll</td>
           <td><span class="hand board">board</span></td>
-          <td class="mk">Standing &middot; empty</td>
-          <td class="n">Admissions are the board's hand: acceptance, payment for the Stock, and full execution, all three.</td>
+          <td class="mk"><span class="standing-chip force">standing</span> no names on it yet</td>
+          <td class="n">Only the board admits members, and all three of these must happen: the board accepts you, you pay for your share of Stock, and every document is signed.</td>
         </tr>
         <tr>
           <td>The offices</td>
           <td><span class="hand board">board</span></td>
-          <td class="mk">Filled August 14, 2026</td>
-          <td class="n">A board election, held at the special meeting of August 14, 2026: President, Secretary and Treasurer each elected, each acceptance in that meeting's record. The Secretary keeps the minutes and signs Schedule A; the President executes contracts. The steward confirmed on the coordination record, 2026-08-17, that the August 14 record stands. This row previously read all three vacant; that reading predated the meeting and was corrected 2026-08-17.</td>
+          <td class="mk"><span class="standing-chip force">filled</span> August 14, 2026</td>
+          <td class="n">An election by the board. That happened at the special meeting of August 14, 2026: President, Secretary and Treasurer each elected, and each person's acceptance is in that meeting's record. The Secretary keeps the minutes and signs Schedule A; the President signs contracts. The steward confirmed on the coordination record, 2026-08-17, that the August 14 record stands. This row previously read all three vacant; that reading predated the meeting and was corrected 2026-08-17.</td>
         </tr>
         <tr>
-          <td>The quorum rule</td>
+          <td>The quorum rule<br><span class="trace">how many must be present for a meeting to count</span></td>
           <td><span class="hand derived">derived</span></td>
           <td class="mk">Four of six</td>
-          <td class="n">Nothing reaches it directly. It moves when the Bylaws move, and it is counted from who is present each time it is asked for rather than stored.</td>
+          <td class="n">Nobody changes this one directly, which is what <em>derived</em> means: it follows from the Bylaws, so it changes only when the Bylaws change. The number is not stored anywhere. It is counted from who is actually present, every time it is asked for.</td>
         </tr>
       </tbody>
     </table>
 
     <div class="section-head">What this record cannot hold</div>
-    <p class="lead">Stated as impossibilities rather than rules, because a rule can be broken quietly and a missing capability cannot.</p>
+    <p class="lead">These are not rules that someone might break. They are things the record simply cannot do, which is a stronger guarantee: a rule can be broken quietly, and a missing capability cannot.</p>
 
     <div class="cannot-hold">
       <dl>
         <dt>A minute that reports what someone said</dt>
-        <dd>There is no event kind for speech. Discussion is opened, and nothing said in it enters the record. <span class="imp">The capability is absent, not merely refused</span>, which is why a recording or a transcript has no standing here: the record has nowhere to put it.</dd>
+        <dd>The record has no slot for what anyone said. Discussion is opened, and nothing spoken in it is written down. <span class="imp">This is a missing capability, not a refusal</span>, which is why an audio recording or a transcript counts for nothing here: there is nowhere to file it.</dd>
 
         <dt>A record that certifies itself</dt>
-        <dd>The minutes are a projection. The lines write themselves from the events, and they stay a draft until a person adopts them. <span class="imp">Adoption is human.</span></dd>
+        <dd>Draft minutes assemble themselves from the acts that were recorded, but they stay a draft until a person votes to adopt them. <span class="imp">Only a human can adopt them.</span></dd>
 
-        <dt>An act whose effect is an absence</dt>
-        <dd>Withdrawn and tabled are settlements, not erasures. Every motion that ever stood is still there afterwards, and a correction is a further act rather than a change to an earlier one.</dd>
+        <dt>An act that erases an earlier one</dt>
+        <dd>Withdrawing or tabling a motion ends it; it does not delete it. Every motion that ever stood is still visible afterwards. To fix a mistake, add a new act that corrects it. You cannot edit the old one.</dd>
 
-        <dt>A quiet change to the instruments between meetings</dt>
-        <dd>No delegation reaches an instrument. The legal state moves only by an assembled body, which is the governance twin of the rule that no instrument, agent, or automation holds a key to the treasury.</dd>
+        <dt>A quiet change to the governing documents between meetings</dt>
+        <dd>No delegated authority reaches a governing document. They change only when a meeting is open and a body votes. This is the governance twin of the treasury rule: no document, agent, or piece of software holds a key to the money.</dd>
 
-        <dt>A stored quorum drifting from who is in the room</dt>
-        <dd>Quorum is a tally, never a number. It is counted from attendance each time it is asked for.</dd>
+        <dt>A saved quorum figure that drifts from who is actually in the room</dt>
+        <dd>Quorum is always a fresh count, never a saved number. It is counted from who is present, every time it is asked for.</dd>
       </dl>
     </div>
 
     <div class="section-head">What is missing</div>
-    <p class="lead">A record that shows its holes is worth more than one that looks complete. These are the gaps as they stand tonight.</p>
+    <p class="lead">A record that shows its holes is worth more than one that looks complete. These are the gaps as they stand today. The tag on each one tells you its kind: <span class="anchor-kind">absent</span> means the record has no way to do this at all, <span class="anchor-kind">open question</span> means a decision has not been made yet, <span class="anchor-kind">not yet specified</span> means no rule has been written for it, and <span class="anchor-kind">open reading</span> means the existing record can be read more than one way and nobody has settled which reading is right.</p>
 
     <div class="gaps">
       <div class="g">
-        <b>The minute book is empty.</b>
-        <p>No meeting of this Board has a minute. The June 2026 board actions are reported in four accounts that disagree on the date and on whether anything was adopted at all, and none of them is a minute: no attendance, no motions, no vote, no quorum. The open reading is logged at <a href="/legal/corrections/#doc-01-08">DOC-01&middot;08</a>. It closes when a director who was present states what was done, or when the board adopts the current instruments afresh on a record that has all of those things in it.</p>
+        <b>The minute book is empty.</b><span class="anchor-kind">open reading</span>
+        <p>No meeting of this Board has minutes, meaning a written record of who attended, what was moved, and how the vote went. The June 2026 board actions come to us in four accounts that disagree about the date and about whether anything was adopted at all, and none of them is a set of minutes: no attendance, no motions, no vote, no quorum. The unresolved reading is logged at <a href="/legal/corrections/#doc-01-08">DOC-01&middot;08</a>. Two things would close it. A director who was in the room states what was done, or the board adopts the current documents over again at a meeting that records all of those things.</p>
       </div>
       <div class="g">
-        <b>Execution has no shape here.</b><span class="anchor-kind">absent</span>
-        <p>The act that makes the Bylaws effective is a signature, not a vote. A model in which the legal state moves only by an assembled body cannot describe it, and this one presently cannot. Naming it is the first piece of work.</p>
+        <b>Signing a document has no shape here.</b><span class="anchor-kind">absent</span>
+        <p>The act that makes the Bylaws take effect is one officer's signature, not a vote. This model says the legal state moves only when a meeting is open and a body votes, so it cannot describe a signature at all. Giving that act a name is the first piece of work.</p>
       </div>
       <div class="g">
         <b>Seats are not offices.</b><span class="anchor-kind">open question</span>
-        <p>The vocabulary above speaks of hands: members, board, steward, derived. The Bylaws create a President, a Secretary and a Treasurer, each with duties attached to particular instruments, and <em>steward</em> is not an office in them at all. Which one an act cites is undecided.</p>
+        <p>The table above names four holders: members, board, steward, derived. The Bylaws name three officers instead, a President, a Secretary and a Treasurer, each with duties tied to particular documents, and <em>steward</em> is not an office in the Bylaws at all. Which of the two vocabularies an act should point to has not been decided.</p>
       </div>
       <div class="g">
-        <b>Which majority, of what.</b><span class="anchor-kind">open question</span>
-        <p>A majority of those present, or of the votes actually cast? The two differ the moment anyone abstains. The board-side version of the same question is already open: &sect; 3.13 says a simple majority of <em>all Directors</em>, and whether that counts against the authorised number or against those in office is latent at six and live at five.</p>
+        <b>Which majority, and of what?</b><span class="anchor-kind">open question</span>
+        <p>A majority of the people present, or a majority of the votes actually cast? Those two numbers come apart the moment anyone abstains. The same question is already open on the board side: Bylaws &sect; 3.13 requires a simple majority of <em>all Directors</em>, and nobody has settled whether that means a majority of the six seats the Bylaws authorise or a majority of the directors currently serving. With all six seats filled the two give the same answer, so the question is harmless today. Drop to five directors and it decides votes.</p>
       </div>
       <div class="g">
-        <b>Nobody can answer an interim act.</b><span class="anchor-kind">absent</span>
-        <p>A member who disputes something done under delegation has nowhere to say so. The ledger would be readable but not answerable.</p>
+        <b>Nobody can object to something done between meetings.</b><span class="anchor-kind">absent</span>
+        <p>A member who disagrees with an act taken under delegated authority has nowhere to say so. You could read the record, but you could not answer it.</p>
       </div>
       <div class="g">
-        <b>There are no grades of audience.</b><span class="anchor-kind">open question</span>
-        <p>Privacy is a single hold: substance held, the fact of the act open. Nothing distinguishes board-only from member-only from public, and no rule says when a hold expires. Bylaws &sect; 18.1 makes that the board's call.</p>
+        <b>There is only one level of privacy.</b><span class="anchor-kind">open question</span>
+        <p>Every act is either held or open, with nothing in between: the substance is withheld and the fact that the act happened is public. Nothing separates board-only from member-only from public, and no rule says when a withheld item becomes readable. Bylaws &sect; 18.1 leaves that to the board.</p>
       </div>
       <div class="g">
-        <b>Presence is required to vote.</b><span class="anchor-kind">not yet specified</span>
-        <p>Nothing handles a member who cannot attend. For a cooperative that intends to be distributed, that is a large silence.</p>
+        <b>You have to be present to vote.</b><span class="anchor-kind">not yet specified</span>
+        <p>There is no provision for a member who cannot attend: no way to vote ahead of time, and no way to send someone in your place. For a cooperative that means to be spread across places, that is a large silence.</p>
       </div>
     </div>
 
     <div class="section-head">Standing</div>
-    <p class="lead">Specified, not wired. This page describes a governance module for the Common Information System; the module is proposed and unbuilt, and the substrate carries no motion, ballot, quorum or minute vocabulary today. The model it follows is a drawing, drafted outside the agency rail and carrying no authority of its own. Where this page and an instrument differ, the instrument is right and this page owes a correction. Instruments are indexed at <a href="/legal/">the legal shelf</a>; defects found after publication are logged at <a href="/legal/corrections/">Corrections and open readings</a>.</p>
+    <p class="lead">Designed, not built. This page describes a governance section for the Common Information System, the cooperative's shared record. That section is proposed and has not been built: the underlying system today has no way to hold a motion, a ballot, a quorum count or a set of minutes. The design this page follows is a drawing. Nobody adopted it, and it carries no authority of its own. Where this page and a governing document differ, the document is right and this page owes you a correction. Read the documents at <a href="/legal/">the legal shelf</a>. Read the mistakes found after publication at <a href="/legal/corrections/">Corrections and open readings</a>.</p>
   </div>
 </main>
 
