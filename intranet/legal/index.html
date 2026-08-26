@@ -30,6 +30,7 @@
   --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
   --dur: .4s; --micro: .16s; --ease: cubic-bezier(.4,0,.2,1);
+  --on-accent: #fff;
 }
 html[data-mode="dark"] {
   --bg: #0F0F12; --inset: #08080A; --surface: #16161B; --raised: #232329;
@@ -37,9 +38,11 @@ html[data-mode="dark"] {
   --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
   --blue: #6A8AC4; --blue-text: #97B5E8;
   --ember: #C4956A; --ember-text: #D4A57A;
-  --blue-dim: rgba(106, 138, 196, 0.14);
-  --ember-dim: rgba(196, 149, 106, 0.14);
-  --ok: #6A9A6A; --warn: #C46A6A;
+  --ok: #6A9A6A; --ok-dim: rgba(106,154,106,0.12);
+  --info: #6A8AC4; --info-dim: rgba(106,138,196,0.12);
+  --warn: #C46A6A; --warn-dim: rgba(196,106,106,0.10);
+  --blue-dim: rgba(106,138,196,0.14);
+  --ember-dim: rgba(196,149,106,0.14);
   color-scheme: dark;
 }
 html[data-mode="light"] {
@@ -48,9 +51,11 @@ html[data-mode="light"] {
   --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
   --blue: #4A6FB0; --blue-text: #39588F;
   --ember: #8A6A4A; --ember-text: #6F5436;
-  --blue-dim: rgba(74, 111, 176, 0.10);
-  --ember-dim: rgba(138, 106, 74, 0.10);
-  --ok: #4A7A4A; --warn: #A84F4C;
+  --ok: #4A7A4A; --ok-dim: rgba(74,122,74,0.10);
+  --info: #4A6FB0; --info-dim: rgba(74,111,176,0.10);
+  --warn: #A84F4C; --warn-dim: rgba(168,79,76,0.10);
+  --blue-dim: rgba(74,111,176,0.10);
+  --ember-dim: rgba(138,106,74,0.10);
   color-scheme: light;
 }
 
