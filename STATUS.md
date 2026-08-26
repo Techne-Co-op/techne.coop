@@ -48,7 +48,7 @@ Generated from rdm-ledger.yaml. 176 items total.
 
 ## Open
 
-- **A-01** open · delivered -- The direction rail
+- **A-01** open · verified -- The direction rail
 - **A-02** open · delivered -- The desk
 - **B-01** open · verified -- Identity binding
 - **B-02** open · verified -- Onboarding and application intake
@@ -57,13 +57,13 @@ Generated from rdm-ledger.yaml. 176 items total.
 - **B-05** open · verified -- Member directory
 - **B-06** open · verified -- Member profile
 - **B-07** open · verified -- The agreements shelf, complete and correctly typed
-- **DOC-01** open · delivered -- The correction log opens
+- **DOC-01** open · verified -- The correction log opens
 - **F-01** open · verified -- Opportunity board
 - **F-02** open · delivered -- Response flow
 - **F-03** open · verified -- Resolution
 - **F-04** open · verified -- The Programs view
 - **F-05** open · verified -- The designation act
-- **FORMATION-01** open · delivered -- The site stops saying it is operating
+- **FORMATION-01** open · verified -- The site stops saying it is operating
 - **G-01** open · verified -- Calendar
 - **G-02** open · verified -- Registration and cancellation
 - **G-03** open · verified -- Attendance recording
@@ -71,7 +71,7 @@ Generated from rdm-ledger.yaml. 176 items total.
 - **G0** open · attested -- Security floor
 - **L-01** open · delivered -- Lexicon v2
 - **L-02** open · delivered -- The Almanac
-- **L-03** open · delivered -- The ledger speaks
+- **L-03** open · verified -- The ledger speaks
 - **L-04** open · delivered -- The companions
 - **L-05** open · delivered -- The series speaks
 - **L-06** open · delivered -- The modules speak
@@ -81,7 +81,7 @@ Generated from rdm-ledger.yaml. 176 items total.
 - **P-09** open · delivered -- The two tracks told apart
 - **P-10** open · verified -- The front door reads like a front door
 - **P-11** open · delivered -- The door and the room behind it
-- **P-12** open · delivered -- One notice, one place
+- **P-12** open · verified -- One notice, one place
 - **S-01** open · Q3 -- Contribution posting paths
 - **S-02** open · Q3 -- The tally surface
 - **SMS-01** open · verified -- The steward's phone line answered by Nou
@@ -109,7 +109,7 @@ Generated from rdm-ledger.yaml. 176 items total.
 - **U-04** open · verified -- The gate
 - **U-05** open · verified -- The member's register
 - **U-06** open · delivered -- The frame on a narrow screen
-- **U-07** open · delivered -- The parked door
+- **U-07** open · verified -- The parked door
 - **U-08** open · delivered -- The pattern library grows
 - **U-09** open · verified -- The launch page joins the site
 - **U-10** open · verified -- The front door tells the truth
@@ -140,15 +140,15 @@ Generated from rdm-ledger.yaml. 176 items total.
 - **X-08** open · verified -- Probe matrix
 - **X-09** open · verified -- Walkaway rehearsal
 - **X-10** open · verified -- Generated artifacts stay current
-- **X-11** open · delivered -- The export follows the substrate
+- **X-11** open · verified -- The export follows the substrate
 - **X-12** open · delivered -- The member's rail
-- **X-13** open · delivered -- The documents agree
+- **X-13** open · verified -- The documents agree
 - **X-14** open · delivered -- The build surface agrees
 - **X-15** open · delivered -- The register bridge
 - **X-16** open · delivered -- The estate reads true
 - **X-17** open · delivered -- The second resync
-- **X-18** open · delivered -- The cards answer to the ledger, the ledger to the repository
-- **X-19** open · delivered -- The ledger answers to the repository
+- **X-18** open · verified -- The cards answer to the ledger, the ledger to the repository
+- **X-19** open · verified -- The ledger answers to the repository
 - **X-21** open · delivered -- The walkthrough that needs two people
 - **X-22** open · delivered -- The verification walk
 
