@@ -118,42 +118,51 @@ alter table public.beta_staging enable row level security;
 
 -- Members read the beta; members append under their own identity only.
 drop policy if exists beta_events_member_read on public.beta_events;
+-- Anchor: DAYBOOK_BETA.md §3. No bylaw governs this policy; beta_events is not a record class. Membership is the read gate, as the intranet has it.
 create policy beta_events_member_read on public.beta_events
   for select using (app_is_member());
 
 drop policy if exists beta_events_self_append on public.beta_events;
+-- Anchor: DAYBOOK_BETA.md §3. Not a record class. A member appends only under their own identity; the beta invents no permission (PRD §4, Principle 1).
 create policy beta_events_self_append on public.beta_events
   for insert with check (agent_id = app_agent_id() and app_is_member());
 
 drop policy if exists beta_edges_member_read on public.beta_edges;
+-- Anchor: DAYBOOK_BETA.md §3. Not a record class. Edges are readable exactly as the events they hang from.
 create policy beta_edges_member_read on public.beta_edges
   for select using (app_is_member());
 
 drop policy if exists beta_edges_self_append on public.beta_edges;
+-- Anchor: DAYBOOK_BETA.md §3. Not a record class. An edge may only be hung from an event the member themselves appended.
 create policy beta_edges_self_append on public.beta_edges
   for insert with check (app_is_member() and exists (
     select 1 from public.beta_events e
      where e.id = from_event and e.agent_id = app_agent_id()));
 
 drop policy if exists beta_threads_member_read on public.beta_threads;
+-- Anchor: DAYBOOK_BETA.md §3. Not a record class. A thread exists only once a member names it, and then it is common.
 create policy beta_threads_member_read on public.beta_threads
   for select using (app_is_member());
 
 drop policy if exists beta_threads_self_name on public.beta_threads;
+-- Anchor: DAYBOOK_BETA.md §3. Not a record class. Naming is an act, so the namer is the member doing it.
 create policy beta_threads_self_name on public.beta_threads
   for insert with check (named_by = app_agent_id() and app_is_member());
 
 drop policy if exists beta_terms_member_read on public.beta_terms;
+-- Anchor: DAYBOOK_BETA.md §3. Not a record class. A word joins the vocabulary by use, and the vocabulary is common.
 create policy beta_terms_member_read on public.beta_terms
   for select using (app_is_member());
 
 drop policy if exists beta_terms_member_append on public.beta_terms;
+-- Anchor: DAYBOOK_BETA.md §3. Not a record class. Any member may bring a word in by using it.
 create policy beta_terms_member_append on public.beta_terms
   for insert with check (app_is_member());
 
 -- Staging is self only, in both directions and for every command. Another
 -- member's staged inference is unqueryable, not merely unshown.
 drop policy if exists beta_staging_self on public.beta_staging;
+-- Anchor: DAYBOOK_DECISIONS.md D-03, and DAYBOOK_BETA.md §3. Not a record class. Self only in both directions: another member's staged inference is unqueryable, not merely unshown.
 create policy beta_staging_self on public.beta_staging
   for all using (agent_id = app_agent_id())
   with check (agent_id = app_agent_id());
