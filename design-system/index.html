@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="Techne Design System  --  palette and component reference for techne.coop. v5: warm parchment ground, blue primary accent, ember secondary, three earth states, sunset range, the desert register.">
-<title>Palette Reference &middot; Techne</title>
+<meta name="description" content="Techne Design System, the reference for techne.coop at v6: parchment ground, blue primary, ember secondary, the named type scale, three earth states, the sunset range, and the strata register with its sourcing line.">
+<title>Design System &middot; Techne</title>
 <link rel="canonical" href="https://techne.coop/design-system/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://techne.coop/design-system/">
-<meta property="og:title" content="Palette Reference · Techne">
-<meta property="og:description" content="Techne Design System  --  palette and component reference for techne.coop. v5: blue primary, ember secondary, sunset range, the desert register.">
+<meta property="og:title" content="Design System · Techne">
+<meta property="og:description" content="Techne Design System at v6: blue primary, ember secondary, the named scale, the sunset range, the desert and strata registers.">
 <meta property="og:site_name" content="Techne">
 <meta property="og:image" content="https://techne.coop/assets/og-default.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -230,7 +230,7 @@
   .strow .use b{color:var(--ok);}
 
   /* footer */
-  footer{border-top:1px solid var(--rule);margin-top:var(--s8);padding:var(--s5) 0 var(--s8);}
+  footer{margin:var(--s8) calc(-1 * var(--s5)) 0;padding:var(--s6) var(--s5) var(--s8);}
   footer .row{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);font:400 11px/1.6 var(--mono);color:var(--muted);}
   footer .row span:first-child{color:var(--ember-text);}
 
@@ -1212,7 +1212,7 @@ html[data-sky=<span class="c2">"day"</span>] { --sky-line: ...; --sky-glow: <spa
   <section class="sec" id="participation">
     <h2>Participation Cards</h2>
     <p class="lead">The class-of-participation card, added per U-08: how a newcomer meets the four classes of the Participation Framework and chooses a track. The card carries the track banner, the class number and name, the rights (a mark beside every line, the word carrying the meaning), the cost, the admission path, and one action. Cards render on public surfaces; the Participation Framework itself is drafted, unadopted, and not published, and the card cites it, never restating beyond it. Where the card is used to describe standing rather than to sell, the cost goes in <code>.p-cost</code>, below the rights, rather than in the <code>.p-price</code> head slot: price above the rights, repeated down a column of cards, reads as a column of rungs, and standing here does not follow price (P-09).</p>
-    <p class="note"><b>Anatomy</b> (commons.css): <code>.pgrid</code> a responsive comparison grid &middot; <code>.pcard</code> the card, top-ruled in its track's tint via <code>data-tint</code> &middot; <code>.p-track</code>, <code>.p-class</code>, <code>.p-name</code>, and either <code>.p-price</code> or <code>.p-cost</code> &middot; rights as <code>li.yes</code> (Lucide check, ok green) and <code>li.no</code> (Lucide minus, muted; the sentence states the absence) &middot; <code>.p-admit</code> the admission line &middot; <code>.p-act</code> the action. The <em>member curve</em>, the path through the classes over time, renders as <code>.curve</code> steps: when, what, one sentence.</p>
+    <p class="note"><b>Anatomy</b> (commons.css): <code>.pgrid</code> a responsive comparison grid &middot; <code>.pcard</code> the card, carrying its track's tint as the terrace edge via <code>data-tint</code> (v6; through v5 it was a tinted top bar, the side-tab tell) &middot; <code>.p-track</code>, <code>.p-class</code>, <code>.p-name</code>, and either <code>.p-price</code> or <code>.p-cost</code> &middot; rights as <code>li.yes</code> (Lucide check, ok green) and <code>li.no</code> (Lucide minus, muted; the sentence states the absence) &middot; <code>.p-admit</code> the admission line &middot; <code>.p-act</code> the action. The <em>member curve</em>, the path through the classes over time, renders as <code>.curve</code> steps: when, what, one sentence.</p>
   </section>
 
   <!-- FORMS & STATES -->
@@ -1238,11 +1238,11 @@ html[data-sky=<span class="c2">"day"</span>] { --sky-line: ...; --sky-glow: <spa
     <p class="note">techne.coop is a professional coordination surface. Emoji carry platform-specific rendering, undefined semantic meaning, and decorative noise inconsistent with the studio's precision. Typography and geometry are the visual language here. This reference follows the rule it states: the forbidden categories are named in words rather than rendered.</p>
   </section>
 
-  <footer>
+  <footer class="ground">
     <div class="row">
       <span>Techne Design System</span>
-      <span>updated to v5 &middot; v6 addendum drafted, deepened by U-26</span>
-      <span>blue primary &middot; ember secondary &middot; sunset range &middot; the desert register &middot; the incised register (drafted)</span>
+      <span>v6 drafted as U-31 &middot; the whole cloth, the scale, the strata register</span>
+      <span>blue primary &middot; ember secondary &middot; sunset range &middot; the desert register &middot; the incised register &middot; the strata register (drafted)</span>
       <span>techne.coop/design-system</span>
       <span>RegenHub, LCA &middot; Boulder, Colorado</span>
     </div>
