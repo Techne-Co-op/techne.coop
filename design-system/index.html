@@ -76,11 +76,11 @@
   body{margin:0;background:var(--bg);color:var(--text);
     font:400 var(--t-body)/var(--lh-body) var(--serif);
     transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);}
-  .wrap{max-width:1060px;margin:0 auto;padding:0 var(--s5);}
+  .wrap{max-width:var(--m-frame);margin:0 auto;padding:0 var(--s5);}
   .mono{font-family:var(--mono);}
   .num{font-variant-numeric:tabular-nums;}
   em{font-style:italic;color:var(--heading);}
-  code{font:400 .84em/1 var(--mono);color:var(--ember-text);background:var(--inset);padding:2px 5px;border-radius:2px;}
+  code{font:400 .84em/1 var(--mono);color:var(--ember-text);background:var(--inset);padding:2px 5px;border-radius:var(--r-control);}
   a{color:var(--blue-text);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;transition:text-decoration-thickness var(--micro) var(--ease);}
   a:hover{text-decoration-thickness:2px;}
   :focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
@@ -110,28 +110,28 @@
   .note b{color:var(--heading);font-weight:600;}
 
   /* swatch lists */
-  .swatches{margin:var(--s4) 0;border:1px solid var(--line);border-radius:2px;overflow:hidden;}
+  .swatches{margin:var(--s4) 0;border:1px solid var(--line);overflow:hidden;}
   .swrow{display:grid;grid-template-columns:34px 168px 96px 1fr;gap:var(--s3);align-items:center;
     padding:9px var(--s3);border-bottom:1px solid var(--line);background:var(--surface);}
   .swrow:last-child{border-bottom:0;}
-  .swrow .sw{width:26px;height:26px;border:1px solid var(--line);border-radius:2px;}
+  .swrow .sw{width:26px;height:26px;border:1px solid var(--line);border-radius:var(--r-control);}
   .swrow .tk{font:500 12px/1.4 var(--mono);color:var(--heading);}
   .swrow .hex{font:400 11px/1.4 var(--mono);color:var(--muted);text-transform:uppercase;}
   .swrow .rl{font:400 12px/1.5 var(--serif);color:var(--muted);}
   .swrow .tk .role{display:inline-block;margin-left:7px;font:600 9px/1 var(--mono);text-transform:uppercase;
-    letter-spacing:.06em;padding:2px 5px;border-radius:2px;vertical-align:middle;}
+    letter-spacing:.06em;padding:2px 5px;border-radius:var(--r-control);vertical-align:middle;}
   .role.pri{color:var(--blue-text);border:1px solid var(--blue);}
   .role.sec{color:var(--ember-text);border:1px solid var(--ember);}
 
   /* sunset ramp */
   .ramp{display:flex;gap:6px;margin:var(--s4) 0;}
   .ramp .s{flex:1;}
-  .ramp .s .c{height:30px;border:1px solid var(--line);border-radius:2px;}
+  .ramp .s .c{height:30px;border:1px solid var(--line);border-radius:var(--r-control);}
   .ramp .s .n{font:400 9.5px/1.5 var(--mono);color:var(--muted);margin-top:5px;text-align:center;}
 
   /* chips */
   .chip{display:inline-flex;align-items:center;gap:6px;font:500 10.5px/1 var(--mono);padding:5px 9px;
-    border:1px solid var(--line);border-radius:2px;background:var(--surface);text-transform:lowercase;letter-spacing:.02em;}
+    border:1px solid var(--line);border-radius:var(--r-control);background:var(--surface);text-transform:lowercase;letter-spacing:.02em;}
   .chip .dot{width:6px;height:6px;}
   .chip.ok{color:var(--ok);}.chip.ok .dot{background:var(--ok);}
   .chip.info{color:var(--info);}.chip.info .dot{background:var(--info);}
@@ -142,7 +142,7 @@
 
   /* buttons */
   .btn{font:500 12px/1 var(--mono);color:var(--heading);background:var(--surface);border:1px solid var(--rule);
-    border-radius:2px;padding:0 14px;height:32px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+    border-radius:var(--r-control);padding:0 14px;height:32px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
     transition:background-color var(--micro) var(--ease),border-color var(--micro) var(--ease);}
   .btn:hover{background:var(--raised);border-color:var(--heading);}
   .btn.primary{border-color:var(--blue);color:var(--blue-text);}
@@ -153,11 +153,11 @@
 
   /* provenance */
   .prov{display:inline-flex;align-items:center;gap:6px;font:400 10.5px/1.5 var(--mono);color:var(--muted);
-    padding:5px 9px;border:1px solid var(--line);border-left:2px solid var(--ember);border-radius:2px;background:var(--surface);}
+    padding:5px 9px;border:1px solid var(--line);border-left:2px solid var(--ember);border-radius:var(--r-control);background:var(--surface);}
   .prov b{color:var(--heading);font-weight:600;}
 
   /* nav demo */
-  .navdemo{border:1px solid var(--line);border-radius:2px;margin:var(--s3) 0;}
+  .navdemo{border:1px solid var(--line);margin:var(--s3) 0;}
   .nav{display:flex;align-items:center;gap:var(--s4);padding:0 var(--s4);height:52px;background:var(--surface);
     border-bottom:1px solid var(--line);}
   .nav .wordmark{font:500 12px/1 var(--mono);color:var(--ember-text);letter-spacing:.06em;flex-shrink:0;}
@@ -166,21 +166,21 @@
   .nav .links a.active{color:var(--blue-text);position:relative;}
   .nav .links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-18px;height:2px;background:var(--blue);}
   .nav .user{display:flex;align-items:center;gap:var(--s2);}
-  .nav .av{width:26px;height:26px;border-radius:2px;background:var(--raised);border:1px solid var(--line);
+  .nav .av{width:26px;height:26px;border-radius:var(--r-control);background:var(--raised);border:1px solid var(--line);
     display:grid;place-items:center;font:600 10px/1 var(--mono);color:var(--heading);}
   .nav .un{font:500 12px/1 var(--mono);color:var(--text);}
   .navcap{font:400 10px/1 var(--mono);color:var(--faint);padding:8px var(--s4);text-transform:lowercase;}
 
   /* metric tiles */
   .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin:var(--s3) 0;}
-  .tile{background:var(--surface);border:1px solid var(--line);border-radius:2px;padding:var(--s3);}
+  .tile{background:var(--surface);border:1px solid var(--line);padding:var(--s3);}
   .tile .tl{font:500 10px/1.5 var(--mono);color:var(--muted);text-transform:lowercase;display:flex;justify-content:space-between;}
   .tile .tf{font:500 24px/1.2 var(--mono);color:var(--heading);margin-top:6px;font-variant-numeric:tabular-nums;}
   .tile .tf.ok{color:var(--ok);font-size:18px;display:flex;align-items:center;gap:6px;}
   .tile .ts{font:400 10px/1.5 var(--mono);color:var(--faint);margin-top:3px;}
 
   /* document header demo */
-  .dochead{border:1px solid var(--line);border-radius:2px;padding:var(--s5);background:var(--surface);margin:var(--s3) 0;}
+  .dochead{border:1px solid var(--line);padding:var(--s5);background:var(--surface);margin:var(--s3) 0;}
   .dochead .ey{font:500 11px/1.6 var(--mono);color:var(--ember-text);text-transform:uppercase;letter-spacing:.1em;}
   .dochead h4{font:400 26px/1.15 var(--serif);color:var(--heading);margin:var(--s2) 0 var(--s2);}
   .dochead p{font:400 14px/1.6 var(--serif);color:var(--muted);margin:0;max-width:64ch;}
@@ -196,29 +196,29 @@
   .spec .meta{font:400 11px/1.5 var(--mono);color:var(--muted);margin-top:8px;}
 
   /* token table */
-  table.dt{border-collapse:collapse;width:100%;margin:var(--s4) 0;border:1px solid var(--line);border-radius:2px;overflow:hidden;}
+  table.dt{border-collapse:collapse;width:100%;margin:var(--s4) 0;border:1px solid var(--line);overflow:hidden;}
   table.dt thead th{font:600 10px/1.6 var(--mono);color:var(--muted);text-transform:lowercase;text-align:left;
     padding:9px 12px;border-bottom:1px solid var(--rule);background:var(--raised);}
   table.dt tbody td{font:400 12px/1.5 var(--mono);color:var(--text);padding:8px 12px;border-bottom:1px solid var(--line);background:var(--surface);}
   table.dt tbody tr:last-child td{border-bottom:0;}
-  table.dt td .sw{display:inline-block;width:14px;height:14px;border:1px solid var(--line);border-radius:2px;
+  table.dt td .sw{display:inline-block;width:14px;height:14px;border:1px solid var(--line);border-radius:var(--r-control);
     vertical-align:middle;margin-right:8px;}
   table.dt td.tok{color:var(--heading);}
   table.dt td.use{font-family:var(--serif);color:var(--muted);}
 
   /* icon grid */
   .icons{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--s2);margin:var(--s4) 0;}
-  .ic{border:1px solid var(--line);border-radius:2px;background:var(--surface);padding:var(--s3) var(--s2);
+  .ic{border:1px solid var(--line);background:var(--surface);padding:var(--s3) var(--s2);
     display:flex;flex-direction:column;align-items:center;gap:8px;}
   .ic svg{width:22px;height:22px;stroke:var(--text);fill:none;}
   .ic .nm{font:400 9.5px/1.2 var(--mono);color:var(--muted);text-align:center;}
-  pre.code{background:var(--inset);border:1px solid var(--line);border-radius:2px;padding:var(--s4);overflow-x:auto;
+  pre.code{background:var(--inset);border:1px solid var(--line);padding:var(--s4);overflow-x:auto;
     font:400 12px/1.6 var(--mono);color:var(--text);margin:var(--s3) 0;}
   pre.code .c1{color:var(--ember-text);}
   pre.code .c2{color:var(--blue-text);}
 
   /* do / do-not table */
-  .standard{border:1px solid var(--line);border-radius:2px;overflow:hidden;margin:var(--s4) 0;}
+  .standard{border:1px solid var(--line);overflow:hidden;margin:var(--s4) 0;}
   .strow{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);}
   .strow:last-child{border-bottom:0;}
   .strow.head div{font:600 10px/1.5 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
@@ -249,14 +249,14 @@
 
     /* v6 addendum (drafted): glyph specimens */
     .glyphs{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s3);margin:var(--s4) 0;}
-    .glyph-cell{border:1px solid var(--line);border-radius:2px;background:var(--surface);
+    .glyph-cell{border:1px solid var(--line);background:var(--surface);
       padding:var(--s4) var(--s2);display:flex;flex-direction:column;align-items:center;gap:10px;}
     .glyph-cell svg{width:40px;height:40px;stroke:var(--ember);fill:none;}
     .glyph-cell .nm{font:400 10px/1.4 var(--mono);color:var(--muted);text-align:center;}
     .glyph-cell .of{font:400 9px/1.4 var(--mono);color:var(--faint);text-align:center;}
     @media (max-width:820px){.glyphs{grid-template-columns:repeat(2,1fr);}}
     /* v6 addendum (drafted): the colophon specimen */
-    .colo-demo{border:1px solid var(--line);border-radius:2px;background:var(--surface);
+    .colo-demo{border:1px solid var(--line);background:var(--surface);
       padding:var(--s6) var(--s4);text-align:center;margin:var(--s3) 0;}
     .colo-demo svg{width:26px;height:26px;stroke:var(--ember);fill:none;opacity:.85;}
     .colo-demo .c-rule{display:block;width:64px;height:1px;margin:12px auto;
@@ -387,6 +387,7 @@
       <div class="swrow"><span class="sw" style="background:#232329"></span><span class="tk">--raised</span><span class="hex">#232329</span><span class="rl">elevated surfaces, hovered controls, table headers</span></div>
       <div class="swrow"><span class="sw" style="background:#2A2A30"></span><span class="tk">--line</span><span class="hex">#2A2A30</span><span class="rl">hairline, the common divider</span></div>
       <div class="swrow"><span class="sw" style="background:#3A3A42"></span><span class="tk">--rule</span><span class="hex">#3A3A42</span><span class="rl">heavier scope rule</span></div>
+      <div class="swrow"><span class="sw" style="background:#46413B"></span><span class="tk">--sand</span><span class="hex">#46413B</span><span class="rl">v6 &middot; the warm drawn line: ornament ink, never interface chrome</span></div>
       <div class="swrow"><span class="sw" style="background:#6A8AC4"></span><span class="tk">--blue<span class="role pri">primary</span></span><span class="hex">#6A8AC4</span><span class="rl">edges, focus, primary action</span></div>
       <div class="swrow"><span class="sw" style="background:#97B5E8"></span><span class="tk">--blue-text</span><span class="hex">#97B5E8</span><span class="rl">primary, links and readable type</span></div>
       <div class="swrow"><span class="sw" style="background:#C4956A"></span><span class="tk">--ember<span class="role sec">secondary</span></span><span class="hex">#C4956A</span><span class="rl">section marks, stub rule, provenance edge</span></div>
@@ -410,6 +411,7 @@
       <div class="swrow"><span class="sw" style="background:#FEFDFB"></span><span class="tk">--raised</span><span class="hex">#FEFDFB</span><span class="rl">elevated surfaces</span></div>
       <div class="swrow"><span class="sw" style="background:#D8D3C8"></span><span class="tk">--line</span><span class="hex">#D8D3C8</span><span class="rl">hairline divider</span></div>
       <div class="swrow"><span class="sw" style="background:#9A958A"></span><span class="tk">--rule</span><span class="hex">#9A958A</span><span class="rl">heavier scope rule</span></div>
+      <div class="swrow"><span class="sw" style="background:#BDB5A7"></span><span class="tk">--sand</span><span class="hex">#BDB5A7</span><span class="rl">v6 &middot; the warm drawn line: ornament ink, never interface chrome</span></div>
       <div class="swrow"><span class="sw" style="background:#4A6FB0"></span><span class="tk">--blue<span class="role pri">primary</span></span><span class="hex">#4A6FB0</span><span class="rl">edges, focus, primary action</span></div>
       <div class="swrow"><span class="sw" style="background:#39588F"></span><span class="tk">--blue-text</span><span class="hex">#39588F</span><span class="rl">primary, links and readable type</span></div>
       <div class="swrow"><span class="sw" style="background:#8A6A4A"></span><span class="tk">--ember<span class="role sec">secondary</span></span><span class="hex">#8A6A4A</span><span class="rl">section marks, provenance edge</span></div>
@@ -427,7 +429,7 @@
     <p class="lead">The previous reference carried seven status hues. The v4 palette narrows this to <em>three earth states</em> for condition and adds a <em>sunset range</em> for data, on the argument that fewer colors, each paired with a word, read more reliably than a wide status wheel.</p>
 
     <div class="subhead">Three earth states &middot; condition</div>
-    <p class="note">Green for what is operational or ratified, blue for what is in review or simulated, red for what is pending or wants attention. They appear only on instruments, never tint a panel or a heading, and each is always paired with a word and a square mark, so no condition is carried by color alone.</p>
+    <p class="note">Green for what is operational or ratified, violet for what is in review or simulated, red for what is pending or wants attention. They appear only on instruments, never tint a panel or a heading, and each is always paired with a word and a square mark, so no condition is carried by color alone. <b>v6 moved in-review off blue.</b> Through v5, <code>--info</code> equalled <code>--blue</code>, so a condition wore the action color and a "drafted" chip read as a link. It is now the sunset range's violet text stop (<code>--sun-violet-t</code>: #9E86C4 on ink, #4C3870 on parchment), a color the estate already owned, AA on every ground in both modes, and never the color of anything a reader clicks.</p>
     <div class="chiprow">
       <span class="chip ok"><span class="dot"></span>operational</span>
       <span class="chip info"><span class="dot"></span>in review</span>
@@ -435,7 +437,7 @@
     </div>
     <div class="swatches">
       <div class="swrow"><span class="sw" style="background:var(--ok)"></span><span class="tk">--ok</span><span class="hex">green</span><span class="rl">operational, verified, ratified, live</span></div>
-      <div class="swrow"><span class="sw" style="background:var(--info)"></span><span class="tk">--info</span><span class="hex">blue</span><span class="rl">in review, informational, simulated</span></div>
+      <div class="swrow"><span class="sw" style="background:var(--info)"></span><span class="tk">--info</span><span class="hex">violet</span><span class="rl">in review, informational, simulated (v6: off the action color)</span></div>
       <div class="swrow"><span class="sw" style="background:var(--warn)"></span><span class="tk">--warn</span><span class="hex">red</span><span class="rl">pending, rejected, wants attention</span></div>
     </div>
 
@@ -788,7 +790,7 @@ html[data-sky=<span class="c2">"day"</span>] { --sky-line: ...; --sky-glow: <spa
   <!-- COMPONENTS -->
   <section class="sec" id="components">
     <h2>Components</h2>
-    <p class="lead">The instrument layer under the v4 palette. Controls take a 2px radius and a single-pixel border; primary action reads blue, secondary reads ember, and neither fills a panel.</p>
+    <p class="lead">The instrument layer under the v4 palette. Controls take <code>--r-control</code> and a single-pixel border; primary action reads blue, secondary reads ember, and neither fills a panel. A container is square.</p>
 
     <div class="subhead">Buttons</div>
     <div class="chiprow">
@@ -899,11 +901,77 @@ html[data-sky=<span class="c2">"day"</span>] { --sky-line: ...; --sky-glow: <spa
     <h2>Typography</h2>
     <p class="lead">Libre Baskerville carries the document voice and IBM Plex Mono carries the interface layer, labels, hashes, and the status bar: two faces, amended by decision record (X-06 escalation card, adopted by Todd Youngblood, 2026-07-20). Re-emitted per U-12: Inter is retired from this page, from commons.css, and from the specimens below; the third face loads nowhere the system governs. Formation-era commons documents that inlined it stand until each page's own re-emission.</p>
 
-    <div class="spec"><div class="ex-disp">Display Heading</div><div class="meta">Georgia &middot; 2.2rem &middot; 400 &middot; --heading &mdash; page titles, document headings</div></div>
-    <div class="spec"><div class="ex-dash">Dashboard Heading</div><div class="meta">Libre Baskerville &middot; 1.75rem &middot; 700 &middot; --heading &mdash; panel titles, restated in the document face (U-12)</div></div>
-    <div class="spec"><div class="ex-body">Body text in secondary tone, used for descriptions, subtitles, and supporting copy throughout the cooperative portal.</div><div class="meta">Libre Baskerville &middot; 0.95rem &middot; 400 &middot; --muted</div></div>
-    <div class="spec"><div class="ex-mono">REA &middot; Current Account Balances &middot; 0x1a2b3c&hellip;</div><div class="meta">IBM Plex Mono &middot; 0.82rem &middot; --ember-text &mdash; labels, hashes, data, status bar</div></div>
-    <div class="spec"><div class="ex-label">Section Label</div><div class="meta">IBM Plex Mono &middot; 0.68rem &middot; 600 &middot; uppercase &middot; --faint &mdash; section dividers</div></div>
+    <div class="subhead">The scale &middot; v6, named</div>
+    <p class="note">The estate already used these nine sizes under a dozen different literals. v6 gives each one a name and its own line height, so a page reaches for a step rather than a number. Display and title clamp with the viewport; every step below them is fixed, because a label does not grow with a window. The specimens are set in the tokens they name, so what you read here is what the token renders. Canonical in <code>commons.css</code> under <code>:root</code>; this page inlines the same values.</p>
+    <div class="scale">
+      <div class="row"><span class="tk">--t-display</span><span class="ex" style="font:400 var(--t-display)/var(--lh-display) var(--serif);letter-spacing:-.01em">Called to order</span><span class="meta">clamp(34px, 4.6vw, 50px) / 1.12 &middot; serif 400 &middot; hero and display titles</span></div>
+      <div class="row"><span class="tk">--t-title</span><span class="ex" style="font:400 var(--t-title)/var(--lh-title) var(--serif);letter-spacing:-.01em">Treasury Policy</span><span class="meta">38px / 1.15 &middot; serif 400 &middot; document masthead h1</span></div>
+      <div class="row"><span class="tk">--t-h2</span><span class="ex" style="font:400 var(--t-h2)/var(--lh-h2) var(--serif)">The Allocation Run</span><span class="meta">25px / 1.25 &middot; serif 400 &middot; section heading</span></div>
+      <div class="row"><span class="tk">--t-h3</span><span class="ex" style="font:500 var(--t-h3)/var(--lh-h3) var(--mono);color:var(--ember-text)">reading the ledger</span><span class="meta">13px / 1.5 &middot; mono 500, lowercase &middot; subhead inside a section</span></div>
+      <div class="row"><span class="tk">--t-lead</span><span class="ex" style="font:400 var(--t-lead)/var(--lh-lead) var(--serif)">A lede says what the section holds before the section says it.</span><span class="meta">17px / 1.65 &middot; serif 400 &middot; lede and dek, in <code>--text</code>, never <code>--muted</code></span></div>
+      <div class="row"><span class="tk">--t-body</span><span class="ex" style="font:400 var(--t-body)/var(--lh-body) var(--serif)">Reading copy, at the measure a paragraph can be read without losing the line.</span><span class="meta">16px / 1.75 &middot; serif 400 &middot; the reading step</span></div>
+      <div class="row"><span class="tk">--t-note</span><span class="ex" style="font:400 var(--t-note)/var(--lh-note) var(--serif)">A note, a card's copy, or an honest state.</span><span class="meta">14px / 1.7 &middot; serif 400 &middot; notes, card copy, states</span></div>
+      <div class="row"><span class="tk">--t-ui</span><span class="ex" style="font:500 var(--t-ui)/var(--lh-ui) var(--mono)">Propose &middot; 2026-09-01 &middot; $2,400.00</span><span class="meta">12px / 1.5 &middot; mono 500 &middot; controls, table cells; chips at 10.5</span></div>
+      <div class="row"><span class="tk">--t-label</span><span class="ex" style="font:500 var(--t-label)/var(--lh-label) var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--ember-text)">REA &middot; Current Account Balances</span><span class="meta">11px / 1.6 &middot; mono 500, uppercase, tracked &middot; eyebrows, labels, meta lines</span></div>
+    </div>
+    <div class="rule2">
+      <div class="do"><b>Do.</b> Set every size through a step. Pair a step with its own line height. Use <code>--t-display</code> once per page at most. Set a lede in <code>--text</code>.</div>
+      <div class="dont"><b>Do not.</b> Write a pixel or rem literal for type. Set a lede or a paragraph in <code>--muted</code>; it is for labels and secondary lines. Add a tenth step: if none of the nine fits, the design is wrong, not the scale. Use the italic serif as a display accent word.</div>
+    </div>
+    <p class="note"><b>What was replaced.</b> The v5 specimens named "Georgia at 2.2rem" for a display heading while the page set Libre Baskerville at 34px and commons.css set 38px. Georgia is the fallback face, not a specimen, and 2.2rem is a size no page uses. The dashboard heading at 1.75rem bold stays, as <code>.dash-h</code>, restated in the document face (U-12); it is the one bold serif in the system and it sits between <code>--t-title</code> and <code>--t-h2</code> on purpose, since a panel title is smaller than a document's and heavier than a section's.</p>
+  </section>
+
+  <!-- V6: RHYTHM, RADIUS, MEASURE, MOTION -->
+  <section class="sec" id="rhythm">
+    <h2>Rhythm, Radius, Measure, Motion</h2>
+    <p class="lead">Four decisions v5 practiced without stating. Each is a token or a sentence now, so it can be checked rather than remembered.</p>
+
+    <div class="subhead">Rhythm &middot; the eight steps, and what each one is for</div>
+    <p class="note">The spacing tokens are unchanged from v4. What is new is the assignment: each step belongs to one scale of the page, and a component does not borrow from the scale above it. Symmetry is not required and is not a virtue; a section's top may be heavier than its foot. What is required is that every gap be one of these eight.</p>
+    <div class="rhythm" aria-hidden="true">
+      <div class="st" style="--w:4px"><i></i><span>s1 &middot; 4</span></div>
+      <div class="st" style="--w:8px"><i></i><span>s2 &middot; 8</span></div>
+      <div class="st" style="--w:12px"><i></i><span>s3 &middot; 12</span></div>
+      <div class="st" style="--w:16px"><i></i><span>s4 &middot; 16</span></div>
+      <div class="st" style="--w:24px"><i></i><span>s5 &middot; 24</span></div>
+      <div class="st" style="--w:32px"><i></i><span>s6 &middot; 32</span></div>
+      <div class="st" style="--w:48px"><i></i><span>s7 &middot; 48</span></div>
+      <div class="st" style="--w:64px"><i></i><span>s8 &middot; 64</span></div>
+    </div>
+    <table class="dt">
+      <thead><tr><th>steps</th><th>scale</th><th>examples</th></tr></thead>
+      <tbody>
+        <tr><td class="tok">--s1, --s2</td><td class="use">inside a control</td><td class="use">chip padding, the gap between a mark and its word, a label to its field</td></tr>
+        <tr><td class="tok">--s3, --s4</td><td class="use">inside a component</td><td class="use">card padding, table cell padding, a heading to its first paragraph</td></tr>
+        <tr><td class="tok">--s5, --s6</td><td class="use">between components</td><td class="use">card grid gap, a subhead above its block, a rule's vertical margin</td></tr>
+        <tr><td class="tok">--s7, --s8</td><td class="use">between sections</td><td class="use">section top padding, masthead padding, the footer's distance from the last block</td></tr>
+      </tbody>
+    </table>
+    <div class="rule2">
+      <div class="do"><b>Do.</b> Let a section breathe at <code>--s7</code> or <code>--s8</code> and a card hold its copy at <code>--s4</code>. Use the ornament's own margin (<code>--s6</code>) when a rule replaces a plain divider.</div>
+      <div class="dont"><b>Do not.</b> Write a gap as a literal. Space every block identically; monotonous symmetrical spacing is a named tell. Stack two between-section gaps because two elements each brought one.</div>
+    </div>
+
+    <div class="subhead">Radius &middot; one value, and none</div>
+    <p class="note">v5 wrote <code>2px</code> about thirty times and pages under <code>/commons/</code> drifted to 4, 5, 6, and 8. v6 tokens it: <code>--r-control</code> is 2px and belongs to buttons, chips, inputs, the toggle, code, and small swatches, things a hand operates or the eye reads as a unit. Everything else is square: cards, panels, tables, wells, rules, images. Rounding by default is the one habit four of the nine research sources name first, and a square card against a warm ground is half of what makes this estate look drawn rather than generated. <code>--r-none</code> exists so a page can say so explicitly.</p>
+    <div class="rule2">
+      <div class="do"><b>Do.</b> <code>border-radius: var(--r-control)</code> on a control. Leave the property off a container, or write <code>var(--r-none)</code> where a reader might expect otherwise.</div>
+      <div class="dont"><b>Do not.</b> Round a card, a panel, a table, or a rule. Introduce a second radius for "large" elements. Write a radius literal anywhere.</div>
+    </div>
+
+    <div class="subhead">Measure &middot; three, named</div>
+    <p class="note">Six content widths were in live use across the estate (70rem, 1060, 920, 860, 800, 780). None had been chosen over another. v6 names three: <code>--m-read</code> at 920px for a document column, holding a <code>--m-prose</code> of 68ch inside it; <code>--m-frame</code> at 70rem for the frame cap and every display surface, as the v5 display measure already decided; and <code>--m-hud</code> at 1600px for instruments. A page that needs a fourth writes a decision record. This page, at 1060px in v5, now sits on the frame measure; the U-24 folding of the front page onto the same cap is the precedent.</p>
+    <div class="rule2">
+      <div class="do"><b>Do.</b> Reading surfaces on <code>--m-read</code>; the topbar, display pages, and this reference on <code>--m-frame</code>; the HUD and ledgers on <code>--m-hud</code>. Prose inside any of them capped at <code>--m-prose</code>.</div>
+      <div class="dont"><b>Do not.</b> Invent a width for one page. Let a paragraph run the full frame. Use a viewport fraction as a gutter; the gutter moves through the spacing steps, <code>clamp(var(--s5), 5vw, var(--s7))</code>.</div>
+    </div>
+
+    <div class="subhead">Motion &middot; color and opacity, nothing else</div>
+    <p class="note">The estate's transitions are two: <code>--dur</code> at .4s for the mode change and <code>--micro</code> at .16s for a control's hover, both on the one easing curve, both on background, border, text, or opacity. Nothing translates, scales, bounces, or reveals on scroll. A skeleton shimmers; a spinner does not exist. Reduced motion turns the whole thing off. The rule was practiced in v5 without being written; now it is written, because a rule kept by hand drifts.</p>
+    <div class="rule2">
+      <div class="do"><b>Do.</b> Transition <code>background-color</code>, <code>border-color</code>, <code>color</code>, <code>opacity</code>, <code>text-decoration-thickness</code>. Respect <code>prefers-reduced-motion</code> with <code>transition: none</code>.</div>
+      <div class="dont"><b>Do not.</b> Transition <code>transform</code>. Animate an ornament; it has no state. Reveal on scroll, pulse a status dot, run a marquee, or use a bounce or elastic curve. Animate a card on hover; a card is not a control.</div>
+    </div>
   </section>
 
   <!-- TOKEN TABLE -->
@@ -925,8 +993,12 @@ html[data-sky=<span class="c2">"day"</span>] { --sky-line: ...; --sky-glow: <spa
         <tr><td class="tok"><span class="sw" style="background:#CFCBC4"></span>--text</td><td>#CFCBC4</td><td class="use">body copy</td></tr>
         <tr><td class="tok"><span class="sw" style="background:#8A857E"></span>--muted</td><td>#8A857E</td><td class="use">secondary, nav text</td></tr>
         <tr><td class="tok"><span class="sw" style="background:#6A9A6A"></span>--ok</td><td>#6A9A6A</td><td class="use">operational, verified, live</td></tr>
-        <tr><td class="tok"><span class="sw" style="background:#6A8AC4"></span>--info</td><td>#6A8AC4</td><td class="use">in review, informational, completed</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#9E86C4"></span>--info</td><td>#9E86C4</td><td class="use">in review, informational, completed (v6: the violet text stop, off the action color)</td></tr>
         <tr><td class="tok"><span class="sw" style="background:#C46A6A"></span>--warn</td><td>#C46A6A</td><td class="use">pending, rejected, attention</td></tr>
+        <tr><td class="tok"><span class="sw" style="background:#46413B"></span>--sand</td><td>#46413B</td><td class="use">v6 &middot; the warm drawn line; ornament ink is mixed from it. Light: #BDB5A7</td></tr>
+        <tr><td class="tok">--t-display &hellip; --t-label</td><td>nine steps</td><td class="use">v6 &middot; the type scale, each with its <code>--lh-*</code>; see Typography</td></tr>
+        <tr><td class="tok">--r-control, --r-none</td><td>2px, 0</td><td class="use">v6 &middot; the only two radii</td></tr>
+        <tr><td class="tok">--m-read, --m-frame, --m-hud, --m-prose</td><td>920px, 70rem, 1600px, 68ch</td><td class="use">v6 &middot; the three measures and the prose cap</td></tr>
       </tbody>
     </table>
   </section>
