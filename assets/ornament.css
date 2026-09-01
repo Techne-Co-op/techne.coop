@@ -1,0 +1,251 @@
+/* ============================================================
+   ornament.css · the strata register · design system v6 (drafted)
+
+   The ornamental layer of techne.coop: patterns and motifs a page may
+   place within or between its sections. Everything here is geometry,
+   rhythm, banding, terracing, and gradient of light, abstracted from
+   the American Southwest as a place: canyon strata, the bench and the
+   mesa rim, adobe massing, the horizon at dusk, and weaving as a
+   technique in general. Nothing here reproduces a pattern that belongs
+   to a people. The sourcing line is written down at
+   techne.coop/design-system/#strata and in RESEARCH/DESIGN_V6_RESEARCH.md.
+
+   Rules the whole sheet keeps:
+   - Tokens only. No hex outside a custom-property definition (X-06).
+     Every color is a mix of a standing token, so both modes are honest
+     without a second set of values.
+   - Decorative only. Every element carrying one of these classes is
+     aria-hidden or empty; the words beside it carry the meaning.
+   - Never behind body copy at reading size. A texture may sit under a
+     masthead, a band's head, a footer, or an empty state, and stops
+     before the paragraph begins.
+   - One ornament per boundary. A section top takes the horizon line,
+     a strata rule, or a terrace rule, never two of them.
+   - Reduced motion is respected: nothing here moves.
+
+   Usage, in <head>, after the page's own token block:
+     <link rel="stylesheet" href="/assets/ornament.css">
+
+   The Common Record Series · RegenHub, LCA · September 2026
+   ============================================================ */
+
+/* ---------- the ornament's own tokens ----------
+   Two inks and one fill, derived from the standing palette. --sand is
+   the one new neutral v6 adds to the ground ramp: the ramp went cool
+   (--line, --rule) and then warm (--faint) with nothing warm at rule
+   weight, so ornament drawn in --rule read as interface chrome and
+   ornament drawn in --faint read as disabled text. --sand sits between
+   them, warm, at the weight of a drawn line. */
+html[data-mode="dark"] {
+  --sand: #46413B;
+  --orn-ink: color-mix(in srgb, var(--ember) 40%, var(--sand));
+  --orn-ink-soft: color-mix(in srgb, var(--orn-ink) 55%, transparent);
+  --orn-alpha: .9;
+  --orn-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+html[data-mode="light"] {
+  --sand: #BDB5A7;
+  --orn-ink: color-mix(in srgb, var(--ember) 45%, var(--sand));
+  --orn-ink-soft: color-mix(in srgb, var(--orn-ink) 60%, transparent);
+  --orn-alpha: 1;
+  --orn-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+/* the horizon fade every full-width ornament shares: held at the
+   center, gone at the margins, the v5 instrument applied to a band */
+:root {
+  --orn-fade: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  --orn-stop: var(--section-stop, var(--ember));
+}
+
+/* ---------- 1 · the strata rule ----------
+   A section divider. Four hairlines, the beds thinning upward the way
+   a canyon wall reads from the river: the lowest bed heaviest, each
+   one above lighter and further from the last. Fades at both ends.
+   Use between two blocks of the same section, or under a masthead in
+   place of the plain rule. Do not stack it with the horizon line on a
+   tinted section; the section takes one or the other. */
+.strata {
+  height: 15px; width: 100%; margin: var(--s6) 0;
+  background:
+    linear-gradient(var(--orn-ink), var(--orn-ink)) 0 14px / 100% 1px no-repeat,
+    linear-gradient(var(--orn-ink), var(--orn-ink)) 0 10px / 100% 1px no-repeat,
+    linear-gradient(var(--orn-ink-soft), var(--orn-ink-soft)) 0 5px / 100% 1px no-repeat,
+    linear-gradient(var(--orn-ink-soft), var(--orn-ink-soft)) 0 0 / 100% 1px no-repeat;
+  -webkit-mask-image: var(--orn-fade); mask-image: var(--orn-fade);
+  opacity: var(--orn-alpha);
+}
+/* .strata.tint takes the section's stop for its heaviest bed */
+.strata.tint {
+  background:
+    linear-gradient(var(--orn-stop), var(--orn-stop)) 0 14px / 100% 1px no-repeat,
+    linear-gradient(var(--orn-ink), var(--orn-ink)) 0 10px / 100% 1px no-repeat,
+    linear-gradient(var(--orn-ink-soft), var(--orn-ink-soft)) 0 5px / 100% 1px no-repeat,
+    linear-gradient(var(--orn-ink-soft), var(--orn-ink-soft)) 0 0 / 100% 1px no-repeat;
+}
+/* .strata.short holds to the measure of a heading, left-aligned */
+.strata.short { width: min(100%, 220px); margin: var(--s4) 0; -webkit-mask-image: linear-gradient(90deg, #000 70%, transparent); mask-image: linear-gradient(90deg, #000 70%, transparent); }
+
+/* ---------- 2 · the terrace rule ----------
+   A stepped profile, one hairline, drawn as the skyline of a bench:
+   runs of unequal length, risers of four pixels, always horizontal,
+   never symmetrical, never mirrored into a diamond. It is a landform,
+   not a pattern. The tile repeats across the full width and fades at
+   the ends. Use at the head of a band section or the foot of a
+   masthead. Do not use it as a border on a card or a control, and do
+   not stack two of them to make a lattice. */
+.terrace {
+  height: 18px; width: 100%; margin: var(--s6) 0;
+  background-color: var(--orn-ink);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='288' height='18' viewBox='0 0 288 18'%3E%3Cpath d='M0 13.5H34V9.5H58V5.5H110V9.5H134V13.5H176V9.5H232V5.5H256V1.5H288' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E"), var(--orn-fade);
+  -webkit-mask-composite: source-in;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='288' height='18' viewBox='0 0 288 18'%3E%3Cpath d='M0 13.5H34V9.5H58V5.5H110V9.5H134V13.5H176V9.5H232V5.5H256V1.5H288' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E"), var(--orn-fade);
+  mask-composite: intersect;
+  -webkit-mask-repeat: repeat-x, no-repeat; mask-repeat: repeat-x, no-repeat;
+  -webkit-mask-size: 288px 18px, 100% 100%; mask-size: 288px 18px, 100% 100%;
+  opacity: var(--orn-alpha);
+}
+.terrace.tint { background-color: var(--orn-stop); }
+
+/* ---------- 3 · the descent ----------
+   A single stepped silhouette across the whole width, falling from
+   left to right: the mesa to the plain. A filled band, not a line, in
+   the section's stop at a wash strength, so it reads as ground light
+   rather than as a shape. Place it at the foot of a masthead or hero,
+   flush to the section edge, and let the next block begin below it.
+   Do not place text inside it, and do not flip it to climb: the page
+   descends. */
+.descent {
+  height: clamp(28px, 4vw, 48px); width: 100%; margin: 0;
+  background: color-mix(in srgb, var(--orn-stop) 14%, transparent);
+  clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 88%, 82% 88%, 82% 70%, 66% 70%, 66% 52%, 47% 52%, 47% 34%, 30% 34%, 30% 18%, 14% 18%, 14% 0);
+}
+.descent.soft { background: color-mix(in srgb, var(--orn-stop) 8%, transparent); }
+
+/* ---------- 4 · the horizon field ----------
+   A page header's backdrop as gradient of light: the sky's stop
+   fading down into the ground, a warm band low where the ground
+   holds the day's heat, and the sweep as one hairline at the foot.
+   Wash strengths are the U-26 caps. Use behind a masthead or a hero
+   on a display surface. Do not use it behind a reading column, and
+   do not raise the sky mix past ten percent. */
+.field {
+  position: relative; isolation: isolate;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--orn-stop) 9%, var(--bg)) 0,
+      var(--bg) 58%,
+      color-mix(in srgb, var(--ember) 5%, var(--bg)) 100%);
+}
+.field::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--sky-line, linear-gradient(90deg, var(--sun-blue), var(--sun-violet), var(--sun-rose), var(--sun-coral), var(--sun-amber), var(--sun-gold)));
+  opacity: var(--sky-glow, .55);
+  pointer-events: none;
+}
+
+/* ---------- 5 · the weave ----------
+   A twill, the diagonal structure every loom in the world makes, at
+   a strength below notice. Two diagonal hairline sets crossing, in
+   the ornament ink, over a band or an empty state. This is technique,
+   not a pattern: there is no figure in it, no border, no center. Cap
+   the mix at eight percent. Do not put it behind a paragraph, and do
+   not color it with a sunset stop. */
+.weave {
+  background-image:
+    repeating-linear-gradient(45deg, color-mix(in srgb, var(--orn-ink) 8%, transparent) 0 1px, transparent 1px 9px),
+    repeating-linear-gradient(-45deg, color-mix(in srgb, var(--orn-ink) 8%, transparent) 0 1px, transparent 1px 9px);
+}
+/* .weave.edge confines the twill to a left margin the width of a gutter */
+.weave.edge {
+  background-size: var(--s7) 100%, var(--s7) 100%;
+  background-repeat: no-repeat;
+}
+
+/* ---------- 6 · the adobe grain ----------
+   Wall texture: monochrome noise at a strength the eye registers as
+   matte rather than as pattern. Applied as an overlay on a band or a
+   hero through ::after, so it costs the page nothing else. Capped at
+   six percent. One per page. Do not put it behind body copy at
+   reading size and do not combine it with the weave. */
+.grain { position: relative; isolation: isolate; }
+.grain::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background-image: var(--orn-grain);
+  opacity: .06;
+  pointer-events: none;
+}
+
+/* ---------- 7 · the terrace edge (cards) ----------
+   A card's top edge as three descending steps in the section's stop,
+   at the left, on a plain hairline card. The edge says which section
+   a card belongs to, the way the tinted top border did in U-26, with
+   a shape instead of a bar. Use on cards inside a tinted section. Do
+   not use on controls, chips, or inputs, and do not put one on every
+   card of a grid whose cards are not the section's own. */
+.card-terrace { position: relative; border: 1px solid var(--line); background: var(--surface); }
+.card-terrace::before {
+  content: ""; position: absolute; left: -1px; top: -1px; width: 72px; height: 8px;
+  background: var(--orn-stop);
+  clip-path: polygon(0 0, 24px 0, 24px 3px, 48px 3px, 48px 6px, 72px 6px, 72px 8px, 0 8px);
+}
+.card-terrace:hover::before { width: 96px; clip-path: polygon(0 0, 32px 0, 32px 3px, 64px 3px, 64px 6px, 96px 6px, 96px 8px, 0 8px); }
+
+/* ---------- 8 · the tick rule ----------
+   Rule-work for instruments and tables: a hairline carrying survey
+   ticks, a short one every eight pixels and a taller one every forty,
+   so a rule reads as measured rather than merely drawn. Use above a
+   totals row, under a table caption, or between the panels of an
+   instrument. Do not use it on a reading page. */
+.tick {
+  height: 7px; width: 100%; margin: var(--s3) 0;
+  background:
+    repeating-linear-gradient(90deg, var(--orn-ink) 0 1px, transparent 1px 40px) 0 0 / 100% 7px no-repeat,
+    repeating-linear-gradient(90deg, var(--orn-ink-soft) 0 1px, transparent 1px 8px) 0 3px / 100% 4px no-repeat,
+    linear-gradient(var(--orn-ink), var(--orn-ink)) 0 6px / 100% 1px no-repeat;
+  opacity: var(--orn-alpha);
+}
+
+/* ---------- 9 · the ground (page foot) ----------
+   The footer's backdrop: the ground the page stands on. The page
+   ground deepens to the inset over the footer's height with three
+   beds in it, heaviest at the bottom. Use as the footer's own
+   background; the formation notice and the colophon sit on it. Do
+   not use it anywhere above the footer. */
+.ground {
+  background:
+    linear-gradient(var(--orn-ink), var(--orn-ink)) 0 100% / 100% 1px no-repeat,
+    linear-gradient(var(--orn-ink-soft), var(--orn-ink-soft)) 0 calc(100% - 6px) / 100% 1px no-repeat,
+    linear-gradient(var(--orn-ink-soft), var(--orn-ink-soft)) 0 calc(100% - 15px) / 100% 1px no-repeat,
+    linear-gradient(180deg, var(--bg), var(--inset));
+}
+
+/* ---------- 10 · the dry wash (empty state) ----------
+   Absence as a place: the sentence that says why the thing is not
+   here and what it waits on, on an inset well whose left gutter
+   carries the twill, with the terrace rule short above the sentence.
+   The words are the state; the ornament is only the room they sit
+   in. Use wherever a list, a table, or a bed is empty. Do not use it
+   for an error, which takes the form status line, and do not let the
+   ornament stand without the sentence. */
+.wash {
+  position: relative; background: var(--inset); border: 1px solid var(--line);
+  padding: var(--s5) var(--s5) var(--s5) var(--s7);
+  font: 400 var(--t-note, 14px) / 1.7 var(--serif); color: var(--text);
+}
+.wash::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: var(--s5);
+  background-image:
+    repeating-linear-gradient(45deg, color-mix(in srgb, var(--orn-ink) 10%, transparent) 0 1px, transparent 1px 7px),
+    repeating-linear-gradient(-45deg, color-mix(in srgb, var(--orn-ink) 10%, transparent) 0 1px, transparent 1px 7px);
+  border-right: 1px solid var(--line);
+}
+.wash .terrace { margin: 0 0 var(--s3); height: 12px; width: min(100%, 288px);
+  -webkit-mask-size: 288px 18px, 100% 100%; mask-size: 288px 18px, 100% 100%;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='288' height='18' viewBox='0 0 288 18'%3E%3Cpath d='M0 13.5H34V9.5H58V5.5H110V9.5H134V13.5H176V9.5H232V5.5H256V1.5H288' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E"), linear-gradient(90deg, #000 60%, transparent);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='288' height='18' viewBox='0 0 288 18'%3E%3Cpath d='M0 13.5H34V9.5H58V5.5H110V9.5H134V13.5H176V9.5H232V5.5H256V1.5H288' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E"), linear-gradient(90deg, #000 60%, transparent);
+}
+.wash b { color: var(--heading); }
+.wash .waits { display: block; margin-top: var(--s2); font: 400 var(--t-label, 11px) / 1.6 var(--mono); color: var(--muted); letter-spacing: .04em; }
+
+/* ---------- print and motion ---------- */
+@media print { .strata, .terrace, .descent, .tick, .grain::after, .weave, .wash::before { display: none; } }
