@@ -45,7 +45,7 @@ html[data-mode="dark"] {
   --blue:#6A8AC4; --blue-text:#97B5E8;
   --ember:#C4956A; --ember-text:#D4A57A;
   --ok:#6A9A6A; --ok-dim:rgba(106,154,106,0.13);
-  --info:#9E86C4; --info-dim:rgba(158, 134, 196,0.13);
+  --info:#6A8AC4; --info-dim:rgba(106,138,196,0.13);
   --warn:#C46A6A; --warn-dim:rgba(196,106,106,0.13);
   --ember-dim:rgba(196,149,106,0.13);
   color-scheme: dark;
@@ -57,7 +57,7 @@ html[data-mode="light"] {
   --blue:#4A6FB0; --blue-text:#39588F;
   --ember:#8A6A4A; --ember-text:#6F5436;
   --ok:#4A7A4A; --ok-dim:rgba(74,122,74,0.10);
-  --info:#4C3870; --info-dim:rgba(76, 56, 112,0.10);
+  --info:#4A6FB0; --info-dim:rgba(74,111,176,0.10);
   --warn:#A84F4C; --warn-dim:rgba(168,79,76,0.10);
   --ember-dim:rgba(138,106,74,0.10);
   color-scheme: light;
@@ -197,7 +197,7 @@ em { font-style:italic; color:var(--heading); }
   background:var(--surface); white-space:nowrap; vertical-align:middle; color:var(--muted);
 }
 .chip .dot { width:5px; height:5px; border-radius:1px; flex-shrink:0; }
-.chip.drafted     { color:var(--info); border-color:var(--info); background:var(--info-dim); }
+.chip.drafted     { color:var(--blue-text); border-color:var(--blue); background:var(--info-dim); }
 .chip.drafted .dot { background:var(--blue); }
 .chip.anticipated { color:var(--faint); border-color:var(--line); }
 .chip.anticipated .dot { background:transparent; border:1px solid var(--faint); }
@@ -577,8 +577,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <div class="token-group">
       <div class="token-group-label">accent</div>
       <div class="token-row"><span class="token-name">--ember / --ember-text</span><span class="token-val">Primary accent: addresses, eyebrows, active nav, left borders</span></div>
-      <div class="token-row"><span class="token-name">--blue / --blue-text</span><span class="token-val">Primary interactive: links, decide panels</span></div>
-      <div class="token-row"><span class="token-name">--info / --info-dim</span><span class="token-val">In review: <code>drafted</code> chips. The violet text stop since v6, so a condition no longer wears the action color</span></div>
+      <div class="token-row"><span class="token-name">--blue / --blue-text</span><span class="token-val">Primary interactive: links, <code>drafted</code> chips, decide panels</span></div>
       <div class="token-row"><span class="token-name">--ok / --ok-dim</span><span class="token-val">Positive / filed / verified state</span></div>
       <div class="token-row"><span class="token-name">--warn / --warn-dim</span><span class="token-val">Open / blocked / stop state</span></div>
     </div>
