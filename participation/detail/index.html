@@ -165,8 +165,12 @@ table.matrix tbody tr.m-line th b { color: var(--ember-text); font-weight: 600; 
 /* participation cards, per commons.css (U-08). Price is no longer in the
    card head: it is one row among the others, so no card reads as a rung. */
 .pgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(232px, 100%), 1fr)); gap: var(--s4); margin: var(--s5) 0; }
-.pcard { background: var(--surface); border: 1px solid var(--line); border-top: 2px solid var(--shue, var(--ember));
+.pcard { background: var(--surface); border: 1px solid var(--line); position: relative;
   display: flex; flex-direction: column; }
+/* v6: the track's tint as the terrace edge, in place of the tinted top bar (design-system/#strata, 7) */
+.pcard::before { content: ""; position: absolute; left: -1px; top: -1px; width: 72px; height: 8px;
+  background: var(--shue, var(--ember));
+  clip-path: polygon(0 0, 24px 0, 24px 3px, 48px 3px, 48px 6px, 72px 6px, 72px 8px, 0 8px); }
 .pcard .p-track { font: 500 10px/1.6 var(--mono); letter-spacing: .1em; text-transform: uppercase;
   color: var(--shue-t, var(--ember-text)); padding: var(--s4) var(--s4) 0; }
 .pcard .p-class { font: 400 11px/1.6 var(--mono); color: var(--muted); padding: 0 var(--s4); }

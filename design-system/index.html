@@ -94,6 +94,7 @@
   .mast h1{font:400 var(--t-title)/var(--lh-title) var(--serif);color:var(--heading);margin:var(--s4) 0 var(--s3);letter-spacing:-.01em;}
   .mast p{font:400 var(--t-lead)/var(--lh-lead) var(--serif);color:var(--text);margin:0;max-width:var(--m-prose);}
   .mast + .terrace{margin:0 0 var(--s5);}
+  .mast.field::after{display:none;} /* one ornament per boundary: this masthead's foot is the terrace rule, so the field's sweep line yields */
   .band{display:flex;gap:0;height:8px;margin:var(--s5) 0 0;border:1px solid var(--line);}
   .band span{flex:1;}
   .band-cap{font:400 10px/1.5 var(--mono);color:var(--faint);margin-top:6px;display:flex;justify-content:space-between;}
