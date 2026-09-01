@@ -46,7 +46,7 @@ html[data-mode="dark"] {
   --blue:#6A8AC4; --blue-text:#97B5E8;
   --ember:#C4956A; --ember-text:#D4A57A;
   --ok:#6A9A6A; --ok-dim:rgba(106,154,106,0.13);
-  --info:#6A8AC4; --info-dim:rgba(106,138,196,0.13);
+  --info:#9E86C4; --info-dim:rgba(158, 134, 196,0.13);
   --warn:#C46A6A; --warn-dim:rgba(196,106,106,0.13);
   --ember-dim:rgba(196,149,106,0.13);
   color-scheme: dark;
@@ -58,7 +58,7 @@ html[data-mode="light"] {
   --blue:#4A6FB0; --blue-text:#39588F;
   --ember:#8A6A4A; --ember-text:#6F5436;
   --ok:#4A7A4A; --ok-dim:rgba(74,122,74,0.10);
-  --info:#4A6FB0; --info-dim:rgba(74,111,176,0.10);
+  --info:#4C3870; --info-dim:rgba(76, 56, 112,0.10);
   --warn:#A84F4C; --warn-dim:rgba(168,79,76,0.10);
   --ember-dim:rgba(138,106,74,0.10);
   color-scheme: light;
@@ -103,7 +103,7 @@ a:hover { text-decoration-thickness:2px; }
   padding:5px 10px; border-radius:2px; border:1px solid var(--line);
 }
 .stat-chip .n { font-size:0.9rem; font-weight:500; }
-.stat-chip.drafted  { color:var(--blue-text); border-color:var(--blue); background:var(--info-dim); }
+.stat-chip.drafted  { color:var(--info); border-color:var(--info); background:var(--info-dim); }
 .stat-chip.anticipated { color:var(--faint); border-color:var(--line); }
 .stat-chip.open     { color:var(--warn); border-color:var(--warn); background:var(--warn-dim); }
 .stat-chip.verified { color:var(--ok); border-color:var(--ok); background:var(--ok-dim); }
@@ -192,7 +192,7 @@ a:hover { text-decoration-thickness:2px; }
   color:var(--muted);
 }
 .chip .dot { width:5px; height:5px; border-radius:1px; flex-shrink:0; }
-.chip.drafted     { color:var(--blue-text); border-color:var(--blue); background:var(--info-dim); }
+.chip.drafted     { color:var(--info); border-color:var(--info); background:var(--info-dim); }
 .chip.drafted .dot { background:var(--blue); }
 .chip.anticipated { color:var(--faint); border-color:var(--line); }
 .chip.anticipated .dot { background:transparent; border:1px solid var(--faint); }
@@ -260,7 +260,7 @@ a:hover { text-decoration-thickness:2px; }
 .tree-sec-label { font-size:0.6rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--ember-text); margin-bottom:var(--s4); padding-bottom:var(--s2); border-bottom:1px solid var(--line); }
 pre.tree { background:var(--inset); border:1px solid var(--line); padding:var(--s4); overflow-x:auto; font-size:0.78rem; line-height:1.7; color:var(--text); }
 pre.tree .ok      { color:var(--ok); }
-pre.tree .drafted { color:var(--blue-text); }
+pre.tree .drafted { color:var(--info); }
 pre.tree .ant     { color:var(--faint); }
 pre.tree .ember   { color:var(--ember-text); }
 .migration-table { width:100%; border-collapse:collapse; border:1px solid var(--line); }
