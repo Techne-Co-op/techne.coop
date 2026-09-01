@@ -21,7 +21,11 @@
      before the paragraph begins.
    - One ornament per boundary. A section top takes the horizon line,
      a strata rule, or a terrace rule, never two of them.
-   - Reduced motion is respected: nothing here moves.
+   - Nothing here moves, and nothing here reveals on scroll. The v6
+     motion rule is that only color and opacity transition; an ornament
+     has no state to transition to, so it has no transition at all.
+   - Forced colors and print drop the layer whole. It carries no meaning
+     a reader loses.
 
    Usage, in <head>, after the page's own token block:
      <link rel="stylesheet" href="/assets/ornament.css">
@@ -35,25 +39,36 @@
    (--line, --rule) and then warm (--faint) with nothing warm at rule
    weight, so ornament drawn in --rule read as interface chrome and
    ornament drawn in --faint read as disabled text. --sand sits between
-   them, warm, at the weight of a drawn line. */
-html[data-mode="dark"] {
+   them, warm, at the weight of a drawn line. Its value is canonical in
+   commons.css; the copy here must agree (the token audit checks).
+
+   The scoped-mode classes are declared beside the document modes so a
+   specimen on the design-system page can show the other mode honestly:
+   a custom property that mixes tokens resolves where it is declared,
+   so declaring it only on <html> would leak the page's mode into the
+   demo. */
+html[data-mode="dark"], .mode-dark {
   --sand: #46413B;
   --orn-ink: color-mix(in srgb, var(--ember) 40%, var(--sand));
   --orn-ink-soft: color-mix(in srgb, var(--orn-ink) 55%, transparent);
   --orn-alpha: .9;
   --orn-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 }
-html[data-mode="light"] {
+html[data-mode="light"], .mode-light {
   --sand: #BDB5A7;
   --orn-ink: color-mix(in srgb, var(--ember) 45%, var(--sand));
   --orn-ink-soft: color-mix(in srgb, var(--orn-ink) 60%, transparent);
   --orn-alpha: 1;
   --orn-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 }
-/* the horizon fade every full-width ornament shares: held at the
-   center, gone at the margins, the v5 instrument applied to a band */
+/* mode-invariant: the fades every full-width ornament shares (held at
+   the center, gone at the margins, the v5 horizon applied to a band),
+   the terrace profile drawn once, and the stop an ornament tints with.
+   The mask colors are opacity, not color, so they live in tokens. */
 :root {
   --orn-fade: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  --orn-fade-left: linear-gradient(90deg, #000 60%, transparent);
+  --orn-terrace: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='288' height='18' viewBox='0 0 288 18'%3E%3Cpath d='M0 13.5H34V9.5H58V5.5H110V9.5H134V13.5H176V9.5H232V5.5H256V1.5H288' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E");
   --orn-stop: var(--section-stop, var(--ember));
 }
 
@@ -83,7 +98,7 @@ html[data-mode="light"] {
     linear-gradient(var(--orn-ink-soft), var(--orn-ink-soft)) 0 0 / 100% 1px no-repeat;
 }
 /* .strata.short holds to the measure of a heading, left-aligned */
-.strata.short { width: min(100%, 220px); margin: var(--s4) 0; -webkit-mask-image: linear-gradient(90deg, #000 70%, transparent); mask-image: linear-gradient(90deg, #000 70%, transparent); }
+.strata.short { width: min(100%, 220px); margin: var(--s4) 0; -webkit-mask-image: var(--orn-fade-left); mask-image: var(--orn-fade-left); }
 
 /* ---------- 2 · the terrace rule ----------
    A stepped profile, one hairline, drawn as the skyline of a bench:
@@ -96,9 +111,9 @@ html[data-mode="light"] {
 .terrace {
   height: 18px; width: 100%; margin: var(--s6) 0;
   background-color: var(--orn-ink);
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='288' height='18' viewBox='0 0 288 18'%3E%3Cpath d='M0 13.5H34V9.5H58V5.5H110V9.5H134V13.5H176V9.5H232V5.5H256V1.5H288' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E"), var(--orn-fade);
+  -webkit-mask-image: var(--orn-terrace), var(--orn-fade);
   -webkit-mask-composite: source-in;
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='288' height='18' viewBox='0 0 288 18'%3E%3Cpath d='M0 13.5H34V9.5H58V5.5H110V9.5H134V13.5H176V9.5H232V5.5H256V1.5H288' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E"), var(--orn-fade);
+  mask-image: var(--orn-terrace), var(--orn-fade);
   mask-composite: intersect;
   -webkit-mask-repeat: repeat-x, no-repeat; mask-repeat: repeat-x, no-repeat;
   -webkit-mask-size: 288px 18px, 100% 100%; mask-size: 288px 18px, 100% 100%;
@@ -180,15 +195,16 @@ html[data-mode="light"] {
    at the left, on a plain hairline card. The edge says which section
    a card belongs to, the way the tinted top border did in U-26, with
    a shape instead of a bar. Use on cards inside a tinted section. Do
-   not use on controls, chips, or inputs, and do not put one on every
-   card of a grid whose cards are not the section's own. */
+   not use on controls, chips, or inputs; do not put one on every card
+   of a grid whose cards are not the section's own; and do not animate
+   it on hover, since a card is not a control and the edge is not a
+   state. */
 .card-terrace { position: relative; border: 1px solid var(--line); background: var(--surface); }
 .card-terrace::before {
   content: ""; position: absolute; left: -1px; top: -1px; width: 72px; height: 8px;
   background: var(--orn-stop);
   clip-path: polygon(0 0, 24px 0, 24px 3px, 48px 3px, 48px 6px, 72px 6px, 72px 8px, 0 8px);
 }
-.card-terrace:hover::before { width: 96px; clip-path: polygon(0 0, 32px 0, 32px 3px, 64px 3px, 64px 6px, 96px 6px, 96px 8px, 0 8px); }
 
 /* ---------- 8 · the tick rule ----------
    Rule-work for instruments and tables: a hairline carrying survey
@@ -241,11 +257,18 @@ html[data-mode="light"] {
 }
 .wash .terrace { margin: 0 0 var(--s3); height: 12px; width: min(100%, 288px);
   -webkit-mask-size: 288px 18px, 100% 100%; mask-size: 288px 18px, 100% 100%;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='288' height='18' viewBox='0 0 288 18'%3E%3Cpath d='M0 13.5H34V9.5H58V5.5H110V9.5H134V13.5H176V9.5H232V5.5H256V1.5H288' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E"), linear-gradient(90deg, #000 60%, transparent);
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='288' height='18' viewBox='0 0 288 18'%3E%3Cpath d='M0 13.5H34V9.5H58V5.5H110V9.5H134V13.5H176V9.5H232V5.5H256V1.5H288' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E"), linear-gradient(90deg, #000 60%, transparent);
+  -webkit-mask-image: var(--orn-terrace), var(--orn-fade-left);
+  mask-image: var(--orn-terrace), var(--orn-fade-left);
 }
 .wash b { color: var(--heading); }
 .wash .waits { display: block; margin-top: var(--s2); font: 400 var(--t-label, 11px) / 1.6 var(--mono); color: var(--muted); letter-spacing: .04em; }
 
-/* ---------- print and motion ---------- */
-@media print { .strata, .terrace, .descent, .tick, .grain::after, .weave, .wash::before { display: none; } }
+/* ---------- print, forced colors ----------
+   The layer is decoration and drops whole where decoration costs
+   something: ink, or a reader's own contrast scheme. The wash keeps
+   its sentence and loses its gutter. */
+@media print, (forced-colors: active) {
+  .strata, .terrace, .descent, .tick, .grain::after, .wash::before { display: none; }
+  .weave, .field, .ground { background-image: none; }
+  .card-terrace::before { display: none; }
+}
