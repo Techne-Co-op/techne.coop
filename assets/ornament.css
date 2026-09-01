@@ -178,12 +178,13 @@ html[data-mode="light"], .mode-light {
 
 /* ---------- 6 · the adobe grain ----------
    Wall texture: monochrome noise at a strength the eye registers as
-   matte rather than as pattern. Applied as an overlay on a band or a
-   hero through ::after, so it costs the page nothing else. Capped at
-   six percent. One per page. Do not put it behind body copy at
-   reading size and do not combine it with the weave. */
+   matte rather than as pattern. Applied as an underlay on a band or a
+   hero through ::before, so it costs the page nothing else and can
+   share an element with the field, whose sweep line is ::after.
+   Capped at six percent. One per page. Do not put it behind body copy
+   at reading size and do not combine it with the weave. */
 .grain { position: relative; isolation: isolate; }
-.grain::after {
+.grain::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
   background-image: var(--orn-grain);
   opacity: .06;
@@ -268,7 +269,7 @@ html[data-mode="light"], .mode-light {
    something: ink, or a reader's own contrast scheme. The wash keeps
    its sentence and loses its gutter. */
 @media print, (forced-colors: active) {
-  .strata, .terrace, .descent, .tick, .grain::after, .wash::before { display: none; }
+  .strata, .terrace, .descent, .tick, .grain::before, .wash::before { display: none; }
   .weave, .field, .ground { background-image: none; }
   .card-terrace::before { display: none; }
 }

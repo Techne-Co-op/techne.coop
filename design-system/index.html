@@ -24,6 +24,13 @@
     --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
     --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
     --dur:.4s;--micro:.16s;--ease:cubic-bezier(.4,0,.2,1);
+    /* v6 (drafted): the named scale, radius, and measures; canonical in commons.css */
+    --t-display:clamp(34px, 4.6vw, 50px);--lh-display:1.12;
+    --t-title:38px;--lh-title:1.15; --t-h2:25px;--lh-h2:1.25; --t-h3:13px;--lh-h3:1.5;
+    --t-lead:17px;--lh-lead:1.65; --t-body:16px;--lh-body:1.75; --t-note:14px;--lh-note:1.7;
+    --t-ui:12px;--lh-ui:1.5; --t-label:11px;--lh-label:1.6;
+    --r-control:2px;--r-none:0;
+    --m-read:920px;--m-frame:70rem;--m-hud:1600px;--m-prose:68ch;
     /* sunset range, canonical stops (blue..gold) */
     --sun-gold:#EAB668;--sun-amber:#E09A52;--sun-coral:#D1755A;--sun-rose:#B45C7C;--sun-violet:#6E5494;--sun-blue:#5476B8;
     /* dawn range, canonical stops (indigo..gold), ordered by luminance */
@@ -32,7 +39,7 @@
   /* the two mode palettes, ported verbatim from Techne v4 */
   html[data-mode="dark"]{
     --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;
-    --line:#2A2A30;--rule:#3A3A42;
+    --line:#2A2A30;--rule:#3A3A42;--sand:#46413B;
     --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
     --blue:#6A8AC4;--blue-text:#97B5E8;
     --ember:#C4956A;--ember-text:#D4A57A;
@@ -41,7 +48,7 @@
   }
   html[data-mode="light"]{
     --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;
-    --line:#D8D3C8;--rule:#9A958A;
+    --line:#D8D3C8;--rule:#9A958A;--sand:#BDB5A7;
     --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
     --blue:#4A6FB0;--blue-text:#39588F;
     --ember:#8A6A4A;--ember-text:#6F5436;
@@ -50,14 +57,14 @@
   }
   /* scoped mode blocks, so a demo can show a mode the page is not in */
   .mode-dark{
-    --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;--line:#2A2A30;--rule:#3A3A42;
+    --bg:#0F0F12;--inset:#08080A;--surface:#16161B;--raised:#232329;--line:#2A2A30;--rule:#3A3A42;--sand:#46413B;
     --heading:#E8E4DF;--text:#CFCBC4;--muted:#8A857E;--faint:#5A554F;
     --blue:#6A8AC4;--blue-text:#97B5E8;--ember:#C4956A;--ember-text:#D4A57A;
     --ok:#6A9A6A;--info:#9E86C4;--warn:#C46A6A;
     background:var(--bg);color:var(--text);
   }
   .mode-light{
-    --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;--line:#D8D3C8;--rule:#9A958A;
+    --bg:#F7F5F0;--inset:#EBE7DF;--surface:#FCFBF8;--raised:#FEFDFB;--line:#D8D3C8;--rule:#9A958A;--sand:#BDB5A7;
     --heading:#1A1A1F;--text:#2E2C28;--muted:#646058;--faint:#A39E92;
     --blue:#4A6FB0;--blue-text:#39588F;--ember:#8A6A4A;--ember-text:#6F5436;
     --ok:#4A7A4A;--info:#4C3870;--warn:#A84F4C;
@@ -67,7 +74,7 @@
   *{box-sizing:border-box;}
   html{color-scheme:dark light;}
   body{margin:0;background:var(--bg);color:var(--text);
-    font:400 15px/1.7 var(--serif);
+    font:400 var(--t-body)/var(--lh-body) var(--serif);
     transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease);}
   .wrap{max-width:1060px;margin:0 auto;padding:0 var(--s5);}
   .mono{font-family:var(--mono);}
@@ -82,23 +89,24 @@
      injected by /assets/topbar.js per U-13 */
 
   /* masthead */
-  .mast{position:relative;border-bottom:1px solid var(--rule);padding:var(--s8) 0 var(--s6);margin-bottom:var(--s6);}
-  .mast .kick{font:500 11px/1.6 var(--mono);color:var(--ember-text);text-transform:uppercase;letter-spacing:.12em;}
-  .mast h1{font:400 34px/1.12 var(--serif);color:var(--heading);margin:var(--s4) 0 var(--s3);letter-spacing:-.01em;}
-  .mast p{font:400 15px/1.7 var(--serif);color:var(--text);margin:0;max-width:70ch;}
+  .mast{position:relative;padding:var(--s8) var(--s5) var(--s6);margin:0 calc(-1 * var(--s5));}
+  .mast .kick{font:500 var(--t-label)/var(--lh-label) var(--mono);color:var(--ember-text);text-transform:uppercase;letter-spacing:.12em;}
+  .mast h1{font:400 var(--t-title)/var(--lh-title) var(--serif);color:var(--heading);margin:var(--s4) 0 var(--s3);letter-spacing:-.01em;}
+  .mast p{font:400 var(--t-lead)/var(--lh-lead) var(--serif);color:var(--text);margin:0;max-width:var(--m-prose);}
+  .mast + .terrace{margin:0 0 var(--s5);}
   .band{display:flex;gap:0;height:8px;margin:var(--s5) 0 0;border:1px solid var(--line);}
   .band span{flex:1;}
   .band-cap{font:400 10px/1.5 var(--mono);color:var(--faint);margin-top:6px;display:flex;justify-content:space-between;}
 
   /* sections */
   .sec{padding:var(--s7) 0 0;}
-  .sec h2{font:400 24px/1.2 var(--serif);color:var(--heading);margin:0 0 var(--s3);letter-spacing:-.01em;
+  .sec h2{font:400 var(--t-h2)/var(--lh-h2) var(--serif);color:var(--heading);margin:0 0 var(--s3);letter-spacing:-.01em;
     padding-left:14px;border-left:3px solid var(--ember);}
-  .sec > p{margin:0 0 var(--s4);max-width:72ch;color:var(--text);}
-  .lead{font-size:16px;color:var(--text);}
-  .subhead{font:600 11px/1.5 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
+  .sec > p{margin:0 0 var(--s4);max-width:var(--m-prose);color:var(--text);}
+  .lead{font-size:var(--t-lead);line-height:var(--lh-lead);color:var(--text);}
+  .subhead{font:600 var(--t-label)/var(--lh-label) var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
     margin:var(--s6) 0 var(--s3);padding-bottom:6px;border-bottom:1px solid var(--line);}
-  .note{font:400 13px/1.7 var(--serif);color:var(--muted);max-width:72ch;margin:var(--s3) 0 0;}
+  .note{font:400 var(--t-note)/var(--lh-note) var(--serif);color:var(--text);max-width:var(--m-prose);margin:var(--s3) 0 0;}
   .note b{color:var(--heading);font-weight:600;}
 
   /* swatch lists */
@@ -270,7 +278,45 @@
       color:var(--ember-text);margin-right:10px;white-space:nowrap;
     }
     .formation-foot a{color:var(--ember-text);}
+
+    /* v6 (drafted): specimen furniture for the scale, the rhythm, and the strata register */
+    .verdict td.v{font-family:var(--mono);white-space:nowrap;}
+    .verdict td.v.keep{color:var(--ok);} .verdict td.v.swap{color:var(--info);} .verdict td.v.add{color:var(--ember-text);} .verdict td.v.drop{color:var(--warn);}
+    .scale{border-top:1px solid var(--line);margin:var(--s4) 0;}
+    .scale .row{display:grid;grid-template-columns:132px 1fr 176px;gap:var(--s4);align-items:baseline;padding:var(--s3) 0;border-bottom:1px solid var(--line);}
+    .scale .tk{font:500 var(--t-ui)/1.4 var(--mono);color:var(--heading);}
+    .scale .ex{color:var(--heading);overflow-wrap:anywhere;}
+    .scale .meta{font:400 var(--t-label)/var(--lh-label) var(--mono);color:var(--muted);}
+    .rhythm{display:flex;align-items:flex-end;gap:var(--s4);margin:var(--s4) 0;flex-wrap:wrap;}
+    .rhythm .st{display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .rhythm .st i{display:block;width:var(--w);height:var(--w);background:var(--sand);}
+    .rhythm .st span{font:400 10px/1.4 var(--mono);color:var(--muted);}
+    .pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin:var(--s3) 0;}
+    .pair > div{border:1px solid var(--line);padding:var(--s4);min-width:0;}
+    .pair .cap{font:400 10px/1.5 var(--mono);color:var(--muted);margin-bottom:var(--s3);text-transform:lowercase;}
+    .pair p{margin:0;font:400 var(--t-note)/var(--lh-note) var(--serif);color:var(--text);}
+    .pair h5{margin:0 0 var(--s2);font:400 var(--t-h2)/var(--lh-h2) var(--serif);color:var(--heading);}
+    .pair .ey{font:500 var(--t-label)/var(--lh-label) var(--mono);color:var(--ember-text);text-transform:uppercase;letter-spacing:.1em;}
+    .pair .flush{margin:calc(-1 * var(--s4));padding:var(--s4);}
+    .pair .flush .descent{margin:var(--s3) calc(-1 * var(--s4)) calc(-1 * var(--s4));width:auto;}
+    .pair .card-terrace{padding:var(--s4);margin-top:var(--s3);}
+    .pair .card-terrace h6{margin:0 0 var(--s1);font:700 15px/1.3 var(--serif);color:var(--heading);}
+    .pair .card-terrace p{font:400 13px/1.55 var(--serif);color:var(--muted);}
+    .pair table{width:100%;border-collapse:collapse;font:400 var(--t-ui)/var(--lh-ui) var(--mono);color:var(--text);}
+    .pair td{padding:4px 0;} .pair td:last-child{text-align:right;font-variant-numeric:tabular-nums;}
+    .pair tr.total td{color:var(--heading);font-weight:500;}
+    .pair .ground{margin:var(--s3) calc(-1 * var(--s4)) calc(-1 * var(--s4));padding:var(--s4);font:400 var(--t-label)/var(--lh-label) var(--mono);color:var(--muted);}
+    .rule2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin:var(--s3) 0 var(--s5);}
+    .rule2 > div{padding:var(--s3) var(--s4);border:1px solid var(--line);font:400 13px/1.6 var(--serif);color:var(--text);background:var(--surface);}
+    .rule2 .do b{color:var(--ok);font-weight:600;} .rule2 .dont b{color:var(--warn);font-weight:600;}
+    .line-draw{font:400 var(--t-note)/var(--lh-note) var(--serif);color:var(--text);max-width:var(--m-prose);margin:var(--s3) 0 0;padding:var(--s4) var(--s5);border:1px solid var(--line);border-left:2px solid var(--ember);background:var(--surface);}
+    .line-draw b{color:var(--heading);}
+    @media (max-width:820px){
+      .pair,.rule2{grid-template-columns:1fr;}
+      .scale .row{grid-template-columns:1fr;gap:4px;}
+    }
   </style>
+<link rel="stylesheet" href="/assets/ornament.css">
 <script>
   (function () {
     var stored = null;
@@ -284,10 +330,10 @@
 <body>
 <div class="wrap">
 
-  <header class="mast">
-    <div class="kick">Techne &middot; Design System</div>
-    <h1>Palette &amp; Component Reference</h1>
-    <p>Working reference for the Techne design system, at <em>v5</em>. The v4 palette holds unchanged: <em>blue</em> is the primary accent, the color of what a reader does; <em>ember</em> is the secondary, the cooperative's own mark on structure. Both are held against a warm parchment ground through dark and light modes, with a <em>sunset</em> range reserved for section atmosphere and data, and a <em>dawn</em> range as its morning counterpart. What v5 adds is not color but usage: the <em>desert register</em>, the written grammar of how the sunset range appears on a page, and the <em>display measure</em>, which retires the front page's private width. Toggle modes with the control in the top-right; it follows your device setting by default.</p>
+  <header class="mast field grain">
+    <div class="kick">U-31 &middot; design system v6 &middot; drafted</div>
+    <h1>Design System</h1>
+    <p>The working reference for techne.coop, at <em>v6</em>. The v4 palette still holds: <em>blue</em> is what a reader does, <em>ember</em> is the cooperative's own mark on structure, both on a warm parchment ground in two modes, with a <em>sunset</em> range for atmosphere and data and a <em>dawn</em> range as its morning counterpart. v5 wrote down the desert register; the addendum added the incised marks. v6 is the whole cloth read with fresh eyes: the type scale named, the rhythm and radius and measure decided, one condition color corrected, the motion rule written, and the <em>strata register</em>, an ornamental layer drawn from the Southwest as a place, with its sourcing line written beside it. Toggle modes with the control in the top-right; it follows your device setting by default.</p>
     <div class="band">
       <span style="background:var(--sun-blue)"></span>
       <span style="background:var(--sun-violet)"></span>
@@ -298,6 +344,37 @@
     </div>
     <div class="band-cap"><span>twilight</span><span>sunset range &middot; atmosphere and data</span><span>last light</span></div>
   </header>
+  <div class="terrace" aria-hidden="true"></div>
+
+  <!-- V6: THE WHOLE CLOTH -->
+  <section class="sec" id="v6">
+    <h2>v6 &middot; The Whole Cloth</h2>
+    <div class="chiprow"><span class="chip info"><span class="dot"></span>drafted &middot; merge is the act of adoption</span></div>
+    <p class="lead">v5 grew by addenda: a register, then an addendum to the register, then a deepening of the addendum. Each was right on its own terms and none of them re-read the whole. v6 does. It is not a simplification and not a restyling. Every part of the system was judged on its merits against two readings, the estate as it is actually built and the research on what an undesigned interface looks like in 2026, and each part was kept, replaced, added, or removed for a reason written in the table. The research is on the record at <code>RESEARCH/DESIGN_V6_RESEARCH.md</code>.</p>
+    <table class="dt verdict">
+      <thead><tr><th>part</th><th>v5</th><th>v6</th><th>verdict</th><th>why</th></tr></thead>
+      <tbody>
+        <tr><td class="tok">faces</td><td class="use">Libre Baskerville and IBM Plex Mono</td><td class="use">unchanged</td><td class="v keep">kept</td><td class="use">the opposite of the default face; six of nine sources name the alternative as the first tell</td></tr>
+        <tr><td class="tok">ground</td><td class="use">parchment and ink, two modes</td><td class="use">unchanged, plus one warm neutral, sand</td><td class="v keep">kept</td><td class="use">the color of the place, decided at v4; the ramp had no warm value at drawn-line weight, so ornament read as chrome or as disabled text</td></tr>
+        <tr><td class="tok">accents</td><td class="use">blue primary, ember secondary</td><td class="use">unchanged</td><td class="v keep">kept</td><td class="use">interaction against structure holds up everywhere it was checked</td></tr>
+        <tr><td class="tok">earth states</td><td class="use"><code>--info</code> equal to <code>--blue</code></td><td class="use"><code>--info</code> is the violet text stop</td><td class="v swap">replaced</td><td class="use">a condition wore the action color, so "in review" looked like a link; the fix is estate-wide in this piece</td></tr>
+        <tr><td class="tok">sunset and dawn</td><td class="use">two six-stop ranges; two palettes proposed</td><td class="use">unchanged; the proposal stays a proposal</td><td class="v keep">kept</td><td class="use">the horizon line is the register's own argument against the hero glow; which palette, if any, is the steward's open call</td></tr>
+        <tr><td class="tok">type</td><td class="use">five specimens, one naming Georgia at 2.2rem</td><td class="use">nine named steps with their line heights</td><td class="v swap">replaced</td><td class="use">the specimens described a retired face at a size no page uses; a default nobody chose</td></tr>
+        <tr><td class="tok">radius</td><td class="use">2px written about thirty times; 4 to 8px under commons/</td><td class="use"><code>--r-control</code> 2px; everything else square</td><td class="v add">added</td><td class="use">rounding by default is the fingerprint four sources name; a card, a table, and a rule are not controls</td></tr>
+        <tr><td class="tok">measure</td><td class="use">six widths in live use</td><td class="use">three named: read, frame, hud</td><td class="v add">added</td><td class="use">nothing had been decided; a fourth measure is now a decision record</td></tr>
+        <tr><td class="tok">rhythm</td><td class="use">eight spacing tokens, no rule</td><td class="use">the same eight, each assigned a scale of the page</td><td class="v add">added</td><td class="use">a token with no rule is a number with a name</td></tr>
+        <tr><td class="tok">card edge</td><td class="use">a tinted top bar on every section card</td><td class="use">the terrace edge; the left provenance rule stays</td><td class="v swap">replaced</td><td class="use">the colored side-tab is a named tell; the left rule stays because it means provenance, and the terrace still says which section owns the card</td></tr>
+        <tr><td class="tok">eyebrow</td><td class="use">above every head, including this page's masthead</td><td class="use">kept where it is the address; the masthead's became the address</td><td class="v keep">kept</td><td class="use">on this estate the eyebrow is a citable address, which is a reason; a kicker carrying only mood is not</td></tr>
+        <tr><td class="tok">muted ledes</td><td class="use"><code>--muted</code> on lede paragraphs, 5.2:1 on ink</td><td class="use">rule: labels and secondary lines, never a lede</td><td class="v add">added</td><td class="use">grey body on dark is the named low-contrast tell; the token passes AA and still reads as an afterthought</td></tr>
+        <tr><td class="tok">motion</td><td class="use">practiced, not stated</td><td class="use">rule: color and opacity only; nothing translates, scales, or reveals on scroll</td><td class="v add">added</td><td class="use">v5 had it right; a rule obeyed by hand drifts</td></tr>
+        <tr><td class="tok">empty state</td><td class="use"><code>.absence</code>, a sentence on a well</td><td class="use">the sentence, given a room: the dry wash</td><td class="v keep">kept</td><td class="use">the honest state answers the undesigned-empty-state tell directly; v6 only builds it a place</td></tr>
+        <tr><td class="tok">ornament</td><td class="use">one instrument, the horizon line</td><td class="use">the strata register: ten specimens with the sourcing line drawn</td><td class="v add">added</td><td class="use">the estate had the discipline and not the layer; the layer arrives with its line written first</td></tr>
+        <tr><td class="tok">incised register</td><td class="use">ten single-stroke glyphs, the sky, the colophon</td><td class="use">unchanged, still drafted</td><td class="v keep">kept</td><td class="use">judged on merit: a sourced mark with one weight and no fill is not the icon-tile tell, and the sky is progressive enhancement that adds no color</td></tr>
+        <tr><td class="tok">shadows, glass, gradient text, bento</td><td class="use">absent, unstated</td><td class="use">absent, stated as rules</td><td class="v keep">kept</td><td class="use">commons.css carries not one box-shadow; the rule exists so none arrives by accident</td></tr>
+      </tbody>
+    </table>
+    <p class="note"><b>Where v5 contradicted itself, v6 decides.</b> This page's own masthead sat at 34px while commons.css set the document title at 38px: the title is <code>--t-title</code>, 38px, and this page now uses it. This page read at 15px while the estate reads at 16px: body is <code>--t-body</code>, 16px. The earth-state note said "blue for what is in review" while the same page raised blue to the primary action color: in review is violet. The desert register said never pictorial and the incised register drew marks: a mark with one weight and no fill is not a picture, and that one degree of bend is the whole allowance. The addendum said no existing page is out of compliance for lacking a glyph; v6 keeps that standard for every instrument here. A page adopts the strata register at its own re-emission, the way the estate has always moved.</p>
+  </section>
 
   <!-- CORE PALETTE (DARK) -->
   <section class="sec" id="core">
