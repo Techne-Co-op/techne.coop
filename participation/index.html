@@ -52,7 +52,7 @@ html[data-mode="dark"] {
   --heading: #E8E4DF; --text: #CFCBC4; --muted: #8A857E; --faint: #5A554F;
   --blue: #6A8AC4; --blue-text: #97B5E8;
   --ember: #C4956A; --ember-text: #D4A57A;
-  --ok: #6A9A6A; --info: #6A8AC4; --warn: #C46A6A;
+  --ok: #6A9A6A; --info: #9E86C4; --warn: #C46A6A;
   --sun-gold-t: #EAB668; --sun-amber-t: #E5A562; --sun-coral-t: #DE8872;
   --sun-rose-t: #CF7C9A; --sun-violet-t: #9E86C4; --sun-blue-t: #8FAEE0;
   color-scheme: dark;
@@ -63,7 +63,7 @@ html[data-mode="light"] {
   --heading: #1A1A1F; --text: #2E2C28; --muted: #646058; --faint: #A39E92;
   --blue: #4A6FB0; --blue-text: #39588F;
   --ember: #8A6A4A; --ember-text: #6F5436;
-  --ok: #4A7A4A; --info: #4A6FB0; --warn: #A84F4C;
+  --ok: #4A7A4A; --info: #4C3870; --warn: #A84F4C;
   --sun-gold-t: #87621F; --sun-amber-t: #8C581D; --sun-coral-t: #9C4636;
   --sun-rose-t: #8C3D58; --sun-violet-t: #4C3870; --sun-blue-t: #3A5694;
   color-scheme: light;
@@ -166,8 +166,12 @@ table.matrix tbody tr.m-line th b { color: var(--ember-text); font-weight: 600; 
 /* participation cards, per commons.css (U-08). Price is no longer in the
    card head: it is one row among the others, so no card reads as a rung. */
 .pgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(232px, 100%), 1fr)); gap: var(--s4); margin: var(--s5) 0; }
-.pcard { background: var(--surface); border: 1px solid var(--line); border-top: 2px solid var(--shue, var(--ember));
+.pcard { background: var(--surface); border: 1px solid var(--line); position: relative;
   display: flex; flex-direction: column; }
+/* v6: the track's tint as the terrace edge, in place of the tinted top bar (design-system/#strata, 7) */
+.pcard::before { content: ""; position: absolute; left: -1px; top: -1px; width: 72px; height: 8px;
+  background: var(--shue, var(--ember));
+  clip-path: polygon(0 0, 24px 0, 24px 3px, 48px 3px, 48px 6px, 72px 6px, 72px 8px, 0 8px); }
 .pcard .p-track { font: 500 10px/1.6 var(--mono); letter-spacing: .1em; text-transform: uppercase;
   color: var(--shue-t, var(--ember-text)); padding: var(--s4) var(--s4) 0; }
 .pcard .p-class { font: 400 11px/1.6 var(--mono); color: var(--muted); padding: 0 var(--s4); }
