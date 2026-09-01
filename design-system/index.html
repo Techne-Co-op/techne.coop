@@ -649,6 +649,161 @@ html[data-sky=<span class="c2">"day"</span>] { --sky-line: ...; --sky-glow: <spa
     <p class="note"><b>Standing.</b> The addendum is drafted and unadopted, staged with the U-25 packet and deepened by the U-26 packet; merge is the act of adoption, and adoption makes it available, not mandatory. Like the register it extends, it informs future pages softly: no existing surface is out of compliance for lacking a glyph, a computed sky, a colophon, or the deepened color grammar.</p>
   </section>
 
+  <!-- V6: THE STRATA REGISTER -->
+  <section class="sec" id="strata">
+    <h2>v6 &middot; The Strata Register</h2>
+    <div class="chiprow"><span class="chip info"><span class="dot"></span>drafted &middot; ships as /assets/ornament.css</span></div>
+    <p class="lead">The ornamental layer. v5 said the desert enters as light and line or does not enter, and gave the estate one instrument for it. v6 gives the layer its vocabulary: ten specimens a page may place within or between its sections, at dividers, mastheads, footers, empty states, card edges, and the rule-work of instruments. All of it is geometry, rhythm, banding, terracing, weave as a technique, and gradient of light, abstracted from the Southwest as a place: canyon strata, the bench and the mesa rim, adobe massing, the horizon at dusk. Never pictorial. Every specimen is working CSS, copied from this page or from <code>/assets/ornament.css</code>, and every one is built from the standing tokens, so both modes are honest without a second set of values.</p>
+
+    <div class="subhead">The line, drawn first</div>
+    <div class="line-draw">
+      <b>What this system may draw from.</b> The physical and geological Southwest, and technique in general: terraced setback massing and battered walls as landform and architecture; strata and masonry banding, which erosion and construction produce rather than iconography; adobe, sandstone, undyed-wool greys and browns, red hill and blue sky, and the light of dusk as gradient; flat-plane abstraction of landform in the O'Keeffe manner; weaving as warp, weft, and the twill diagonal every loom in the world makes.<br><br>
+      <b>What it must not reproduce.</b> Culturally owned or sacred material: the named Din&eacute; regional weaving styles and their signature compositions, the stepped diamond and serrated figure as a composition, and the spirit line; Acoma, Zuni, and Hopi pottery motifs, including fine-line hatching as a figure, which the Pueblo of Acoma states carry meaning; katsina figures and the commercial Kokopelli; the Zia sun; the stepped-cloud or terrace-cloud motif as a symbol; any tribal name, "Navajo print," or "Native-inspired" label in a token, a class, or a caption.<br><br>
+      <b>The test.</b> If a motif can be named after a people, a pueblo, a trading post, or a ceremony, it does not enter. If it can only be named after a landform, a light, a wall, or a machine, it may. The vocabulary here is strata, terrace, descent, field, weave, grain, tick, ground, wash. Where the cooperative ever wants Indigenous pattern on its estate, the path is licensing or collaboration with named Native designers on their terms, never adaptation, and that is a steward's decision, not a stylesheet's. Sources and the reasoning are in <code>RESEARCH/DESIGN_V6_RESEARCH.md</code>, Strand B.
+    </div>
+    <p class="note">Three consequences the specimens obey. Stepped forms enter only as horizontal landform profiles: runs of unequal length, one direction, never symmetrical, never mirrored into a diamond, never nested. A bench, not a blanket. Hatching enters only as twill, a diagonal structure with no figure, no border, no center, at a strength below notice. And no token, class, or caption names a Nation.</p>
+
+    <div class="subhead">Rules the whole layer keeps</div>
+    <div class="rule2">
+      <div class="do"><b>Do.</b> One ornament per boundary. Every ornament element <code>aria-hidden</code> or empty; the words beside it carry the meaning. Ink mixed from <code>--sand</code> and <code>--ember</code>; a section's stop through <code>--section-stop</code>. Print and forced colors drop the layer whole.</div>
+      <div class="dont"><b>Do not.</b> Put any texture behind body copy at reading size. Stack two ornaments on one boundary. Animate any of it; an ornament has no state. Color the weave or the grain with a sunset stop. Name a specimen after a people.</div>
+    </div>
+    <p class="note"><b>The ornament's tokens.</b> <code>--sand</code> is the one value v6 adds to the ground ramp, the warm drawn line between <code>--rule</code> and <code>--faint</code>. <code>--orn-ink</code> mixes ember into sand; <code>--orn-ink-soft</code> is that ink at half strength; <code>--orn-alpha</code> holds the layer a touch lighter on ink than on parchment; <code>--orn-stop</code> resolves to the section's stop and falls back to ember. Load the sheet after the page's own token block: <code>&lt;link rel="stylesheet" href="/assets/ornament.css"&gt;</code>.</p>
+
+    <div class="subhead">1 &middot; the strata rule &middot; a section divider</div>
+    <p class="note">Four hairlines, the beds thinning upward the way a canyon wall reads from the river: the lowest heaviest, each one above lighter and further from the last, fading at both ends. <code>.tint</code> gives the heaviest bed the section's stop; <code>.short</code> holds to a heading's measure, left-aligned.</p>
+    <div class="pair">
+      <div class="mode-dark"><div class="cap">dark &middot; .strata, .strata.tint (coral), .strata.short</div><div class="strata" aria-hidden="true"></div><div class="strata tint" style="--section-stop:var(--sun-coral)" aria-hidden="true"></div><div class="strata short" aria-hidden="true"></div></div>
+      <div class="mode-light"><div class="cap">light &middot; the same three</div><div class="strata" aria-hidden="true"></div><div class="strata tint" style="--section-stop:var(--sun-coral)" aria-hidden="true"></div><div class="strata short" aria-hidden="true"></div></div>
+    </div>
+    <pre class="code"><span class="c1">&lt;!-- between two blocks of one section, or under a masthead --&gt;</span>
+&lt;div class=<span class="c2">"strata"</span> aria-hidden=<span class="c2">"true"</span>&gt;&lt;/div&gt;
+&lt;div class=<span class="c2">"strata tint"</span> aria-hidden=<span class="c2">"true"</span>&gt;&lt;/div&gt;   <span class="c1">/* inside a section carrying --section-stop */</span></pre>
+    <div class="rule2">
+      <div class="do"><b>Use</b> between blocks of the same section, or under a masthead in place of the plain rule. <code>.short</code> under an h2 where a section wants a mark and has no stop.</div>
+      <div class="dont"><b>Do not</b> stack it with the horizon line on a tinted section; a section takes one or the other. Do not use it inside a card or a table.</div>
+    </div>
+
+    <div class="subhead">2 &middot; the terrace rule &middot; the skyline of a bench</div>
+    <p class="note">One hairline drawn as a stepped profile: runs of unequal length, risers of four pixels, always horizontal, never symmetrical. It is a landform, not a pattern. The tile repeats across the width and fades at the ends. The masthead of this page ends on one.</p>
+    <div class="pair">
+      <div class="mode-dark"><div class="cap">dark &middot; .terrace, .terrace.tint (amber)</div><div class="terrace" aria-hidden="true"></div><div class="terrace tint" style="--section-stop:var(--sun-amber)" aria-hidden="true"></div></div>
+      <div class="mode-light"><div class="cap">light &middot; the same two</div><div class="terrace" aria-hidden="true"></div><div class="terrace tint" style="--section-stop:var(--sun-amber)" aria-hidden="true"></div></div>
+    </div>
+    <pre class="code"><span class="c1">&lt;!-- at the head of a band section or the foot of a masthead --&gt;</span>
+&lt;div class=<span class="c2">"terrace"</span> aria-hidden=<span class="c2">"true"</span>&gt;&lt;/div&gt;</pre>
+    <div class="rule2">
+      <div class="do"><b>Use</b> at the head of a band section or the foot of a masthead. One per boundary.</div>
+      <div class="dont"><b>Do not</b> use it as a border on a card or a control; do not stack two to make a lattice; do not mirror it, which makes a diamond, which is a composition that belongs to someone.</div>
+    </div>
+
+    <div class="subhead">3 &middot; the descent &middot; the mesa to the plain</div>
+    <p class="note">A single stepped silhouette across the whole width, falling left to right, as a filled band in the section's stop at wash strength, so it reads as ground light rather than as a shape. Flush to the section edge at the foot of a masthead or hero; the next block begins below it.</p>
+    <div class="pair">
+      <div class="mode-dark"><div class="flush" style="--section-stop:var(--sun-gold)"><div class="cap">dark &middot; a masthead ending on .descent (gold)</div><div class="ey">Commons &middot; Treasury</div><h5>Treasury Handbook</h5><p>How the cooperative counts, holds, and reports.</p><div class="descent" aria-hidden="true"></div></div></div>
+      <div class="mode-light"><div class="flush" style="--section-stop:var(--sun-gold)"><div class="cap">light &middot; the same, .descent.soft</div><div class="ey">Commons &middot; Treasury</div><h5>Treasury Handbook</h5><p>How the cooperative counts, holds, and reports.</p><div class="descent soft" aria-hidden="true"></div></div></div>
+    </div>
+    <pre class="code"><span class="c1">&lt;!-- last child of the masthead, flush to its edge --&gt;</span>
+&lt;div class=<span class="c2">"descent"</span> aria-hidden=<span class="c2">"true"</span>&gt;&lt;/div&gt;</pre>
+    <div class="rule2">
+      <div class="do"><b>Use</b> once, at the foot of a masthead or hero, in the page's opening stop. <code>.soft</code> on a reading page.</div>
+      <div class="dont"><b>Do not</b> place text inside it; do not flip it to climb, the page descends; do not use it between interior sections, where the strata or terrace rule belongs.</div>
+    </div>
+
+    <div class="subhead">4 &middot; the horizon field &middot; a masthead's backdrop</div>
+    <p class="note">Gradient of light: the sky's stop fading down into the ground, a warm band low where the ground holds the day's heat, and the sweep as one hairline at the foot. Wash strengths are the U-26 caps. This page's masthead sits on one, with the grain under it.</p>
+    <div class="pair">
+      <div class="mode-dark"><div class="field flush" style="--section-stop:var(--sun-rose)"><div class="cap">dark &middot; .field (rose), sweep at the foot</div><div class="ey">U-31 &middot; drafted</div><h5>Design System</h5><p>The working reference, at v6.</p></div></div>
+      <div class="mode-light"><div class="field flush" style="--section-stop:var(--sun-rose)"><div class="cap">light &middot; the same</div><div class="ey">U-31 &middot; drafted</div><h5>Design System</h5><p>The working reference, at v6.</p></div></div>
+    </div>
+    <pre class="code">&lt;header class=<span class="c2">"mast field"</span>&gt; &hellip; &lt;/header&gt;
+<span class="c1">/* the sweep hairline is .field::after; the sky instrument retunes it through --sky-line and --sky-glow */</span></pre>
+    <div class="rule2">
+      <div class="do"><b>Use</b> behind a masthead or a hero on a display surface, in the page's opening stop.</div>
+      <div class="dont"><b>Do not</b> use it behind a reading column; do not raise the sky mix past ten percent; do not add a radial halo, which is the pattern this field exists to refuse.</div>
+    </div>
+
+    <div class="subhead">5 &middot; the weave &middot; twill, below notice</div>
+    <p class="note">Two diagonal hairline sets crossing at eight percent of the ornament ink. This is technique, not pattern: no figure, no border, no center. <code>.edge</code> confines it to a left margin the width of a gutter.</p>
+    <div class="pair">
+      <div class="mode-dark"><div class="weave flush"><div class="cap">dark &middot; .weave over a band</div><div class="ey">Programs</div><h5>What the record holds</h5></div></div>
+      <div class="mode-light"><div class="weave edge flush"><div class="cap">light &middot; .weave.edge, a gutter's width</div><div class="ey">Programs</div><h5>What the record holds</h5></div></div>
+    </div>
+    <pre class="code">&lt;section class=<span class="c2">"band weave"</span>&gt; &hellip; &lt;/section&gt;
+&lt;aside class=<span class="c2">"weave edge"</span>&gt; &hellip; &lt;/aside&gt;</pre>
+    <div class="rule2">
+      <div class="do"><b>Use</b> over a band's head or an empty state; the wash carries it in its gutter.</div>
+      <div class="dont"><b>Do not</b> put it behind a paragraph; do not color it with a sunset stop; do not raise it past eight percent; do not give it a border or a center, which turns structure into figure.</div>
+    </div>
+
+    <div class="subhead">6 &middot; the adobe grain &middot; wall texture</div>
+    <p class="note">Monochrome noise at six percent, the strength the eye registers as matte rather than as pattern. An underlay through <code>::before</code>, so it costs the page nothing else and can share an element with the field. One per page.</p>
+    <div class="pair">
+      <div class="mode-dark"><div class="grain flush"><div class="cap">dark &middot; .grain</div><div class="ey">Intranet</div><h5>The Share</h5><p>Six beds, each with its source of record.</p></div></div>
+      <div class="mode-light"><div class="grain flush"><div class="cap">light &middot; .grain</div><div class="ey">Intranet</div><h5>The Share</h5><p>Six beds, each with its source of record.</p></div></div>
+    </div>
+    <pre class="code">&lt;header class=<span class="c2">"mast field grain"</span>&gt; &hellip; &lt;/header&gt;</pre>
+    <div class="rule2">
+      <div class="do"><b>Use</b> once, under a masthead, a hero, or a band's head.</div>
+      <div class="dont"><b>Do not</b> put it behind body copy at reading size; do not combine it with the weave; do not raise the opacity. If a reader notices it, it is too strong.</div>
+    </div>
+
+    <div class="subhead">7 &middot; the terrace edge &middot; a card's top, replacing the tinted bar</div>
+    <p class="note">Three descending steps in the section's stop at a card's top-left, on a plain hairline card. The edge says which section a card belongs to, the way the tinted top border did in U-26, with a shape instead of a bar; the colored side-tab on every card is a named tell, and the left provenance rule keeps its meaning by not being everywhere. The participation card (<code>.pcard</code>) takes this edge in commons.css with this piece.</p>
+    <div class="pair">
+      <div class="mode-dark" style="--section-stop:var(--sun-violet)"><div class="cap">dark &middot; .card-terrace inside a violet section</div><div class="card-terrace"><h6>Patron member</h6><p>Class II of the Participation Framework. One vote; patronage counted under the adopted rules.</p></div></div>
+      <div class="mode-light" style="--section-stop:var(--sun-violet)"><div class="cap">light &middot; the same</div><div class="card-terrace"><h6>Patron member</h6><p>Class II of the Participation Framework. One vote; patronage counted under the adopted rules.</p></div></div>
+    </div>
+    <pre class="code">&lt;article class=<span class="c2">"card-terrace"</span>&gt; &hellip; &lt;/article&gt;   <span class="c1">/* inside a section carrying --section-stop */</span></pre>
+    <div class="rule2">
+      <div class="do"><b>Use</b> on cards that are a tinted section's own, so the edge is the section's signature.</div>
+      <div class="dont"><b>Do not</b> use on controls, chips, or inputs; do not put one on every card of a grid whose cards belong to no section; do not animate it on hover, since a card is not a control and the edge is not a state.</div>
+    </div>
+
+    <div class="subhead">8 &middot; the tick rule &middot; rule-work for instruments</div>
+    <p class="note">A hairline carrying survey ticks, a short one every eight pixels and a taller one every forty, so a rule reads as measured rather than merely drawn.</p>
+    <div class="pair">
+      <div class="mode-dark"><div class="cap">dark &middot; .tick above a totals row</div><table><tr><td>member dues, August</td><td>$1,240.00</td></tr><tr><td>program income</td><td>$3,180.00</td></tr></table><div class="tick" aria-hidden="true"></div><table><tr class="total"><td>total</td><td>$4,420.00</td></tr></table></div>
+      <div class="mode-light"><div class="cap">light &middot; the same</div><table><tr><td>member dues, August</td><td>$1,240.00</td></tr><tr><td>program income</td><td>$3,180.00</td></tr></table><div class="tick" aria-hidden="true"></div><table><tr class="total"><td>total</td><td>$4,420.00</td></tr></table></div>
+    </div>
+    <pre class="code">&lt;div class=<span class="c2">"tick"</span> aria-hidden=<span class="c2">"true"</span>&gt;&lt;/div&gt;</pre>
+    <div class="rule2">
+      <div class="do"><b>Use</b> above a totals row, under a table caption, between the panels of an instrument.</div>
+      <div class="dont"><b>Do not</b> use it on a reading page; do not use it as a section divider; the numbers above are specimen figures, not the treasury's.</div>
+    </div>
+
+    <div class="subhead">9 &middot; the ground &middot; the page foot</div>
+    <p class="note">The footer's backdrop: the page ground deepens to the inset over the footer's height with three beds in it, heaviest at the bottom. The formation notice and the colophon sit on it. This page's footer stands on one.</p>
+    <div class="pair">
+      <div class="mode-dark"><div class="cap">dark &middot; .ground</div><div class="ground">Techne Design System &middot; techne.coop/design-system &middot; RegenHub, LCA &middot; Boulder, Colorado</div></div>
+      <div class="mode-light"><div class="cap">light &middot; .ground</div><div class="ground">Techne Design System &middot; techne.coop/design-system &middot; RegenHub, LCA &middot; Boulder, Colorado</div></div>
+    </div>
+    <pre class="code">&lt;footer class=<span class="c2">"ground"</span>&gt; &hellip; &lt;/footer&gt;</pre>
+    <div class="rule2">
+      <div class="do"><b>Use</b> as the footer's own background, once.</div>
+      <div class="dont"><b>Do not</b> use it anywhere above the footer; do not stack the sweep horizon on the same edge.</div>
+    </div>
+
+    <div class="subhead">10 &middot; the dry wash &middot; the empty state, given a room</div>
+    <p class="note">Absence as a place. The sentence that says why the thing is not here and what it waits on, on an inset well whose left gutter carries the twill, with the terrace rule short above it. The words are the state; the ornament is only the room they sit in. <code>.absence</code> stands; the wash is what it becomes at a page's re-emission.</p>
+    <div class="pair">
+      <div class="mode-dark"><div class="cap">dark &middot; .wash</div><div class="wash"><div class="terrace" aria-hidden="true"></div><b>No allocation run has been adopted.</b> The Share's patronage bed stays empty until the board adopts LABOR-SCHEDULE and the first run is counted under it.<span class="waits">waits on &middot; LABOR-SCHEDULE &middot; board adoption</span></div></div>
+      <div class="mode-light"><div class="cap">light &middot; .wash</div><div class="wash"><div class="terrace" aria-hidden="true"></div><b>No allocation run has been adopted.</b> The Share's patronage bed stays empty until the board adopts LABOR-SCHEDULE and the first run is counted under it.<span class="waits">waits on &middot; LABOR-SCHEDULE &middot; board adoption</span></div></div>
+    </div>
+    <pre class="code">&lt;div class=<span class="c2">"wash"</span>&gt;
+  &lt;div class=<span class="c2">"terrace"</span> aria-hidden=<span class="c2">"true"</span>&gt;&lt;/div&gt;
+  &lt;b&gt;Why it is not here.&lt;/b&gt; What it waits on, in a sentence.
+  &lt;span class=<span class="c2">"waits"</span>&gt;waits on &middot; the named thing&lt;/span&gt;
+&lt;/div&gt;</pre>
+    <div class="rule2">
+      <div class="do"><b>Use</b> wherever a list, a table, or a bed is empty and the reason is known. Name what it waits on.</div>
+      <div class="dont"><b>Do not</b> use it for an error, which takes the form status line; do not let the ornament stand without the sentence; do not fill it with a placeholder illustration.</div>
+    </div>
+
+    <div class="subhead">Standing</div>
+    <p class="note">Drafted, staged as U-31; merge is the act of adoption, and adoption makes the layer available, not mandatory. This page adopts it in full as the specimen. Elsewhere it informs softly, the v5 way: a page takes the register at its own re-emission, and no page is out of compliance for lacking it. What is not soft is the line: the sourcing test above binds every future motif, on every surface, from the day this is merged.</p>
+  </section>
+
   <!-- SITE NAVIGATION -->
   <section class="sec" id="topbar">
     <h2>Site Navigation &middot; The Topbar</h2>
