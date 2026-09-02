@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
 <title>The Transducer &middot; Intranet &middot; Techne</title>
-<meta name="description" content="The transducer: the estate's own record rendered at human variety. Six lenses over one dated cut of the repository, ledger, and participation stories, ordered by legibility to the member body and opening on the journeys landscape. Drafted instrument of TRANSDUCER v0.2, not adopted. RegenHub, LCA.">
+<meta name="description" content="The transducer: six views over one dated cut of the repository, the ledger, and the participation stories, opening on the journeys view. Drafted instrument of TRANSDUCER v0.2, not adopted. RegenHub, LCA.">
 <link rel="canonical" href="https://techne.coop/intranet/hud/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://techne.coop/intranet/hud/">
 <meta property="og:title" content="The Transducer · Intranet · Techne">
-<meta property="og:description" content="The transducer: the estate's own record rendered at human variety. Six lenses over one dated cut of the repository, ledger, and participation stories, ordered by legibility to the member body and opening on the journeys landscape. Drafted instrument of TRANSDUCER v0.2, not adopted. RegenHub, LCA.">
+<meta property="og:description" content="The transducer: six views over one dated cut of the repository, the ledger, and the participation stories, opening on the journeys view. Drafted instrument of TRANSDUCER v0.2, not adopted. RegenHub, LCA.">
 <meta property="og:site_name" content="Techne">
 <meta property="og:image" content="https://techne.coop/assets/og-default.png">
 <meta name="robots" content="noindex, nofollow">
@@ -298,7 +298,7 @@
 <div class="lenses" role="tablist">
   <button class="lens" data-view="journeys" aria-pressed="true">
     <span class="k">00 &middot; where you stand</span><span class="t">Journeys</span>
-    <span class="d">the landscape as a person walks it, from the stranger at the door to the patron member</span>
+    <span class="d">every way in, from the stranger at the door to the patron member, and where each stops today</span>
   </button>
   <button class="lens" data-view="standing" aria-pressed="false">
     <span class="k">01 &middot; the whole</span><span class="t">Standing</span>
@@ -310,15 +310,15 @@
   </button>
   <button class="lens" data-view="hands" aria-pressed="false">
     <span class="k">03 &middot; the rhythm</span><span class="t">Tending</span>
-    <span class="d">when the work happens and the two piles it falls into &middot; described, never scored</span>
+    <span class="d">when the work happens and which of two piles it falls into &middot; never scored</span>
   </button>
   <button class="lens" data-view="succession" aria-pressed="false">
     <span class="k">04 &middot; the history</span><span class="t">Succession</span>
-    <span class="d">how long each thing has been where it is &middot; colour stepping back is a correction, kept visible</span>
+    <span class="d">how long each piece has held each mark &middot; a step back is a correction, kept visible</span>
   </button>
   <button class="lens" data-view="code" aria-pressed="false">
     <span class="k">05 &middot; the material</span><span class="t">Composition</span>
-    <span class="d">the files the whole is made of, and where its mass gathers</span>
+    <span class="d">the files, sized by weight and shaded by revisions</span>
   </button>
 </div>
 
@@ -424,10 +424,10 @@ function viewStanding(c){
     {l:'the proofs',v:attested+'/'+proofs.length,q:'attested under two hands'},
     {l:'the estate',v:St.ext.find(e=>e[0]==='html')[1],q:'pages published from main'}
   ]);
-  $('#reading').innerHTML=`Read heart outward: the commit log at the centre, the governing documents as the ring that binds and changes slowest, each bed a sector of living wood filled by how far its pieces came, the proofs as caps on the growing edge, and the published estate as the bark it all grows toward. <b>The instruments ring is entirely drafted and the proof ring is one of ten</b> - the two rings that need people, rather than building, are the two that have not closed.<span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
+  $('#reading').innerHTML=`Read heart outward: the log, the instruments, the beds, the proofs, the published estate. <b>Every instrument is drafted and ${attested} of ${proofs.length} proofs attested</b>: the two rings that need people are the two that have not closed.<span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
 
   const disc=document.createElement('div'); disc.className='disc';
-  const svg=sel('svg',{role:'application','aria-label':'The repository cut across the grain: the commit log at the heart, the governing documents, the beds as sectors, the proofs, and the published estate at the rim.'},disc);
+  const svg=sel('svg',{role:'application','aria-label':'The repository cut across: the log at the heart, the instruments, the beds, the proofs, the published estate at the rim.'},disc);
   c.appendChild(disc);
   disc.insertAdjacentHTML('beforeend','<div class="dischint">click a ring to open it &middot; W and S walk outward and in &middot; esc releases</div>');
 
@@ -556,10 +556,10 @@ function ringDetail(key){
   const L=SNAP.ledger, St=SNAP.stats, d=$('#detail');
   if(!key){
     d.innerHTML=`<h2>The cross-section</h2>
-     <p class="note">The other three views each look <b>through</b> something - the file, the record, the commit - and are blind outside it. This one has no instrument. It is the trunk cut across, so the dimensions can contradict each other in one figure instead of each staying plausible alone. Its ancestry is <em>concentric circles of belonging</em> and <em>pace layering</em>: rings ordered by how slowly they change, growth read as invitation inward.</p>
+     <p class="note">One dated moment, rings ordered by how slowly they change; it cannot show time.</p>
      <h2 style="margin-top:var(--s5)">Reading the fill</h2>
      ${LADDER.concat(OFF).map(s=>`<div class="kv"><span style="color:${s.t}">${s.k}</span><b style="font-weight:400;font-size:11px;color:var(--muted)">${s.say}</b></div>`).join('')}
-     <p class="note">Rings imply the outer grew from the inner. Here that is only half true: the instruments really do change slowest, but <b>/commons/ and /legal/ grew in the same weeks</b>. Radial area also inflates outward, so a proof cap reads heavier than an equal fact at the heart. Read composition within a sector; do not compare across radii.</p>`;
+     <p class="note">Read within a sector, not across radii.</p>`;
     return;
   }
   if(key==='heart'){
@@ -568,13 +568,13 @@ function ringDetail(key){
      <div class="kv"><span>merges</span><b>${St.merges}</b></div>
      <div class="kv"><span>span</span><b>${St.first} to ${St.last}</b></div>
      <div class="kv"><span>last 7 days</span><b>${St.last7}</b></div>
-     <p class="note">Every other ring is a reading of this one. Nothing here deletes: a correction is a new commit, so the history of a fact travels with the fact - the same discipline the record substrate keeps, in the tool that carries it.</p>`;
+     <p class="note">Every other ring is a reading of this one; a correction is a new commit, nothing is deleted.</p>`;
   } else if(key==='bark'){
     d.innerHTML=`<h2>The bark &middot; the estate</h2><h3>What reaches a reader</h3>
      <div class="kv"><span>pages published</span><b>${St.ext.find(e=>e[0]==='html')[1]}</b></div>
      <div class="kv"><span>total mass</span><b>${(St.totalBytes/1e6).toFixed(2)} MB</b></div>
      <div class="kv"><span>deployed from</span><b>${SNAP.branch}</b></div>
-     <p class="note">The repository grows toward a site. Everything inside this ring is machinery; this ring is the only part a member meets. The Almanac is itself one of these pages, which is why the estate keeps auditing whether the page and the ledger still agree.</p>
+     <p class="note">The only ring a member meets.</p>
      <p class="note"><a href="https://techne.coop/commons/build/" target="_blank" rel="noopener">The Almanac</a></p>`;
   } else if(key.startsWith('inst:')){
     const i=L.find(x=>x.id===key.slice(5));
@@ -583,20 +583,20 @@ function ringDetail(key){
      <div class="kv"><span>bed</span><b>${esc(i.bed)}</b></div>
      <div class="kv"><span>cites</span><b>${i.cites}</b></div>
      ${i.intent?`<p class="note">${esc(i.intent)}</p>`:''}
-     <p class="note">Drafted means written and unadopted: it binds nothing. Adoption is an organizer's act, not a merge - which is why this whole ring can be complete as writing and still closed as authority.</p>`;
+     <p class="note">Drafted: written and not adopted, binding nothing.</p>`;
   } else if(key.startsWith('bed:')){
     const bed=key.slice(4), pieces=L.filter(x=>x.bed===bed);
     const comp=LADDER.concat(OFF).map(s=>[s,pieces.filter(x=>markOf(x)===s.k).length]).filter(x=>x[1]);
     d.innerHTML=`<h2>Bed &middot; ${esc(bed.replace('_','-'))}</h2><h3>${pieces.length} pieces</h3>
      ${comp.map(([s,n])=>`<div class="kv"><span style="color:${s.t}">${s.k}</span><b>${n}</b></div>`).join('')}
-     <p class="note">A bed is a dependency-ordered sequence of pieces, and the sector shows only how far each came. What it waits on is the piece's own business - open the Maturation view to read the conditions by name.</p>`;
+     <p class="note">A bed is a dependency-ordered run of pieces. The Maturation view names what each piece waits on.</p>`;
   } else if(key.startsWith('proof:')){
     const p=L.find(x=>x.id===key.slice(6)), m=markOf(p);
     d.innerHTML=`<h2>Proof &middot; ${esc(p.id)}</h2><h3>${esc(p.title)}</h3>
      <div class="kv"><span>mark</span><b style="color:${m==='attested'?'var(--sun-gold-t)':'var(--faint)'}">${esc(p.status)}</b></div>
      ${p.ready?`<div class="kv"><span>ready when</span><b style="font-weight:400">${esc(p.ready)}</b></div>`:''}
      ${p.intent?`<p class="note">${esc(p.intent)}</p>`:''}
-     <p class="note">A proof is not a suite passing. It is a capability demonstrated end to end and attested by two hands as an event. That is why nine of ten stand open on a repository this far built: the missing input is a second person, not more work.</p>`;
+     <p class="note">Shown end to end and attested by two people; not a test suite passing.</p>`;
   }
 }
 document.addEventListener('keydown',ev=>{
@@ -626,7 +626,7 @@ function viewCode(c){
     {l:'heaviest organ',v:'/commons/',q:S.dirChurn.find(d=>d[0]==='commons')[1]+' file revisions'},
     {l:'most revised',v:hottest[1]+'×',q:hottest[0]}
   ]);
-  $('#reading').innerHTML=`A body of <b>documents and schema</b>, not application code: ${topExt[1]} HTML pages and ${S.ext.find(e=>e[0]==='sql')[1]} SQL migrations against ${S.ext.find(e=>e[0]==='js')[1]} scripts. Mass and motion sit in different places - the largest file is the ledger, and it is also the most frequently revised, meaning this system spends more energy recording its own state than editing any single page.<span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
+  $('#reading').innerHTML=`A body of <b>documents and schema</b>, not application code: ${topExt[1]} HTML pages and ${S.ext.find(e=>e[0]==='sql')[1]} SQL migrations against ${S.ext.find(e=>e[0]==='js')[1]} scripts. The largest file, the ledger, is also the most revised.<span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
   const files=SNAP.files.slice(0,110), W=c.clientWidth||900,H=c.clientHeight||460;
   const total=files.reduce((s,f)=>s+f.size,0);
   /* exact slice-and-dice: each strip takes its true share of what remains,
@@ -677,7 +677,7 @@ function sideComposition(){
    ${S.ext.slice(0,9).map(([e,n])=>`<div class="kv"><span>.${esc(e)}</span><b>${n} · ${fmtB(S.extBytes[e]||0)}</b></div>`).join('')}
    <h2 style="margin-top:var(--s5)">Where the work lands</h2>
    ${S.dirChurn.slice(0,7).map(([d,n])=>`<div class="kv"><span>${esc(d)}</span><b>${n}</b></div>`).join('')}
-   <p class="note">This view descends from <em>soil, not firm</em>: mass that sits quiet is substrate, not failure. Size is byte weight; opacity is revision count. A large pale block is <b>settled mass</b> - written once and left. A small saturated one is <b>active tissue</b>. The two rarely coincide here.</p>`;
+   <p class="note">Size is byte weight; shade is revision count.</p>`;
 }
 function detailFile(f){
   $('#detail').innerHTML=`<h2>File</h2><h3 style="word-break:break-all;font-size:15px">${esc(f.path)}</h3>
@@ -722,7 +722,7 @@ function viewLedger(c){
     {l:'drafted',v:cnt('drafted'),q:'unadopted documents'},
     {l:'waiting on',v:waiting.length,q:'a named condition, not a build step'}
   ]);
-  $('#reading').innerHTML=`The ledger marks a piece <b>drafted</b> while it is an unadopted document, <b>anticipated</b> before anyone takes it up, and <b>open</b> once someone has - the open mark then saying how far it came. Read that way the record is not early: <b>${cnt('verified')} verified and ${cnt('delivered')} delivered</b> against ${cnt('anticipated')} not yet taken up. The ${waiting.length} pieces marked with a condition (${waiting.map(i=>i.mark).join(', ')}) wait on adoptions and people, not on construction.<span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
+  $('#reading').innerHTML=`<b>${cnt('verified')} verified and ${cnt('delivered')} delivered</b> against ${cnt('anticipated')} not yet taken up. The ${waiting.length} pieces marked with a condition (${waiting.map(i=>i.mark).join(', ')}) wait on adoptions and people, not on construction.<span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
 
   const wrap=document.createElement('div');
   const ladder=document.createElement('div'); ladder.id='ladder';
@@ -763,8 +763,7 @@ function viewLedger(c){
   wrap.appendChild(rows); c.appendChild(wrap);
   $('#detail').innerHTML=`<h2>The mark grammar</h2>
    ${LADDER.concat(OFF).map(s=>`<div class="kv"><span style="color:${s.t}">${s.k}</span><b style="font-weight:400;font-size:11px;color:var(--muted)">${s.say}</b></div>`).join('')}
-   <p class="note">This view reads the estate’s own instrument of self-accounting - <em>qualification over quantification</em>: marks name how far a piece came, and rank nothing. There is no <b>filed</b> mark in force. STATUS.md still prints a <em>filed</em> row at zero, a leftover of the RDM v1 header the ledger superseded - reading it as "nothing finished" gets the record backwards.</p>
-   <p class="note">The counts describe the work and are never targets; the estate adopted that constraint at formation.</p>`;
+   <p class="note">Marks say how far a piece came and rank nothing; the counts are never targets. There is no <b>filed</b> mark in force; the <em>filed</em> row STATUS.md prints at zero is a leftover of the RDM v1 header.</p>`;
 }
 function detailLedger(i){
   const m=markOf(i), s=LADDER.concat(OFF).find(x=>x.k===m);
@@ -814,7 +813,7 @@ function viewJourneys(c){
     {l:'passages that stop',v:stopped+' of '+ps.length,q:'before their first sitting ends'}
   ]);
 
-  $('#reading').innerHTML=`This is the landscape as a person walks it. Find yourself in the row below: each one is a way into this cooperative, in the order the participation record puts them, from the stranger at the door to the patron member. Choosing one does not filter the record away, it puts your walk in front. Underneath, a <b>passage</b> is the ordered walk you would take in a first sitting, and it ends where it ends. The stop is nowhere written down: it is found by walking each passage until a step is not yet reachable, so it moves on its own as pieces are verified. <b>${stopped} of ${ps.length} passages stop before their first sitting is over.</b><span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
+  $('#reading').innerHTML=`Each card is a way into this cooperative. Choose one and its walk comes forward. A <b>passage</b> is that walk in a first sitting; it stops at the first step not yet reachable, found by walking. <b>${stopped} of ${ps.length} passages stop before their first sitting is over.</b><span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
 
   const wrap=document.createElement('div');
 
@@ -834,7 +833,7 @@ function viewJourneys(c){
   arrivals.forEach(p=>stands.appendChild(card(p,false)));
   crossings.forEach(p=>stands.appendChild(card(p,true)));
   wrap.appendChild(stands);
-  wrap.insertAdjacentHTML('beforeend','<div class="standnote">The order is the participation record\u2019s order, not a ranking; the classes are not in a race, and a way in is not a rung. The last card, set apart, is a reading that crosses the classes rather than a way in.</div>');
+  wrap.insertAdjacentHTML('beforeend','<div class="standnote">The order is the participation record\u2019s order, not a ranking. The last card, set apart, is a reading across the classes, not a way in.</div>');
 
   const lanes=document.createElement('div'); lanes.style.paddingTop='var(--s3)';
   ps.forEach(p=>{
@@ -871,12 +870,12 @@ function viewJourneys(c){
   const chosen=ps.find(p=>p.sec===state.persona);
   if(chosen){ detailPersona(chosen,reach(chosen)); return; }
   $('#detail').innerHTML=`<h2>Finding yourself here</h2>
-   <p class="note">The row across the top is every way into this cooperative. Pick the one you arrived by, and its walk comes forward while the others stay visible behind it. If none of them is you yet, the first card is: the stranger at the door.</p>
+   <p class="note">Pick the card you arrived by. If none fits yet, you are the first card: the stranger at the door.</p>
    <h2 style="margin-top:var(--s5)">Reading a passage</h2>
-   <p class="note">Each lane is one arrival class walking its first sitting in order. A gold step is reachable today. The dashed step is the <b>stop</b>: the first thing that does not yet work, with what it waits on beside it. Steps past the stop are shown faint because a person never reaches them in that sitting.</p>
+   <p class="note">Gold steps are reachable today. The dashed step is the <b>stop</b>, with what it waits on beside it.</p>
    <h2 style="margin-top:var(--s5)">What is computed, and what is not</h2>
-   <p class="note">The stop is computed here, by walking. So is the split between a way in and a reading across the classes: a passage that walks none of its own section\u2019s steps is the latter. The condition of each step is <em>not</em> computed: it is still hand-typed on the stories page, because the register that would derive it from the ledger is piece J-01 and does not exist. JOURNEYS v0.1 is drafted and unadopted, so this view shows the shape the module proposes while being honest that half the derivation is still a promise.</p>
-   <p class="note">Reach is a count of steps and never a score. The order of the classes is the participation record\u2019s order, never how far each one runs.</p>`;
+   <p class="note">The stop is computed by walking. Each step’s condition is hand-typed until piece J-01 exists: half this derivation is still a promise (JOURNEYS v0.1, drafted).</p>
+   <p class="note">Reach is a count of steps, never a score.</p>`;
 }
 function detailStep(s,p){
   if(!s) return;
@@ -887,7 +886,7 @@ function detailStep(s,p){
    ${s.surface?`<div class="kv"><span>surfaces</span><b style="font-weight:400">${esc(s.surface)}</b></div>`:''}
    <div class="kv"><span>section</span><b style="font-weight:400">${esc(s.sec)}</b></div>
    ${s.proven?`<p class="note"><em>Proven when</em> ${esc(s.proven)}</p>`:''}
-   <p class="note">A step names no Almanac address yet. Citing the pieces that deliver it is what piece J-01 would add, and it is the join that lets a condition be read rather than typed.</p>`;
+   <p class="note">A step names no Almanac address yet; piece J-01 would add that.</p>`;
 }
 function detailPersona(p,r){
   $('#detail').innerHTML=`<h2>Passage</h2><h3>${esc(p.sec)}</h3>
@@ -912,18 +911,18 @@ function viewHands(c){
     {l:'commits',v:St.commits,q:St.first+' to '+St.last},
     {l:'merges',v:St.merges,q:'each an organizer\u2019s reviewed act'},
     {l:'cadence',v:(St.commits/lifespan).toFixed(1)+'/day',q:'across '+lifespan+' days, in sessions'},
-    {l:'last 7 days',v:St.last7,q:'a launch-week bloom'},
+    {l:'last 7 days',v:St.last7,q:'commits'},
     {l:'the two piles',v:Math.round(100*P.total.tend/ptot)+' : '+Math.round(100*P.total.grow/ptot),q:'tending the place : growing what lives here'}
   ]);
-  $('#reading').innerHTML=`These figures describe the work and are never targets \u2014 Goodhart\u2019s Law entered this cooperative\u2019s record as a design constraint, and this view is built under it. No member is counted or ranked here. Work reaches <b>main</b> by two paths, an organizer\u2019s own hand or a build agent under organizer direction, and both end at a reviewed merge; the log records <b>${St.merges}</b> such acts. Of every ten file-touches, about <b>${Math.round(10*P.total.tend/ptot)}</b> tend the place itself \u2014 the ledger, the validators, the audits \u2014 and <b>${Math.round(10*P.total.grow/ptot)}</b> grow what lives in it.<span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
+  $('#reading').innerHTML=`No member is counted or ranked here, and these figures are never targets. The log records <b>${St.merges}</b> reviewed merges. Of every ten file-touches, about <b>${Math.round(10*P.total.tend/ptot)}</b> tend the place itself and <b>${Math.round(10*P.total.grow/ptot)}</b> grow what lives in it.<span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
 
   const wrap=document.createElement('div');
-  wrap.insertAdjacentHTML('beforeend',`<div class="subhead">Daily commits \u00b7 the organism\u2019s own rhythm \u00b7 ${St.first} to ${St.last}</div>`);
+  wrap.insertAdjacentHTML('beforeend',`<div class="subhead">Daily commits \u00b7 ${St.first} to ${St.last}</div>`);
   const sp=document.createElement('div'); sp.className='spark';
   const days=Object.keys(St.daily).sort(), max=Math.max(...Object.values(St.daily));
   days.forEach(d=>{const i=document.createElement('i');i.style.height=(100*St.daily[d]/max)+'%';i.title=d+' \u00b7 '+St.daily[d]+' commits';sp.appendChild(i);});
   wrap.appendChild(sp);
-  wrap.insertAdjacentHTML('beforeend',`<div class="caption"><span>${St.first}</span><span>work arrives in sessions, not streams</span><span>${St.last}</span></div>`);
+  wrap.insertAdjacentHTML('beforeend',`<div class="caption"><span>${St.first}</span><span>commits per day</span><span>${St.last}</span></div>`);
 
   wrap.insertAdjacentHTML('beforeend','<div class="subhead">The week\u2019s rhythm \u00b7 file-touches by day, split by pile</div>');
   const DOW=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
@@ -938,18 +937,18 @@ function viewHands(c){
   wrap.insertAdjacentHTML('beforeend',
    `<div class="caption"><span><span style="color:var(--sun-rose)">\u25a0</span> growing what lives here</span><span><span style="color:var(--sun-amber)">\u25a0</span> tending the place itself</span></div>`);
 
-  wrap.insertAdjacentHTML('beforeend','<div class="subhead">This week\u2019s character \u00b7 the ground the work touched, named not counted</div>');
+  wrap.insertAdjacentHTML('beforeend','<div class="subhead">This week\u2019s ground \u00b7 named, not counted</div>');
   wrap.insertAdjacentHTML('beforeend',
    `<div style="padding:6px var(--s5);font:400 13.5px/2 var(--serif);color:var(--text)">`+
    P.week_ground.map(g=>`<span style="border:1px solid var(--line);padding:2px 10px;margin-right:8px;font-family:var(--mono);font-size:11px;color:var(--muted)">${esc(g)}</span>`).join('')+`</div>`);
   c.appendChild(wrap);
 
   $('#detail').innerHTML=`<h2>The two paths</h2>
-   <p class="note">CONTRIBUTORS.md names how work travels: by an organizer\u2019s own hand, or by a build agent working under organizer direction. Both end at a pull request an organizer reviews and merges with the validator green. Only organizers record decisions, adopt drafts, or change a record\u2019s status. The path is a fact of the operating model; it is not a share to be split.</p>
+   <p class="note">An organizer\u2019s own hand, or a build agent under organizer direction; both end at a reviewed merge (CONTRIBUTORS.md). Only organizers adopt.</p>
    <h2 style="margin-top:var(--s5)">The two piles</h2>
-   <p class="note">Meeting 4\u2019s distinction, applied here by the instrument: one pile is showing up to help the place be itself \u2014 the ledger, the validators, the audits, the workflows \u2014 and the other is the work that grows in it \u2014 the commons, the instruments, the pages. The taxonomy is a reading, not a property of the files: a validator both tends and grows, and the split names the emphasis of a touch, nothing finer.</p>
+   <p class="note">Tending the place itself (the ledger, validators, audits, workflows) or growing what lives in it (the commons, instruments, pages). The split is the instrument\u2019s reading, not a property of the files (Meeting 4).</p>
    <h2 style="margin-top:var(--s5)">What this view leaves out</h2>
-   <p class="note">Deliberately: who typed what, how much each hand produced, and any figure that could become a ladder. Qualification over quantification \u2014 the gap this view lives in is the one Movement II names, between wanting gifts seen and refusing to have them priced.</p>`;
+   <p class="note">Who typed what, and how much. On purpose.</p>`;
 }
 
 /* ============ 04 · SUCCESSION · the history ============
@@ -1003,7 +1002,7 @@ function viewSuccession(c){
     {l:'median days to verified',v:med,q:'across '+toVer.length+' pieces \u00b7 a floor, not a measurement'},
     {l:'holding their first mark',v:flat.length,q:'since the ledger\u2019s first day'}
   ]);
-  $('#reading').innerHTML=`The estate\u2019s dwell reads in two layers. Above: ripening is quick where it happens at all, a median of <b>${med} days</b> from first appearance to verified. Below: <b>${flat.length} pieces have held their first mark since the ledger\u2019s first day</b>, an unbroken band beneath the churn, composed almost entirely of drafted governing documents and anticipated proofs. What moves quickly is what an instrument can do; what has not moved at all is what waits on a person adopting, attesting, or deciding. The flat layer is not a backlog \u2013 it is the boundary between capability and authority, drawn in time.<span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
+  $('#reading').innerHTML=`A median of <b>${med} days</b> from first appearance to verified, where a piece ripens at all. <b>${flat.length} pieces have held their first mark since the ledger\u2019s first day</b>: that flat layer waits on a person adopting, attesting, or deciding, and is not a backlog.<span class="framemark">figures computed from the record; the framing is the instrument\u2019s reading, drafted not adopted</span>`;
 
   const bedOf={}; L.forEach(i=>bedOf[i.id]=i.bed);
   const groups={};
@@ -1031,16 +1030,16 @@ function viewSuccession(c){
       wrap.appendChild(row);
     });
   });
-  wrap.insertAdjacentHTML('beforeend',`<div class="succ-axis"><span>${SU.first}</span><span>the ledger\u2019s own commit rhythm \u00b7 nothing finer</span><span>${cut}</span></div>`);
+  wrap.insertAdjacentHTML('beforeend',`<div class="succ-axis"><span>${SU.first}</span><span>at the ledger\u2019s own commit grain</span><span>${cut}</span></div>`);
   c.appendChild(wrap);
 
   $('#detail').innerHTML=`<h2>The corrections</h2>
-   <p class="note">Colour stepping back is the conservation law working, not an embarrassment tidied away: a wrong entry answered rather than erased.</p>
+   <p class="note">Colour stepping back is a wrong entry answered, not erased.</p>
    ${back.map(b=>`<div class="kv"><span>${esc(b.id)} \u00b7 ${b.date}</span><b style="font-weight:400">${esc(b.from)} \u2192 ${esc(b.to)}</b></div>`).join('')||'<p class="note">none recovered at this cut</p>'}
    <h2 style="margin-top:var(--s5)">The grain</h2>
-   <p class="note">This view read <b>${SU.revisions} revisions</b> of the ledger and can be no finer than they are. A mark that flipped twice between two ledger commits is invisible even here; a dwell figure is a floor, not a measurement. The durable remedy is the ledger emitting transitions as events, which is TRANSDUCER-D8 and not this view\u2019s call.</p>
+   <p class="note">This view read <b>${SU.revisions} revisions</b> of the ledger and can be no finer, so a dwell figure is a floor, not a measurement (TRANSDUCER-D8).</p>
    <h2 style="margin-top:var(--s5)">No dwell as deadline</h2>
-   <p class="note">R7: time in a mark is elapsed days, never an ageing alarm or a colour that turns overdue. There is no threshold at which a piece becomes late, because there is no promise it was late against. The flat layer is the record of a cooperative refusing to rush its own governance.</p>`;
+   <p class="note">R7: time in a mark is elapsed days, never an alarm. There is no threshold at which a piece becomes late, because there is no promise it was late against.</p>`;
 }
 function detailSuccession(p,cut){
   const rows=p.states.map((s,i)=>{
@@ -1050,7 +1049,7 @@ function detailSuccession(p,cut){
     return `<div class="kv"><span>${s.date} \u00b7 <b style="color:${succTextColor(succMark(s))};font-weight:500">${esc(s.mark)}</b></span><b style="font-weight:400">${last?'at least ':''}${days} day${days===1?'':'s'}</b></div>`;
   }).join('');
   $('#detail').innerHTML=`<h2>Piece ${esc(p.id)}</h2>
-   <p class="note">Every distinct state this piece was observed to hold, in the order observed, including several on one date. Days are counted at the ledger\u2019s own grain and are floors.</p>${rows}
+   <p class="note">Every state observed, in order. Days are floors at the ledger\u2019s grain.</p>${rows}
    ${p.states.length>1?'':'<p class="note">One state, held since it entered: dwell without succession.</p>'}`;
 }
 
@@ -1069,36 +1068,36 @@ function detailSuccession(p,cut){
    not invented here.
    ============================================================ */
 const GLOSS={
- 'transition':['One piece changing one mark on one date. The estate does not store it; it is recovered by reading every revision of the ledger against the one before, which the append-only record makes possible without anyone having planned for it.','TRANSDUCER-A1 \u00a72'],
- 'dwell':['How long a piece has held its present mark, counted in days and shown as a floor, never a deadline. There is no threshold at which a piece becomes late, because there is no promise it was late against.','TRANSDUCER-A1 \u00a74 \u00b7 R7'],
- 'append-only':['The history admits new entries and refuses every change to old ones. Nothing is edited or deleted; a mistake is answered by a new entry pointing back at it.','Lexicon §3'],
- 'commit':['One saved change to the files, with its author, date, and message. A repository\u2019s history is a chain of them.','general'],
- 'merge':['The act of folding a proposed change into the main history. Here it is also adoption: a person doing it is the moment a draft becomes real.','Lexicon §6'],
+ 'transition':['One piece changing one mark on one date, recovered by reading every revision of the ledger against the one before.','TRANSDUCER-A1 \u00a72'],
+ 'dwell':['How long a piece has held its present mark, counted in days as a floor, never a deadline.','TRANSDUCER-A1 \u00a74 \u00b7 R7'],
+ 'append-only':['The history admits new entries and refuses every change to old ones; a mistake is answered by a new entry.','Lexicon \u00a73'],
+ 'commit':['One saved change to the files, with its author, date, and message.','general'],
+ 'merge':['Folding a proposed change into the main history. Here it is also adoption.','Lexicon \u00a76'],
  'pull request':['A proposed change, offered for review before it joins the main history.','general'],
  'repository':['The folder of files together with the whole history of how they got that way.','general'],
- 'ledger':['The list of every piece of work this cooperative has named, each with an address, an intent, and a mark saying how far it came.','Almanac'],
- 'address':['A short code naming one piece of work, like G0 or L-06. The branch, the proposed change, and the record all carry the same one, so any piece can be traced end to end.','Lexicon §6'],
- 'piece':['One unit of build work: small enough to finish, named by an address, belonging to a bed.','Lexicon §6'],
- 'bed':['An ordered run of pieces that share a single proof. Work grows in beds the way plants do.','Lexicon §6'],
- 'mark':['The word saying how far a piece has come: drafted, anticipated, delivered, verified, attested.','Lexicon §6'],
- 'drafted':['Written but not adopted. It binds nothing until a person takes it up.','Lexicon §6'],
- 'anticipated':['Named and waiting. Nobody has taken it up yet.','Lexicon §6'],
- 'delivered':['Merged into the main history, but nobody has yet walked through it to check it does what it claims.','Lexicon §6'],
- 'verified':['A person walked its acceptance and found it true. Not a test suite passing.','Lexicon §6'],
- 'attested':['Demonstrated end to end and witnessed by two people, recorded as an event.','Lexicon §6'],
- 'proof':['A capability shown working from beginning to end in front of witnesses, and recorded. Ten are named here; one has been given.','Lexicon §6'],
- 'adoption':['The visible human act that turns a draft into a record. The system runs on adoption the way the database runs on events.','Lexicon §6'],
- 'event':['The unit of record: one thing that happened, written once, never edited.','Lexicon §3'],
- 'tally':['A figure worked out from the history each time it is asked for, never stored. Any number can be traced back to what produced it.','Lexicon §3'],
- 'transducer':['The instrument standing where the record crosses into human perception: it converts state into something a person can hold without severing the path back. This screen is that instrument. The naming supersedes the register’s earlier use of the word for the tally, per TRANSDUCER v0.1, which is drafted and not yet adopted.','TRANSDUCER v0.1 §2'],
- 'organizer':['A person who decides, signs, and governs. Instruments draft and surface; organizers adopt. Responsibility never transfers to an instrument.','Lexicon §4'],
- 'walkaway':['The proof that the cooperative could leave: export everything, rebuild it elsewhere from the public record alone, and get the identical result.','Lexicon §7'],
+ 'ledger':['The list of every piece of work this cooperative has named, each with an address, an intent, and a mark.','Almanac'],
+ 'address':['A short code naming one piece of work, like G0 or L-06, carried by its branch, its proposed change, and its record.','Lexicon \u00a76'],
+ 'piece':['One unit of build work: small enough to finish, named by an address, belonging to a bed.','Lexicon \u00a76'],
+ 'bed':['An ordered run of pieces that share a single proof.','Lexicon \u00a76'],
+ 'mark':['The word saying how far a piece has come: drafted, anticipated, delivered, verified, attested.','Lexicon \u00a76'],
+ 'drafted':['Written but not adopted. It binds nothing.','Lexicon \u00a76'],
+ 'anticipated':['Named and waiting; nobody has taken it up yet.','Lexicon \u00a76'],
+ 'delivered':['Merged into the main history; nobody has yet walked it to check it does what it claims.','Lexicon \u00a76'],
+ 'verified':['A person walked its acceptance and found it true. Not a test suite passing.','Lexicon \u00a76'],
+ 'attested':['Demonstrated end to end and witnessed by two people, recorded as an event.','Lexicon \u00a76'],
+ 'proof':['A capability shown working from beginning to end in front of witnesses, and recorded.','Lexicon \u00a76'],
+ 'adoption':['The visible human act that turns a draft into a record.','Lexicon \u00a76'],
+ 'event':['The unit of record: one thing that happened, written once, never edited.','Lexicon \u00a73'],
+ 'tally':['A figure worked out from the history each time it is asked for, never stored.','Lexicon \u00a73'],
+ 'transducer':['This screen: the instrument that turns the record into something a person can read, with the path back to the source kept. The word earlier named the tally; TRANSDUCER v0.1, drafted and not adopted, moves it here.','TRANSDUCER v0.1 \u00a72'],
+ 'organizer':['A person who decides, signs, and governs. Instruments draft; organizers adopt.','Lexicon \u00a74'],
+ 'walkaway':['The proof that the cooperative could leave: rebuild everything elsewhere from the public record alone and get the identical result.','Lexicon \u00a77'],
  'Almanac':['The page where this cooperative publishes what it is building and how far each piece has come.','techne.coop/commons/build/'],
- 'Lexicon':['The estate\u2019s own dictionary, where each working word is defined in plain language.','techne.coop/commons/build/lexicon/'],
- 'cooperative':['A business owned and governed by its members rather than by outside shareholders, one member one vote.','ICA Statement of Identity'],
- 'treemap':['A picture where every rectangle is one thing and its area is that thing\u2019s size, so the big ones are obvious at a glance.','general'],
- 'cross-section':['A cut straight across, the way a tree stump shows its rings, so layers that formed at different speeds can be seen together.','general'],
- 'Goodhart':['Goodhart\u2019s Law: once a measure becomes a target, it stops being a good measure. People optimise the number instead of the thing.','Commonplace, Movement II']
+ 'Lexicon':['The estate\u2019s own dictionary of its working words.','techne.coop/commons/build/lexicon/'],
+ 'cooperative':['A business owned and governed by its members, one member one vote.','ICA Statement of Identity'],
+ 'treemap':['A picture where every rectangle is one thing and its area is that thing\u2019s size.','general'],
+ 'cross-section':['A cut straight across, the way a tree stump shows its rings.','general'],
+ 'Goodhart':['Goodhart\u2019s Law: once a measure becomes a target, it stops being a good measure.','Commonplace, Movement II']
 };
 const GTERMS=Object.keys(GLOSS).sort((a,b)=>b.length-a.length);
 let glossing=false;
@@ -1147,12 +1146,12 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') pop().style.displa
 
 /* ---- the plain line: one sentence per view, no estate words ---- */
 const PLAIN={
- standing:'<b>What you are looking at:</b> one cooperative\u2019s work cut across like a tree stump, so the layers that change slowly and the layers that change fast can be seen at once.',
- code:'<b>What you are looking at:</b> every file in the project as a rectangle, sized by how big it is and shaded by how often it has been changed.',
- ledger:'<b>What you are looking at:</b> the cooperative\u2019s own list of work it has named, sorted by how far each piece has come toward being finished and checked by a person.',
- journeys:'<b>What you are looking at:</b> every way into this place, from someone who has just arrived to a full member, and for each one what they can actually do today, in order, up to the exact point where it stops working.',
+ standing:'<b>What you are looking at:</b> one cooperative\u2019s work cut across like a tree stump: slow layers and fast layers at once.',
+ code:'<b>What you are looking at:</b> every file in the project as a rectangle, sized by how big it is and shaded by how often it has changed.',
+ ledger:'<b>What you are looking at:</b> the cooperative\u2019s list of named work, sorted by how far each piece has come.',
+ journeys:'<b>What you are looking at:</b> every way into this place, and for each one what works today, up to where it stops.',
  hands:'<b>What you are looking at:</b> the rhythm of the work over time. Nobody is counted or ranked here, on purpose.',
- succession:'<b>What you are looking at:</b> every named piece of work as a stripe through time, coloured by the state it was in on each day. Long unbroken bands have simply stayed where they are; that is a fact, not a failure.'
+ succession:'<b>What you are looking at:</b> every named piece of work as a stripe through time, coloured by its state on each day. A long unbroken band has simply stayed where it is.'
 };
 
 /* ---- the walk ----------------------------------------------
@@ -1167,38 +1166,31 @@ const PLAIN={
    ------------------------------------------------------------ */
 const WALK=[
  {v:'journeys',t:null,h:'Volunteered attention',
-  b:['A cooperative runs on attention people give freely, and it coordinates through meetings, minutes, and memory. The formation record names the trouble plainly: the place ran collectively, but the picture of it lived in whoever was in the room.',
-     'An information system helps in one way. It keeps the record where anyone can read it without asking anyone, so volunteered attention goes to deciding rather than reconstructing.'],
+  b:['A cooperative runs on attention people give freely. This record is kept where anyone can read it without asking.'],
   c:'Two practical drivers &middot; Meeting 1'},
 
  {v:'journeys',t:null,h:'A tool alongside, not in place of',
-  b:['Cybernetics is an old word for the study of steering: how a thing senses its own state and adjusts. A cooperative reading its own record and correcting course is that loop, with people in it.',
-     'The record has grown too large for one person to hold, so an instrument stands between record and reader: the <em>transducer</em>. It turns the whole into something a person can take in, and every figure walks back to its source. A tool in place of a person automates; a tool alongside them augments. This one decides nothing.'],
+  b:['This instrument, the <em>transducer</em>, stands between record and reader. Every figure walks back to its source, and the instrument decides nothing.'],
   c:'Augmentation over automation &middot; Meeting 15'},
 
  {v:'journeys',t:'.stands',lens:'00 · where you stand',h:'Journeys',
-  b:['Start with yourself. Each card is a way into this cooperative, in the participation record&rsquo;s own order, from the stranger at the door to the patron member. Pick the one you arrived by and your walk comes forward; the others stay visible behind it.',
-     'The lanes below are those walks in order. The dashed step is where the walk stops today, and what it waits on. Nobody typed the stops in; they are found against the record, and move on their own as pieces finish.'],
+  b:['Each card is a way into this cooperative. Pick yours and its walk comes forward; the dashed step is where it stops today.'],
   c:'Concentric circles of belonging &middot; Meeting 4. Lanes are kinds of arrival, never people.'},
 
  {v:'standing',t:'.disc',lens:'01 · the whole',h:'Standing',
-  b:['Now the same place from above: the cooperative cut across the grain, read the way a stump is read. History at the heart, then the governing documents, then the beds of work, then the proofs, then the public site at the rim.',
-     'One look answers what is solid, what is waiting, and where the organisation is still becoming itself.'],
+  b:['The whole cut across: history at the heart, then the governing documents, the beds of work, the proofs, and the public site at the rim.'],
   c:'One dated moment. A cross-section cannot show time.'},
 
  {v:'ledger',t:'#ladder',lens:'02 · the work',h:'Maturation',
-  b:['Every named piece of work, marked by how far it came: not yet taken up, delivered, verified.',
-     'The marks qualify; they do not rank. Delivered means the machinery is satisfied. Verified means a person walked it and found it true. A cooperative answers to people, so a person is the bar.'],
+  b:['Every named piece, marked by how far it came. Delivered means merged; verified means a person walked it. The marks qualify and do not rank.'],
   c:'Qualification over quantification &middot; Meeting 1'},
 
  {v:'hands',t:'#overview',lens:'03 · the rhythm',h:'Tending',
-  b:['When the work happened, and which of two piles it fell into: helping the place be itself, or growing what lives within it. Both belong.',
-     'What is missing is deliberate. No counts per person, no ranking, because when a measure becomes a target it ceases to be a good measure. The rhythm of the whole is shown, and no one is scored.'],
+  b:['When the work happened, and which of two piles it fell into: tending the place itself, or growing what lives in it. No counts per person and no ranking, on purpose.'],
   c:'The two piles &middot; Meeting 4. Goodhart&rsquo;s Law &middot; Meeting 3.'},
 
  {v:'code',t:'.canvas',lens:'05 · the material',h:'Composition',
-  b:['Last, and last on purpose: everything written, as rectangles. Bigger is larger, darker is revised more often. This is the layer a builder reads, and you can leave without it.',
-     'The formation record settled early that this place is soil rather than firm. So mass that sits quiet is substrate, not neglect; the small dark blocks are where attention keeps returning.'],
+  b:['Every file as a rectangle: bigger is larger, darker is revised more often. A builder’s layer; you can leave without it.'],
   c:'Soil, not firm &middot; Meeting 3. Size is not merit.'}
 ];
 let step=0, walking=false;
