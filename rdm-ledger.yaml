@@ -3578,6 +3578,42 @@ cross_cutting:
       surface. Cards that are frozen and still read badly are listed
       in the pull request for the steward's separate decision rather
       than quietly repaired.
+  - address: X-38
+    title: The agent walks the cards
+    intent: >
+      The verification walk is a person's act, and fifty-eight cards
+      wait on one person's hours. Most of a card's steps are
+      mechanical: fetch a page, count the items, read a CI run, read
+      a pull request. This piece has an agent session walk every card
+      it can reach from the build host and write down what it saw,
+      step by step, with the URL, the command, the quoted line, the
+      run id, and a proposed verdict from the card's own list. The
+      agent verifies nothing. The word belongs to the steward, who
+      reads each sheet and says it, card by card; a card whose last
+      step is a person's act is deferred on the sheet, and that is
+      the correct outcome. Four batches, one sheet each, tier by
+      tier.
+    status: open · delivered
+    cites: [X-22, X-31, BP, VS]
+    ready_when: >
+      the steward's ask, 2026-09-02, that the walk be prepared by an
+      agent and signed by a person.
+    deliverable: >
+      commons/build/verification/walks/*.md, one evidence sheet per
+      batch. The first, 2026-09-agent-walk-tier-one.md, walks the
+      eleven cards of tier one. Later batches add their own sheet
+      and nothing else.
+    acceptance: >
+      Every card in the batch is walked or deferred with its reason;
+      every step names what was done and what was seen; every
+      verdict is marked as the walker's proposal; no ledger mark
+      changes; validator, style, and almanac suites green.
+    note: >
+      Staged on branch X-38-tier-one; merge is the act of adoption.
+      The sheet is unsigned by design. Signed-in surfaces are
+      rendered under the CIS stub harness on fixture data, so no
+      walk step touches the live CIS. Verified marks stay where they
+      are until the steward reads a sheet and speaks.
 
 agency:
 
