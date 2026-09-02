@@ -874,6 +874,92 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     </div>
   </section>
 
+  <!-- §13  --  The road to public beta -->
+  <section class="sec" id="s13">
+    <div class="addr">&sect;13</div>
+    <h2>The road to public beta</h2>
+    <p class="lead">Added September 2026 as X-33, from the plan at <code>PLANS/COMMONS_BUILD_PUBLIC_BETA_ROADMAP.md</code>, prepared on the steward&rsquo;s direction of 2026-09-02 in <code>#intranet-dev</code> to orchestrate and schedule the completion of the commons build. No instrument on the estate defined <em>public beta</em> before that plan; what follows is the plan&rsquo;s proposal. It becomes the estate&rsquo;s definition only when the steward adopts it by merging this section. Until then it is a proposal, carried here so an agent meets it where &sect;3 already sends one to read before a piece.</p>
+
+    <p>Public beta, proposed: the state in which every surface a member can reach says truthfully what it is, every agent-completable piece is delivered and green, the four proofs one steward can attest alone are attested, and the beds that wait on the board are marked as waiting rather than missing. Six conditions state that plainly.</p>
+
+    <table class="train-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>condition</th>
+          <th>whose act</th>
+          <th>measured by</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="addr-cell">B1</td>
+          <td>Every <code>open &middot; delivered</code> piece that one person can walk alone has a verdict: verified, or a named defect filed as a packet.</td>
+          <td>the steward, walking (X-22 sittings)</td>
+          <td>ledger marks; <code>packet.verified</code> events; the walk page</td>
+        </tr>
+        <tr>
+          <td class="addr-cell">B2</td>
+          <td>Every agent-completable piece in the plan&rsquo;s batch list is delivered on main with the full CI battery green.</td>
+          <td>agents, under the merge grant</td>
+          <td><code>scripts/validate.py</code>, <code>verify.yml</code>, one reader over each batch</td>
+        </tr>
+        <tr>
+          <td class="addr-cell">B3</td>
+          <td>G-B, G-G, G-F attested; G-L attested once L-01 through L-06 are verified.</td>
+          <td>the steward (G-B needs a second person)</td>
+          <td><code>gate.attested</code> events</td>
+        </tr>
+        <tr>
+          <td class="addr-cell">B4</td>
+          <td>The Almanac prose and this page state the ledger&rsquo;s state on the day, and the record-keeping loop is live so a board meeting and its minute have a place in the record.</td>
+          <td>agents; the Secretary writes the first row</td>
+          <td>the pages; <code>minutes.*</code> events</td>
+        </tr>
+        <tr>
+          <td class="addr-cell">B5</td>
+          <td>The public surfaces carry one beta mark that says what is and is not in force, in words the steward chose.</td>
+          <td>drafted by an agent, named by the steward</td>
+          <td>the mark on <code>/commons/</code> and <code>/commons/build/</code></td>
+        </tr>
+        <tr>
+          <td class="addr-cell">B6</td>
+          <td>No stale claim: no page says a thing is adopted, live, or verified that the ledger and the record do not say.</td>
+          <td>agents audit; the steward rules on contradictions</td>
+          <td>the almanac audit; the design audit; a manual claims pass</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The batches that deliver B1 through B6 run on a schedule, not this page: the plan&rsquo;s own sections 3 and 5 hold the batch list and the automation that works it. One rule from that schedule matters here, because it is the boundary this section would otherwise leave unstated: the 45-minute loop merges only Tier A batches, and only with the full check battery green, and holds every Tier C batch, the ones touching a public claim, for the steward&rsquo;s word. A faster fleet does not move that boundary.</p>
+
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--heading);margin:var(--s5) 0 var(--s3);letter-spacing:-.01em;">Human blockers, by whose act</h3>
+    <p>Ordered by what it unblocks in the plan. Each is one act; none needs construction first.</p>
+    <div class="def">
+      <div class="def-row">
+        <span class="t"><span class="k">act</span>The steward</span>
+        <span class="d">Walk the delivered pieces to a verdict, sitting by sitting, unblocking B1. Attest G-B, G-G, and G-F on the run-through, unblocking B3 and the Find proof chain. Say the verified word on TR-02, and in turn TR-03, TR-04, TR-09, and TR-10. Choose the beta mark&rsquo;s words for B5, his under &sect;2. Rule on the Bylaws standing contradiction the record-keeping work files. Apply or refuse migrations 0029 and 0030 against the live CIS, or name who does; not required for beta, but required for B1 to stop depending on copy-and-paste. Decide A-03, the first grant, or route it to the board; not required for beta. Record decision X-20-D1 if the ledger grammar is to change before beta; the default is not before beta.</span>
+      </div>
+      <div class="def-row">
+        <span class="t"><span class="k">act</span>The Secretary</span>
+        <span class="d">Write the first minutes row once the minute-book bed lands: an adoption pointing at the founding record of 2026-08-14. Unblocks the second half of B4.</span>
+      </div>
+      <div class="def-row">
+        <span class="t"><span class="k">act</span>The board</span>
+        <span class="d">Adopt what each packet&rsquo;s own <code>ready_when</code> names: COUNTING-RULES v1, TREASURY-POLICY, redeemability with counsel, the STANDING, GUILD, MATRIX, and TRANSDUCER documents, and the series documents still drafted. None of these gates beta under the six conditions above; each stands on the beta mark of B5 as waiting.</span>
+      </div>
+      <div class="def-row">
+        <span class="t"><span class="k">act</span>A second human</span>
+        <span class="d">A member who is not the steward: answer the F-02 opportunity posting, attend the G-B attestation, direct the instrument for G-A.</span>
+      </div>
+    </div>
+
+    <div class="memo">
+      <div class="k">what this section does not do</div>
+      <p>It does not define beta for anyone but this build, and it adopts nothing on its own account: the definition above is a proposal until the steward&rsquo;s merge, per &sect;1 and &sect;11. It moves no human boundary. The board&rsquo;s adoptions, the steward&rsquo;s verified word, and the second human&rsquo;s presence stay exactly where the ledger already puts them.</p>
+    </div>
+  </section>
+
 </div><!-- /doc-wrap -->
 
 <footer>
