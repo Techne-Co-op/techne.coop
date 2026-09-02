@@ -1,6 +1,6 @@
 # Design audit
 
-Written by scripts/design_audit.py at commit 17e535d over 105 tracked pages. Regenerate rather than edit: `python3 scripts/design_audit.py --report design-system/AUDIT.md`.
+Written by scripts/design_audit.py at commit c26c00e over 105 tracked pages. Regenerate rather than edit: `python3 scripts/design_audit.py --report design-system/AUDIT.md`.
 
 Every check names its source in the design system or in commons.css. A mechanical finding is one `--fix` applies; a judgment finding waits on a person. legal/ is reported and never fixed; design-system/ is exempt from the color checks only, as in token_audit.py.
 
@@ -10,13 +10,13 @@ Every check names its source in the design system or in commons.css. A mechanica
 |---|---|---|---:|---:|---:|---:|
 | head-charset | charset meta | design-system#seo, required head block 1 | 0 | 0 | 0 | 0 |
 | head-viewport | viewport meta | design-system#seo, required head block 1 | 0 | 0 | 0 | 0 |
-| head-color-scheme | color-scheme meta | design-system#seo, required head block 1 | 14 | 5 | 9 | 0 |
+| head-color-scheme | color-scheme meta | design-system#seo, required head block 1 | 9 | 0 | 9 | 0 |
 | head-title | title carries the Techne pattern | design-system#seo, title pattern | 2 | 0 | 2 | 0 |
 | head-description | description meta present | design-system#seo, required head block 2 | 4 | 0 | 4 | 0 |
-| head-canonical | canonical link present | design-system#seo, required head block 2 | 54 | 40 | 14 | 0 |
-| head-og | Open Graph block complete | design-system#seo, required head block 3 | 76 | 57 | 19 | 0 |
-| head-favicon | favicon linked from root | design-system#seo, required head block 4 | 39 | 24 | 15 | 0 |
-| head-mode-boot | mode flash prevention inline before CSS | design-system#seo, required head block 5 | 3 | 1 | 2 | 0 |
+| head-canonical | canonical link present | design-system#seo, required head block 2 | 14 | 0 | 14 | 0 |
+| head-og | Open Graph block complete | design-system#seo, required head block 3 | 19 | 0 | 19 | 0 |
+| head-favicon | favicon linked from root | design-system#seo, required head block 4 | 15 | 0 | 15 | 0 |
+| head-mode-boot | mode flash prevention inline before CSS | design-system#seo, required head block 5 | 2 | 0 | 2 | 0 |
 | type-faces | two faces only: Libre Baskerville and IBM Plex Mono | design-system#type, X-06 decision 2026-07-20 | 16 | 0 | 16 | 0 |
 | type-scale | font sizes among the sizes commons.css uses | observed convention only; no scale is adopted (v6 reverted, PR 276) | 97 | 0 | 0 | 97 |
 | token-layer | page defines both mode palettes or links commons.css | design-system#tokens; AGENTS.md REPO | 2 | 0 | 2 | 0 |
@@ -28,84 +28,84 @@ Every check names its source in the design system or in commons.css. A mechanica
 | skeleton-footer | a footer element closes the page | observed convention: commons.css footer; notice_audit.py | 20 | 0 | 20 | 0 |
 | skeleton-frame | exactly one of topbar.js or shell.js | design-system#topbar; validate.py U-13 | 0 | 0 | 0 | 0 |
 
-Rule findings: 280 on 86 of 105 pages; 127 mechanical, 153 judgment. Observations, not counted: 175.
+Rule findings: 153 on 65 of 105 pages; 0 mechanical, 153 judgment. Observations, not counted: 175.
 
 ## By page
 
 | page | frame | layer | container | faces | findings |
 |---|---|---|---|---|---|
 | about/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
-| accounting/counsel-memo/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | color-function(17), head-color-scheme(1), head-og(1), skeleton-footer(1), token-private(1), type-scale(1) |
-| accounting/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-color-scheme(1), head-og(1), skeleton-footer(1), token-private(1), type-scale(1) |
+| accounting/counsel-memo/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | color-function(17), skeleton-footer(1), token-private(1), type-scale(1) |
+| accounting/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | skeleton-footer(1), token-private(1), type-scale(1) |
 | commonplace/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
 | commons/agency/grants/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
-| commons/agency/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/agreements/board-originated/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-og(1), type-scale(1) |
-| commons/agreements/comment-and-countersign/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-og(1), type-scale(1) |
-| commons/agreements/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | color-function(2), head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| commons/authority-map/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-og(1) |
-| commons/bp/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-og(1), head-title(1) |
-| commons/build/gates/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | head-og(1), skeleton-container(1), token-private(1), type-scale(1) |
+| commons/agency/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/agreements/board-originated/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | type-scale(1) |
+| commons/agreements/comment-and-countersign/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | type-scale(1) |
+| commons/agreements/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | color-function(2), token-private(1), type-scale(1) |
+| commons/authority-map/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | clean |
+| commons/bp/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-title(1) |
+| commons/build/gates/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
 | commons/build/index.html | shell+topbar (public) | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
-| commons/build/instructions/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | head-og(1), skeleton-container(1), token-private(1), type-scale(1) |
-| commons/build/launch/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/build/lexicon/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | head-og(1), skeleton-container(1), token-private(1), type-scale(1) |
-| commons/build/run-through/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | head-og(1), skeleton-container(1), token-private(1), type-scale(1) |
-| commons/build/run-through/organizers/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | head-og(1), skeleton-container(1), token-private(1), type-scale(1) |
-| commons/build/sms-05-ceremony/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/build/sms-bindings/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/build/verification/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | head-og(1), skeleton-container(1), token-private(1), type-scale(1) |
-| commons/build/walkthrough/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | head-og(1), skeleton-container(1), token-private(1), type-scale(1) |
-| commons/directory/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | color-function(2), head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| commons/gatherings/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | color-function(2), head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| commons/governance/egress/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/governance/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-description(1), head-favicon(1), head-og(1), type-scale(1) |
+| commons/build/instructions/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
+| commons/build/launch/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/build/lexicon/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
+| commons/build/run-through/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
+| commons/build/run-through/organizers/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
+| commons/build/sms-05-ceremony/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/build/sms-bindings/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/build/verification/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
+| commons/build/walkthrough/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
+| commons/directory/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | color-function(2), token-private(1), type-scale(1) |
+| commons/gatherings/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | color-function(2), token-private(1), type-scale(1) |
+| commons/governance/egress/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/governance/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-description(1), head-og(1), type-scale(1) |
 | commons/governance/model-v4/governance-model-v4.html | verbatim | - | verbatim | - | clean |
-| commons/governance/model-v5/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-container(1), token-private(1), type-scale(1) |
-| commons/governance/order-of-proceeding/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/governance/rules-of-order/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/im/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-og(1), type-scale(1) |
+| commons/governance/model-v5/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
+| commons/governance/order-of-proceeding/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/governance/rules-of-order/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/im/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | type-scale(1) |
 | commons/index.html | shell+topbar (public) | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
-| commons/intelligences/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | color-function(2), head-favicon(1), token-private(1), type-scale(1) |
+| commons/intelligences/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | color-function(2), token-private(1), type-scale(1) |
 | commons/join/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), type-scale(1) |
-| commons/lp/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-og(1), token-private(1) |
-| commons/matrix/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/opportunities/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| commons/patronage/counting-rules/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/patronage/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/prd/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-og(1), type-scale(1) |
-| commons/prd/stories/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-description(1), head-favicon(1), head-og(1), type-scale(1) |
-| commons/publishing/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/series/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-og(1), type-scale(1) |
-| commons/standing/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-description(1), head-favicon(1), head-og(1), type-scale(1) |
-| commons/transducer/a1/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), type-scale(1) |
-| commons/transducer/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), type-scale(1) |
-| commons/treasury/handbook/brief/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/treasury/handbook/briefing/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/treasury/handbook/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/treasury/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/treasury/policy/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
-| commons/ui/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-og(1), token-private(1) |
-| commons/vs/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-og(1), token-private(1) |
+| commons/lp/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | token-private(1) |
+| commons/matrix/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/opportunities/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
+| commons/patronage/counting-rules/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/patronage/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/prd/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | type-scale(1) |
+| commons/prd/stories/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-description(1), head-og(1), type-scale(1) |
+| commons/publishing/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/series/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | type-scale(1) |
+| commons/standing/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-description(1), head-og(1), type-scale(1) |
+| commons/transducer/a1/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | type-scale(1) |
+| commons/transducer/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | type-scale(1) |
+| commons/treasury/handbook/brief/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/treasury/handbook/briefing/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/treasury/handbook/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/treasury/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/treasury/policy/index.html | topbar | inline | wrap | IBM Plex Mono,Inter,Libre Baskerville | skeleton-footer(1), token-private(1), type-faces(1), type-scale(1) |
+| commons/ui/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | token-private(1) |
+| commons/vs/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | token-private(1) |
 | community-of-practice/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
 | daybook/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
 | design-system/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
-| encyclopedia/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-color-scheme(1), head-favicon(1), head-og(1), token-private(1), type-scale(1) |
+| encyclopedia/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
 | federation/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | type-scale(1) |
 | index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | color-named(1), token-private(1), type-scale(1) |
-| intranet/direct/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| intranet/federation/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| intranet/hud/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | color-function(2), head-canonical(1), head-color-scheme(1), head-mode-boot(1), head-og(1), skeleton-container(1), skeleton-footer(1), type-scale(1) |
-| intranet/hud/mobile/index.html | topbar | - | - | - | color-function(1), head-canonical(1), head-color-scheme(1), head-mode-boot(1), head-og(1), skeleton-container(1), skeleton-footer(1), token-layer(1), type-scale(1) |
-| intranet/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| intranet/legal/index.html | shell | inline | wrap,main=wrap-frame | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-og(1), head-title(1), token-private(1), type-scale(1) |
-| intranet/programs/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | color-function(1), head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| intranet/record/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | color-function(1), head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| intranet/revenue/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| intranet/share/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| intranet/treasury/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| intranet/verification/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-og(1), token-private(1), type-scale(1) |
-| journal/draft/2026-08-20-techne-foundation/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-og(1), token-private(1), type-scale(1) |
+| intranet/direct/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
+| intranet/federation/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
+| intranet/hud/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | color-function(2), skeleton-container(1), skeleton-footer(1), type-scale(1) |
+| intranet/hud/mobile/index.html | topbar | - | - | - | color-function(1), head-mode-boot(1), skeleton-container(1), skeleton-footer(1), token-layer(1), type-scale(1) |
+| intranet/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
+| intranet/legal/index.html | shell | inline | wrap,main=wrap-frame | IBM Plex Mono,Libre Baskerville | head-title(1), token-private(1), type-scale(1) |
+| intranet/programs/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | color-function(1), token-private(1), type-scale(1) |
+| intranet/record/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | color-function(1), token-private(1), type-scale(1) |
+| intranet/revenue/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
+| intranet/share/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
+| intranet/treasury/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
+| intranet/verification/index.html | shell | inline | main=wrap-frame | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
+| journal/draft/2026-08-20-techne-foundation/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
 | journal/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
 | launch/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
 | legal/board-memo-2026-08-19/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | head-canonical(1), head-favicon(1), head-og(1), type-scale(1) |
@@ -136,7 +136,7 @@ Rule findings: 280 on 86 of 105 pages; 127 mechanical, 153 judgment. Observation
 | participation/detail/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | type-scale(1) |
 | participation/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | type-scale(1) |
 | philosoraptor/1/evening/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
-| philosoraptor/1/evening/live/hud/index.html | topbar | - | - | IBM Plex Mono,Libre Baskerville | head-mode-boot(1), head-og(1), skeleton-container(1), token-layer(1), type-scale(1) |
+| philosoraptor/1/evening/live/hud/index.html | topbar | - | - | IBM Plex Mono,Libre Baskerville | head-mode-boot(1), skeleton-container(1), token-layer(1), type-scale(1) |
 | philosoraptor/1/evening/live/index.html | topbar | inline | - | IBM Plex Mono,Libre Baskerville | skeleton-container(1), token-private(1), type-scale(1) |
 | what-grows/index.html | topbar | inline | wrap | IBM Plex Mono,Libre Baskerville | token-private(1), type-scale(1) |
 
@@ -146,11 +146,6 @@ Rule findings: 280 on 86 of 105 pages; 127 mechanical, 153 judgment. Observation
 
 Source: design-system#seo, required head block 1.
 
-- `accounting/counsel-memo/index.html` (mechanical): add <meta name="color-scheme" content="dark light">
-- `accounting/index.html` (mechanical): add <meta name="color-scheme" content="dark light">
-- `encyclopedia/index.html` (mechanical): add <meta name="color-scheme" content="dark light">
-- `intranet/hud/index.html` (mechanical): add <meta name="color-scheme" content="dark light">
-- `intranet/hud/mobile/index.html` (mechanical): add <meta name="color-scheme" content="dark light">
 - `legal/bylaws-analysis/changes/index.html` (judgment): add <meta name="color-scheme" content="dark light"> (mechanical elsewhere; legal/ is never fixed by script)
 - `legal/bylaws-analysis/index.html` (judgment): add <meta name="color-scheme" content="dark light"> (mechanical elsewhere; legal/ is never fixed by script)
 - `legal/bylaws/index.html` (judgment): add <meta name="color-scheme" content="dark light"> (mechanical elsewhere; legal/ is never fixed by script)
@@ -181,46 +176,6 @@ Source: design-system#seo, required head block 2.
 
 Source: design-system#seo, required head block 2.
 
-- `commons/agency/index.html` (mechanical): add canonical https://techne.coop/commons/agency/
-- `commons/agreements/index.html` (mechanical): add canonical https://techne.coop/commons/agreements/
-- `commons/build/launch/index.html` (mechanical): add canonical https://techne.coop/commons/build/launch/
-- `commons/build/sms-05-ceremony/index.html` (mechanical): add canonical https://techne.coop/commons/build/sms-05-ceremony/
-- `commons/build/sms-bindings/index.html` (mechanical): add canonical https://techne.coop/commons/build/sms-bindings/
-- `commons/directory/index.html` (mechanical): add canonical https://techne.coop/commons/directory/
-- `commons/gatherings/index.html` (mechanical): add canonical https://techne.coop/commons/gatherings/
-- `commons/governance/egress/index.html` (mechanical): add canonical https://techne.coop/commons/governance/egress/
-- `commons/governance/index.html` (mechanical): add canonical https://techne.coop/commons/governance/
-- `commons/governance/model-v5/index.html` (mechanical): add canonical https://techne.coop/commons/governance/model-v5/
-- `commons/governance/order-of-proceeding/index.html` (mechanical): add canonical https://techne.coop/commons/governance/order-of-proceeding/
-- `commons/governance/rules-of-order/index.html` (mechanical): add canonical https://techne.coop/commons/governance/rules-of-order/
-- `commons/matrix/index.html` (mechanical): add canonical https://techne.coop/commons/matrix/
-- `commons/opportunities/index.html` (mechanical): add canonical https://techne.coop/commons/opportunities/
-- `commons/patronage/counting-rules/index.html` (mechanical): add canonical https://techne.coop/commons/patronage/counting-rules/
-- `commons/patronage/index.html` (mechanical): add canonical https://techne.coop/commons/patronage/
-- `commons/prd/stories/index.html` (mechanical): add canonical https://techne.coop/commons/prd/stories/
-- `commons/publishing/index.html` (mechanical): add canonical https://techne.coop/commons/publishing/
-- `commons/standing/index.html` (mechanical): add canonical https://techne.coop/commons/standing/
-- `commons/transducer/a1/index.html` (mechanical): add canonical https://techne.coop/commons/transducer/a1/
-- `commons/transducer/index.html` (mechanical): add canonical https://techne.coop/commons/transducer/
-- `commons/treasury/handbook/brief/index.html` (mechanical): add canonical https://techne.coop/commons/treasury/handbook/brief/
-- `commons/treasury/handbook/briefing/index.html` (mechanical): add canonical https://techne.coop/commons/treasury/handbook/briefing/
-- `commons/treasury/handbook/index.html` (mechanical): add canonical https://techne.coop/commons/treasury/handbook/
-- `commons/treasury/index.html` (mechanical): add canonical https://techne.coop/commons/treasury/
-- `commons/treasury/policy/index.html` (mechanical): add canonical https://techne.coop/commons/treasury/policy/
-- `encyclopedia/index.html` (mechanical): add canonical https://techne.coop/encyclopedia/
-- `intranet/direct/index.html` (mechanical): add canonical https://techne.coop/intranet/direct/
-- `intranet/federation/index.html` (mechanical): add canonical https://techne.coop/intranet/federation/
-- `intranet/hud/index.html` (mechanical): add canonical https://techne.coop/intranet/hud/
-- `intranet/hud/mobile/index.html` (mechanical): add canonical https://techne.coop/intranet/hud/mobile/
-- `intranet/index.html` (mechanical): add canonical https://techne.coop/intranet/
-- `intranet/legal/index.html` (mechanical): add canonical https://techne.coop/intranet/legal/
-- `intranet/programs/index.html` (mechanical): add canonical https://techne.coop/intranet/programs/
-- `intranet/record/index.html` (mechanical): add canonical https://techne.coop/intranet/record/
-- `intranet/revenue/index.html` (mechanical): add canonical https://techne.coop/intranet/revenue/
-- `intranet/share/index.html` (mechanical): add canonical https://techne.coop/intranet/share/
-- `intranet/treasury/index.html` (mechanical): add canonical https://techne.coop/intranet/treasury/
-- `intranet/verification/index.html` (mechanical): add canonical https://techne.coop/intranet/verification/
-- `journal/draft/2026-08-20-techne-foundation/index.html` (mechanical): add canonical https://techne.coop/journal/draft/2026-08-20-techne-foundation/
 - `legal/board-memo-2026-08-19/index.html` (judgment): add canonical https://techne.coop/legal/board-memo-2026-08-19/ (mechanical elsewhere; legal/ is never fixed by script)
 - `legal/bylaws-analysis/changes/index.html` (judgment): add canonical https://techne.coop/legal/bylaws-analysis/changes/ (mechanical elsewhere; legal/ is never fixed by script)
 - `legal/bylaws-analysis/index.html` (judgment): add canonical https://techne.coop/legal/bylaws-analysis/ (mechanical elsewhere; legal/ is never fixed by script)
@@ -240,65 +195,9 @@ Source: design-system#seo, required head block 2.
 
 Source: design-system#seo, required head block 3.
 
-- `accounting/counsel-memo/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `accounting/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/agency/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/agreements/board-originated/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `commons/agreements/comment-and-countersign/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `commons/agreements/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/authority-map/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `commons/bp/index.html` (mechanical): missing og:site_name, og:image; derived from title, description, canonical
-- `commons/build/gates/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `commons/build/instructions/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `commons/build/launch/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/build/lexicon/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `commons/build/run-through/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `commons/build/run-through/organizers/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `commons/build/sms-05-ceremony/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/build/sms-bindings/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/build/verification/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `commons/build/walkthrough/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `commons/directory/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/gatherings/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/governance/egress/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
 - `commons/governance/index.html` (judgment): missing og:type, og:url, og:title, og:description, og:site_name, og:image; no description to derive from
-- `commons/governance/model-v5/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/governance/order-of-proceeding/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/governance/rules-of-order/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/im/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `commons/lp/index.html` (mechanical): missing og:site_name, og:image; derived from title, description, canonical
-- `commons/matrix/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/opportunities/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/patronage/counting-rules/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/patronage/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/prd/index.html` (mechanical): missing og:image; derived from title, description, canonical
 - `commons/prd/stories/index.html` (judgment): missing og:type, og:url, og:title, og:description, og:site_name, og:image; no description to derive from
-- `commons/publishing/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/series/index.html` (mechanical): missing og:image; derived from title, description, canonical
 - `commons/standing/index.html` (judgment): missing og:type, og:url, og:title, og:description, og:site_name, og:image; no description to derive from
-- `commons/transducer/a1/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/transducer/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/treasury/handbook/brief/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/treasury/handbook/briefing/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/treasury/handbook/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/treasury/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/treasury/policy/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `commons/ui/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `commons/vs/index.html` (mechanical): missing og:image; derived from title, description, canonical
-- `encyclopedia/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `intranet/direct/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `intranet/federation/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `intranet/hud/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `intranet/hud/mobile/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `intranet/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `intranet/legal/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `intranet/programs/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `intranet/record/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `intranet/revenue/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `intranet/share/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `intranet/treasury/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `intranet/verification/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
-- `journal/draft/2026-08-20-techne-foundation/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
 - `legal/board-memo-2026-08-19/index.html` (judgment): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical (mechanical elsewhere; legal/ is never fixed by script)
 - `legal/bylaws-analysis/changes/index.html` (judgment): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical (mechanical elsewhere; legal/ is never fixed by script)
 - `legal/bylaws-analysis/index.html` (judgment): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical (mechanical elsewhere; legal/ is never fixed by script)
@@ -315,36 +214,11 @@ Source: design-system#seo, required head block 3.
 - `legal/participation-framework-amendment/index.html` (judgment): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical (mechanical elsewhere; legal/ is never fixed by script)
 - `legal/participation/index.html` (judgment): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical (mechanical elsewhere; legal/ is never fixed by script)
 - `legal/summary-of-changes/index.html` (judgment): missing og:type, og:image; derived from title, description, canonical (mechanical elsewhere; legal/ is never fixed by script)
-- `philosoraptor/1/evening/live/hud/index.html` (mechanical): missing og:type, og:url, og:title, og:description, og:site_name, og:image; derived from title, description, canonical
 
 ### head-favicon: favicon linked from root
 
 Source: design-system#seo, required head block 4.
 
-- `commons/agency/index.html` (mechanical): add the two favicon links
-- `commons/build/launch/index.html` (mechanical): add the two favicon links
-- `commons/build/sms-05-ceremony/index.html` (mechanical): add the two favicon links
-- `commons/build/sms-bindings/index.html` (mechanical): add the two favicon links
-- `commons/governance/egress/index.html` (mechanical): add the two favicon links
-- `commons/governance/index.html` (mechanical): add the two favicon links
-- `commons/governance/model-v5/index.html` (mechanical): add the two favicon links
-- `commons/governance/order-of-proceeding/index.html` (mechanical): add the two favicon links
-- `commons/governance/rules-of-order/index.html` (mechanical): add the two favicon links
-- `commons/intelligences/index.html` (mechanical): add the two favicon links
-- `commons/matrix/index.html` (mechanical): add the two favicon links
-- `commons/patronage/counting-rules/index.html` (mechanical): add the two favicon links
-- `commons/patronage/index.html` (mechanical): add the two favicon links
-- `commons/prd/stories/index.html` (mechanical): add the two favicon links
-- `commons/publishing/index.html` (mechanical): add the two favicon links
-- `commons/standing/index.html` (mechanical): add the two favicon links
-- `commons/transducer/a1/index.html` (mechanical): add the two favicon links
-- `commons/transducer/index.html` (mechanical): add the two favicon links
-- `commons/treasury/handbook/brief/index.html` (mechanical): add the two favicon links
-- `commons/treasury/handbook/briefing/index.html` (mechanical): add the two favicon links
-- `commons/treasury/handbook/index.html` (mechanical): add the two favicon links
-- `commons/treasury/index.html` (mechanical): add the two favicon links
-- `commons/treasury/policy/index.html` (mechanical): add the two favicon links
-- `encyclopedia/index.html` (mechanical): add the two favicon links
 - `legal/board-memo-2026-08-19/index.html` (judgment): add the two favicon links (mechanical elsewhere; legal/ is never fixed by script)
 - `legal/bylaws-analysis/changes/index.html` (judgment): add the two favicon links (mechanical elsewhere; legal/ is never fixed by script)
 - `legal/bylaws-analysis/index.html` (judgment): add the two favicon links (mechanical elsewhere; legal/ is never fixed by script)
@@ -365,7 +239,6 @@ Source: design-system#seo, required head block 4.
 
 Source: design-system#seo, required head block 5.
 
-- `intranet/hud/index.html` (mechanical): add the mode boot script before the first stylesheet
 - `intranet/hud/mobile/index.html` (judgment): no mode boot, and no light palette for it to select; decide the page's mode rule first
 - `philosoraptor/1/evening/live/hud/index.html` (judgment): no mode boot, and no light palette for it to select; decide the page's mode rule first
 

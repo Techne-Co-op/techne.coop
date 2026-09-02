@@ -3,13 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
 <title>The Transducer &middot; Intranet &middot; Techne</title>
 <meta name="description" content="The transducer: the estate's own record rendered at human variety. Six lenses over one dated cut of the repository, ledger, and participation stories, ordered by legibility to the member body and opening on the journeys landscape. Drafted instrument of TRANSDUCER v0.2, not adopted. RegenHub, LCA.">
+<link rel="canonical" href="https://techne.coop/intranet/hud/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/intranet/hud/">
+<meta property="og:title" content="The Transducer · Intranet · Techne">
+<meta property="og:description" content="The transducer: the estate's own record rendered at human variety. Six lenses over one dated cut of the repository, ledger, and participation stories, ordered by legibility to the member body and opening on the journeys landscape. Drafted instrument of TRANSDUCER v0.2, not adopted. RegenHub, LCA.">
+<meta property="og:site_name" content="Techne">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script>
+  (function () {
+    var stored = null;
+    try { stored = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   /* Tokens ported from techne.coop/design-system (v4 palette, X-06 type decision) */
