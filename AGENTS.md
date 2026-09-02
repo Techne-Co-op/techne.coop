@@ -41,7 +41,12 @@ MARK    drafts are drafts until a person adopts them.
 
 ALIGN   techne.coop/design-system/ is the principal
         alignment resource for any page deployed to
-        techne.coop. language, voice, and identity of the
+        techne.coop. the same system as directions you
+        follow while writing a page, with the checklist
+        you run before the PR:
+        techne.coop/design-system/AGENT-DIRECTIONS.md
+        (values: commons/ui/commons.css; usage: the page).
+        language, voice, and identity of the
         cooperative: techne.coop/commonplace/
         the register of the common information system (the
         commons, deployed at /intranet/):
