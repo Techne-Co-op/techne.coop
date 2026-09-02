@@ -934,6 +934,17 @@ html[data-sky=<span class="c2">"day"</span>] { --sky-line: ...; --sky-glow: <spa
     <p class="note">techne.coop is a professional coordination surface. Emoji carry platform-specific rendering, undefined semantic meaning, and decorative noise inconsistent with the studio's precision. Typography and geometry are the visual language here. This reference follows the rule it states: the forbidden categories are named in words rather than rendered.</p>
   </section>
 
+  <!-- FOR AGENTS: THE SYSTEM AS DIRECTIONS -->
+  <section class="sec" id="agents">
+    <h2>For Agents &middot; The System as Directions</h2>
+    <div class="chiprow"><span class="chip info"><span class="dot"></span>U-32 &middot; drafted</span></div>
+    <p class="lead">This page is written for a person. An agent writing a page against it read it as prose and applied what it happened to retain, and the estate showed the result: most pages carried an incomplete head block, a third of them linked no favicon, and a formation-era typeface survived on sixteen. The same system, rewritten as directions, is at <a href="/design-system/AGENT-DIRECTIONS.md"><code>/design-system/AGENT-DIRECTIONS.md</code></a>: the grammar to choose, the head block in order, the token layer to copy verbatim, the skeleton per grammar, every component by its class name, the rules for color, type, content, and accessibility, and the battery to run before a pull request. It adds no rule; every line cites this page or the token layer.</p>
+    <div class="subhead">Which is canonical</div>
+    <p class="note"><b>Values</b> live in <a href="/commons/ui/"><code>commons/ui/commons.css</code></a>: every hex, size, spacing step, and face. A page inlines that layer verbatim and <code>scripts/token_audit.py</code> refuses a copy that differs. <b>Usage</b> lives here: what blue is for, where the sunset range may appear, how a head block is built. The directions cite both and decide neither; where they disagree with either, the source wins and the directions are the defect.</p>
+    <div class="subhead">The audit</div>
+    <p class="note"><code>scripts/design_audit.py</code> reads every tracked page against the directions and writes <a href="/design-system/AUDIT.md"><code>/design-system/AUDIT.md</code></a>, named by the commit it ran against. Each finding is sorted: <em>mechanical</em>, which the script's fix mode applies (a missing favicon, canonical, Open Graph block, color-scheme meta, or mode boot); <em>judgment</em>, which waits on a person (a missing description, a third typeface, an rgba() literal, a container none of the grammars name); and <em>observed</em>, a convention read off the token layer rather than a rule this page states, reported and never counted. A type scale was drafted at v6 and reverted, so the script does not pretend one exists.</p>
+  </section>
+
   <footer>
     <div class="row">
       <span>Techne Design System</span>
