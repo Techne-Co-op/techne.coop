@@ -3696,6 +3696,95 @@ cross_cutting:
       walk step touches the live CIS. Verified marks stay where they
       are until the steward reads a sheet and speaks.
 
+  - address: X-40
+    title: The bylaws-in-effect sweep, and finishing R-02
+    intent: >
+      The steward ruled on 2026-09-03 that the Bylaws are in effect:
+      the board and officers have formed, the board adopted the
+      Bylaws and authorized the Membership Agreement, so the
+      instruments are active, and member ratification under Article
+      XII is an amendment mechanism, not a commencement gate. This
+      piece carries R-02's record page to merge and applies the
+      ruling across the estate. The Bylaws row on the record page
+      stops naming an open contradiction and reads the instrument as
+      in effect on board adoption, with the v2.1 text's open items
+      kept as open items. Every page that said the Bylaws are not yet
+      in effect is conformed to the ruling. The two board acts are
+      kept distinct: the board adopted the Bylaws, which put them in
+      effect, and authorized the Membership Agreement, which makes it
+      available to sign. The Membership Agreement therefore reads
+      board-authorized and pending execution, never in effect,
+      because it binds a member only on that member's own signature
+      and nobody has signed. The "member ratification anticipated"
+      footer is left untouched, and every "drafted" mark on an
+      unadopted document version is left in place.
+    status: open · delivered
+    cites: [BP, R-02]
+    ready_when: >
+      the steward's ruling of 2026-09-03 in #intranet-dev (relay
+      events b73a1ef1 and 378775246952) that the Bylaws are in effect.
+    deliverable: >
+      /intranet/record/ Bylaws row resolved to the ruling and its
+      trace scaffolding removed; legal/bylaws/, intranet/legal/,
+      legal/first-meeting/, intranet/, and the organizers' run-through
+      conformed from "not in effect" to "in effect on board adoption"
+      for the Bylaws; legal/membership-agreement/ and every shelf
+      naming the agreement set to board-authorized and pending
+      execution; intranet/legal/ given an "In effect" mark in its
+      legend so its Bylaws card stops contradicting its own prose;
+      commons/authority-map/ §1a given one sentence noting the ruling
+      superseded its 2026-08-12 reading, the PR #120 history intact;
+      the inverse form of the stale claim corrected too, on the
+      record page's signing gap, in legal/first-meeting/'s open
+      question, and in commons/governance/ §9, §10 and GOV-D5, all of
+      which named a signature as the act that would make the Bylaws
+      effective; open items on the text kept; this entry; the almanac
+      row. Carries R-02's own deliverable and packet intact.
+    acceptance: >
+      No estate page reads the Bylaws as not yet in effect, and no
+      page reads the Membership Agreement as in effect; the record
+      page's Bylaws row reads them in effect on board adoption with
+      the text's open items kept and the trace scaffolding gone; the
+      founder-record and steward-direction citations stand and no
+      adoption date is invented; the member-ratification-anticipated
+      footer is unchanged wherever it appears; every drafted mark on
+      an unadopted document version is unchanged; validator, style,
+      almanac, and design suites green.
+    note: >
+      No adoption date is invented: no minute records it, so the
+      pages cite the founding record and the steward's direction and
+      write "In effect on board adoption" where a page wants an
+      effective-date value. Under-reach on instrument standing:
+      pages left as the steward's judgment call are the counsel-memo
+      July 1 status snapshot (archived recorded words), the record-
+      audit finding row (a recorded audit remainder), the corrections
+      page reasoning on whether the Bylaws governed the June 7
+      resignation (turns on adoption timing the record does not fix),
+      the bylaws-analysis pre-execution checklist (commentary), the
+      dated board memo of 2026-08-19 (recorded deliberation that
+      takes no position), and the guild terms' open sequencing item
+      (a DRAFT instrument, where "not yet executed" is a true
+      statement about signatures). A defect of this piece, caught on
+      review and corrected here: the first pass flattened the two
+      board acts and wrote "in effect" onto the Membership Agreement
+      on five surfaces. Authorization is not commencement for an
+      agreement that binds on execution, and /intranet/record/ had it
+      right all along at "drafted, unsigned". A second defect, caught
+      on the round after: the sweep matched only pages saying the
+      Bylaws are not in effect and missed the inverse form, pages
+      saying a signature is what would make them effective. Those are
+      the same claim written forward, and the execution gap they
+      describe is real and kept, re-grounded on the acts that are
+      genuinely signatures: Schedule A and a member signing the
+      agreement. One tension is preserved rather than resolved: at
+      legal/first-meeting/ counsel's implied view by BL-04 is that
+      the Secretary's execution is operative, which differs from the
+      steward's ruling, and that question stays open for counsel to
+      answer in its own words. The brief's cite of
+      X-36 is dropped: no X-36 exists in this ledger and check_cites
+      would fail; noted to the steward. Staged on branch X-40; merge
+      is the act of adoption.
+
 agency:
 
   # The agency lane: common direction of the instrument. Entered 2026-07-27
@@ -5857,3 +5946,63 @@ record:
       of 2026-08-14, is the Secretary's act (roadmap section 4, item
       9), not this piece's. Staged on branch R-01; merge is the act of
       adoption.
+
+  - address: R-02
+    title: The record page rewired to the record
+    intent: >
+      The record page on the intranet stops drawing a model and reads
+      the record. Three sections read live rows under the standing
+      read policies and no other: the minute book from the
+      minutes.drafted and minutes.adopted events R-01 gave a place,
+      listed per session of every gathering titled "Board ·"; the
+      offices and the roster from role_grants, each appointment with
+      its holder, its date, whether it stands or ended, and whether a
+      recording event stands behind it; attendance at meetings of the
+      Board from attendance, per session, who was recorded present
+      and by whom. The instrument table stays as a reading of the
+      published documents. The GOV v0.1 parliamentary model the page
+      once drew moves under a design-note heading marked drafted.
+      Nothing on the page writes. No migration, no policy change.
+    status: open · delivered
+    cites: [IM, AM, R-01, U-05]
+    ready_when: >
+      R-01 merged (it was, 2026-09-03, PR 286). The read policies for
+      role_grants, attendance, gatherings, and agents read for what
+      each shows a non-member holder, which decided the absence
+      sentences below.
+    deliverable: >
+      intranet/record/index.html: the three live sections, their
+      absence states per reader, the instrument table with the
+      Bylaws row carrying its open reading, the What is missing list
+      cut to the record's own gaps, the design note holding the two
+      modes, the model's cannot-hold list, and the model's open
+      anchors. This entry. The almanac row and the instructions' bed
+      table row.
+    acceptance: >
+      A director, officer, or steward signed in sees, per board
+      session, the minutes rows R-01 recorded against it, the
+      appointments the record holds, and the presence recorded
+      against each session; a member who holds no office sees the
+      appointments and their own presence and is told, in each
+      section, why the rest is not shown; a signed-out reader is told
+      to sign in. The page performs no insert, update, or delete
+      under any reader. The design note carries the drafted mark and
+      names GOV v0.1 as its source.
+    note: >
+      Visibility decided by reading the policies rather than
+      assuming. role_grants_member_read (0002) shows every grant to a
+      member and shows anyone else only the grants that name them;
+      no member has been admitted (intranet legal shelf, formation
+      notice), so today each officer sees their own row, and the
+      page says so. attendance_scoped_read (0002) shows self,
+      overseer, or host. The appointment enum (0002 line 22) carries
+      director, secretary, treasurer, steward and no President; the
+      page lists that as an open question and proposes nothing. No
+      quorum verdict is computed: the seat count is not in the
+      record and the rule is the Bylaws'. Stop card filed with the
+      batch report: the formation notice in the footer reads the
+      governing instruments as board-adopted, the instrument table
+      reads Bylaws v2.1 as drafted and not in effect; the row is
+      left as it stood with a trace naming the open reading, and the
+      ruling is the steward's. Staged on branch R-02; merge is the
+      act of adoption.
