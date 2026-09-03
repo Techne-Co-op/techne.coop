@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="The record for RegenHub, LCA: where the cooperative stands in its governance, what may move each instrument, and what the record cannot hold.">
+<meta name="description" content="The record for RegenHub, LCA, read from the record: the minute book, the offices and the roster, attendance at meetings of the Board, and where each governing instrument stands.">
 <link rel="canonical" href="https://techne.coop/intranet/record/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://techne.coop/intranet/record/">
 <meta property="og:title" content="The record · Techne">
-<meta property="og:description" content="The record for RegenHub, LCA: where the cooperative stands in its governance, what may move each instrument, and what the record cannot hold.">
+<meta property="og:description" content="The record for RegenHub, LCA, read from the record: the minute book, the offices and the roster, attendance at meetings of the Board, and where each governing instrument stands.">
 <meta property="og:site_name" content="Techne">
 <meta property="og:image" content="https://techne.coop/assets/og-default.png">
 <title>The record &middot; Techne</title>
@@ -299,10 +299,14 @@ footer a { color: var(--faint); }
 <!-- /generated:shell-frame -->
 <style>
   /* ── The record ────────────────────────────────────────────────
-     The governance module's reading surface. Static by design: the
-     model this follows says of itself that nothing in it runs, and
-     nothing here does either. No data client, no clock. What it draws
-     is the standing state as the published instruments define it. */
+     The governance module's reading surface, rewired to the record
+     (R-02). Three sections read the live record under the standing
+     policies and nothing else: the minute book from minutes.* events
+     (R-01), the offices and the roster from role_grants, attendance
+     at meetings of the Board from attendance. One table reads the
+     published instruments. The parliamentary model (GOV v0.1) that
+     this page once drew is kept below as a design note, drafted.
+     Nothing on this page writes. */
   .mode-pair{
     --grid-min:320px;
     display:grid;
@@ -369,72 +373,92 @@ footer a { color: var(--faint); }
     font-family:var(--mono);font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--faint);border:1px dashed var(--line);padding:2px 6px;margin-left:var(--s2);white-space:nowrap;
   }
+
+  /* the live sections (R-02): read-only projections of the record */
+  .live-note{font-family:var(--mono);font-size:0.78rem;color:var(--muted);max-width:68ch;margin-bottom:var(--s4);line-height:1.6;}
+  .live-note a{color:var(--ember-text);}
+  .absence{
+    background:var(--inset);border:1px solid var(--line);padding:var(--s4) var(--s5);
+    font-size:0.9rem;line-height:1.7;max-width:68ch;margin-bottom:var(--s4);
+  }
+  .absence b{color:var(--heading);}
+  .live-loading{font-family:var(--mono);font-size:0.8rem;color:var(--muted);padding:var(--s3) 0;}
+  .live-none{font-family:var(--mono);font-size:0.75rem;color:var(--faint);font-style:italic;padding:var(--s2) 0;}
+  .board-card{border:1px solid var(--line);border-radius:2px;background:var(--surface);margin-bottom:var(--s4);overflow:hidden;}
+  .board-title{padding:var(--s3) var(--s4);font-size:1rem;font-weight:700;color:var(--heading);border-bottom:1px solid var(--line);}
+  .board-session{padding:var(--s3) var(--s4);border-bottom:1px solid var(--line);}
+  .board-session:last-child{border-bottom:none;}
+  .board-when{font-family:var(--mono);font-size:0.78rem;color:var(--text);margin-bottom:var(--s2);}
+  .board-when .count{color:var(--muted);margin-left:var(--s3);}
+  .minute-row{
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2) var(--s3);
+    padding:var(--s2) 0;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:0.72rem;color:var(--muted);
+  }
+  .minute-kind{
+    font-size:0.65rem;padding:2px 8px;border-radius:2px;white-space:nowrap;
+    border:1px solid var(--line);color:var(--muted);background:var(--raised);
+  }
+  .minute-kind.adopted{border-color:var(--ok);color:var(--ok);background:var(--ok-dim);}
+  .minute-uri{color:var(--text);word-break:break-all;}
+  .minute-uri a{color:var(--ember-text);}
+  .minute-hash{color:var(--ember-text);word-break:break-all;}
+  .present-row{
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2) var(--s3);
+    padding:var(--s2) 0;border-top:1px solid var(--line);font-size:0.88rem;color:var(--text);
+  }
+  .present-row .by{font-family:var(--mono);font-size:0.68rem;color:var(--faint);}
+  table.roster{width:100%;border-collapse:collapse;margin:var(--s3) 0 var(--s5);font-size:14px;}
+  table.roster th{
+    text-align:left;font-family:var(--mono);font-size:10px;font-weight:500;
+    letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);
+    border-bottom:1px solid var(--rule);padding:0 var(--s3) var(--s2) 0;
+  }
+  table.roster td{border-bottom:1px solid var(--line);padding:var(--s2) var(--s3) var(--s2) 0;vertical-align:top;color:var(--text);}
+  table.roster td.m{font-family:var(--mono);font-size:0.72rem;color:var(--muted);white-space:nowrap;}
+  table.roster td.ended{color:var(--faint);}
+  .design-note{border:1px solid var(--line);border-left:3px solid var(--blue);background:var(--surface);padding:var(--s5);margin:var(--s4) 0 var(--s6);}
+  .design-note .dn-head{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3);margin-bottom:var(--s3);}
+  .design-note .dn-head b{font-family:var(--serif);font-size:1.05rem;color:var(--heading);}
+  .design-note .lead{margin-bottom:var(--s4);}
+  .design-note .section-head{margin-top:var(--s5);}
+  .chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:0.65rem;font-weight:500;line-height:1;letter-spacing:0.02em;text-transform:lowercase;padding:5px 9px;border-radius:2px;white-space:nowrap;border:1px solid var(--line);background:var(--surface);color:var(--muted);}
+  .chip .dot{width:6px;height:6px;flex:none;background:currentColor;}
+  .chip.drafted{border-color:var(--blue);color:var(--blue-text);}
+  @media (prefers-reduced-motion: reduce){ * { transition:none !important; animation:none !important; } }
 </style>
 
 <main>
   <div id="content">
     <h1>The record</h1>
     <div class="section-rule"></div>
-    <p class="lead">Where the cooperative stands in its own governance: which of two modes it is in, what each instrument (a governing document such as the Articles or the Bylaws) is and who may change it, what the record can and cannot hold, and what is still missing. This page reads the published instruments back to you. Nothing here runs, nothing here is adopted, and nothing you do on this page changes anything.</p>
+    <p class="lead">What the cooperative's shared record holds about its own governance, read back to you. Three sections read the live record: the minute book, the offices and the roster, and attendance at meetings of the Board. One table reads the published instruments, meaning the governing documents such as the Articles and the Bylaws. The parliamentary model this page once drew is kept at the end as a design note, drafted and adopted by nobody. Nothing on this page writes.</p>
 
     <div class="gaps">
       <div class="g">
         <b>What this page is</b>
-        <p>A plain reading of the cooperative's governing documents, gathered in one place. It answers three questions: what state the cooperative is in right now, which document controls what and who may change it, and what this record still cannot do.</p>
+        <p>A reading of the record. The three live sections show rows the record already holds, under the read rules the record already enforces, and say plainly when a rule keeps a row from you. The table is a plain reading of the governing documents. If this page disagrees with a document on the shelf, believe the document: this page is the one that is wrong.</p>
       </div>
       <div class="g">
         <b>What you can do here</b>
-        <p>Read. There is no form and no button on this page, and nothing you do here changes the record. To read the documents themselves, go to <a href="/legal/">the legal shelf</a>. To see mistakes found after publication, go to <a href="/legal/corrections/">Corrections and open readings</a>. If this page disagrees with a document on the shelf, believe the document: this page is the one that is wrong.</p>
+        <p>Read. Every act that fills these sections happens somewhere else. An officer, a director, or the steward records a minute against a board session on <a href="/commons/gatherings/">the gatherings page</a>. The host or the steward records attendance there too. An office is recorded by a director. To read the documents themselves, go to <a href="/intranet/legal/">the legal shelf</a>. To see mistakes found after publication, go to <a href="/legal/corrections/">Corrections and open readings</a>.</p>
       </div>
     </div>
 
-    <div class="section-head">The two modes</div>
-    <p class="lead" style="margin-bottom:0">At any moment the cooperative is in one of two conditions: <b>between the meetings</b>, or <b>in session</b> (a meeting is actually open and running). Almost all of its life is spent in the first. Naming that plainly is the point: the ordinary condition is not a gap between the interesting parts.</p>
+    <div class="section-head">The minute book</div>
+    <p class="live-note">For every gathering whose title begins <span style="color:var(--ember-text)">Board &middot;</span>, each session lists the minutes recorded against it: drafted, then adopted, with where the minute stands, its hash, and who adopted it. The minute itself lives where the record points. This page records that it exists and that a body adopted it. The record shows a member only the rows that concern them or that they wrote, and a minutes row concerns the Board, so the list is shown to directors, officers, and the steward, and the page says so to everyone else.</p>
+    <div id="minutes-list"><div class="live-loading">Reading the record&hellip;</div></div>
 
-    <div class="mode-pair">
-      <div class="mode here">
-        <span class="you-are">Where we are</span>
-        <h3>Between the meetings</h3>
-        <div class="line">No meeting is open. The governing documents cannot change.</div>
-        <div class="sub">What you can do</div>
-        <ul>
-          <li class="p">Say whether you will attend a coming meeting</li>
-          <li class="p">Set the agenda, meaning the order of business</li>
-          <li class="p">Give notice of a motion you want taken up</li>
-          <li class="p">Record an interim act: something done between meetings under a standing authority the board granted in advance</li>
-          <li class="p">Adopt the minutes of the meeting that just closed</li>
-          <li class="p">Open the meeting. Get a quorum first: the minimum number of people who must be present for the meeting to count.</li>
-        </ul>
-        <div class="sub">What you cannot do</div>
-        <ul>
-          <li class="r">Move, second, amend or withdraw a motion. Wait for a meeting to open.</li>
-          <li class="r">Call the question, put it to a vote, cast a vote, or settle it</li>
-          <li class="r">Change a governing document without a meeting. There is no authority that reaches one.</li>
-        </ul>
-      </div>
-      <div class="mode">
-        <h3>In session</h3>
-        <div class="line">A meeting is open. This body may change only its own documents.</div>
-        <div class="sub">What you can do</div>
-        <ul>
-          <li class="p">Everything the floor allows: move, second, amend, call the question, put it to a vote, cast, and settle it</li>
-          <li class="p">Raise a point of order, meaning an objection that the rules are not being followed</li>
-          <li class="p">Table a motion, meaning set it aside without deciding it</li>
-          <li class="p">Adjourn. Close any open ballot first.</li>
-        </ul>
-        <div class="sub">What you cannot do</div>
-        <ul>
-          <li class="r">Record an interim act. In session a body acts by motion instead.</li>
-          <li class="r">Switch which body is meeting</li>
-          <li class="r">Change a document the other body controls</li>
-        </ul>
-      </div>
-    </div>
+    <div class="section-head">The offices and the roster</div>
+    <p class="live-note">Who holds an office, and who sits on the Board, as the record carries it: each row is an appointment, granted on a date and ended on a date if it has ended. The record knows four appointments, director, secretary, treasurer, and steward, and no others. The office of President has no row in the record; the formation notice at <a href="/intranet/legal/">the legal shelf</a> names its holder. The record shows every appointment to a member and shows anyone else only the appointments that name them, so until members are admitted each holder sees their own row and no one else's.</p>
+    <div id="roster-list"><div class="live-loading">Reading the record&hellip;</div></div>
 
-    <p class="lead">The cooperative has been between the meetings for its whole existence, because no meeting of this Board has ever been opened on the record. If you want to know how the first one is meant to run, read <a href="/legal/first-meeting/">The first meeting</a>.</p>
+    <div class="section-head">Attendance at meetings of the Board</div>
+    <p class="live-note">For each session of a gathering titled <span style="color:var(--ember-text)">Board &middot;</span>, who was recorded present, and by whom. Presence is recorded by the host or the steward, never self-reported. The record shows directors, officers, and the steward every row, shows a host the rows of their own gathering, and shows anyone else only their own presence. This page counts rows. It does not say whether a quorum was present: the quorum rule is the Bylaws' and the count of seats is not in the record.</p>
+    <div id="attendance-list"><div class="live-loading">Reading the record&hellip;</div></div>
 
     <div class="section-head">The standing state</div>
-    <p class="lead">Every governing document, who may change it, and where it stands today. Each body may touch only its own documents. If the Board tries to change a document that belongs to the members, the attempt is refused, and the refusal tells you whose document it is instead of just failing. Where the third column shows a coloured tag: green means settled, blue means drafted but not yet in force, grey means it does not exist yet.</p>
+    <p class="lead">Every governing document, who may change it, and where it stands today. Each body may touch only its own documents. If the Board tries to change a document that belongs to the members, the attempt is refused, and the refusal tells you whose document it is instead of just failing. Where the third column shows a coloured tag: green means settled, blue means drafted but not yet in force, grey means it does not exist yet. This table is a reading of the published documents, not of the live record; the live record holds none of these documents yet.</p>
 
     <table class="state">
       <thead>
@@ -450,8 +474,8 @@ footer a { color: var(--faint); }
         <tr>
           <td>Bylaws v2.1</td>
           <td><span class="hand members">members</span></td>
-          <td class="mk"><span class="standing-chip formation">drafted</span> not in effect</td>
-          <td class="n">Three things: Schedule A (the schedule attached to the Bylaws that carries the money figures, such as the share price and the dues) completed, an effective date from counsel, and the Secretary's signature. Signing is an <em>execution</em>, meaning one officer signs rather than a meeting voting, and that is the one act this model has no shape for yet.</td>
+          <td class="mk"><span class="standing-chip formation">drafted</span> not in effect<span class="trace">This row and the formation notice at the foot of this page describe the Bylaws' standing in different words. Which reading holds is put to the steward as an open question; this page picks neither.</span></td>
+          <td class="n">Three things: Schedule A (the schedule attached to the Bylaws that carries the money figures, such as the share price and the dues) completed, an effective date from counsel, and the Secretary's signature. Signing is an <em>execution</em>, meaning one officer signs rather than a meeting voting, and that is the one act the design note's model has no shape for.</td>
         </tr>
         <tr>
           <td>Membership Agreement v2.3</td>
@@ -481,7 +505,7 @@ footer a { color: var(--faint); }
           <td>The offices</td>
           <td><span class="hand board">board</span></td>
           <td class="mk"><span class="standing-chip force">filled</span> August 14, 2026</td>
-          <td class="n">An election by the board. That happened at the special meeting of August 14, 2026: President, Secretary and Treasurer each elected, and each person's acceptance is in that meeting's record. The Secretary keeps the minutes and signs Schedule A; the President signs contracts. The steward confirmed on the coordination record, 2026-08-17, that the August 14 record stands. This row previously read all three vacant; that reading predated the meeting and was corrected 2026-08-17.</td>
+          <td class="n">An election by the board. That happened at the special meeting of August 14, 2026, and each election was re-taken as a separate motion on August 19, 2026; the holders are named at <a href="/intranet/legal/">the legal shelf</a>. The Secretary keeps the minutes and signs Schedule A; the President signs contracts. Who holds an office <em>in the record</em> is read from the record in the section above, and a holder the record does not yet carry is a row a director has not yet written, not a vacancy.</td>
         </tr>
         <tr>
           <td>The quorum rule<br><span class="trace">how many must be present for a meeting to count</span></td>
@@ -492,64 +516,125 @@ footer a { color: var(--faint); }
       </tbody>
     </table>
 
-    <div class="section-head">What this record cannot hold</div>
-    <p class="lead">These are not rules that someone might break. They are things the record simply cannot do, which is a stronger guarantee: a rule can be broken quietly, and a missing capability cannot.</p>
-
-    <div class="cannot-hold">
-      <dl>
-        <dt>A minute that reports what someone said</dt>
-        <dd>The record has no slot for what anyone said. Discussion is opened, and nothing spoken in it is written down. <span class="imp">This is a missing capability, not a refusal</span>, which is why an audio recording or a transcript counts for nothing here: there is nowhere to file it.</dd>
-
-        <dt>A record that certifies itself</dt>
-        <dd>Draft minutes assemble themselves from the acts that were recorded, but they stay a draft until a person votes to adopt them. <span class="imp">Only a human can adopt them.</span></dd>
-
-        <dt>An act that erases an earlier one</dt>
-        <dd>Withdrawing or tabling a motion ends it; it does not delete it. Every motion that ever stood is still visible afterwards. To fix a mistake, add a new act that corrects it. You cannot edit the old one.</dd>
-
-        <dt>A quiet change to the governing documents between meetings</dt>
-        <dd>No delegated authority reaches a governing document. They change only when a meeting is open and a body votes. This is the governance twin of the treasury rule: no document, agent, or piece of software holds a key to the money.</dd>
-
-        <dt>A saved quorum figure that drifts from who is actually in the room</dt>
-        <dd>Quorum is always a fresh count, never a saved number. It is counted from who is present, every time it is asked for.</dd>
-      </dl>
-    </div>
-
     <div class="section-head">What is missing</div>
-    <p class="lead">A record that shows its holes is worth more than one that looks complete. These are the gaps as they stand today. The tag on each one tells you its kind: <span class="anchor-kind">absent</span> means the record has no way to do this at all, <span class="anchor-kind">open question</span> means a decision has not been made yet, <span class="anchor-kind">not yet specified</span> means no rule has been written for it, and <span class="anchor-kind">open reading</span> means the existing record can be read more than one way and nobody has settled which reading is right.</p>
+    <p class="lead">A record that shows its holes is worth more than one that looks complete. These are the gaps as they stand today. The tag on each one tells you its kind: <span class="anchor-kind">open reading</span> means the existing record can be read more than one way and nobody has settled which reading is right, and <span class="anchor-kind">open question</span> means a decision has not been made yet. The gaps the design note's model leaves are listed with the model, below.</p>
 
     <div class="gaps">
       <div class="g">
-        <b>The minute book is empty.</b><span class="anchor-kind">open reading</span>
-        <p>No meeting of this Board has minutes, meaning a written record of who attended, what was moved, and how the vote went. The June 2026 board actions come to us in four accounts that disagree about the date and about whether anything was adopted at all, and none of them is a set of minutes: no attendance, no motions, no vote, no quorum. The unresolved reading is logged at <a href="/legal/corrections/#doc-01-08">DOC-01&middot;08</a>. Two things would close it. A director who was in the room states what was done, or the board adopts the current documents over again at a meeting that records all of those things.</p>
+        <b>The minute book has a place and, until the Secretary writes the first row, no entry.</b><span class="anchor-kind">open reading</span>
+        <p>The minute book above reads from the record. The first row that belongs in it is the one that points at the founding record of August 14, 2026, and writing that row is the Secretary's act, not this page's. Before that record, the June 2026 board actions come to us in four accounts that disagree about the date and about whether anything was adopted at all, and none of them is a set of minutes: no attendance, no motions, no vote, no quorum. The unresolved reading is logged at <a href="/legal/corrections/#doc-01-08">DOC-01&middot;08</a>. Two things would close it. A director who was in the room states what was done, or the board adopts the current documents over again at a meeting that records all of those things.</p>
       </div>
       <div class="g">
-        <b>Signing a document has no shape here.</b><span class="anchor-kind">absent</span>
-        <p>The act that makes the Bylaws take effect is one officer's signature, not a vote. This model says the legal state moves only when a meeting is open and a body votes, so it cannot describe a signature at all. Giving that act a name is the first piece of work.</p>
+        <b>The record has no row for the President.</b><span class="anchor-kind">open question</span>
+        <p>The four appointments the record knows are director, secretary, treasurer, and steward. The Bylaws name a President, and the formation notice names who holds it, but no row can carry it. Adding one is a change to the record's shape, which is a human's decision and not this page's.</p>
       </div>
       <div class="g">
         <b>Seats are not offices.</b><span class="anchor-kind">open question</span>
         <p>The table above names four holders: members, board, steward, derived. The Bylaws name three officers instead, a President, a Secretary and a Treasurer, each with duties tied to particular documents, and <em>steward</em> is not an office in the Bylaws at all. Which of the two vocabularies an act should point to has not been decided.</p>
       </div>
-      <div class="g">
-        <b>Which majority, and of what?</b><span class="anchor-kind">open question</span>
-        <p>A majority of the people present, or a majority of the votes actually cast? Those two numbers come apart the moment anyone abstains. The same question is already open on the board side: Bylaws &sect; 3.13 requires a simple majority of <em>all Directors</em>, and nobody has settled whether that means a majority of the six seats the Bylaws authorise or a majority of the directors currently serving. With all six seats filled the two give the same answer, so the question is harmless today. Drop to five directors and it decides votes.</p>
+    </div>
+
+    <div class="section-head">Design note</div>
+    <div class="design-note">
+      <div class="dn-head"><b>The parliamentary model</b><span class="chip drafted"><span class="dot"></span>drafted</span><span class="trace" style="display:inline">GOV v0.1 &middot; <a href="/commons/governance/">/commons/governance/</a> &middot; August 2026 &middot; adopted by nobody</span></div>
+      <p class="lead">What follows is the governance model this page drew before the record could hold a minute: two modes, a set of things the model refuses to hold, and the gaps the model leaves open. It is a drawing. Nothing in it is built, the record holds no motion, ballot, or quorum count, and nobody has adopted it. It stays here so the design is not lost, and so what the record now does can be measured against what was proposed. Where this note and a governing document differ, the document is right.</p>
+
+      <div class="section-head">The two modes</div>
+      <p class="lead" style="margin-bottom:0">In the model, at any moment the cooperative is in one of two conditions: <b>between the meetings</b>, or <b>in session</b> (a meeting is actually open and running). Almost all of its life is spent in the first. Naming that plainly is the point: the ordinary condition is not a gap between the interesting parts.</p>
+
+      <div class="mode-pair">
+        <div class="mode here">
+          <span class="you-are">Where the model would place us</span>
+          <h3>Between the meetings</h3>
+          <div class="line">No meeting is open. The governing documents cannot change.</div>
+          <div class="sub">What you can do</div>
+          <ul>
+            <li class="p">Say whether you will attend a coming meeting</li>
+            <li class="p">Set the agenda, meaning the order of business</li>
+            <li class="p">Give notice of a motion you want taken up</li>
+            <li class="p">Record an interim act: something done between meetings under a standing authority the board granted in advance</li>
+            <li class="p">Adopt the minutes of the meeting that just closed</li>
+            <li class="p">Open the meeting. Get a quorum first: the minimum number of people who must be present for the meeting to count.</li>
+          </ul>
+          <div class="sub">What you cannot do</div>
+          <ul>
+            <li class="r">Move, second, amend or withdraw a motion. Wait for a meeting to open.</li>
+            <li class="r">Call the question, put it to a vote, cast a vote, or settle it</li>
+            <li class="r">Change a governing document without a meeting. There is no authority that reaches one.</li>
+          </ul>
+        </div>
+        <div class="mode">
+          <h3>In session</h3>
+          <div class="line">A meeting is open. This body may change only its own documents.</div>
+          <div class="sub">What you can do</div>
+          <ul>
+            <li class="p">Everything the floor allows: move, second, amend, call the question, put it to a vote, cast, and settle it</li>
+            <li class="p">Raise a point of order, meaning an objection that the rules are not being followed</li>
+            <li class="p">Table a motion, meaning set it aside without deciding it</li>
+            <li class="p">Adjourn. Close any open ballot first.</li>
+          </ul>
+          <div class="sub">What you cannot do</div>
+          <ul>
+            <li class="r">Record an interim act. In session a body acts by motion instead.</li>
+            <li class="r">Switch which body is meeting</li>
+            <li class="r">Change a document the other body controls</li>
+          </ul>
+        </div>
       </div>
-      <div class="g">
-        <b>Nobody can object to something done between meetings.</b><span class="anchor-kind">absent</span>
-        <p>A member who disagrees with an act taken under delegated authority has nowhere to say so. You could read the record, but you could not answer it.</p>
+
+      <p class="lead">In the model's own terms no meeting has ever been opened, because the model is not built and the record holds no act of opening one. On the human record the Board has met: the special meeting of August 14, 2026 and its confirmation of August 19, 2026, as <a href="/intranet/legal/">the legal shelf</a> records them. How the model meant a first meeting to run is at <a href="/legal/first-meeting/">The first meeting</a>.</p>
+
+      <div class="section-head">What the model's record cannot hold</div>
+      <p class="lead">In the model these are not rules that someone might break. They are things its record simply cannot do, which is a stronger guarantee: a rule can be broken quietly, and a missing capability cannot.</p>
+
+      <div class="cannot-hold">
+        <dl>
+          <dt>A minute that reports what someone said</dt>
+          <dd>The model's record has no slot for what anyone said. Discussion is opened, and nothing spoken in it is written down. <span class="imp">This is a missing capability, not a refusal</span>. The minute book above points at a minute and carries its hash; what the minute says lives in the document, not in the record.</dd>
+
+          <dt>A record that certifies itself</dt>
+          <dd>Draft minutes assemble themselves from the acts that were recorded, but they stay a draft until a person votes to adopt them. <span class="imp">Only a human can adopt them.</span> The minute book above keeps this: an adopted row names who adopted the minute.</dd>
+
+          <dt>An act that erases an earlier one</dt>
+          <dd>Withdrawing or tabling a motion ends it; it does not delete it. Every motion that ever stood is still visible afterwards. To fix a mistake, add a new act that corrects it. You cannot edit the old one.</dd>
+
+          <dt>A quiet change to the governing documents between meetings</dt>
+          <dd>No delegated authority reaches a governing document. They change only when a meeting is open and a body votes. This is the governance twin of the treasury rule: no document, agent, or piece of software holds a key to the money.</dd>
+
+          <dt>A saved quorum figure that drifts from who is actually in the room</dt>
+          <dd>Quorum is always a fresh count, never a saved number. It is counted from who is present, every time it is asked for.</dd>
+        </dl>
       </div>
-      <div class="g">
-        <b>There is only one level of privacy.</b><span class="anchor-kind">open question</span>
-        <p>Every act is either held or open, with nothing in between: the substance is withheld and the fact that the act happened is public. Nothing separates board-only from member-only from public, and no rule says when a withheld item becomes readable. Bylaws &sect; 18.1 leaves that to the board.</p>
-      </div>
-      <div class="g">
-        <b>You have to be present to vote.</b><span class="anchor-kind">not yet specified</span>
-        <p>There is no provision for a member who cannot attend: no way to vote ahead of time, and no way to send someone in your place. For a cooperative that means to be spread across places, that is a large silence.</p>
+
+      <div class="section-head">What the model leaves open</div>
+      <p class="lead">The tag on each one tells you its kind: <span class="anchor-kind">absent</span> means the model has no way to do this at all, <span class="anchor-kind">open question</span> means a decision has not been made yet, and <span class="anchor-kind">not yet specified</span> means no rule has been written for it.</p>
+
+      <div class="gaps">
+        <div class="g">
+          <b>Signing a document has no shape here.</b><span class="anchor-kind">absent</span>
+          <p>The act that makes the Bylaws take effect is one officer's signature, not a vote. This model says the legal state moves only when a meeting is open and a body votes, so it cannot describe a signature at all. Giving that act a name is the first piece of work.</p>
+        </div>
+        <div class="g">
+          <b>Which majority, and of what?</b><span class="anchor-kind">open question</span>
+          <p>A majority of the people present, or a majority of the votes actually cast? Those two numbers come apart the moment anyone abstains. The same question is already open on the board side: Bylaws &sect; 3.13 requires a simple majority of <em>all Directors</em>, and nobody has settled whether that means a majority of the six seats the Bylaws authorise or a majority of the directors currently serving. With all six seats filled the two give the same answer, so the question is harmless today. Drop to five directors and it decides votes.</p>
+        </div>
+        <div class="g">
+          <b>Nobody can object to something done between meetings.</b><span class="anchor-kind">absent</span>
+          <p>A member who disagrees with an act taken under delegated authority has nowhere to say so. You could read the record, but you could not answer it.</p>
+        </div>
+        <div class="g">
+          <b>There is only one level of privacy.</b><span class="anchor-kind">open question</span>
+          <p>Every act is either held or open, with nothing in between: the substance is withheld and the fact that the act happened is public. Nothing separates board-only from member-only from public, and no rule says when a withheld item becomes readable. Bylaws &sect; 18.1 leaves that to the board.</p>
+        </div>
+        <div class="g">
+          <b>You have to be present to vote.</b><span class="anchor-kind">not yet specified</span>
+          <p>There is no provision for a member who cannot attend: no way to vote ahead of time, and no way to send someone in your place. For a cooperative that means to be spread across places, that is a large silence.</p>
+        </div>
       </div>
     </div>
 
     <div class="section-head">Standing</div>
-    <p class="lead">Designed, not built. This page describes a governance section for the Common Information System, the cooperative's shared record. That section is proposed and has not been built: the underlying system today has no way to hold a motion, a ballot, a quorum count or a set of minutes. The design this page follows is a drawing. Nobody adopted it, and it carries no authority of its own. Where this page and a governing document differ, the document is right and this page owes you a correction. Read the documents at <a href="/legal/">the legal shelf</a>. Read the mistakes found after publication at <a href="/legal/corrections/">Corrections and open readings</a>.</p>
+    <p class="lead">Three sections of this page read the live record under its standing read rules, and change no rule to do it. The table reads the published documents. The design note is a drawing that nobody adopted, and it carries no authority of its own. Where this page and a governing document differ, the document is right and this page owes you a correction. Read the documents at <a href="/intranet/legal/">the legal shelf</a>. Read the mistakes found after publication at <a href="/legal/corrections/">Corrections and open readings</a>.</p>
   </div>
 </main>
 
@@ -564,5 +649,285 @@ footer a { color: var(--faint); }
   <div class="formation-foot"><span class="ff-mark">Called to order</span>RegenHub, LCA is called to order: the board is seated and the governing instruments are board-adopted, with member ratification anticipated. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+// ── The record, read from the record (R-02) ───────────────────────────────────
+// Read-only. No schema and no policy of its own. Every query below runs under
+// a standing read policy and shows what that policy shows the asker:
+//   minutes.* events    events_read (0002) and events_steward_read (0005):
+//                       directors, officers, and the steward read every row;
+//                       a member reads rows that concern them or that they
+//                       wrote, and a minutes row concerns the Board.
+//   role_grants         role_grants_member_read (0002): a member reads all;
+//                       anyone else reads the grants that name them.
+//   gatherings/sessions gatherings_member_read, sessions_member_read (0002):
+//                       members and overseers.
+//   attendance          attendance_scoped_read (0002): self, overseer, or
+//                       the host of the gathering.
+//   agents              agents_member_read (0002): member, overseer, or self.
+// Nothing here inserts, updates, or deletes.
+
+const SUPABASE_URL = 'https://ujujwgopdwirebgcpekc.supabase.co';
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqdWp3Z29wZHdpcmViZ2NwZWtjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3ODc3ODIsImV4cCI6MjA5OTM2Mzc4Mn0.v6atltp9vbEj0RN2stSuDrzOdWVHB9GGR6rwPCwBNEk';
+const BOARD_PREFIX = 'Board ·';
+const MINUTE_KINDS = ['minutes.drafted', 'minutes.adopted'];
+const ROLE_WORD = { director: 'Director', secretary: 'Secretary', treasurer: 'Treasurer', steward: 'Steward' };
+const ROLE_ORDER = ['secretary', 'treasurer', 'steward', 'director'];
+
+let sb, currentAgentId = null, currentIsOverseer = false;
+
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+function formatTime(iso) {
+  return new Date(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+}
+function shortDate(iso) {
+  return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+function report(err, msg) {
+  return (window.Techne && Techne.report) ? Techne.report(err, msg) : msg;
+}
+function errHtml(text) {
+  return `<div class="notice err" style="display:block">${escHtml(text)}</div>`;
+}
+function absenceHtml(html) {
+  return `<div class="absence">${html}</div>`;
+}
+function signedOutHtml(what) {
+  return absenceHtml(`<b>Sign in to read ${what}.</b> The record shows each reader what its read rules allow, and it cannot know who is asking until you are signed in.`);
+}
+
+// ── Board gatherings and their sessions, shared by two sections ──────────────
+
+async function loadBoards() {
+  // Every board gathering, archived or not: leaving the calendar does not leave the record.
+  const { data, error } = await sb
+    .from('gatherings')
+    .select('id, title, sessions(id, starts_at, ends_at)')
+    .like('title', BOARD_PREFIX + '%')
+    .order('created_at', { ascending: true });
+  if (error) return { error };
+  const boards = (data || []).map(g => ({
+    id: g.id, title: g.title,
+    sessions: (g.sessions || []).slice().sort((a, b) => new Date(a.starts_at) - new Date(b.starts_at))
+  }));
+  return { boards };
+}
+
+function boardCardHtml(g, sessionHtml) {
+  const sessions = g.sessions.length === 0
+    ? '<div class="board-session"><div class="live-none">No sessions scheduled.</div></div>'
+    : g.sessions.map(sessionHtml).join('');
+  return `<div class="board-card"><div class="board-title">${escHtml(g.title)}</div>${sessions}</div>`;
+}
+
+// ── The minute book ──────────────────────────────────────────────────────────
+
+function minuteRowHtml(e) {
+  const p = e.payload || {};
+  const kind = e.kind === 'minutes.adopted' ? 'adopted' : 'drafted';
+  const uri = String(p.uri || '');
+  const uriHtml = /^https?:\/\//i.test(uri)
+    ? `<a href="${escHtml(uri)}" rel="noopener">${escHtml(uri)}</a>`
+    : escHtml(uri);
+  const by = e.kind === 'minutes.adopted' && p.adopted_by
+    ? `<span>adopted by ${escHtml(p.adopted_by)}</span>` : '';
+  return `<div class="minute-row">
+      <span class="minute-kind ${kind}">${kind}</span>
+      <span>${escHtml(shortDate(e.occurred_at))}</span>
+      <span class="minute-uri">${uriHtml}</span>
+      <span class="minute-hash">sha256 ${escHtml(String(p.sha256 || ''))}</span>
+      ${by}
+    </div>`;
+}
+
+async function loadMinutes(boardsResult) {
+  const el = document.getElementById('minutes-list');
+  if (!currentIsOverseer) {
+    el.innerHTML = absenceHtml('<b>The minute book is listed for directors, officers, and the steward.</b> '
+      + 'The record shows a member the rows that concern them or that they wrote, and a minutes row concerns the Board rather than a member, '
+      + 'so nothing here is shown to a member who holds no office. Widening that is a change to the read rule, not to this page.');
+    return;
+  }
+  if (boardsResult.error) {
+    el.innerHTML = errHtml(report(boardsResult.error, 'Could not read the board gatherings right now. Please reload the page.'));
+    return;
+  }
+  const boards = boardsResult.boards;
+  if (boards.length === 0) {
+    el.innerHTML = '<div class="live-none">No gathering titled "Board ·" stands in the record yet. Hold one with that prefix and its sessions appear here.</div>';
+    return;
+  }
+  const { data: events, error } = await sb
+    .from('events')
+    .select('id, occurred_at, kind, payload')
+    .in('kind', MINUTE_KINDS)
+    .order('occurred_at', { ascending: true });
+  if (error) {
+    el.innerHTML = errHtml(report(error, 'Could not read the minutes rows right now. Please reload the page.'));
+    return;
+  }
+  const bySession = {};
+  (events || []).forEach(e => {
+    const sid = e.payload && e.payload.session_id;
+    if (!sid) return;
+    (bySession[sid] = bySession[sid] || []).push(e);
+  });
+  el.innerHTML = boards.map(g => boardCardHtml(g, s => {
+    const rows = bySession[s.id] || [];
+    const rowsHtml = rows.length
+      ? rows.map(minuteRowHtml).join('')
+      : '<div class="live-none">No minute recorded against this session.</div>';
+    return `<div class="board-session">
+        <div class="board-when">${escHtml(formatDate(s.starts_at))} &middot; ${escHtml(formatTime(s.starts_at))}</div>
+        ${rowsHtml}
+      </div>`;
+  })).join('');
+}
+
+// ── The offices and the roster ───────────────────────────────────────────────
+
+async function loadRoster() {
+  const el = document.getElementById('roster-list');
+  const { data: grants, error } = await sb
+    .from('role_grants')
+    .select('id, role, granted_at, revoked_at, event_id, agents(display_name)')
+    .order('granted_at', { ascending: true });
+  if (error) {
+    el.innerHTML = errHtml(report(error, 'Could not read the appointments right now. Please reload the page.'));
+    return;
+  }
+  const rows = grants || [];
+  if (rows.length === 0) {
+    el.innerHTML = absenceHtml('<b>No appointment is shown to you.</b> Either the record holds none, or none names you: '
+      + 'the record shows every appointment to a member and shows anyone else only the appointments that name them, and no member has been admitted yet. '
+      + 'An office the record does not carry is a row a director has not yet written, not a vacancy.');
+    return;
+  }
+  rows.sort((a, b) => {
+    const ra = ROLE_ORDER.indexOf(a.role), rb = ROLE_ORDER.indexOf(b.role);
+    if (ra !== rb) return ra - rb;
+    return new Date(a.granted_at) - new Date(b.granted_at);
+  });
+  const active = rows.filter(r => !r.revoked_at);
+  const ended = rows.filter(r => r.revoked_at);
+  const rowHtml = r => {
+    const name = r.agents && r.agents.display_name ? r.agents.display_name : 'a holder the record does not show you';
+    const isEnded = !!r.revoked_at;
+    return `<tr>
+        <td>${escHtml(ROLE_WORD[r.role] || r.role)}</td>
+        <td class="${isEnded ? 'ended' : ''}">${escHtml(name)}</td>
+        <td class="m">${escHtml(shortDate(r.granted_at))}</td>
+        <td class="m">${isEnded ? 'ended ' + escHtml(shortDate(r.revoked_at)) : 'standing'}</td>
+        <td class="m">${r.event_id ? 'recorded' : 'no recording event'}</td>
+      </tr>`;
+  };
+  const table = list => `<table class="roster">
+      <thead><tr><th>Appointment</th><th>Holder</th><th>Since</th><th>Standing</th><th>Event</th></tr></thead>
+      <tbody>${list.map(rowHtml).join('')}</tbody>
+    </table>`;
+  let html = '';
+  html += active.length ? table(active) : '<div class="live-none">No standing appointment is shown to you.</div>';
+  if (ended.length) {
+    html += `<details class="disclose"><summary style="font-family:var(--mono);font-size:0.78rem;color:var(--muted);cursor:pointer">${ended.length} ended appointment${ended.length === 1 ? '' : 's'}</summary>${table(ended)}</details>`;
+  }
+  html += `<div class="live-note" style="margin-top:var(--s2)">Shown to you: ${rows.length} appointment${rows.length === 1 ? '' : 's'}. An appointment with no recording event was written without the event the record expects to stand behind it; that is a defect in the row, not in the holder.</div>`;
+  el.innerHTML = html;
+}
+
+// ── Attendance at meetings of the Board ──────────────────────────────────────
+
+async function loadAttendance(boardsResult) {
+  const el = document.getElementById('attendance-list');
+  if (boardsResult.error) {
+    el.innerHTML = errHtml(report(boardsResult.error, 'Could not read the board gatherings right now. Please reload the page.'));
+    return;
+  }
+  const boards = boardsResult.boards;
+  if (boards.length === 0) {
+    el.innerHTML = absenceHtml('<b>No gathering titled "Board ·" is shown to you.</b> '
+      + 'The calendar is shown to members and to directors, officers, and the steward. If the record holds a board gathering, this is a read rule keeping it from you; if not, hold one with that prefix and its sessions appear here.');
+    return;
+  }
+  const sessionIds = [];
+  boards.forEach(g => g.sessions.forEach(s => sessionIds.push(s.id)));
+  let present = [];
+  if (sessionIds.length) {
+    const { data, error } = await sb
+      .from('attendance')
+      .select('session_id, agent_id, recorded_at, recorded_by')
+      .in('session_id', sessionIds)
+      .order('recorded_at', { ascending: true });
+    if (error) {
+      el.innerHTML = errHtml(report(error, 'Could not read the attendance rows right now. Please reload the page.'));
+      return;
+    }
+    present = data || [];
+  }
+  const names = {};
+  const ids = Array.from(new Set(present.flatMap(a => [a.agent_id, a.recorded_by]).filter(Boolean)));
+  if (ids.length) {
+    const { data: agents } = await sb.from('agents').select('id, display_name').in('id', ids);
+    (agents || []).forEach(a => { names[a.id] = a.display_name; });
+  }
+  const bySession = {};
+  present.forEach(a => { (bySession[a.session_id] = bySession[a.session_id] || []).push(a); });
+  el.innerHTML = boards.map(g => boardCardHtml(g, s => {
+    const rows = bySession[s.id] || [];
+    const rowsHtml = rows.length
+      ? rows.map(a => `<div class="present-row">
+            <span>${escHtml(names[a.agent_id] || 'a member the record does not show you')}</span>
+            <span class="by">recorded ${escHtml(shortDate(a.recorded_at))}${a.recorded_by ? ' by ' + escHtml(names[a.recorded_by] || 'a recorder the record does not show you') : ''}</span>
+          </div>`).join('')
+      : '<div class="live-none">No presence recorded against this session, or none the record shows you.</div>';
+    return `<div class="board-session">
+        <div class="board-when">${escHtml(formatDate(s.starts_at))} &middot; ${escHtml(formatTime(s.starts_at))}<span class="count">${rows.length} recorded present</span></div>
+        ${rowsHtml}
+      </div>`;
+  })).join('')
+  + (currentIsOverseer ? '' : '<div class="live-note" style="margin-top:var(--s2)">You are shown your own presence only. Directors, officers, the steward, and the host of a gathering are shown every row of it.</div>');
+}
+
+// ── Load ─────────────────────────────────────────────────────────────────────
+
+async function loadAll(session) {
+  const { data: agents } = await sb.from('agents').select('id, auth_user_id');
+  const self = agents && agents.find(a => a.auth_user_id === session.user.id);
+  currentAgentId = self ? self.id : null;
+  currentIsOverseer = false;
+  if (currentAgentId) {
+    const { data: grants } = await sb
+      .from('role_grants')
+      .select('role')
+      .eq('agent_id', currentAgentId)
+      .is('revoked_at', null);
+    currentIsOverseer = (grants || []).some(g => ROLE_ORDER.includes(g.role));
+  }
+  const boards = await loadBoards();
+  await Promise.all([loadMinutes(boards), loadRoster(), loadAttendance(boards)]);
+}
+
+function showSignedOut() {
+  document.getElementById('minutes-list').innerHTML = signedOutHtml('the minute book');
+  document.getElementById('roster-list').innerHTML = signedOutHtml('the offices and the roster');
+  document.getElementById('attendance-list').innerHTML = signedOutHtml('attendance at meetings of the Board');
+}
+
+(async function init() {
+  if (!window.supabase) { showSignedOut(); return; }
+  sb = window.supabase.createClient(SUPABASE_URL, ANON_KEY);
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { showSignedOut(); return; /* the shell shows the gate (U-04) */ }
+  await loadAll(session);
+  sb.auth.onAuthStateChange(async (event, s) => {
+    if (event === 'SIGNED_IN' && s) await loadAll(s);
+    if (event === 'SIGNED_OUT') location.reload();
+  });
+})();
+</script>
 </body>
 </html>
