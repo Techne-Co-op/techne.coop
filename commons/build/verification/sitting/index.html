@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="The proofs sitting: G-B, G-G, G-F and G-L assembled from the Proof Book and the Run-Through as one printable afternoon, with each proof's readiness read off the ledger and the recording procedure carried whole.">
+<title>The Proofs Sitting &middot; ALM v2 &middot; Techne</title>
+<link rel="canonical" href="https://techne.coop/commons/build/verification/sitting/">
+<meta property="og:image" content="https://techne.coop/assets/og-default.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://techne.coop/commons/build/verification/sitting/">
+<meta property="og:title" content="The Proofs Sitting · ALM v2 · Techne">
+<meta property="og:description" content="Four proofs, one afternoon: the scripts, the words, and the recording procedure in one printable sheet, with each proof's readiness read off the ledger.">
+<meta property="og:site_name" content="Techne">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" type="image/png" href="/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    var s = null;
+    try { s = localStorage.getItem('techne-mode'); } catch(e) {}
+    var m = s || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-mode', m);
+  })();
+</script>
+<script src="/assets/topbar.js" defer></script>
+<style>
+/* ============================================================
+   commons.css · Techne v4 token and pattern layer
+   UI v1 emission · The Common Record Series
+   The Proofs Sitting · X-37 · RegenHub, LCA · September 2026
+   ============================================================ */
+
+/* ---------- tokens ---------- */
+:root {
+  --serif:"Libre Baskerville",Georgia,serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --dur:.4s; --micro:.16s; --ease:cubic-bezier(.4,0,.2,1);
+  --sun-gold:#EAB668; --sun-amber:#E09A52; --sun-coral:#D1755A;
+  --sun-rose:#B45C7C; --sun-violet:#6E5494; --sun-blue:#5476B8;
+}
+html[data-mode="dark"] {
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --sun-gold-t:#EAB668; --sun-amber-t:#E5A562; --sun-coral-t:#DE8872;
+  --sun-rose-t:#CF7C9A; --sun-violet-t:#9E86C4; --sun-blue-t:#8FAEE0;
+}
+html[data-mode="light"] {
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#A84F4C;
+  --sun-gold-t:#87621F; --sun-amber-t:#8C581D; --sun-coral-t:#9C4636;
+  --sun-rose-t:#8C3D58; --sun-violet-t:#4C3870; --sun-blue-t:#3A5694;
+}
+
+/* ---------- base ---------- */
+* { box-sizing:border-box; margin:0; padding:0; }
+html { color-scheme:light dark; scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text);
+  font:400 16px/1.75 var(--serif);
+  -webkit-font-smoothing:antialiased;
+  transition:background-color var(--dur) var(--ease), color var(--dur) var(--ease); }
+.mono { font-family:var(--mono); }
+em { font-style:italic; color:var(--heading); }
+code { font:400 .85em/1 var(--mono); color:var(--ember-text); background:var(--inset); padding:2px 5px; border-radius:2px; }
+a { color:var(--blue-text); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; transition:text-decoration-thickness var(--micro) var(--ease); }
+a:hover { text-decoration-thickness:2px; }
+:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
+
+/* the primary navigation is the shared public topbar,
+   injected by /assets/topbar.js per U-13 */
+
+/* ---------- document grammar ---------- */
+.wrap { max-width:920px; margin:0 auto; padding:0 var(--s5); }
+
+/* ---------- masthead ---------- */
+.mast { border-bottom:1px solid var(--rule); padding:var(--s8) 0 var(--s6); }
+.mast .kick { font:500 11px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.12em; }
+.mast h1 { font:700 38px/1.15 var(--serif); color:var(--heading); margin:var(--s3) 0 var(--s4); letter-spacing:-.01em; }
+.mast .dek { font:400 17.5px/1.65 var(--serif); color:var(--text); margin:0; max-width:64ch; }
+.mast .meta { display:flex; flex-wrap:wrap; gap:var(--s2) var(--s5); margin-top:var(--s5); font:400 11px/1.6 var(--mono); color:var(--muted); }
+.mast .meta b { color:var(--blue-text); font-weight:600; }
+.mast .meta .em { color:var(--ember-text); }
+
+/* ---------- section tints via id ---------- */
+#s1 { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+#s2 { --shue:var(--sun-gold);   --shue-t:var(--sun-gold-t); }
+#s3 { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+#s4 { --shue:var(--sun-amber);  --shue-t:var(--sun-amber-t); }
+#s5 { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+#s6 { --shue:var(--sun-coral);  --shue-t:var(--sun-coral-t); }
+#s7 { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+#s8 { --shue:var(--sun-rose);   --shue-t:var(--sun-rose-t); }
+#s9 { --shue:var(--sun-violet); --shue-t:var(--sun-violet-t); }
+#s10 { --shue:var(--sun-blue);  --shue-t:var(--sun-blue-t); }
+
+/* ---------- sections ---------- */
+.sec { padding:var(--s7) 0 0; }
+.sec .addr { font:600 12px/1 var(--mono); color:var(--shue-t); margin-bottom:var(--s2); }
+.sec h2 { font:700 25px/1.25 var(--serif); color:var(--heading); margin:0 0 var(--s4); letter-spacing:-.01em; padding-left:14px; border-left:3px solid var(--shue); }
+.sec h3 { font:600 13px/1.5 var(--mono); color:var(--heading); text-transform:lowercase; letter-spacing:.02em; margin:var(--s6) 0 var(--s3); padding-bottom:6px; border-bottom:1px solid var(--shue); }
+.sec p { margin:0 0 var(--s4); max-width:68ch; }
+.lead { font-size:17px; }
+.cap { font:400 10.5px/1.7 var(--mono); color:var(--faint); margin-top:8px; }
+
+/* ---------- status chips ---------- */
+.chip { display:inline-flex; align-items:center; gap:6px; font:500 10.5px/1 var(--mono); padding:4px 9px; border:1px solid var(--line); border-radius:2px; background:var(--surface); white-space:nowrap; color:var(--muted); vertical-align:middle; }
+.chip .dot { width:6px; height:6px; flex:none; border-radius:1px; }
+.chip.filed { color:var(--ok); }           .chip.filed .dot { background:var(--ok); }
+.chip.ratified { color:var(--ok); }        .chip.ratified .dot { background:var(--ok); }
+.chip.drafted { color:var(--info); }       .chip.drafted .dot { background:var(--info); }
+.chip.anticipated { color:var(--muted); }  .chip.anticipated .dot { background:transparent; border:1px solid var(--muted); }
+.chip.open { color:var(--warn); }          .chip.open .dot { background:transparent; border:1px solid var(--warn); }
+.chip.role { color:var(--ember-text); }    .chip.role .dot { background:var(--ember); }
+.chiprow { display:flex; gap:var(--s2); flex-wrap:wrap; align-items:center; margin:var(--s3) 0; }
+
+/* ---------- definition rows ---------- */
+.def { margin:var(--s4) 0 var(--s2); border-top:1px solid var(--rule); }
+.def-row { display:grid; grid-template-columns:180px 1fr; gap:var(--s4); padding:var(--s3) 0; border-bottom:1px solid var(--line); }
+.def-row .t { font:700 14px/1.5 var(--serif); color:var(--heading); }
+.def-row .t .k { display:block; font:500 9.5px/1.8 var(--mono); color:var(--shue-t); text-transform:uppercase; letter-spacing:.1em; }
+.def-row .d { font:400 13.5px/1.7 var(--serif); color:var(--text); }
+
+/* ---------- record panel ---------- */
+.record { margin:var(--s5) 0; background:var(--surface); border:1px solid var(--line); border-top:4px double var(--heading); }
+.record .rh { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:var(--s2) var(--s3); padding:10px var(--s4); border-bottom:1px solid var(--line); }
+.record .rh .rt { font:600 11px/1.5 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; }
+.record .rh .ra { font:600 11px/1.5 var(--mono); color:var(--muted); }
+.record .rb { padding:var(--s4); }
+
+/* ---------- anatomy panel ---------- */
+.anatomy { margin:var(--s4) 0; background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--shue); }
+.an-row { display:grid; grid-template-columns:140px 1fr; gap:var(--s3); padding:9px var(--s4); border-bottom:1px solid var(--line); align-items:baseline; }
+.an-row:last-child { border-bottom:0; }
+.an-row .f { font:600 11px/1.7 var(--mono); color:var(--shue-t); }
+.an-row .v { font:400 13px/1.7 var(--serif); color:var(--text); }
+
+/* ---------- data table ---------- */
+.stage { background:var(--inset); border:1px solid var(--line); padding:var(--s4); margin:var(--s4) 0; overflow-x:auto; }
+table.dt { border-collapse:collapse; width:100%; }
+table.dt thead th { font:600 9.5px/1.6 var(--mono); color:var(--muted); text-transform:lowercase; text-align:left; padding:7px 10px; border-bottom:1px solid var(--rule); background:var(--raised); }
+table.dt tbody td { font:400 11.5px/1.5 var(--mono); color:var(--text); padding:6px 10px; border-bottom:1px solid var(--line); }
+table.dt tbody td.s { font:400 12px/1.5 var(--serif); color:var(--heading); }
+
+/* ---------- memorandum ---------- */
+.memo { margin:var(--s6) 0 0; padding:var(--s4) 0; border-top:1px solid var(--rule); border-bottom:4px double var(--heading); }
+.memo .k { font:500 10px/1.6 var(--mono); color:var(--ember-text); text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; }
+.memo p { margin:0; font-size:15px; max-width:68ch; }
+
+/* ---------- footer ---------- */
+footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s5) 0 var(--s8); font:400 11px/1.8 var(--mono); color:var(--muted); }
+footer .row { display:flex; flex-wrap:wrap; gap:6px var(--s5); }
+
+/* ---------- responsive ---------- */
+@media (max-width:760px){
+  .mast h1 { font-size:30px; }
+  .def-row { grid-template-columns:1fr; gap:var(--s1); }
+  .an-row { grid-template-columns:1fr; gap:2px; }
+}
+@media (prefers-reduced-motion: reduce){ * { transition:none !important; } }
+
+    /* Formation notice, one form only (see scripts/notice_audit.py).
+       Prose byte-identical estate-wide; only the token names differ,
+       because a copy must use the names its own page defines. */
+    .formation-foot{
+      max-width:780px;margin-left:auto;margin-right:auto;
+      padding-left:24px;padding-right:24px;
+      border-top:1px solid var(--line);margin-top:14px;padding-top:12px;
+      font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--muted);
+    }
+    .formation-foot .ff-mark{
+      font-size:10px;letter-spacing:0.14em;text-transform:uppercase;
+      color:var(--ember-text);margin-right:10px;white-space:nowrap;
+    }
+    .formation-foot a{color:var(--ember-text);}
+  
+/* ---------- the sitting: acts, beats, attestations ---------- */
+.act { margin:var(--s5) 0 0; }
+.beats { margin:var(--s4) 0; border-top:1px solid var(--rule); }
+.beat { display:grid; grid-template-columns:26px 34px 104px 1fr; gap:var(--s3); padding:var(--s3) 0; border-bottom:1px solid var(--line); align-items:baseline; }
+.beat .box { width:13px; height:13px; border:1px solid var(--rule); border-radius:2px; }
+.beat .n { font:600 11px/1.6 var(--mono); color:var(--shue-t); }
+.beat .who { font:400 11px/1.6 var(--mono); color:var(--muted); }
+.beat .body { font:400 13.5px/1.7 var(--serif); color:var(--text); }
+.beat .body .said { display:block; font-style:italic; color:var(--heading); margin-bottom:var(--s1); }
+.beat .body .see { display:block; font:400 11px/1.7 var(--mono); color:var(--muted); margin-top:var(--s1); }
+.beat .body .slot { display:block; font:400 11px/1.7 var(--mono); color:var(--faint); margin-top:var(--s1); }
+
+.attest { margin:var(--s4) 0 0; background:var(--inset); border:1px solid var(--line); border-left:2px solid var(--ok); padding:var(--s4); }
+.attest .k { font:500 10px/1.6 var(--mono); color:var(--ok); text-transform:uppercase; letter-spacing:.1em; margin-bottom:var(--s2); }
+.attest p { font:400 14px/1.7 var(--serif); font-style:italic; color:var(--heading); margin:0 0 var(--s3); max-width:66ch; }
+.attest .src { font:400 10.5px/1.7 var(--mono); color:var(--muted); margin:0; font-style:normal; }
+.attest.blank { border-left-color:var(--warn); }
+.attest.blank .k { color:var(--warn); }
+.ruled { border-bottom:1px solid var(--rule); height:var(--s5); margin:var(--s3) 0; }
+
+pre.rec { background:var(--inset); border:1px solid var(--line); padding:var(--s4); margin:var(--s4) 0 0;
+  overflow-x:auto; font:400 11.5px/1.8 var(--mono); color:var(--text); white-space:pre-wrap; }
+
+.hold { margin:var(--s4) 0; background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--shue); padding:var(--s3) var(--s4); }
+.hold .k { display:block; font:500 10px/1.7 var(--mono); color:var(--shue-t); text-transform:uppercase; letter-spacing:.1em; margin-bottom:var(--s1); }
+.hold p { font:400 13.5px/1.7 var(--serif); margin:0; max-width:66ch; }
+
+/* ---------- print: the sheet a person carries ---------- */
+@media print {
+  .tc-topbar { display:none; }
+  .wrap { max-width:none; padding:0; }
+  .sec { padding-top:var(--s5); break-inside:auto; }
+  .act, .beat, .attest, .hold, pre.rec { break-inside:avoid; }
+  .sec h2 { break-after:avoid; }
+  a { text-decoration:none; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="mast">
+    <div class="kick">the proofs sitting &middot; X-37 &middot; assembled, not new</div>
+    <h1>The Proofs Sitting</h1>
+    <p class="dek">Four proofs in one afternoon: Belong, Gather, Find, and the Lexicon. Every script, every spoken sentence, and the recording procedure already exist, in the Proof Book and the Run-Through; they are gathered here in walking order, one sheet, made to be printed and carried. Nothing on this page moves a mark, and nothing on it is new: where a proof is not ready today, the readiness table says which piece is short and the act stays unwalked.</p>
+    <div class="meta">
+      <span>status &middot; <span class="chip drafted"><span class="dot"></span>Drafted</span></span>
+      <span>assembles &middot; <a href="/commons/build/gates/">the Proof Book</a> &middot; <a href="/commons/build/run-through/">the Run-Through</a> &middot; <a href="/commons/build/verification/">the verification walk</a></span>
+      <span class="em">ledger read at commit b840c6f &middot; 2026-09-03</span>
+      <span>RegenHub, LCA &middot; Boulder, Colorado</span>
+    </div>
+  </header>
+
+  <section class="sec" id="s1">
+    <div class="addr">&sect;1</div>
+    <h2>What this sheet is</h2>
+    <p class="lead">The Proof Book holds the scripts and the words. The Run-Through holds the order a person walks them in and the bench they need. The verification walk holds the act of reading the marks aloud before any proof is spoken. This page is those three arranged for one sitting, so that the afternoon is the only input still missing.</p>
+    <p>It adds no beat, no sentence, and no condition. Where a spoken sentence appears below in quotation marks it is carried verbatim from the Proof Book; everything else is written here in this page's own words, and where the two differ the Proof Book is right and this sheet owes a correction. The recording procedure at <a href="#s8">&sect;8</a> is the Proof Book's, quoted whole.</p>
+    <div class="memo">
+      <div class="k">a page cannot attest</div>
+      <p>A proof is a human act. This sheet is paper. No mark moves because this page describes how it would move, and the sitting itself is not the record: the record is the event the attesting person inserts afterwards, and the ledger line that names it.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="s2">
+    <div class="addr">&sect;2 &middot; readiness</div>
+    <h2>Which of the four is ready today</h2>
+    <p class="lead">Read from <code>almanac-ledger.yaml</code> at commit b840c6f, 2026-09-03. Each proof's own acceptance names the pieces that must stand verified under it. A proof whose bed is short is not walked; saying so is the correct outcome, and it is the outcome the verification walk asks for at its own attestation cards.</p>
+    <div class="stage">
+      <table class="dt">
+        <thead>
+          <tr><th>proof</th><th>what the ledger says it waits on</th><th>the marks at b840c6f</th><th>ready</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="s">G-B &middot; Belong</td><td>B-02, B-04, B-05 verified</td><td>all three verified</td><td>yes</td></tr>
+          <tr><td class="s">G-G &middot; Gather</td><td>G-03 verified</td><td>G-03 verified; G-04 delivered</td><td>yes, on the ledger's words; see the card at &sect;9</td></tr>
+          <tr><td class="s">G-F &middot; Find</td><td>F-03 verified and G-B attested to begin; F-01, F-02, F-03 verified to accept</td><td>F-01 and F-03 verified; F-02 delivered</td><td>no, F-02 is short</td></tr>
+          <tr><td class="s">G-L &middot; Lexicon</td><td>L-01 through L-06 verified</td><td>L-03 verified; L-01, L-02, L-04, L-05, L-06 delivered</td><td>no, five are short</td></tr>
+        </tbody>
+      </table>
+      <p class="cap">Source: the ledger entries for G-B, G-G, G-F and G-L, and for the pieces each one names. Delivered means the deliverable is on main and the acceptance is waiting on a person to walk it, not that the piece failed.</p>
+    </div>
+    <p>So one sitting can produce G-B today, and G-G with it on the ledger's own reading of its condition, and it sets up the third: F-02's acceptance is walked inside act three below, and the moment its verdict is recorded, G-F's bed is whole. G-L waits on five walks that belong to the verification tiers, not to this sheet. Walk the acts in order regardless; an act whose proof is short still produces the evidence its pieces are waiting for.</p>
+    <div class="hold">
+      <span class="k">what this sitting does not reach</span>
+      <p>G-R is scored for one voice and lives in the launch-day walkthrough's fourth act. G-S, G-T and G-V wait on board adoptions. G-A asks for a member other than the steward to direct the instrument, and for a grant that does not exist. G-I waits on TR-04 and TR-05. None of them is in this script.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="s3">
+    <div class="addr">&sect;3 &middot; the bench</div>
+    <h2>Before the first beat</h2>
+    <p class="lead">Two people, their own devices, about ninety minutes for acts one through three. Act four is a reading pass and can sit on another day. The bench is the Run-Through's, unchanged.</p>
+    <div class="def">
+      <div class="def-row"><div class="t"><span class="k">who</span>the steward</div><div class="d">Signed in as himself on his normal browser, holding the steward grant. He witnesses, countersigns, and records afterwards.</div></div>
+      <div class="def-row"><div class="t"><span class="k">who</span>the countersigner</div><div class="d">One member who is not an organizer, on their own device, with an email address the record has never seen. They drive most of the walk, because a proof demonstrated by the person who built the system proves the weaker claim. Needed for acts one, two and three.</div></div>
+      <div class="def-row"><div class="t"><span class="k">where</span>the surfaces</div><div class="d">The public pages the members use: join, agreements, directory, gatherings, opportunities. The desk and the SQL editor are needed only if a case falls outside the admissions panel, and for the recording at &sect;8.</div></div>
+      <div class="def-row"><div class="t"><span class="k">what</span>the evidence</div><div class="d">One folder on one device, agreed before the first beat. Each beat below carries a capture slot, S-01 upward. The labels are this sheet's own and do not renumber the launch-day walkthrough's E-01 upward; if both scripts are walked in the same afternoon, keep two folders.</div></div>
+    </div>
+    <div class="hold">
+      <span class="k">settle this first</span>
+      <p>Whether the second person joins as a real member the steward admits during act one, or as a named test identity. The record is append-only either way, so the walk becomes part of the cooperative's first story. That choice is the steward's and no instrument settles it.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="s4">
+    <div class="addr">&sect;4 &middot; G-B</div>
+    <h2>Act one &middot; Belong</h2>
+    <p class="lead">The countersigner drives every beat; the steward watches and helps with nothing. Each beat opens with its sentence spoken aloud, because a proof is people saying what they are about to show. The sentences are the Proof Book's.</p>
+    <p>Two acts sit inside this one and belong to the assigned hand: the binding, which happens by itself when the newcomer clicks their first magic link, and the admission, which is one tap on the Admissions panel at the top of the directory. Neither needs the SQL editor; the Run-Through carries the manual desk for the case that falls outside the panel.</p>
+    <div class="beats">
+      <div class="beat">
+        <div class="box"></div><div class="n">01</div><div class="who">countersigner</div>
+        <div class="body">
+          <span class="said">&ldquo;A member can complete onboarding without a meeting.&rdquo;</span>
+          On their own device, open <a href="/commons/join/">the join form</a> and submit the application: their name, the fresh address, a line of intent. Nobody helps and nobody reads over a shoulder.
+          <span class="see">see: the received panel, no dead end; a membership.applied event in the record; the intake notice reaching the steward's phone</span>
+          <span class="slot">S-01 the received panel &middot; S-02 the notice, timestamp visible</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">02</div><div class="who">both</div>
+        <div class="body">
+          Request a magic link from any member page and click it: the sign-in with the applied address becomes the agent by itself. The steward opens <a href="/commons/directory/">the directory</a>, finds the pending row on the Admissions panel, and taps Admit. Order does not matter.
+          <span class="see">see: the identity strip resolving their name; the state transition and its membership.admitted event recorded as one act</span>
+          <span class="slot">S-03 the identity strip &middot; S-04 the panel before and after</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">03</div><div class="who">countersigner</div>
+        <div class="body">
+          <span class="said">&ldquo;A member can read every agreement that binds them, with version and standing marked.&rdquo;</span>
+          Open <a href="/commons/agreements/">the agreements shelf</a> and read the bylaws entry aloud: title, version, effective date, and their own unsigned chip.
+          <span class="see">see: version and standing marked; nothing shown that does not bind them</span>
+          <span class="slot">S-05 the shelf with the unsigned chip</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">04</div><div class="who">countersigner</div>
+        <div class="body">
+          <span class="said">&ldquo;A member can sign the membership agreement and see the signature recorded.&rdquo;</span>
+          Sign on the shelf and read the confirmation panel aloud: name, instrument, version, the binding statement. Then attempt the same signature again and show the refusal.
+          <span class="see">see: the signature row and its signature.signed event, atomic; the second attempt refused, not doubled</span>
+          <span class="slot">S-06 the confirmation panel and the refused duplicate</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">05</div><div class="who">countersigner</div>
+        <div class="body">
+          <span class="said">&ldquo;A member can appear in the member directory with a profile they control.&rdquo;</span>
+          Find themselves in the directory, edit their display name, reload, and show the change held. Then look for an edit path into anyone else's row and say aloud that there is none.
+          <span class="see">see: self-edit works; no other row is editable</span>
+          <span class="slot">S-07 the edited profile and another member's row with no control</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">06</div><div class="who">both</div>
+        <div class="body">
+          Countersign. The steward states that each sentence was demonstrated by a person with no standing to fake it. Both speak the attestation, and it is written down as spoken rather than from memory afterwards.
+          <span class="slot">S-08 the words as spoken, with both names and the hour</span>
+        </div>
+      </div>
+    </div>
+    <div class="attest">
+      <div class="k">the attestation &middot; two voices</div>
+      <p>&ldquo;G-B attested. Every Belong sentence was demonstrated live by a member who is not an organizer, and witnessed. Belonging is legible in the record.&rdquo;</p>
+      <p class="src">Carried verbatim from the Proof Book, G-B. Record it by the procedure at &sect;8.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="s5">
+    <div class="addr">&sect;5 &middot; G-G</div>
+    <h2>Act two &middot; Gather</h2>
+    <p class="lead">Any real gathering serves as the fixture. If the sitting itself is scheduled as one, the room stands inside the record it is reading, which is the observation the Proof Book asks for at its first beat. The countersigner schedules and hosts; the steward registers, because a member holding a gathering is the claim and a steward holding one proves less.</p>
+    <div class="beats">
+      <div class="beat">
+        <div class="box"></div><div class="n">07</div><div class="who">countersigner</div>
+        <div class="body">
+          <span class="said">&ldquo;A member can host an event under a named agreement or policy.&rdquo;</span>
+          Open <a href="/commons/gatherings/">the calendar</a>, hold a gathering, and fill every field: title, what it is for, where to stand, and a start time. The entry names them as host under the cooperative's instrument.
+          <span class="see">see: the host is a person; the gathering hangs off a named agreement</span>
+          <span class="slot">S-09 the entry showing title, purpose, place, and the host's name</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">08</div><div class="who">steward</div>
+        <div class="body">
+          On his own device, open the same gathering and register for it. This is the clause no one walks alone.
+          <span class="see">see: the registration held, the host's name unchanged</span>
+          <span class="slot">S-10 the registered state on the steward's screen</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">09</div><div class="who">countersigner</div>
+        <div class="body">
+          <span class="said">&ldquo;A member can see upcoming events and sessions.&rdquo;</span> and <span class="said">&ldquo;A member can register, and cancel, without asking anyone.&rdquo;</span>
+          Read the session time aloud in their own timezone, then register, cancel, and register again, saying the cycle out loud as it happens. Nobody is asked and nothing is deleted.
+          <span class="see">see: the cycle preserved for audit, row by row</span>
+          <span class="slot">S-11 the three states in order</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">10</div><div class="who">countersigner</div>
+        <div class="body">
+          <span class="said">&ldquo;A member can have attendance counted where the record counts it.&rdquo;</span>
+          As host, open the attendance panel and record the steward present, right then, with the room watching. Then have the steward attempt to record his own presence on a gathering he does not host, and show the refusal.
+          <span class="see">see: the recorder is the host; append-only, no unrecording; presence serves quorum</span>
+          <span class="slot">S-12 the saved attendance and the refusal</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">11</div><div class="who">both</div>
+        <div class="body">
+          Countersign. Host and registrant speak the attestation together, and it is written down as spoken.
+          <span class="slot">S-13 the words as spoken, with both names and the hour</span>
+        </div>
+      </div>
+    </div>
+    <div class="attest">
+      <div class="k">the attestation &middot; two voices</div>
+      <p>&ldquo;G-G attested. Every Gather sentence was demonstrated live, in the room it describes, and the room's own presence is in the record. The calendar is part of the record.&rdquo;</p>
+      <p class="src">Carried verbatim from the Proof Book, G-G. Record it by the procedure at &sect;8. Beats 07 and 08 are also the two clauses G-04's acceptance names; see the card at &sect;9 before speaking these words.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="s6">
+    <div class="addr">&sect;6 &middot; G-F</div>
+    <h2>Act three &middot; Find one another</h2>
+    <p class="lead">The board at <a href="/commons/opportunities/">/commons/opportunities/</a>. Walk the act whether or not the proof is ready: beats 13 and 14 are the two halves of F-02's acceptance, respond and see the response, and the author sees it too, and F-02 is the piece G-F is short, and they cannot be walked by one person. A response is a message to an author, so the surface offers no self-response, by design.</p>
+    <div class="beats">
+      <div class="beat">
+        <div class="box"></div><div class="n">12</div><div class="who">countersigner</div>
+        <div class="body">
+          <span class="said">&ldquo;A member can browse open invitations by kind: play, practice, work.&rdquo;</span> and <span class="said">&ldquo;A member can post an offer or a need.&rdquo;</span>
+          Walk the kind filter, read one open invitation aloud, then post one of their own: kind, title, a line of detail. It appears on the board under their name.
+          <span class="see">see: only open postings in the open section; the filter narrows without hiding the closed record</span>
+          <span class="slot">S-14 the posting on the board under its author</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">13</div><div class="who">steward</div>
+        <div class="body">
+          <span class="said">&ldquo;A member can answer an open opportunity, visible to its author.&rdquo;</span>
+          Respond to the posting from his own account, then read his own response back on his own screen.
+          <span class="see">see: the responder sees their response; the visibility rule is scoped to the parties</span>
+          <span class="slot">S-15 the response as the responder sees it</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">14</div><div class="who">countersigner</div>
+        <div class="body">
+          The author reloads the board and reads the response aloud from their own screen. Both halves of the acceptance are now on record in the same minute, from two devices, by two people.
+          <span class="see">see: the same response, as the author sees it; a member party to neither side sees neither, which the rehearsal already proves against its bystander persona</span>
+          <span class="slot">S-16 the response as the author sees it, timestamped close to S-15</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">15</div><div class="who">countersigner</div>
+        <div class="body">
+          <span class="said">&ldquo;A member can close an invitation when it resolves, and the parties can see what it led to.&rdquo;</span>
+          Resolve the posting with an outcome note. The board shows it closed to everyone; the outcome lands as an event the parties can read. This beat also leaves no open posting behind that the walk created and nobody owns.
+          <span class="see">see: the state transition on the row and the event in the log</span>
+          <span class="slot">S-17 the closed posting with its outcome</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">16</div><div class="who">both</div>
+        <div class="body">
+          If, and only if, F-02 carries the verified mark by the time these words are spoken, speak the attestation. If it does not, say the address and not ready and which piece is short, and record that instead. Attesting over a short piece is the only wrong answer available here.
+          <span class="slot">S-18 the words as spoken, or the not-ready verdict and its reason</span>
+        </div>
+      </div>
+    </div>
+    <div class="attest">
+      <div class="k">the attestation</div>
+      <p>&ldquo;G-F attested. Open to resolved, landing as an event.&rdquo;</p>
+      <p class="src">Carried verbatim from the Proof Book, G-F, beat five. Record it by the procedure at &sect;8. F-02's own verdict is a separate act: it moves by the walk record and its pull request, not by this attestation.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="s7">
+    <div class="addr">&sect;7 &middot; G-L</div>
+    <h2>Act four &middot; the Lexicon, read cold</h2>
+    <p class="lead">This act has no script in the Proof Book, which carries sections for G0, G-B, G-G, G-R, G-F, G-S and G-A, and none for G-L. What exists is the proof sentence in the ledger, and it reads as a procedure already, so the steps below are that sentence taken literally and nothing more. The reader should be the person least familiar with the estate, since a word that only its author understands is the failure this proof looks for.</p>
+    <div class="record">
+      <div class="rh"><span class="rt">the proof sentence, quoted from the ledger</span><span class="ra">G-L</span></div>
+      <div class="rb"><p>&ldquo;A newcomer reads the Almanac, the Lexicon, and the build pages end to end and meets no working word the Lexicon does not hold; every historical term they encounter in the record answers through the concordance; every suite is green.&rdquo;</p></div>
+    </div>
+    <div class="beats">
+      <div class="beat">
+        <div class="box"></div><div class="n">17</div><div class="who">the reader</div>
+        <div class="body">
+          Read <a href="/commons/build/">the Almanac</a>, <a href="/commons/build/lexicon/">the Lexicon</a>, and the build pages end to end, aloud where a term is unfamiliar. Keep a list of every working word met that the Lexicon does not hold.
+          <span class="slot">S-19 the list, including empty</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">18</div><div class="who">the reader</div>
+        <div class="body">
+          For each historical term met in the record, the older name for a thing since renamed, look it up in the concordance and confirm it answers. A term that answers nowhere is the finding this beat exists to produce.
+          <span class="slot">S-20 each historical term and where it answered</span>
+        </div>
+      </div>
+      <div class="beat">
+        <div class="box"></div><div class="n">19</div><div class="who">steward</div>
+        <div class="body">
+          Read the marks of L-01 through L-06 aloud. Every one must say verified. Then witness the suites green on main rather than re-running anything, and say that is what was done.
+          <span class="see">see: at the ledger of this writing, L-03 is verified and the other five stand delivered, so the honest verdict today is not ready and which five</span>
+          <span class="slot">S-21 the six marks as read, and the run witnessed</span>
+        </div>
+      </div>
+    </div>
+    <div class="attest blank">
+      <div class="k">the attestation &middot; not yet written</div>
+      <p>No attestation text exists for G-L. The Proof Book carries no G-L score, and the ledger names only the act: the status updated to attested, by the steward and a countersigning member, recorded as an event, like every proof before it.</p>
+      <p class="src">The words are the steward's to write. This sheet leaves the line ruled rather than drafting them, because the words a person speaks on the record are not an instrument's to invent. See the card at &sect;9.</p>
+      <div class="ruled"></div>
+      <div class="ruled"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="s8">
+    <div class="addr">&sect;8</div>
+    <h2>Recording what was spoken</h2>
+    <p class="lead">One procedure for every proof, the pattern G0 set on 2026-07-11. Nobody types SQL during the sitting. The record follows afterwards, by the attesting human, with the evidence folder in front of them.</p>
+    <pre class="rec">-- 1 &middot; the event, inserted by the attesting agent (an overseer act)
+insert into events (occurred_at, actor_agent_id, kind, payload)
+values (
+  now(),
+  '&lt;attesting agent id&gt;',
+  'gate.attested',
+  jsonb_build_object(
+    'gate', '&lt;G-B | G-G | G-F | G-S | G-T | G-R | G-A&gt;',
+    'attestation', '&lt;the words as spoken&gt;',
+    'witnesses', jsonb_build_array('&lt;agent id&gt;', '&lt;agent id&gt;')
+  )
+);
+
+-- 2 &middot; the ledger: status flips to attested with a resolution naming
+--     the attesting agent, the date, and the event id. By commit.
+
+-- 3 &middot; the Almanac syncs to the ledger, and the next bed opens.</pre>
+    <p class="cap">Quoted whole from the Proof Book, &sect;final. The list of proof addresses in the payload is the Proof Book's own and does not name G-L or G-I; the second card at &sect;9 stands on that.</p>
+    <p>A not-ready verdict is recorded too, and in the same place the walk records its verdicts: the address, the words not ready, and which piece is short. It closes the card honestly and costs the afternoon nothing.</p>
+  </section>
+
+  <section class="sec" id="s9">
+    <div class="addr">&sect;9</div>
+    <h2>Two questions this sheet did not answer</h2>
+    <p class="lead">Both are conflicts between artifacts that already stand, not gaps in the walk. Each is put here with a proposed answer, marked as a proposal, for the steward to settle or overrule.</p>
+    <div class="anatomy">
+      <div class="an-row"><div class="f">standing in</div><div class="v">&sect;5, act two, the G-G attestation</div></div>
+      <div class="an-row"><div class="f">found</div><div class="v">The ledger's G-G acceptance names one piece: G-03 verified, which it is. The Proof Book's G-G condition names the same one. The verification walk's attestation card for G-G names two, G-03 and G-04, and G-04 stands delivered at b840c6f, so a walker following that page reaches not ready while a walker following the ledger reaches attested.</div></div>
+      <div class="an-row"><div class="f">the question</div><div class="v">Does G-G attest on G-03 alone, as its acceptance says, or does it wait on G-04 as the verification walk's card says?</div></div>
+      <div class="an-row"><div class="f">a default</div><div class="v"><em>Proposal:</em> the ledger's acceptance governs, so G-G may be spoken today, and act two supplies G-04's two clauses in the same sitting regardless, which makes the difference academic on any afternoon this sheet is actually walked. If the steward prefers the stricter reading, the fix is one word on the verification card and one line on the ledger entry, and this sheet follows either.</div></div>
+    </div>
+    <div class="anatomy">
+      <div class="an-row"><div class="f">standing in</div><div class="v">&sect;7, act four, the G-L attestation</div></div>
+      <div class="an-row"><div class="f">found</div><div class="v">G-L has a ledger entry with a proof sentence and an acceptance, and a card in the verification walk. It has no score in the Proof Book, no attestation text, and no place in the recording procedure's list of proof addresses, which stops at G-A. The same is true of G-I.</div></div>
+      <div class="an-row"><div class="f">the question</div><div class="v">Who writes the words spoken for G-L, and does the Proof Book gain a G-L score before the proof is walked?</div></div>
+      <div class="an-row"><div class="f">a default</div><div class="v"><em>Proposal:</em> the steward writes the sentence, as he holds the words of every public claim, and the Proof Book gains a G-L section carrying it once written, with the recording procedure's address list extended to G-L and G-I in the same change. Until then this sheet keeps the line blank rather than drafting words for a person to speak.</div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="s10">
+    <div class="addr">&sect;10</div>
+    <h2>The sheet</h2>
+    <p class="lead">Print this. One line per beat, in walking order, with the readiness verdicts at the foot.</p>
+    <pre class="rec">the proofs sitting                       date ............  hour ............
+steward ............................      countersigner ............................
+
+act one &middot; Belong
+[ ] 01  application submitted from the stranger's browser        S-01  S-02
+[ ] 02  bound on first sign-in; admitted from the panel          S-03  S-04
+[ ] 03  agreements read: version, standing, unsigned chip        S-05
+[ ] 04  signed; the duplicate refused                            S-06
+[ ] 05  directory: self-edit only                                S-07
+[ ] 06  G-B spoken by two voices, written as spoken              S-08
+
+act two &middot; Gather
+[ ] 07  gathering held by the member: title, purpose, place       S-09
+[ ] 08  the steward registers; the host is unchanged              S-10
+[ ] 09  register, cancel, register; nothing deleted               S-11
+[ ] 10  attendance recorded by the host; self-report refused      S-12
+[ ] 11  G-G spoken by two voices, written as spoken               S-13
+
+act three &middot; Find
+[ ] 12  invitation read; one posted under its author              S-14
+[ ] 13  answered, and the responder sees it                       S-15
+[ ] 14  the author sees the same response                         S-16
+[ ] 15  resolved with an outcome; closed to all                   S-17
+[ ] 16  G-F spoken, or not ready and which piece is short         S-18
+
+act four &middot; Lexicon
+[ ] 17  Almanac, Lexicon, build pages read end to end             S-19
+[ ] 18  every historical term answered through the concordance    S-20
+[ ] 19  L-01 to L-06 marks read aloud; the suites witnessed       S-21
+
+the verdicts
+G-B  attested / not ready ..............................................
+G-G  attested / not ready ..............................................
+G-F  attested / not ready ..............................................
+G-L  attested / not ready ..............................................
+
+recorded afterwards, by the procedure at &sect;8, by ........................</pre>
+  </section>
+
+  <footer>
+    <div class="row">
+      <span>The Proofs Sitting</span><span>X-37 &middot; drafted</span><span>techne.coop/commons/build/verification/sitting/</span><span><a href="/commons/build/gates/">The Proof Book</a></span><span><a href="/commons/build/run-through/">The Run-Through</a></span><span><a href="/commons/build/verification/">The verification walk</a></span><span>RegenHub, LCA &middot; Boulder, Colorado</span>
+    </div>
+    <div class="formation-foot"><span class="ff-mark">Called to order</span>RegenHub, LCA is called to order: the board is seated and the governing instruments are board-adopted, with member ratification anticipated. Read the <a href="/legal/#formation">formation notice</a>, which is right wherever a page disagrees with it.</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
