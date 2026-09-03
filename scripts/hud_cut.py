@@ -43,13 +43,20 @@ PAGE = REPO / "intranet" / "hud" / "index.html"
 # counting its own heartbeat would never converge.
 REFRESH_MARK = "hud: cut retaken"
 
+# The almanac ledger answers to one name now and answered to another
+# before L-07 renamed it. Every reading that reaches back through the
+# repository's history reads both, so the succession and the churn
+# count do not restart at the rename.
+LEDGER = "almanac-ledger.yaml"
+LEDGER_PRIOR = "rdm-ledger.yaml"
+
 # The two piles of the tending lens. A frame, not a reading: TRANSDUCER-D4
 # elects whether it survives. Tending = work on the workshop itself;
 # growing = work on what lives in it. Classification is by path.
 TENDING_PREFIXES = ("scripts/", ".github/", "assets/", "supabase/")
 TENDING_FILES = {
     "AGENTS.md", "README.md", "RUN.md", "CONTRIBUTORS.md",
-    "STATUS.md", "index.json", "rdm-ledger.yaml", "CNAME",
+    "STATUS.md", "index.json", LEDGER, LEDGER_PRIOR, "CNAME",
     "favicon.png", "favicon.svg", ".gitignore",
 }
 
@@ -104,7 +111,7 @@ def history():
 
 def ledger_entries():
     """The ledger read per section, in its own mark grammar (JC-1)."""
-    text = (REPO / "rdm-ledger.yaml").read_text()
+    text = (REPO / LEDGER).read_text()
     entries = []
     bed = None
     for chunk in re.split(r"\n(?=\S|  - address: )", text):
@@ -266,7 +273,7 @@ def succession():
     never order by mark, never smooth. Dates are the commits' own;
     no clock is consulted."""
     revs = []
-    out = git("log", "--reverse", "--pretty=%H%x00%cs", "--", "rdm-ledger.yaml")
+    out = git("log", "--reverse", "--pretty=%H%x00%cs", "--", LEDGER, LEDGER_PRIOR)
     for line in out.splitlines():
         if line.strip():
             h, d = line.split("\x00")
@@ -274,9 +281,14 @@ def succession():
     pieces = {}
     order = []
     for h, d in revs:
-        try:
-            text = git("show", f"{h}:rdm-ledger.yaml")
-        except subprocess.CalledProcessError:
+        text = None
+        for name in (LEDGER, LEDGER_PRIOR):
+            try:
+                text = git("show", f"{h}:{name}")
+                break
+            except subprocess.CalledProcessError:
+                continue
+        if text is None:
             continue
         for addr, status, mark in parse_marks(text):
             if addr not in pieces:
@@ -348,7 +360,7 @@ def stats(files, commits, entries):
         "first": dates[0] if dates else "",
         "last": last,
         "last7": last7,
-        "ledgerRevisions": churn.get("rdm-ledger.yaml", 0),
+        "ledgerRevisions": churn.get(LEDGER, 0) + churn.get(LEDGER_PRIOR, 0),
         "piles": {
             "total": piles_total,
             "dow": {k: piles_dow[k] for k in sorted(piles_dow)},

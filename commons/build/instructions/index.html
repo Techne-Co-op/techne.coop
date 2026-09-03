@@ -180,13 +180,13 @@ em { font-style:italic; color:var(--heading); }
 /* ============================================================
    LEDGER BED TABLE
    ============================================================ */
-.train-table { width:100%; border-collapse:collapse; margin:var(--s4) 0; border:1px solid var(--line); }
-.train-table th { font-family:var(--mono); font-size:0.62rem; font-weight:600; letter-spacing:0.08em; text-transform:lowercase; text-align:left; padding:8px var(--s3); background:var(--raised); border-bottom:1px solid var(--rule); color:var(--muted); }
-.train-table td { font-size:0.82rem; padding:8px var(--s3); border-bottom:1px solid var(--line); color:var(--text); vertical-align:top; }
-.train-table tr:last-child td { border-bottom:0; }
-.train-table .addr-cell { font-family:var(--mono); font-size:0.68rem; font-weight:600; color:var(--ember-text); white-space:nowrap; }
-.train-table .gate-row td { background:var(--inset); }
-.train-table .gate-row .addr-cell { color:var(--blue-text); }
+.bed-table { width:100%; border-collapse:collapse; margin:var(--s4) 0; border:1px solid var(--line); }
+.bed-table th { font-family:var(--mono); font-size:0.62rem; font-weight:600; letter-spacing:0.08em; text-transform:lowercase; text-align:left; padding:8px var(--s3); background:var(--raised); border-bottom:1px solid var(--rule); color:var(--muted); }
+.bed-table td { font-size:0.82rem; padding:8px var(--s3); border-bottom:1px solid var(--line); color:var(--text); vertical-align:top; }
+.bed-table tr:last-child td { border-bottom:0; }
+.bed-table .addr-cell { font-family:var(--mono); font-size:0.68rem; font-weight:600; color:var(--ember-text); white-space:nowrap; }
+.bed-table .proof-row td { background:var(--inset); }
+.bed-table .proof-row .addr-cell { color:var(--blue-text); }
 
 /* ============================================================
    STATUS CHIPS
@@ -421,11 +421,11 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
   <section class="sec" id="s4">
     <div class="addr">&sect;4</div>
     <h2>The ledger and the beds</h2>
-    <p class="lead">The Almanac reads a validated YAML ledger at <code>rdm-ledger.yaml</code> and stands at <a href="/commons/build/">/commons/build/</a>. Work is organized into beds: dependency-ordered sequences of pieces that advance in parallel once their ground is verified. There are no dates. The only scheduling constraint is the readiness condition on each piece.</p>
+    <p class="lead">The Almanac reads a validated YAML ledger at <code>almanac-ledger.yaml</code> and stands at <a href="/commons/build/">/commons/build/</a>. Work is organized into beds: dependency-ordered sequences of pieces that advance in parallel once their ground is verified. There are no dates. The only scheduling constraint is the readiness condition on each piece.</p>
 
     <p>The counts in this section are level with the ledger at commit 6c1a6d9 of 2026-09-02, the third resync (X-34), with this piece&rsquo;s own entry counted; the earlier two were X-14 and X-17. The ledger holds 183 items: 19 governing documents (the eleven series artifacts, which include the PATRONAGE and TREASURY module specifications grafted 2026-07-22, AGY adopted 2026-07-27, and PUB, plus STANDING, GUILD, TRANSDUCER, MATRIX, the Maturity Model, and the three governance drafts ROO, ORDER, and EGRESS, each drafted inside the bed it would open) and 164 work pieces and proofs across sixteen beds and the proof set. The validated <code>STATUS.md</code> marks the state: 35 drafted, 40 anticipated, 108 open, 0 filed. Of the open pieces, 49 carry a verified mark and 53 a delivered mark: the Substrate work is verified end to end, Belong is verified through B-07 with two drafted pieces behind it, and the Gather, Find, Shell, Agency, Lexicon, Guild, Transducer, and Cross-cutting beds are verified or delivered and wait on proof attestation. One proof of ten is attested, G0, the security floor. Five pieces name a blocker in the status field: S-01 and S-02 hold on the Q3 counting rules, T-01 on TREASURY-POLICY adoption, T-05 on redeemability, and SMS-03 on the word its status carries. The A bed is held by none of these: it waits on a single decision about authority, described in AGY &sect;5. The Standing bed stands wholly anticipated and the Guild bed's rail pieces with it, because their governing documents are proposals rather than adoptions; the Matrix bed is proposed and adopted by nothing; the Governance and Horizon beds govern nothing at all.</p>
 
-    <table class="train-table">
+    <table class="bed-table">
       <thead>
         <tr>
           <th>bed</th>
@@ -906,7 +906,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
 
     <p>Public beta, proposed: the state in which every surface a member can reach says truthfully what it is, every agent-completable piece is delivered and green, the four proofs that wait on no board act are attested, and the beds that wait on the board are marked as waiting rather than missing. Six conditions state that plainly.</p>
 
-    <table class="train-table">
+    <table class="bed-table">
       <thead>
         <tr>
           <th>#</th>

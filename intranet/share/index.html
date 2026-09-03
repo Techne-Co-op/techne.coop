@@ -117,12 +117,12 @@ h1 { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(
 .orient b { color: var(--heading); font-weight: 700; }
 .orient a { color: var(--ember-text); }
 
-table.fold { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.78rem; }
-table.fold td { padding: 7px 4px; border-bottom: 1px solid var(--line); }
-table.fold tr:last-child td { border-bottom: none; border-top: 1px solid var(--rule); color: var(--heading); }
-table.fold td.amt { text-align: right; color: var(--faint); white-space: nowrap; }
-table.fold td.lbl { color: var(--text); }
-table.fold td.lbl small { color: var(--faint); font-size: 0.66rem; }
+table.tally { width: 100%; border-collapse: collapse; font-family: var(--mono); font-size: 0.78rem; }
+table.tally td { padding: 7px 4px; border-bottom: 1px solid var(--line); }
+table.tally tr:last-child td { border-bottom: none; border-top: 1px solid var(--rule); color: var(--heading); }
+table.tally td.amt { text-align: right; color: var(--faint); white-space: nowrap; }
+table.tally td.lbl { color: var(--text); }
+table.tally td.lbl small { color: var(--faint); font-size: 0.66rem; }
 
 .period-ribbon { display: flex; flex-direction: column; gap: var(--s2); }
 .period { display: flex; align-items: baseline; gap: var(--s3); border: 1px solid var(--line); border-radius: 2px; padding: var(--s2) var(--s3); }
@@ -150,11 +150,11 @@ footer a { color: var(--faint); }
 
 @media (max-width: 640px) {
   h1 { font-size: 1.35rem; }
-  /* the fold keeps its columns legible: figures never wrap mid-number, so
+  /* the tally keeps its columns legible: figures never wrap mid-number, so
      when the table cannot fit it scrolls inside its own panel rather than
      pushing the whole page sideways under the reader's thumb */
   .panel { overflow-x: auto; }
-  table.fold td.lbl { word-break: break-word; }
+  table.tally td.lbl { word-break: break-word; }
   .section-head { min-width: 0; }
   .section-head .head-note { margin-left: 0; overflow-wrap: anywhere; }
   /* the period rows carry three nowrap parts; let them wrap rather than
@@ -280,7 +280,7 @@ footer a { color: var(--faint); }
     <section>
       <h2 class="section-head">Your capital account <span class="state-chip waiting">not open yet</span> <span class="head-note">added up from your record each time it is shown, never saved as a number</span></h2>
       <div class="panel">
-        <table class="fold">
+        <table class="tally">
           <tr><td class="lbl">Opening balance</td><td class="amt">$0.00</td></tr>
           <tr><td class="lbl">What you put in this year <small>the six kinds above, priced</small></td><td class="amt">$0.00</td></tr>
           <tr><td class="lbl">Allocated to you after the year closes <small>your slice, worked out from the year's totals</small></td><td class="amt">$0.00</td></tr>

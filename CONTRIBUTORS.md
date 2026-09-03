@@ -170,7 +170,7 @@ Every claim wears its mark:
 
 ## The ledger
 
-The Almanac lives at `commons/build/index.html` and reads from `rdm-ledger.yaml`. The ledger is the truth; the generated regions of the Almanac, `STATUS.md`, and `index.json` are written by `scripts/validate.py` and must not be edited by hand. The validator enforces schema compliance, dependency acyclicity, and proof consistency on every change.
+The Almanac lives at `commons/build/index.html` and reads from `almanac-ledger.yaml`. The ledger is the truth; the generated regions of the Almanac, `STATUS.md`, and `index.json` are written by `scripts/validate.py` and must not be edited by hand. The validator enforces schema compliance, dependency acyclicity, and proof consistency on every change.
 
 The live census is generated to [STATUS.md](./STATUS.md); the Almanac renders the same state at [techne.coop/commons/build/](https://techne.coop/commons/build/).
 
