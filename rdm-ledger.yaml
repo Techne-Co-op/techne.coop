@@ -5857,3 +5857,63 @@ record:
       of 2026-08-14, is the Secretary's act (roadmap section 4, item
       9), not this piece's. Staged on branch R-01; merge is the act of
       adoption.
+
+  - address: R-02
+    title: The record page rewired to the record
+    intent: >
+      The record page on the intranet stops drawing a model and reads
+      the record. Three sections read live rows under the standing
+      read policies and no other: the minute book from the
+      minutes.drafted and minutes.adopted events R-01 gave a place,
+      listed per session of every gathering titled "Board ·"; the
+      offices and the roster from role_grants, each appointment with
+      its holder, its date, whether it stands or ended, and whether a
+      recording event stands behind it; attendance at meetings of the
+      Board from attendance, per session, who was recorded present
+      and by whom. The instrument table stays as a reading of the
+      published documents. The GOV v0.1 parliamentary model the page
+      once drew moves under a design-note heading marked drafted.
+      Nothing on the page writes. No migration, no policy change.
+    status: open · delivered
+    cites: [IM, AM, R-01, U-05]
+    ready_when: >
+      R-01 merged (it was, 2026-09-03, PR 286). The read policies for
+      role_grants, attendance, gatherings, and agents read for what
+      each shows a non-member holder, which decided the absence
+      sentences below.
+    deliverable: >
+      intranet/record/index.html: the three live sections, their
+      absence states per reader, the instrument table with the
+      Bylaws row carrying its open reading, the What is missing list
+      cut to the record's own gaps, the design note holding the two
+      modes, the model's cannot-hold list, and the model's open
+      anchors. This entry. The almanac row and the instructions' bed
+      table row.
+    acceptance: >
+      A director, officer, or steward signed in sees, per board
+      session, the minutes rows R-01 recorded against it, the
+      appointments the record holds, and the presence recorded
+      against each session; a member who holds no office sees the
+      appointments and their own presence and is told, in each
+      section, why the rest is not shown; a signed-out reader is told
+      to sign in. The page performs no insert, update, or delete
+      under any reader. The design note carries the drafted mark and
+      names GOV v0.1 as its source.
+    note: >
+      Visibility decided by reading the policies rather than
+      assuming. role_grants_member_read (0002) shows every grant to a
+      member and shows anyone else only the grants that name them;
+      no member has been admitted (intranet legal shelf, formation
+      notice), so today each officer sees their own row, and the
+      page says so. attendance_scoped_read (0002) shows self,
+      overseer, or host. The appointment enum (0002 line 22) carries
+      director, secretary, treasurer, steward and no President; the
+      page lists that as an open question and proposes nothing. No
+      quorum verdict is computed: the seat count is not in the
+      record and the rule is the Bylaws'. Stop card filed with the
+      batch report: the formation notice in the footer reads the
+      governing instruments as board-adopted, the instrument table
+      reads Bylaws v2.1 as drafted and not in effect; the row is
+      left as it stood with a trace naming the open reading, and the
+      ruling is the steward's. Staged on branch R-02; merge is the
+      act of adoption.
