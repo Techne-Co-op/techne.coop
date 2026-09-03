@@ -5792,3 +5792,68 @@ matrix:
       and none outside it, a direct write to phone_bindings by a member
       is refused, and a number that changes hands carries no history to
       its new holder. Nothing is applied to the live CIS by this piece.
+
+record:
+
+  # The record bed. Opened 2026-09-03 by the roadmap of 2026-09-02
+  # (commons/build/roadmap/ROADMAP.md, batch 2), at the steward's
+  # direction to orchestrate the build to public beta. Its subject is
+  # the minute book: where a board meeting and its minute live in the
+  # record, and how the Secretary's custody of the corporate records
+  # (Bylaws v2.1 section 4.5(b)) gets a surface. The bed's first rule
+  # is that it changes no schema and no policy: the events log already
+  # admits an overseer to write any kind (0002, events_scoped_insert,
+  # the overseer branch; unchanged by the 0024 draft), and the read
+  # policies already show directors, officers, and the steward every
+  # row (0002 events_read; 0005 events_steward_read). What the bed
+  # adds is a place for a kind that had none. The first minutes row is
+  # the Secretary's to write, not an agent's.
+
+  - address: R-01
+    title: The minute book without a schema change
+    intent: >
+      A board meeting's minutes get a place in the record using only
+      what the record already permits. A Minutes section on the
+      gatherings page lists, for every gathering whose title begins
+      "Board ·", the minutes.drafted and minutes.adopted events that
+      cite one of its sessions, each carrying the minute's location,
+      its hash, and who adopted it. Officers, directors, and the
+      steward write the two kinds from a form on the same page through
+      the overseer branch of the standing insert policy. No migration,
+      no policy change.
+    status: open · delivered
+    cites: [IM, AM, PRD, G-01, G-04]
+    ready_when: >
+      The roadmap's batch 1 (X-34) merged. The live events read policy
+      read for overseer-written kinds, which decided the visibility
+      below.
+    deliverable: >
+      commons/gatherings/index.html: the Minutes section, the list of
+      board sessions with their minutes events, and the overseer form
+      writing minutes.drafted and minutes.adopted with payload
+      session_id, uri, sha256, adopted_by. This bed and this entry.
+      The almanac card and the instructions' bed table row.
+    acceptance: >
+      An officer, director, or steward records that a minute was
+      drafted, and later that it was adopted, against a board session,
+      and sees both rows listed under that session with the hash they
+      entered. A member who holds no office sees the section name why
+      it is not shown to them. The database refuses the same write
+      from a member who holds no office, with no change to any policy.
+    note: >
+      Visibility decided by reading the policies rather than assuming:
+      events_read (0002 lines 138 to 143) shows a member only rows that
+      concern them or that they wrote; an overseer's minutes row
+      concerns the body, so a member cannot read it, and the section
+      says so on the surface and lists nothing for them. Widening that
+      is a policy change and is not this piece's. The agent_id column
+      is left null on both kinds, as the AGY-ESTATE adoption event
+      does (0018): the minute concerns the cooperative, not a member.
+      Whether a secretary role grant exists in the live role_grants
+      table is unverified here; the enum carries the office (0002
+      line 22) and the client gate reads role_grants for any of the
+      four overseer roles, so the surface needs no particular one.
+      The first minutes.adopted row, pointing at the founding record
+      of 2026-08-14, is the Secretary's act (roadmap section 4, item
+      9), not this piece's. Staged on branch R-01; merge is the act of
+      adoption.
