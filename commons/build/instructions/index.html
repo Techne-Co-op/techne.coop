@@ -423,7 +423,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <h2>The ledger and the beds</h2>
     <p class="lead">The Almanac reads a validated YAML ledger at <code>rdm-ledger.yaml</code> and stands at <a href="/commons/build/">/commons/build/</a>. Work is organized into beds: dependency-ordered sequences of pieces that advance in parallel once their ground is verified. There are no dates. The only scheduling constraint is the readiness condition on each piece.</p>
 
-    <p>The current ledger has 126 items: 13 governing documents (the ten series artifacts, which include the PATRONAGE and TREASURY module specifications grafted 2026-07-22 and AGY adopted 2026-07-27, plus STANDING, GUILD, and the Maturity Model, each drafted inside the bed it would open) and 113 work pieces and proofs across thirteen beds and the proof set. The validated <code>STATUS.md</code> marks the state: 13 drafted, 30 anticipated, 83 open, 0 filed. Of the open pieces, 34 carry a verified mark and 44 a delivered mark: the Substrate and Belong work is verified end to end, and the Gather, Find, Shell, Lexicon, and Cross-cutting beds are verified or delivered and wait on proof attestation. One proof of nine is attested, G0, the security floor. Four pieces name a blocker in the status field: S-01 and S-02 hold on the Q3 counting rules, T-01 on TREASURY-POLICY adoption, T-05 on redeemability. The A bed is held by none of these: it waits on a single decision about authority, described in AGY &sect;5. The Standing and Guild beds stand wholly anticipated, because their governing documents are proposals rather than adoptions, and the Horizon bed governs nothing at all.</p>
+    <p>The counts in this section are level with the ledger at commit 6c1a6d9 of 2026-09-02, the third resync (X-34), with this piece&rsquo;s own entry counted; the earlier two were X-14 and X-17. The ledger holds 183 items: 19 governing documents (the eleven series artifacts, which include the PATRONAGE and TREASURY module specifications grafted 2026-07-22, AGY adopted 2026-07-27, and PUB, plus STANDING, GUILD, TRANSDUCER, MATRIX, the Maturity Model, and the three governance drafts ROO, ORDER, and EGRESS, each drafted inside the bed it would open) and 164 work pieces and proofs across sixteen beds and the proof set. The validated <code>STATUS.md</code> marks the state: 35 drafted, 40 anticipated, 108 open, 0 filed. Of the open pieces, 49 carry a verified mark and 53 a delivered mark: the Substrate work is verified end to end, Belong is verified through B-07 with two drafted pieces behind it, and the Gather, Find, Shell, Agency, Lexicon, Guild, Transducer, and Cross-cutting beds are verified or delivered and wait on proof attestation. One proof of ten is attested, G0, the security floor. Five pieces name a blocker in the status field: S-01 and S-02 hold on the Q3 counting rules, T-01 on TREASURY-POLICY adoption, T-05 on redeemability, and SMS-03 on the word its status carries. The A bed is held by none of these: it waits on a single decision about authority, described in AGY &sect;5. The Standing bed stands wholly anticipated and the Guild bed's rail pieces with it, because their governing documents are proposals rather than adoptions; the Matrix bed is proposed and adopted by nothing; the Governance and Horizon beds govern nothing at all.</p>
 
     <table class="train-table">
       <thead>
@@ -437,9 +437,9 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       <tbody>
         <tr>
           <td class="addr-cell">Series</td>
-          <td>SER · PRD · BP · UI · IM · VS · AM · PATRONAGE · TREASURY · AGY</td>
+          <td>SER · PRD · BP · UI · IM · VS · AM · PATRONAGE · TREASURY · AGY · PUB</td>
           <td>&mdash;</td>
-          <td>10 drafted <span class="chip drafted"><span class="dot"></span>drafted</span></td>
+          <td>11 drafted <span class="chip drafted"><span class="dot"></span>drafted</span></td>
         </tr>
         <tr>
           <td class="addr-cell">Substrate</td>
@@ -449,9 +449,9 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
         </tr>
         <tr>
           <td class="addr-cell">Belong</td>
-          <td>B-01 through B-07</td>
+          <td>B-01 through B-09</td>
           <td>G-B</td>
-          <td>G0 attested</td>
+          <td>G0 attested; B-08 and B-09 drafted, adoption by the steward</td>
         </tr>
         <tr>
           <td class="addr-cell">Gather</td>
@@ -473,7 +473,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
         </tr>
         <tr>
           <td class="addr-cell">Treasury</td>
-          <td>T-01 through T-07</td>
+          <td>T-01 through T-09</td>
           <td>G-T</td>
           <td>TREASURY-POLICY adopted; read-only rail credentials <span class="chip open"><span class="dot"></span>open &middot; policy</span></td>
         </tr>
@@ -491,7 +491,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
         </tr>
         <tr>
           <td class="addr-cell">Lexicon</td>
-          <td>L-01 through L-08</td>
+          <td>L-01 through L-09</td>
           <td>G-L</td>
           <td>Ground and Craft adopted by the steward 2026-08-08</td>
         </tr>
@@ -502,20 +502,38 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
           <td>STANDING adopted <span class="chip anticipated"><span class="dot"></span>anticipated</span></td>
         </tr>
         <tr>
+          <td class="addr-cell">Governance</td>
+          <td>ROO &middot; ORDER &middot; EGRESS</td>
+          <td>&mdash;</td>
+          <td>three drafts, none adopted; adoption is a board act under Bylaws &sect;3.13 <span class="chip drafted"><span class="dot"></span>drafted</span></td>
+        </tr>
+        <tr>
           <td class="addr-cell">Guild</td>
           <td>GUILD &middot; P-01 through P-12</td>
           <td>&mdash;</td>
-          <td>GUILD adopted; the terms authored by people <span class="chip anticipated"><span class="dot"></span>anticipated</span></td>
+          <td>GUILD adopted; the terms authored by people. P-07 through P-12 delivered or verified ahead of it <span class="chip anticipated"><span class="dot"></span>anticipated</span></td>
+        </tr>
+        <tr>
+          <td class="addr-cell">Transducer</td>
+          <td>TRANSDUCER &middot; TR-01 through TR-12</td>
+          <td>G-I</td>
+          <td>grafted 2026-08-17 on the steward&rsquo;s word; TR-02 verified waits on his walk</td>
         </tr>
         <tr>
           <td class="addr-cell">Horizon</td>
-          <td>MM &middot; MM-01</td>
+          <td>MM &middot; MM-01 &middot; U-23 through U-27 &middot; U-29 &middot; U-30 &middot; U-32 &middot; A-05</td>
           <td>&mdash;</td>
-          <td>nothing in the bed governs; a member vote would be required</td>
+          <td>nothing in the bed governs; the model would take effect only by member vote</td>
+        </tr>
+        <tr>
+          <td class="addr-cell">Matrix</td>
+          <td>MATRIX &middot; M-01 through M-05 &middot; SMS-01 through SMS-05</td>
+          <td>&mdash;</td>
+          <td>the frame proposed 2026-08-19 and adopted by nothing; SMS-03 open on the word its status carries <span class="chip anticipated"><span class="dot"></span>anticipated</span></td>
         </tr>
         <tr>
           <td class="addr-cell">Cross-cutting</td>
-          <td>X-01 through X-20 &middot; DOC-01 &middot; FORMATION-01</td>
+          <td>X-01 through X-26 &middot; X-28 through X-34 &middot; X-38 &middot; DOC-01 &middot; FORMATION-01</td>
           <td>G-R</td>
           <td>Various; see ledger</td>
         </tr>
