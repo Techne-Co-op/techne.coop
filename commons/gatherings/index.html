@@ -286,6 +286,39 @@ footer a { color: var(--faint); }
 .past-fold summary:hover { color: var(--heading); }
 .past-fold[open] summary { margin-bottom: var(--s3); }
 
+/* the minute book (R-01): a board session's minutes, listed and recorded */
+.minutes-note { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); max-width: 68ch; margin-bottom: var(--s4); line-height: 1.6; }
+.minutes-absence {
+  background: var(--inset); border: 1px solid var(--line); padding: var(--s4) var(--s5);
+  font-size: 0.9rem; line-height: 1.7; max-width: 68ch;
+}
+.minutes-absence b { color: var(--heading); }
+.minute-session { padding: var(--s3) var(--s4); border-bottom: 1px solid var(--line); }
+.minute-session:last-child { border-bottom: none; }
+.minute-session-when { font-family: var(--mono); font-size: 0.78rem; color: var(--text); margin-bottom: var(--s2); }
+.minute-row {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s2) var(--s3);
+  padding: var(--s2) 0; border-top: 1px solid var(--line);
+  font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+}
+.minute-kind {
+  font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; white-space: nowrap;
+  border: 1px solid var(--line); color: var(--muted); background: var(--raised);
+}
+.minute-kind.adopted { border-color: var(--ok); color: var(--ok); background: var(--ok-dim); }
+.minute-uri { color: var(--text); word-break: break-all; }
+.minute-uri a { color: var(--ember-text); }
+.minute-hash { color: var(--ember-text); word-break: break-all; }
+.minute-none { font-family: var(--mono); font-size: 0.75rem; color: var(--faint); font-style: italic; padding: var(--s2) 0; }
+.minute-form { margin-top: var(--s3); padding: var(--s3) var(--s4); background: var(--inset); border: 1px solid var(--line); border-radius: 6px; }
+.minute-form .field-row select {
+  width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+  color: var(--heading); font-family: var(--mono); font-size: 16px; padding: 9px var(--s3); outline: none;
+}
+.minute-form .field-row select:focus { border-color: var(--ember); }
+.minute-form .field-row input { font-family: var(--mono); }
+.minute-hint { font-family: var(--mono); font-size: 0.68rem; color: var(--faint); margin-top: 4px; }
+
 /* slide-over drawer */
 .cis-drawer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 60; opacity: 0; pointer-events: none; transition: opacity var(--micro) var(--ease); }
 .cis-drawer-backdrop.open { opacity: 1; pointer-events: auto; }
@@ -444,6 +477,10 @@ footer a { color: var(--faint); }
 
     <div class="section-head">The calendar</div>
     <div id="gatherings-list"></div>
+
+    <div class="section-head">Minutes</div>
+    <p class="minutes-note">The minute book, for meetings of the Board. A gathering whose title begins <span style="color:var(--ember-text)">Board &middot;</span> is a board meeting here; each of its sessions lists the minutes recorded against it, drafted and then adopted, with where the minute stands and its hash. The minute itself lives where the record points; this page records that it exists and that a body adopted it.</p>
+    <div id="minutes-list"></div>
   </div>
 </main>
 
@@ -900,6 +937,183 @@ function renderGatherings(gatherings) {
   }
 }
 
+// ── The minute book (R-01) ────────────────────────────────────────────────────
+// No schema and no policy of its own. The two kinds enter the log through the
+// overseer branch of events_scoped_insert (0002; unchanged by the 0024 draft),
+// and are read under events_read and events_steward_read (0002, 0005), which
+// show every row to directors, officers, and the steward and show a member
+// only the rows that concern them or that they wrote. A minutes row concerns
+// the body, not a member, so the list is an overseer's reading and the page
+// says so to everyone else. agent_id stays null for the same reason, as the
+// AGY-ESTATE adoption event does (0018).
+
+const BOARD_PREFIX = 'Board ·';
+const MINUTE_KINDS = ['minutes.drafted', 'minutes.adopted'];
+const SHA256_RE = /^[0-9a-f]{64}$/;
+
+function minuteKindWord(kind) {
+  return kind === 'minutes.adopted' ? 'adopted' : 'drafted';
+}
+
+function minuteRowHtml(e) {
+  const p = e.payload || {};
+  const kind = minuteKindWord(e.kind);
+  const when = new Date(e.occurred_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  const uri = String(p.uri || '');
+  const uriHtml = /^https?:\/\//i.test(uri)
+    ? `<a href="${escHtml(uri)}" rel="noopener">${escHtml(uri)}</a>`
+    : escHtml(uri);
+  const by = e.kind === 'minutes.adopted' && p.adopted_by
+    ? `<span>adopted by ${escHtml(p.adopted_by)}</span>` : '';
+  return `<div class="minute-row">
+      <span class="minute-kind ${kind}">${kind}</span>
+      <span>${escHtml(when)}</span>
+      <span class="minute-uri">${uriHtml}</span>
+      <span class="minute-hash">sha256 ${escHtml(String(p.sha256 || ''))}</span>
+      ${by}
+    </div>`;
+}
+
+function minuteFormHtml(sessionId) {
+  const id = escHtml(sessionId);
+  return `<form class="minute-form" id="minute-form-${id}" data-session="${id}">
+      <div class="field-pair">
+        <div class="field-row">
+          <label for="mk-${id}">Kind</label>
+          <select id="mk-${id}">
+            <option value="minutes.drafted">drafted</option>
+            <option value="minutes.adopted">adopted</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <label for="mb-${id}">Adopted by <span class="opt">adopted only</span></label>
+          <input type="text" id="mb-${id}" maxlength="200" autocomplete="off" placeholder="the body and the date, as the minute says">
+        </div>
+      </div>
+      <div class="field-row">
+        <label for="mu-${id}">Where the minute stands</label>
+        <input type="text" id="mu-${id}" maxlength="500" autocomplete="off" placeholder="a link or a path in the record">
+      </div>
+      <div class="field-row">
+        <label for="mh-${id}">sha256</label>
+        <input type="text" id="mh-${id}" maxlength="64" autocomplete="off" spellcheck="false" placeholder="64 hex characters">
+        <div class="minute-hint">The hash of the minute as it stands at that address. A row is append-only; a mistake is corrected by a new row, never an edit.</div>
+      </div>
+      <div class="schedule-actions">
+        <button class="btn btn-primary" type="submit" id="ms-${id}">Record it</button>
+        <span class="status-msg" id="mst-${id}" aria-live="polite"></span>
+      </div>
+    </form>`;
+}
+
+async function recordMinute(sessionId) {
+  const btn = document.getElementById('ms-' + sessionId);
+  const status = document.getElementById('mst-' + sessionId);
+  const kind = document.getElementById('mk-' + sessionId).value;
+  const uri = document.getElementById('mu-' + sessionId).value.trim();
+  const sha = document.getElementById('mh-' + sessionId).value.trim().toLowerCase();
+  const by = document.getElementById('mb-' + sessionId).value.trim();
+
+  status.className = 'status-msg';
+  if (!MINUTE_KINDS.includes(kind)) { status.className = 'status-msg err'; status.textContent = 'A minute is drafted or adopted.'; return; }
+  if (!uri) { status.className = 'status-msg err'; status.textContent = 'Say where the minute stands.'; return; }
+  if (!SHA256_RE.test(sha)) { status.className = 'status-msg err'; status.textContent = 'The hash is 64 hex characters.'; return; }
+  if (kind === 'minutes.adopted' && !by) { status.className = 'status-msg err'; status.textContent = 'An adopted minute names who adopted it.'; return; }
+
+  btn.disabled = true;
+  status.textContent = 'Recording…';
+
+  const { error } = await sb.from('events').insert({
+    occurred_at: new Date().toISOString(), actor_agent_id: currentAgentId,
+    kind: kind, agent_id: null,
+    payload: { session_id: sessionId, uri: uri, sha256: sha,
+               adopted_by: kind === 'minutes.adopted' ? by : null }
+  });
+  if (error) {
+    status.className = 'status-msg err';
+    status.textContent = Techne.report(error, 'The record refused the row. Only an officer, director, or the steward may write a minute.');
+    btn.disabled = false; return;
+  }
+  status.textContent = 'It stands in the record';
+  btn.disabled = false;
+  await loadMinutes();
+}
+
+async function loadMinutes() {
+  const container = document.getElementById('minutes-list');
+  if (!container) return;
+
+  if (!currentIsOverseer) {
+    container.innerHTML = '<div class="minutes-absence"><b>The minute book is listed for directors, officers, and the steward.</b> '
+      + 'The record shows a member the rows that concern them or that they wrote, and a minutes row concerns the Board rather than a member, '
+      + 'so nothing here is shown to a member who holds no office. Widening that is a change to the read policy, not to this page.</div>';
+    return;
+  }
+
+  container.innerHTML = '<div class="attend-loading">Loading…</div>';
+
+  // Every board gathering, archived or not: leaving the calendar does not leave the minute book.
+  const { data: boards, error: bErr } = await sb
+    .from('gatherings')
+    .select('id, title, sessions(id, starts_at)')
+    .like('title', BOARD_PREFIX + '%')
+    .order('created_at', { ascending: true });
+  if (bErr) {
+    container.innerHTML = `<div class="notice err" style="display:block">${escHtml(Techne.report(bErr, 'Could not load the minute book right now. Please reload the page.'))}</div>`;
+    return;
+  }
+  if (!boards || boards.length === 0) {
+    container.innerHTML = '<div class="minute-none">No gathering titled "Board ·" stands in the record yet. Hold one with that prefix and its sessions appear here.</div>';
+    return;
+  }
+
+  const { data: events, error: eErr } = await sb
+    .from('events')
+    .select('id, occurred_at, kind, payload')
+    .in('kind', MINUTE_KINDS)
+    .order('occurred_at', { ascending: true });
+  if (eErr) {
+    container.innerHTML = `<div class="notice err" style="display:block">${escHtml(Techne.report(eErr, 'Could not read the minutes rows right now. Please reload the page.'))}</div>`;
+    return;
+  }
+  const bySession = {};
+  (events || []).forEach(e => {
+    const sid = e.payload && e.payload.session_id;
+    if (!sid) return;
+    (bySession[sid] = bySession[sid] || []).push(e);
+  });
+
+  container.innerHTML = '';
+  boards.forEach(g => {
+    const sessions = (g.sessions || []).slice().sort((a, b) => new Date(a.starts_at) - new Date(b.starts_at));
+    const card = document.createElement('div');
+    card.className = 'gathering-card';
+    const sessionsHtml = sessions.length === 0
+      ? '<div class="no-sessions">No sessions scheduled.</div>'
+      : sessions.map(s => {
+          const rows = bySession[s.id] || [];
+          const rowsHtml = rows.length
+            ? rows.map(minuteRowHtml).join('')
+            : '<div class="minute-none">No minute recorded against this session.</div>';
+          return `<div class="minute-session">
+              <div class="minute-session-when">${escHtml(formatDate(s.starts_at))} &middot; ${escHtml(formatTime(s.starts_at))}</div>
+              ${rowsHtml}
+              ${minuteFormHtml(s.id)}
+            </div>`;
+        }).join('');
+    card.innerHTML = `
+      <div class="gathering-header">
+        <div><div class="gathering-title">${escHtml(g.title)}</div></div>
+      </div>
+      ${sessionsHtml}`;
+    container.appendChild(card);
+    sessions.forEach(s => {
+      const form = document.getElementById('minute-form-' + s.id);
+      if (form) form.addEventListener('submit', ev => { ev.preventDefault(); recordMinute(s.id); });
+    });
+  });
+}
+
 // ── Data loading ──────────────────────────────────────────────────────────────
 
 function openScheduleDrawer() {
@@ -986,6 +1200,7 @@ async function loadAll(session) {
 
   renderGatherings(gatherings);
   showSchedulePanel();
+  await loadMinutes();
 }
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
