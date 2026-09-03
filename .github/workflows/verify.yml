@@ -4,7 +4,7 @@
 # The document governs; this workflow distills.
 # Five suites per VS v1 §2. Deferred checks are NAMED, not
 # faked green: the rls probe matrix awaits AM v0.1; the
-# walkaway harness and the with-their-slices assertions are
+# walkaway harness and the with-their-capabilities assertions are
 # Anticipated (VS v1 §4, §8). A change that weakens a check
 # is a regression to be named, never absorbed (VS v1 §9).
 # ============================================================
@@ -22,13 +22,13 @@ jobs:
     # VS v1 §2 · carries the estate validator: schema compliance,
     # dependency acyclicity, gating consistency; done requires
     # verified upstream. Skips with a visible notice until the
-    # packet ledger lands in this repository.
+    # almanac ledger lands in this repository.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: validate packet ledger
+      - name: validate the almanac ledger
         run: |
-          if [ -f scripts/validate.py ] && [ -f rdm-ledger.yaml ]; then
+          if [ -f scripts/validate.py ] && [ -f almanac-ledger.yaml ]; then
             python3 scripts/validate.py
           else
             pip install pyyaml --quiet && python3 scripts/validate.py
@@ -36,7 +36,7 @@ jobs:
 
   generated-freshness:
     # X-10 - VS v1 section 2 - the generated artifacts are claims about the
-    # ledger, and a hand-kept claim drifts: the roadmap dashboard read 40
+    # ledger, and a hand-kept claim drifts: the Almanac dashboard read 40
     # items while the ledger held 59. The validator writes STATUS.md,
     # index.json, and the dashboard's headline counts; this job proves the
     # committed copies match what it writes, so a stale artifact is a CI
@@ -340,11 +340,12 @@ jobs:
         # refuses a stale generated one.
         run: python3 scripts/verification_cards.py --check
 
-  gate-rehearsal:
-    # G-B, G-G · the mechanical half of the Gate Book: every Belong
+  proof-rehearsal:
+    # G-B, G-G · the mechanical half of the Proof Book: every Belong
     # and Gather sentence of PRD v0.3 §4 as a committed, sequential
-    # assertion against the full policy chain. The with-their-slices
-    # suite arriving with its slices. One beat named-deferred until
+    # assertion against the full policy chain. The
+    # with-their-capabilities suite arriving with its capabilities.
+    # One beat named-deferred until
     # apply_for_membership() lands in the repository (X-09 card).
     runs-on: ubuntu-latest
     services:
@@ -359,8 +360,8 @@ jobs:
       PGURL: postgresql://postgres:postgres@localhost:5432/postgres
     steps:
       - uses: actions/checkout@v4
-      - name: rehearse the gates
-        run: python3 scripts/gate_rehearsal.py
+      - name: rehearse the proofs
+        run: python3 scripts/proof_rehearsal.py
 
   restore-test:
     # SUB-05 · VS v1 §8 · seed-state restore: apply the substrate,
@@ -525,6 +526,6 @@ jobs:
 
 # the walkaway rehearsal (X-09) runs the full cycle -- export, fresh
 # infrastructure, import, re-export, SHA equality -- in walkaway.yml on
-# a schedule. with-their-slices assertions (vote arithmetic,
+# a schedule. with-their-capabilities assertions (vote arithmetic,
 # patron-majority floor, allocation sums, paired covering distribution)
 # enter with their schema (VS v1 §8, §9).

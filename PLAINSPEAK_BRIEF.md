@@ -22,7 +22,7 @@ shows them, and what they can do next.
 
 - **You may re-present a status. You may never re-state one.** If the page says a piece is
   `draft`, it stays `draft`. You change how it looks, never what it claims.
-- **Never edit the ledger** (`rdm-ledger.yaml`) or any adopted instrument text.
+- **Never edit the ledger** (`almanac-ledger.yaml`) or any adopted instrument text.
 - If a page contradicts the ledger or an adopted instrument, **report it, do not fix it**.
 - **No em dashes** in authored copy (CI style-lint).
 - **Targeted edits only.** Never rewrite a whole file or emit the full file as output. Use

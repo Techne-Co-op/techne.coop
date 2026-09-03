@@ -48,11 +48,11 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-LEDGER = REPO_ROOT / 'rdm-ledger.yaml'
+LEDGER = REPO_ROOT / 'almanac-ledger.yaml'
 ALMANAC = REPO_ROOT / 'commons/build/index.html'
 
 ROW = re.compile(
-    r'<span class="pkt-addr">([^<]+)</span>'
+    r'<span class="piece-addr">([^<]+)</span>'
     r'.*?<span class="chip \w+"><span class="dot"></span>([^<]+)</span>',
     re.S,
 )
@@ -157,7 +157,7 @@ def self_test():
     """Prove each check refuses what it exists to refuse.
 
     X-18's acceptance asks for a live regression test rather than an
-    assertion that the gate works. Each case below is the exact defect
+    assertion that the check works. Each case below is the exact defect
     the estate has already shipped once.
     """
     cases = []

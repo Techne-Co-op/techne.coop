@@ -2,7 +2,7 @@
 
 # The commons build to public beta: plan and roadmap
 
-*Prepared 2026-09-02 by Nou for Todd Youngblood, on his direction in #intranet-dev (relay event `cd4530fc…73fe1a`, 19:15 UTC): orchestrate and schedule the completion of techne.coop/commons/build to public beta, from today's report, with Fable 5.1 sub-agents on a 45-minute automation. Ground truth: `rdm-ledger.yaml` at origin/main `08bc3d3` (validator green, 178 packets, run 2026-09-02); the agent's status report of the same day (workspace, not public); the build instructions at `commons/build/instructions/`. Strict register: every claim about a packet cites its ledger status; the definition of public beta in §1 is a proposal until the steward adopts it by merging §13 of the instructions.*
+*Prepared 2026-09-02 by Nou for Todd Youngblood, on his direction in #intranet-dev (relay event `cd4530fc…73fe1a`, 19:15 UTC): orchestrate and schedule the completion of techne.coop/commons/build to public beta, from today's report, with Fable 5.1 sub-agents on a 45-minute automation. Ground truth: `almanac-ledger.yaml` at origin/main `08bc3d3` (validator green, 178 packets, run 2026-09-02); the agent's status report of the same day (workspace, not public); the build instructions at `commons/build/instructions/`. Strict register: every claim about a packet cites its ledger status; the definition of public beta in §1 is a proposal until the steward adopts it by merging §13 of the instructions.*
 
 ## 1. What public beta means here
 

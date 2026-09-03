@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Gate rehearsal (G-B, G-G, G-F) -- the mechanical half of the Gate Book.
+"""Proof rehearsal (G-B, G-G, G-F) -- the mechanical half of the Proof Book.
 
 Runs every Belong, Gather, and Find sentence of PRD v0.3 section 4 as
 a committed, sequential assertion against a fresh substrate with the
-full policy chain applied: the same journey the gates demonstrate
+full policy chain applied: the same journey the proofs demonstrate
 with people, exercised here by machine so the ceremony never
-discovers a defect. This is the with-their-slices suite arriving with
-its slices (VS v1 closing note).
+discovers a defect. This is the with-their-capabilities suite arriving
+with its capabilities (VS v1 closing note).
 
 Unlike the probe matrix (scripts/rls_probe.py), which proves each
 authority cell in isolation and rolls everything back, the rehearsal
@@ -22,7 +22,7 @@ pass. The seeded applied membership stands in for the later beats
 either way, so the journey never depends on the door.
 
 Personas run through the same auth.uid() shim as the probe matrix.
-Usage: PGURL=postgres://... python3 scripts/gate_rehearsal.py
+Usage: PGURL=postgres://... python3 scripts/proof_rehearsal.py
 """
 import os
 import subprocess
@@ -387,7 +387,7 @@ def main():
     beat(14, "every export projection carries its base table's columns (VS 8)",
          rc == 0 and not missing.strip(), f"missing from export: {missing or 'none'}")
 
-    print(f"gate-rehearsal: {'FAILED on beats ' + str(failures) if failures else 'every sentence holds'}")
+    print(f"proof-rehearsal: {'FAILED on beats ' + str(failures) if failures else 'every sentence holds'}")
     sys.exit(1 if failures else 0)
 
 

@@ -103,7 +103,7 @@ em { font-style:italic; color:var(--heading); }
 .chip.anticipated { color:var(--faint); border-color:var(--line); }
 .chip.anticipated .dot { background:transparent; border:1px solid var(--faint); }
 
-.gate-head { display:flex; align-items:baseline; gap:var(--s3); flex-wrap:wrap; }
+.proof-head { display:flex; align-items:baseline; gap:var(--s3); flex-wrap:wrap; }
 .condition {
   margin:var(--s4) 0; background:var(--surface);
   border:1px solid var(--line); border-left:2px solid var(--ember); padding:var(--s3) var(--s4);
@@ -205,7 +205,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
     <div class="condition"><span class="k">ledger-validate</span>The Almanac is coherent: schema, dependency acyclicity, proof consistency, manifest freshness. A piece cannot claim a status it has not earned.</div>
     <div class="condition"><span class="k">schema-lint &middot; db-verify</span>The migration chain applies clean from zero and the yielded schema matches the Information Model: thirteen tables, the event log append-only, the tally a view.</div>
     <div class="condition"><span class="k">rls-audit</span>The probe matrix: every role against every table per AM v0.1 &sect;5, each probe citing its cell. Who can see what is proven cell by cell, not assumed.</div>
-    <div class="condition"><span class="k">gate-rehearsal</span>Every Belong, Gather, and Find sentence as a committed sequential journey: apply, admit, read, sign, register, attend, post, respond, resolve, with every refusal asserted. Thirteen beats, four personas.</div>
+    <div class="condition"><span class="k">proof-rehearsal</span>Every Belong, Gather, and Find sentence as a committed sequential journey: apply, admit, read, sign, register, attend, post, respond, resolve, with every refusal asserted. Thirteen beats, four personas.</div>
     <div class="condition"><span class="k">restore-test &middot; style-lint</span>Backup restores and tallies match; the prose keeps house style.</div>
     <div class="condition"><span class="k">walkaway (weekly)</span>Export, stand fresh infrastructure, import, re-export, byte-identical, tally reconstructed. Already run live on 2026-07-21: events <code>export.taken</code> and <code>walkaway.rehearsed</code> are in your record.</div>
     <p>What none of this can prove: that the deployed pages against the live database behave the way the CI substrate does; that a real magic link arrives and signs in; that the Telegram notice lands in your hand; and that the whole thing reads honestly to the person using it. That is the run-through.</p>
