@@ -1,28 +1,35 @@
-# Verification walk 03 · the steward's own sitting, 2026-09-04 · 48 verdicts
+# Verification walk 03 · the steward's own sitting, 2026-09-04 · 48 verdicts, as amended
 
 Standing: the walker's testimony, carried into the record by this batch (X-42). Walked by Todd R. Youngblood on 2026-09-04 against main at 04acaa0, on the signed-in walk surface at /intranet/verification/ (X-28), with the cards read from the run-book at /commons/build/verification/. The walker posted the page's own write-up to Buzz #intranet-dev at 2026-09-04T17:43:29Z, event `a9c9e720c4d24e49a9baceb48ebc0c6569e8ac6569866a397ff9a4f8efed1d25`, and it is archived unedited in the cooperative workspace as `RESEARCH/intranet/2026-09-04_steward-verification-walk.md`. Every sentence below is quoted from that source and is the walker's own; nothing here is the recording agent's reading of what he saw.
 
-Unlike the four agent sheets beside this one, this sitting moves marks. A verdict is a person's act (Verification Spec; instructions section 12), and this walker is the steward. Thirty pieces take the verified mark in this batch on the strength of these sentences, dated 2026-09-04.
+**He amended the walk himself at 2026-09-04T18:19:23Z**, from the same channel and under the same pubkey, after this batch was built and before it was merged. The amendment is appended verbatim to the same archived file. It supersedes the lines it names; it does not erase them. Both readings stand here, the walk as spoken and the walk as amended, and each superseded line is kept below with the amendment beside it, because a record that quietly rewrites itself is not a record. What the amendment changed is set out in "The walker's amendment" further down; the counts on this sheet are the amended counts throughout.
 
-He gave the count himself: "Verdicts given: 48 of 58 (44 holds or attested, 3 fails or not ready, 1 deferred)". Counted against the list, this sheet reads the same numbers: 48 verdicts, 44 holds, 3 fails, 1 deferred.
+Unlike the four agent sheets beside this one, this sitting moves marks. A verdict is a person's act (Verification Spec; instructions section 12), and this walker is the steward. Twenty-nine pieces take the verified mark in this batch on the strength of these sentences, dated 2026-09-04.
+
+He gave the count himself, in the walk as first spoken: "Verdicts given: 48 of 58 (44 holds or attested, 3 fails or not ready, 1 deferred)". His amendment recounted it after flipping L-02: "**43 holds, 4 fails, 1 deferred**, still 48 given. Fails now stand at L-02, U-15, U-11, U-20." Counted against the list, this sheet reads the amended numbers: 48 verdicts, 43 holds, 4 fails, 1 deferred.
 
 ## What the sitting moved
 
-- **Thirty marks move** from `open · delivered` to `open · verified`: L-01, L-02, L-04, L-05, L-06, X-14, X-15, X-16, X-17, X-21, U-06, U-08, U-12, U-13, U-17, U-18, U-21, U-22, MM-01, A-02, P-07, P-08, P-09, P-11, TR-02, TR-03, TR-04, TR-08, TR-09, TR-10.
-- **Fourteen holds land on pieces already verified**, so no mark moves for them: FORMATION-01, DOC-01, U-07, P-12, X-13, A-01, L-03, X-18, X-19, X-11 (all verified in walk 02 and carrying these same sentences already), and U-09, U-10, U-14, P-10 (verified in walk 01, which recorded no sentence; this sitting's sentence is added to each of those four entries and the mark stands where walk 01 put it).
-- **Three fails**, filed as named defects and not repaired in this batch: U-15 (filed as U-33), U-11 (filed as U-34), U-20 (filed as U-35). Each failing piece keeps its `open · delivered` mark and carries the walker's sentence and the address of the defect filed against it.
+- **Twenty-nine marks move** from `open · delivered` to `open · verified`: L-01, L-04, L-05, L-06, X-14, X-15, X-16, X-17, X-21, U-06, U-08, U-12, U-13, U-17, U-18, U-21, U-22, MM-01, A-02, P-07, P-08, P-09, P-11, TR-02, TR-03, TR-04, TR-08, TR-09, TR-10. L-02 stood in this list when the batch was built and left it on the amendment.
+- **Fourteen holds land on pieces already verified**, so no mark moves for them: FORMATION-01, DOC-01, U-07, P-12, X-13, A-01, L-03, X-18, X-19, X-11 (all verified in walk 02, nine of them carrying these same sentences already and L-03 carrying an amended claim), and U-09, U-10, U-14, P-10 (verified in walk 01, which recorded no sentence; this sitting's sentence is added to each of those four entries and the mark stands where walk 01 put it).
+- **Four fails**, filed as named defects and not repaired in this batch: L-02 (filed as L-10), U-15 (filed as U-33), U-11 (filed as U-34), U-20 (filed as U-35). Each failing piece keeps its `open · delivered` mark and carries the walker's account of the failure and the address of the defect filed against it.
 - **One deferral**, U-19, recorded as deferred with the walker's reason. Not a fail and not a verification; the mark stands unchanged.
+- **One mark reversed.** L-02 took the verified mark in this batch on the walk as first spoken, and the amendment takes it back: it returns to `open · delivered`, where it stood before walk 03, and the defect is filed as L-10.
 
-## Four things this sheet records and does not resolve
+## The walker's amendment
 
-The source carries transcription artifacts. They are recorded as spoken and referred to the walker; none of them is settled by the recording agent's preference.
+The first reading of this walk recorded four transcription artifacts in the source and resolved none of them, on the rule that a walker's line is not the recording agent's to rewrite. He settled all four himself, and one of them turned a verdict over. What follows is his, quoted from the amendment; the recording agent's part is only to carry it.
 
-1. **The L-03 line describes other pieces.** It reads: "L-03 holds. T-09: the readings runner, and T-08's registry filled checks green". The verdict is L-03's and is taken at face value; the sentence describes T-09 and T-08. It is not applied to three cards. T-09 and T-08 stand where they stood, `open · delivered`, and no mark moves for either. Walk 02 carried the identical sentence on L-03 and recorded it as spoken rather than corrected (PR #228); it is left the same way here. Needs the walker's word.
-2. **Six lines echo their own opening**: A-01, X-18, X-19, X-11, L-01, L-02. Read as dictation echo. Each sentence is carried once, unchanged in substance, with the repeated opening dropped where it is a bare repeat. L-02's line is "L-02 holds. L-02 holds." and so leaves no descriptive sentence at all: the mark moves on the verdict word alone, which the walk surface's own rule about sentences would not take. Needs the walker's word.
-3. **The X-18 line carries a stray closing quotation mark** at its end. X-18 is already verified and its sentence already stands on the ledger from walk 02, so nothing is transcribed from this line into the record; the artifact is noted and left in the source.
-4. **The count agrees.** He stated 48 verdicts, 44 holds, 3 fails, 1 deferred. Counting the list gives 48, 44, 3, 1. If the L-03 line's mentions of T-09 and T-08 were meant as their own verdicts, the totals would be 50 and 46 instead; they are not read that way here.
+1. **The L-03 line described other pieces.** It read: "L-03 holds. T-09: the readings runner, and T-08's registry filled checks green". He withdrew it: "the sentence was genuinely misplaced content about T-09/T-08, not mine to explain (I never touched L-03; it was one of the 13 already checked before I started). Fixed it to what L-03 actually claims: the ledger-validate job passed on verify run #646, the newest run on main. I left T-09 and T-08 alone, as you asked." L-03's claim on this sheet and on the ledger is now that one, and the flag raised against the old line is withdrawn with it. T-09 and T-08 still take no mark from any of this, and both stand at `open · delivered`.
+2. **Six lines echoed their own opening**: A-01, X-19, X-11, L-01, L-02, X-18. He confirmed and fixed all six at source: "each sentence field repeated '<address> holds' before saying anything, duplicating what the verdict button already declares. Trimmed all six to the one sentence of observation, no restated verdict." The artifact is resolved, not outstanding. The lines are quoted below as they were spoken, because that is what the source carries.
+3. **The X-18 line carried a stray closing quotation mark.** He confirmed it, "a trailing `"` with no opening match. Removed along with the echo trim." Resolved. Nothing was ever transcribed from that line into the record: X-18 was already verified and already carries its walk-02 sentence.
+4. **L-02 does not hold.** This is the amendment's own finding and was not in the first reading's list. Rewriting the L-01 and L-02 lines he checked the two cards instead of retyping them, "since L-02's old sentence was just 'L-02 holds.' with nothing behind it. That check found L-02 shouldn't hold. The retired word 'packet' appears three times on /commons/build/ in the page's own voice, the X-01 and X-07 piece descriptions, and a note on TR-02, not inside any quotation of a historical record, which is exactly the failure condition L-02's own card names. I flipped it to fails and wrote a sentence naming where." L-01 came through the same recheck intact: "L-01 checked out fine (piece, bed, proof, graft, tally are all defined, and the concordance correctly maps packet→piece and gate→proof), so I gave it a real sentence instead of 'holds as described.'"
 
-One further observation, offered and not resolved: ten of the fourteen sentences on already-verified pieces are word-for-word the sentences walk 02 recorded on 2026-08-26. The walk surface speaks each verdict into the record as it is given (X-32) and the write-up is drawn from the walker's verdicts of record, so a sitting's write-up carries earlier sittings' verdicts too. Whether those ten were re-spoken today or carried forward cannot be read off the source, and the record does not need to decide it: the sentences are already on those entries, cited to walk 02, and are not re-cited here.
+**Three sentences are carried, not quoted.** He wrote replacement sentences for L-01, L-02 and L-03 and described them in the amendment without giving their text. This sheet and the ledger therefore carry his reconciliation's account of what each says, marked as such wherever it stands, rather than a sentence the recording agent composed for him. Nothing here is invented on his behalf; a later pass replaces these three with the exact text when he provides it.
+
+**The recording agent's own reading of the three locations, checked against the tree.** The failure condition L-02 names is the page's own voice, so the check is what /commons/build/index.html renders as prose. Three occurrences stand there and they are the three he named: the X-01 piece description ("error_log as its own follow-on packet"), the X-07 piece description ("a packet whose status has opened"), and a third in the X-26 piece description, the clause "the open TR-02 packet stays open", which is the note about TR-02 he means, carried in X-26's row rather than in a row of TR-02's own. Two further occurrences exist in the file and are not among them, being a CSS comment and an HTML section marker in the source, which no reader sees. His count of three in the page's own voice is exact.
+
+One further observation from the first reading, still offered and still unresolved: ten of the fourteen sentences on already-verified pieces are word-for-word the sentences walk 02 recorded on 2026-08-26. The walk surface speaks each verdict into the record as it is given (X-32) and the write-up is drawn from the walker's verdicts of record, so a sitting's write-up carries earlier sittings' verdicts too. Whether those ten were re-spoken today or carried forward cannot be read off the source, and the record does not need to decide it: the sentences are already on those entries, cited to walk 02, and are not re-cited here.
 
 ## The verdicts
 
@@ -74,7 +81,9 @@ Mark: already `open · verified` from walk 02, whose entry carries this same sen
 
 > L-03 holds. T-09: the readings runner, and T-08's registry filled checks green
 
-Mark: already `open · verified` from walk 02, whose entry carries this same sentence. Nothing moves and nothing is re-cited.
+Superseded by the amendment. The verdict stands; the sentence does not. He replaced it, in his words, with "what L-03 actually claims: the ledger-validate job passed on verify run #646, the newest run on main", and left T-09 and T-08 alone. That claim is carried from the reconciliation rather than quoted from the sentence field, since he described the replacement without giving its text.
+
+Mark: already `open · verified` from walk 02, whose entry carries the older sentence. Nothing moves. The amended claim is recorded on the entry beside the walk-02 line, which stands as spoken.
 
 ### X-18 · The cards answer to the ledger, the ledger to the repository · holds
 
@@ -98,13 +107,17 @@ Mark: already `open · verified` from walk 02, whose entry carries this same sen
 
 > L-01 holds. L-01 holds as described, with the lexicon containing the expected information.
 
-Mark: `open · delivered` → `open · verified`, 2026-09-04, on this sentence.
+Superseded by the amendment, which trimmed the echoed opening and replaced the rest after a fresh check of the card: "L-01 checked out fine (piece, bed, proof, graft, tally are all defined, and the concordance correctly maps packet→piece and gate→proof), so I gave it a real sentence instead of 'holds as described.'" The replacement sentence is carried from the reconciliation rather than quoted, since he described it without giving its text.
 
-### L-02 · The Almanac · holds
+Mark: `open · delivered` → `open · verified`, 2026-09-04. Holds before the amendment and holds after it.
+
+### L-02 · The Almanac · fails, on the amendment
 
 > L-02 holds. L-02 holds.
 
-Mark: `open · delivered` → `open · verified`, 2026-09-04, on this sentence.
+Superseded by the amendment, and the verdict with it. That line was the whole of the sentence field, the verdict word twice and nothing behind it, and it is why he rechecked the card rather than retyping it: "That check found L-02 shouldn't hold. The retired word 'packet' appears three times on /commons/build/ in the page's own voice, the X-01 and X-07 piece descriptions, and a note on TR-02, not inside any quotation of a historical record, which is exactly the failure condition L-02's own card names. I flipped it to fails and wrote a sentence naming where." The sentence he wrote is carried from the reconciliation rather than quoted, since he described it without giving its text. The three locations are checked against the tree above and stand where he says.
+
+Mark: **reversed**. This batch moved L-02 from `open · delivered` to `open · verified` on the walk as first spoken, and the amendment moves it back: `open · verified` → `open · delivered`, its mark before walk 03. The defect is filed as L-10 and is not repaired in this batch.
 
 ### L-04 · The companions · holds
 
@@ -326,4 +339,6 @@ That is the whole of the run-book below tier four: the three two-person pieces (
 
 ## What this sheet does not do
 
-It repairs nothing. The three fails are filed as U-33, U-34 and U-35, at `anticipated`, waiting on a person to take them up; the walk's record and the repair are separate acts, and this batch is the record. No page's claim is rewritten on the strength of a verdict, no card in the run-book is re-authored, and the deferral is left standing for the walker to close when he next signs out.
+It repairs nothing. The four fails are filed as L-10, U-33, U-34 and U-35, at `anticipated`, waiting on a person to take them up; the walk's record and the repair are separate acts, and this batch is the record. No page's claim is rewritten on the strength of a verdict, no card in the run-book is re-authored, and the deferral is left standing for the walker to close when he next signs out.
+
+It also erases nothing. The amendment supersedes the lines it names and every one of them is still quoted above, under the verdict it was given, with the correction beside it. The one mark this batch reversed, L-02's, is recorded as a reversal rather than removed, so a reader can see that this record was amended and by whom.
