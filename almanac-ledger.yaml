@@ -3698,6 +3698,59 @@ cross_cutting:
       walk step touches the live CIS. Verified marks stay where they
       are until the steward reads a sheet and speaks.
 
+  - address: X-39
+    title: The tier-one walk's three defects repaired
+    intent: >
+      The agent walk of tier one held eleven cards and reported three
+      defects it was not asked to fix: three closed items sitting
+      under the open heading on the correction log, a card sending
+      the walker to a page whose rows had moved, and a CI workflow
+      red on main. A walk that reports a defect and leaves it
+      standing teaches the next walker that the sheet is where
+      defects go to rest. This piece closes the three. Two are
+      repairs of a page and a card; the third is read and explained
+      rather than repaired, because its cause was a race between two
+      merges and not a defect in the gate, and every run since is
+      green. No claim on any page changes and no ledger mark moves.
+    status: open · delivered
+    cites: [BP, VS, X-38, DOC-01, FORMATION-01, TR-03]
+    ready_when: >
+      the tier-one evidence sheet of 2026-09-02 (X-38, PR #280),
+      whose tally names the three defects as reported and not fixed.
+    deliverable: >
+      legal/corrections/index.html: DOC-01·17, ·18 and ·19 moved from
+      the open section to the closed section, their text untouched,
+      with a dated change note on the closed section saying they
+      moved and why. commons/build/verification/index.html:
+      FORMATION-01's first step pointed at /intranet/legal/ for the
+      rows carrying the drafted mark, with the tier-one lead naming
+      the card among those needing a sign-in.
+      commons/build/verification/cards.json regenerated from the
+      run-book by scripts/verification_cards.py.
+      commons/build/verification/walks/2026-09-agent-walk-tier-one.md:
+      a dated addendum answering the sheet's three findings, carrying
+      the read of the two failing transducer-currency runs.
+    acceptance: >
+      No item marked closed sits under the open heading on the
+      correction log, and no item's own rows are rewritten;
+      FORMATION-01's first step names a page that carries the rows it
+      asks for; cards.json matches the run-book under
+      verification_cards.py --check; the walk sheet's addendum names
+      each failing run by id and its failing step; validator, style,
+      almanac, and design suites green.
+    note: >
+      Staged on branch X-39; merge is the act of adoption. The two
+      failing runs are read and not repaired, on the brief's terms.
+      Run #81 (33658515366) rebased its freshly taken cut onto the
+      merge that landed fourteen seconds after its own, so the audit
+      step correctly reported the cut stale against the commit the
+      job ended on; run #82 (33658539590) hit a rebase conflict on
+      the same line of intranet/hud/index.html against run #81's
+      push. Runs #83 through #94 are green and hud_cut.py --check is
+      current at e10ce84, so the cause does not persist and the
+      workflow is left alone. Whether the gate should serialise
+      differently is TR-03's question, not this piece's.
+
   - address: X-40
     title: The bylaws-in-effect sweep, and finishing R-02
     intent: >
