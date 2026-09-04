@@ -7,7 +7,7 @@ Generated from almanac-ledger.yaml. 188 items total.
 |--------|-------|
 | drafted | 36 |
 | anticipated | 39 |
-| open | 113 |
+| open | 114 |
 | filed | 0 |
 
 ## Drafted
@@ -164,6 +164,7 @@ Generated from almanac-ledger.yaml. 188 items total.
 - **X-38** open · delivered -- The agent walks the cards
 - **X-39** open · delivered -- The tier-one walk's three defects repaired
 - **X-40** open · delivered -- The bylaws-in-effect sweep, and finishing R-02
+- **X-41** open · delivered -- The adoption date, and Common Agency's standing
 
 ## Anticipated
 

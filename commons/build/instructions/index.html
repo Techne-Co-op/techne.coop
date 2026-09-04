@@ -423,7 +423,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
     <h2>The ledger and the beds</h2>
     <p class="lead">The Almanac reads a validated YAML ledger at <code>almanac-ledger.yaml</code> and stands at <a href="/commons/build/">/commons/build/</a>. Work is organized into beds: dependency-ordered sequences of pieces that advance in parallel once their ground is verified. There are no dates. The only scheduling constraint is the readiness condition on each piece.</p>
 
-    <p>The counts in this section are level with the ledger at commit 6c1a6d9 of 2026-09-02, the third resync (X-34), with this piece&rsquo;s own entry counted; the earlier two were X-14 and X-17. The ledger holds 183 items: 19 governing documents (the eleven series artifacts, which include the PATRONAGE and TREASURY module specifications grafted 2026-07-22, AGY adopted 2026-07-27, and PUB, plus STANDING, GUILD, TRANSDUCER, MATRIX, the Maturity Model, and the three governance drafts ROO, ORDER, and EGRESS, each drafted inside the bed it would open) and 164 work pieces and proofs across sixteen beds and the proof set. The validated <code>STATUS.md</code> marks the state: 35 drafted, 40 anticipated, 108 open, 0 filed. Of the open pieces, 49 carry a verified mark and 53 a delivered mark: the Substrate work is verified end to end, Belong is verified through B-07 with two drafted pieces behind it, and the Gather, Find, Shell, Agency, Lexicon, Guild, Transducer, and Cross-cutting beds are verified or delivered and wait on proof attestation. One proof of ten is attested, G0, the security floor. Five pieces name a blocker in the status field: S-01 and S-02 hold on the Q3 counting rules, T-01 on TREASURY-POLICY adoption, T-05 on redeemability, and SMS-03 on the word its status carries. The A bed is held by none of these: it waits on a single decision about authority, described in AGY &sect;5. The Standing bed stands wholly anticipated and the Guild bed's rail pieces with it, because their governing documents are proposals rather than adoptions; the Matrix bed is proposed and adopted by nothing; the Governance and Horizon beds govern nothing at all.</p>
+    <p>The counts in this section are level with the ledger at commit 6c1a6d9 of 2026-09-02, the third resync (X-34), with this piece&rsquo;s own entry counted; the earlier two were X-14 and X-17. The ledger holds 183 items: 19 governing documents (the eleven series artifacts, which include the PATRONAGE and TREASURY module specifications grafted 2026-07-22, AGY grafted 2026-07-27 and standing proposed rather than adopted, and PUB, plus STANDING, GUILD, TRANSDUCER, MATRIX, the Maturity Model, and the three governance drafts ROO, ORDER, and EGRESS, each drafted inside the bed it would open) and 164 work pieces and proofs across sixteen beds and the proof set. The validated <code>STATUS.md</code> marks the state: 35 drafted, 40 anticipated, 108 open, 0 filed. Of the open pieces, 49 carry a verified mark and 53 a delivered mark: the Substrate work is verified end to end, Belong is verified through B-07 with two drafted pieces behind it, and the Gather, Find, Shell, Agency, Lexicon, Guild, Transducer, and Cross-cutting beds are verified or delivered and wait on proof attestation. One proof of ten is attested, G0, the security floor. Five pieces name a blocker in the status field: S-01 and S-02 hold on the Q3 counting rules, T-01 on TREASURY-POLICY adoption, T-05 on redeemability, and SMS-03 on the word its status carries. The A bed is held by none of these: it waits on a single decision about authority, described in AGY &sect;5. The Standing bed stands wholly anticipated and the Guild bed's rail pieces with it, because their governing documents are proposals rather than adoptions; the Matrix bed is proposed and adopted by nothing; the Governance and Horizon beds govern nothing at all.</p>
 
     <table class="bed-table">
       <thead>
@@ -487,7 +487,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
           <td class="addr-cell">Agency</td>
           <td>A-01 through A-04</td>
           <td>G-A</td>
-          <td>AGY adopted; G0 attested. A-03 waits on the first grant</td>
+          <td>AGY grafted; G0 attested. A-03 waits on the first grant</td>
         </tr>
         <tr>
           <td class="addr-cell">Lexicon</td>
@@ -539,7 +539,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
         </tr>
         <tr>
           <td class="addr-cell">Cross-cutting</td>
-          <td>X-01 through X-26 &middot; X-28 through X-34 &middot; X-38 &middot; X-40 &middot; DOC-01 &middot; FORMATION-01</td>
+          <td>X-01 through X-26 &middot; X-28 through X-34 &middot; X-38 through X-41 &middot; DOC-01 &middot; FORMATION-01</td>
           <td>G-R</td>
           <td>Various; see ledger</td>
         </tr>
@@ -694,7 +694,7 @@ footer { border-top:1px solid var(--rule); margin-top:var(--s8); padding:var(--s
       <div class="an-row"><span class="f">commons/build/</span><span class="v">The Almanac (ALM v2). Piece ledger, signal loop, repository tree. The instrument you are reading from.</span></div>
       <div class="an-row"><span class="f">commons/build/instructions/</span><span class="v">This page. Agent instructions for the build.</span></div>
       <div class="an-row"><span class="f">commons/patronage/</span><span class="v">PATRONAGE module (PP v0.2, Drafted): Programs as organizing bodies, the contribution event contract. Grafted into the ledger 2026-07-22.</span></div>
-      <div class="an-row"><span class="f">commons/agency/</span><span class="v">AGY module (v0.1, Drafted): a patron member directs the instrument on the record; the rail, the run and its floor, provenance under two hands. Adopted 2026-07-27, and its graft entered the ledger the same day.</span></div>
+      <div class="an-row"><span class="f">commons/agency/</span><span class="v">AGY module (v0.1, Drafted): a patron member directs the instrument on the record; the rail, the run and its floor, provenance under two hands. Its graft entered the ledger on the merge of 2026-07-27; the module itself stands proposed, an active experiment, not formally adopted.</span></div>
       <div class="an-row"><span class="f">commons/treasury/</span><span class="v">TREASURY module (TR v0.1.3, Drafted): the movement layer over Stripe, Mercury, and Xero; the Desk, the policy instrument, the balance view, and the statements view, governed movements as events.</span></div>
       <div class="an-row"><span class="f">design-system/</span><span class="v">Techne v4 token and pattern reference. The source for the design system section of these instructions.</span></div>
       <div class="an-row"><span class="f">legal/</span><span class="v">Formation documents: bylaws, membership agreement, participation terms, community supporter template.</span></div>
