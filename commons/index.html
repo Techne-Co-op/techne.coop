@@ -211,6 +211,71 @@ body {
 .condition strong { color: var(--heading); font-weight: 600; }
 
 /* ============================================================
+   THE BETA MARK (X-35)
+   One component, the same markup and the same prose on
+   /commons/ and /commons/build/. Only the surrounding CSS may
+   differ, the way the formation notice already differs, because
+   a copy uses the token names its own page defines.
+   The wording is a proposal: public names and public claims are
+   the steward's under build instructions section 2.
+   ============================================================ */
+.beta-mark {
+  max-width: 980px; margin: 0 0 var(--s6);
+  padding: var(--s5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--ember);
+  border-radius: 2px;
+}
+.beta-mark .bm-k {
+  font: 500 10px/1.6 var(--mono); color: var(--ember-text);
+  text-transform: uppercase; letter-spacing: 0.12em; margin: 0 0 var(--s2);
+}
+.beta-mark h2 {
+  font: 700 17px/1.4 var(--serif); color: var(--heading);
+  margin: 0 0 var(--s3); padding: 0; border: 0;
+}
+.beta-mark .bm-lead,
+.beta-mark .bm-invite {
+  font: 400 13px/1.75 var(--serif); color: var(--text);
+  margin: 0 0 var(--s5); max-width: 68ch;
+}
+.beta-mark .bm-invite a { color: var(--ember-text); }
+.beta-mark .bm-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: var(--s5);
+}
+.beta-mark .bm-h {
+  display: flex; align-items: center; gap: var(--s2);
+  font: 500 11px/1.5 var(--mono); text-transform: uppercase; letter-spacing: 0.1em;
+  margin: 0 0 var(--s3); padding-bottom: var(--s2); border-bottom: 1px solid var(--line);
+}
+.beta-mark .bm-sq { width: 7px; height: 7px; flex-shrink: 0; border: 1px solid currentColor; }
+.beta-mark .in-force { color: var(--ok); }
+.beta-mark .in-force .bm-sq { background: var(--ok); }
+.beta-mark .waits { color: var(--warn); }
+.beta-mark .waits .bm-sq { background: transparent; }
+.beta-mark ul { list-style: none; margin: 0; padding: 0; }
+.beta-mark li {
+  font: 400 13px/1.7 var(--serif); color: var(--text);
+  margin: 0 0 var(--s4); padding-left: var(--s4); position: relative; max-width: 58ch;
+}
+.beta-mark li::before {
+  content: ""; position: absolute; left: 0; top: 10px;
+  width: 6px; height: 1px; background: var(--faint);
+}
+.beta-mark li b { color: var(--heading); font-weight: 700; }
+.beta-mark li .bm-n { display: block; font: 400 11.5px/1.7 var(--mono); color: var(--muted); margin-top: 3px; }
+.beta-mark .bm-addr,
+.beta-mark .bm-foot {
+  font: 400 11.5px/1.7 var(--mono); color: var(--muted);
+  margin: var(--s5) 0 0; padding-top: var(--s3); border-top: 1px solid var(--line); max-width: 78ch;
+}
+.beta-mark .bm-addr + .bm-foot { margin-top: var(--s3); padding-top: var(--s3); }
+.beta-mark .bm-foot a, .beta-mark .bm-addr a { color: var(--ember-text); }
+
+/* ============================================================
    CTAs
    ============================================================ */
 .ctas-sec {
@@ -363,6 +428,44 @@ footer {
 
 <main>
   <div class="col">
+
+<!-- begin:beta-mark -- X-35. The same markup and the same prose stand on
+     /commons/build/. Three items carry the steward's word of 2026-09-03;
+     the rest of the wording is a proposal and the naming is his (build
+     instructions section 2). Keep the two copies level. -->
+    <section class="beta-mark" id="beta-mark" aria-labelledby="beta-mark-h">
+      <div class="bm-k">Public beta &middot; three of these words are the steward's, the rest of the wording is a proposal</div>
+      <h2 id="beta-mark-h">What is in force, and what waits</h2>
+      <p class="bm-invite">This record is open to read while it is still being built. Pages will change, and every page says whether a thing is adopted or only drafted. If something reads wrong, is missing, or contradicts another page, say so: <a href="https://github.com/Techne-Co-op/techne.coop/issues">open an issue on the public repository</a> and name the page and the sentence. Corrections from readers are part of how this gets finished.</p>
+      <p class="bm-lead">The instruments on the left are in force and the surfaces built on them can be walked today. What is on the right is built, marked, and waiting on an act no software performs: an adoption by the board, a signature by the person it binds, or a named person applying a change to the live record. Nothing is left off this list because it is unfinished. It is on the list because it is.</p>
+      <div class="bm-cols">
+        <div class="bm-col">
+          <div class="bm-h in-force"><span class="bm-sq" aria-hidden="true"></span>In force</div>
+          <ul>
+            <li><b>The Articles of Organization</b>, filed with the Colorado Secretary of State on February 6, 2026.</li>
+            <li><b>Bylaws v2.1</b>, in effect on the board's adoption of August 14, 2026, the day the officers were elected.<span class="bm-n">The date is the steward's word of September 3, 2026 read against the founding record. No minute records the adoption, and none is claimed here. Member ratification under Article XII is an amendment mechanism, not a gate on commencement. Open items remain on the text: Schedule A is not executed, counsel's redline against v1 is outstanding, and the Secretary's signature is not yet on the executed copy. Those are open items on the text, not a bar to its force.</span></li>
+            <li><b>The offices</b>, elected by the board on August 14, 2026, each election re-taken as a separate motion on August 19, 2026.</li>
+            <li><b>Two grafted modules</b>: Program Patronage and Treasury, adopted July 22, 2026. Adoption brought each one's work into the plan under the same marks as everything else. Both module texts still stand drafted, and the instruments their beds wait on are named on the right.</li>
+            <li><b>The surfaces a member reads</b>. Belonging, gathering, and finding one another are built, and most of their pieces carry a verified mark from a walk a person made. Two pieces of belonging are drafted and not built, one piece of gathering and one of finding stand delivered and unwalked, and finding has a beat that cannot be walked alone, because a response is a message to an author. Each of the three closes on an attestation, which is a person's word and not a test run, and none of the three has one yet.</li>
+          </ul>
+        </div>
+        <div class="bm-col">
+          <div class="bm-h waits"><span class="bm-sq" aria-hidden="true"></span>Waiting on an act</div>
+          <ul>
+            <li><b>A member's share.</b> Contribution history and capital accounts wait on the board adopting the counting rules. Until that adoption a member account would be illustrative rather than honest, and the surface says so rather than showing a figure.</li>
+            <li><b>Treasury movement.</b> The Desk reads and moves nothing. Movement waits on the board adopting the treasury policy; redeemability waits on that and on counsel.</li>
+            <li><b>Work Standing</b> and <b>Guild Participation.</b> Both documents are drafted and adopted by nobody, and the work behind each is recorded as anticipated. Neither binds anyone today.</li>
+            <li><b>The probe matrix.</b> Proposed, and adopted by nothing.</li>
+            <li><b>The Membership Agreement v2.3.</b> Board-authorized and pending execution, never in effect: it reaches a member only on that member's own signature, and nobody has signed.</li>
+            <li><b>Common agency.</b> Proposed, an active experiment, and not formally adopted: those are the steward's words of September 3, 2026, and the module's own pages say that nothing in them is adopted. Behind it stands one undecided question, whether a non-human agent may hold a scoped authority in the record at all, and the first grant waits on that.</li>
+            <li><b>Two changes to the shape of the record.</b> Written and reviewed, and applied to nothing. A change to the live record is a named person's act, and no test environment stands beside it.</li>
+            <li><b>Everything else marked anticipated on a board adoption.</b> Where a piece waits on an adoption, the ledger says so on the piece, and the page built over it says so too.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="bm-foot">Drafted September 3, 2026. Public names and public claims belong to the steward under <a href="/commons/build/instructions/#s2">section 2 of the build instructions</a>. Three things above carry his word of September 3, 2026: the invitation is written to his ask that this mark say the standard thing a public beta says and ask the reader for corrections; the Bylaws take the board's adoption of August 14, 2026, on his word read against the founding record, no minute recording the act; and Common Agency's standing is his phrase. The rest of the wording is still a proposal standing in until he chooses it, and nothing here has been adopted as a text. What the mark names as waiting is taken from section 1 of the plan at <a href="/commons/build/roadmap/ROADMAP.md">the roadmap</a>, which proposes what public beta means here and is itself adopted only as <a href="/commons/build/instructions/#s13">section 13 of the instructions</a>. The standing of the Membership Agreement follows the same ruling of September 3, 2026, as the record page carries it.</p>
+    </section>
+<!-- end:beta-mark -->
 
     <section class="prose-sec" aria-labelledby="what-h">
       <h2 id="what-h">What it is</h2>
