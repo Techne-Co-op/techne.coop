@@ -342,3 +342,12 @@ That is the whole of the run-book below tier four: the three two-person pieces (
 It repairs nothing. The four fails are filed as L-10, U-33, U-34 and U-35, at `anticipated`, waiting on a person to take them up; the walk's record and the repair are separate acts, and this batch is the record. No page's claim is rewritten on the strength of a verdict, no card in the run-book is re-authored, and the deferral is left standing for the walker to close when he next signs out.
 
 It also erases nothing. The amendment supersedes the lines it names and every one of them is still quoted above, under the verdict it was given, with the correction beside it. The one mark this batch reversed, L-02's, is recorded as a reversal rather than removed, so a reader can see that this record was amended and by whom.
+
+## What came after
+
+**The next sitting is walk 04, 2026-09-05**, one day later, at `2026-09-steward-walk-04.md`. It is a re-walk: twenty-three verdicts on cards that already stood verified, several of them verified by this sheet. Six of the marks this sitting gave came back there, and nothing on this sheet is edited to agree with them.
+
+Four of walk 03's own verifications did not hold the second time. **L-05**, held here on a sentence naming the very gap he later failed it for, and **MM-01**, held here on a sentence reporting the very fact he later failed it for, both stepped back; so did **U-22** and **X-17**. Two cards this sheet recorded as already-verified holds, **U-07** and **X-18**, stepped back there too, along with **X-19**. In each case the estate did not change between the sittings and the reading did, which is the thing worth reading these two sheets side by side for. The verdicts given here stand as given; walk 04's stand beside them on the same entries, in the order he spoke them.
+
+Three of walk 04's fails, on X-18, X-19 and X-17, name one cause, a check red on main because a branch merged with no address in the ledger. That is the same defect class this batch carried at X-42, and it recurred at X-43 the next day. Walk 04's batch mints the address and cures it; it does not restore the marks.
+
