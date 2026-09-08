@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<title>The Traverse &middot; Techne</title>
+<meta name="description" content="Enter as the title you were given. See what it perceives, what it cannot, and how a person moves beyond it.">
+<script>
+  (function(){var s=null;try{s=localStorage.getItem('techne-mode');}catch(e){}
+  var h=/[#&]mode=(dark|light)/.exec(location.hash);
+  var m=(h&&h[1])||s||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<style>
+/* TECHNE v4 token layer, inlined per page. Font files are not bundled here:
+   the named faces fall through to their system stacks so the page works from file://. */
+:root{
+  color-scheme:dark light;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
+  --face-doc:"Libre Baskerville",Georgia,serif;
+  --face-ui:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --face-display:Georgia,"Libre Baskerville",serif;
+  --micro:.16s; --dur:.4s;
+  --tap:44px;
+}
+html[data-mode="dark"]{
+  --bg:#0F0F12; --inset:#08080A; --surface:#16161B; --raised:#232329;
+  --line:#2A2A30; --rule:#3A3A42;
+  --blue:#6A8AC4; --blue-text:#97B5E8;
+  --ember:#C4956A; --ember-text:#D4A57A;
+  --heading:#E8E4DF; --text:#CFCBC4; --muted:#8A857E; --faint:#5A554F;
+  --ok:#6A9A6A; --info:#6A8AC4; --warn:#C46A6A;
+  --sun-gold:#D9B45C; --sun-amber:#C98A52; --sun-coral:#C4776A;
+  --sun-rose:#B06E92; --sun-violet:#8A6AC4; --sun-blue:#6A8AC4;
+}
+html[data-mode="light"]{
+  --bg:#F7F5F0; --inset:#EBE7DF; --surface:#FCFBF8; --raised:#FEFDFB;
+  --line:#D8D3C8; --rule:#9A958A;
+  --blue:#4A6FB0; --blue-text:#39588F;
+  --ember:#8A6A4A; --ember-text:#6F5436;
+  --heading:#1A1A1F; --text:#2E2C28; --muted:#646058; --faint:#A39E92;
+  --ok:#4A7A4A; --info:#4A6FB0; --warn:#a84f4c;
+  --sun-gold:#8A6A2E; --sun-amber:#8A5A2E; --sun-coral:#9A4A3E;
+  --sun-rose:#8A3E6A; --sun-violet:#5A3E8A; --sun-blue:#4A6FB0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text); font-family:var(--face-doc);
+  font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+a{color:var(--blue-text); text-decoration:underline; text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--blue); outline-offset:2px}
+button{font:inherit; color:inherit; background:none; border:none; padding:0; cursor:pointer}
+
+.catbar{
+  position:sticky; top:0; z-index:30; min-height:48px;
+  display:flex; align-items:center; justify-content:space-between; gap:var(--s4);
+  padding:0 var(--s5);
+  background:var(--bg); border-bottom:1px solid var(--line);
+}
+.wordmark{font-family:var(--face-ui); font-size:12px; letter-spacing:.12em; color:var(--heading)}
+.wordmark span{color:var(--muted)}
+.modetoggle{
+  font-family:var(--face-ui); font-size:14px; line-height:1;
+  border:1px solid var(--line); border-radius:2px; color:var(--muted);
+  min-width:var(--tap); min-height:36px;
+}
+.modetoggle:hover{color:var(--text); border-color:var(--rule)}
+
+.wrap{max-width:1080px; margin-inline:auto; padding:var(--s5) clamp(var(--s4),4vw,var(--s6)) var(--s8)}
+.mast{padding-bottom:var(--s4); border-bottom:1px solid var(--rule); margin-bottom:var(--s6)}
+.kick{font-family:var(--face-ui); font-size:10px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--faint); margin:0 0 var(--s2)}
+.mast h1{font-family:var(--face-display); font-weight:400; font-size:1.55rem; line-height:1.15; color:var(--heading); margin:0; letter-spacing:-.01em}
+.mast .sub{margin:var(--s3) 0 0; color:var(--muted); max-width:62ch}
+
+.mv{margin-top:var(--s7); scroll-margin-top:64px}
+.mv > h2{
+  font-family:var(--face-ui); font-size:11px; font-weight:500; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ember-text); margin:0 0 var(--s2);
+  display:flex; align-items:baseline; gap:var(--s3);
+}
+.mv > h2 .n{color:var(--faint)}
+.mv > .lede{margin:0 0 var(--s4); color:var(--muted); max-width:64ch}
+.gate{color:var(--faint); font-family:var(--face-ui); font-size:12px; letter-spacing:.06em; border:1px dashed var(--line); border-radius:2px; padding:var(--s4); margin:0}
+
+/* movement 1: role entry */
+.rolepick{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:var(--s2) var(--s4); margin:0; padding:0; list-style:none}
+.rp-cluster{font-family:var(--face-ui); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); grid-column:1/-1; margin-top:var(--s3); border-bottom:1px solid var(--line); padding-bottom:var(--s1)}
+.rp-cluster:first-child{margin-top:0}
+.rolebtn{
+  text-align:left; font-family:var(--face-ui); font-size:12.5px; line-height:1.35;
+  padding:7px 9px; border:1px solid transparent; border-radius:2px; color:var(--text);
+  min-height:34px;
+}
+.rolebtn:hover{background:var(--surface); border-color:var(--line)}
+.rolebtn[aria-pressed="true"]{background:var(--surface); border-color:var(--ember); color:var(--heading)}
+
+.lenscard{margin-top:var(--s5); border:1px solid var(--rule); border-radius:2px; background:var(--surface)}
+.lenscard .hd{padding:var(--s4) var(--s5); border-bottom:1px solid var(--line); display:flex; justify-content:space-between; gap:var(--s4); flex-wrap:wrap; align-items:baseline}
+.lenscard .hd h3{margin:0; font-family:var(--face-display); font-weight:400; font-size:1.25rem; color:var(--heading)}
+.lenscard .hd .cl{font-family:var(--face-ui); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint)}
+.lenscard .bd{padding:var(--s4) var(--s5) var(--s5)}
+.holds{font-family:var(--face-ui); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin:0 0 var(--s1)}
+.homeq{font-size:1.05rem; color:var(--heading); margin:0 0 var(--s2); font-style:italic}
+.fraction{font-family:var(--face-ui); font-size:11px; color:var(--muted); letter-spacing:.04em}
+.limitbox{
+  margin-top:var(--s4); padding:var(--s3) var(--s4);
+  border-left:3px solid var(--warn); background:var(--inset); border-radius:0 2px 2px 0;
+}
+.limitbox .lab{font-family:var(--face-ui); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--warn); margin:0 0 var(--s1)}
+.limitbox p{margin:0; color:var(--text)}
+
+/* the seventeen-cell field, shared by movements 1 and 2 */
+.field{display:grid; grid-template-columns:repeat(17,1fr); gap:3px; margin-top:var(--s4)}
+@media(max-width:760px){ .field{grid-template-columns:repeat(9,1fr)} }
+.cell{
+  position:relative; border:1px solid var(--line); border-radius:2px;
+  background:var(--inset); min-height:74px; padding:6px 5px 5px;
+  display:flex; flex-direction:column; justify-content:space-between; gap:4px;
+  font-family:var(--face-ui);
+}
+.cell .nm{font-size:9.5px; letter-spacing:.04em; color:var(--faint); writing-mode:vertical-rl; transform:rotate(180deg); line-height:1; min-height:52px}
+.cell .mk{font-size:9px; color:var(--faint); line-height:1}
+.cell.lit{background:var(--surface); border-color:var(--rule)}
+.cell.lit .nm{color:var(--heading)}
+.cell.home{border-color:var(--ember); box-shadow:inset 0 0 0 1px var(--ember)}
+.cell.home .mk{color:var(--ember-text)}
+.cell.also .mk{color:var(--blue-text)}
+.cell.goal{border-color:var(--blue); box-shadow:inset 0 0 0 1px var(--blue)}
+.fieldkey{display:flex; gap:var(--s4); flex-wrap:wrap; margin-top:var(--s2); font-family:var(--face-ui); font-size:10px; letter-spacing:.08em; color:var(--muted)}
+.fieldkey .k{display:inline-flex; align-items:center; gap:6px}
+.fieldkey .sw{width:10px; height:10px; border:1px solid var(--rule); border-radius:2px; background:var(--inset)}
+.fieldkey .sw.home{border-color:var(--ember); background:var(--surface)}
+.fieldkey .sw.also{border-color:var(--rule); background:var(--surface)}
+.fieldkey .sw.goal{border-color:var(--blue); background:var(--inset)}
+
+.darklist{margin:var(--s4) 0 0; padding:0; list-style:none; columns:2; column-gap:var(--s6)}
+@media(max-width:760px){ .darklist{columns:1} }
+.darklist li{break-inside:avoid; margin:0 0 var(--s3); padding-left:var(--s3); border-left:2px solid var(--line)}
+.darklist .dn{font-family:var(--face-ui); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); display:block}
+.darklist .dq{color:var(--faint); font-style:italic; font-size:14px}
+
+/* movement 3: traverse */
+.goalpick{display:flex; flex-wrap:wrap; gap:var(--s2); margin-top:var(--s3)}
+.goalbtn{
+  font-family:var(--face-ui); font-size:11.5px; letter-spacing:.04em;
+  border:1px solid var(--line); border-radius:2px; padding:6px 10px; color:var(--text); min-height:32px;
+}
+.goalbtn:hover{border-color:var(--rule); background:var(--surface)}
+.goalbtn[aria-pressed="true"]{border-color:var(--blue); color:var(--heading); background:var(--surface)}
+.goalbtn:disabled{color:var(--faint); border-color:var(--line); cursor:default; text-decoration:line-through}
+.pathout{margin-top:var(--s5)}
+.hop{border:1px solid var(--line); border-left:3px solid var(--blue); border-radius:2px; background:var(--surface); padding:var(--s3) var(--s4); margin-top:var(--s3)}
+.hop .via{font-family:var(--face-ui); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--blue-text); margin:0 0 2px}
+.hop .who{margin:0; color:var(--heading); font-size:15px}
+.hop .why{margin:2px 0 0; color:var(--muted); font-size:13.5px}
+.arrive{border-left-color:var(--ok)}
+.arrive .via{color:var(--ok)}
+.pathnote{margin-top:var(--s3); color:var(--muted); font-size:13.5px; max-width:64ch}
+
+/* movement 4: unstaffed */
+.unrow{border:1px solid var(--line); border-radius:2px; background:var(--surface); padding:var(--s4) var(--s5); margin-top:var(--s3)}
+.unrow h3{margin:0; font-family:var(--face-display); font-weight:400; font-size:1.1rem; color:var(--heading)}
+.unrow .uq{margin:2px 0 var(--s2); font-style:italic; color:var(--muted)}
+.unrow .who{font-family:var(--face-ui); font-size:11px; letter-spacing:.05em; color:var(--faint); margin:0 0 var(--s2)}
+.pathology{padding:var(--s2) var(--s3); background:var(--inset); border-left:3px solid var(--warn); border-radius:0 2px 2px 0}
+.pathology .pn{font-family:var(--face-ui); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--warn); margin:0 0 2px}
+.pathology p{margin:0; font-size:13.5px; color:var(--text)}
+
+/* movement 5: compose */
+.pickfield{display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:var(--s2); margin-top:var(--s3)}
+.pk{
+  display:flex; align-items:flex-start; gap:8px; border:1px solid var(--line); border-radius:2px;
+  padding:8px 10px; background:var(--inset); cursor:pointer; min-height:var(--tap);
+}
+.pk:hover{border-color:var(--rule)}
+.pk input{margin:3px 0 0; accent-color:var(--ember)}
+.pk .pn{font-family:var(--face-ui); font-size:12px; color:var(--text); line-height:1.3}
+.pk .pf{display:block; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); margin-top:2px}
+.pk:has(input:checked){background:var(--surface); border-color:var(--ember)}
+.pk:has(input:checked) .pn{color:var(--heading)}
+.composeout{margin-top:var(--s5)}
+.composeout .verdict{border:1px solid var(--rule); border-radius:2px; background:var(--surface); padding:var(--s4) var(--s5)}
+.composeout .verdict p{margin:0}
+.composeout .verdict .big{font-family:var(--face-display); font-size:1.15rem; color:var(--heading)}
+.near{margin-top:var(--s4); border-collapse:collapse; width:100%; font-size:13.5px}
+.near th{font-family:var(--face-ui); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); text-align:left; padding:6px 10px 6px 0; border-bottom:1px solid var(--rule); font-weight:500}
+.near td{padding:8px 10px 8px 0; border-bottom:1px solid var(--line); vertical-align:top}
+.near .rn{color:var(--heading)}
+.near .miss{color:var(--warn)}
+.near .extra{color:var(--ok)}
+.near .frac{font-family:var(--face-ui); font-size:11px; color:var(--muted); white-space:nowrap}
+.smallnote{font-family:var(--face-ui); font-size:10.5px; letter-spacing:.05em; color:var(--faint); margin-top:var(--s4)}
+.visually-hidden{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+</style>
+</head>
+<body>
+<header class="catbar">
+  <div class="wordmark">TECHNE <span>&middot; commons &middot; the traverse</span></div>
+  <button class="modetoggle" id="modetoggle" aria-label="Toggle color mode">&#9680;</button>
+</header>
+
+<main class="wrap">
+  <div class="mast">
+    <p class="kick">A second lens on the Catalog of Living Intelligences</p>
+    <h1>The Traverse</h1>
+    <p class="sub">A corporate title names one question out of seventeen and calls it a career.
+    This page starts from the title you were given, shows exactly what it perceives and what it cannot,
+    and then walks you out of it. Nothing here writes to any record.</p>
+  </div>
+
+  <section class="mv" id="mv1" aria-labelledby="h1a">
+    <h2 id="h1a"><span class="n">i</span> Enter as a title</h2>
+    <p class="lede">Pick the role you hold, or the one you were last hired as. The catalog knows fifty-four.</p>
+    <div id="rolepick"></div>
+    <div id="lenscard"></div>
+  </section>
+
+  <section class="mv" id="mv2" aria-labelledby="h2a">
+    <h2 id="h2a"><span class="n">ii</span> Dissolve</h2>
+    <p class="lede">The title decomposes into intelligences: one held as home, a few reached into.
+    The rest of the field goes dark. The dark is not empty, it is specific: each unlit cell is a question
+    this title has no standing to answer.</p>
+    <div id="dissolve"></div>
+  </section>
+
+  <section class="mv" id="mv3" aria-labelledby="h3a">
+    <h2 id="h3a"><span class="n">iii</span> Traverse</h2>
+    <p class="lede">Roles are not boxes, they are edges. Any title that shares one of your lit intelligences
+    is one step away, and its reach becomes borrowable. Choose a dark intelligence and see the shortest
+    path from where you stand to someone who holds it as home.</p>
+    <div id="traverse"></div>
+  </section>
+
+  <section class="mv" id="mv4" aria-labelledby="h4a">
+    <h2 id="h4a"><span class="n">iv</span> The thin ground</h2>
+    <p class="lede" id="unstaffed-lede"></p>
+    <div id="unstaffed"></div>
+  </section>
+
+  <section class="mv" id="mv5" aria-labelledby="h5a">
+    <h2 id="h5a"><span class="n">v</span> Compose</h2>
+    <p class="lede">Now drop the title. Select the intelligences you actually carry, whatever your
+    contract says, and see whether any role in the catalog names that shape. Usually none does.
+    That gap is not a defect in you, it is the resolution limit of titles.</p>
+    <div id="compose"></div>
+  </section>
+
+  <p class="smallnote">Vocabulary is the Catalog of Living Intelligences, techne.coop/commons/intelligences.
+  Selections persist in this browser only.</p>
+</main>
+
+<script>
+const SEASONS = [
+  {id:"seed",         n:"i",   name:"Seed",         tint:"--sun-gold",   gloss:"Potential, unbroken. Is there viable material here at all?"},
+  {id:"germination",  n:"ii",  name:"Germination",  tint:"--sun-amber",  gloss:"Roots before leaves. What breaks soil first, and will it hold?"},
+  {id:"flowering",    n:"iii", name:"Flowering",    tint:"--sun-coral",  gloss:"Turning outward. Who is drawn in, and are they met?"},
+  {id:"fruiting",     n:"iv",  name:"Fruiting",     tint:"--sun-rose",   gloss:"Something exchangeable. Does the fruit exceed the tending?"},
+  {id:"reproduction", n:"v",   name:"Reproduction", tint:"--sun-violet", gloss:"Propagation. Can this be carried by people who were never here?"},
+  {id:"return",       n:"vi",  name:"Return",       tint:"--sun-blue",   gloss:"Decomposition. What goes back to the commons, and is anything left owed?"}
+];
+const SID = SEASONS.map(s=>s.id);
+const FAMILIES = [
+  {id:"desirability", name:"Desirability", q:"Does anyone want this, and can they grasp it?"},
+  {id:"viability",    name:"Viability",    q:"Will this sustain itself, and on whose terms?"},
+  {id:"feasibility",  name:"Feasibility",  q:"Can this be made, and then actually run?"},
+  {id:"legitimacy",   name:"Legitimacy",   q:"Should this exist, and by what right does it decide?"},
+  {id:"continuity",   name:"Continuity",   q:"Will the people and the record outlast the effort?"}
+];
+
+const C = [
+{id:"inquiry", name:"Inquiry", family:"desirability",
+ practices:"user & customer research · ethnography · needs assessment",
+ question:"Is this wanted, and by whom, specifically?",
+ arc:{seed:"lead",germination:"support",flowering:"support",fruiting:"support",reproduction:"support",return:"rest"},
+ notes:{seed:"Goes out and finds whether the itch is real, and whose it is. Comes back with people, not personas.",germination:"Tests the first form against the people it claims to serve, while changing it is still cheap.",flowering:"Listens to who actually arrives, which is rarely who was expected.",fruiting:"Watches the gap between what people say they will commit to and what they do.",reproduction:"Finds the next context where this pattern is already wanted.",return:"The questions have been answered. What remains is the record."},
+ presence:"Someone can name three real people who want this, and say why, without generalising.",
+ pathology:{name:"Confident invention", body:"The work accumulates features nobody asked for and gets steadily better at going nowhere. Velocity rises; relevance does not."}},
+{id:"form", name:"Form", family:"desirability", perennial:true,
+ practices:"design: interaction, visual, systems, service",
+ question:"Is this coherent, usable, and true to what it claims to be?",
+ arc:{seed:"lead",germination:"lead",flowering:"lead",fruiting:"support",reproduction:"support",return:"support"},
+ notes:{seed:"Gives the idea just enough shape to be argued with. Sketches, not specifications.",germination:"Decides what the thing structurally is, before it hardens into whatever got built first.",flowering:"Turns the surface outward: makes it legible and attractive to people who owe it nothing.",fruiting:"Removes friction at the point of exchange, where a single confusing step costs everything.",reproduction:"Makes the pattern portable: kits, templates, a design system others can hold.",return:"Leaves the shape legible to whoever finds the remains."},
+ presence:"One person is accountable for coherence across the whole, not merely for screens.",
+ pathology:{name:"Accretion", body:"The thing becomes a heap of individually correct decisions that do not add up to anything. Nobody can say what it is in a sentence, including the people making it."}},
+{id:"voice", name:"Voice", family:"desirability",
+ practices:"communications · writing · narrative · public documentation",
+ question:"Can this be understood by someone who was not in the room?",
+ arc:{seed:"support",germination:"support",flowering:"lead",fruiting:"support",reproduction:"lead",return:"lead"},
+ notes:{seed:"The first honest sentence. If the idea cannot be said, it is not yet an idea.",germination:"Holds a steady account while the thing changes underneath it.",flowering:"Carries the work outward in language that strangers can repeat accurately.",fruiting:"States the terms of exchange plainly, so agreement is real agreement.",reproduction:"Teaches the pattern so it can be carried without its originators.",return:"Writes the honest account of what happened, including what did not work."},
+ presence:"An outsider can restate the point in their own words after a single reading.",
+ pathology:{name:"Private brilliance", body:"Real work stays invisible. The project is repeatedly rediscovered from scratch by people who would gladly have joined it."}},
+{id:"gathering", name:"Gathering", family:"desirability",
+ practices:"engagement · community · participation · member relations",
+ question:"Who is arriving, and are they actually held once they do?",
+ arc:{seed:"rest",germination:"support",flowering:"lead",fruiting:"support",reproduction:"lead",return:"support"},
+ notes:{germination:"The first few contributors need a path in that somebody built on purpose.",flowering:"Pollinators arrive. Someone has to meet them, or the visit is the whole relationship.",fruiting:"Turns visitors into members, and members into people who carry the work themselves.",reproduction:"People are the seed. Propagation is social long before it is technical.",return:"Releases people well, with their contribution named and acknowledged."},
+ presence:"A newcomer's first hour has a shape that someone designed deliberately.",
+ pathology:{name:"An open door onto an empty room", body:"Attention arrives and dissipates. Interest never compounds into a body, and every wave of newcomers has to be recruited again from zero."}},
+{id:"direction", name:"Direction", family:"viability",
+ practices:"product · prioritisation · sequencing · scope",
+ question:"Is this the right thing to make now, and what are we choosing not to make?",
+ arc:{seed:"support",germination:"lead",flowering:"support",fruiting:"lead",reproduction:"support",return:"support"},
+ notes:{seed:"Names the smallest version that would still be worth doing.",germination:"Decides what breaks soil first and then defends that sequence against everything reasonable.",flowering:"Holds the line against the features that visibility always invites.",fruiting:"Trades scope for sustenance. Decides what earns its keep and what is merely beloved.",reproduction:"Separates what is core to the pattern from what was local accident.",return:"Decides what is worth salvaging and what should be allowed to end."},
+ presence:"There is a visible \u201cnot now\u201d list, and it is honoured rather than quietly reopened.",
+ pathology:{name:"Perpetual germination", body:"Everything is started, the soil is exhausted, and nothing reaches flower. The project is busy in every direction and has arrived in none."}},
+{id:"reach", name:"Reach", family:"viability",
+ practices:"marketing · distribution · positioning · discovery",
+ question:"Can this be found by the people who need it?",
+ arc:{seed:"rest",germination:"rest",flowering:"lead",fruiting:"support",reproduction:"support",return:"rest"},
+ notes:{flowering:"Places the work where its people already look, rather than where it is convenient to put it.",fruiting:"Sustains enough flow that exchange has something to work with.",reproduction:"Carries the pattern into adjacent fields where it will take."},
+ presence:"Someone can say where the next ten people will come from, and be roughly right.",
+ pathology:{name:"The beautiful thing in the woods", body:"Fully formed, entirely unfound. Excellence turns out not to be a distribution strategy."}},
+{id:"exchange", name:"Exchange", family:"viability",
+ practices:"sales · business development · partnerships · fundraising",
+ question:"Will someone commit something real to this?",
+ arc:{seed:"rest",germination:"support",flowering:"support",fruiting:"lead",reproduction:"support",return:"support"},
+ notes:{germination:"An early commitment is the strongest evidence that a need is real.",flowering:"Converts interest into intent, before enthusiasm has time to cool.",fruiting:"Turns display into sustenance and closes the loop the whole season depends on.",reproduction:"The first outside adopter is itself a form of reproduction.",return:"Winds down obligations honourably rather than letting them lapse."},
+ presence:"Someone is willing to ask directly for a commitment, and to hear no without flinching.",
+ pathology:{name:"Applause without nutrition", body:"Widely admired, structurally starving. Praise is mistaken for traction until the season it has to feed someone."}},
+{id:"reckoning", name:"Reckoning", family:"viability",
+ practices:"accounting · finance · contribution records · REA",
+ question:"Does this sustain itself, and who is owed?",
+ arc:{seed:"rest",germination:"support",flowering:"support",fruiting:"lead",reproduction:"support",return:"lead"},
+ notes:{germination:"Names what the work is costing, including the labour nobody is invoicing for.",flowering:"The cost of being visible is real, continuous, and almost never budgeted.",fruiting:"Measures whether the fruit exceeds the tending, honestly and on a known cadence.",reproduction:"Decides how surplus is shared with the people who actually made it.",return:"Settles accounts, so that nothing is left owed in the dark."},
+ presence:"Contribution is recorded as it happens, not reconstructed from memory afterwards.",
+ pathology:{name:"Invisible debt", body:"The work runs on unrecorded labour and discovers far too late that it was never solvent. The bill arrives as resentment rather than as a number."}},
+{id:"making", name:"Making", family:"feasibility",
+ practices:"software engineering · fabrication · build",
+ question:"Can this be built, and can it be held together once it is?",
+ arc:{seed:"support",germination:"lead",flowering:"support",fruiting:"support",reproduction:"lead",return:"support"},
+ notes:{seed:"Answers \u201cis this even possible\u201d cheaply, without building it.",germination:"Roots go down. The first real structure, and the one hardest to change later.",flowering:"Makes the thing survive being seen by more people than its makers.",fruiting:"Hardens whatever has quietly become load-bearing.",reproduction:"Makes it forkable, installable, genuinely someone else's.",return:"Leaves the code and the material recoverable rather than stranded."},
+ presence:"Someone is accountable not only for what works, but for what will still work in a year.",
+ pathology:{name:"Permanent prototype", body:"Convincing in a demo, incapable of load. Every success becomes an incident, because nothing was built to be depended upon."}},
+{id:"evidence", name:"Evidence", family:"feasibility", perennial:true,
+ practices:"data · analysis · instrumentation · measurement",
+ question:"What is actually happening, as opposed to what we believe is happening?",
+ arc:{seed:"support",germination:"support",flowering:"lead",fruiting:"lead",reproduction:"support",return:"support"},
+ notes:{seed:"Sizes the thing honestly, before hope has a chance to inflate it.",germination:"Instruments the first structure so that it can report on itself later.",flowering:"Separates real arrival from vanity, which look identical from inside.",fruiting:"Tells you which fruit is worth the branch it costs.",reproduction:"Shows which parts of the pattern actually travel and which were local.",return:"Leaves a record of what was true, for whoever tries this next."},
+ presence:"At least one number exists that would change someone's mind.",
+ pathology:{name:"Rule by anecdote", body:"The loudest recent story becomes strategy. Decisions track whoever spoke last rather than what is happening."}},
+{id:"operations", name:"Operations", family:"feasibility",
+ practices:"delivery · infrastructure · logistics · running the thing",
+ question:"Can this be run, day after day, by people who are tired?",
+ arc:{seed:"rest",germination:"support",flowering:"support",fruiting:"lead",reproduction:"support",return:"lead"},
+ notes:{germination:"Establishes the first repeatable rhythm, however small.",flowering:"Absorbs the shock of arrival, which is always less graceful than expected.",fruiting:"The whole difference between a harvest and a scramble.",reproduction:"Makes running it teachable, not merely survivable.",return:"Shuts things down without leaving wreckage for someone else to find."},
+ presence:"The thing runs through a weekend without a hero.",
+ pathology:{name:"Heroism as infrastructure", body:"It works because one person is not sleeping. Capacity looks fine right up until that person takes a holiday."}},
+{id:"integrity", name:"Integrity", family:"feasibility",
+ practices:"quality · security · reliability · risk",
+ question:"Will this hold under stress, error, and bad faith?",
+ arc:{seed:"rest",germination:"support",flowering:"lead",fruiting:"support",reproduction:"support",return:"support"},
+ notes:{germination:"Names what must never break, while it is still cheap to design around.",flowering:"Exposure is precisely when adversaries and accidents arrive.",fruiting:"Protects what has become genuinely valuable to lose.",reproduction:"A pattern that spreads spreads its flaws at the same rate.",return:"Data is disposed of deliberately rather than abandoned in place."},
+ presence:"Someone has written down how this fails, and was thanked rather than managed.",
+ pathology:{name:"Fair-weather system", body:"Works exactly until it matters. The first real load, or the first bad actor, becomes the discovery mechanism."}},
+{id:"lawfulness", name:"Lawfulness", family:"legitimacy",
+ practices:"legal · contracts · compliance · licensing · entity form",
+ question:"Can this exist, on what terms, and who is exposed if it cannot?",
+ arc:{seed:"support",germination:"support",flowering:"support",fruiting:"lead",reproduction:"lead",return:"lead"},
+ notes:{seed:"The shape of the container affects the shape of the plant. Choose it knowingly.",germination:"Agreements between the first contributors, written while everyone is still friendly.",flowering:"What is said in public becomes a term whether or not it was meant as one.",fruiting:"Exchange requires terms that can actually be relied upon.",reproduction:"Licences are the genetics of propagation, they decide what can be inherited.",return:"Dissolution, remaining obligations, and custody of what is left."},
+ presence:"The agreements were written before they were needed.",
+ pathology:{name:"Deferred reckoning", body:"Every unwritten understanding comes due at the worst possible moment, and almost always between people who liked each other."}},
+{id:"governance", name:"Governance", family:"legitimacy",
+ practices:"decision rights · membership · assembly · authority",
+ question:"Who decides, and by what right?",
+ arc:{seed:"support",germination:"support",flowering:"support",fruiting:"support",reproduction:"lead",return:"lead"},
+ notes:{seed:"Even two people have a governance model. Theirs is simply unstated.",germination:"The first real disagreement will find whatever structure happens to exist.",flowering:"Newcomers need to know how standing is gained, or they will assume it cannot be.",fruiting:"Surplus makes decision rights suddenly and permanently interesting.",reproduction:"What propagates is the governance at least as much as the artefact.",return:"Someone must hold the authority to declare an ending, or it will merely drift."},
+ presence:"A contributor can say how a decision gets made, and be right.",
+ pathology:{name:"The tyranny of structurelessness", body:"Power still operates. It simply cannot be named, contested, or handed on, so it accrues to whoever has been there longest."}},
+{id:"conscience", name:"Conscience", family:"legitimacy",
+ practices:"ethics · harm assessment · consent · public benefit",
+ question:"Who bears the cost of this, and did they agree to?",
+ arc:{seed:"lead",germination:"support",flowering:"support",fruiting:"support",reproduction:"lead",return:"support"},
+ notes:{seed:"The cheapest moment there will ever be to decline to build something.",germination:"Design decisions are moral decisions wearing technical clothes.",flowering:"Scale converts small harms into structural ones without changing their appearance.",fruiting:"The terms of exchange are where extraction usually hides.",reproduction:"You are propagating your assumptions along with your pattern.",return:"Leaving well is itself an ethical act, and the one most often skipped."},
+ presence:"Someone has the standing to say \u201cwe should not\u201d and be heard rather than routed around.",
+ pathology:{name:"Externalised cost", body:"The work succeeds by quietly charging someone who never agreed to pay. The books balance because the ledger is incomplete."}},
+{id:"tending", name:"Tending", family:"continuity", perennial:true,
+ practices:"facilitation · care · mutual support · group health",
+ question:"Is the group carrying this still whole?",
+ arc:{seed:"support",germination:"lead",flowering:"support",fruiting:"lead",reproduction:"support",return:"lead"},
+ notes:{seed:"Two people with an idea are already a relationship that can be spent or kept.",germination:"This is where groups break: under the first sustained, unglamorous effort.",flowering:"Visibility raises the emotional stakes for everyone involved.",fruiting:"Harvest exhausts people. A yield taken from depleted ground is borrowed, not earned.",reproduction:"Teaching is tiring in a way that building is not.",return:"Endings need holding as much as beginnings do, and are far more often mishandled."},
+ presence:"When a person goes quiet, someone notices and follows up.",
+ pathology:{name:"Burn-through", body:"The work continues and the people are replaced. Capacity looks stable on paper while knowledge, trust, and goodwill drain out continuously."}},
+{id:"memory", name:"Memory", family:"continuity", perennial:true,
+ practices:"documentation · archive · records · the commonplace",
+ question:"Will this be legible to whoever comes next: including us, later?",
+ arc:{seed:"support",germination:"support",flowering:"support",fruiting:"support",reproduction:"lead",return:"lead"},
+ notes:{seed:"The first note is the first artefact. Ideas never written down were never had.",germination:"Decisions are cheap to record and ruinously expensive to reconstruct.",flowering:"Capture what arrival taught you, while it still surprises you.",fruiting:"The record of exchange is the record of value, and later, of who is owed.",reproduction:"What propagates is what was written down. Nothing else travels.",return:"The archive is the part that actually returns to the commons."},
+ presence:"A new contributor can reconstruct why, not merely what.",
+ pathology:{name:"Oral tradition with turnover", body:"Everything important lives in a few people's heads, so every departure is an amputation and every question is asked for the third time."}}
+];
+
+/* ---------------- THE ROLE LAYER ----------------
+   Every role names one home intelligence: the question it is
+   actually accountable for, and the intelligences it reaches into
+   without owning. "limit" is the honest part: what a title does not
+   carry, however senior it sounds.
+------------------------------------------------- */
+const CLUSTERS = [
+  {id:"research-design", name:"Research & design"},
+  {id:"product-delivery", name:"Product & delivery"},
+  {id:"engineering-data", name:"Engineering & data"},
+  {id:"growth-revenue",  name:"Growth & revenue"},
+  {id:"finance-legal",   name:"Finance & legal"},
+  {id:"people-governance", name:"People & governance"},
+  {id:"leadership",      name:"Leadership & generalists"}
+];
+
+const R = [
+/* --- research & design --- */
+{id:"ux-researcher", name:"UX Researcher", cluster:"research-design", home:"inquiry", also:["form","evidence"],
+ relates:"Turns Inquiry from an opinion into a method: recruits real people, runs the study, and reports what was heard rather than what was hoped.",
+ limit:"Finds out what is wanted. Does not decide what gets made, that is Direction, and confusing the two is how research becomes a veto nobody trusts."},
+{id:"market-analyst", name:"Market Analyst", cluster:"research-design", home:"inquiry", also:["reach","evidence"],
+ relates:"Carries Inquiry at the level of the field rather than the person: who else is doing this, who is paying for it, and where the gap actually sits.",
+ limit:"Sizes a market. Cannot tell you whether any individual will use the thing, which is why it pairs badly with research absent rather than alongside."},
+{id:"product-designer", name:"Product Designer", cluster:"research-design", home:"form", also:["inquiry","direction"],
+ relates:"Holds Form where it is hardest: deciding what the thing structurally is, not merely how its surfaces look.",
+ limit:"Shapes the thing. Does not own the sequence in which it ships, though the two get conflated on small teams constantly."},
+{id:"ux-ui-designer", name:"UX / UI Designer", cluster:"research-design", home:"form", also:["inquiry"],
+ relates:"Carries Form at the surface: the flows, states, and details where coherence is either kept or quietly lost.",
+ limit:"Owns the interface, not the system behind it. Where nobody holds Form at the structural level, this role inherits an incoherence it cannot fix."},
+{id:"brand-designer", name:"Brand Designer", cluster:"research-design", home:"form", also:["voice","reach"],
+ relates:"Holds Form as identity: the visual argument for what this is and who it is for, before anyone reads a word.",
+ limit:"Makes the thing recognisable. Cannot make it wanted; a strong identity on an unwanted product just makes the failure legible."},
+{id:"design-systems", name:"Design Systems Lead", cluster:"research-design", home:"form", also:["making","memory"],
+ relates:"Carries Form into Reproduction: turns settled decisions into components others can inherit without asking.",
+ limit:"Encodes decisions. Does not make them, a system built before the form is settled hardens the wrong answer."},
+{id:"content-strategist", name:"Content Strategist", cluster:"research-design", home:"voice", also:["form","reach"],
+ relates:"Holds Voice as structure: what gets said, where, in what order, and in whose words.",
+ limit:"Shapes the message. Does not own whether the thing is worth describing."},
+{id:"copywriter", name:"Copywriter", cluster:"research-design", home:"voice", also:["reach"],
+ relates:"Carries Voice at the sentence: the level where an idea either lands with a stranger or does not.",
+ limit:"Writes the words. Where Voice is unheld structurally, good copy papers over a story nobody agreed on."},
+{id:"technical-writer", name:"Technical Writer", cluster:"research-design", home:"memory", also:["voice"],
+ relates:"Carries Memory in the form most likely to survive: documentation someone can act on without the author present.",
+ limit:"Records what is. Cannot record decisions that were never made explicitly, which is where most documentation gaps actually originate."},
+
+/* --- product & delivery --- */
+{id:"product-manager", name:"Product Manager", cluster:"product-delivery", home:"direction", also:["inquiry","evidence","exchange"],
+ relates:"Holds Direction as its full weight: not the roadmap but the refusals, and the willingness to be the person who said not now.",
+ limit:"Reaches into nearly everything, owns one thing. A PM held accountable for Making, Reach, and Tending as well is a PM about to hold none of them."},
+{id:"program-manager", name:"Program Manager", cluster:"product-delivery", home:"operations", also:["direction","tending"],
+ relates:"Carries Operations across several bodies of work at once, the rhythm, the dependencies, the things that fall between teams.",
+ limit:"Runs the machine. Does not set what the machine is for."},
+{id:"project-manager", name:"Project Manager / Delivery Lead", cluster:"product-delivery", home:"operations", also:["tending","direction"],
+ relates:"Holds Operations at the scale of one effort: the schedule, the handoffs, the unglamorous follow-through.",
+ limit:"Delivers what was decided. Where Direction is unheld, this role becomes the person who ships the wrong thing efficiently."},
+{id:"business-analyst", name:"Business Analyst", cluster:"product-delivery", home:"evidence", also:["direction","reckoning"],
+ relates:"Carries Evidence toward decisions: turns process and numbers into something a choice can rest on.",
+ limit:"Describes what is happening. Does not choose what should."},
+{id:"scrum-master", name:"Facilitator / Scrum Master", cluster:"product-delivery", home:"tending", also:["operations"],
+ relates:"Holds Tending in its procedural form: the meeting that works, the conflict surfaced early, the person given room to speak.",
+ limit:"Protects the process. Cannot substitute for care that nobody feels; ceremony without Tending held genuinely is theatre."},
+
+/* --- engineering & data --- */
+{id:"software-engineer", name:"Software Engineer", cluster:"engineering-data", home:"making", also:["integrity"],
+ relates:"Carries Making directly: the structure that either holds or does not, long after the demo.",
+ limit:"Builds it. Does not decide whether it should exist, and is poorly served by being the only person in the room when that question arrives."},
+{id:"frontend-engineer", name:"Frontend Engineer", cluster:"engineering-data", home:"making", also:["form","integrity"],
+ relates:"Holds Making at the boundary with Form, where design intent either survives implementation or quietly erodes.",
+ limit:"Implements the surface. Where Form is unheld, inherits a thousand small decisions no one is accountable for."},
+{id:"backend-engineer", name:"Backend / Platform Engineer", cluster:"engineering-data", home:"making", also:["operations","integrity"],
+ relates:"Carries Making where it is least visible and hardest to change: the structure everything else stands on.",
+ limit:"Builds the foundation. Cannot make load-bearing decisions about what the foundation is for."},
+{id:"architect", name:"Architect / Principal Engineer", cluster:"engineering-data", home:"making", also:["integrity","memory","form"],
+ relates:"Holds Making across time: the decisions that will still be constraining the work in three years, written down before they bind.",
+ limit:"Owns technical coherence. Not organisational coherence, though the two failures look identical from a distance."},
+{id:"engineering-manager", name:"Engineering Manager", cluster:"engineering-data", home:"tending", also:["making","direction","operations"],
+ relates:"The role most often mis-filed. Its home is Tending, the health of the people building, with Making as reach, not the reverse.",
+ limit:"Where this role is measured on output alone, Tending goes unheld and the team's decline is invisible until it is a resignation."},
+{id:"qa-engineer", name:"QA Engineer", cluster:"engineering-data", home:"integrity", also:["evidence"],
+ relates:"Carries Integrity as practice: finds the failure before a user does, and is valued for bad news.",
+ limit:"Finds defects. Cannot create a culture that wants to hear about them."},
+{id:"security-engineer", name:"Security Engineer", cluster:"engineering-data", home:"integrity", also:["lawfulness","conscience"],
+ relates:"Holds Integrity against bad faith specifically: the failure mode that is chosen rather than stumbled into.",
+ limit:"Defends the system. Cannot decide the organisation's appetite for risk; that is Governance."},
+{id:"sre-devops", name:"SRE / DevOps", cluster:"engineering-data", home:"operations", also:["integrity","making"],
+ relates:"Carries Operations as the difference between a thing that runs and a thing that is run: automation over heroism.",
+ limit:"Keeps it up. Where Operations is only ever held here, the rest of the team never learns what it costs."},
+{id:"it-admin", name:"IT / Systems Administrator", cluster:"engineering-data", home:"operations", also:["integrity"],
+ relates:"Holds Operations for the organisation itself: the tools, access, and continuity everyone else takes for granted.",
+ limit:"Runs the estate. Invisible when working, blamed when not, which is the signature of an intelligence held without acknowledgement."},
+{id:"data-analyst", name:"Data Analyst", cluster:"engineering-data", home:"evidence", also:["direction"],
+ relates:"Carries Evidence toward the question actually being asked, including when the honest answer is that the data cannot say.",
+ limit:"Reports what is. A dashboard is not a decision, and treating it as one is how Direction quietly goes unheld."},
+{id:"data-engineer", name:"Data Engineer", cluster:"engineering-data", home:"evidence", also:["making","operations"],
+ relates:"Holds Evidence at its foundation, whether the numbers can be trusted before anyone reasons from them.",
+ limit:"Makes measurement possible. Does not choose what is worth measuring."},
+{id:"data-scientist", name:"Data Scientist / ML Engineer", cluster:"engineering-data", home:"evidence", also:["making","conscience"],
+ relates:"Carries Evidence into inference, and, uniquely, into Conscience, since a model encodes assumptions about people at scale.",
+ limit:"Models the world. The reach into Conscience is real but rarely resourced, and unheld it becomes the project's largest unexamined risk."},
+
+/* --- growth & revenue --- */
+{id:"growth-marketer", name:"Growth Marketer", cluster:"growth-revenue", home:"reach", also:["evidence","exchange"],
+ relates:"Holds Reach experimentally: finds the channels that work by testing rather than asserting.",
+ limit:"Finds people. Cannot make the thing worth finding, and growth applied to an unheld Form only accelerates churn."},
+{id:"product-marketer", name:"Product Marketing Manager", cluster:"growth-revenue", home:"reach", also:["voice","direction","inquiry"],
+ relates:"Carries Reach at the join with Voice, positioning: what this is, who it is for, and why it is different, in words that travel.",
+ limit:"Positions the thing. Does not change the thing, though positioning failures are very often product failures wearing a disguise."},
+{id:"seo-content", name:"SEO / Content Marketer", cluster:"growth-revenue", home:"reach", also:["voice","evidence"],
+ relates:"Holds Reach through discoverability: being findable at the moment someone is already looking.",
+ limit:"Captures existing demand. Does not create it."},
+{id:"comms-pr", name:"Communications / PR Manager", cluster:"growth-revenue", home:"voice", also:["gathering","conscience","reach"],
+ relates:"Carries Voice outward under scrutiny, including when the news is bad and the account still has to be honest.",
+ limit:"Tells the story. Where Conscience is unheld, this role is asked to defend what should have been declined."},
+{id:"account-executive", name:"Account Executive / Sales", cluster:"growth-revenue", home:"exchange", also:["gathering","inquiry"],
+ relates:"Holds Exchange at the point of commitment: willing to ask directly and to hear no without flinching.",
+ limit:"Closes. Cannot make a promise the rest of the work can keep, which is where sales-led damage originates."},
+{id:"partnerships", name:"Partnerships / BD Lead", cluster:"growth-revenue", home:"exchange", also:["lawfulness","gathering","governance"],
+ relates:"Carries Exchange between organisations, where the commitment is structural rather than transactional.",
+ limit:"Opens the relationship. Every partnership is also a governance question, and this role rarely has standing to answer it."},
+{id:"account-manager", name:"Account Manager / Customer Success", cluster:"growth-revenue", home:"gathering", also:["exchange","inquiry","tending"],
+ relates:"Holds Gathering after the commitment, whether the people who said yes are actually held once they have.",
+ limit:"Retains people. Where the thing itself does not deliver, this role absorbs the gap personally until it cannot."},
+{id:"community-manager", name:"Community Manager", cluster:"growth-revenue", home:"gathering", also:["voice","tending"],
+ relates:"Carries Gathering as its own craft: the newcomer's first hour, the norms, the reason people stay.",
+ limit:"Builds the room. Cannot be the only one in it, and a community held by one person is a community with a single point of failure."},
+{id:"devrel", name:"Developer Relations", cluster:"growth-revenue", home:"gathering", also:["voice","memory","reach"],
+ relates:"Holds Gathering and Voice together for a technical audience: the pattern taught rather than pitched.",
+ limit:"Sits between marketing and engineering and is often owned by neither, which makes its home intelligence unusually easy to lose."},
+{id:"support-lead", name:"Support Lead", cluster:"growth-revenue", home:"gathering", also:["evidence","integrity","inquiry"],
+ relates:"Carries Gathering where the friction actually is, and hears the failure reports first.",
+ limit:"Answers the question. Where that signal never reaches Direction, the same question is answered forever."},
+
+/* --- finance & legal --- */
+{id:"bookkeeper", name:"Bookkeeper / Controller", cluster:"finance-legal", home:"reckoning", also:["lawfulness"],
+ relates:"Holds Reckoning as discipline: contribution and cost recorded as they happen rather than reconstructed later.",
+ limit:"Keeps the record straight. Does not decide what the money is for."},
+{id:"finance-lead", name:"Finance Lead / CFO", cluster:"finance-legal", home:"reckoning", also:["direction","governance","evidence"],
+ relates:"Carries Reckoning into decisions, whether the fruit exceeds the tending, and for how much longer it will.",
+ limit:"Names the constraint. Where Reckoning is the only intelligence with standing, every other question becomes a cost line."},
+{id:"pricing-analyst", name:"Pricing / Revenue Analyst", cluster:"finance-legal", home:"reckoning", also:["evidence","exchange"],
+ relates:"Holds Reckoning at the point of exchange, what this is worth, to whom, and what the terms actually earn.",
+ limit:"Sets the number. Cannot set what the number buys."},
+{id:"grant-writer", name:"Fundraiser / Grant Writer", cluster:"finance-legal", home:"exchange", also:["voice","reckoning","conscience"],
+ relates:"Carries Exchange where the commitment is made by an institution, and Voice does most of the persuading.",
+ limit:"Wins the commitment. Restricted funding reshapes Direction quietly, and this role rarely holds the authority to refuse it."},
+{id:"general-counsel", name:"General Counsel / Legal", cluster:"finance-legal", home:"lawfulness", also:["governance","conscience"],
+ relates:"Holds Lawfulness ahead of need: the agreements written while everyone is still friendly.",
+ limit:"Says what is permitted. Does not say what is right; treating legal review as an ethics review leaves Conscience unheld."},
+{id:"contracts", name:"Contracts / Procurement", cluster:"finance-legal", home:"lawfulness", also:["exchange","reckoning"],
+ relates:"Carries Lawfulness at the boundary with Exchange: the terms that make a commitment relyable.",
+ limit:"Papers the deal. Does not judge whether the deal was wise."},
+{id:"compliance", name:"Compliance / Privacy Officer", cluster:"finance-legal", home:"lawfulness", also:["integrity","conscience","memory"],
+ relates:"Holds Lawfulness as ongoing condition rather than one-time filing: the obligations that accrue as the work grows.",
+ limit:"Meets the standard. A standard met is a floor, not a defence, and mistaking one for the other is a common way Conscience goes dark."},
+
+/* --- people & governance --- */
+{id:"hr-partner", name:"People / HR Partner", cluster:"people-governance", home:"tending", also:["governance","lawfulness"],
+ relates:"Carries Tending at organisational scale: capacity, conflict, and whether people are actually alright.",
+ limit:"Holds the people function. Where it reports only to management, the Tending it carries is structurally compromised."},
+{id:"chief-of-staff", name:"Chief of Staff", cluster:"people-governance", home:"tending", also:["direction","memory","operations"],
+ relates:"Holds Tending and Memory for a leadership group, what was decided, who is carrying it, and who is close to spent.",
+ limit:"Derives authority from one person. Vanishes when that person does, along with everything held only informally."},
+{id:"board-director", name:"Board Director", cluster:"people-governance", home:"governance", also:["conscience","reckoning","lawfulness"],
+ relates:"Carries Governance as its formal instrument: the decision rights the organisation actually runs on.",
+ limit:"Governs. Does not operate, and a board that drifts into Operations leaves Governance unheld precisely when it matters."},
+{id:"corporate-secretary", name:"Corporate Secretary / Steward", cluster:"people-governance", home:"memory", also:["governance","lawfulness"],
+ relates:"Holds Memory in its governing form: the minutes, the resolutions, the record of what was actually adopted.",
+ limit:"Keeps the record. Does not make the decisions the record preserves."},
+{id:"trust-safety", name:"Trust & Safety Lead", cluster:"people-governance", home:"conscience", also:["integrity","gathering","governance"],
+ relates:"Carries Conscience operationally, who is being harmed by this working as intended, not by it breaking.",
+ limit:"Names the harm. Needs standing to stop the work, and without it the role documents damage it cannot prevent."},
+{id:"impact-lead", name:"Sustainability / Impact Lead", cluster:"people-governance", home:"conscience", also:["evidence","voice","reckoning"],
+ relates:"Holds Conscience at the level of external cost, what this charges to people and places outside the ledger.",
+ limit:"Measures and reports. Where impact reporting is Voice's asset rather than Conscience's instrument, the role becomes decoration."},
+{id:"knowledge-manager", name:"Knowledge Manager / Archivist", cluster:"people-governance", home:"memory", also:["voice","lawfulness"],
+ relates:"Carries Memory as infrastructure: findable, durable, and legible to someone who was never here.",
+ limit:"Stewards the record. Cannot make a culture write things down."},
+
+/* --- leadership & generalists --- */
+{id:"founder", name:"Founder", cluster:"leadership", home:"direction", also:["conscience","exchange","voice","tending"],
+ relates:"Holds Direction by default and reaches into nearly everything: the widest span in the catalog, and the least sustainable.",
+ limit:"Carrying many intelligences at once is not the same as holding them. The founder's real task is to hand each one to someone whose home it is."},
+{id:"exec-director", name:"Executive Director / CEO", cluster:"leadership", home:"governance", also:["direction","exchange","tending","reckoning"],
+ relates:"Carries Governance as accountability upward and Direction downward, which is why the role is structurally overloaded.",
+ limit:"Where the same person holds Governance and Direction and Reckoning, no one is positioned to contest any of them."},
+{id:"creative-director", name:"Creative Director", cluster:"leadership", home:"form", also:["voice","tending","direction"],
+ relates:"Holds Form at the level of the whole body of work: coherence across everything the studio makes, not one piece.",
+ limit:"Owns coherence. Does not own feasibility, and a vision unheld by Making becomes a standing argument."},
+{id:"generalist", name:"Freelance Generalist / Full-stack", cluster:"leadership", home:"making", also:["form","direction","operations"],
+ relates:"Reaches across several intelligences by necessity: the common condition of small and early work.",
+ limit:"Span is not depth. The honest reading of a solo project is not that every question is held, but that most are being visited."}
+];
+
+/* ---------------- derived ---------------- */
+const intel = id => C.find(x=>x.id===id);
+const roleOf = id => R.find(x=>x.id===id);
+const famOf = id => FAMILIES.find(f=>f.id===id);
+const litOf = r => [r.home, ...(r.also||[])];
+
+const HOMES = {};
+C.forEach(c=>HOMES[c.id]=[]);
+R.forEach(r=>HOMES[r.home].push(r.id));
+
+/* role adjacency: two roles connect where their intelligences intersect */
+function sharedIntel(a,b){
+  const sa = new Set(litOf(a));
+  return litOf(b).filter(x=>sa.has(x));
+}
+
+/* ---------------- state ---------------- */
+const KEY = "techne:the-traverse:v1";
+let state = {role:null, goal:null, pick:[]};
+try{ const s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s==="object") state = Object.assign(state,s); }catch(e){}
+/* hash overrides, for deep links: #role=product-manager&goal=conscience&pick=voice,tending */
+(function(){
+  const h = new URLSearchParams(location.hash.replace(/^#/,""));
+  if(h.get("role") && roleOf(h.get("role"))) state.role = h.get("role");
+  if(h.get("goal") && intel(h.get("goal"))) state.goal = h.get("goal");
+  if(h.get("pick")) state.pick = h.get("pick").split(",").filter(id=>intel(id));
+})();
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+const $ = s=>document.querySelector(s);
+const esc = s=>String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------------- movement 1: enter ---------------- */
+function renderRolePick(){
+  const el = $("#rolepick");
+  let html = '<ul class="rolepick">';
+  CLUSTERS.forEach(cl=>{
+    html += `<li class="rp-cluster">${esc(cl.name)}</li>`;
+    R.filter(r=>r.cluster===cl.id).forEach(r=>{
+      const on = state.role===r.id;
+      html += `<li><button class="rolebtn" data-role="${r.id}" aria-pressed="${on}">${esc(r.name)}</button></li>`;
+    });
+  });
+  html += "</ul>";
+  el.innerHTML = html;
+  el.querySelectorAll(".rolebtn").forEach(b=>b.addEventListener("click",()=>{
+    state.role = b.dataset.role; state.goal = null; save(); renderAll();
+    $("#lenscard").scrollIntoView({behavior:"smooth", block:"nearest"});
+  }));
+}
+
+function renderLens(){
+  const el = $("#lenscard");
+  if(!state.role){ el.innerHTML = '<p class="gate">No title chosen yet. The lens cannot narrow until it exists.</p>'; return; }
+  const r = roleOf(state.role);
+  const h = intel(r.home);
+  const cl = CLUSTERS.find(c=>c.id===r.cluster);
+  el.innerHTML = `
+  <div class="lenscard">
+    <div class="hd">
+      <h3>${esc(r.name)}</h3>
+      <span class="cl">${esc(cl.name)}</span>
+    </div>
+    <div class="bd">
+      <p class="holds">Accountable for one question</p>
+      <p class="homeq">${esc(h.question)}</p>
+      <p class="fraction">${esc(h.name)}, 1 of 17. The other sixteen questions exist whether or not this title can see them.</p>
+      <div class="field" role="img" aria-label="Seventeen intelligences; only ${esc(h.name)} is held by this title.">
+        ${C.map(c=>{
+          const isHome = c.id===r.home;
+          return `<div class="cell${isHome?" lit home":""}"><span class="nm">${esc(c.name)}</span><span class="mk">${isHome?"home":"&nbsp;"}</span></div>`;
+        }).join("")}
+      </div>
+      <div class="limitbox">
+        <p class="lab">What this title does not carry</p>
+        <p>${esc(r.limit)}</p>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---------------- movement 2: dissolve ---------------- */
+function renderDissolve(){
+  const el = $("#dissolve");
+  if(!state.role){ el.innerHTML = '<p class="gate">Enter as a title above and it will decompose here.</p>'; return; }
+  const r = roleOf(state.role);
+  const lit = new Set(litOf(r));
+  const dark = C.filter(c=>!lit.has(c.id));
+  el.innerHTML = `
+    <div class="field" role="img" aria-label="${esc(r.name)}: ${lit.size} of 17 intelligences lit, ${dark.length} dark.">
+      ${C.map(c=>{
+        const isHome = c.id===r.home, isAlso = lit.has(c.id)&&!isHome;
+        return `<div class="cell${isHome?" lit home":isAlso?" lit also":""}">
+          <span class="nm">${esc(c.name)}</span>
+          <span class="mk">${isHome?"home":isAlso?"reach":"dark"}</span></div>`;
+      }).join("")}
+    </div>
+    <div class="fieldkey">
+      <span class="k"><span class="sw home"></span> home, held</span>
+      <span class="k"><span class="sw also"></span> reach, borrowed</span>
+      <span class="k"><span class="sw"></span> dark, unperceived</span>
+    </div>
+    <p class="pathnote">${esc(r.name)} lights ${lit.size} of 17. The remaining ${dark.length} are not absences of skill,
+    they are questions this title is structurally not asked. Named:</p>
+    <ul class="darklist">
+      ${dark.map(c=>`<li><span class="dn">${esc(c.name)}</span><span class="dq">${esc(c.question)}</span></li>`).join("")}
+    </ul>`;
+}
+
+/* ---------------- movement 3: traverse ---------------- */
+function shortestPath(fromRoleId, goalIntelId){
+  /* BFS over roles; arrival = any role whose home is the goal */
+  const start = roleOf(fromRoleId);
+  if(litOf(start).includes(goalIntelId)) return {already:true};
+  const prev = {}; const via = {};
+  const q = [start.id]; const seen = new Set([start.id]);
+  while(q.length){
+    const cur = q.shift();
+    const curR = roleOf(cur);
+    for(const nxt of R){
+      if(seen.has(nxt.id)) continue;
+      const sh = sharedIntel(curR, nxt);
+      if(!sh.length) continue;
+      seen.add(nxt.id); prev[nxt.id]=cur; via[nxt.id]=sh;
+      if(nxt.home===goalIntelId){
+        const path=[]; let p=nxt.id;
+        while(p!==start.id){ path.unshift({role:p, via:via[p]}); p=prev[p]; }
+        return {path};
+      }
+      q.push(nxt.id);
+    }
+  }
+  return {unreachable:true};
+}
+
+function renderTraverse(){
+  const el = $("#traverse");
+  if(!state.role){ el.innerHTML = '<p class="gate">The graph needs a starting node. Enter as a title above.</p>'; return; }
+  const r = roleOf(state.role);
+  const lit = new Set(litOf(r));
+  let html = `<p class="pathnote">From ${esc(r.name)}, choose a question you currently cannot see:</p>
+  <div class="goalpick" role="group" aria-label="Choose a dark intelligence to traverse toward">`;
+  C.forEach(c=>{
+    const isLit = lit.has(c.id);
+    html += `<button class="goalbtn" data-goal="${c.id}" aria-pressed="${state.goal===c.id}"
+      ${isLit?"disabled title=\"Already lit for this title\"":""}>${esc(c.name)}</button>`;
+  });
+  html += "</div><div class='pathout' id='pathout' aria-live='polite'></div>";
+  el.innerHTML = html;
+  el.querySelectorAll(".goalbtn:not(:disabled)").forEach(b=>b.addEventListener("click",()=>{
+    state.goal = b.dataset.goal; save(); renderTraverse();
+  }));
+  if(!state.goal || lit.has(state.goal)) return;
+  const goal = intel(state.goal);
+  const res = shortestPath(r.id, state.goal);
+  const out = $("#pathout");
+  if(res.unreachable){ out.innerHTML = `<p class="pathnote">No path: no title in the catalog can lend you ${esc(goal.name)}. It can only be carried on purpose. See movement iv.</p>`; return; }
+  let hops = `<div class="hop"><p class="via">You stand here</p><p class="who">${esc(r.name)}</p><p class="why">Lit: ${litOf(r).map(id=>intel(id).name).join(", ")}</p></div>`;
+  res.path.forEach((h,i)=>{
+    const hr = roleOf(h.role);
+    const last = i===res.path.length-1;
+    hops += `<div class="hop${last?" arrive":""}">
+      <p class="via">${last?"arrives at "+esc(goal.name)+", via shared":"one step, via shared"} ${h.via.map(id=>esc(intel(id).name)).join(" and ")}</p>
+      <p class="who">${esc(hr.name)}</p>
+      <p class="why">${last?`Holds ${esc(goal.name)} as home: <em>${esc(goal.question)}</em>`:`Borrow its reach: ${litOf(hr).map(id=>esc(intel(id).name)).join(", ")}`}</p>
+    </div>`;
+  });
+  const steps = res.path.length;
+  hops += `<p class="pathnote">${steps===1?"One conversation":steps+" steps"}. The lane between you and ${esc(goal.name)}
+  is not a wall, it is ${steps===1?"a single shared question":"a short chain of shared questions"}. Titles isolate only
+  when nobody walks the edges.</p>`;
+  out.innerHTML = hops;
+}
+
+/* ---------------- movement 4: computed thin ground ---------------- */
+function renderUnstaffed(){
+  const unhomed = C.filter(c=>HOMES[c.id].length===0);
+  const lede = $("#unstaffed-lede");
+  const el = $("#unstaffed");
+  if(unhomed.length){
+    lede.textContent = "Computed from the catalog: these intelligences are named as home by no title at all. No hire covers them. They are carried only by a person electing to carry them.";
+    el.innerHTML = unhomed.map(c=>unRow(c, "No title names this home.")).join("");
+    return;
+  }
+  const minHome = Math.min(...C.map(c=>HOMES[c.id].length));
+  const thin = C.filter(c=>HOMES[c.id].length===minHome);
+  lede.textContent = "Computed from the catalog: every one of the seventeen questions is named as home by at least one title, so nothing here is formally unstaffed. But the ground is thin. These are the questions held by the fewest titles, " + minHome + " of 54 each. Lose those hires and the question goes dark for the whole body of work. Each one fails in a known way:";
+  el.innerHTML = thin.map(c=>{
+    const holders = HOMES[c.id].map(id=>roleOf(id).name).join(" and ");
+    return unRow(c, "Held as home only by " + holders + ".");
+  }).join("");
+}
+function unRow(c, who){
+  return `<div class="unrow">
+    <h3>${esc(c.name)}</h3>
+    <p class="uq">${esc(c.question)}</p>
+    <p class="who">${esc(who)}</p>
+    <div class="pathology">
+      <p class="pn">When unheld: ${esc(c.pathology.name)}</p>
+      <p>${esc(c.pathology.body)}</p>
+    </div>
+  </div>`;
+}
+
+/* ---------------- movement 5: compose ---------------- */
+function renderCompose(){
+  const el = $("#compose");
+  let html = `<div class="pickfield">` + C.map(c=>`
+    <label class="pk">
+      <input type="checkbox" data-pick="${c.id}" ${state.pick.includes(c.id)?"checked":""}>
+      <span class="pn">${esc(c.name)}<span class="pf">${esc(famOf(c.family).name)}</span></span>
+    </label>`).join("") + `</div><div class="composeout" id="composeout" aria-live="polite"></div>`;
+  el.innerHTML = html;
+  el.querySelectorAll("input[data-pick]").forEach(i=>i.addEventListener("change",()=>{
+    const id = i.dataset.pick;
+    state.pick = i.checked ? [...new Set([...state.pick,id])] : state.pick.filter(x=>x!==id);
+    save(); renderComposeOut();
+  }));
+  renderComposeOut();
+}
+function renderComposeOut(){
+  const out = $("#composeout");
+  if(state.pick.length===0){ out.innerHTML = '<p class="gate">Select what you carry. The catalog will answer with what it can and cannot name.</p>'; return; }
+  const mine = new Set(state.pick);
+  const exact = R.filter(r=>{
+    const s = litOf(r);
+    return s.length===mine.size && s.every(id=>mine.has(id));
+  });
+  const scored = R.map(r=>{
+    const s = new Set(litOf(r));
+    const overlap = state.pick.filter(id=>s.has(id));
+    const miss = state.pick.filter(id=>!s.has(id));
+    return {r, overlap, miss};
+  }).filter(x=>x.overlap.length>0)
+    .sort((a,b)=> b.overlap.length-a.overlap.length || a.miss.length-b.miss.length || litOf(a.r).length-litOf(b.r).length)
+    .slice(0,6);
+  const names = state.pick.map(id=>intel(id).name).join(", ");
+  let html = `<div class="verdict">`;
+  if(exact.length){
+    html += `<p class="big">${exact.map(e=>esc(e.r?e.r.name:e.name)).join(", ")} names exactly this shape.</p>
+    <p>Rare. Most compositions exceed every title; yours happens to have one.</p>`;
+  } else {
+    html += `<p class="big">No title in the catalog names this composition.</p>
+    <p>You carry ${esc(names)}. Fifty-four roles were checked; none holds that set. The shape you actually work in
+    has no job description, which says something about job descriptions and nothing against you.</p>`;
+  }
+  html += `</div>
+  <table class="near">
+    <caption class="visually-hidden">Nearest titles by overlap with your composition</caption>
+    <thead><tr><th scope="col">Nearest title</th><th scope="col">Shares</th><th scope="col">Cannot see of yours</th><th scope="col">Overlap</th></tr></thead>
+    <tbody>
+    ${scored.map(x=>`<tr>
+      <td class="rn">${esc(x.r.name)}</td>
+      <td>${x.overlap.map(id=>esc(intel(id).name)).join(", ")}</td>
+      <td class="miss">${x.miss.length?x.miss.map(id=>esc(intel(id).name)).join(", "):"nothing, but it also carries more than you selected"}</td>
+      <td class="frac">${x.overlap.length} / ${state.pick.length}</td>
+    </tr>`).join("")}
+    </tbody>
+  </table>`;
+  out.innerHTML = html;
+}
+
+/* ---------------- mode toggle ---------------- */
+$("#modetoggle").addEventListener("click",()=>{
+  const cur = document.documentElement.getAttribute("data-mode");
+  const nxt = cur==="dark"?"light":"dark";
+  document.documentElement.setAttribute("data-mode",nxt);
+  try{ localStorage.setItem("techne-mode",nxt); }catch(e){}
+});
+
+function renderAll(){
+  renderRolePick(); renderLens(); renderDissolve(); renderTraverse(); renderUnstaffed(); renderCompose();
+}
+renderAll();
+/* deep links land on the movement they describe */
+(function(){
+  const h = new URLSearchParams(location.hash.replace(/^#/,""));
+  const target = h.get("pick") ? "#mv5" : h.get("goal") ? "#mv3" : null;
+  if(target) document.querySelector(target).scrollIntoView();
+})();
+</script>
+</body>
+</html>
