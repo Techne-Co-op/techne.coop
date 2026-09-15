@@ -1,21 +1,23 @@
-# Verification walk 04 · the steward's second sitting, 2026-09-05 · 23 verdicts, seven marks back
+# Verification walk 04 · the steward's second sitting, 2026-09-05 · 29 verdicts, nine marks back
 
 Standing: the walker's testimony, carried into the record by this batch (X-44). Walked by Todd R. Youngblood on 2026-09-05 against main at 90cfa57, on the signed-in walk surface at /intranet/verification/ (X-28), with the cards read from the run-book at /commons/build/verification/. Unlike walk 03, which reached the record as a written write-up posted to a channel, this sitting is read straight off the live CIS: every line below is a `verdict.spoken` event in the events table of project `ujujwgopdwirebgcpekc`, spoken as the walk surface speaks each verdict into the record as it is given (X-32). The actor on every one of them is `25a88d3a`, which resolves in the agents table to Todd R. Youngblood, kind person. The export was taken 2026-09-05 at about 12:55Z on the walker's own word in Buzz #intranet-dev, event `a1f03474dd15218df9f65f67872ad209090ad44c78e0c81f69bac3b786ae7b29` ("more of the estate has been walked"), and is archived unedited in the cooperative workspace as `RESEARCH/intranet/2026-09-05_steward-verification-walk-04.md`. Every sentence below is quoted from that export and is the walker's own; nothing here is the recording agent's reading of what he saw.
 
-**This is the first sitting in which the record steps marks backward on a walker's word alone.** Walk 03 gave twenty-nine pieces the verified mark on 2026-09-04, and one of them, L-02, came back the same evening on the walker's own amendment. This walk is a re-walk: every card in it already stood verified when he opened it, from walks 01, 02 or 03. Fourteen of the verdicts hold and add a real sentence where several entries had only a short one. Seven do not hold, and seven marks return from `open · verified` to `open · delivered`. Nothing here moves a mark forward.
+He kept walking after that export was taken. Six further verdicts, spoken between 12:54:00Z and 13:03:45Z, were read off the same table at about 13:52Z on his second word in the same channel, event `8b808068f5a56b2d4a99e830b80e2cf72b9f903d2803e7bbf3412d0ff2b5bdb2` ("more of the walk has been completed"), and appended unedited to the same archived source under "Continuation". They belong to this sitting and are carried here with the rest, in the section "The verdicts spoken after the first export". Twenty-nine verdicts in all.
+
+**This is the first sitting in which the record steps marks backward on a walker's word alone.** Walk 03 gave twenty-nine pieces the verified mark on 2026-09-04, and one of them, L-02, came back the same evening on the walker's own amendment. This walk is a re-walk: every card in it already stood verified when he opened it, from walks 01, 02 or 03. Eighteen of the verdicts hold and add a real sentence where several entries had only a short one. Nine do not hold, and nine marks return from `open · verified` to `open · delivered`. Nothing here moves a mark forward.
 
 ## What the sitting moved
 
-- **Twenty-three verdicts spoken on 2026-09-05**, between 11:42:17Z and 12:29:29Z, across twenty-one distinct cards: 14 holds, 7 fails, 2 deferred. FORMATION-01 drew three of them inside seventy-eight seconds and is set out on its own below.
+- **Twenty-nine verdicts spoken on 2026-09-05**, between 11:42:17Z and 13:03:45Z, across twenty-seven distinct cards: 18 holds, 9 fails, 2 deferred. FORMATION-01 drew three of them inside seventy-eight seconds and is set out on its own below.
 - **No mark moves forward.** Every card walked already stood verified; a hold on a verified card adds evidence and moves nothing.
-- **Thirteen holds land on pieces already verified**, so no mark moves for them: DOC-01, U-10, P-12, X-13, A-01, L-03, X-11, L-01, L-06, X-14, X-15, X-16, U-21. Each entry takes the walker's sentence as evidence dated 2026-09-05, beside whatever earlier sitting's sentence it already carried. Nothing earlier is edited or replaced.
-- **Seven fails**, and seven marks step back from `open · verified` to `open · delivered`: U-07, L-05, U-22, MM-01, X-18, X-19, X-17. A backward step is drawn as a real step, the way F-01's history is drawn in the succession derivation (TR-09), and not smoothed away.
-- **Four named defects filed**, at `anticipated`, unrepaired: U-07 filed as **U-36**, L-05 as **L-11**, U-22 as **U-37**, MM-01 as **MM-02**. Each failing piece keeps its own failed verdict and its `open · delivered` mark, and carries the address of the defect filed against it.
+- **Seventeen holds land on pieces already verified**, so no mark moves for them: DOC-01, U-10, P-12, X-13, A-01, L-03, X-11, L-01, L-06, X-14, X-15, X-16, U-21, TR-04, TR-10, TR-09, TR-02. Each entry takes the walker's sentence as evidence dated 2026-09-05, beside whatever earlier sitting's sentence it already carried. Nothing earlier is edited or replaced.
+- **Nine fails**, and nine marks step back from `open · verified` to `open · delivered`: U-07, L-05, U-22, MM-01, X-18, X-19, X-17, A-02, TR-08. A backward step is drawn as a real step, the way F-01's history is drawn in the succession derivation (TR-09), and not smoothed away.
+- **Six named defects filed**, at `anticipated`, unrepaired: U-07 filed as **U-36**, L-05 as **L-11**, U-22 as **U-37**, MM-01 as **MM-02**, A-02 as **A-06**, TR-08 as **TR-13**. Each failing piece keeps its own failed verdict and its `open · delivered` mark, and carries the address of the defect filed against it.
 - **Three fails share one cause, and this batch cures the cause.** X-18, X-19 and X-17 all failed on the same red run, #652 on main, and all three of his sentences name the same finding: `X-43: merged into main, no address in the ledger`. No defect piece is filed for those three, because the defect was a missing address and X-44 mints it. See "The cause the batch cures" below.
 - **Two deferrals**, both on FORMATION-01, the second of them his standing verdict for the sitting.
-- **Six addresses minted**: X-43 and X-44 in the cross-cutting bed, U-36 and U-37 in the shell bed, L-11 in the lexicon bed, MM-02 in the horizon bed.
+- **Eight addresses minted**: X-43 and X-44 in the cross-cutting bed, U-36 and U-37 in the shell bed, L-11 in the lexicon bed, MM-02 in the horizon bed, A-06 in the agency bed, TR-13 in the transducer bed. A-05 is already held by the staged grant register, so the agency defect takes the next free address rather than the next number after A-04.
 
-The census after this batch reads 200 addresses: 71 verified, 1 attested (G0), 40 delivered, of which 16 are walkable in the run-book, 47 anticipated, 36 drafted, 5 blocked on named decisions. Before it, on 2026-09-04, the same ledger read 194 addresses with 78 verified and 31 delivered.
+The census after this batch reads 202 addresses: 69 verified, 1 attested (G0), 42 delivered, of which 18 are walkable in the run-book, 49 anticipated, 36 drafted, 5 blocked on named decisions. Before it, on 2026-09-04, the same ledger read 194 addresses with 78 verified and 31 delivered. Verified falls by nine across this sitting, the first time that figure has gone down.
 
 ## The count, and one line not from this sitting
 
@@ -23,7 +25,9 @@ The export carries twenty-four rows and opens with the figure 24. The first of t
 
 > 2026-09-04 18:02:33 L-02 fails | L-02 holds. | actor 25a88d3a
 
-That is the walker's amendment to walk 03, already carried into the record by PR #295 and already standing on L-02's entry and on the walk-03 sheet. It is listed here for completeness and is not re-applied; L-02's mark is not touched by this batch. Twenty-three verdicts, then, belong to 2026-09-05, and those twenty-three are what this sheet carries.
+That is the walker's amendment to walk 03, already carried into the record by PR #295 and already standing on L-02's entry and on the walk-03 sheet. It is listed here for completeness and is not re-applied; L-02's mark is not touched by this batch. Twenty-three verdicts, then, belong to 2026-09-05 in that first export.
+
+The continuation carries six more, and opens with the figure 6. All six are from 2026-09-05 and all six are this sitting's, spoken between 12:54:00Z and 13:03:45Z: he did not stop walking when the export was taken, he stopped when he stopped. Twenty-nine verdicts belong to the sitting and twenty-nine are what this sheet carries.
 
 ## The cause the batch cures
 
@@ -193,10 +197,70 @@ His sentence carries one em dash. It is quoted here byte for byte in a said bloc
 
 This one was visible a day earlier and was not read as a defect. Walk 03's sentence on MM-01 reported the very same fact, that the Horizon section had moved from the public /legal/ to the members' shelf since the FORMATION-01 restructuring, and gave the verdict holds. Walking it again he read the same fact against the card's own words, which name /legal/, and called it a fail. Nothing about the estate changed between the two sittings. Both verdicts stand on the entry.
 
+## The verdicts spoken after the first export
+
+Six more, from the continuation, in the order he gave them. The first export was taken at 12:55Z; these run from 12:54:00Z to 13:03:45Z, and the two ranges overlap by a minute, which is what taking an export from a live table while the walker is still walking looks like. Nothing here is a second sitting. It is the same sitting, read twice.
+
+Four of the six sentences carry a double hyphen, `--`, where the walker used a dash. Every one is quoted below byte for byte, exactly as the export holds it. On the ledger entries, which feed the estate's authored pages, that mark is carried as a comma with the substitution stated on the entry's own face; the archived export and these blocks are unedited.
+
+### A-02 · The desk · fails · 12:54:00Z
+
+> The refusal rule (Common Agency §11) is reachable from the page, but the standing Direction from Jul 27 shows only the "given" tag with no steps written underneath it five weeks later -- the page shows the Direction exists, not its arc.
+
+Mark: **stepped back**, `open · verified` → `open · delivered`. The defect is filed as **A-06** and is not repaired in this batch.
+
+A-02's acceptance asks for three things: give a Direction from the desk, watch its arc, find a refusal's rule on the page. Two of the three he read and found sound in both sittings. The third is the arc, and the arc has nothing to draw: the estate's one standing Direction, his own of 2026-07-27, has been sitting under a `given` tag for five weeks with no event after it. The page proves the Direction exists. It does not show the Direction moving, because the Direction has not moved, and it says nothing about that either.
+
+Walk 03 held this card on the sentence "My standing Direction (d6e22f76, draft, given 2026-07-27) shows its arc on the desk, and the refusal rule is cited by name to AGY §11 right on the page." The same page, the same Direction, five weeks of stillness in both readings; the second reading asks what an arc showing one point actually shows. The estate did not change between the sittings and the reading got stricter. Both verdicts stand on the entry, in the order he gave them.
+
+### TR-04 · The surface, deployed · holds · 12:56:22Z
+
+> Stamp reads 2026-09-05 at 8c62442; main's head is one merge commit ahead (90cfa57) from the same day, well inside the one-day tolerance.
+
+Mark: already `open · verified` from walk 03. Nothing moves; the sentence is added.
+
+He walked this card twice, on two different cuts, and it held on both: walk 03 read the stamp at cf70a60, walk 04 at 8c62442. The second reading is the cut **this batch sits on**. X-44 was branched from 90cfa57, the merge commit one ahead of the stamp he read, so the estate he verified here is the estate this record was written from.
+
+### TR-08 · The walk · fails · 12:58:24Z
+
+> Took the guided walk end to end (7 slides, well under three minutes read aloud) and it covers Journeys, Standing, Maturation, Tending, and Composition -- but jumps straight from Tending to Composition and never visits the Succession view at all.
+
+Mark: **stepped back**, `open · verified` → `open · delivered`. The defect is filed as **TR-13** and is not repaired in this batch.
+
+Two sittings, seven cards, the same seven. Walk 03's sentence listed six things the walk covers and counted "succession's corrections" among them; walk 04 counted the views the walk actually opens and succession is not one of them. The card's acceptance is that a person who has never seen the estate can, after the walk alone, say what each view shows and what it refuses to show, and a view the walk never visits is a view the walk cannot teach. The timing half of the acceptance he confirmed again, well under three minutes.
+
+There is something particular about which view got skipped. Succession is the view that draws backward steps as real steps rather than smoothing them, the discipline this whole sheet runs on. It is the one the walk leaves out.
+
+### TR-10 · The seam · holds · 12:59:46Z
+
+> The view's own header text names the flat layer directly (14 pieces stuck at their first mark) and clicking F-01's bar opens a panel that lists its backward step (verified to in-session and back) in order, no ledger lookup needed.
+
+Mark: already `open · verified` from walk 03. Nothing moves; the sentence is added.
+
+TR-10's acceptance has two halves: a reader finds the flat layer without being told it is there, and can say from the panel alone what the backward steps were. Walk 03's sentence reached the first half. This one reaches both, and names the second explicitly: no ledger lookup needed.
+
+### TR-09 · The succession derivation · holds · 13:03:01Z
+
+> F-01's panel draws verified→in-session→verified as three separate same-day (2026-07-24) entries rather than collapsing them, with the backward step marked, not smoothed away -- I don't have independent memory of the other pieces' history to hand-trace, but this matches the ledger's own note on the address.
+
+Mark: already `open · verified` from walk 03. Nothing moves; the sentence is added.
+
+This sentence reaches the part of the acceptance walk 03's did not: same-day sequences preserved rather than collapsed, demonstrated against F-01. It also names its own limit, and names it correctly. The acceptance asks for three pieces chosen by a person and hand traced; he traced one and says so. That is a hold with the scope of the hold on its face, which is worth more to the record than a fuller claim would be.
+
+He walked TR-09 and TR-10 within four minutes of each other, on the same panel, from the two sides the two cards ask about: the derivation underneath and the seam on the surface.
+
+### TR-02 · The generator · holds · 13:03:45Z
+
+> Read run #100 on commit 8c62442: the "commit the refreshed cut" step ran, found the record had moved, and committed the fresh cut as 90cfa57 -- the generator behaved exactly as documented, reading only the repo.
+
+Mark: already `open · verified` from walk 03. Nothing moves; the sentence is added.
+
+Like TR-04, this reads the cut **this branch sits on**: 8c62442 stamped, 90cfa57 committed by the gate as the refreshed cut, and 90cfa57 is where X-44 was branched from. He watched TR-03's currency gate do the thing TR-03 exists to do, on the very commit this record is written against, and read TR-02's behaviour out of it.
+
 ## What this sheet does not do
 
-It repairs nothing. The four named defects are filed as U-36, L-11, U-37 and MM-02, at `anticipated`, waiting on a person to take them up; the walk's record and the repair are separate acts, and this batch is the record.
+It repairs nothing. The six named defects are filed as U-36, L-11, U-37, MM-02, A-06 and TR-13, at `anticipated`, waiting on a person to take them up; the walk's record and the repair are separate acts, and this batch is the record.
 
 It restores nothing on its own word. X-44 cures the cause X-18, X-19 and X-17 failed on, and the three cards stay at `open · delivered` regardless, because curing a cause is not walking an acceptance and this agent is not the walker.
 
-It resolves nothing that is his to resolve. FORMATION-01's three verdicts are carried in order with the last taken as standing and the tension in it flagged, not decided. And it edits nothing already spoken: every earlier sentence on every entry this batch touches is left exactly where it stood, beside the newer one, because five of these cards now carry two verdicts that disagree, and the disagreement is the most useful thing on the entry.
+It resolves nothing that is his to resolve. FORMATION-01's three verdicts are carried in order with the last taken as standing and the tension in it flagged, not decided. And it edits nothing already spoken: every earlier sentence on every entry this batch touches is left exactly where it stood, beside the newer one, because seven of these cards now carry two verdicts that disagree, and the disagreement is the most useful thing on the entry.
