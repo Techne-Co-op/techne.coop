@@ -238,11 +238,20 @@ footer a { color: var(--faint); }
   <div id="view">
     <h1>Revenue</h1>
     <div class="section-rule"></div>
-    <p class="lead">The cooperative's recurring revenue, composed rather than flattened: each Program offers named monthly subscription tiers, each tier's active count is a reading from the system that holds it, and the figure at the top is the sum of the latest reading per tier. No figure here is entered on this page; every line names its source, its basis, and its read time. A reading is an observation beside the record, never a movement in it; Xero remains the book of account and <a href="/intranet/treasury/">the treasury</a> remains where movement and meaning meet.</p>
+    <p class="lead">The money the cooperative can expect every month from subscriptions, shown line by line rather than as one number. Each Program (a standing group inside the cooperative) offers named monthly subscription tiers, for example a resident desk at a set price. For each tier, this page shows a reading: how many subscriptions were active, taken from the system that actually holds them, such as Stripe. The figure at the top is those readings added up. Nobody types a figure in here; every line says where it came from, whether a system reported it or a person vouched for it, and when it was read. A reading is a snapshot, not a payment: money received is the accountant's books (Xero) and <a href="/intranet/treasury/">the treasury page</a>, never this one.</p>
     <div class="basis-line" id="basis-line"></div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">The recurring figure</h2><span class="desk-count" id="kpi-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Start here</h2><span class="desk-count">read only</span></div>
+      <div class="desk-body">
+        <p style="margin-bottom:var(--s3)"><b>What this page is.</b> The cooperative's expected monthly subscription income, tier by tier. It is read-only for everyone: nothing you click here moves money, and there is nothing to fill in.</p>
+        <p style="margin-bottom:var(--s3)"><b>What you can do here.</b> Read the four cards below, in order. <b>The recurring figure</b> is the monthly and yearly total. <b>By program</b> lists every tier under the Program that offers it, with its price, its active count, and where that count came from. <b>The trend</b> shows the monthly total for the last twelve months, and you can open the same numbers as a table. <b>How the figure is worked out</b> states the arithmetic. Stewards and directors also get a panel at the foot of the page for adding and retiring tiers.</p>
+        <p><b>Three words to know.</b> <span class="chip live">live</span> means a system reported the count itself. <span class="chip attested">attested</span> means no system holds the count yet, so a named person vouched for it. <span class="chip waiting">waiting</span> means the count does not exist yet; the line says what has to happen first.</p>
+      </div>
+    </div>
+
+    <div class="desk-card">
+      <div class="desk-header"><h2 class="desk-title">The recurring figure &middot; what comes in each month, and each year</h2><span class="desk-count" id="kpi-mark"></span></div>
       <div class="desk-body">
         <div class="tiles" id="kpi-tiles"></div>
         <div class="desk-empty" id="kpi-note" style="margin-top:var(--s3)"></div>
@@ -250,42 +259,42 @@ footer a { color: var(--faint); }
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">By program &middot; named tiers</h2><span class="desk-count" id="prog-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">By program &middot; every tier, one line each</h2><span class="desk-count" id="prog-mark"></span></div>
       <div class="desk-body" id="prog-body"><span class="desk-empty">Reading&hellip;</span></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">The trend &middot; month by month</h2><span class="desk-count" id="trend-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">The trend &middot; the monthly total, month by month</h2><span class="desk-count" id="trend-mark"></span></div>
       <div class="desk-body" id="trend-body"></div>
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">How the figure composes</h2><span class="desk-count">method</span></div>
+      <div class="desk-header"><h2 class="desk-title">How the figure is worked out</h2><span class="desk-count">method</span></div>
       <div class="desk-body">
-        <div class="row-line"><span class="row-main">Monthly recurring revenue is the sum of the latest reading per live tier.</span><span class="row-meta">one line per tier &middot; nothing extrapolated</span></div>
-        <div class="row-line"><span class="row-main">Annual recurring revenue is twelve times the monthly figure.</span><span class="row-meta">no growth assumed &middot; the assumption stated, not hidden</span></div>
-        <div class="row-line"><span class="row-main">A line's basis is <em>live</em> when a system reported it through a seam, and <em>attested</em> when a named human vouched it because no system holds it yet.</span><span class="row-meta">migration into a system is not growth; the basis mark is what tells them apart</span></div>
-        <div class="row-line"><span class="row-main">Received cash is the treasury's fact, not this page's. What stands expected of members arrives with the dues schedule instrument.</span><span class="row-meta">TREASURY &sect;9 &middot; T-02 &middot; T-07 standing</span></div>
+        <div class="row-line"><span class="row-main">The monthly figure is the newest reading for each tier still on offer, added up.</span><span class="row-meta">one line per tier &middot; nothing estimated</span></div>
+        <div class="row-line"><span class="row-main">The yearly figure is the monthly figure times twelve.</span><span class="row-meta">no growth assumed &middot; the assumption stated, not hidden</span></div>
+        <div class="row-line"><span class="row-main">A line is <span class="chip live">live</span> when the system that holds the subscriptions reported the count itself, and <span class="chip attested">attested</span> when no system holds it yet and a named person vouched for it.</span><span class="row-meta">moving members into a system is not growth; the mark is what keeps the two apart</span></div>
+        <div class="row-line"><span class="row-main">Money actually received is shown on the treasury page, not here. What each member is expected to pay appears once the dues schedule, the instrument that sets member dues, is recorded.</span><span class="row-meta">TREASURY &sect;9 &middot; T-02 &middot; T-07 standing</span></div>
       </div>
     </div>
   </div>
 
   <div id="desk">
     <div class="desk-h2">The registry</div>
-    <p class="lead">The steward's surface for the tier registry: what each Program offers, declared as an act in the record. Declaring a tier writes the row and its revenue.tier_declared event together; retiring one leaves every reading standing. Counts and readings never enter here; they arrive by the runner, read-only from the systems that hold them.</p>
+    <p class="lead">The steward's panel. Only stewards and directors see this part of the page. Use it to add a tier a Program offers, or to retire one it no longer offers. Adding a tier records it on the cooperative's record straight away, as the tier itself plus one event saying who declared it and when. Retiring a tier keeps every reading it ever had. Do not enter counts here; there is nowhere to. Counts arrive on their own, read from the system that holds the subscriptions by a script that only reads.</p>
 
     <div class="notice" id="desk-notice"></div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">Declare a tier</h2><span class="desk-count" id="declare-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Declare a tier &middot; add a subscription a Program offers</h2><span class="desk-count" id="declare-mark"></span></div>
       <div class="desk-body">
-        <label class="f" for="d-program">Program</label>
+        <label class="f" for="d-program">Program &middot; which Program offers it</label>
         <select class="f" id="d-program"></select>
-        <label class="f" for="d-name">Tier name</label>
+        <label class="f" for="d-name">Tier name &middot; use the exact product name from the source system, so its count can be matched</label>
         <input class="f" id="d-name" type="text" placeholder="e.g. Resident desk" maxlength="80">
         <label class="f" for="d-usd">Monthly price, USD</label>
         <input class="f" id="d-usd" type="number" min="0" step="0.01" placeholder="150.00">
-        <label class="f" for="d-source">Source &middot; the system of record for this tier's subscriptions</label>
+        <label class="f" for="d-source">Source &middot; the system that holds this tier's subscriptions. Write stripe to have the count read from Stripe; write attested when no system holds it</label>
         <input class="f" id="d-source" type="text" placeholder="regenhub.xyz &middot; stripe &middot; attested" maxlength="80">
         <label class="f" for="d-note">Note, optional</label>
         <input class="f" id="d-note" type="text" maxlength="200">
@@ -294,7 +303,7 @@ footer a { color: var(--faint); }
     </div>
 
     <div class="desk-card">
-      <div class="desk-header"><h2 class="desk-title">Live tiers</h2><span class="desk-count" id="tiers-mark"></span></div>
+      <div class="desk-header"><h2 class="desk-title">Live tiers &middot; what is on offer now</h2><span class="desk-count" id="tiers-mark"></span></div>
       <div class="desk-body" id="tiers-body"></div>
     </div>
   </div>
@@ -334,20 +343,22 @@ function notice(msg, cls) {
   n.textContent = msg; n.className = 'notice ' + cls; n.style.display = 'block';
 }
 
-const waitingNote = 'The registry is not answering: revenue_dashboard() is absent from the database this surface reads. 0030_program_revenue.sql (T-08) was applied to the live CIS on 2026-08-26, so if this note is showing, the surface is pointed somewhere that does not carry it. It waits rather than guesses.';
+const waitingNote = 'This page cannot reach the tier registry: the database it reads has no revenue_dashboard() in it. The registry (0030_program_revenue.sql, T-08) was added to the live system on 2026-08-26, so this note means the page is pointed at a database that lacks it. Tell a steward. Until then the page shows no figure rather than a guessed one.';
+const waitingChip = '<span class="chip waiting">waiting</span>';
+const trendNote = 'Once readings exist, this strip draws itself from them: for each month, the last reading of each tier in that month, added up. Every bar is a reading, never an estimate.';
 
 function renderWaiting() {
   document.getElementById('kpi-tiles').innerHTML =
-    tile('monthly recurring', '–', 'waits on the registry schema', true) +
+    tile('monthly recurring', '–', 'waits on the tier registry', true) +
     tile('annual recurring', '–', 'twelve times the monthly figure', true) +
-    tile('active subscriptions', '–', 'the latest reading per tier', true) +
-    tile('tiers reporting', '–', 'named offers per Program', true);
+    tile('active subscriptions', '–', 'the newest reading per tier', true) +
+    tile('tiers reporting', '–', 'the subscriptions each Program offers', true);
   document.getElementById('kpi-note').textContent = waitingNote;
-  document.getElementById('kpi-mark').textContent = 'waiting';
-  document.getElementById('prog-body').innerHTML = `<span class="desk-empty">${waitingNote} When it answers, each Program’s named tiers render here with their price, active count, basis, source, and read time.</span>`;
-  document.getElementById('prog-mark').textContent = 'waiting';
-  document.getElementById('trend-body').innerHTML = '<span class="desk-empty">The strip folds itself from the readings the moment they exist: month by month, the last reading per tier within the month, summed. Reads, never extrapolations.</span>';
-  document.getElementById('trend-mark').textContent = 'waiting';
+  document.getElementById('kpi-mark').innerHTML = waitingChip;
+  document.getElementById('prog-body').innerHTML = `<span class="desk-empty">${waitingNote} When the page can reach it, each Program’s tiers appear here with their price, active count, basis, source, and read time.</span>`;
+  document.getElementById('prog-mark').innerHTML = waitingChip;
+  document.getElementById('trend-body').innerHTML = `<span class="desk-empty">${trendNote}</span>`;
+  document.getElementById('trend-mark').innerHTML = waitingChip;
 }
 
 function renderDashboard(rows) {
@@ -358,14 +369,14 @@ function renderDashboard(rows) {
   const silent = rows.length - read.length;
 
   document.getElementById('kpi-tiles').innerHTML =
-    tile('monthly recurring', fmtUsd(mrr), 'sum of the latest reading per tier', false) +
+    tile('monthly recurring', fmtUsd(mrr), 'the newest reading per tier, added up', false) +
     tile('annual recurring', fmtUsd(mrr * 12), 'twelve times monthly &middot; no growth assumed', false) +
     tile('active subscriptions', String(subs), 'across ' + read.length + ' reporting tier' + (read.length === 1 ? '' : 's'), false) +
     tile('tiers reporting', read.length + ' of ' + rows.length, silent ? silent + ' tier' + (silent === 1 ? '' : 's') + ' without a reading yet' : 'every tier carries a reading', false);
-  document.getElementById('kpi-mark').textContent = 'composed at read';
+  document.getElementById('kpi-mark').textContent = 'worked out as you opened the page';
   document.getElementById('kpi-note').innerHTML = attested
-    ? attested + ' of ' + read.length + ' lines are attested rather than read live; the by-program table marks which. An attested line is a named human’s vouching, honest about being one.'
-    : (read.length ? 'Every line below was read live from its system of record.' : '');
+    ? attested + ' of ' + read.length + ' lines are <span class="chip attested">attested</span> rather than <span class="chip live">live</span>: a named person vouched for the count because no system holds it yet. The table below marks which.'
+    : (read.length ? 'Every line below is <span class="chip live">live</span>: the system that holds the subscriptions reported the count itself.' : '');
 
   const byProg = new Map();
   rows.forEach(r => {
@@ -379,11 +390,11 @@ function renderDashboard(rows) {
     html += `<table class="flow"><tr><th>tier</th><th>monthly</th><th>active</th><th>recurring</th><th>basis</th><th>source</th><th>read</th></tr>` +
       p.tiers.map(r => r.read_at
         ? `<tr><td>${escHtml(r.tier_name)}</td><td>${fmtUsd(r.monthly_usd)}</td><td>${Number(r.active_count)}</td><td>${fmtUsd(r.mrr_usd)}</td><td style="text-align:right"><span class="chip ${r.basis === 'live' ? 'live' : 'attested'}">${escHtml(r.basis)}</span></td><td>${escHtml(r.reading_source)}</td><td>${fmtDate(r.read_at)}</td></tr>`
-        : `<tr><td>${escHtml(r.tier_name)}</td><td>${fmtUsd(r.monthly_usd)}</td><td colspan="4" style="text-align:left;color:var(--faint);font-family:var(--mono);font-size:0.72rem">no reading yet &middot; source of record ${escHtml(r.tier_source)}</td><td><span class="chip waiting">waiting</span></td></tr>`
+        : `<tr><td>${escHtml(r.tier_name)}</td><td>${fmtUsd(r.monthly_usd)}</td><td colspan="4" style="text-align:left;color:var(--faint);font-family:var(--mono);font-size:0.72rem">no reading yet &middot; the count will come from ${escHtml(r.tier_source)}</td><td><span class="chip waiting">waiting</span></td></tr>`
       ).join('') + `</table>`;
   });
   document.getElementById('prog-body').innerHTML = html ||
-    `<span class="desk-empty">No tiers stand in the registry. They arrive by declare_revenue_tier, a steward or director act at the registry desk below.</span>`;
+    `<span class="desk-empty">No tiers have been declared yet. A steward or director adds them at the panel at the foot of this page.</span>`;
   document.getElementById('prog-mark').textContent = byProg.size + ' program' + (byProg.size === 1 ? '' : 's');
 }
 
@@ -391,8 +402,8 @@ function renderTrend(months) {
   const body = document.getElementById('trend-body');
   const mark = document.getElementById('trend-mark');
   if (!months || months.length === 0) {
-    body.innerHTML = '<span class="desk-empty">The strip folds itself from the readings the moment they exist: month by month, the last reading per tier within the month, summed. Reads, never extrapolations.</span>';
-    mark.textContent = 'no readings yet';
+    body.innerHTML = `<span class="desk-empty">${trendNote}</span>`;
+    mark.innerHTML = waitingChip;
     return;
   }
   const last12 = months.slice(-12);
@@ -401,7 +412,7 @@ function renderTrend(months) {
     `<div class="col" title="${escHtml(m.month)} &middot; ${fmtUsd(m.mrr_usd)}"><div class="bar" style="height:${max > 0 ? Math.max(2, Math.round(Number(m.mrr_usd) / max * 100)) : 2}%"></div></div>`).join('');
   const labels = last12.map(m => `<span>${escHtml(m.month.slice(5))}</span>`).join('');
   body.innerHTML = `<div class="trend">${bars}</div><div class="trend-labels">${labels}</div>` +
-    `<details class="tbl"><summary>the same strip as a table</summary><table class="flow" style="margin-top:var(--s2)"><tr><th>month</th><th>recurring</th></tr>` +
+    `<details class="tbl"><summary>the same months as a table</summary><table class="flow" style="margin-top:var(--s2)"><tr><th>month</th><th>recurring</th></tr>` +
     last12.map(m => `<tr><td>${escHtml(m.month)}</td><td>${fmtUsd(m.mrr_usd)}</td></tr>`).join('') + `</table></details>`;
   mark.textContent = last12.length + ' month' + (last12.length === 1 ? '' : 's');
 }
@@ -409,7 +420,7 @@ function renderTrend(months) {
 async function loadDashboard() {
   document.getElementById('view').style.display = 'block';
   document.getElementById('basis-line').textContent =
-    'composed at read · as of ' + new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC · every line names its source, basis, and read time';
+    'worked out as you opened the page · ' + new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC · every line names its source, basis, and read time';
   const { data, error } = await sb.rpc('revenue_dashboard');
   if (error || data == null) { renderWaiting(); return false; }
   renderDashboard(data);
@@ -421,15 +432,15 @@ async function loadDashboard() {
 async function loadDesk(schemaLive) {
   document.getElementById('desk').style.display = 'block';
   if (!schemaLive) {
-    document.getElementById('declare-mark').textContent = 'waiting';
+    document.getElementById('declare-mark').innerHTML = waitingChip;
     document.getElementById('d-btn').disabled = true;
     document.getElementById('tiers-body').innerHTML = `<span class="desk-empty">${waitingNote}</span>`;
-    document.getElementById('tiers-mark').textContent = 'waiting';
+    document.getElementById('tiers-mark').innerHTML = waitingChip;
   }
   const { data: roster, error } = await sb.rpc('programs_roster');
   const sel = document.getElementById('d-program');
   if (error || !roster || roster.length === 0) {
-    sel.innerHTML = '<option value="">no Programs stand; designate one first (F-05)</option>';
+    sel.innerHTML = '<option value="">no Programs yet. Designate one on the Programs page first (F-05)</option>';
     document.getElementById('d-btn').disabled = true;
   } else {
     sel.innerHTML = roster.map(p => `<option value="${escHtml(p.program_agent_id)}">${escHtml(p.display_name)} &middot; ${escHtml(p.standing)}</option>`).join('');
@@ -441,7 +452,7 @@ async function loadDesk(schemaLive) {
     .is('retired_at', null).order('offered_at', { ascending: false });
   const body = document.getElementById('tiers-body');
   if (!tiers || tiers.length === 0) {
-    body.innerHTML = '<span class="desk-empty">No tiers stand. The first declaration writes the row and its event together.</span>';
+    body.innerHTML = '<span class="desk-empty">No tiers have been declared yet. Declare the first one above; it is recorded together with the event that says who declared it.</span>';
     document.getElementById('tiers-mark').textContent = '0';
   } else {
     document.getElementById('tiers-mark').textContent = String(tiers.length);
@@ -450,8 +461,8 @@ async function loadDesk(schemaLive) {
     body.querySelectorAll('[data-retire]').forEach(b => b.addEventListener('click', async () => {
       b.disabled = true;
       const { error: rErr } = await sb.rpc('retire_revenue_tier', { p_tier: b.getAttribute('data-retire') });
-      if (rErr) { notice(Techne.report(rErr, 'The retirement did not record.'), 'err'); b.disabled = false; return; }
-      notice('The tier retired; its readings stand.', 'ok');
+      if (rErr) { notice(Techne.report(rErr, 'The tier was not retired; nothing changed.'), 'err'); b.disabled = false; return; }
+      notice('The tier is retired. Every reading it had stays on the record.', 'ok');
       await loadDashboard(); await loadDesk(true);
     }));
   }
@@ -467,8 +478,8 @@ async function loadDesk(schemaLive) {
       p_note: document.getElementById('d-note').value || null
     });
     btn.disabled = false;
-    if (dErr) { notice(Techne.report(dErr, 'The declaration did not record.'), 'err'); return; }
-    notice('The tier stands: the row and its revenue.tier_declared event recorded together.', 'ok');
+    if (dErr) { notice(Techne.report(dErr, 'The tier was not declared; nothing changed.'), 'err'); return; }
+    notice('The tier is declared, and recorded together with the event that says who declared it (revenue.tier_declared).', 'ok');
     document.getElementById('d-name').value = ''; document.getElementById('d-usd').value = ''; document.getElementById('d-note').value = '';
     await loadDashboard(); await loadDesk(true);
   };
