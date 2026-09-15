@@ -110,6 +110,7 @@ Generated from almanac-ledger.yaml. 202 items total.
 - **TR-10** open · verified -- The seam
 - **TR-11** open · delivered -- The landscape a person can find themselves in
 - **TR-12** open · delivered -- The essential text
+- **TR-13** open · delivered -- The walk visits every view
 - **U-01** open · verified -- The shell
 - **U-02** open · verified -- The doors adopt the frame
 - **U-03** open · verified -- The constitution amended
@@ -210,7 +211,6 @@ Generated from almanac-ledger.yaml. 202 items total.
 - **TR-05** The journeys derivation
 - **TR-06** The gloss binding
 - **TR-07** The attribution pass
-- **TR-13** The walk visits every view
 - **U-33** The doors in one order
 - **U-34** The address leak on the legal shelf
 - **U-35** The frame measure on the rebuilt legal page
