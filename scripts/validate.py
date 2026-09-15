@@ -440,6 +440,34 @@ def check_one_navigation(pieces):
             err(f"{rel}: carries an inline topbar (class topbar/nav-links/top-nav); the shared frame supersedes it (U-13)")
 
 
+def check_share_door_names(pieces):
+    """The parked Share door names its pieces (U-36): the prose of
+    intranet/share/index.html prints S-01 and S-02, the two addresses the
+    door waits on, so a member reading it can name them without leaving
+    the page. U-07's acceptance asks for exactly this and the steward's
+    walk of 2026-09-05 found the page without either identifier; the
+    check is here so the naming cannot quietly fall out again.
+
+    Both addresses must exist in the ledger and appear in the page text
+    outside tags, so an identifier hidden in a comment or an attribute
+    does not satisfy the door's promise to the reader."""
+    import re as _re
+    rel = "intranet/share/index.html"
+    p = REPO_ROOT / rel
+    if not p.exists():
+        err(f"{rel}: missing; the Share door names S-01 and S-02 (U-36)")
+        return
+    text = p.read_text(encoding="utf-8", errors="replace")
+    prose = _re.sub(r"<!--.*?-->", " ", text, flags=_re.S)
+    prose = _re.sub(r"<[^>]+>", " ", prose)
+    for addr in ("S-01", "S-02"):
+        if addr not in pieces:
+            err(f"{rel}: names {addr}, which the ledger does not hold (U-36)")
+            continue
+        if not _re.search(rf"(?<![\w-]){_re.escape(addr)}(?![\w-])", prose):
+            err(f"{rel}: does not print {addr} in its prose; the Share door names the pieces it waits on (U-36)")
+
+
 def main():
     ledger = load_ledger()
     if ledger is None:
@@ -459,6 +487,7 @@ def main():
     check_done_requires_verified(pieces)
     check_decision_coherence(pieces)
     check_one_navigation(pieces)
+    check_share_door_names(pieces)
     check_lexicon_schema(pieces)
 
     generate_status_md(pieces)
