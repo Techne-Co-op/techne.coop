@@ -6,8 +6,8 @@ Generated from almanac-ledger.yaml. 202 items total.
 | status | count |
 |--------|-------|
 | drafted | 36 |
-| anticipated | 49 |
-| open | 117 |
+| anticipated | 48 |
+| open | 118 |
 | filed | 0 |
 
 ## Drafted
@@ -137,6 +137,7 @@ Generated from almanac-ledger.yaml. 202 items total.
 - **U-26** open · delivered -- The register deepened, and the lexicon's marks
 - **U-27** open · delivered -- The estate on the register
 - **U-30** open · delivered -- The Daybook
+- **U-36** open · delivered -- The share door names its pieces
 - **X-01** open · verified -- Error boundary and observability
 - **X-02** open · verified -- Notices v1
 - **X-03** open · verified -- Export paths
@@ -213,7 +214,6 @@ Generated from almanac-ledger.yaml. 202 items total.
 - **U-33** The doors in one order
 - **U-34** The address leak on the legal shelf
 - **U-35** The frame measure on the rebuilt legal page
-- **U-36** The share door names its pieces
 - **U-37** The Commonplace names its author
 - **V-01** The designation rail
 - **V-02** The tallies
