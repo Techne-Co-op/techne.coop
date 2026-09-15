@@ -6,8 +6,8 @@ Generated from almanac-ledger.yaml. 202 items total.
 | status | count |
 |--------|-------|
 | drafted | 36 |
-| anticipated | 49 |
-| open | 117 |
+| anticipated | 48 |
+| open | 118 |
 | filed | 0 |
 
 ## Drafted
@@ -53,6 +53,7 @@ Generated from almanac-ledger.yaml. 202 items total.
 
 - **A-01** open · verified -- The direction rail
 - **A-02** open · delivered -- The desk
+- **A-06** open · delivered -- The desk shows the arc
 - **B-01** open · verified -- Identity binding
 - **B-02** open · verified -- Onboarding and application intake
 - **B-03** open · verified -- Agreements shelf
@@ -173,7 +174,6 @@ Generated from almanac-ledger.yaml. 202 items total.
 
 - **A-03** The first grant and the instrument's pen
 - **A-04** The run harness
-- **A-06** The desk shows the arc
 - **G-A** The agency proof
 - **G-B** Belong proof
 - **G-F** Find proof

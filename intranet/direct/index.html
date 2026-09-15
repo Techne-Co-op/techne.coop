@@ -156,6 +156,11 @@ h1 { font-size: 1.75rem; font-weight: 700; color: var(--heading); margin-bottom:
 .beat-v a { color: var(--ember-text); }
 .trace { font-family: var(--mono); font-size: 0.62rem; color: var(--faint); }
 .rule-cite { font-family: var(--mono); font-size: 0.72rem; color: var(--warn); }
+/* a step the Direction has not reached: named, dimmed, dotted off from the steps it has */
+.beat.unreached { border-top-style: dotted; background: var(--surface); }
+.beat.unreached .beat-k, .beat.unreached .beat-v { color: var(--faint); }
+.beat.waiting .beat-v { color: var(--muted); font-size: 0.85rem; }
+.beat.waiting a { color: var(--ember-text); }
 
 .empty-state { text-align: center; padding: var(--s6) 0; color: var(--muted); }
 .empty-state p { font-family: var(--mono); font-size: 0.85rem; }
@@ -292,7 +297,7 @@ footer a { color: var(--faint); }
     </div></div>
 
     <div class="section-head">Your Directions</div>
-    <p class="lead" style="margin-bottom:var(--s4);font-size:0.88rem">Everything you have given, newest first, with each step the agent took written underneath it. The tag on the right tells you where it stands: <span class="state-chip live">given</span> waiting to be picked up, <span class="state-chip live">running</span> being worked on now, <span class="state-chip done">completed</span> finished, <span class="state-chip stopped">refused</span> turned down for breaking a rule, and the rule is named, <span class="state-chip stopped">halted</span> stopped part way by the steward. A completed Direction lists what it produced. Two terms you will see there: a <b>branch</b> is the agent's own working copy of the code, kept apart from everyone else's, and a <b>pull request</b> is the agent asking a person to review that work and decide whether to accept it.</p>
+    <p class="lead" style="margin-bottom:var(--s4);font-size:0.88rem">Everything you have given, newest first, with each step written underneath it in the order a Direction travels: given, taken up, closed. Steps not yet reached are named and dimmed, and a Direction that has not moved says what it is waiting on. The tag on the right tells you where it stands: <span class="state-chip live">given</span> waiting to be picked up, <span class="state-chip live">running</span> being worked on now, <span class="state-chip done">completed</span> finished, <span class="state-chip stopped">refused</span> turned down for breaking a rule, and the rule is named, <span class="state-chip stopped">halted</span> stopped part way by the steward. A completed Direction lists what it produced. Two terms you will see there: a <b>branch</b> is the agent's own working copy of the code, kept apart from everyone else's, and a <b>pull request</b> is the agent asking a person to review that work and decide whether to accept it.</p>
     <div id="arc"></div>
 
     <div class="section-head">Everyone's Directions</div>
@@ -410,6 +415,61 @@ function beatHtml(b) {
     <div class="trace">${escHtml(when(b.recorded_at))}${spend.length ? ' · ' + spend.join(' · ') : ''}</div></div></div>`;
 }
 
+// The arc is a sequence, not a list of what happened to arrive (A-06). The
+// given event is its first step; the steps that follow are the rail of AGY
+// §6 and the run of §7, named in that order and drawn dimmed until reached,
+// so a Direction that has only been given still shows where it stands in
+// the sequence and what it waits on.
+
+function givenHtml(d) {
+  return `<div class="beat"><span class="beat-k">Given</span>
+    <div class="beat-v">Filed on the record by the verb, in your name. <span class="trace">${escHtml(when(d.recorded_at))}</span></div></div>`;
+}
+
+function unreachedHtml(label, text) {
+  return `<div class="beat unreached"><span class="beat-k">${label} &middot; not yet</span>
+    <div class="beat-v">${text}</div></div>`;
+}
+
+function daysSince(ts) {
+  const ms = Date.now() - new Date(ts).getTime();
+  return isFinite(ms) ? Math.floor(ms / 86400000) : null;
+}
+
+// What a Direction waits on when nothing has moved. Under AGY §6 the agent
+// reads the rail on its own rhythm and takes up what it finds; until the
+// agent's own grant is recorded (§5), the steward relays each Direction and
+// writes the agent's steps by hand (§12, R0). The page reads which of those
+// holds from the same standing the strip above reads: policy_code is the
+// adopted AGY-ESTATE instrument, and its absence is the R0 condition.
+function waitingHtml(d) {
+  const days = daysSince(d.recorded_at);
+  const still = days === null ? 'Nothing has moved since it was given.'
+    : days < 1 ? 'Given today; nothing has moved yet.'
+    : 'Given ' + days + (days === 1 ? ' day' : ' days') + ' ago; nothing has moved since.';
+  const agy = '<a href="/commons/agency/">Common Agency</a>';
+  const waits = (standing && standing.policy_code)
+    ? `A Direction waits on the agent reading the rail: it takes up what it finds on its own schedule rather than being paged (${agy} &sect;6).`
+    : `A Direction waits on being taken up, and the agent may only take one up under a grant the membership records (${agy} &sect;5). That grant is not yet adopted, so for now the steward relays each Direction to the agent by hand and writes its steps by hand (&sect;12, R0). Until that happens, the Direction stands here at given.`;
+  return `<div class="beat waiting"><span class="beat-k">Waiting on</span>
+    <div class="beat-v">${still} ${waits}</div></div>`;
+}
+
+function arcHtml(d, beats, st) {
+  const parts = [givenHtml(d)];
+  if (st.label === 'given') {
+    parts.push(unreachedHtml('Taken up', 'The agent takes the Direction up and opens a Run for it: an isolated session briefed from what you wrote (&sect;6, &sect;7).'));
+    parts.push(unreachedHtml('Closed', 'The Run ends one of three ways, each written here: completed, with what it produced by reference; refused, with the rule it would have broken named; or halted by the steward, with the reason (&sect;7).'));
+    parts.push(waitingHtml(d));
+    return parts.join('');
+  }
+  parts.push(beats.map(beatHtml).join(''));
+  if (st.label === 'running') {
+    parts.push(unreachedHtml('Closed', 'The Run ends one of three ways, each written here: completed, with what it produced by reference; refused, with the rule it would have broken named; or halted by the steward, with the reason (&sect;7).'));
+  }
+  return parts.join('');
+}
+
 function render() {
   const el = document.getElementById('arc');
   if (!directions.length) {
@@ -429,7 +489,7 @@ function render() {
         </div>
         <span class="state-chip ${st.cls}">${st.label}</span>
       </div>
-      ${beats.map(beatHtml).join('')}
+      ${arcHtml(d, beats, st)}
     </div>`;
   }).join('');
 }
